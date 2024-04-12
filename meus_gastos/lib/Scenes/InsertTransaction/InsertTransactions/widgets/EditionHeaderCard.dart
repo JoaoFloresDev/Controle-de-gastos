@@ -54,7 +54,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   final double valorInicial = 0.0;
 
   void adicionar() {
-    FocusScope.of(context).unfocus();
     final valor = valorController.numberValue;
     final descricao = descricaoController.text;
 
@@ -70,13 +69,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     Future.delayed(Duration(milliseconds: 300), () {
       widget.onAddClicked();
     });
-  }
-
-  @override
-  void dispose() {
-    valorController.dispose();
-    descricaoController.dispose();
-    super.dispose();
   }
 
   @override

@@ -47,6 +47,30 @@ class MyHomePage extends StatelessWidget {
       },
     );
   }
+
+  void _showCupertinoModalBottomSheet(BuildContext context, CardModel card) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: MediaQuery.of(context).size.height / 1.1,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: DetailScreen(
+            card: card,
+            onAddClicked: () {
+              loadCards();
+              Navigator.of(context).pop();
+            },
+          ),
+        );
+      },
+    );
+  }
 }
 
 class GreenScreen extends StatelessWidget {

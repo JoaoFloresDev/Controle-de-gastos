@@ -33,7 +33,6 @@ class _HeaderCardState extends State<HeaderCard> {
   int lastIndexSelected = 0;
 
   void adicionar() {
-    FocusScope.of(context).unfocus();
     print(DateFormat('dd/MM/yy HH:mm').parse(dateController.dateText));
     print(dateController.dateText);
     final newCard = CardModel(
@@ -47,13 +46,6 @@ class _HeaderCardState extends State<HeaderCard> {
     Future.delayed(Duration(milliseconds: 300), () {
       widget.onAddClicked();
     });
-  }
-
-  @override
-  void dispose() {
-    valorController.dispose();
-    descricaoController.dispose();
-    super.dispose();
   }
 
   String _getCurrentDate() {
