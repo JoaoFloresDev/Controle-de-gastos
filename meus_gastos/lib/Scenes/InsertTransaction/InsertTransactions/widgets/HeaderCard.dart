@@ -45,6 +45,7 @@ class _HeaderCardState extends State<HeaderCard> {
     CardService.addCard(newCard);
     setState(() {
       valorController.updateValue(0.0);
+      descricaoController.clear();
     });
     FocusManager.instance.primaryFocus?.unfocus();
     Future.delayed(Duration(milliseconds: 300), () {
