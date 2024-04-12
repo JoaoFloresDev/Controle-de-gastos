@@ -49,6 +49,7 @@ class MyHomePage extends StatelessWidget {
   }
 
   void _showCupertinoModalBottomSheet(BuildContext context, CardModel card) {
+    FocusScope.of(context).unfocus();
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {
@@ -64,7 +65,9 @@ class MyHomePage extends StatelessWidget {
             card: card,
             onAddClicked: () {
               loadCards();
-              Navigator.of(context).pop();
+              setState(() {
+                _showHeaderCard = false;
+              });
             },
           ),
         );

@@ -35,6 +35,7 @@ class _HeaderCardState extends State<HeaderCard> {
   void adicionar() {
     print(DateFormat('dd/MM/yy HH:mm').parse(dateController.dateText));
     print(dateController.dateText);
+
     final newCard = CardModel(
         amount: valorController.numberValue,
         description: descricaoController.text,
@@ -42,7 +43,10 @@ class _HeaderCardState extends State<HeaderCard> {
         category: Category.values[lastIndexSelected].toString(),
         id: CardService.generateUniqueId());
     CardService.addCard(newCard);
-
+    setState(() {
+      valorController.updateValue(0.0);
+    });
+    FocusManager.instance.primaryFocus?.unfocus();
     Future.delayed(Duration(milliseconds: 300), () {
       widget.onAddClicked();
     });

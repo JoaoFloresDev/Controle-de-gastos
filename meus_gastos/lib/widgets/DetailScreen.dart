@@ -28,7 +28,7 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pop(context);
+        FocusScope.of(context).unfocus();
       },
       child: Container(
         padding: EdgeInsets.all(12.0),
@@ -56,7 +56,7 @@ class DetailScreen extends StatelessWidget {
                   children: [
                     TextButton(
                       onPressed: () {
-                        onAddClicked();
+                        Navigator.of(context).pop();
                       },
                       child: Text(
                         'Cancel',
@@ -77,6 +77,7 @@ class DetailScreen extends StatelessWidget {
                         CardService.deleteCard(card.id);
                         Future.delayed(Duration(milliseconds: 300), () {
                           onAddClicked();
+                          Navigator.of(context).pop();
                         });
                       },
                       icon: Icon(
@@ -96,6 +97,7 @@ class DetailScreen extends StatelessWidget {
                 adicionarButtonTitle: 'Atualizar',
                 onAddClicked: () {
                   onAddClicked();
+                  Navigator.of(context).pop();
                 },
               ),
             )

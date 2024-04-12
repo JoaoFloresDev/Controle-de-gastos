@@ -26,12 +26,13 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   late TextEditingController descricaoController;
   late MoneyMaskedTextController valorController;
   late CampoComMascara dateController;
+  late FocusNode descricaoFocusNode;
 
   late DateTime lastDateSelected = widget.card.date;
-
   @override
   void initState() {
     super.initState();
+
     descricaoController = TextEditingController(text: widget.card.description);
     valorController = MoneyMaskedTextController(
       leftSymbol: 'R\$ ',
@@ -41,12 +42,28 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     DateTime date = widget.card.date;
     String formattedDate =
         '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year.toString().substring(2)} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
-
     dateController = CampoComMascara(
         dateText: formattedDate,
         onCompletion: (DateTime dateTime) {
           lastDateSelected = dateTime;
         });
+
+    // Inicialize o FocusNode
+    descricaoFocusNode = FocusNode();
+
+    // Passo 3: Solicite o foco após a construção da UI
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      descricaoFocusNode.requestFocus();
+    });
+  }
+
+  @override
+  void dispose() {
+    // Não esqueça de descartar os controllers e o FocusNode
+    descricaoController.dispose();
+    valorController.dispose();
+    descricaoFocusNode.dispose();
+    super.dispose();
   }
 
   int lastIndexSelected = 0;
@@ -97,6 +114,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             ),
             placeholder: 'Descrição',
             controller: descricaoController,
+            focusNode: descricaoFocusNode,
           ),
           SizedBox(height: 16),
           Container(
