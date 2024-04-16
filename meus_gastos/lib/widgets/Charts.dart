@@ -28,16 +28,6 @@ class DashboardScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              LinearProgressIndicatorSection(
-                  progress: 0.8, label: "Progresso 1", color: Colors.redAccent),
-              LinearProgressIndicatorSection(
-                  progress: 0.5,
-                  label: "Progresso 2",
-                  color: Colors.greenAccent),
-              LinearProgressIndicatorSection(
-                  progress: 0.2,
-                  label: "Progresso 3",
-                  color: Colors.blueAccent),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Card(
@@ -90,6 +80,26 @@ class DashboardScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              LinearProgressIndicatorSection(
+                  progress: 800, label: "Progresso 1", color: Colors.redAccent),
+              LinearProgressIndicatorSection(
+                  progress: 800,
+                  label: "Progresso 2",
+                  color: Colors.greenAccent),
+              LinearProgressIndicatorSection(
+                  progress: 800,
+                  label: "Progresso 3",
+                  color: Colors.blueAccent),
+              LinearProgressIndicatorSection(
+                  progress: 800, label: "Progresso 1", color: Colors.redAccent),
+              LinearProgressIndicatorSection(
+                  progress: 800,
+                  label: "Progresso 2",
+                  color: Colors.greenAccent),
+              LinearProgressIndicatorSection(
+                  progress: 0.2,
+                  label: "Progresso 3",
+                  color: Colors.blueAccent),
             ],
           ),
         ),
@@ -125,9 +135,9 @@ class LinearProgressIndicatorSection extends StatelessWidget {
             animation: true,
             lineHeight: 30.0, // Aumento para dar mais destaque
             animationDuration: 2000,
-            percent: progress,
+            percent: progress / 1000,
             center: Text(
-              "${(progress * 100).toStringAsFixed(0)}%",
+              "${progress.toStringAsFixed(0)}",
               style: TextStyle(color: Colors.white),
             ),
             linearStrokeCap: LinearStrokeCap.roundAll,
