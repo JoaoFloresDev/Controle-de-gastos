@@ -6,134 +6,57 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meus_gastos/widgets/Transactions/CampoComMascara.dart';
 
 enum Category {
-  Unknown, // sem categoria
-  Shopping, // mercado
-  Restaurant, // alimentação
-  GasStation, // carro
-  Home, // moradia
-  ShoppingBasket, // compras
-  Hospital, // Saúde
-  Cigarrinho, // Cigarrinho
-  Movie, // idas ao shopping
-  MusicNote, // strimings
-  VideoGame, // aplicativos
-  Drink // roles
+  Unknown,
+  Shopping,
+  Restaurant,
+  GasStation,
+  Home,
+  ShoppingBasket,
+  Hospital,
+  Cigarrinho,
+  Movie,
+  MusicNote,
+  VideoGame,
+  Drink
 }
 
-String getCategoryNameByEnum(Category category) {
-  switch (category) {
-    case Category.Unknown:
-      return 'Sem categoria';
-    case Category.Shopping:
-      return 'Mercado';
-    case Category.Restaurant:
-      return 'Alimentação';
-    case Category.GasStation:
-      return 'Transporte';
-    case Category.Home:
-      return 'Moradia';
-    case Category.ShoppingBasket:
-      return 'Compras';
-    case Category.Hospital:
-      return 'Saúde';
-    case Category.Cigarrinho:
-      return 'Cigarrinho';
-    case Category.Movie:
-      return 'Streaming';
-    case Category.MusicNote:
-      return 'Gambit';
-    case Category.VideoGame:
-      return 'Games';
-    case Category.Drink:
-      return 'Bebidas';
-    default:
-      return '';
-  }
-}
+class CategoryInfo {
+  final Category category;
+  final String name;
+  final IconData icon;
 
-String getCategoryNameByIndex(int index) {
-  switch (Category.values[index]) {
-    case Category.Shopping:
-      return 'Shopping';
-    case Category.Restaurant:
-      return 'Restaurant';
-    case Category.GasStation:
-      return 'GasStation';
-    case Category.Home:
-      return 'Home';
-    case Category.ShoppingBasket:
-      return 'ShoppingBasket';
-    case Category.Hospital:
-      return 'Hospital';
-    case Category.Cigarrinho:
-      return 'Volleyball';
-    case Category.Movie:
-      return 'Movie';
-    case Category.MusicNote:
-      return 'MusicNote';
-    case Category.VideoGame:
-      return 'VideoGame';
-    case Category.Drink:
-      return 'Drink';
-    default:
-      return 'Unknown';
-  }
-}
+  CategoryInfo(this.category, this.name, this.icon);
 
-Category getCategoryByName(String name) {
-  switch (name) {
-    case 'Shopping':
-      return Category.Shopping;
-    case 'Restaurant':
-      return Category.Restaurant;
-    case 'GasStation':
-      return Category.GasStation;
-    case 'Home':
-      return Category.Home;
-    case 'ShoppingBasket':
-      return Category.ShoppingBasket;
-    case 'Hospital':
-      return Category.Hospital;
-    case 'Volleyball':
-      return Category.Cigarrinho;
-    case 'Movie':
-      return Category.Movie;
-    case 'MusicNote':
-      return Category.MusicNote;
-    case 'VideoGame':
-      return Category.VideoGame;
-    case 'Drink':
-      return Category.Drink;
-    default:
-      return Category.Unknown;
-  }
-}
+  static Map<Category, CategoryInfo> _categories = {
+    Category.Unknown: CategoryInfo(
+        Category.Unknown, 'Sem categoria', Icons.question_mark_rounded),
+    Category.Shopping:
+        CategoryInfo(Category.Shopping, 'Mercado', Icons.shopping_cart),
+    Category.Restaurant:
+        CategoryInfo(Category.Restaurant, 'Alimentação', Icons.restaurant),
+    Category.GasStation: CategoryInfo(
+        Category.GasStation, 'Transporte', Icons.local_gas_station),
+    Category.Home: CategoryInfo(Category.Home, 'Moradia', Icons.home),
+    Category.ShoppingBasket:
+        CategoryInfo(Category.ShoppingBasket, 'Compras', Icons.shopping_basket),
+    Category.Hospital:
+        CategoryInfo(Category.Hospital, 'Saúde', Icons.local_hospital),
+    Category.Cigarrinho:
+        CategoryInfo(Category.Cigarrinho, 'Cigarrinho', Icons.smoking_rooms),
+    Category.Movie: CategoryInfo(Category.Movie, 'Streaming', Icons.movie),
+    Category.MusicNote:
+        CategoryInfo(Category.MusicNote, 'Gambit', Icons.music_note),
+    Category.VideoGame:
+        CategoryInfo(Category.VideoGame, 'Games', Icons.videogame_asset),
+    Category.Drink:
+        CategoryInfo(Category.Drink, 'Bebidas', Icons.local_drink_outlined),
+  };
 
-IconData getIconByCategory(Category category) {
-  switch (category) {
-    case Category.Shopping:
-      return Icons.shopping_cart;
-    case Category.Restaurant:
-      return Icons.restaurant;
-    case Category.GasStation:
-      return Icons.local_gas_station;
-    case Category.Home:
-      return Icons.home;
-    case Category.ShoppingBasket:
-      return Icons.shopping_basket;
-    case Category.Hospital:
-      return Icons.local_hospital;
-    case Category.Cigarrinho:
-      return Icons.smoking_rooms;
-    case Category.Movie:
-      return Icons.movie;
-    case Category.MusicNote:
-      return Icons.music_note;
-    case Category.VideoGame:
-      return Icons.videogame_asset;
-    case Category.Drink:
-      return Icons.local_drink_outlined;
-    default:
-      return Icons.question_mark_rounded;
-  }
+  static CategoryInfo getByCategory(Category category) =>
+      _categories[category] ?? _categories[Category.Unknown]!;
+  static CategoryInfo getByName(String name) =>
+      _categories.values.firstWhere((info) => info.name == name,
+          orElse: () => _categories[Category.Unknown]!);
+  static CategoryInfo getByIndex(int index) =>
+      _categories[Category.values[index]] ?? _categories[Category.Unknown]!;
 }

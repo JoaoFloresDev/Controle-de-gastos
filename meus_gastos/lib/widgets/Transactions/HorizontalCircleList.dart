@@ -53,13 +53,13 @@ class _HorizontalCircleListState extends State<HorizontalCircleList> {
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    getIconByCategory(Category.values[index]),
+                    CategoryInfo.getByCategory(Category.Shopping).icon,
+                    // getIconByCategory(Category.values[index]),
                   ),
                 ),
                 SizedBox(height: 4), // Espaço entre o ícone e o texto
                 Text(
-                  getCategoryNameByEnum(Category.values[
-                      index]), // Use a função correta para obter o nome da categoria
+                  CategoryInfo.getByCategory(Category.Shopping).name,
                   style: TextStyle(
                     fontSize: 9, // Ajuste conforme necessário
                   ),

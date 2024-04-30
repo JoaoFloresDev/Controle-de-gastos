@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/models/CardModel.dart';
 import 'package:intl/intl.dart';
-<<<<<<<< HEAD:meus_gastos/lib/Scenes/InsertTransaction/InsertTransactions/widgets/ListCard.dart
 import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/widgets/HorizontalCircleList.dart';
-========
 import 'package:meus_gastos/widgets/Transactions/HorizontalCircleList.dart';
->>>>>>>> 3670368 (Refatoração):meus_gastos/lib/widgets/Transactions/ListCard.dart
+import 'package:meus_gastos/models/CardModel.dart';
+import 'package:intl/intl.dart';
 
 class ListCard extends StatelessWidget {
   final CardModel card;
@@ -60,21 +59,17 @@ class ListCard extends StatelessWidget {
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
-                        getIconByCategory(
-                          getCategoryByName(
-                            card.category.replaceAll("Category.", ""),
-                          ),
-                        ),
+                        CategoryInfo.getByName(
+                                card.category.replaceAll("Category.", ""))
+                            .icon,
                         size: 18, // Adjust the size as needed
                       ),
                     ),
                     SizedBox(height: 4), // Espaço entre o ícone e o texto
                     Text(
-                      getCategoryNameByEnum(
-                        getCategoryByName(
-                          card.category.replaceAll("Category.", ""),
-                        ),
-                      ), // Use a função correta para obter o nome da categoria
+                      CategoryInfo.getByName(
+                              card.category.replaceAll("Category.", ""))
+                          .name,
                       style: TextStyle(
                         fontSize: 9, // Ajuste conforme necessário
                       ),

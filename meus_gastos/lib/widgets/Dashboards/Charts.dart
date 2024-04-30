@@ -1,9 +1,7 @@
+import 'package:meus_gastos/enums/Category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'LinearProgressIndicatorSection.dart';
-import 'LineChartSample.dart';
 import 'DashboardCard.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -22,26 +20,16 @@ class DashboardScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: DashboardCard(),
               ),
-              LinearProgressIndicatorSection(
-                  progress: 800, label: "Progresso 1", color: Colors.redAccent),
-              LinearProgressIndicatorSection(
-                  progress: 800,
-                  label: "Progresso 2",
-                  color: Colors.greenAccent),
-              LinearProgressIndicatorSection(
-                  progress: 800,
-                  label: "Progresso 3",
-                  color: Colors.blueAccent),
-              LinearProgressIndicatorSection(
-                  progress: 800, label: "Progresso 1", color: Colors.redAccent),
-              LinearProgressIndicatorSection(
-                  progress: 800,
-                  label: "Progresso 2",
-                  color: Colors.greenAccent),
-              LinearProgressIndicatorSection(
-                  progress: 0.2,
-                  label: "Progresso 3",
-                  color: Colors.blueAccent),
+              Column(
+                children: [
+                  for (var category in Category.values)
+                    LinearProgressIndicatorSection(
+                      progress: 0.2,
+                      label: CategoryInfo.getByCategory(Category.Shopping).name,
+                      color: Colors.blueAccent,
+                    ),
+                ],
+              ),
             ],
           ),
         ),

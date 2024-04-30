@@ -72,4 +72,15 @@ class CardService {
       await prefs.setString(_storageKey, encodedData);
     }
   }
+
+  static Future<double> getTotalSpentByCategory(String category) async {
+    final List<CardModel> cards = await retrieveCards();
+    double totalSpent = 0;
+    for (var card in cards) {
+      if (card.category == category) {
+        totalSpent += card.amount;
+      }
+    }
+    return totalSpent;
+  }
 }
