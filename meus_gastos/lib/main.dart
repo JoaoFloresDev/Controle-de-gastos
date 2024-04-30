@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'Scenes/InsertTransaction/InsertTransactions/widgets/HeaderCard.dart';
 import 'Scenes/InsertTransaction/InsertTransactions/widgets/ListCard.dart';
 import 'Scenes/InsertTransaction/InsertTransactions/models/CardModel.dart';
@@ -6,6 +7,10 @@ import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/services
     as service;
 import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/InsertTransactionViewController.dart';
 import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/widgets/DetailScreen.dart';
+=======
+import 'package:meus_gastos/widgets/Transactions/InsertTransactions.dart';
+import 'package:meus_gastos/widgets/Dashboards/Charts.dart';
+>>>>>>> 3670368 (Refatoração)
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/chartsViewController.dart';
 
@@ -23,6 +28,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
         items: const <BottomNavigationBarItem>[
@@ -35,6 +41,38 @@ class MyHomePage extends StatelessWidget {
             label: 'Azul',
           ),
         ],
+=======
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus(); // Recolhe o teclado
+      },
+      child: CupertinoTabScaffold(
+        tabBar: CupertinoTabBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.home),
+              label: 'Transações',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.settings),
+              label: 'Dashboard',
+            ),
+          ],
+        ),
+        tabBuilder: (context, index) {
+          switch (index) {
+            case 0:
+              return InsertTransactions(
+                title: 'Adicionar Transações',
+                onAddClicked: () {
+                  // FocusScope.of(context).unfocus();
+                },
+              );
+            default:
+              return DashboardScreen();
+          }
+        },
+>>>>>>> 3670368 (Refatoração)
       ),
       tabBuilder: (context, index) {
         switch (index) {
