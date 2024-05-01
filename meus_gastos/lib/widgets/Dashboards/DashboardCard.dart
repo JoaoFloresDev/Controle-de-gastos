@@ -37,7 +37,8 @@ class DashboardCard extends StatelessWidget {
                       .map((item) => PieChartSectionData(
                             color: item.color,
                             value: item.value,
-                            title: '${item.value}%',
+                            title:
+                                '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
                             radius: 30,
                             titleStyle: TextStyle(
                                 fontSize: 14,
@@ -50,14 +51,17 @@ class DashboardCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 40),
+              padding: const EdgeInsets.only(top: 30),
               child: Wrap(
                 spacing: 8, // Espaço horizontal entre os itens
                 runSpacing: 8, // Espaço vertical entre as linhas
-                alignment: WrapAlignment.spaceEvenly,
+                alignment: WrapAlignment
+                    .start, // Align the items to the start (left) of the container
                 children: items
                     .map((item) => _buildLegendItem(
-                        item.color, '${item.value}%', item.label))
+                        item.color,
+                        '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
+                        item.label))
                     .toList(),
               ),
             ),
