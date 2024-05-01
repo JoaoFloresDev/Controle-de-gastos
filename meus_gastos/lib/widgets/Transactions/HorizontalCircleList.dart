@@ -48,20 +48,20 @@ class _HorizontalCircleListState extends State<HorizontalCircleList> {
                   margin: const EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
                     color: selectedIndex == index
-                        ? Colors.green.withOpacity(0.3)
+                        ? Colors.grey.withOpacity(0.3)
                         : Colors.black.withOpacity(0.1),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     CategoryInfo.getByCategory(Category.values[index]).icon,
-                    // getIconByCategory(Category.values[index]),
                   ),
                 ),
                 SizedBox(height: 4), // Espaço entre o ícone e o texto
                 Text(
                   CategoryInfo.getByCategory(Category.values[index]).name,
                   style: TextStyle(
-                    fontSize: 9, // Ajuste conforme necessário
+                    fontSize: 9,
+                    color: Colors.white,
                   ),
                   textAlign: TextAlign.center,
                 ),

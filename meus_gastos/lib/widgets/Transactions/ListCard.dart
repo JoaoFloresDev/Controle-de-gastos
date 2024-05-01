@@ -1,4 +1,3 @@
-import 'package:meus_gastos/enums/Category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/models/CardModel.dart';
@@ -10,18 +9,18 @@ import 'package:intl/intl.dart';
 
 class ListCard extends StatelessWidget {
   final CardModel card;
-  final Function(CardModel) onTap; // Updated function signature
+  final Function(CardModel) onTap;
 
   ListCard({required this.card, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(card), // Pass card as a parameter
+      onTap: () => onTap(card),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.black.withOpacity(0.6), // Background color set to black
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -44,11 +43,11 @@ class ListCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white, // Text color changed to white
                   ),
                 ),
                 Column(
-                  mainAxisSize: MainAxisSize
-                      .min, // Para evitar preencher todo o espaço vertical
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
                       width: 30,
@@ -62,15 +61,17 @@ class ListCard extends StatelessWidget {
                         CategoryInfo.getByCategoryString(
                                 card.category.toString())
                             .icon,
-                        size: 18, // Adjust the size as needed
+                        size: 18,
+                        color: Colors.white, // Icon color changed to white
                       ),
                     ),
-                    SizedBox(height: 4), // Espaço entre o ícone e o texto
+                    SizedBox(height: 4),
                     Text(
                       CategoryInfo.getByCategoryString(card.category.toString())
                           .name,
                       style: TextStyle(
-                        fontSize: 9, // Ajuste conforme necessário
+                        fontSize: 9,
+                        color: Colors.white, // Text color changed to white
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -83,7 +84,7 @@ class ListCard extends StatelessWidget {
               card.description,
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.grey[600],
+                color: Colors.white, // Description text color changed to white
               ),
             ),
             SizedBox(height: 2),
@@ -93,7 +94,7 @@ class ListCard extends StatelessWidget {
                 DateFormat('HH:mm dd/MM/yyyy').format(card.date),
                 style: TextStyle(
                   fontSize: 12,
-                  color: Colors.grey[600],
+                  color: Colors.white, // Date text color changed to white
                 ),
               ),
             ),

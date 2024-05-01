@@ -1,5 +1,4 @@
 import 'package:meus_gastos/enums/Category.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'CampoComMascara.dart';
@@ -40,9 +39,6 @@ class _HeaderCardState extends State<HeaderCard> {
         date: lastDateSelected,
         category: Category.values[lastIndexSelected].toString(),
         id: CardService.generateUniqueId());
-    print("-----------------");
-    print(newCard.category);
-    print("-----------------");
     CardService.addCard(newCard);
     setState(() {
       valorController.updateValue(0.0);

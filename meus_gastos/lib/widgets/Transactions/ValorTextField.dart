@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'CustomButton.dart';
 
 class ValorTextField extends StatefulWidget {
@@ -36,21 +34,17 @@ class _ValorTextFieldState extends State<ValorTextField> {
 
   OverlayEntry _createOverlayEntry() {
     final screenWidth = MediaQuery.of(context).size.width;
-
     return OverlayEntry(
       builder: (context) => Positioned(
         bottom: MediaQuery.of(context).viewInsets.bottom,
         left: 0,
         width: screenWidth,
         child: KeyboardAccessory(add: (int value) {
-          widget.controller.updateValue(
-            widget.controller.numberValue + value,
-          );
+          widget.controller.updateValue(widget.controller.numberValue + value);
         }, sub: (int value) {
           double result = widget.controller.numberValue - value;
           if (result > 0) {
-            widget.controller
-                .updateValue(widget.controller.numberValue - value);
+            widget.controller.updateValue(result);
           } else {
             widget.controller.updateValue(0.0);
           }
@@ -64,12 +58,14 @@ class _ValorTextFieldState extends State<ValorTextField> {
     return CupertinoTextField(
       focusNode: _focusNode,
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: CupertinoColors.systemGrey5,
-          ),
-        ),
+        border: Border(bottom: BorderSide(color: CupertinoColors.systemGrey)),
       ),
+      style:
+          TextStyle(color: Colors.white), // Define a cor do texto como branca
+      placeholder: "Enter amount", // Placeholder
+      placeholderStyle: TextStyle(
+          color: Colors.white.withOpacity(
+              0.6)), // Define a cor do placeholder como branca com opacidade
       keyboardType: TextInputType.number,
       controller: widget.controller,
     );
@@ -88,6 +84,7 @@ class _ValorTextFieldState extends State<ValorTextField> {
 class KeyboardAccessory extends StatelessWidget {
   final ValueChanged<int> add;
   final ValueChanged<int> sub;
+
   const KeyboardAccessory({Key? key, required this.add, required this.sub})
       : super(key: key);
 
@@ -109,7 +106,7 @@ class KeyboardAccessory extends StatelessWidget {
                   ),
               ],
             ),
-          ), // Add this line to decrease the space between the ListViews
+          ),
           Expanded(
             child: ListView(
               scrollDirection: Axis.horizontal,

@@ -19,11 +19,12 @@ class DashboardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.grey[900], // Alteração da cor de fundo para cinza escuro
       elevation: 4,
-      shadowColor: Colors.black.withOpacity(0.2),
+      // shadowColor: Colors.white.withOpacity(1),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(24.0),
         child: Column(
           children: [
             SizedBox(
@@ -43,7 +44,7 @@ class DashboardCard extends StatelessWidget {
                             titleStyle: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black),
+                                color: Colors.white),
                             titlePositionPercentageOffset: 1.8,
                           ))
                       .toList(),
@@ -53,10 +54,9 @@ class DashboardCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 30),
               child: Wrap(
-                spacing: 8, // Espaço horizontal entre os itens
-                runSpacing: 8, // Espaço vertical entre as linhas
-                alignment: WrapAlignment
-                    .start, // Align the items to the start (left) of the container
+                spacing: 8,
+                runSpacing: 8,
+                alignment: WrapAlignment.start,
                 children: items
                     .map((item) => _buildLegendItem(
                         item.color,
@@ -78,7 +78,7 @@ class DashboardCard extends StatelessWidget {
         Icon(Icons.circle, color: color, size: 14),
         SizedBox(width: 8),
         Text('$label - $percent',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       ],
     );
   }

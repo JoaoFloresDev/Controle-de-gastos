@@ -29,29 +29,29 @@ class CategoryInfo {
 
   static Map<Category, CategoryInfo> _categories = {
     Category.Unknown: CategoryInfo(Category.Unknown, 'Sem categoria',
-        Icons.question_mark_rounded, Colors.grey),
+        Icons.question_mark_rounded, Colors.grey[800]!),
     Category.Shopping: CategoryInfo(
-        Category.Shopping, 'Mercado', Icons.shopping_cart, Colors.green),
+        Category.Shopping, 'Mercado', Icons.shopping_cart, Colors.green[900]!),
     Category.Restaurant: CategoryInfo(
-        Category.Restaurant, 'Alimentação', Icons.restaurant, Colors.red),
+        Category.Restaurant, 'Alimentação', Icons.restaurant, Colors.red[900]!),
     Category.GasStation: CategoryInfo(Category.GasStation, 'Transporte',
-        Icons.local_gas_station, Colors.blue),
+        Icons.local_gas_station, Colors.blue[900]!),
     Category.Home:
-        CategoryInfo(Category.Home, 'Moradia', Icons.home, Colors.orange),
+        CategoryInfo(Category.Home, 'Moradia', Icons.home, Colors.orange[900]!),
     Category.ShoppingBasket: CategoryInfo(Category.ShoppingBasket, 'Compras',
-        Icons.shopping_basket, Colors.purple),
+        Icons.shopping_basket, Colors.purple[900]!),
     Category.Hospital: CategoryInfo(
-        Category.Hospital, 'Saúde', Icons.local_hospital, Colors.teal),
-    Category.Cigarrinho: CategoryInfo(
-        Category.Cigarrinho, 'Cigarrinho', Icons.smoking_rooms, Colors.brown),
-    Category.Movie:
-        CategoryInfo(Category.Movie, 'Streaming', Icons.movie, Colors.yellow),
+        Category.Hospital, 'Saúde', Icons.local_hospital, Colors.teal[900]!),
+    Category.Cigarrinho: CategoryInfo(Category.Cigarrinho, 'Cigarrinho',
+        Icons.smoking_rooms, Colors.brown[900]!),
+    Category.Movie: CategoryInfo(
+        Category.Movie, 'Streaming', Icons.movie, Colors.deepPurple[900]!),
     Category.MusicNote: CategoryInfo(
-        Category.MusicNote, 'Gambit', Icons.music_note, Colors.pink),
-    Category.VideoGame: CategoryInfo(
-        Category.VideoGame, 'Games', Icons.videogame_asset, Colors.indigo),
-    Category.Drink: CategoryInfo(
-        Category.Drink, 'Bebidas', Icons.local_drink_outlined, Colors.cyan),
+        Category.MusicNote, 'Gambit', Icons.music_note, Colors.pink[900]!),
+    Category.VideoGame: CategoryInfo(Category.VideoGame, 'Games',
+        Icons.videogame_asset, Colors.indigo[900]!),
+    Category.Drink: CategoryInfo(Category.Drink, 'Bebidas',
+        Icons.local_drink_outlined, Colors.cyan[900]!),
   };
 
   static CategoryInfo getByCategory(Category category) =>

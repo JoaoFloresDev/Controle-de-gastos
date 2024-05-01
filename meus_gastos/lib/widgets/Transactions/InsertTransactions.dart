@@ -46,7 +46,11 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       body: Column(
         children: [
           CupertinoNavigationBar(
-            middle: Text(widget.title),
+            middle: Text(
+              widget.title,
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Colors.black,
           ),
           if (_showHeaderCard) ...[
             Padding(
@@ -68,7 +72,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
               Container(
                 height: 1,
                 width: MediaQuery.of(context).size.width - 100,
-                color: Colors.black.withOpacity(0.2),
+                color: Colors.white.withOpacity(0.4),
               ),
               IconButton(
                 onPressed: () {
@@ -102,6 +106,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           ),
         ],
       ),
+      backgroundColor: Colors.black.withOpacity(0.9),
     );
   }
 

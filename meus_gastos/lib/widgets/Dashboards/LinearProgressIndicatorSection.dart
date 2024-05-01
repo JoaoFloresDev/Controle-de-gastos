@@ -28,11 +28,13 @@ class ProgressIndicatorModel {
 
 class LinearProgressIndicatorSection extends StatelessWidget {
   final ProgressIndicatorModel model;
+  final double totalAmount;
 
   const LinearProgressIndicatorSection({
-    super.key,
+    Key? key,
     required this.model,
-  });
+    required this.totalAmount,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,24 +44,28 @@ class LinearProgressIndicatorSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(model.title,
-              style:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold)),
           SizedBox(height: 10),
           LinearPercentIndicator(
             width: MediaQuery.of(context).size.width - 50,
             animation: true,
-            lineHeight: 30.0, // Aumento para dar mais destaque
-            animationDuration: 2000,
-            percent: model.progress / 1000,
+            lineHeight: 30.0,
+            animationDuration: 1000,
+            percent: model.progress / totalAmount,
             center: Text(
               "${model.progress.toStringAsFixed(0)}",
-              style: TextStyle(color: Colors.black, fontSize: 16),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
             ),
             linearStrokeCap: LinearStrokeCap.roundAll,
-            barRadius: const Radius.circular(12), // Cantos arredondados
-            backgroundColor:
-                Colors.blueAccent.withOpacity(0.2), // Cor de fundo mais clara
-            progressColor: Colors.blueAccent, // Cor sólida para o progresso
+            barRadius: const Radius.circular(12),
+            backgroundColor: model.color.withOpacity(0.2),
+            progressColor: model.color,
           ),
         ],
       ),

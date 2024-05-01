@@ -54,12 +54,12 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   @override
   Widget build(BuildContext context) {
-    super.build(
-        context); // Chamada necessária para AutomaticKeepAliveClientMixin
+    super.build(context);
     return CupertinoPageScaffold(
+      backgroundColor: Colors.black.withOpacity(0.9),
       navigationBar: CupertinoNavigationBar(
-        middle: Text("Dashboard Elegante"),
-        backgroundColor: Colors.deepPurple.withAlpha(200),
+        middle: Text("Meu Controle", style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.black.withOpacity(0.8),
       ),
       child: SafeArea(
         child: SingleChildScrollView(
@@ -72,12 +72,19 @@ class _DashboardScreenState extends State<DashboardScreen>
                 ),
               ),
               if (isLoading)
-                CircularProgressIndicator()
+                CircularProgressIndicator(
+                    color: Colors.white) // Dark themed progress indicator
               else
                 Column(
                   children: [
                     for (var progressIndicator in progressIndicators)
-                      LinearProgressIndicatorSection(model: progressIndicator),
+                      LinearProgressIndicatorSection(
+                          model: progressIndicator,
+                          totalAmount: progressIndicators.fold(
+                              0,
+                              (maxValue, item) => maxValue > item.progress
+                                  ? maxValue
+                                  : item.progress)),
                   ],
                 ),
             ],
