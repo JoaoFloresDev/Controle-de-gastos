@@ -66,7 +66,7 @@ class CardService {
       totals[card.category] = (totals[card.category] ?? 0) + card.amount;
     }
 
-    return totals.entries
+    final List<ProgressIndicatorModel> progressIndicators = totals.entries
         .map((entry) => ProgressIndicatorModel(
             title: CategoryInfo.getByCategoryString(entry.key.toString()).name,
             progress: entry.value,
@@ -74,6 +74,10 @@ class CardService {
                 (c) => c.toString().split('.').last == entry.key,
                 orElse: () => Category.Unknown)))
         .toList();
+
+    progressIndicators.sort((a, b) => b.progress.compareTo(a.progress));
+
+    return progressIndicators;
   }
 
   static String generateUniqueId() {

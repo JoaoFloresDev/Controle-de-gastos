@@ -20,14 +20,6 @@ class _DashboardScreenState extends State<DashboardScreen>
   bool isLoading = true;
 
   @override
-  void didUpdateWidget(covariant DashboardScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.isActive && !oldWidget.isActive) {
-      _loadProgressIndicators();
-    }
-  }
-
-  @override
   bool get wantKeepAlive => true; // Usando o mixin para manter o estado
 
   Future<void> _loadProgressIndicators() async {
@@ -56,7 +48,22 @@ class _DashboardScreenState extends State<DashboardScreen>
             children: [
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: DashboardCard(),
+                child: DashboardCard(
+                  items: [
+                    PieChartDataItem(
+                        label: "ddd", value: 20, color: Colors.orangeAccent),
+                    PieChartDataItem(
+                        label: "eee", value: 10, color: Colors.purpleAccent),
+                    PieChartDataItem(
+                        label: "fff", value: 5, color: Colors.yellowAccent),
+                    PieChartDataItem(
+                        label: "ggg", value: 15, color: Colors.tealAccent),
+                    PieChartDataItem(
+                        label: "hhh", value: 25, color: Colors.pinkAccent),
+                    PieChartDataItem(
+                        label: "iii", value: 20, color: Colors.indigoAccent),
+                  ],
+                ),
               ),
               if (isLoading)
                 CircularProgressIndicator()
