@@ -65,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
+          backgroundColor: Colors.black38,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.home),
@@ -92,7 +93,6 @@ class _MyHomePageState extends State<MyHomePage> {
               break;
             default:
               content = DashboardScreen(isActive: selectedTab == 1);
-              // content = BlueController();
               break;
           }
           return content;

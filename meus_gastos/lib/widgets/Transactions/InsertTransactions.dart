@@ -48,7 +48,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           CupertinoNavigationBar(
             middle: Text(
               widget.title,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontSize: 16),
             ),
             backgroundColor: Colors.black,
           ),

@@ -20,7 +20,7 @@ class ListCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.6), // Background color set to black
+          color: Colors.grey[900],
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(

@@ -19,9 +19,8 @@ class DashboardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.grey[900], // Alteração da cor de fundo para cinza escuro
+      color: Colors.grey[900],
       elevation: 4,
-      // shadowColor: Colors.white.withOpacity(1),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       child: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -42,7 +41,7 @@ class DashboardCard extends StatelessWidget {
                                 '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
                             radius: 30,
                             titleStyle: TextStyle(
-                                fontSize: 14,
+                                fontSize: 12,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                             titlePositionPercentageOffset: 1.8,
@@ -55,7 +54,7 @@ class DashboardCard extends StatelessWidget {
               padding: const EdgeInsets.only(top: 30),
               child: Wrap(
                 spacing: 8,
-                runSpacing: 8,
+                runSpacing: 4,
                 alignment: WrapAlignment.start,
                 children: items
                     .map((item) => _buildLegendItem(
@@ -75,10 +74,13 @@ class DashboardCard extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(Icons.circle, color: color, size: 14),
+        Icon(Icons.circle, color: color, size: 16),
         SizedBox(width: 8),
         Text('$label - $percent',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 12)),
       ],
     );
   }

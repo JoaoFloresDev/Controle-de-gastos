@@ -58,7 +58,8 @@ class _DashboardScreenState extends State<DashboardScreen>
     return CupertinoPageScaffold(
       backgroundColor: Colors.black.withOpacity(0.9),
       navigationBar: CupertinoNavigationBar(
-        middle: Text("Meu Controle", style: TextStyle(color: Colors.white)),
+        middle: Text("Meu Controle",
+            style: TextStyle(color: Colors.white, fontSize: 20)),
         backgroundColor: Colors.black.withOpacity(0.8),
       ),
       child: SafeArea(

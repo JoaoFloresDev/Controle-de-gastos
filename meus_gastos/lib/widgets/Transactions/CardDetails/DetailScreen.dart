@@ -1,20 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
-import '../CampoComMascara.dart';
-import '../HorizontalCircleList.dart';
-import '../ValorTextField.dart';
-import 'EditionHeaderCard.dart';
-import 'package:meus_gastos/services/CardService.dart' as service;
-
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import '../CampoComMascara.dart';
-import '../HorizontalCircleList.dart';
-import '../ValorTextField.dart';
 import 'EditionHeaderCard.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -33,7 +19,7 @@ class DetailScreen extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.grey.shade900,
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
@@ -61,13 +47,14 @@ class DetailScreen extends StatelessWidget {
                       child: Text(
                         'Cancel',
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: Colors.grey.shade400,
                         ),
                       ),
                     ),
                     Text(
                       'Detalhes da transação',
                       style: TextStyle(
+                        color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                       ),
