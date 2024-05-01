@@ -61,11 +61,11 @@ class CardService {
   static Future<List<ProgressIndicatorModel>> getProgressIndicators() async {
     final List<CardModel> cards = await retrieveCards();
     final Map<String, double> totals = {};
-    print("aqui10");
+
     for (var card in cards) {
       totals[card.category] = (totals[card.category] ?? 0) + card.amount;
     }
-    print("aqui11");
+
     return totals.entries
         .map((entry) => ProgressIndicatorModel(
             title: entry.key,

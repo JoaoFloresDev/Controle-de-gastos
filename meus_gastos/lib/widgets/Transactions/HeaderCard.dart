@@ -34,15 +34,15 @@ class _HeaderCardState extends State<HeaderCard> {
   int lastIndexSelected = 0;
 
   void adicionar() {
-    print(DateFormat('dd/MM/yy HH:mm').parse(dateController.dateText));
-    print(dateController.dateText);
-
     final newCard = CardModel(
         amount: valorController.numberValue,
         description: descricaoController.text,
         date: lastDateSelected,
         category: Category.values[lastIndexSelected].toString(),
         id: CardService.generateUniqueId());
+    print("-----------------");
+    print(newCard.category);
+    print("-----------------");
     CardService.addCard(newCard);
     setState(() {
       valorController.updateValue(0.0);

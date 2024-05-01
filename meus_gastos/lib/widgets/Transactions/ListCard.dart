@@ -59,16 +59,15 @@ class ListCard extends StatelessWidget {
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
-                        CategoryInfo.getByName(
-                                card.category.replaceAll("Category.", ""))
+                        CategoryInfo.getByCategoryString(
+                                card.category.toString())
                             .icon,
                         size: 18, // Adjust the size as needed
                       ),
                     ),
                     SizedBox(height: 4), // Espaço entre o ícone e o texto
                     Text(
-                      CategoryInfo.getByName(
-                              card.category.replaceAll("Category.", ""))
+                      CategoryInfo.getByCategoryString(card.category.toString())
                           .name,
                       style: TextStyle(
                         fontSize: 9, // Ajuste conforme necessário

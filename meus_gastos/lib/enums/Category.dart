@@ -57,6 +57,11 @@ class CategoryInfo {
   static CategoryInfo getByName(String name) =>
       _categories.values.firstWhere((info) => info.name == name,
           orElse: () => _categories[Category.Unknown]!);
+
+  static CategoryInfo getByCategoryString(String name) =>
+      _categories.values.firstWhere((info) => info.category.toString() == name,
+          orElse: () => _categories[Category.Unknown]!);
+
   static CategoryInfo getByIndex(int index) =>
       _categories[Category.values[index]] ?? _categories[Category.Unknown]!;
 }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'LinearProgressIndicatorSection.dart';
-import 'LineChartSample.dart';
 
 class DashboardCard extends StatelessWidget {
   @override
