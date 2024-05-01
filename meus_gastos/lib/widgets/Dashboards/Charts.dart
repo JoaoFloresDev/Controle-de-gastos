@@ -22,6 +22,20 @@ class _DashboardScreenState extends State<DashboardScreen>
   @override
   bool get wantKeepAlive => true; // Usando o mixin para manter o estado
 
+  @override
+  void initState() {
+    super.initState();
+    _loadProgressIndicators();
+  }
+
+  @override
+  void didUpdateWidget(DashboardScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isActive && widget.isActive != oldWidget.isActive) {
+      _loadProgressIndicators();
+    }
+  }
+
   Future<void> _loadProgressIndicators() async {
     if (!mounted) return;
     setState(() {
