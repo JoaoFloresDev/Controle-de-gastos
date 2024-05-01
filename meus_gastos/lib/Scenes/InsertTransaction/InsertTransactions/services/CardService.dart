@@ -72,7 +72,9 @@ class CardService {
             progress: entry.value,
             category: Category.values.firstWhere(
                 (c) => c.toString().split('.').last == entry.key,
-                orElse: () => Category.Unknown)))
+                orElse: () => Category.Unknown),
+            color:
+                CategoryInfo.getByCategoryString(entry.key.toString()).color))
         .toList();
 
     progressIndicators.sort((a, b) => b.progress.compareTo(a.progress));

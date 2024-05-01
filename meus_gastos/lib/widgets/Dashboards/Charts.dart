@@ -17,6 +17,7 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
   List<ProgressIndicatorModel> progressIndicators = [];
+  List<PieChartDataItem> pieChartDataItems = [];
   bool isLoading = true;
 
   @override
@@ -42,6 +43,10 @@ class _DashboardScreenState extends State<DashboardScreen>
       isLoading = true;
     });
     progressIndicators = await CardService.getProgressIndicators();
+    pieChartDataItems.clear();
+    for (var progressIndicator in progressIndicators) {
+      pieChartDataItems.add(progressIndicator.toPieChartDataItem());
+    }
     setState(() {
       isLoading = false;
     });
@@ -63,20 +68,7 @@ class _DashboardScreenState extends State<DashboardScreen>
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: DashboardCard(
-                  items: [
-                    PieChartDataItem(
-                        label: "ddd", value: 20, color: Colors.orangeAccent),
-                    PieChartDataItem(
-                        label: "eee", value: 10, color: Colors.purpleAccent),
-                    PieChartDataItem(
-                        label: "fff", value: 5, color: Colors.yellowAccent),
-                    PieChartDataItem(
-                        label: "ggg", value: 15, color: Colors.tealAccent),
-                    PieChartDataItem(
-                        label: "hhh", value: 25, color: Colors.pinkAccent),
-                    PieChartDataItem(
-                        label: "iii", value: 20, color: Colors.indigoAccent),
-                  ],
+                  items: pieChartDataItems,
                 ),
               ),
               if (isLoading)

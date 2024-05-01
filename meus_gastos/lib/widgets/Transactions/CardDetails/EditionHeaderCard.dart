@@ -136,7 +136,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
               },
             ),
           ),
-          SizedBox(height: 26),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),
             child: CupertinoButton(

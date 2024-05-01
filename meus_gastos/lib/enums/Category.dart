@@ -24,32 +24,34 @@ class CategoryInfo {
   final Category category;
   final String name;
   final IconData icon;
-
-  CategoryInfo(this.category, this.name, this.icon);
+  final Color color;
+  CategoryInfo(this.category, this.name, this.icon, this.color);
 
   static Map<Category, CategoryInfo> _categories = {
-    Category.Unknown: CategoryInfo(
-        Category.Unknown, 'Sem categoria', Icons.question_mark_rounded),
-    Category.Shopping:
-        CategoryInfo(Category.Shopping, 'Mercado', Icons.shopping_cart),
-    Category.Restaurant:
-        CategoryInfo(Category.Restaurant, 'Alimentação', Icons.restaurant),
-    Category.GasStation: CategoryInfo(
-        Category.GasStation, 'Transporte', Icons.local_gas_station),
-    Category.Home: CategoryInfo(Category.Home, 'Moradia', Icons.home),
-    Category.ShoppingBasket:
-        CategoryInfo(Category.ShoppingBasket, 'Compras', Icons.shopping_basket),
-    Category.Hospital:
-        CategoryInfo(Category.Hospital, 'Saúde', Icons.local_hospital),
-    Category.Cigarrinho:
-        CategoryInfo(Category.Cigarrinho, 'Cigarrinho', Icons.smoking_rooms),
-    Category.Movie: CategoryInfo(Category.Movie, 'Streaming', Icons.movie),
-    Category.MusicNote:
-        CategoryInfo(Category.MusicNote, 'Gambit', Icons.music_note),
-    Category.VideoGame:
-        CategoryInfo(Category.VideoGame, 'Games', Icons.videogame_asset),
-    Category.Drink:
-        CategoryInfo(Category.Drink, 'Bebidas', Icons.local_drink_outlined),
+    Category.Unknown: CategoryInfo(Category.Unknown, 'Sem categoria',
+        Icons.question_mark_rounded, Colors.grey),
+    Category.Shopping: CategoryInfo(
+        Category.Shopping, 'Mercado', Icons.shopping_cart, Colors.green),
+    Category.Restaurant: CategoryInfo(
+        Category.Restaurant, 'Alimentação', Icons.restaurant, Colors.red),
+    Category.GasStation: CategoryInfo(Category.GasStation, 'Transporte',
+        Icons.local_gas_station, Colors.blue),
+    Category.Home:
+        CategoryInfo(Category.Home, 'Moradia', Icons.home, Colors.orange),
+    Category.ShoppingBasket: CategoryInfo(Category.ShoppingBasket, 'Compras',
+        Icons.shopping_basket, Colors.purple),
+    Category.Hospital: CategoryInfo(
+        Category.Hospital, 'Saúde', Icons.local_hospital, Colors.teal),
+    Category.Cigarrinho: CategoryInfo(
+        Category.Cigarrinho, 'Cigarrinho', Icons.smoking_rooms, Colors.brown),
+    Category.Movie:
+        CategoryInfo(Category.Movie, 'Streaming', Icons.movie, Colors.yellow),
+    Category.MusicNote: CategoryInfo(
+        Category.MusicNote, 'Gambit', Icons.music_note, Colors.pink),
+    Category.VideoGame: CategoryInfo(
+        Category.VideoGame, 'Games', Icons.videogame_asset, Colors.indigo),
+    Category.Drink: CategoryInfo(
+        Category.Drink, 'Bebidas', Icons.local_drink_outlined, Colors.cyan),
   };
 
   static CategoryInfo getByCategory(Category category) =>

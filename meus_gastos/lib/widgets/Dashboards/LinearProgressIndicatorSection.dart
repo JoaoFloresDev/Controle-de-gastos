@@ -3,14 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:meus_gastos/enums/Category.dart';
+import 'DashboardCard.dart';
 
 class ProgressIndicatorModel {
   String title;
   double progress;
   Category category;
+  final Color color;
 
   ProgressIndicatorModel(
-      {required this.title, required this.progress, required this.category});
+      {required this.title,
+      required this.progress,
+      required this.category,
+      required this.color});
+
+  PieChartDataItem toPieChartDataItem() {
+    return PieChartDataItem(
+      label: title,
+      value: progress,
+      color: color,
+    );
+  }
 }
 
 class LinearProgressIndicatorSection extends StatelessWidget {
