@@ -40,7 +40,7 @@ class LinearProgressIndicatorSection extends StatelessWidget {
             percent: model.progress / 1000,
             center: Text(
               "${model.progress.toStringAsFixed(0)}",
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             linearStrokeCap: LinearStrokeCap.roundAll,
             barRadius: const Radius.circular(12), // Cantos arredondados

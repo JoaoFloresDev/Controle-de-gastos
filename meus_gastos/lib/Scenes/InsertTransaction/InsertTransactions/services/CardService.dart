@@ -68,7 +68,7 @@ class CardService {
 
     return totals.entries
         .map((entry) => ProgressIndicatorModel(
-            title: entry.key,
+            title: CategoryInfo.getByCategoryString(entry.key.toString()).name,
             progress: entry.value,
             category: Category.values.firstWhere(
                 (c) => c.toString().split('.').last == entry.key,

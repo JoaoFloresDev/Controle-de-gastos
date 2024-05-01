@@ -1,55 +1,50 @@
-import 'package:meus_gastos/enums/Category.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:meus_gastos/enums/Category.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'LinearProgressIndicatorSection.dart';
 import 'DashboardCard.dart';
 
 class DashboardScreen extends StatefulWidget {
+  final bool isActive;
+
+  DashboardScreen({this.isActive = false});
+
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends State<DashboardScreen>
-    with WidgetsBindingObserver {
+    with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
   List<ProgressIndicatorModel> progressIndicators = [];
   bool isLoading = true;
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    _loadProgressIndicators();
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.resumed) {
-      // Chamada quando a tela é mostrada novamente ao usuário
+  void didUpdateWidget(covariant DashboardScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isActive && !oldWidget.isActive) {
       _loadProgressIndicators();
     }
   }
 
+  @override
+  bool get wantKeepAlive => true; // Usando o mixin para manter o estado
+
   Future<void> _loadProgressIndicators() async {
+    if (!mounted) return;
     setState(() {
-      isLoading =
-          true; // Mostrar o indicador de carregamento enquanto os dados são carregados
+      isLoading = true;
     });
     progressIndicators = await CardService.getProgressIndicators();
     setState(() {
-      isLoading = false; // Atualiza a interface após carregar os dados
+      isLoading = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(
+        context); // Chamada necessária para AutomaticKeepAliveClientMixin
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text("Dashboard Elegante"),
@@ -61,8 +56,7 @@ class _DashboardScreenState extends State<DashboardScreen>
             children: [
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child:
-                    DashboardCard(), // Suponho que DashboardCard seja um widget existente no seu projeto
+                child: DashboardCard(),
               ),
               if (isLoading)
                 CircularProgressIndicator()
