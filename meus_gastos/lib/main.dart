@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/widgets/Transactions/InsertTransactions.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'Scenes/InsertTransaction/InsertTransactions/widgets/HeaderCard.dart';
 import 'Scenes/InsertTransaction/InsertTransactions/widgets/ListCard.dart';
 import 'Scenes/InsertTransaction/InsertTransactions/models/CardModel.dart';
@@ -12,16 +10,13 @@ import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/services
     as service;
 import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/InsertTransactionViewController.dart';
 import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/widgets/DetailScreen.dart';
-=======
 import 'package:meus_gastos/widgets/Transactions/InsertTransactions.dart';
 import 'package:meus_gastos/widgets/Dashboards/Charts.dart';
->>>>>>> 3670368 (Refatoração)
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/chartsViewController.dart';
-=======
 import 'package:meus_gastos/widgets/Transactions/InsertTransactions.dart';
 import 'package:meus_gastos/widgets/Dashboards/Charts.dart';
->>>>>>> 3dad007 (refatoração)
+import 'package:meus_gastos/widgets/Dashboards/DashboardScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -29,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      theme: CupertinoThemeData(
+      theme: const CupertinoThemeData(
         brightness: Brightness.light,
       ),
       home: MyHomePage(),
@@ -47,7 +42,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
         items: const <BottomNavigationBarItem>[
@@ -60,44 +54,6 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Azul',
           ),
         ],
-=======
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: CupertinoTabScaffold(
-        tabBar: CupertinoTabBar(
-          backgroundColor: Colors.black38,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.home),
-              label: 'Transações',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.settings),
-              label: 'Dashboard',
-            ),
-          ],
-          onTap: (int index) {
-            setState(() {
-              selectedTab = index;
-            });
-          },
-        ),
-        tabBuilder: (context, index) {
-          Widget content;
-          switch (index) {
-            case 0:
-              content = InsertTransactions(
-                title: 'Meus Gastos',
-                onAddClicked: () {},
-              );
-              break;
-            default:
-              content = DashboardScreen(isActive: selectedTab == 1);
-              break;
-          }
-          return content;
-        },
->>>>>>> 3670368 (Refatoração)
       ),
       tabBuilder: (context, index) {
         switch (index) {

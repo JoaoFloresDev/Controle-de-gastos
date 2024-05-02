@@ -82,6 +82,36 @@ class CardService {
     return progressIndicators;
   }
 
+  static Future<List<ProgressIndicatorModel>> getProgressIndicatorsByMonth(
+      DateTime month) async {
+    final List<CardModel> cards = await retrieveCards();
+    final Map<String, double> totals = {};
+
+    final List<CardModel> filteredCards = cards
+        .where((card) =>
+            card.date.year == month.year && card.date.month == month.month)
+        .toList();
+
+    for (var card in filteredCards) {
+      totals[card.category] = (totals[card.category] ?? 0) + card.amount;
+    }
+
+    final List<ProgressIndicatorModel> progressIndicators = totals.entries
+        .map((entry) => ProgressIndicatorModel(
+            title: CategoryInfo.getByCategoryString(entry.key.toString()).name,
+            progress: entry.value,
+            category: Category.values.firstWhere(
+                (c) => c.toString().split('.').last == entry.key,
+                orElse: () => Category.Unknown),
+            color:
+                CategoryInfo.getByCategoryString(entry.key.toString()).color))
+        .toList();
+
+    progressIndicators.sort((a, b) => b.progress.compareTo(a.progress));
+
+    return progressIndicators;
+  }
+
   static String generateUniqueId() {
     var uuid = Uuid();
     return uuid.v4();

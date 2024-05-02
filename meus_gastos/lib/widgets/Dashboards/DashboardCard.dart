@@ -26,30 +26,59 @@ class DashboardCard extends StatelessWidget {
         padding: const EdgeInsets.all(24.0),
         child: Column(
           children: [
-            SizedBox(
-              width: double.infinity,
-              height: 200,
-              child: PieChart(
-                PieChartData(
-                  sectionsSpace: 4,
-                  centerSpaceRadius: 50,
-                  sections: items
-                      .map((item) => PieChartSectionData(
-                            color: item.color,
-                            value: item.value,
-                            title:
-                                '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
-                            radius: 30,
-                            titleStyle: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                            titlePositionPercentageOffset: 1.8,
-                          ))
-                      .toList(),
+            if (items.isEmpty)
+              const SizedBox(
+                width: double.infinity,
+                height: 200,
+                child: Center(
+                  child: Text.rich(
+                    TextSpan(
+                      text: 'Adicione novas transações',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: '\n\nVocê poderá entender \nseus gastos aqui',
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
+            else
+              SizedBox(
+                width: double.infinity,
+                height: 200,
+                child: PieChart(
+                  PieChartData(
+                    sectionsSpace: 4,
+                    centerSpaceRadius: 50,
+                    sections: items
+                        .map((item) => PieChartSectionData(
+                              color: item.color,
+                              value: item.value,
+                              title:
+                                  '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
+                              radius: 30,
+                              titleStyle: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                              titlePositionPercentageOffset: 1.8,
+                            ))
+                        .toList(),
+                  ),
                 ),
               ),
-            ),
             Padding(
               padding: const EdgeInsets.only(top: 30),
               child: Wrap(

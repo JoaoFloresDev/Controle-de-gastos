@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/enums/Category.dart';
+import 'MonthSelector.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'LinearProgressIndicatorSection.dart';
 import 'DashboardCard.dart';
@@ -19,30 +19,31 @@ class _DashboardScreenState extends State<DashboardScreen>
   List<ProgressIndicatorModel> progressIndicators = [];
   List<PieChartDataItem> pieChartDataItems = [];
   bool isLoading = true;
+  DateTime currentDate = DateTime.now();
 
   @override
-  bool get wantKeepAlive => true; // Usando o mixin para manter o estado
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
-    _loadProgressIndicators();
+    _loadProgressIndicators(DateTime.now());
   }
 
-  @override
-  void didUpdateWidget(DashboardScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.isActive && widget.isActive != oldWidget.isActive) {
-      _loadProgressIndicators();
-    }
+  void _changeMonth(int delta) {
+    setState(() {
+      currentDate = DateTime(currentDate.year, currentDate.month + delta);
+      _loadProgressIndicators(currentDate);
+    });
   }
 
-  Future<void> _loadProgressIndicators() async {
+  Future<void> _loadProgressIndicators(DateTime currentDate) async {
     if (!mounted) return;
     setState(() {
       isLoading = true;
     });
-    progressIndicators = await CardService.getProgressIndicators();
+    progressIndicators =
+        await CardService.getProgressIndicatorsByMonth(currentDate);
     pieChartDataItems.clear();
     for (var progressIndicator in progressIndicators) {
       pieChartDataItems.add(progressIndicator.toPieChartDataItem());
@@ -66,6 +67,11 @@ class _DashboardScreenState extends State<DashboardScreen>
         child: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(height: 15),
+              MonthSelector(
+                currentDate: currentDate,
+                onChangeMonth: _changeMonth,
+              ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: DashboardCard(
@@ -73,8 +79,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                 ),
               ),
               if (isLoading)
-                CircularProgressIndicator(
-                    color: Colors.white) // Dark themed progress indicator
+                CircularProgressIndicator(color: Colors.white)
               else
                 Column(
                   children: [
