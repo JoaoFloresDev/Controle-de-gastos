@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
+      debugShowCheckedModeBanner: false, // Define esta propriedade como false
       theme: const CupertinoThemeData(
         brightness: Brightness.light,
       ),
@@ -103,25 +104,6 @@ class GreenScreen extends StatelessWidget {
         middle: Text('Green Screen'),
       ),
       child: Container(color: Colors.green),
-    );
-  }
-}
-
-class BlueController extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue,
-      child: Center(
-        child: Text(
-          'Blue Controller',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
     );
   }
 }

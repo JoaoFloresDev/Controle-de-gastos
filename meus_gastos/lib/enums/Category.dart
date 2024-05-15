@@ -1,9 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:meus_gastos/widgets/Transactions/CampoComMascara.dart';
 
 enum Category {
   Unknown,
@@ -13,9 +8,7 @@ enum Category {
   Home,
   ShoppingBasket,
   Hospital,
-  Cigarrinho,
   Movie,
-  MusicNote,
   VideoGame,
   Drink
 }
@@ -42,12 +35,8 @@ class CategoryInfo {
         Icons.shopping_basket, Colors.purple[900]!),
     Category.Hospital: CategoryInfo(
         Category.Hospital, 'Saúde', Icons.local_hospital, Colors.teal[900]!),
-    Category.Cigarrinho: CategoryInfo(Category.Cigarrinho, 'Cigarrinho',
-        Icons.smoking_rooms, Colors.brown[900]!),
     Category.Movie: CategoryInfo(
         Category.Movie, 'Streaming', Icons.movie, Colors.deepPurple[900]!),
-    Category.MusicNote: CategoryInfo(
-        Category.MusicNote, 'Gambit', Icons.music_note, Colors.pink[900]!),
     Category.VideoGame: CategoryInfo(Category.VideoGame, 'Games',
         Icons.videogame_asset, Colors.indigo[900]!),
     Category.Drink: CategoryInfo(Category.Drink, 'Bebidas',
