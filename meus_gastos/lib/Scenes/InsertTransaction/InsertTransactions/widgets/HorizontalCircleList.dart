@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter/material.dart';
+import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/models/CategoryModel.dart';
+import 'package:meus_gastos/Scenes/InsertTransaction/InsertTransactions/widgets/CategoryCreater.dart';
 import 'CampoComMascara.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,7 +19,7 @@ enum Category {
   Movie, // idas ao shopping
   MusicNote, // strimings
   VideoGame, // aplicativos
-  Drink // roles
+  Drink, // roles
 }
 
 String getCategoryNameByEnum(Category category) {
@@ -66,53 +68,75 @@ class HorizontalCircleList extends StatefulWidget {
 class _HorizontalCircleListState extends State<HorizontalCircleList> {
   int selectedIndex = 0;
   int lastSelectedIndex = 0;
-
+  final List<CategoryModel> lista_categorias = [
+    CategoryModel(id: 0, icon: Icons.question_mark_rounded, name: "Sem categoria"),
+    CategoryModel(id: 1, icon: Icons.shopping_cart, name: "Mercado"),
+    CategoryModel(id: 2, icon: Icons.restaurant, name: "Alimentação"),
+    CategoryModel(id: 3, icon: Icons.local_gas_station, name: "Carro"),
+    CategoryModel(id: 4, icon: Icons.home, name: "Moradia"),
+    CategoryModel(id: 5, icon: Icons.shopping_basket, name: "Compras"),
+    CategoryModel(id: 6, icon: Icons.local_hospital, name: "Saúde"),
+    CategoryModel(id: 7, icon: Icons.smoking_rooms, name: "Cigarrinho"),
+    CategoryModel(id: 8, icon: Icons.movie, name: "Idas ao Shopping"),
+    CategoryModel(id: 9, icon: Icons.music_note, name: "Streamings"),
+    CategoryModel(id: 10, icon: Icons.videogame_asset, name: "Aplicativos"),
+    CategoryModel(id: 11, icon: Icons.local_bar, name: "Rolês"),
+  ];
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 100, // Ajuste a altura para acomodar o círculo e o texto
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: Category.values.length,
+        itemCount: lista_categorias.length + 1,
         itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                lastSelectedIndex = selectedIndex;
-                selectedIndex = index;
-              });
-              widget.onItemSelected(index);
-            },
-            child: Column(
-              mainAxisSize: MainAxisSize
-                  .min, // Para evitar preencher todo o espaço vertical
-              children: [
-                Container(
-                  width: 60,
-                  height: 50,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                    color: selectedIndex == index
-                        ? Colors.green.withOpacity(0.3)
-                        : Colors.black.withOpacity(0.1),
-                    shape: BoxShape.circle,
+          if (index == Category.values.length) {
+            // Adiciona o botão na última posição
+            return Column(
+                mainAxisSize: MainAxisSize
+                    .min, // Para evitar preencher todo o espaço vertical
+                children: [RoundButton()]);
+          } else {
+            final category = lista_categorias[index];
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  lastSelectedIndex = selectedIndex;
+                  selectedIndex = index;
+                });
+                widget.onItemSelected(index);
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize
+                    .min, // Para evitar preencher todo o espaço vertical
+                children: [
+                  Container(
+                    width: 60,
+                    height: 50,
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                      color: selectedIndex == index
+                          ? Colors.green.withOpacity(0.3)
+                          : Colors.black.withOpacity(0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      category.icon,
+                    ),
                   ),
-                  child: Icon(
-                    getIconByCategory(Category.values[index]),
+
+                  SizedBox(height: 4), // Espaço entre o ícone e o texto
+                  Text(
+                    "${category.name}", // Use a função correta para obter o nome da categoria
+                    style: TextStyle(
+                      fontSize: 9, // Ajuste conforme necessário
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                ),
-                SizedBox(height: 4), // Espaço entre o ícone e o texto
-                Text(
-                  getCategoryNameByEnum(Category.values[
-                      index]), // Use a função correta para obter o nome da categoria
-                  style: TextStyle(
-                    fontSize: 9, // Ajuste conforme necessário
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          );
+                ],
+              ),
+            );
+          }
         },
       ),
     );
@@ -203,5 +227,71 @@ IconData getIconByCategory(Category category) {
       return Icons.local_drink_outlined;
     default:
       return Icons.question_mark_rounded;
+  }
+}
+
+class RoundButton extends StatelessWidget {
+  void ShowCategoryModel(BuildContext context) {
+    showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: MediaQuery.of(context).size.height / 1.1,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: Categorycreater(),
+          );
+        });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+          ),
+          child: InkWell(
+            onTap: () {
+              ShowCategoryModel(context);
+            },
+            customBorder: const CircleBorder(),
+            child: Column(
+                mainAxisSize: MainAxisSize
+                    .min, // Para evitar preencher todo o espaço vertical
+                children: [
+                  Ink(
+                    width: 60,
+                    height: 50,
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.add, // Ícone do botão
+                        size: 20.0, // Ajustar o tamanho do ícone se necessário
+                      ),
+                    ),
+                  ),
+                ]),
+          ),
+        ),
+        SizedBox(height: 4), // Espaço entre o botão e o texto
+        Text(
+          "Adicionar",
+          style: TextStyle(
+            fontSize: 9, // Ajuste conforme necessário
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
   }
 }

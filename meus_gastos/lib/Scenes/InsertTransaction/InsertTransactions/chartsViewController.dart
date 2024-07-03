@@ -20,7 +20,7 @@ class _ChartsViewControllerState extends State<ChartsViewController> {
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 'Meu relatório',
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
             ToggleButtons(
@@ -101,11 +101,11 @@ class CategoryProgress extends StatelessWidget {
             children: <Widget>[
               Text(
                 category,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.titleSmall,
               ),
               Text(
                 '$spent/$budget',
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.titleSmall,
               ),
             ],
           ),
