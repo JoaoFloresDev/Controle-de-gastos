@@ -54,17 +54,14 @@ class ListCard extends StatelessWidget {
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
-                        CategoryInfo.getByCategoryString(
-                                card.category.toString())
-                            .icon,
+                        card.category.icon,
                         size: 18,
                         color: Colors.white, // Icon color changed to white
                       ),
                     ),
                     SizedBox(height: 4),
                     Text(
-                      CategoryInfo.getByCategoryString(card.category.toString())
-                          .name,
+                      card.category.name,
                       style: TextStyle(
                         fontSize: 9,
                         color: Colors.white, // Text color changed to white

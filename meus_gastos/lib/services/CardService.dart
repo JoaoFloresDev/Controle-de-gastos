@@ -63,7 +63,7 @@ class CardService {
     final Map<String, double> totals = {};
 
     for (var card in cards) {
-      totals[card.category] = (totals[card.category] ?? 0) + card.amount;
+      totals[card.category.id] = (totals[card.category.id] ?? 0) + card.amount;
     }
 
     final List<ProgressIndicatorModel> progressIndicators = totals.entries
@@ -93,7 +93,7 @@ class CardService {
         .toList();
 
     for (var card in filteredCards) {
-      totals[card.category] = (totals[card.category] ?? 0) + card.amount;
+      totals[card.category.id] = (totals[card.category.id] ?? 0) + card.amount;
     }
 
     final List<ProgressIndicatorModel> progressIndicators = totals.entries

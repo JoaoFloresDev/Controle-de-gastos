@@ -7,6 +7,8 @@ import 'package:meus_gastos/services/CardService.dart';
 import '../CampoComMascara.dart';
 import '../HorizontalCircleList.dart';
 import '../ValorTextField.dart';
+import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
 
 class EditionHeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;
@@ -30,9 +32,14 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   late FocusNode descricaoFocusNode;
 
   late DateTime lastDateSelected = widget.card.date;
+
+  List<CategoryModel> categorieList = [];
+
   @override
   void initState() {
     super.initState();
+
+    loadCategories();
 
     descricaoController = TextEditingController(text: widget.card.description);
     valorController = MoneyMaskedTextController(
@@ -56,6 +63,11 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     });
   }
 
+  Future<void> loadCategories() async {
+    categorieList = await CategoryService().getAllCategories();
+    setState(() {});
+  }
+
   @override
   void dispose() {
     descricaoController.dispose();
@@ -73,7 +85,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       amount: valorController.numberValue,
       description: descricaoController.text,
       date: lastDateSelected,
-      category: Category.values[lastIndexSelected].toString(),
+      category: categorieList[lastIndexSelected],
       id: CardService.generateUniqueId(),
     );
     CardService.updateCard(widget.card.id, newCard);

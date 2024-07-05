@@ -9,7 +9,7 @@ import 'package:meus_gastos/services/CardService.dart' as service;
 import 'package:meus_gastos/widgets/Transactions/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/widgets/Transactions/InsertTransactions.dart';
 import 'package:flutter/cupertino.dart';
-import 'CategoryCreater.dart';
+import 'package:meus_gastos/widgets/Transactions/CategoryCreater/CategoryCreater.dart';
 
 class InsertTransactions extends StatefulWidget {
   const InsertTransactions(

@@ -6,6 +6,8 @@ import 'HorizontalCircleList.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'ValorTextField.dart';
 import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
 
 class HeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked; // Delegate to notify the parent view
@@ -35,13 +37,25 @@ class _HeaderCardState extends State<HeaderCard> {
 
   DateTime lastDateSelected = DateTime.now();
   int lastIndexSelected = 0;
+  List<CategoryModel> categorieList = [];
 
-  void adicionar() {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // loadCategories();
+  // }
+
+  // Future<void> loadCategories() async {
+  //   categorieList = await CategoryService().getAllCategories();
+  // }
+
+  void adicionar() async {
+    categorieList = await CategoryService().getAllCategories();
     final newCard = CardModel(
         amount: valorController.numberValue,
         description: descricaoController.text,
         date: lastDateSelected,
-        category: Category.values[lastIndexSelected].toString(),
+        category: categorieList[lastIndexSelected],
         id: CardService.generateUniqueId());
     CardService.addCard(newCard);
     setState(() {
@@ -99,11 +113,7 @@ class _HeaderCardState extends State<HeaderCard> {
                 setState(() {
                   lastIndexSelected = index;
                 });
-                if (CategoryInfo.getByCategory(Category.values[index])
-                        .category ==
-                    Category.AddCategory) {
-                  // widget.onAddCategory;
-
+                if (categorieList[index].id == "AddCategory") {
                   widget.onAddCategory();
                   print("adicionar");
                 }

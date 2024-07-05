@@ -1,12 +1,11 @@
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
 
 class CardModel {
   final String id;
   final double amount;
   final String description;
   final DateTime date;
-  final String category;
+  final CategoryModel category;
 
   CardModel({
     required this.id,
@@ -22,7 +21,7 @@ class CardModel {
       'amount': amount,
       'description': description,
       'date': date.toIso8601String(),
-      'category': category,
+      'category': category.toJson(), // Convertendo a categoria para JSON
     };
   }
 
@@ -32,7 +31,8 @@ class CardModel {
       amount: map['amount'],
       description: map['description'],
       date: DateTime.parse(map['date']),
-      category: map['category'],
+      category: CategoryModel.fromJson(
+          map['category']), // Convertendo o JSON para a categoria
     );
   }
 }
