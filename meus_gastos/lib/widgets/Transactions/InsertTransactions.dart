@@ -59,7 +59,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
               child: HeaderCard(
                   adicionarButtonTitle: 'Adicionar',
                   onAddClicked: () {
-                    print("apresentar tela123!!");
                     widget.onAddClicked();
                     setState(() {
                       loadCards();

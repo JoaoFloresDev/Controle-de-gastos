@@ -224,7 +224,7 @@ class _AddCategoryHorizontalCircleListState
       height: 60, // Ajuste a altura para acomodar o círculo e o texto
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: Category.values.length,
+        itemCount: accountIcons.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {

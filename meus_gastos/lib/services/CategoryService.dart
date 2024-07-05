@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../models/CategoryModel.dart';
 
 class CategoryService {
@@ -31,7 +30,6 @@ class CategoryService {
     final prefs = await SharedPreferences.getInstance();
     bool isFirstAccess = prefs.getBool(_isFirstAccessKey) ?? true;
 
-    print("--getAllCategories");
     if (isFirstAccess) {
       await prefs.setBool(_isFirstAccessKey, false);
       List<CategoryModel> defaultCategories = [

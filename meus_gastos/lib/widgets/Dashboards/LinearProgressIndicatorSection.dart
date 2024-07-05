@@ -4,11 +4,13 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:meus_gastos/enums/Category.dart';
 import 'DashboardCard.dart';
+import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
 
 class ProgressIndicatorModel {
   String title;
   double progress;
-  Category category;
+  CategoryModel category;
   final Color color;
 
   ProgressIndicatorModel(

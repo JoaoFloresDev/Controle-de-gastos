@@ -1,9 +1,14 @@
+import 'package:meus_gastos/models/CategoryModel.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:uuid/uuid.dart';
 import 'package:meus_gastos/widgets/Dashboards/LinearProgressIndicatorSection.dart';
 import 'package:meus_gastos/enums/Category.dart';
+import 'package:meus_gastos/services/CategoryService.dart';
 
 class CardService {
   static const String _storageKey = 'cardModels';
@@ -66,15 +71,18 @@ class CardService {
       totals[card.category.id] = (totals[card.category.id] ?? 0) + card.amount;
     }
 
+    final List<CategoryModel> categories =
+        await CategoryService().getAllCategories();
+    final Map<String, CategoryModel> categoryMap = {
+      for (var category in categories) category.id: category
+    };
+
     final List<ProgressIndicatorModel> progressIndicators = totals.entries
         .map((entry) => ProgressIndicatorModel(
-            title: CategoryInfo.getByCategoryString(entry.key.toString()).name,
+            title: categoryMap[entry.key]?.name ?? 'Unknown',
             progress: entry.value,
-            category: Category.values.firstWhere(
-                (c) => c.toString().split('.').last == entry.key,
-                orElse: () => Category.Unknown),
-            color:
-                CategoryInfo.getByCategoryString(entry.key.toString()).color))
+            category: categoryMap[entry.key]!,
+            color: categoryMap[entry.key]?.color ?? Colors.grey))
         .toList();
 
     progressIndicators.sort((a, b) => b.progress.compareTo(a.progress));
@@ -96,15 +104,18 @@ class CardService {
       totals[card.category.id] = (totals[card.category.id] ?? 0) + card.amount;
     }
 
+    final List<CategoryModel> categories =
+        await CategoryService().getAllCategories();
+    final Map<String, CategoryModel> categoryMap = {
+      for (var category in categories) category.id: category
+    };
+
     final List<ProgressIndicatorModel> progressIndicators = totals.entries
         .map((entry) => ProgressIndicatorModel(
-            title: CategoryInfo.getByCategoryString(entry.key.toString()).name,
+            title: categoryMap[entry.key]?.name ?? 'Unknown',
             progress: entry.value,
-            category: Category.values.firstWhere(
-                (c) => c.toString().split('.').last == entry.key,
-                orElse: () => Category.Unknown),
-            color:
-                CategoryInfo.getByCategoryString(entry.key.toString()).color))
+            category: categoryMap[entry.key]!,
+            color: categoryMap[entry.key]?.color ?? Colors.grey))
         .toList();
 
     progressIndicators.sort((a, b) => b.progress.compareTo(a.progress));
