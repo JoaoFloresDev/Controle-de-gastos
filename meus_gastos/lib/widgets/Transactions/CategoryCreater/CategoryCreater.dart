@@ -1,7 +1,6 @@
+import 'package:uuid/uuid.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../HorizontalCircleList.dart';
-import 'package:meus_gastos/enums/Category.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 
@@ -48,13 +47,15 @@ class _CategorycreaterState extends State<Categorycreater> {
   void adicionar() async {
     print("${categoriaController.text}");
     CategoryModel category = CategoryModel(
-        id: "aaa", color: Colors.black, icon: Icons.abc_outlined, name: "bbbb");
+        id: Uuid().v4(),
+        color: Colors
+            .black, // aqui tem que ser uma cor aleatória ou adicionar um selecionador de cor na tela
+        icon: Icons
+            .abc_outlined, // aqui precisa ser o icone que o usuário selecionou
+        name: categoriaController.text);
     await CategoryService().addCategory(category);
-    await CategoryService().printAllCategories();
-    //CategoryInfo.addCategory("aaaa", Icons.monetization_on, Colors.grey[800]!);
   }
 
-  final List<String> items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
   int selectedIndex = 0;
   void initState() {
     super.initState();

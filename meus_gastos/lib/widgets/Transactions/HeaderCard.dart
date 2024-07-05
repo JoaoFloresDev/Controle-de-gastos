@@ -1,4 +1,3 @@
-import 'package:meus_gastos/enums/Category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'CampoComMascara.dart';
@@ -38,19 +37,29 @@ class _HeaderCardState extends State<HeaderCard> {
   DateTime lastDateSelected = DateTime.now();
   int lastIndexSelected = 0;
   List<CategoryModel> categorieList = [];
+  @override
+  void initState() {
+    super.initState();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // loadCategories();
-  // }
+    loadCategories();
+  }
 
-  // Future<void> loadCategories() async {
-  //   categorieList = await CategoryService().getAllCategories();
-  // }
+  Future<void> loadCategories() async {
+    await Future.delayed(Duration(seconds: 1));
+    categorieList = await CategoryService().getAllCategories();
+    print(CategoryService().printAllCategories());
+    setState(() {
+      categorieList = categorieList;
+    });
+  }
 
   void adicionar() async {
-    categorieList = await CategoryService().getAllCategories();
+    print(" ----- ");
+    print(lastIndexSelected);
+    print(categorieList[lastIndexSelected].name);
+    print(categorieList[lastIndexSelected].id);
+    print(" ----- ");
+
     final newCard = CardModel(
         amount: valorController.numberValue,
         description: descricaoController.text,
@@ -110,12 +119,14 @@ class _HeaderCardState extends State<HeaderCard> {
             margin: EdgeInsets.zero,
             child: HorizontalCircleList(
               onItemSelected: (index) {
-                setState(() {
-                  lastIndexSelected = index;
-                });
                 if (categorieList[index].id == "AddCategory") {
                   widget.onAddCategory();
                   print("adicionar");
+                } else {
+                  setState(() {
+                    print(index);
+                    lastIndexSelected = index;
+                  });
                 }
               },
             ),

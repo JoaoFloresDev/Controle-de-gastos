@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meus_gastos/enums/Category.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:intl/intl.dart';
 

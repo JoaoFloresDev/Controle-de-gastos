@@ -2,12 +2,9 @@ import 'package:meus_gastos/models/CategoryModel.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:uuid/uuid.dart';
 import 'package:meus_gastos/widgets/Dashboards/LinearProgressIndicatorSection.dart';
-import 'package:meus_gastos/enums/Category.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 
 class CardService {

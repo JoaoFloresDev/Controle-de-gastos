@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      debugShowCheckedModeBanner: false, // Define esta propriedade como false
+      debugShowCheckedModeBanner: false,
       theme: const CupertinoThemeData(
         brightness: Brightness.light,
       ),
@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
         tabBuilder: (context, index) {
           if (index == 1 && selectedTab == 1) {
             return DashboardScreen(
-              key: UniqueKey(), // Força a reconstrução do widget
+              key: UniqueKey(),
               isActive: true,
             );
           }
