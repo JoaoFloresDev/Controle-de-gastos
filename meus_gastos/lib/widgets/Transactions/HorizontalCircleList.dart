@@ -47,9 +47,13 @@ class _HorizontalCircleListState extends State<HorizontalCircleList> {
                   height: 50,
                   margin: const EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
-                    color: selectedIndex == index
-                        ? Colors.grey.withOpacity(0.3)
-                        : Colors.black.withOpacity(0.1),
+                    color: CategoryInfo.getByCategory(Category.values[index])
+                                .category ==
+                            Category.AddCategory
+                        ? Colors.blue.withOpacity(0.3)
+                        : (selectedIndex == index
+                            ? Colors.grey.withOpacity(0.3)
+                            : Colors.black.withOpacity(0.1)),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(

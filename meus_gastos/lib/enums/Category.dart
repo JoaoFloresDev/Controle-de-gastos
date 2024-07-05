@@ -10,7 +10,8 @@ enum Category {
   Hospital,
   Movie,
   VideoGame,
-  Drink
+  Drink,
+  AddCategory
 }
 
 class CategoryInfo {
@@ -41,6 +42,8 @@ class CategoryInfo {
         Icons.videogame_asset, Colors.indigo[900]!),
     Category.Drink: CategoryInfo(Category.Drink, 'Bebidas',
         Icons.local_drink_outlined, Colors.cyan[900]!),
+    Category.AddCategory: CategoryInfo(
+        Category.AddCategory, 'Add', Icons.local_hospital, Colors.cyan[300]!),
   };
 
   static CategoryInfo getByCategory(Category category) =>

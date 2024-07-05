@@ -9,6 +9,7 @@ import 'package:meus_gastos/services/CardService.dart' as service;
 import 'package:meus_gastos/widgets/Transactions/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/widgets/Transactions/InsertTransactions.dart';
 import 'package:flutter/cupertino.dart';
+import 'CategoryCreater.dart';
 
 class InsertTransactions extends StatefulWidget {
   const InsertTransactions(
@@ -56,14 +57,30 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             Padding(
               padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
               child: HeaderCard(
-                adicionarButtonTitle: 'Adicionar',
-                onAddClicked: () {
-                  widget.onAddClicked();
-                  setState(() {
-                    loadCards();
-                  });
-                },
-              ),
+                  adicionarButtonTitle: 'Adicionar',
+                  onAddClicked: () {
+                    print("apresentar tela123!!");
+                    widget.onAddClicked();
+                    setState(() {
+                      loadCards();
+                    });
+                  },
+                  onAddCategory: () {
+                    showCupertinoModalPopup(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                            height: MediaQuery.of(context).size.height / 1.1,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                            ),
+                            child: Categorycreater(),
+                          );
+                        });
+                  }),
             ),
           ],
           Row(

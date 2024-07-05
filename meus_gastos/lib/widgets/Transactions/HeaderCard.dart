@@ -9,9 +9,13 @@ import 'package:meus_gastos/services/CardService.dart';
 
 class HeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked; // Delegate to notify the parent view
+  final VoidCallback onAddCategory;
   final String adicionarButtonTitle; // Parameter to initialize the class
 
-  HeaderCard({required this.onAddClicked, required this.adicionarButtonTitle});
+  HeaderCard(
+      {required this.onAddClicked,
+      required this.adicionarButtonTitle,
+      required this.onAddCategory});
 
   @override
   _HeaderCardState createState() => _HeaderCardState();
@@ -95,6 +99,14 @@ class _HeaderCardState extends State<HeaderCard> {
                 setState(() {
                   lastIndexSelected = index;
                 });
+                if (CategoryInfo.getByCategory(Category.values[index])
+                        .category ==
+                    Category.AddCategory) {
+                  // widget.onAddCategory;
+
+                  widget.onAddCategory();
+                  print("adicionar");
+                }
               },
             ),
           ),
