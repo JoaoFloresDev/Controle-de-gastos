@@ -50,8 +50,8 @@ class _CategorycreaterState extends State<Categorycreater> {
         id: Uuid().v4(),
         color: Colors
             .black, // aqui tem que ser uma cor aleatória ou adicionar um selecionador de cor na tela
-        icon: Icons
-            .abc_outlined, // aqui precisa ser o icone que o usuário selecionou
+        icon: accountIcons[
+            selectedIndex], // aqui precisa ser o icone que o usuário selecionou
         name: categoriaController.text);
     await CategoryService().addCategory(category);
   }
@@ -79,16 +79,7 @@ class _CategorycreaterState extends State<Categorycreater> {
       child: Container(
           padding: const EdgeInsets.all(12.0),
           decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 5,
-                offset: const Offset(0, 3),
-              ),
-            ],
-            borderRadius: BorderRadius.circular(20),
+            color: Colors.grey[900],
           ),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
             SizedBox(
@@ -117,9 +108,9 @@ class _CategorycreaterState extends State<Categorycreater> {
                       child: Text(
                         'Criar categoria',
                         style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
                       ),
                     ),
                   ),
@@ -134,10 +125,15 @@ class _CategorycreaterState extends State<Categorycreater> {
                       child: Column(
                     children: [
                       AddCategoryHorizontalCircleList(
-                        onItemSelected: (index) {},
+                        onItemSelected: (index) {
+                          selectedIndex = index;
+                        },
                       ),
                       CupertinoTextField(
-                        decoration: BoxDecoration(
+                        style: const TextStyle(
+                          color: CupertinoColors.systemGrey5,
+                        ),
+                        decoration: const BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
                               color: CupertinoColors.systemGrey5,
@@ -147,7 +143,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                         placeholder: "Categoria",
                         controller: categoriaController,
                       ),
-                      SizedBox(height: 24),
+                      const SizedBox(height: 24),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: CupertinoButton(
@@ -155,6 +151,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                               .systemGreen.darkHighContrastElevatedColor,
                           onPressed: () {
                             adicionar();
+                            Navigator.pop(context);
                           },
                           child: const Text(
                             "Adicionar Categoria",
