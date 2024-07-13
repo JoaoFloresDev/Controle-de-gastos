@@ -1,8 +1,10 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class Categorycreater extends StatefulWidget {
   const Categorycreater({super.key});
@@ -13,6 +15,7 @@ class Categorycreater extends StatefulWidget {
 
 class _CategorycreaterState extends State<Categorycreater> {
   late TextEditingController categoriaController;
+  late Color _currentColor = Colors.black;
   final List<IconData> accountIcons = [
     Icons.account_balance, // Banco
     Icons.account_balance_wallet, // Carteira
@@ -48,8 +51,8 @@ class _CategorycreaterState extends State<Categorycreater> {
     print("${categoriaController.text}");
     CategoryModel category = CategoryModel(
         id: Uuid().v4(),
-        color: Colors
-            .black, // aqui tem que ser uma cor aleatória ou adicionar um selecionador de cor na tela
+        color:
+            _currentColor, // aqui tem que ser uma cor aleatória ou adicionar um selecionador de cor na tela
         icon: accountIcons[
             selectedIndex], // aqui precisa ser o icone que o usuário selecionou
         name: categoriaController.text);
@@ -69,6 +72,64 @@ class _CategorycreaterState extends State<Categorycreater> {
 
   void _hideKeyboard() {
     FocusScope.of(context).unfocus();
+  }
+
+  Widget buildColorPicker() {
+    return ColorPicker(
+      pickerColor: _currentColor,
+      onColorChanged: (Color color) {
+        setState(() {
+          _currentColor = color;
+        });
+      },
+      showLabel: false,
+      pickerAreaHeightPercent: 0.8,
+      displayThumbColor: false,
+      enableAlpha: false,
+      paletteType:
+          PaletteType.hsv, // You can change this to another type if needed
+    );
+  }
+
+  void _pickColor(BuildContext context) {
+    showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: Container(
+              color: Colors.black54,
+              child: GestureDetector(
+                onTap: () {},
+                child: CupertinoAlertDialog(
+                  title: Text(
+                    'Escolha a cor',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  content: Container(
+                    padding: EdgeInsets.all(8),
+                    child: Column(
+                      children: [
+                        buildColorPicker(),
+                        TextButton(
+                          child: Text(
+                            'Selecionar',
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 0, 93, 168),
+                                fontSize: 20),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
   }
 
   @override
@@ -144,6 +205,28 @@ class _CategorycreaterState extends State<Categorycreater> {
                         controller: categoriaController,
                       ),
                       const SizedBox(height: 24),
+                      Row(children: [
+                        Text(
+                          "Escolha a cor: ",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        const SizedBox(width: 15),
+                        GestureDetector(
+                          onTap: () => _pickColor(context),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: _currentColor,
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(40)),
+                            height: 40,
+                            width: 40,
+                          ),
+                        )
+                      ]),
+                      const SizedBox(height: 24),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: CupertinoButton(
@@ -161,7 +244,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                       ),
                     ],
                   )),
-                ))
+                )),
           ])),
     );
   }

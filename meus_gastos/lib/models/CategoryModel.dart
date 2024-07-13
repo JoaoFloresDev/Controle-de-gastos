@@ -12,7 +12,7 @@ class CategoryModel {
       {required this.id,
       required this.color,
       required this.icon,
-      required this.name});
+      required this.name,});
 
   Map<String, dynamic> toJson() {
     return {

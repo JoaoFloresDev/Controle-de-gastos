@@ -19,6 +19,7 @@ dependencies:
   uuid: ^3.0.5
   fl_chart: ^0.40.0
   percent_indicator: ^4.0.0
+  flutter_colorpicker: ^1.0.3
   
 dev_dependencies:
   flutter_launcher_icons: ^0.9.2
