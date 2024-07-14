@@ -7,12 +7,14 @@ class CategoryModel {
   final Color color;
   final IconData icon;
   final String name;
+  final int frequency;
 
-  CategoryModel(
-      {required this.id,
-      required this.color,
-      required this.icon,
-      required this.name,});
+  CategoryModel({
+    required this.id,
+    required this.color,
+    required this.icon,
+    required this.name,
+    required this.frequency});
 
   Map<String, dynamic> toJson() {
     return {
@@ -20,6 +22,7 @@ class CategoryModel {
       'color': color.value,
       'icon': icon.codePoint,
       'name': name,
+      'frequency': frequency
     };
   }
 
@@ -29,6 +32,7 @@ class CategoryModel {
       color: Color(json['color']),
       icon: IconData(json['icon'], fontFamily: 'MaterialIcons'),
       name: json['name'],
+      frequency: json['frequency']
     );
   }
 }

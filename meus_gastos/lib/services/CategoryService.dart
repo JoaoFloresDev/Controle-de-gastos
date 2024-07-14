@@ -37,57 +37,68 @@ class CategoryService {
             id: 'Unknown',
             color: Colors.grey[800]!,
             icon: Icons.question_mark_rounded,
-            name: 'Sem categoria'),
+            name: 'Sem categoria',
+            frequency: 0),
         CategoryModel(
             id: 'Shopping',
             color: Colors.green[900]!,
             icon: Icons.shopping_cart,
-            name: 'Mercado'),
+            name: 'Mercado',
+            frequency: 0),
         CategoryModel(
             id: 'Restaurant',
             color: Colors.red[900]!,
             icon: Icons.restaurant,
-            name: 'Alimentação'),
+            name: 'Alimentação',
+            frequency: 0),
         CategoryModel(
             id: 'GasStation',
             color: Colors.blue[900]!,
             icon: Icons.local_gas_station,
-            name: 'Transporte'),
+            name: 'Transporte',
+            frequency: 0),
         CategoryModel(
             id: 'Home',
             color: Colors.orange[900]!,
             icon: Icons.home,
-            name: 'Moradia'),
+            name: 'Moradia',
+            frequency: 0),
         CategoryModel(
             id: 'ShoppingBasket',
             color: Colors.purple[900]!,
             icon: Icons.shopping_basket,
-            name: 'Compras'),
+            name: 'Compras',
+            frequency: 0),
         CategoryModel(
             id: 'Hospital',
             color: Colors.teal[900]!,
             icon: Icons.local_hospital,
-            name: 'Saúde'),
+            name: 'Saúde',
+            frequency: 0),
         CategoryModel(
             id: 'Movie',
             color: Colors.deepPurple[900]!,
             icon: Icons.movie,
-            name: 'Streaming'),
+            name: 'Streaming',
+            frequency: 0),
         CategoryModel(
             id: 'VideoGame',
             color: Colors.indigo[900]!,
             icon: Icons.videogame_asset,
-            name: 'Games'),
+            name: 'Games',
+            frequency: 0),
         CategoryModel(
             id: 'Drink',
             color: Colors.cyan[900]!,
             icon: Icons.local_drink_outlined,
-            name: 'Bebidas'),
+            name: 'Bebidas',
+            frequency: 0),
         CategoryModel(
             id: 'AddCategory',
             color: Colors.cyan[300]!,
             icon: Icons.local_hospital,
-            name: 'Add'),
+            name: 'Add',
+            frequency: -1),
       ];
 
       for (var category in defaultCategories) {
@@ -96,10 +107,12 @@ class CategoryService {
     }
 
     List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
-    return categories.map((category) {
+    List<CategoryModel> aux = categories.map((category) {
       final Map<String, dynamic> categoryMap = jsonDecode(category);
       return CategoryModel.fromJson(categoryMap);
     }).toList();
+    aux.sort((a, b) => b.frequency.compareTo(a.frequency));
+    return aux;
   }
 
   Future<void> printAllCategories() async {

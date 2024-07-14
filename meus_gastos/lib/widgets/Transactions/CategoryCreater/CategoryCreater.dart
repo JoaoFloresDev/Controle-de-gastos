@@ -55,7 +55,9 @@ class _CategorycreaterState extends State<Categorycreater> {
             _currentColor, // aqui tem que ser uma cor aleatória ou adicionar um selecionador de cor na tela
         icon: accountIcons[
             selectedIndex], // aqui precisa ser o icone que o usuário selecionou
-        name: categoriaController.text);
+        name: categoriaController.text,
+        frequency: 0);
+
     await CategoryService().addCategory(category);
   }
 
@@ -233,7 +235,9 @@ class _CategorycreaterState extends State<Categorycreater> {
                           color: CupertinoColors
                               .systemGreen.darkHighContrastElevatedColor,
                           onPressed: () {
-                            adicionar();
+                            if (categoriaController.text.isNotEmpty) {
+                              adicionar();
+                            }
                             Navigator.pop(context);
                           },
                           child: const Text(

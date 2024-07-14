@@ -121,6 +121,7 @@ class _HeaderCardState extends State<HeaderCard> {
               onItemSelected: (index) {
                 if (categorieList[index].id == "AddCategory") {
                   widget.onAddCategory();
+                  
                   print("adicionar");
                 } else {
                   setState(() {
