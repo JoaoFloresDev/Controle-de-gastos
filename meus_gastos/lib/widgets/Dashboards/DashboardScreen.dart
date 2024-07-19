@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:meus_gastos/widgets/Dashboards/extractByCategory.dart';
 import 'MonthSelector.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'LinearProgressIndicatorSection.dart';
@@ -105,13 +106,26 @@ class _DashboardScreenState extends State<DashboardScreen>
                 Column(
                   children: [
                     for (var progressIndicator in progressIndicators)
-                      LinearProgressIndicatorSection(
-                          model: progressIndicator,
-                          totalAmount: progressIndicators.fold(
-                              0,
-                              (maxValue, item) => maxValue > item.progress
-                                  ? maxValue
-                                  : item.progress)),
+                      GestureDetector(
+                        onTap: () {
+                          showCupertinoDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                  child: Extractbycategory(
+                                      category:
+                                          progressIndicator.category.name),
+                                );
+                              });
+                        },
+                        child: LinearProgressIndicatorSection(
+                            model: progressIndicator,
+                            totalAmount: progressIndicators.fold(
+                                0,
+                                (maxValue, item) => maxValue > item.progress
+                                    ? maxValue
+                                    : item.progress)),
+                      )
                   ],
                 ),
             ],

@@ -7,7 +7,7 @@ import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class Categorycreater extends StatefulWidget {
-  const Categorycreater({super.key});
+  Categorycreater({super.key});
 
   @override
   State<Categorycreater> createState() => _CategorycreaterState();

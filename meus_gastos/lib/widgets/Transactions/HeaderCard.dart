@@ -46,10 +46,13 @@ class _HeaderCardState extends State<HeaderCard> {
 
   Future<void> loadCategories() async {
     await Future.delayed(Duration(seconds: 1));
-    categorieList = await CategoryService().getAllCategories();
+    List<CategoryModel> aux = await CategoryService().getAllCategories();
+    setState(() {
+      categorieList = [];
+    });
     print(CategoryService().printAllCategories());
     setState(() {
-      categorieList = categorieList;
+      categorieList = aux;
     });
   }
 
@@ -121,7 +124,9 @@ class _HeaderCardState extends State<HeaderCard> {
               onItemSelected: (index) {
                 if (categorieList[index].id == "AddCategory") {
                   widget.onAddCategory();
-                  
+                  setState(() {
+                    loadCategories();
+                  });
                   print("adicionar");
                 } else {
                   setState(() {
