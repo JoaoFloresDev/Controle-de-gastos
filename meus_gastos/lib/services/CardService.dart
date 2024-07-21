@@ -120,6 +120,23 @@ class CardService {
     return progressIndicators;
   }
 
+  // to bar grafic
+  static Future<List<double>> getTotalExpensesByMonth(DateTime year) async {
+  final List<CardModel> cards = await CardService.retrieveCards();
+  final List<double> monthlyTotals = List.generate(12, (index) => 0.0);
+
+  final List<CardModel> filteredCards =
+      cards.where((card) => card.date.year == year.year).toList();
+
+  for (var card in filteredCards) {
+    int monthIndex = card.date.month - 1;
+    monthlyTotals[monthIndex] += card.amount;
+  }
+
+  return monthlyTotals;
+}
+
+
   static String generateUniqueId() {
     var uuid = Uuid();
     return uuid.v4();

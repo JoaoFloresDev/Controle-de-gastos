@@ -1,11 +1,15 @@
+import 'dart:ffi';
+
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:meus_gastos/widgets/Dashboards/YearSelector.dart';
 import 'package:meus_gastos/widgets/Dashboards/extractByCategory.dart';
 import 'MonthSelector.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'LinearProgressIndicatorSection.dart';
 import 'DashboardCard.dart';
+import 'DashboardBarchart.dart';
 
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
@@ -20,9 +24,14 @@ class _DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
   List<ProgressIndicatorModel> progressIndicators = [];
   List<PieChartDataItem> pieChartDataItems = [];
+  List<double> totalOfMonths = [];
   bool isLoading = true;
   DateTime currentDate = DateTime.now();
   double totalGasto = 0.0;
+  bool graficCircle = true;
+
+  PageController _pageController = PageController();
+  int _currentIndex = 0;
 
   @override
   bool get wantKeepAlive => true;
@@ -38,6 +47,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     if (widget.isActive) {
       print("aaa22");
       _loadProgressIndicators(currentDate);
+      _loadProgressMonthsInYear(currentDate);
     }
   }
 
@@ -46,6 +56,28 @@ class _DashboardScreenState extends State<DashboardScreen>
       currentDate = DateTime(currentDate.year, currentDate.month + delta);
       _loadProgressIndicators(currentDate);
     });
+  }
+
+  void _changeYear(int increment) {
+    setState(() {
+      currentDate = DateTime(currentDate.year + increment);
+      _loadProgressMonthsInYear(currentDate);
+    });
+  }
+
+  void _onPageChanged(int index) {
+    setState(() {
+      _currentIndex = index;
+      graficCircle = true;
+      if (index == 1) {
+        graficCircle = false;
+      }
+      print(graficCircle);
+    });
+  }
+
+  Future<void> _loadProgressMonthsInYear(DateTime currentDate) async {
+    totalOfMonths = await CardService.getTotalExpensesByMonth(currentDate);
   }
 
   Future<void> _loadProgressIndicators(DateTime currentDate) async {
@@ -61,6 +93,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       pieChartDataItems.add(progressIndicator.toPieChartDataItem());
       totalGasto += progressIndicator.progress;
     }
+    totalOfMonths = await CardService.getTotalExpensesByMonth(currentDate);
     setState(() {
       isLoading = false;
     });
@@ -81,51 +114,73 @@ class _DashboardScreenState extends State<DashboardScreen>
           child: Column(
             children: [
               SizedBox(height: 15),
-              MonthSelector(
-                currentDate: currentDate,
-                onChangeMonth: _changeMonth,
-              ),
+              if (graficCircle)
+                MonthSelector(
+                  currentDate: currentDate,
+                  onChangeMonth: _changeMonth,
+                )
+              else
+                YearSelector(
+                  currentDate: currentDate,
+                  onChangeYear: _changeYear,
+                ),
               SizedBox(height: 18),
-              Text(
-                "Total gasto: ${NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$').format(totalGasto)}",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+              if (graficCircle)
+                Text(
+                  "Total gasto: ${NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$').format(totalGasto)}",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: DashboardCard(
-                  items: pieChartDataItems,
-                ),
+              Container(
+                height: 350,
+                child: PageView(
+                    controller: _pageController,
+                    onPageChanged: _onPageChanged,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: DashboardCard(
+                          items: pieChartDataItems,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Dashboardbarchart(
+                          monthlyExpenses: totalOfMonths,
+                        ),
+                      ),
+                    ]),
               ),
               if (isLoading)
                 CircularProgressIndicator(color: Colors.white)
               else
                 Column(
                   children: [
-                    for (var progressIndicator in progressIndicators)
-                      GestureDetector(
-                        onTap: () {
-                          showCupertinoDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Container(
-                                  child: Extractbycategory(
-                                      category:
-                                          progressIndicator.category.name),
-                                );
-                              });
-                        },
-                        child: LinearProgressIndicatorSection(
-                            model: progressIndicator,
-                            totalAmount: progressIndicators.fold(
-                                0,
-                                (maxValue, item) => maxValue > item.progress
-                                    ? maxValue
-                                    : item.progress)),
-                      )
+                    if (graficCircle)
+                      for (var progressIndicator in progressIndicators)
+                        GestureDetector(
+                          onTap: () {
+                            showCupertinoDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Container(
+                                    child: Extractbycategory(
+                                        category:
+                                            progressIndicator.category.name),
+                                  );
+                                });
+                          },
+                          child: LinearProgressIndicatorSection(
+                              model: progressIndicator,
+                              totalAmount: progressIndicators.fold(
+                                  0,
+                                  (maxValue, item) => maxValue > item.progress
+                                      ? maxValue
+                                      : item.progress)),
+                        )
                   ],
                 ),
             ],
