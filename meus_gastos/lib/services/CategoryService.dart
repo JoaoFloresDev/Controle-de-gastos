@@ -119,7 +119,7 @@ class CategoryService {
     final categories = await getAllCategories();
     categories.forEach((category) {
       print(
-          'ID: ${category.id}, Name: ${category.name}, Color: ${category.color}, Icon: ${category.icon}');
+          'ID: ${category.id}, Name: ${category.name}, Color: ${category.color}, Icon: ${category.icon}, Frequency: ${category.frequency}');
     });
   }
 }

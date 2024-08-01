@@ -29,6 +29,7 @@ class CardService {
     final String encodedData =
         json.encode(modifiedCards.map((card) => card.toJson()).toList());
     await prefs.setString(_storageKey, encodedData);
+    
   }
 
   static Future<void> addCard(CardModel cardModel) async {
@@ -55,11 +56,14 @@ class CardService {
     });
   }
 
+  // update frequency of category is select:
+  
+
   static Future<void> deleteAllCards() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(_storageKey);
   }
-
+  // circle grafic
   static Future<List<ProgressIndicatorModel>> getProgressIndicators() async {
     final List<CardModel> cards = await retrieveCards();
     final Map<String, double> totals = {};
@@ -88,13 +92,13 @@ class CardService {
   }
 
   static Future<List<ProgressIndicatorModel>> getProgressIndicatorsByMonth(
-      DateTime month) async {
+      DateTime month, bool all_or_only_this_month) async {
     final List<CardModel> cards = await retrieveCards();
     final Map<String, double> totals = {};
 
     final List<CardModel> filteredCards = cards
         .where((card) =>
-            card.date.year == month.year && card.date.month == month.month)
+            card.date.year == month.year && (card.date.month == month.month || all_or_only_this_month))
         .toList();
 
     for (var card in filteredCards) {
@@ -120,22 +124,61 @@ class CardService {
     return progressIndicators;
   }
 
-  // to bar grafic
-  static Future<List<double>> getTotalExpensesByMonth(DateTime year) async {
-  final List<CardModel> cards = await CardService.retrieveCards();
-  final List<double> monthlyTotals = List.generate(12, (index) => 0.0);
+// this section is for the grafic of year expens:  
+  // get values of cards of years
+  static Future<Map<int, Map<String, Map<String, dynamic>>>>
+      getMonthlyExpensesByCategoryForYear(int year) async {
+    final List<CardModel> cards = await retrieveCards();
+    final List<CategoryModel> categories = await CategoryService().getAllCategories();
 
-  final List<CardModel> filteredCards =
-      cards.where((card) => card.date.year == year.year).toList();
+    final Map<int, Map<String, Map<String, dynamic>>> monthlyExpenses = {
+      for (int month = 1; month <= 12; month++) month: {}
+    };
 
-  for (var card in filteredCards) {
-    int monthIndex = card.date.month - 1;
-    monthlyTotals[monthIndex] += card.amount;
+    final List<CardModel> filteredCards =
+        cards.where((card) => card.date.year == year).toList();
+
+    final Map<String, CategoryModel> categoryMap = {
+      for (var category in categories) category.id: category
+    };
+
+    for (var card in filteredCards) {
+      final int month = card.date.month;
+      final String categoryId = card.category.id;
+
+      if (!monthlyExpenses[month]!.containsKey(categoryId)) {
+        monthlyExpenses[month]![categoryId] = {
+          'amount': 0.0,
+          'color': categoryMap[categoryId]?.color ??
+              Colors.white, // Default to white if not found
+          'name': categoryMap[categoryId]?.name ?? "Unknow"
+        };
+      }
+
+      monthlyExpenses[month]![categoryId]!['amount'] =
+          (monthlyExpenses[month]![categoryId]!['amount'] as double) +
+              card.amount;
+    }
+
+    return monthlyExpenses;
   }
 
-  return monthlyTotals;
-}
 
+  // to bar grafic
+  static Future<List<double>> getTotalExpensesByMonth(DateTime year) async {
+    final List<CardModel> cards = await CardService.retrieveCards();
+    final List<double> monthlyTotals = List.generate(12, (index) => 0.0);
+
+    final List<CardModel> filteredCards =
+        cards.where((card) => card.date.year == year.year).toList();
+
+    for (var card in filteredCards) {
+      int monthIndex = card.date.month;
+      monthlyTotals[monthIndex] += card.amount;
+    }
+
+    return monthlyTotals;
+  }
 
   static String generateUniqueId() {
     var uuid = Uuid();

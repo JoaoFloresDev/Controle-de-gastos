@@ -7,14 +7,14 @@ class CategoryModel {
   final Color color;
   final IconData icon;
   final String name;
-  final int frequency;
+  int frequency;
 
   CategoryModel({
     required this.id,
     required this.color,
     required this.icon,
     required this.name,
-    required this.frequency});
+    this.frequency = 0});
 
   Map<String, dynamic> toJson() {
     return {

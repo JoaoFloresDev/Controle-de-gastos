@@ -70,7 +70,9 @@ class _HeaderCardState extends State<HeaderCard> {
         category: categorieList[lastIndexSelected],
         id: CardService.generateUniqueId());
     CardService.addCard(newCard);
+    // CategoryService().updateFrequencyCategory(categorieList[lastIndexSelected]);
     setState(() {
+      
       valorController.updateValue(0.0);
       descricaoController.clear();
     });

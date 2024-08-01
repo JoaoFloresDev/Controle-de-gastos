@@ -3,13 +3,13 @@ import 'dart:ffi';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:meus_gastos/widgets/Dashboards/BarChart.dart';
 import 'package:meus_gastos/widgets/Dashboards/YearSelector.dart';
 import 'package:meus_gastos/widgets/Dashboards/extractByCategory.dart';
 import 'MonthSelector.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'LinearProgressIndicatorSection.dart';
 import 'DashboardCard.dart';
-import 'DashboardBarchart.dart';
 
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
@@ -24,7 +24,11 @@ class _DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
   List<ProgressIndicatorModel> progressIndicators = [];
   List<PieChartDataItem> pieChartDataItems = [];
-  List<double> totalOfMonths = [];
+
+  List<double> totalOfMonths = []; // total expansives of Months in current Year
+  Map<int, Map<String, Map<String, dynamic>>> totalExpansivesMonths_category =
+      {}; // to sobreposition of expansives by category
+
   bool isLoading = true;
   DateTime currentDate = DateTime.now();
   double totalGasto = 0.0;
@@ -62,6 +66,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     setState(() {
       currentDate = DateTime(currentDate.year + increment);
       _loadProgressMonthsInYear(currentDate);
+      _loadProgressIndicators(currentDate);
     });
   }
 
@@ -72,12 +77,15 @@ class _DashboardScreenState extends State<DashboardScreen>
       if (index == 1) {
         graficCircle = false;
       }
-      print(graficCircle);
+      _loadProgressIndicators(currentDate);
     });
   }
 
   Future<void> _loadProgressMonthsInYear(DateTime currentDate) async {
     totalOfMonths = await CardService.getTotalExpensesByMonth(currentDate);
+    totalExpansivesMonths_category =
+        await CardService.getMonthlyExpensesByCategoryForYear(currentDate.year);
+    print("${totalExpansivesMonths_category.isEmpty}");
   }
 
   Future<void> _loadProgressIndicators(DateTime currentDate) async {
@@ -85,8 +93,9 @@ class _DashboardScreenState extends State<DashboardScreen>
     setState(() {
       isLoading = true;
     });
-    progressIndicators =
-        await CardService.getProgressIndicatorsByMonth(currentDate);
+    progressIndicators = await CardService.getProgressIndicatorsByMonth(
+        currentDate, !graficCircle);
+    print("${!graficCircle}");
     pieChartDataItems.clear();
     totalGasto = 0.0;
     for (var progressIndicator in progressIndicators) {
@@ -125,15 +134,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                   onChangeYear: _changeYear,
                 ),
               SizedBox(height: 18),
-              if (graficCircle)
-                Text(
-                  "Total gasto: ${NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$').format(totalGasto)}",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+              Text(
+                "Total gasto: ${NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$').format(totalGasto)}",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
+              ),
               Container(
                 height: 350,
                 child: PageView(
@@ -148,39 +156,64 @@ class _DashboardScreenState extends State<DashboardScreen>
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Dashboardbarchart(
-                          monthlyExpenses: totalOfMonths,
+                        child: Barchart(
+                          // monthlyExpenses: totalOfMonths,
+                          totalExpansivesMonthsCategory:
+                              totalExpansivesMonths_category,
                         ),
                       ),
                     ]),
               ),
+              SizedBox(height: 12), // Espaço entre o PageView e o indicador
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List<Widget>.generate(2, (index) {
+                  return Container(
+                    margin: EdgeInsets.symmetric(horizontal: 4.0),
+                    width: 12.0,
+                    height: 12.0,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _currentIndex == index ? Colors.blue : Colors.grey,
+                    ),
+                  );
+                }),
+              ),
+              SizedBox(height: 12),
               if (isLoading)
                 CircularProgressIndicator(color: Colors.white)
               else
                 Column(
                   children: [
-                    if (graficCircle)
-                      for (var progressIndicator in progressIndicators)
-                        GestureDetector(
-                          onTap: () {
-                            showCupertinoDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Container(
-                                    child: Extractbycategory(
-                                        category:
-                                            progressIndicator.category.name),
-                                  );
-                                });
-                          },
-                          child: LinearProgressIndicatorSection(
-                              model: progressIndicator,
-                              totalAmount: progressIndicators.fold(
-                                  0,
-                                  (maxValue, item) => maxValue > item.progress
-                                      ? maxValue
-                                      : item.progress)),
-                        )
+                    Text(
+                      "Maiores gastos do ${graficCircle ? "Mês" : "Ano"}",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    for (var progressIndicator in progressIndicators)
+                      GestureDetector(
+                        onTap: () {
+                          showCupertinoDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                  child: Extractbycategory(
+                                      category:
+                                          progressIndicator.category.name),
+                                );
+                              });
+                        },
+                        child: LinearProgressIndicatorSection(
+                            model: progressIndicator,
+                            totalAmount: progressIndicators.fold(
+                                0,
+                                (maxValue, item) => maxValue > item.progress
+                                    ? maxValue
+                                    : item.progress)),
+                      )
                   ],
                 ),
             ],
