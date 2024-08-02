@@ -1,9 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter/material.dart';
-import 'CampoComMascara.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 
@@ -16,10 +12,10 @@ class HorizontalCircleList extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _HorizontalCircleListState createState() => _HorizontalCircleListState();
+  HorizontalCircleListState createState() => HorizontalCircleListState();
 }
 
-class _HorizontalCircleListState extends State<HorizontalCircleList> {
+class HorizontalCircleListState extends State<HorizontalCircleList> {
   int selectedIndex = 0;
   int lastSelectedIndex = 0;
   List<CategoryModel> categorieList = [];

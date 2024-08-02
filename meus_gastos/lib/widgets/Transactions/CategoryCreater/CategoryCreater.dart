@@ -7,7 +7,9 @@ import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class Categorycreater extends StatefulWidget {
-  Categorycreater({super.key});
+  final VoidCallback onCategoryAdded;
+
+  Categorycreater({super.key, required this.onCategoryAdded});
 
   @override
   State<Categorycreater> createState() => _CategorycreaterState();
@@ -17,56 +19,58 @@ class _CategorycreaterState extends State<Categorycreater> {
   late TextEditingController categoriaController;
   late Color _currentColor = Colors.black;
   final List<IconData> accountIcons = [
-    Icons.account_balance, // Banco
-    Icons.account_balance_wallet, // Carteira
-    Icons.account_box, // Conta
-    Icons.account_circle, // Perfil
-    Icons.add_shopping_cart, // Adicionar compra
-    Icons.attach_money, // Anexar dinheiro
-    Icons.bar_chart, // Gráfico
-    Icons.calculate, // Calcular
-    Icons.calendar_today, // Calendário
-    Icons.card_giftcard, // Cartão de presente
-    Icons.card_membership, // Associação de cartão
-    Icons.card_travel, // Cartão de viagem
-    Icons.check, // Verificar
-    Icons.check_box, // Caixa de seleção
-    Icons.check_circle, // Círculo de verificação
-    Icons.credit_card, // Cartão de crédito
-    Icons.dashboard, // Painel de controle
-    Icons.date_range, // Intervalo de datas
-    Icons.description, // Descrição
-    Icons.euro_symbol, // Símbolo do euro
-    Icons.monetization_on, // Monetização
-    Icons.money, // Dinheiro
-    Icons.payment, // Pagamento
-    Icons.pie_chart, // Gráfico de pizza
-    Icons.receipt, // Recibo
-    Icons.savings, // Poupança
-    Icons.show_chart, // Mostrar gráfico
-    Icons.wallet, // Carteira
+    Icons.account_balance,
+    Icons.account_balance_wallet,
+    Icons.account_box,
+    Icons.account_circle,
+    Icons.add_shopping_cart,
+    Icons.attach_money,
+    Icons.bar_chart,
+    Icons.calculate,
+    Icons.calendar_today,
+    Icons.card_giftcard,
+    Icons.card_membership,
+    Icons.card_travel,
+    Icons.check,
+    Icons.check_box,
+    Icons.check_circle,
+    Icons.credit_card,
+    Icons.dashboard,
+    Icons.date_range,
+    Icons.description,
+    Icons.euro_symbol,
+    Icons.monetization_on,
+    Icons.money,
+    Icons.payment,
+    Icons.pie_chart,
+    Icons.receipt,
+    Icons.savings,
+    Icons.show_chart,
+    Icons.wallet,
   ];
 
   void adicionar() async {
     print("${categoriaController.text}");
     CategoryModel category = CategoryModel(
         id: Uuid().v4(),
-        color:
-            _currentColor, // aqui tem que ser uma cor aleatória ou adicionar um selecionador de cor na tela
-        icon: accountIcons[
-            selectedIndex], // aqui precisa ser o icone que o usuário selecionou
+        color: _currentColor,
+        icon: accountIcons[selectedIndex],
         name: categoriaController.text,
         frequency: 0);
 
     await CategoryService().addCategory(category);
+    widget.onCategoryAdded(); // Notifica a view mãe
   }
 
   int selectedIndex = 0;
+
+  @override
   void initState() {
     super.initState();
     categoriaController = TextEditingController();
   }
 
+  @override
   void dispose() {
     categoriaController.dispose();
     super.dispose();
@@ -88,8 +92,7 @@ class _CategorycreaterState extends State<Categorycreater> {
       pickerAreaHeightPercent: 0.8,
       displayThumbColor: false,
       enableAlpha: false,
-      paletteType:
-          PaletteType.hsv, // You can change this to another type if needed
+      paletteType: PaletteType.hsv,
     );
   }
 
@@ -146,7 +149,6 @@ class _CategorycreaterState extends State<Categorycreater> {
           ),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
             SizedBox(
-              // to the header of the widges
               width: double.maxFinite,
               child: Stack(
                 children: [
@@ -237,8 +239,8 @@ class _CategorycreaterState extends State<Categorycreater> {
                           onPressed: () {
                             if (categoriaController.text.isNotEmpty) {
                               adicionar();
+                              Navigator.pop(context);
                             }
-                            Navigator.pop(context);
                           },
                           child: const Text(
                             "Adicionar Categoria",
@@ -273,40 +275,40 @@ class _AddCategoryHorizontalCircleListState
   int lastSelectedIndex = 0;
 
   final List<IconData> accountIcons = [
-    Icons.account_balance, // Banco
-    Icons.account_balance_wallet, // Carteira
-    Icons.account_box, // Conta
-    Icons.account_circle, // Perfil
-    Icons.add_shopping_cart, // Adicionar compra
-    Icons.attach_money, // Anexar dinheiro
-    Icons.bar_chart, // Gráfico
-    Icons.calculate, // Calcular
-    Icons.calendar_today, // Calendário
-    Icons.card_giftcard, // Cartão de presente
-    Icons.card_membership, // Associação de cartão
-    Icons.card_travel, // Cartão de viagem
-    Icons.check, // Verificar
-    Icons.check_box, // Caixa de seleção
-    Icons.check_circle, // Círculo de verificação
-    Icons.credit_card, // Cartão de crédito
-    Icons.dashboard, // Painel de controle
-    Icons.date_range, // Intervalo de datas
-    Icons.description, // Descrição
-    Icons.euro_symbol, // Símbolo do euro
-    Icons.monetization_on, // Monetização
-    Icons.money, // Dinheiro
-    Icons.payment, // Pagamento
-    Icons.pie_chart, // Gráfico de pizza
-    Icons.receipt, // Recibo
-    Icons.savings, // Poupança
-    Icons.show_chart, // Mostrar gráfico
-    Icons.wallet, // Carteira
+    Icons.account_balance,
+    Icons.account_balance_wallet,
+    Icons.account_box,
+    Icons.account_circle,
+    Icons.add_shopping_cart,
+    Icons.attach_money,
+    Icons.bar_chart,
+    Icons.calculate,
+    Icons.calendar_today,
+    Icons.card_giftcard,
+    Icons.card_membership,
+    Icons.card_travel,
+    Icons.check,
+    Icons.check_box,
+    Icons.check_circle,
+    Icons.credit_card,
+    Icons.dashboard,
+    Icons.date_range,
+    Icons.description,
+    Icons.euro_symbol,
+    Icons.monetization_on,
+    Icons.money,
+    Icons.payment,
+    Icons.pie_chart,
+    Icons.receipt,
+    Icons.savings,
+    Icons.show_chart,
+    Icons.wallet,
   ];
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 60, // Ajuste a altura para acomodar o círculo e o texto
+      height: 60,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: accountIcons.length,
@@ -320,8 +322,7 @@ class _AddCategoryHorizontalCircleListState
               widget.onItemSelected(index);
             },
             child: Column(
-              mainAxisSize: MainAxisSize
-                  .min, // Para evitar preencher todo o espaço vertical
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   width: 50,

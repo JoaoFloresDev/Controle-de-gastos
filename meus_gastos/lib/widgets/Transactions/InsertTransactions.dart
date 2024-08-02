@@ -4,9 +4,6 @@ import 'ListCard.dart';
 import '../../models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart' as service;
 import 'package:meus_gastos/widgets/Transactions/CardDetails/DetailScreen.dart';
-import 'package:flutter/material.dart';
-import 'package:meus_gastos/services/CardService.dart' as service;
-import 'package:meus_gastos/widgets/Transactions/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/widgets/Transactions/InsertTransactions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/widgets/Transactions/CategoryCreater/CategoryCreater.dart';
@@ -41,6 +38,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
   bool _showHeaderCard = true;
 
+  final GlobalKey<HeaderCardState> _headerCardKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,29 +56,38 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             Padding(
               padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
               child: HeaderCard(
-                  adicionarButtonTitle: 'Adicionar',
-                  onAddClicked: () {
-                    widget.onAddClicked();
-                    setState(() {
-                      loadCards();
-                    });
-                  },
-                  onAddCategory: () {
-                    showCupertinoModalPopup(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Container(
-                            height: MediaQuery.of(context).size.height / 1.1,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20),
-                              ),
-                            ),
-                            child: Categorycreater(),
-                          );
-                        });
-                  }),
+                key: _headerCardKey,
+                adicionarButtonTitle: 'Adicionar',
+                onAddClicked: () {
+                  widget.onAddClicked();
+                  setState(() {
+                    loadCards();
+                  });
+                },
+                onAddCategory: () {
+                  showCupertinoModalPopup(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        height: MediaQuery.of(context).size.height / 1.1,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                        ),
+                        child: Categorycreater(
+                          onCategoryAdded: () {
+                            setState(() {
+                              _headerCardKey.currentState?.loadCategories();
+                            });
+                          },
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ],
           Row(

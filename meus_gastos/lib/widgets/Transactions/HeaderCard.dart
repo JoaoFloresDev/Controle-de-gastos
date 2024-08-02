@@ -1,78 +1,73 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'CampoComMascara.dart';
-import 'HorizontalCircleList.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'ValorTextField.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
-import 'package:meus_gastos/models/CategoryModel.dart';
+import 'CampoComMascara.dart';
+import 'HorizontalCircleList.dart';
+import 'ValorTextField.dart';
 
 class HeaderCard extends StatefulWidget {
-  final VoidCallback onAddClicked; // Delegate to notify the parent view
+  final VoidCallback onAddClicked;
   final VoidCallback onAddCategory;
-  final String adicionarButtonTitle; // Parameter to initialize the class
+  final String adicionarButtonTitle;
 
-  HeaderCard(
-      {required this.onAddClicked,
-      required this.adicionarButtonTitle,
-      required this.onAddCategory});
+  HeaderCard({
+    required this.onAddClicked,
+    required this.adicionarButtonTitle,
+    required this.onAddCategory,
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _HeaderCardState createState() => _HeaderCardState();
+  HeaderCardState createState() => HeaderCardState();
 }
 
-class _HeaderCardState extends State<HeaderCard> {
+class HeaderCardState extends State<HeaderCard> {
   final valorController = MoneyMaskedTextController(
     leftSymbol: 'R\$ ',
     decimalSeparator: ',',
   );
   final descricaoController = TextEditingController();
   late CampoComMascara dateController = CampoComMascara(
-      dateText: _getCurrentDate(),
-      onCompletion: (DateTime dateTime) {
-        lastDateSelected = dateTime;
-      });
+    dateText: _getCurrentDate(),
+    onCompletion: (DateTime dateTime) {
+      lastDateSelected = dateTime;
+    },
+  );
+
+  final GlobalKey<HorizontalCircleListState> _horizontalCircleListKey =
+      GlobalKey<HorizontalCircleListState>();
 
   DateTime lastDateSelected = DateTime.now();
   int lastIndexSelected = 0;
-  List<CategoryModel> categorieList = [];
+
   @override
   void initState() {
     super.initState();
-
-    loadCategories();
+    // Inicializa as categorias quando o widget é criado
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _horizontalCircleListKey.currentState?.loadCategories();
+    });
   }
 
   Future<void> loadCategories() async {
-    await Future.delayed(Duration(seconds: 1));
-    List<CategoryModel> aux = await CategoryService().getAllCategories();
-    setState(() {
-      categorieList = [];
-    });
-    print(CategoryService().printAllCategories());
-    setState(() {
-      categorieList = aux;
-    });
+    _horizontalCircleListKey.currentState?.loadCategories();
   }
 
   void adicionar() async {
-    print(" ----- ");
-    print(lastIndexSelected);
-    print(categorieList[lastIndexSelected].name);
-    print(categorieList[lastIndexSelected].id);
-    print(" ----- ");
-
     final newCard = CardModel(
-        amount: valorController.numberValue,
-        description: descricaoController.text,
-        date: lastDateSelected,
-        category: categorieList[lastIndexSelected],
-        id: CardService.generateUniqueId());
+      amount: valorController.numberValue,
+      description: descricaoController.text,
+      date: lastDateSelected,
+      category: (_horizontalCircleListKey.currentState?.categorieList ??
+          [])[lastIndexSelected],
+      id: CardService.generateUniqueId(),
+    );
     CardService.addCard(newCard);
-    // CategoryService().updateFrequencyCategory(categorieList[lastIndexSelected]);
+
     setState(() {
-      
       valorController.updateValue(0.0);
       descricaoController.clear();
     });
@@ -84,9 +79,7 @@ class _HeaderCardState extends State<HeaderCard> {
 
   String _getCurrentDate() {
     DateTime now = DateTime.now();
-    String formattedDate =
-        '${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString().substring(2)} ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
-    return formattedDate;
+    return '${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString().substring(2)} ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
   }
 
   @override
@@ -123,16 +116,15 @@ class _HeaderCardState extends State<HeaderCard> {
           Container(
             margin: EdgeInsets.zero,
             child: HorizontalCircleList(
+              key: _horizontalCircleListKey,
               onItemSelected: (index) {
-                if (categorieList[index].id == "AddCategory") {
+                final categorieList =
+                    _horizontalCircleListKey.currentState?.categorieList ?? [];
+                if (categorieList[index].id == 'AddCategory') {
                   widget.onAddCategory();
-                  setState(() {
-                    loadCategories();
-                  });
-                  print("adicionar");
+                  _horizontalCircleListKey.currentState?.loadCategories();
                 } else {
                   setState(() {
-                    print(index);
                     lastIndexSelected = index;
                   });
                 }
