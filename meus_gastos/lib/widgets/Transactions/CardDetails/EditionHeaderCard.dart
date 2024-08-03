@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
-import '../InsertTransactions/CampoComMascara.dart';
-import '../InsertTransactions/HorizontalCircleList.dart';
-import '../InsertTransactions/ValorTextField.dart';
+import '../InsertTransactions/ViewComponents/CampoComMascara.dart';
+import '../InsertTransactions/ViewComponents/HorizontalCircleList.dart';
+import '../InsertTransactions/ViewComponents/ValorTextField.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 

@@ -24,15 +24,10 @@ class DetailScreen extends StatelessWidget {
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           color: Colors.grey.shade900,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(0, 3),
-            ),
-          ],
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,

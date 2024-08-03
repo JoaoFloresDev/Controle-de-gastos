@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/widgets/Transactions/CardDetails/DetailScreen.dart';
-import 'package:meus_gastos/widgets/Transactions/InsertTransactions/ListCard.dart';
+import 'package:meus_gastos/widgets/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
 
 class Extractbycategory extends StatefulWidget {
   final String category;

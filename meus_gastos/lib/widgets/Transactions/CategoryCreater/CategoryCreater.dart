@@ -1,8 +1,8 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
@@ -49,21 +49,9 @@ class _CategorycreaterState extends State<Categorycreater> {
     Icons.wallet,
   ];
 
-  void adicionar() async {
-    print("${categoriaController.text}");
-    CategoryModel category = CategoryModel(
-        id: Uuid().v4(),
-        color: _currentColor,
-        icon: accountIcons[selectedIndex],
-        name: categoriaController.text,
-        frequency: 0);
-
-    await CategoryService().addCategory(category);
-    widget.onCategoryAdded(); // Notifica a view mãe
-  }
-
   int selectedIndex = 0;
 
+  // MARK: - Lifecycle Methods
   @override
   void initState() {
     super.initState();
@@ -76,24 +64,9 @@ class _CategorycreaterState extends State<Categorycreater> {
     super.dispose();
   }
 
+  // MARK: - Helper Methods
   void _hideKeyboard() {
     FocusScope.of(context).unfocus();
-  }
-
-  Widget buildColorPicker() {
-    return ColorPicker(
-      pickerColor: _currentColor,
-      onColorChanged: (Color color) {
-        setState(() {
-          _currentColor = color;
-        });
-      },
-      showLabel: false,
-      pickerAreaHeightPercent: 0.8,
-      displayThumbColor: false,
-      enableAlpha: false,
-      paletteType: PaletteType.hsv,
-    );
   }
 
   void _pickColor(BuildContext context) {
@@ -137,79 +110,120 @@ class _CategorycreaterState extends State<Categorycreater> {
         });
   }
 
+  Widget buildColorPicker() {
+    return ColorPicker(
+      pickerColor: _currentColor,
+      onColorChanged: (Color color) {
+        setState(() {
+          _currentColor = color;
+        });
+      },
+      showLabel: false,
+      pickerAreaHeightPercent: 0.8,
+      displayThumbColor: false,
+      enableAlpha: false,
+      paletteType: PaletteType.hsv,
+    );
+  }
+
+  // MARK: - Add Category
+  void adicionar() async {
+    int frequency = 1;
+    CategoryModel? categoryHighFrequency =
+        await CardService.getCategoryWithHighestFrequency();
+    if (categoryHighFrequency != null && categoryHighFrequency.id.isNotEmpty) {
+      frequency = categoryHighFrequency.frequency + 1;
+    }
+
+    CategoryModel category = CategoryModel(
+        id: Uuid().v4(),
+        color: _currentColor,
+        icon: accountIcons[selectedIndex],
+        name: categoriaController.text,
+        frequency: frequency);
+
+    await CategoryService().addCategory(category);
+    widget.onCategoryAdded(); // Notifica a view mãe
+  }
+
+  // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
-    IconData? selectedIcon;
-    final TextEditingController nameController = TextEditingController();
     return Material(
+      color: Colors.transparent, // Remove o fundo branco
       child: Container(
-          padding: const EdgeInsets.all(12.0),
-          decoration: BoxDecoration(
-            color: Colors.grey[900],
+        padding: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          color: Colors.grey[900],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            SizedBox(
-              width: double.maxFinite,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text(
-                        'Cancel',
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
+        ),
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          SizedBox(
+            width: double.maxFinite,
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      'Cancel',
+                      style: TextStyle(
+                        color: Colors.grey,
                       ),
                     ),
                   ),
-                  const Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'Criar categoria',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
-                      ),
+                ),
+                const Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Criar categoria',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            GestureDetector(
-                onTap: _hideKeyboard,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Form(
-                      child: Column(
-                    children: [
-                      AddCategoryHorizontalCircleList(
-                        onItemSelected: (index) {
-                          selectedIndex = index;
-                        },
+          ),
+          GestureDetector(
+            onTap: _hideKeyboard,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                child: Column(
+                  children: [
+                    AddCategoryHorizontalCircleList(
+                      onItemSelected: (index) {
+                        selectedIndex = index;
+                      },
+                    ),
+                    CupertinoTextField(
+                      style: const TextStyle(
+                        color: CupertinoColors.systemGrey5,
                       ),
-                      CupertinoTextField(
-                        style: const TextStyle(
-                          color: CupertinoColors.systemGrey5,
-                        ),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: CupertinoColors.systemGrey5,
-                            ),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: CupertinoColors.systemGrey5,
                           ),
                         ),
-                        placeholder: "Categoria",
-                        controller: categoriaController,
                       ),
-                      const SizedBox(height: 24),
-                      Row(children: [
+                      placeholder: "Categoria",
+                      controller: categoriaController,
+                    ),
+                    const SizedBox(height: 24),
+                    Row(
+                      children: [
                         Text(
                           "Escolha a cor: ",
                           style: TextStyle(color: Colors.white, fontSize: 20),
@@ -219,39 +233,44 @@ class _CategorycreaterState extends State<Categorycreater> {
                           onTap: () => _pickColor(context),
                           child: Container(
                             decoration: BoxDecoration(
-                                color: _currentColor,
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(40)),
-                            height: 40,
-                            width: 40,
-                          ),
-                        )
-                      ]),
-                      const SizedBox(height: 24),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: CupertinoButton(
-                          color: CupertinoColors
-                              .systemGreen.darkHighContrastElevatedColor,
-                          onPressed: () {
-                            if (categoriaController.text.isNotEmpty) {
-                              adicionar();
-                              Navigator.pop(context);
-                            }
-                          },
-                          child: const Text(
-                            "Adicionar Categoria",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                              color: _currentColor,
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            height: 30,
+                            width: 30,
                           ),
                         ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: CupertinoButton(
+                        color: CupertinoColors
+                            .systemGreen.darkHighContrastElevatedColor,
+                        onPressed: () {
+                          if (categoriaController.text.isNotEmpty) {
+                            adicionar();
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: const Text(
+                          "Adicionar Categoria",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ],
-                  )),
-                )),
-          ])),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ]),
+      ),
     );
   }
 }

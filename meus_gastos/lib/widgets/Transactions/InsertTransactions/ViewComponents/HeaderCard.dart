@@ -68,6 +68,11 @@ class HeaderCardState extends State<HeaderCard> {
     );
     CardService.addCard(newCard);
 
+    CategoryService.incrementCategoryFrequency(
+        (_horizontalCircleListKey.currentState?.categorieList ??
+                [])[lastIndexSelected]
+            .id);
+
     setState(() {
       valorController.updateValue(0.0);
       descricaoController.clear();

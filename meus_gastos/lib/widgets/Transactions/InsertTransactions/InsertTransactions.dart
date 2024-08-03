@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'HeaderCard.dart';
-import 'ListCard.dart';
+import 'ViewComponents/HeaderCard.dart';
+import 'ViewComponents/ListCard.dart';
 import '../../../models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart' as service;
 import 'package:meus_gastos/widgets/Transactions/CardDetails/DetailScreen.dart';
