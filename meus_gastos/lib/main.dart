@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/widgets/Transactions/InsertTransactions.dart';
+import 'package:meus_gastos/widgets/Transactions/InsertTransactions/InsertTransactions.dart';
 import 'package:meus_gastos/widgets/Dashboards/DashboardScreen.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
@@ -26,6 +27,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int selectedTab = 0;
 
+  // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

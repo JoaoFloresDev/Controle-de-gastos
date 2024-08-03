@@ -20,12 +20,14 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
   int lastSelectedIndex = 0;
   List<CategoryModel> categorieList = [];
 
+  // MARK: - InitState
   @override
   void initState() {
     super.initState();
     loadCategories();
   }
 
+  // MARK: - Load Categories
   Future<void> loadCategories() async {
     categorieList = await CategoryService().getAllCategories();
     print(CategoryService().printAllCategories());
@@ -34,6 +36,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
     });
   }
 
+  // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -62,10 +65,10 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                   margin: const EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
                     color: categorieList[index].id == 'AddCategory'
-                        ? (Colors.blue.withOpacity(0.3))
-                        : (selectedIndex == index
+                        ? Colors.blue.withOpacity(0.3)
+                        : selectedIndex == index
                             ? Colors.grey.withOpacity(0.3)
-                            : Colors.black.withOpacity(0.1)),
+                            : Colors.black.withOpacity(0.1),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(

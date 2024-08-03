@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
-import '../CampoComMascara.dart';
-import '../HorizontalCircleList.dart';
-import '../ValorTextField.dart';
+import '../InsertTransactions/CampoComMascara.dart';
+import '../InsertTransactions/HorizontalCircleList.dart';
+import '../InsertTransactions/ValorTextField.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 
@@ -31,13 +31,15 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   late FocusNode descricaoFocusNode;
 
   late DateTime lastDateSelected = widget.card.date;
-
   List<CategoryModel> categorieList = [];
+  int lastIndexSelected = 0;
+  final DateTime dataInicial = DateTime.now();
+  final double valorInicial = 0.0;
 
+  // MARK: - InitState
   @override
   void initState() {
     super.initState();
-
     loadCategories();
 
     descricaoController = TextEditingController(text: widget.card.description);
@@ -46,14 +48,17 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       decimalSeparator: ',',
       initialValue: widget.card.amount,
     );
+
     DateTime date = widget.card.date;
     String formattedDate =
         '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year.toString().substring(2)} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
+
     dateController = CampoComMascara(
-        dateText: formattedDate,
-        onCompletion: (DateTime dateTime) {
-          lastDateSelected = dateTime;
-        });
+      dateText: formattedDate,
+      onCompletion: (DateTime dateTime) {
+        lastDateSelected = dateTime;
+      },
+    );
 
     descricaoFocusNode = FocusNode();
 
@@ -62,11 +67,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     });
   }
 
-  Future<void> loadCategories() async {
-    categorieList = await CategoryService().getAllCategories();
-    setState(() {});
-  }
-
+  // MARK: - Dispose
   @override
   void dispose() {
     descricaoController.dispose();
@@ -75,10 +76,13 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     super.dispose();
   }
 
-  int lastIndexSelected = 0;
-  final DateTime dataInicial = DateTime.now();
-  final double valorInicial = 0.0;
+  // MARK: - Load Categories
+  Future<void> loadCategories() async {
+    categorieList = await CategoryService().getAllCategories();
+    setState(() {});
+  }
 
+  // MARK: - Adicionar
   void adicionar() {
     final newCard = CardModel(
       amount: valorController.numberValue,
@@ -94,6 +98,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     });
   }
 
+  // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
     return Padding(

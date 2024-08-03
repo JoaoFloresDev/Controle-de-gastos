@@ -39,23 +39,24 @@ class HeaderCardState extends State<HeaderCard> {
 
   final GlobalKey<HorizontalCircleListState> _horizontalCircleListKey =
       GlobalKey<HorizontalCircleListState>();
-
   DateTime lastDateSelected = DateTime.now();
   int lastIndexSelected = 0;
 
+  // MARK: - InitState
   @override
   void initState() {
     super.initState();
-    // Inicializa as categorias quando o widget é criado
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _horizontalCircleListKey.currentState?.loadCategories();
     });
   }
 
+  // MARK: - Load Categories
   Future<void> loadCategories() async {
     _horizontalCircleListKey.currentState?.loadCategories();
   }
 
+  // MARK: - Adicionar
   void adicionar() async {
     final newCard = CardModel(
       amount: valorController.numberValue,
@@ -77,11 +78,13 @@ class HeaderCardState extends State<HeaderCard> {
     });
   }
 
+  // MARK: - Get Current Date
   String _getCurrentDate() {
     DateTime now = DateTime.now();
     return '${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString().substring(2)} ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
   }
 
+  // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
     return Padding(
