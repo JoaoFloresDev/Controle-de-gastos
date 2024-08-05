@@ -12,7 +12,6 @@ class HeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked; // Delegate to notify the parent view
   final VoidCallback onAddCategory;
   final String adicionarButtonTitle; // Parameter to initialize the class
-
   HeaderCard(
       {required this.onAddClicked,
       required this.adicionarButtonTitle,
@@ -70,9 +69,9 @@ class _HeaderCardState extends State<HeaderCard> {
         category: categorieList[lastIndexSelected],
         id: CardService.generateUniqueId());
     CardService.addCard(newCard);
-    // CategoryService().updateFrequencyCategory(categorieList[lastIndexSelected]);
+    CategoryService().updateFrequencyCategory(categorieList[lastIndexSelected]);
     setState(() {
-      
+      loadCategories();
       valorController.updateValue(0.0);
       descricaoController.clear();
     });

@@ -6,10 +6,12 @@ import '../models/CategoryModel.dart';
 class CategoryService {
   static const String _categoriesKey = 'categories';
   static const String _isFirstAccessKey = 'isFirstAccess';
+  static int maior_valor_frequency = 0;
 
   Future<void> addCategory(CategoryModel category) async {
     print("add:");
     print(category.name);
+    category.frequency = maior_valor_frequency;
     final prefs = await SharedPreferences.getInstance();
     List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
     categories.add(jsonEncode(category.toJson()));
@@ -24,6 +26,31 @@ class CategoryService {
       return categoryMap['id'] == id;
     });
     await prefs.setStringList(_categoriesKey, categories);
+  }
+
+  Future<void> updateFrequencyCategory(CategoryModel category) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
+    List<CategoryModel> aux = categories.map((category) {
+      final Map<String, dynamic> categoryMap = jsonDecode(category);
+      return CategoryModel.fromJson(categoryMap);
+    }).toList();
+
+    // Atualiza a frequência da categoria com o ID fornecido
+    for (var cat in aux) {
+      if (cat.id == category.id) {
+        cat.frequency++;
+        if (cat.frequency > maior_valor_frequency) {
+          maior_valor_frequency = cat.frequency;
+        }
+        break;
+      }
+    }
+
+    // Serializa os dados atualizados e salva nas preferências compartilhadas
+    List<String> updatedCategories =
+        aux.map((category) => jsonEncode(category.toJson())).toList();
+    await prefs.setStringList(_categoriesKey, updatedCategories);
   }
 
   Future<List<CategoryModel>> getAllCategories() async {
