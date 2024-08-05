@@ -1,13 +1,15 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class Categorycreater extends StatefulWidget {
-  Categorycreater({super.key});
+  final VoidCallback onCategoryAdded;
+
+  Categorycreater({super.key, required this.onCategoryAdded});
 
   @override
   State<Categorycreater> createState() => _CategorycreaterState();
@@ -17,80 +19,54 @@ class _CategorycreaterState extends State<Categorycreater> {
   late TextEditingController categoriaController;
   late Color _currentColor = Colors.black;
   final List<IconData> accountIcons = [
-    Icons.account_balance, // Banco
-    Icons.account_balance_wallet, // Carteira
-    Icons.account_box, // Conta
-    Icons.account_circle, // Perfil
-    Icons.add_shopping_cart, // Adicionar compra
-    Icons.attach_money, // Anexar dinheiro
-    Icons.bar_chart, // Gráfico
-    Icons.calculate, // Calcular
-    Icons.calendar_today, // Calendário
-    Icons.card_giftcard, // Cartão de presente
-    Icons.card_membership, // Associação de cartão
-    Icons.card_travel, // Cartão de viagem
-    Icons.check, // Verificar
-    Icons.check_box, // Caixa de seleção
-    Icons.check_circle, // Círculo de verificação
-    Icons.credit_card, // Cartão de crédito
-    Icons.dashboard, // Painel de controle
-    Icons.date_range, // Intervalo de datas
-    Icons.description, // Descrição
-    Icons.euro_symbol, // Símbolo do euro
-    Icons.monetization_on, // Monetização
-    Icons.money, // Dinheiro
-    Icons.payment, // Pagamento
-    Icons.pie_chart, // Gráfico de pizza
-    Icons.receipt, // Recibo
-    Icons.savings, // Poupança
-    Icons.show_chart, // Mostrar gráfico
-    Icons.wallet, // Carteira
+    Icons.account_balance,
+    Icons.account_balance_wallet,
+    Icons.account_box,
+    Icons.account_circle,
+    Icons.add_shopping_cart,
+    Icons.attach_money,
+    Icons.bar_chart,
+    Icons.calculate,
+    Icons.calendar_today,
+    Icons.card_giftcard,
+    Icons.card_membership,
+    Icons.card_travel,
+    Icons.check,
+    Icons.check_box,
+    Icons.check_circle,
+    Icons.credit_card,
+    Icons.dashboard,
+    Icons.date_range,
+    Icons.description,
+    Icons.euro_symbol,
+    Icons.monetization_on,
+    Icons.money,
+    Icons.payment,
+    Icons.pie_chart,
+    Icons.receipt,
+    Icons.savings,
+    Icons.show_chart,
+    Icons.wallet,
   ];
 
-  void adicionar() async {
-    print("${categoriaController.text}");
-    CategoryModel category = CategoryModel(
-        id: Uuid().v4(),
-        color:
-            _currentColor, // aqui tem que ser uma cor aleatória ou adicionar um selecionador de cor na tela
-        icon: accountIcons[
-            selectedIndex], // aqui precisa ser o icone que o usuário selecionou
-        name: categoriaController.text,
-        frequency: 0);
-
-    await CategoryService().addCategory(category);
-  }
-
   int selectedIndex = 0;
+
+  // MARK: - Lifecycle Methods
+  @override
   void initState() {
     super.initState();
     categoriaController = TextEditingController();
   }
 
+  @override
   void dispose() {
     categoriaController.dispose();
     super.dispose();
   }
 
+  // MARK: - Helper Methods
   void _hideKeyboard() {
     FocusScope.of(context).unfocus();
-  }
-
-  Widget buildColorPicker() {
-    return ColorPicker(
-      pickerColor: _currentColor,
-      onColorChanged: (Color color) {
-        setState(() {
-          _currentColor = color;
-        });
-      },
-      showLabel: false,
-      pickerAreaHeightPercent: 0.8,
-      displayThumbColor: false,
-      enableAlpha: false,
-      paletteType:
-          PaletteType.hsv, // You can change this to another type if needed
-    );
   }
 
   void _pickColor(BuildContext context) {
@@ -134,80 +110,120 @@ class _CategorycreaterState extends State<Categorycreater> {
         });
   }
 
+  Widget buildColorPicker() {
+    return ColorPicker(
+      pickerColor: _currentColor,
+      onColorChanged: (Color color) {
+        setState(() {
+          _currentColor = color;
+        });
+      },
+      showLabel: false,
+      pickerAreaHeightPercent: 0.8,
+      displayThumbColor: false,
+      enableAlpha: false,
+      paletteType: PaletteType.hsv,
+    );
+  }
+
+  // MARK: - Add Category
+  void adicionar() async {
+    int frequency = 1;
+    CategoryModel? categoryHighFrequency =
+        await CardService.getCategoryWithHighestFrequency();
+    if (categoryHighFrequency != null && categoryHighFrequency.id.isNotEmpty) {
+      frequency = categoryHighFrequency.frequency + 1;
+    }
+
+    CategoryModel category = CategoryModel(
+        id: Uuid().v4(),
+        color: _currentColor,
+        icon: accountIcons[selectedIndex],
+        name: categoriaController.text,
+        frequency: frequency);
+
+    await CategoryService().addCategory(category);
+    widget.onCategoryAdded(); // Notifica a view mãe
+  }
+
+  // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
-    IconData? selectedIcon;
-    final TextEditingController nameController = TextEditingController();
     return Material(
+      color: Colors.transparent, // Remove o fundo branco
       child: Container(
-          padding: const EdgeInsets.all(12.0),
-          decoration: BoxDecoration(
-            color: Colors.grey[900],
+        padding: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          color: Colors.grey[900],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            SizedBox(
-              // to the header of the widges
-              width: double.maxFinite,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text(
-                        'Cancel',
-                        style: TextStyle(
-                          color: Colors.grey,
-                        ),
+        ),
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          SizedBox(
+            width: double.maxFinite,
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      'Cancel',
+                      style: TextStyle(
+                        color: Colors.grey,
                       ),
                     ),
                   ),
-                  const Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'Criar categoria',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
-                      ),
+                ),
+                const Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Criar categoria',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            GestureDetector(
-                onTap: _hideKeyboard,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Form(
-                      child: Column(
-                    children: [
-                      AddCategoryHorizontalCircleList(
-                        onItemSelected: (index) {
-                          selectedIndex = index;
-                        },
+          ),
+          GestureDetector(
+            onTap: _hideKeyboard,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                child: Column(
+                  children: [
+                    AddCategoryHorizontalCircleList(
+                      onItemSelected: (index) {
+                        selectedIndex = index;
+                      },
+                    ),
+                    CupertinoTextField(
+                      style: const TextStyle(
+                        color: CupertinoColors.systemGrey5,
                       ),
-                      CupertinoTextField(
-                        style: const TextStyle(
-                          color: CupertinoColors.systemGrey5,
-                        ),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: CupertinoColors.systemGrey5,
-                            ),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: CupertinoColors.systemGrey5,
                           ),
                         ),
-                        placeholder: "Categoria",
-                        controller: categoriaController,
                       ),
-                      const SizedBox(height: 24),
-                      Row(children: [
+                      placeholder: "Categoria",
+                      controller: categoriaController,
+                    ),
+                    const SizedBox(height: 24),
+                    Row(
+                      children: [
                         Text(
                           "Escolha a cor: ",
                           style: TextStyle(color: Colors.white, fontSize: 20),
@@ -217,39 +233,44 @@ class _CategorycreaterState extends State<Categorycreater> {
                           onTap: () => _pickColor(context),
                           child: Container(
                             decoration: BoxDecoration(
-                                color: _currentColor,
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(40)),
-                            height: 40,
-                            width: 40,
-                          ),
-                        )
-                      ]),
-                      const SizedBox(height: 24),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: CupertinoButton(
-                          color: CupertinoColors
-                              .systemGreen.darkHighContrastElevatedColor,
-                          onPressed: () {
-                            if (categoriaController.text.isNotEmpty) {
-                              adicionar();
-                            }
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            "Adicionar Categoria",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                              color: _currentColor,
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            height: 30,
+                            width: 30,
                           ),
                         ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: CupertinoButton(
+                        color: CupertinoColors
+                            .systemGreen.darkHighContrastElevatedColor,
+                        onPressed: () {
+                          if (categoriaController.text.isNotEmpty) {
+                            adicionar();
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: const Text(
+                          "Adicionar Categoria",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ],
-                  )),
-                )),
-          ])),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ]),
+      ),
     );
   }
 }
@@ -273,40 +294,40 @@ class _AddCategoryHorizontalCircleListState
   int lastSelectedIndex = 0;
 
   final List<IconData> accountIcons = [
-    Icons.account_balance, // Banco
-    Icons.account_balance_wallet, // Carteira
-    Icons.account_box, // Conta
-    Icons.account_circle, // Perfil
-    Icons.add_shopping_cart, // Adicionar compra
-    Icons.attach_money, // Anexar dinheiro
-    Icons.bar_chart, // Gráfico
-    Icons.calculate, // Calcular
-    Icons.calendar_today, // Calendário
-    Icons.card_giftcard, // Cartão de presente
-    Icons.card_membership, // Associação de cartão
-    Icons.card_travel, // Cartão de viagem
-    Icons.check, // Verificar
-    Icons.check_box, // Caixa de seleção
-    Icons.check_circle, // Círculo de verificação
-    Icons.credit_card, // Cartão de crédito
-    Icons.dashboard, // Painel de controle
-    Icons.date_range, // Intervalo de datas
-    Icons.description, // Descrição
-    Icons.euro_symbol, // Símbolo do euro
-    Icons.monetization_on, // Monetização
-    Icons.money, // Dinheiro
-    Icons.payment, // Pagamento
-    Icons.pie_chart, // Gráfico de pizza
-    Icons.receipt, // Recibo
-    Icons.savings, // Poupança
-    Icons.show_chart, // Mostrar gráfico
-    Icons.wallet, // Carteira
+    Icons.account_balance,
+    Icons.account_balance_wallet,
+    Icons.account_box,
+    Icons.account_circle,
+    Icons.add_shopping_cart,
+    Icons.attach_money,
+    Icons.bar_chart,
+    Icons.calculate,
+    Icons.calendar_today,
+    Icons.card_giftcard,
+    Icons.card_membership,
+    Icons.card_travel,
+    Icons.check,
+    Icons.check_box,
+    Icons.check_circle,
+    Icons.credit_card,
+    Icons.dashboard,
+    Icons.date_range,
+    Icons.description,
+    Icons.euro_symbol,
+    Icons.monetization_on,
+    Icons.money,
+    Icons.payment,
+    Icons.pie_chart,
+    Icons.receipt,
+    Icons.savings,
+    Icons.show_chart,
+    Icons.wallet,
   ];
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 60, // Ajuste a altura para acomodar o círculo e o texto
+      height: 60,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: accountIcons.length,
@@ -320,8 +341,7 @@ class _AddCategoryHorizontalCircleListState
               widget.onItemSelected(index);
             },
             child: Column(
-              mainAxisSize: MainAxisSize
-                  .min, // Para evitar preencher todo o espaço vertical
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   width: 50,

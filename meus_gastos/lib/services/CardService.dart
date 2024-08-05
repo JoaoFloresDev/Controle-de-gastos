@@ -10,6 +10,7 @@ import 'package:meus_gastos/services/CategoryService.dart';
 class CardService {
   static const String _storageKey = 'cardModels';
 
+  // MARK: - Retrieve Cards
   static Future<List<CardModel>> retrieveCards() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString(_storageKey);
@@ -21,6 +22,7 @@ class CardService {
     return [];
   }
 
+  // MARK: - Modify Cards
   static Future<void> modifyCards(
       List<CardModel> modification(List<CardModel> cards)) async {
     final List<CardModel> cards = await retrieveCards();
@@ -29,9 +31,9 @@ class CardService {
     final String encodedData =
         json.encode(modifiedCards.map((card) => card.toJson()).toList());
     await prefs.setString(_storageKey, encodedData);
-    
   }
 
+  // MARK: - Add, Delete, and Update Cards
   static Future<void> addCard(CardModel cardModel) async {
     await modifyCards((cards) {
       cards.add(cardModel);
@@ -56,14 +58,13 @@ class CardService {
     });
   }
 
-  // update frequency of category is select:
-  
-
+  // MARK: - Delete All Cards
   static Future<void> deleteAllCards() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(_storageKey);
   }
-  // circle grafic
+
+  // MARK: - Progress Indicators
   static Future<List<ProgressIndicatorModel>> getProgressIndicators() async {
     final List<CardModel> cards = await retrieveCards();
     final Map<String, double> totals = {};
@@ -98,7 +99,8 @@ class CardService {
 
     final List<CardModel> filteredCards = cards
         .where((card) =>
-            card.date.year == month.year && (card.date.month == month.month || all_or_only_this_month))
+            card.date.year == month.year &&
+            (card.date.month == month.month || all_or_only_this_month))
         .toList();
 
     for (var card in filteredCards) {
@@ -124,12 +126,12 @@ class CardService {
     return progressIndicators;
   }
 
-// this section is for the grafic of year expens:  
-  // get values of cards of years
+  // MARK: - Yearly Expenses
   static Future<Map<int, Map<String, Map<String, dynamic>>>>
       getMonthlyExpensesByCategoryForYear(int year) async {
     final List<CardModel> cards = await retrieveCards();
-    final List<CategoryModel> categories = await CategoryService().getAllCategories();
+    final List<CategoryModel> categories =
+        await CategoryService().getAllCategories();
 
     final Map<int, Map<String, Map<String, dynamic>>> monthlyExpenses = {
       for (int month = 1; month <= 12; month++) month: {}
@@ -151,7 +153,7 @@ class CardService {
           'amount': 0.0,
           'color': categoryMap[categoryId]?.color ??
               Colors.white, // Default to white if not found
-          'name': categoryMap[categoryId]?.name ?? "Unknow"
+          'name': categoryMap[categoryId]?.name ?? "Unknown"
         };
       }
 
@@ -163,8 +165,6 @@ class CardService {
     return monthlyExpenses;
   }
 
-
-  // to bar grafic
   static Future<List<double>> getTotalExpensesByMonth(DateTime year) async {
     final List<CardModel> cards = await CardService.retrieveCards();
     final List<double> monthlyTotals = List.generate(12, (index) => 0.0);
@@ -180,8 +180,41 @@ class CardService {
     return monthlyTotals;
   }
 
+  // MARK: - Utility
   static String generateUniqueId() {
     var uuid = Uuid();
     return uuid.v4();
+  }
+
+  // MARK: - Category with Highest Frequency
+  static Future<CategoryModel?> getCategoryWithHighestFrequency() async {
+    final List<CardModel> cards = await retrieveCards();
+    final Map<String, int> frequencyMap = {};
+
+    for (var card in cards) {
+      frequencyMap[card.category.id] =
+          (frequencyMap[card.category.id] ?? 0) + 1;
+    }
+
+    if (frequencyMap.isEmpty) {
+      return null;
+    }
+
+    final String highestFrequencyCategoryId =
+        frequencyMap.entries.reduce((a, b) => a.value > b.value ? a : b).key;
+
+    final List<CategoryModel> categories =
+        await CategoryService().getAllCategories();
+
+    return categories.firstWhere(
+      (category) => category.id == highestFrequencyCategoryId,
+      orElse: () => CategoryModel(
+        id: '',
+        name: 'Unknown',
+        icon: Icons.help,
+        color: Colors.grey,
+        frequency: 0,
+      ),
+    );
   }
 }

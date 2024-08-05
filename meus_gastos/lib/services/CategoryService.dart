@@ -149,4 +149,25 @@ class CategoryService {
           'ID: ${category.id}, Name: ${category.name}, Color: ${category.color}, Icon: ${category.icon}, Frequency: ${category.frequency}');
     });
   }
+
+  static Future<void> incrementCategoryFrequency(String categoryId) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
+    List<Map<String, dynamic>> categoryMaps = categories.map((category) {
+      return jsonDecode(category) as Map<String, dynamic>;
+    }).toList();
+
+    final int index =
+        categoryMaps.indexWhere((category) => category['id'] == categoryId);
+    if (index != -1) {
+      categoryMaps[index]['frequency'] =
+          (categoryMaps[index]['frequency'] ?? 0) + 1;
+
+      List<String> updatedCategories = categoryMaps.map((categoryMap) {
+        return jsonEncode(categoryMap);
+      }).toList();
+
+      await prefs.setStringList(_categoriesKey, updatedCategories);
+    }
+  }
 }

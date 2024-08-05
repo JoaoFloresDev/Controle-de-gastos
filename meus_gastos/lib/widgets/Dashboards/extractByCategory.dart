@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/widgets/Transactions/CardDetails/DetailScreen.dart';
-import 'package:meus_gastos/widgets/Transactions/ListCard.dart';
+import 'package:meus_gastos/widgets/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
 
 class Extractbycategory extends StatefulWidget {
   final String category;
@@ -59,17 +59,16 @@ class _Extractbycategory extends State<Extractbycategory> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text(
-                                'Cancel',
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              'Cancel',
+                              style: TextStyle(
+                                color: Colors.grey,
                               ),
                             ),
-                          
+                          ),
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
