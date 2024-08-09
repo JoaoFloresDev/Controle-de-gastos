@@ -4,12 +4,14 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/widgets/Dashboards/BarChart.dart';
-import 'package:meus_gastos/widgets/Dashboards/YearSelector.dart';
 import 'package:meus_gastos/widgets/Dashboards/extractByCategory.dart';
 import 'MonthSelector.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'LinearProgressIndicatorSection.dart';
+import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'DashboardCard.dart';
+import 'package:meus_gastos/widgets/Dashboards/bar_chartWeek/BarChartWeek.dart';
+import 'package:meus_gastos/services/DashbordService.dart';
 
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
@@ -28,6 +30,11 @@ class _DashboardScreenState extends State<DashboardScreen>
   List<double> totalOfMonths = []; // total expansives of Months in current Year
   Map<int, Map<String, Map<String, dynamic>>> totalExpansivesMonths_category =
       {}; // to sobreposition of expansives by category
+
+  List<WeekInterval> Last5WeeksIntervals =
+      []; // list intervals of last 5 weeks (to the week chart)
+  List<List<ProgressIndicatorModel>> Last5WeeksProgressIndicators =
+      []; // list expens of last 5 weeks (to the week chart)
 
   bool isLoading = true;
   DateTime currentDate = DateTime.now();
@@ -93,9 +100,8 @@ class _DashboardScreenState extends State<DashboardScreen>
     setState(() {
       isLoading = true;
     });
-    progressIndicators = await CardService.getProgressIndicatorsByMonth(
-        currentDate, !graficCircle);
-    print("${!graficCircle}");
+    progressIndicators =
+        await CardService.getProgressIndicatorsByMonth(currentDate);
     pieChartDataItems.clear();
     totalGasto = 0.0;
     for (var progressIndicator in progressIndicators) {
@@ -103,6 +109,11 @@ class _DashboardScreenState extends State<DashboardScreen>
       totalGasto += progressIndicator.progress;
     }
     totalOfMonths = await CardService.getTotalExpensesByMonth(currentDate);
+
+    // to the barchart of week
+    Last5WeeksIntervals = Dashbordservice.getLast5WeeksIntervals(currentDate);
+    Last5WeeksProgressIndicators =
+        await Dashbordservice.getLast5WeeksProgressIndicators(currentDate);
     setState(() {
       isLoading = false;
     });
@@ -123,16 +134,10 @@ class _DashboardScreenState extends State<DashboardScreen>
           child: Column(
             children: [
               SizedBox(height: 15),
-              if (graficCircle)
-                MonthSelector(
-                  currentDate: currentDate,
-                  onChangeMonth: _changeMonth,
-                )
-              else
-                YearSelector(
-                  currentDate: currentDate,
-                  onChangeYear: _changeYear,
-                ),
+              MonthSelector(
+                currentDate: currentDate,
+                onChangeMonth: _changeMonth,
+              ),
               SizedBox(height: 18),
               Text(
                 "Total gasto: ${NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$').format(totalGasto)}",
@@ -143,7 +148,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                 ),
               ),
               Container(
-                height: 350,
+                height: 350 + pieChartDataItems.length.toDouble() / 2 * 30 > 450
+                    ? 350 + pieChartDataItems.length.toDouble() / 2 * 30
+                    : 450,
                 child: PageView(
                     controller: _pageController,
                     onPageChanged: _onPageChanged,
@@ -162,12 +169,19 @@ class _DashboardScreenState extends State<DashboardScreen>
                               totalExpansivesMonths_category,
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: WeeklyStackedBarChart(
+                          weekIntervals: Last5WeeksIntervals,
+                          weeklyData: Last5WeeksProgressIndicators,
+                        ),
+                      )
                     ]),
               ),
               SizedBox(height: 12), // Espaço entre o PageView e o indicador
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: List<Widget>.generate(2, (index) {
+                children: List<Widget>.generate(3, (index) {
                   return Container(
                     margin: EdgeInsets.symmetric(horizontal: 4.0),
                     width: 12.0,
@@ -186,7 +200,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                 Column(
                   children: [
                     Text(
-                      "Maiores gastos do ${graficCircle ? "Mês" : "Ano"}",
+                      "Maiores gastos do Mês",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,

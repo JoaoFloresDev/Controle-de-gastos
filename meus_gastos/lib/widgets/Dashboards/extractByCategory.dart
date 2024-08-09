@@ -75,7 +75,7 @@ class _Extractbycategory extends State<Extractbycategory> {
                           child: Padding(
                             padding: EdgeInsets.all(12),
                             child: Text(
-                              "Extrato: ${widget.category}",
+                              "${widget.category}",
                               style: TextStyle(
                                   fontSize: 20,
                                   color: Colors.white,
@@ -95,39 +95,42 @@ class _Extractbycategory extends State<Extractbycategory> {
               //   ),
               // ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: filtered.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      child: ListCard(
-                        onTap: (card) {
-                          FocusScope.of(context).unfocus();
-                          showCupertinoModalPopup(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Container(
-                                    height: MediaQuery.of(context).size.height /
-                                        1.05,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        topRight: Radius.circular(20),
+                child: Container(
+                  color: Colors.black38,
+                  child: ListView.builder(
+                    itemCount: filtered.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        child: ListCard(
+                          onTap: (card) {
+                            FocusScope.of(context).unfocus();
+                            showCupertinoModalPopup(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Container(
+                                      height: MediaQuery.of(context).size.height /
+                                          1.05,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20),
+                                        ),
                                       ),
-                                    ),
-                                    child: DetailScreen(
-                                      card: card,
-                                      onAddClicked: () {
-                                        loadCards();
-                                      },
-                                    ));
-                              });
-                        },
-                        card: filtered[filtered.length - index - 1],
-                      ),
-                    );
-                  },
+                                      child: DetailScreen(
+                                        card: card,
+                                        onAddClicked: () {
+                                          loadCards();
+                                        },
+                                      ));
+                                });
+                          },
+                          card: filtered[filtered.length - index - 1],
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ],

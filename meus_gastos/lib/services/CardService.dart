@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:uuid/uuid.dart';
-import 'package:meus_gastos/widgets/Dashboards/LinearProgressIndicatorSection.dart';
+import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 
 class CardService {
@@ -93,14 +93,14 @@ class CardService {
   }
 
   static Future<List<ProgressIndicatorModel>> getProgressIndicatorsByMonth(
-      DateTime month, bool all_or_only_this_month) async {
+      DateTime month) async {
     final List<CardModel> cards = await retrieveCards();
     final Map<String, double> totals = {};
 
     final List<CardModel> filteredCards = cards
         .where((card) =>
             card.date.year == month.year &&
-            (card.date.month == month.month || all_or_only_this_month))
+            (card.date.month == month.month))
         .toList();
 
     for (var card in filteredCards) {

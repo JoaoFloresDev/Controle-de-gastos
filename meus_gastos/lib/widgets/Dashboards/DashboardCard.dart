@@ -19,12 +19,12 @@ class DashboardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      
       color: Colors.grey[900],
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-      child: Padding(
+      child: ListView(
         padding: const EdgeInsets.all(24.0),
-        child: Column(
           children: [
             if (items.isEmpty)
               const SizedBox(
@@ -84,7 +84,7 @@ class DashboardCard extends StatelessWidget {
               child: Wrap(
                 spacing: 8,
                 runSpacing: 4,
-                alignment: WrapAlignment.start,
+                alignment: WrapAlignment.center,
                 children: items
                     .map((item) => _buildLegendItem(
                         item.color,
@@ -94,7 +94,6 @@ class DashboardCard extends StatelessWidget {
               ),
             ),
           ],
-        ),
       ),
     );
   }

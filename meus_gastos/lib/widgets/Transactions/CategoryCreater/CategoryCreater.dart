@@ -219,6 +219,9 @@ class _CategorycreaterState extends State<Categorycreater> {
                         ),
                       ),
                       placeholder: "Categoria",
+                      placeholderStyle: TextStyle(
+                        color: const Color.fromARGB(144, 255, 255, 255)
+                      ),
                       controller: categoriaController,
                     ),
                     const SizedBox(height: 24),
@@ -235,7 +238,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                             decoration: BoxDecoration(
                               color: _currentColor,
                               border: Border.all(
-                                color: Colors.white,
+                                color: CupertinoColors.systemBlue,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(20),
@@ -250,8 +253,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: CupertinoButton(
-                        color: CupertinoColors
-                            .systemGreen.darkHighContrastElevatedColor,
+                        color: CupertinoColors.systemBlue,
                         onPressed: () {
                           if (categoriaController.text.isNotEmpty) {
                             adicionar();
