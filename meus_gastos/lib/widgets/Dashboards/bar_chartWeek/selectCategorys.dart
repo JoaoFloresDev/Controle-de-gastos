@@ -6,7 +6,6 @@ import 'package:meus_gastos/models/CategoryModel.dart';
 class Selectcategorys extends StatefulWidget {
   final List<CategoryModel> categorieList;
   final Function(List<int>) onSelectionChanged;
-
   const Selectcategorys({
     required this.categorieList,
     required this.onSelectionChanged,
@@ -26,6 +25,7 @@ class SelectcategoryState extends State<Selectcategorys> {
     selectedIndices =
         Set<int>.from(Iterable<int>.generate(widget.categorieList.length));
   }
+
 
   @override
   Widget build(BuildContext context) {

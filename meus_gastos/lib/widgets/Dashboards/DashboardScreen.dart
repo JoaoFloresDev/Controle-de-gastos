@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/widgets/Dashboards/BarChart.dart';
+import 'package:meus_gastos/widgets/Dashboards/bar_chartWeek/BarChartDaysofWeek.dart';
 import 'package:meus_gastos/widgets/Dashboards/extractByCategory.dart';
 import 'MonthSelector.dart';
 import 'package:meus_gastos/services/CardService.dart';
@@ -35,6 +36,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       []; // list intervals of last 5 weeks (to the week chart)
   List<List<ProgressIndicatorModel>> Last5WeeksProgressIndicators =
       []; // list expens of last 5 weeks (to the week chart)
+  List<List<List<ProgressIndicatorModel>>> weeklyData = [];
 
   bool isLoading = true;
   DateTime currentDate = DateTime.now();
@@ -114,6 +116,8 @@ class _DashboardScreenState extends State<DashboardScreen>
     Last5WeeksIntervals = Dashbordservice.getLast5WeeksIntervals(currentDate);
     Last5WeeksProgressIndicators =
         await Dashbordservice.getLast5WeeksProgressIndicators(currentDate);
+    weeklyData = await Dashbordservice.getProgressIndicatorsOfDaysForLast5Weeks(
+        currentDate);
     setState(() {
       isLoading = false;
     });
@@ -148,9 +152,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                 ),
               ),
               Container(
-                height: 350 + pieChartDataItems.length.toDouble() / 2 * 30 > 450
+                height: 350 + pieChartDataItems.length.toDouble() / 2 * 30 > 500
                     ? 350 + pieChartDataItems.length.toDouble() / 2 * 30
-                    : 450,
+                    : 500,
                 child: PageView(
                     controller: _pageController,
                     onPageChanged: _onPageChanged,
@@ -163,19 +167,16 @@ class _DashboardScreenState extends State<DashboardScreen>
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Barchart(
-                          // monthlyExpenses: totalOfMonths,
-                          totalExpansivesMonthsCategory:
-                              totalExpansivesMonths_category,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
                         child: WeeklyStackedBarChart(
                           weekIntervals: Last5WeeksIntervals,
                           weeklyData: Last5WeeksProgressIndicators,
                         ),
-                      )
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: DailyStackedBarChart(
+                              last5weewdailyData: weeklyData,
+                              last5WeeksIntervals: Last5WeeksIntervals)),
                     ]),
               ),
               SizedBox(height: 12), // Espaço entre o PageView e o indicador
