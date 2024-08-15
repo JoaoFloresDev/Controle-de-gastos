@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MonthSelector extends StatelessWidget {
   final DateTime currentDate;
@@ -12,8 +13,8 @@ class MonthSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    initializeDateFormatting('pt_BR', null);
-    final format = DateFormat('MMMM yyyy', 'pt_BR');
+    final DateFormat format = DateFormat(
+        'MMMM yyyy', Localizations.localeOf(context).toString());
 
     String formattedDate = format.format(currentDate);
     formattedDate = formattedDate[0].toUpperCase() + formattedDate.substring(1);

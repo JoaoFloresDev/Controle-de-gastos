@@ -13,7 +13,8 @@ import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'DashboardCard.dart';
 import 'package:meus_gastos/widgets/Dashboards/bar_chartWeek/BarChartWeek.dart';
 import 'package:meus_gastos/services/DashbordService.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
 
@@ -129,7 +130,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     return CupertinoPageScaffold(
       backgroundColor: Colors.black.withOpacity(0.9),
       navigationBar: CupertinoNavigationBar(
-        middle: Text("Meu Controle",
+        middle: Text(AppLocalizations.of(context)!.myControl,
             style: TextStyle(color: Colors.white, fontSize: 20)),
         backgroundColor: Colors.black.withOpacity(0.8),
       ),
@@ -144,7 +145,7 @@ class _DashboardScreenState extends State<DashboardScreen>
               ),
               SizedBox(height: 18),
               Text(
-                "Total gasto: ${NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$').format(totalGasto)}",
+                "${AppLocalizations.of(context)!.totalSpent}: ${Translateservice.formatCurrency(totalGasto, context)}",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,
@@ -201,7 +202,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                 Column(
                   children: [
                     Text(
-                      "Maiores gastos do Mês",
+                      AppLocalizations.of(context)!.topExpensesOfTheMonth,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,

@@ -7,16 +7,19 @@ import 'package:meus_gastos/services/CategoryService.dart';
 import 'CampoComMascara.dart';
 import 'HorizontalCircleList.dart';
 import 'ValorTextField.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
 
 class HeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;
   final VoidCallback onAddCategory;
 
-  final String adicionarButtonTitle;
+  // final String adicionarButtonTitle;
 
   HeaderCard({
+    // required this.adicionarButtonTitle,
     required this.onAddClicked,
-    required this.adicionarButtonTitle,
     required this.onAddCategory,
     Key? key,
   }) : super(key: key);
@@ -26,22 +29,42 @@ class HeaderCard extends StatefulWidget {
 }
 
 class HeaderCardState extends State<HeaderCard> {
-  final valorController = MoneyMaskedTextController(
-    leftSymbol: 'R\$ ',
-    decimalSeparator: ',',
-  );
+  late MoneyMaskedTextController valorController;
+  late CampoComMascara dateController;
   final descricaoController = TextEditingController();
-  late CampoComMascara dateController = CampoComMascara(
-    dateText: _getCurrentDate(),
-    onCompletion: (DateTime dateTime) {
-      lastDateSelected = dateTime;
-    },
-  );
+  DateTime lastDateSelected = DateTime.now();
+  int lastIndexSelected = 0;
 
   final GlobalKey<HorizontalCircleListState> _horizontalCircleListKey =
       GlobalKey<HorizontalCircleListState>();
-  DateTime lastDateSelected = DateTime.now();
-  int lastIndexSelected = 0;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // Atualiza o formato do valor e da data com base nas configurações atuais
+    final locale = Localizations.localeOf(context);
+    final currencySymbol = Translateservice.getCurrencySymbol(context);
+    // final dateFormat = AppLocalizations.of(context)!.dateFormat;
+
+    valorController = MoneyMaskedTextController(
+      leftSymbol: currencySymbol,
+      decimalSeparator: locale.languageCode == 'pt' ? ',' : '.',
+      initialValue: 0.0,
+    );
+
+    final DateFormat formatter = DateFormat(
+        AppLocalizations.of(context)!.dateFormat,
+        Localizations.localeOf(context).toString());
+    String formattedDate = formatter.format(lastDateSelected);
+
+    dateController = CampoComMascara(
+      dateText: formattedDate,
+      onCompletion: (DateTime dateTime) {
+        lastDateSelected = dateTime;
+      },
+    );
+  }
 
   // MARK: - InitState
   @override
@@ -69,7 +92,6 @@ class HeaderCardState extends State<HeaderCard> {
     );
     CardService.addCard(newCard);
 
-
     CategoryService.incrementCategoryFrequency(
         (_horizontalCircleListKey.currentState?.categorieList ??
                 [])[lastIndexSelected]
@@ -88,7 +110,10 @@ class HeaderCardState extends State<HeaderCard> {
   // MARK: - Get Current Date
   String _getCurrentDate() {
     DateTime now = DateTime.now();
-    return '${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year.toString().substring(2)} ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
+    final locale = Intl.getCurrentLocale();
+    String customDateFormat =
+        DateFormat('dd-MM-yyyy', locale.toString()).format(now);
+    return '$customDateFormat ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
   }
 
   // MARK: - Build Method
@@ -116,7 +141,7 @@ class HeaderCardState extends State<HeaderCard> {
                 ),
               ),
             ),
-            placeholder: 'Descrição',
+            placeholder: AppLocalizations.of(context)!.description,
             placeholderStyle:
                 TextStyle(color: CupertinoColors.white.withOpacity(0.5)),
             style: TextStyle(color: CupertinoColors.white),
@@ -147,7 +172,7 @@ class HeaderCardState extends State<HeaderCard> {
               color: CupertinoColors.systemBlue,
               onPressed: adicionar,
               child: Text(
-                widget.adicionarButtonTitle,
+                AppLocalizations.of(context)!.add,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/widgets/Transactions/InsertTransactions/InsertTransactions.dart';
 import 'package:meus_gastos/widgets/Dashboards/DashboardScreen.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,6 +16,17 @@ class MyApp extends StatelessWidget {
       theme: const CupertinoThemeData(
         brightness: Brightness.light,
       ),
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
+      supportedLocales: [
+        const Locale('en', ''),
+        const Locale('es', ''),
+        const Locale('pt', ''),
+      ],
       home: MyHomePage(),
     );
   }
@@ -62,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
           switch (index) {
             case 0:
               return InsertTransactions(
-                title: 'Meus Gastos',
+                title: AppLocalizations.of(context)!.myExpenses,
                 onAddClicked: () {},
               );
             default:

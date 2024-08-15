@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter/material.dart';
 import 'CustomButton.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ValorTextField extends StatefulWidget {
   final MoneyMaskedTextController controller;
@@ -62,7 +63,7 @@ class _ValorTextFieldState extends State<ValorTextField> {
       ),
       style:
           TextStyle(color: Colors.white), // Define a cor do texto como branca
-      placeholder: "Enter amount", // Placeholder
+      placeholder: AppLocalizations.of(context)!.enterAmount, // Placeholder
       placeholderStyle: TextStyle(
           color: Colors.white.withOpacity(
               0.6)), // Define a cor do placeholder como branca com opacidade

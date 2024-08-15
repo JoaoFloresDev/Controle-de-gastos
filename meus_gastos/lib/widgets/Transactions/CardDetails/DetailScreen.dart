@@ -2,20 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'EditionHeaderCard.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   final CardModel card;
   final VoidCallback onAddClicked;
 
-  const DetailScreen({
-    required this.onAddClicked,
-    Key? key,
+  DetailScreen({
     required this.card,
-  }) : super(key: key);
+    required this.onAddClicked,
+  });
 
-  // MARK: - Build Method
+  @override
+  _DetailScreen createState() => _DetailScreen();
+}
+
+class _DetailScreen extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
+    // Acessando as traduções diretamente no método build
+    final String update = AppLocalizations.of(context)!.update;
+    final String cancel = AppLocalizations.of(context)!.cancel;
+    final String transactionDetails = AppLocalizations.of(context)!.transactionDetails;
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -32,15 +41,15 @@ class DetailScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            _buildHeader(context),
+            _buildHeader(context, cancel, transactionDetails),
             SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8),
               child: EditionHeaderCard(
-                card: card,
-                adicionarButtonTitle: 'Atualizar',
+                card: widget.card,
+                adicionarButtonTitle: update,
                 onAddClicked: () {
-                  onAddClicked();
+                  widget.onAddClicked();
                   Navigator.of(context).pop();
                 },
               ),
@@ -52,7 +61,7 @@ class DetailScreen extends StatelessWidget {
   }
 
   // MARK: - Header
-  Widget _buildHeader(BuildContext context) {
+  Widget _buildHeader(BuildContext context, String cancel, String transactionDetails) {
     return Padding(
       padding: EdgeInsets.all(0),
       child: Container(
@@ -60,8 +69,8 @@ class DetailScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _buildCancelButton(context),
-            _buildTitle(),
+            _buildCancelButton(context, cancel),
+            _buildTitle(transactionDetails),
             _buildDeleteButton(context),
           ],
         ),
@@ -69,13 +78,13 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCancelButton(BuildContext context) {
+  Widget _buildCancelButton(BuildContext context, String cancelText) {
     return TextButton(
       onPressed: () {
         Navigator.of(context).pop();
       },
       child: Text(
-        'Cancel',
+        cancelText,
         style: TextStyle(
           color: Colors.grey.shade400,
         ),
@@ -83,9 +92,9 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle() {
+  Widget _buildTitle(String transactionDetailsText) {
     return Text(
-      'Detalhes da transação',
+      transactionDetailsText,
       style: TextStyle(
         color: Colors.white,
         fontSize: 18,
@@ -97,9 +106,9 @@ class DetailScreen extends StatelessWidget {
   Widget _buildDeleteButton(BuildContext context) {
     return IconButton(
       onPressed: () {
-        CardService.deleteCard(card.id);
+        CardService.deleteCard(widget.card.id);
         Future.delayed(Duration(milliseconds: 300), () {
-          onAddClicked();
+          widget.onAddClicked();
           Navigator.of(context).pop();
         });
       },

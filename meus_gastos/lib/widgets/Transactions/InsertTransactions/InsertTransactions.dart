@@ -59,7 +59,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
               padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
               child: HeaderCard(
                 key: _headerCardKey,
-                adicionarButtonTitle: 'Adicionar',
+                // adicionarButtonTitle: 'Adicionar',
                 onAddClicked: () {
                   widget.onAddClicked();
                   setState(() {

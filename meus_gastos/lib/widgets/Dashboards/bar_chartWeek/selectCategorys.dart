@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
+
 
 class Selectcategorys extends StatefulWidget {
   final List<CategoryModel> categorieList;
@@ -69,7 +73,7 @@ class SelectcategoryState extends State<Selectcategorys> {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      widget.categorieList[index].name,
+                      Translateservice.getTranslatedCategoryUsingModel(context, widget.categorieList[index]),
                       style: TextStyle(
                         fontSize: 9,
                         color: Colors.white,
@@ -101,7 +105,7 @@ class SelectcategoryState extends State<Selectcategorys> {
                       Size(80, 20), // Define um tamanho mínimo para o botão
                   backgroundColor: Colors.transparent,
                 ),
-                child: Text('Selecionar Todos',
+                child: Text(AppLocalizations.of(context)!.selectAll,
                     style: TextStyle(
                         fontSize: 12,
                         color: CupertinoColors.systemBlue,
@@ -124,7 +128,7 @@ class SelectcategoryState extends State<Selectcategorys> {
                       Size(80, 20), // Define um tamanho mínimo para o botão
                   backgroundColor: Colors.transparent,
                 ),
-                child: Text('Limpar',
+                child: Text(AppLocalizations.of(context)!.clear,
                     style: TextStyle(
                         fontSize: 12,
                         color: CupertinoColors.systemBlue,

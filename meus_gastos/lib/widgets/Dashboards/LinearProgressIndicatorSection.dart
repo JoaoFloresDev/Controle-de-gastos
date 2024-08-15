@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
+import 'package:meus_gastos/services/DashbordService.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'DashboardCard.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
@@ -25,7 +27,7 @@ class LinearProgressIndicatorSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(model.title,
+          Text(Translateservice.getTranslatedCategoryName(context, model.title),
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 14,

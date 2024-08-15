@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
 
 class HorizontalCircleList extends StatefulWidget {
   final Function(int) onItemSelected;
@@ -77,7 +79,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  categorieList[index].name,
+                  "${Translateservice.getTranslatedCategoryUsingModel(context, categorieList[index])}",
                   style: TextStyle(
                     fontSize: 9,
                     color: Colors.white,
@@ -91,4 +93,5 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
       ),
     );
   }
+  
 }

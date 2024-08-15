@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
 
 class ListCard extends StatelessWidget {
   final CardModel card;
@@ -34,7 +37,7 @@ class ListCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  formatCurrency(card.amount),
+                  Translateservice.formatCurrency(card.amount, context),
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -60,7 +63,7 @@ class ListCard extends StatelessWidget {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      card.category.name,
+                      Translateservice.getTranslatedCategoryUsingModel(context, card.category), // translate
                       style: TextStyle(
                         fontSize: 9,
                         color: Colors.white, // Text color changed to white
@@ -83,7 +86,7 @@ class ListCard extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: Text(
-                DateFormat('HH:mm dd/MM/yyyy').format(card.date),
+                DateFormat(AppLocalizations.of(context)!.dateFormat).format(card.date),
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.white, // Date text color changed to white
@@ -94,10 +97,5 @@ class ListCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String formatCurrency(double value) {
-    final formatter = NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$');
-    return formatter.format(value);
   }
 }

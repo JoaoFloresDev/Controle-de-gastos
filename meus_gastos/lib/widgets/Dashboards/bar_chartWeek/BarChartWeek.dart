@@ -3,8 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/services/DashbordService.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:meus_gastos/widgets/Dashboards/bar_chartWeek/selectCategorys.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WeeklyStackedBarChart extends StatefulWidget {
   final List<WeekInterval> weekIntervals;
@@ -38,7 +40,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         child: Container(
           height: 200,
           child: Center(
-              child: Text('No data available',
+              child: Text(AppLocalizations.of(context)!.addNewTransactions,
                   style: TextStyle(color: Colors.white))),
         ),
       );
@@ -62,16 +64,23 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
+            SizedBox(height: 10,),
+            Text(
+              AppLocalizations.of(context)!.weeklyExpenses,
+              style: TextStyle(color: Colors.grey, fontSize: 18),
+            ),
             SfCartesianChart(
               primaryXAxis:
                   CategoryAxis(majorGridLines: MajorGridLines(width: 0)),
               primaryYAxis: NumericAxis(
+                isVisible: false,
                 maximum: maxY / 0.5 > 0 ? maxY / 0.4 : 1,
                 interval: maxY / 2 > 0 ? maxY / 2 : 1,
                 majorGridLines: MajorGridLines(
                     width: 0.5, color: const Color.fromARGB(255, 78, 78, 78)),
               ),
-              title: ChartTitle(text: 'Gastos Semanais'),
+              // title: ChartTitle(
+              //     text: AppLocalizations.of(context)!.weeklyExpenses),
               legend: Legend(isVisible: false),
               tooltipBehavior: TooltipBehavior(enable: true),
               series: _buildVerticalStackedBarSeries(),
@@ -159,7 +168,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
             return categoryData.color;
           },
           width: 0.5,
-          name: category,
+          name: Translateservice.getTranslatedCategoryName(context, category),
           borderWidth: 3,
           borderColor: Colors.grey[900]);
     }).toList()
@@ -171,12 +180,11 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
           xValueMapper: (entry, _) => _getWeekLabel(entry.key),
           yValueMapper: (entry, index) => weeklyTotals[index],
           dataLabelMapper: (entry, index) => weeklyTotals[index] > 0
-              ? NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$')
-                  .format(weeklyTotals[index])
+              ? Translateservice.formatCurrency(weeklyTotals[index], context)
               : '',
           pointColorMapper: (entry, _) => Colors.transparent,
           width: 0.5,
-          name: 'Total',
+          name: AppLocalizations.of(context)!.total,
           dataLabelSettings: DataLabelSettings(
             isVisible: true,
             textStyle:
@@ -185,7 +193,8 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
   }
 
   String _getWeekLabel(WeekInterval week) {
-    final DateFormat formatter = DateFormat('dd/MM');
+    final DateFormat formatter =
+        DateFormat(AppLocalizations.of(context)!.resumeDateFormat);
     return '${formatter.format(week.start)} \n${formatter.format(week.end)}';
   }
 }

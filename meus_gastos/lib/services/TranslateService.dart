@@ -1,0 +1,90 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
+
+class Translateservice {
+  static String getCurrencySymbol(BuildContext context) {
+    Locale locale = Localizations.localeOf(context);
+
+    // Cria um formatter para moeda com base no locale
+    NumberFormat currencyFormat =
+        NumberFormat.simpleCurrency(locale: locale.toString());
+
+    // Retorna o símbolo da moeda (R$, US$, etc.)
+    return currencyFormat.currencySymbol;
+  }
+
+  static String formatCurrency(double amount, BuildContext context) {
+    Locale locale = Localizations.localeOf(context);
+
+    // Formata o valor de acordo com a região e adiciona o símbolo da moeda
+    NumberFormat currencyFormat =
+        NumberFormat.simpleCurrency(locale: locale.toString());
+
+    return currencyFormat.format(amount);
+  }
+
+  String formatDate(DateTime date, BuildContext context) {
+    Locale locale = Localizations.localeOf(context);
+
+    // Cria um formatter de data com base na localidade
+    DateFormat dateFormat = DateFormat.yMd(locale.toString());
+
+    // Formata a data
+    return dateFormat.format(date);
+  }
+  
+  static String getTranslatedCategoryUsingModel(BuildContext context, CategoryModel category) {
+    switch (category.id) {
+      case 'Unknown':
+        return AppLocalizations.of(context)!.unknown;
+      case 'Shopping':
+        return AppLocalizations.of(context)!.shopping;
+      case 'Restaurant':
+        return AppLocalizations.of(context)!.restaurant;
+      case 'GasStation':
+        return AppLocalizations.of(context)!.gasStation;
+      case 'Home':
+        return AppLocalizations.of(context)!.home;
+      case 'ShoppingBasket':
+        return AppLocalizations.of(context)!.shoppingBasket;
+      case 'Hospital':
+        return AppLocalizations.of(context)!.hospital;
+      case 'Movie':
+        return AppLocalizations.of(context)!.movie;
+      case 'VideoGame':
+        return AppLocalizations.of(context)!.videoGame;
+      case 'Drink':
+        return AppLocalizations.of(context)!.drink;
+      default:
+        return category.name; // Retorna o valor original se não houver tradução
+    }
+  }
+  static String getTranslatedCategoryName(BuildContext context, String legend) {
+    switch (legend) {
+      case 'Unknown':
+        return AppLocalizations.of(context)!.unknown;
+      case 'Shopping':
+        return AppLocalizations.of(context)!.shopping;
+      case 'Restaurant':
+        return AppLocalizations.of(context)!.restaurant;
+      case 'GasStation':
+        return AppLocalizations.of(context)!.gasStation;
+      case 'Home':
+        return AppLocalizations.of(context)!.home;
+      case 'ShoppingBasket':
+        return AppLocalizations.of(context)!.shoppingBasket;
+      case 'Hospital':
+        return AppLocalizations.of(context)!.hospital;
+      case 'Movie':
+        return AppLocalizations.of(context)!.movie;
+      case 'VideoGame':
+        return AppLocalizations.of(context)!.videoGame;
+      case 'Drink':
+        return AppLocalizations.of(context)!.drink;
+      default:
+        return legend; // Retorna o valor original se não houver tradução
+    }
+  }
+}

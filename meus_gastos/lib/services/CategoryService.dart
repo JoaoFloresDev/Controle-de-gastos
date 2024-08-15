@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/CategoryModel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CategoryService {
   static const String _categoriesKey = 'categories';
@@ -64,61 +65,61 @@ class CategoryService {
             id: 'Unknown',
             color: Colors.grey[800]!,
             icon: Icons.question_mark_rounded,
-            name: 'Sem categoria',
+            name: 'Unknown',
             frequency: 0),
         CategoryModel(
             id: 'Shopping',
             color: Colors.green[900]!,
             icon: Icons.shopping_cart,
-            name: 'Mercado',
+            name: 'Shopping',
             frequency: 0),
         CategoryModel(
             id: 'Restaurant',
             color: Colors.red[900]!,
             icon: Icons.restaurant,
-            name: 'Alimentação',
+            name: 'Restaurant',
             frequency: 0),
         CategoryModel(
             id: 'GasStation',
             color: Colors.blue[900]!,
             icon: Icons.local_gas_station,
-            name: 'Transporte',
+            name: 'GasStation',
             frequency: 0),
         CategoryModel(
             id: 'Home',
             color: Colors.orange[900]!,
             icon: Icons.home,
-            name: 'Moradia',
+            name: 'Home',
             frequency: 0),
         CategoryModel(
             id: 'ShoppingBasket',
             color: Colors.purple[900]!,
             icon: Icons.shopping_basket,
-            name: 'Compras',
+            name: 'ShoppingBasket',
             frequency: 0),
         CategoryModel(
             id: 'Hospital',
             color: Colors.teal[900]!,
             icon: Icons.local_hospital,
-            name: 'Saúde',
+            name: 'Hospital',
             frequency: 0),
         CategoryModel(
             id: 'Movie',
             color: Colors.deepPurple[900]!,
             icon: Icons.movie,
-            name: 'Streaming',
+            name: 'Movie',
             frequency: 0),
         CategoryModel(
             id: 'VideoGame',
             color: Colors.indigo[900]!,
             icon: Icons.videogame_asset,
-            name: 'Games',
+            name: 'VideoGame',
             frequency: 0),
         CategoryModel(
             id: 'Drink',
             color: Colors.cyan[900]!,
             icon: Icons.local_drink_outlined,
-            name: 'Bebidas',
+            name: 'Drink',
             frequency: 0),
         CategoryModel(
             id: 'AddCategory',

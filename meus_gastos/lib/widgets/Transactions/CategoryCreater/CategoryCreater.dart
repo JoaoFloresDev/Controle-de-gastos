@@ -5,6 +5,8 @@ import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class Categorycreater extends StatefulWidget {
   final VoidCallback onCategoryAdded;
@@ -81,7 +83,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                 onTap: () {},
                 child: CupertinoAlertDialog(
                   title: Text(
-                    'Escolha a cor',
+                    AppLocalizations.of(context)!.chooseColor,
                     style: TextStyle(fontSize: 20),
                   ),
                   content: Container(
@@ -91,7 +93,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                         buildColorPicker(),
                         TextButton(
                           child: Text(
-                            'Selecionar',
+                            AppLocalizations.of(context)!.select,
                             style: const TextStyle(
                                 color: Color.fromARGB(255, 0, 93, 168),
                                 fontSize: 20),
@@ -171,20 +173,20 @@ class _CategorycreaterState extends State<Categorycreater> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text(
-                      'Cancel',
+                    child: Text(
+                      AppLocalizations.of(context)!.cancel,
                       style: TextStyle(
                         color: Colors.grey,
                       ),
                     ),
                   ),
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      'Criar categoria',
+                      AppLocalizations.of(context)!.createCategory,
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
@@ -218,7 +220,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                           ),
                         ),
                       ),
-                      placeholder: "Categoria",
+                      placeholder: AppLocalizations.of(context)!.category,
                       placeholderStyle: TextStyle(
                         color: const Color.fromARGB(144, 255, 255, 255)
                       ),
@@ -228,7 +230,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                     Row(
                       children: [
                         Text(
-                          "Escolha a cor: ",
+                          "${AppLocalizations.of(context)!.chooseColor} ",
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                         const SizedBox(width: 15),
@@ -260,8 +262,8 @@ class _CategorycreaterState extends State<Categorycreater> {
                             Navigator.pop(context);
                           }
                         },
-                        child: const Text(
-                          "Adicionar Categoria",
+                        child: Text(
+                          AppLocalizations.of(context)!.addCategory,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),

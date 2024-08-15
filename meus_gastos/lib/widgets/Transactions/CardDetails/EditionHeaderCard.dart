@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:intl/intl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import '../InsertTransactions/ViewComponents/CampoComMascara.dart';
@@ -8,6 +9,8 @@ import '../InsertTransactions/ViewComponents/HorizontalCircleList.dart';
 import '../InsertTransactions/ViewComponents/ValorTextField.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
 
 class EditionHeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;
@@ -43,28 +46,36 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     loadCategories();
 
     descricaoController = TextEditingController(text: widget.card.description);
-    valorController = MoneyMaskedTextController(
-      leftSymbol: 'R\$ ',
-      decimalSeparator: ',',
-      initialValue: widget.card.amount,
-    );
-
-    DateTime date = widget.card.date;
-    String formattedDate =
-        '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year.toString().substring(2)} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
-
-    dateController = CampoComMascara(
-      dateText: formattedDate,
-      onCompletion: (DateTime dateTime) {
-        lastDateSelected = dateTime;
-      },
-    );
 
     descricaoFocusNode = FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       descricaoFocusNode.requestFocus();
     });
+  }
+
+// Mover o acesso ao AppLocalizations para didChangeDependencies
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final locale = Localizations.localeOf(context);
+    DateTime date = widget.card.date;
+    
+    // Agora é seguro acessar o AppLocalizations.of(context)
+    String formattedDate =
+        DateFormat(AppLocalizations.of(context)!.dateFormat).format(date);
+
+    valorController = MoneyMaskedTextController(
+      leftSymbol: Translateservice.getCurrencySymbol(context),
+      decimalSeparator: locale.languageCode == 'pt' ? ',' : '.',
+      initialValue: widget.card.amount,
+    );
+    dateController = CampoComMascara(
+      dateText: formattedDate,
+      onCompletion: (DateTime dateTime) {
+        lastDateSelected = dateTime;
+      },
+    );
   }
 
   // MARK: - Dispose
@@ -123,7 +134,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                 ),
               ),
             ),
-            placeholder: 'Descrição',
+            placeholder: AppLocalizations.of(context)!.description,
             placeholderStyle: TextStyle(color: CupertinoColors.systemGrey3),
             controller: descricaoController,
             focusNode: descricaoFocusNode,

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CampoComMascara extends StatefulWidget {
   final String dateText;
@@ -17,13 +18,14 @@ class CampoComMascara extends StatefulWidget {
 }
 
 class _CampoComMascaraState extends State<CampoComMascara> {
-  final _dateController = MaskedTextController(mask: '00/00/00 00:00');
-  FocusNode _focusNode = FocusNode();
+  late MaskedTextController _dateController;
+  final FocusNode _focusNode = FocusNode();
 
   // MARK: - InitState
   @override
   void initState() {
     super.initState();
+    _dateController = MaskedTextController(mask: '00:00 00/00/0000');
     _dateController.text = widget.dateText;
   }
 
@@ -41,7 +43,8 @@ class _CampoComMascaraState extends State<CampoComMascara> {
           bottom: BorderSide(color: CupertinoColors.systemGrey5),
         ),
       ),
-      placeholder: 'DD/MM/AA HH:mm',
+      placeholder: AppLocalizations.of(context)!
+          .dateFormat, // Utiliza o formato da localização
     );
   }
 
@@ -59,7 +62,9 @@ class _CampoComMascaraState extends State<CampoComMascara> {
             initialDateTime: DateTime.now(),
             onDateTimeChanged: (DateTime newDateTime) {
               setState(() {
+                // Formata a data de acordo com a localização
                 _dateController.text = _formatDateTime(newDateTime);
+                // Chama o callback com o valor de data em formato US/ISO para salvar
                 widget.onCompletion(newDateTime);
               });
             },
@@ -69,10 +74,13 @@ class _CampoComMascaraState extends State<CampoComMascara> {
     );
   }
 
-  // MARK: - Format DateTime
+  // MARK: - Format DateTime para exibição (de acordo com o AppLocalizations)
   String _formatDateTime(DateTime dateTime) {
-    String formattedDate =
-        '${dateTime.day.toString().padLeft(2, '0')}/${dateTime.month.toString().padLeft(2, '0')}/${dateTime.year.toString().substring(2)} ${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}';
-    return formattedDate;
+    final dateFormatPattern = AppLocalizations.of(context)!
+        .dateFormat; // Formato de data da localização
+    final DateFormat dateFormat = DateFormat(
+        dateFormatPattern, Localizations.localeOf(context).toString());
+    String formattedDate = dateFormat.format(dateTime);
+    return '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')} $formattedDate';
   }
 }

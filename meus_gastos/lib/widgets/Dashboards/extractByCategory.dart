@@ -4,6 +4,7 @@ import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/widgets/Transactions/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/widgets/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
 
 class Extractbycategory extends StatefulWidget {
   final String category;
@@ -75,7 +76,7 @@ class _Extractbycategory extends State<Extractbycategory> {
                           child: Padding(
                             padding: EdgeInsets.all(12),
                             child: Text(
-                              "${widget.category}",
+                              "${Translateservice.getTranslatedCategoryName(context, widget.category)}",
                               style: TextStyle(
                                   fontSize: 20,
                                   color: Colors.white,
