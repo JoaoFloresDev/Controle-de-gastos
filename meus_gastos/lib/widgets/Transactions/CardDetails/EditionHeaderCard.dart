@@ -60,7 +60,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     super.didChangeDependencies();
     final locale = Localizations.localeOf(context);
     DateTime date = widget.card.date;
-    
+
     // Agora é seguro acessar o AppLocalizations.of(context)
     String formattedDate =
         DateFormat(AppLocalizations.of(context)!.dateFormat).format(date);
@@ -71,7 +71,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       initialValue: widget.card.amount,
     );
     dateController = CampoComMascara(
-      dateText: formattedDate,
+      currentDate: lastDateSelected,
       onCompletion: (DateTime dateTime) {
         lastDateSelected = dateTime;
       },

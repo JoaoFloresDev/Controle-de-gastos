@@ -6,6 +6,8 @@ import 'package:meus_gastos/services/CardService.dart' as service;
 import 'package:meus_gastos/widgets/Transactions/CardDetails/DetailScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/widgets/Transactions/CategoryCreater/CategoryCreater.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 class InsertTransactions extends StatefulWidget {
   const InsertTransactions({
@@ -40,7 +42,25 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       cardList = cards;
     });
   }
-
+  Future<void> checkAndRequestReview() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  int sessionCount = prefs.getInt('session_count') ?? 0;
+  sessionCount += 1;
+  await prefs.setInt('session_count', sessionCount);
+  print("É a $sessionCount vez");
+  // Solicite a avaliação após 5 sessões
+  if (sessionCount >= 5) {
+    final InAppReview inAppReview = InAppReview.instance;
+    print("É a quinta vez");
+    if (await inAppReview.isAvailable()) {
+      // Exibe a solicitação de avaliação se disponível
+      print("E entrou");
+      inAppReview.requestReview();
+      sessionCount = 0;
+      prefs.setInt('session_count', sessionCount);
+    }
+  }
+}
   // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
@@ -62,8 +82,9 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                 // adicionarButtonTitle: 'Adicionar',
                 onAddClicked: () {
                   widget.onAddClicked();
-                  setState(() {
+                  setState(() async {
                     loadCards();
+                      await checkAndRequestReview();
                   });
                 },
                 onAddCategory: () {

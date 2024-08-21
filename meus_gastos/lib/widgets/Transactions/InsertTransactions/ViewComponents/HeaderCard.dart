@@ -59,7 +59,7 @@ class HeaderCardState extends State<HeaderCard> {
     String formattedDate = formatter.format(lastDateSelected);
 
     dateController = CampoComMascara(
-      dateText: formattedDate,
+      currentDate: lastDateSelected,
       onCompletion: (DateTime dateTime) {
         lastDateSelected = dateTime;
       },

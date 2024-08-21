@@ -5,7 +5,13 @@ import 'package:meus_gastos/widgets/Dashboards/DashboardScreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-void main() => runApp(MyApp());
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
+}
+
+
 
 class MyApp extends StatelessWidget {
   // MARK: - Build Method

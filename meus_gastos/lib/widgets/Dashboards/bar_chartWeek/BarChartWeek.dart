@@ -51,10 +51,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
             .expand((week) => week.map((data) => data.progress))
             .isEmpty
         ? 0
-        : widget.weeklyData
-                .expand((week) => week.map((data) => data.progress))
-                .reduce((a, b) => a > b ? a : b) +
-            50;
+        : 120;
 
     return Card(
       color: Colors.grey[900],
@@ -64,29 +61,33 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Text(
               AppLocalizations.of(context)!.weeklyExpenses,
               style: TextStyle(color: Colors.grey, fontSize: 18),
             ),
-            SfCartesianChart(
-              primaryXAxis:
-                  CategoryAxis(majorGridLines: MajorGridLines(width: 0)),
-              primaryYAxis: NumericAxis(
-                isVisible: false,
-                maximum: maxY / 0.5 > 0 ? maxY / 0.4 : 1,
-                interval: maxY / 2 > 0 ? maxY / 2 : 1,
-                majorGridLines: MajorGridLines(
-                    width: 0.5, color: const Color.fromARGB(255, 78, 78, 78)),
+            SizedBox(
+              height: 250,
+              child: SfCartesianChart(
+                primaryXAxis:
+                    CategoryAxis(majorGridLines: MajorGridLines(width: 0)),
+                primaryYAxis: NumericAxis(
+                  isVisible: false,
+                  maximum: maxY,
+                  majorGridLines: MajorGridLines(
+                      width: 0.5, color: const Color.fromARGB(255, 78, 78, 78)),
+                ),
+                // title: ChartTitle(
+                //     text: AppLocalizations.of(context)!.weeklyExpenses),
+                legend: Legend(isVisible: false),
+                tooltipBehavior: TooltipBehavior(enable: true),
+                series: _buildVerticalStackedBarSeries(),
+                borderWidth: 0,
+                plotAreaBorderWidth: 0,
+                plotAreaBorderColor: Colors.transparent,
               ),
-              // title: ChartTitle(
-              //     text: AppLocalizations.of(context)!.weeklyExpenses),
-              legend: Legend(isVisible: false),
-              tooltipBehavior: TooltipBehavior(enable: true),
-              series: _buildVerticalStackedBarSeries(),
-              borderWidth: 0,
-              plotAreaBorderWidth: 0,
-              plotAreaBorderColor: Colors.transparent,
             ),
             Selectcategorys(
               categorieList:
@@ -140,6 +141,11 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
           }).toList(),
           xValueMapper: (entry, _) => _getWeekLabel(entry.key),
           yValueMapper: (entry, _) {
+            final totalWeekProgress = entry.value.fold(
+                0.0, (sum, item) => sum + item.progress); // Total da semana
+
+            if (totalWeekProgress == 0) return null;
+
             final categoryData = entry.value.firstWhere(
                 (data) => data.category.name == category,
                 orElse: () => ProgressIndicatorModel(
@@ -151,7 +157,10 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
                         color: Colors.grey,
                         icon: Icons.device_unknown),
                     color: Colors.grey));
-            return categoryData.progress > 0 ? categoryData.progress : null;
+            final proportion = categoryData.progress / totalWeekProgress;
+
+            const double maxBarHeight = 100.0;
+            return proportion * maxBarHeight;
           },
           pointColorMapper: (entry, _) {
             final categoryData = entry.value.firstWhere(
@@ -178,7 +187,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
             return MapEntry(entry.value, widget.weeklyData[entry.key]);
           }).toList(),
           xValueMapper: (entry, _) => _getWeekLabel(entry.key),
-          yValueMapper: (entry, index) => weeklyTotals[index],
+          yValueMapper: (entry, index) => 100,
           dataLabelMapper: (entry, index) => weeklyTotals[index] > 0
               ? Translateservice.formatCurrency(weeklyTotals[index], context)
               : '',
@@ -187,6 +196,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
           name: AppLocalizations.of(context)!.total,
           dataLabelSettings: DataLabelSettings(
             isVisible: true,
+            labelAlignment: ChartDataLabelAlignment.top,
             textStyle:
                 TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           )));
