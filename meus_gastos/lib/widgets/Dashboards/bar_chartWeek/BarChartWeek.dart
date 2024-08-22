@@ -187,7 +187,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
             return MapEntry(entry.value, widget.weeklyData[entry.key]);
           }).toList(),
           xValueMapper: (entry, _) => _getWeekLabel(entry.key),
-          yValueMapper: (entry, index) => 100,
+          yValueMapper: (entry, index) => 20,
           dataLabelMapper: (entry, index) => weeklyTotals[index] > 0
               ? Translateservice.formatCurrency(weeklyTotals[index], context)
               : '',

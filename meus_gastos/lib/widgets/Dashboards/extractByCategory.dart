@@ -5,6 +5,7 @@ import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/widgets/Transactions/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/widgets/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
 
 class Extractbycategory extends StatefulWidget {
   final String category;
@@ -54,7 +55,7 @@ class _Extractbycategory extends State<Extractbycategory> {
                   alignment: Alignment.center,
                   color: Colors.black,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 12),
+                    padding: const EdgeInsets.only(top: 20),
                     child: Stack(
                       children: [
                         Align(
@@ -87,14 +88,11 @@ class _Extractbycategory extends State<Extractbycategory> {
                       ],
                     ),
                   )),
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Container(
-              //     alignment: Alignment.center,
-              //     child: Text("Gastos com ",
-              //         style: TextStyle(color: Colors.white, fontSize: 20)),
-              //   ),
-              // ),
+              SizedBox(
+                height: 50, // Altura do banner
+                width: double.infinity, // Largura do banner
+                child: BannerAdconstruct(), // Widget do banner
+              ),
               Expanded(
                 child: Container(
                   color: Colors.black38,
@@ -111,8 +109,9 @@ class _Extractbycategory extends State<Extractbycategory> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return Container(
-                                      height: MediaQuery.of(context).size.height /
-                                          1.05,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              1.05,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(20),

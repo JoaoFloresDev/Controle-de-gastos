@@ -64,10 +64,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             .expand((day) => day.map((data) => data.progress))
             .isEmpty
         ? 0
-        : widget.last5weewdailyData[selectedWeek]
-                .expand((day) => day.map((data) => data.progress))
-                .reduce((a, b) => a > b ? a : b) +
-            50;
+        : 200;
 
     return Card(
       color: Colors.grey[900],
@@ -78,7 +75,9 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         child: Column(
           children: [
             _buildWeekButtons(),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Text(
               AppLocalizations.of(context)!.dailyExpensesByCategory,
               style: TextStyle(color: Colors.grey, fontSize: 18),
@@ -89,14 +88,13 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   SizedBox(
-                    width: 500,
+                    width: 600,
                     child: SfCartesianChart(
                       primaryXAxis: CategoryAxis(
                           majorGridLines: MajorGridLines(width: 0)),
                       primaryYAxis: NumericAxis(
                         isVisible: false,
-                        maximum: maxY / 0.5 > 0 ? maxY / 0.4 : 1,
-                        interval: maxY / 2 > 0 ? maxY / 2 : 1,
+                        maximum: maxY,
                         majorGridLines: MajorGridLines(
                             width: 0.5,
                             color: const Color.fromARGB(255, 78, 78, 78)),
@@ -146,37 +144,44 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
 
   Widget _buildWeekButtons() {
     return Container(
-      width: double
-          .infinity, // Use double.infinity para ocupar toda a largura disponível
-      height: 40.0, // Defina uma altura fixa para o Container
-      child: ListView.builder(
-        itemCount: widget.last5WeeksIntervals.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (BuildContext context, int index) {
-          WeekInterval interval = widget.last5WeeksIntervals[index];
-          bool isSelected = selectedWeek == index;
+        width: double
+            .infinity, // Use double.infinity para ocupar toda a largura disponível
+        height: 40.0, // Defina uma altura fixa para o Container
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: List.generate(
+            widget.last5WeeksIntervals.length,
+            (int index) {
+              WeekInterval interval = widget.last5WeeksIntervals[index];
+              bool isSelected = selectedWeek == index;
 
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 2.0), // Adicione um padding para separar os botões
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: CupertinoColors.systemBlue,
-                backgroundColor: isSelected
-                    ? CupertinoColors.white.withOpacity(0.2)
-                    : Colors.transparent,
-              ),
-              onPressed: () {
-                setState(() {
-                  selectedWeek = index;
-                });
-              },
-              child: Text(_getWeekLabel(interval)),
-            ),
-          );
-        },
-      ),
-    );
+              return Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedWeek = index;
+                      });
+                    },
+                    child: Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: isSelected
+                              ? CupertinoColors.white.withOpacity(0.2)
+                              : Colors.black.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          _getWeekLabel(interval),
+                          style: TextStyle(color: CupertinoColors.systemBlue),
+                        )),
+                  ),
+                ),
+              );
+            },
+          ),
+        ));
   }
 
   List<StackedColumnSeries<ProgressIndicatorModel, String>>
@@ -204,7 +209,6 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             .fold(0.0, (sum, data) => sum + data.progress);
       },
     );
-
     List<StackedColumnSeries<ProgressIndicatorModel, String>> seriesList = [];
 
     // Adiciona a série de barras empilhadas para cada categoria
@@ -215,7 +219,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             .where((data) => data.category.name == category)
             .toList(),
         xValueMapper: (data, index) => days[index % 7],
-        yValueMapper: (data, index) => data.progress,
+        yValueMapper: (data, index) => totalByDay[index] > 1 ? data.progress / totalByDay[index] * 150 : data.progress,
         pointColorMapper: (data, _) => data.color,
         width: 0.5,
         name: Translateservice.getTranslatedCategoryName(context, category),
@@ -240,7 +244,8 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         );
       }),
       xValueMapper: (data, index) => days[index],
-      yValueMapper: (data, index) => data.progress,
+      yValueMapper: (data, index) => 30,
+      dataLabelMapper: (data, index) => data.progress > 0 ? Translateservice.formatCurrency(data.progress, context): '',
       pointColorMapper: (data, _) =>
           Colors.transparent, // Torna a barra transparente
       width: 0.5,
@@ -248,7 +253,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
       borderWidth: 0,
       dataLabelSettings: DataLabelSettings(
         isVisible: true,
-        labelAlignment: ChartDataLabelAlignment.bottom,
+        labelAlignment: ChartDataLabelAlignment.top,
         textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         builder: (data, point, series, pointIndex, seriesIndex) {
           // Exibe o total acima da barra

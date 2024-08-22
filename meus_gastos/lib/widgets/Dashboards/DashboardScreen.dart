@@ -3,7 +3,6 @@ import 'dart:ffi';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/widgets/Dashboards/BarChart.dart';
 import 'package:meus_gastos/widgets/Dashboards/bar_chartWeek/BarChartDaysofWeek.dart';
 import 'package:meus_gastos/widgets/Dashboards/extractByCategory.dart';
 import 'MonthSelector.dart';
@@ -15,6 +14,8 @@ import 'package:meus_gastos/widgets/Dashboards/bar_chartWeek/BarChartWeek.dart';
 import 'package:meus_gastos/services/DashbordService.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
+
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
 
@@ -138,6 +139,11 @@ class _DashboardScreenState extends State<DashboardScreen>
         child: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(
+                height: 50, // Altura do banner
+                width: double.infinity, // Largura do banner
+                child: BannerAdconstruct(), // Widget do banner
+              ),
               SizedBox(height: 15),
               MonthSelector(
                 currentDate: currentDate,

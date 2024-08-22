@@ -25,91 +25,94 @@ class DashboardCard extends StatelessWidget {
       color: Colors.grey[900],
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-      child: ListView(
+      child: Padding(
         padding: const EdgeInsets.all(24.0),
-        children: [
-          if (items.isEmpty)
-            SizedBox(
-              width: double.infinity,
-              height: 200,
-              child: Center(
-                child: Text.rich(
-                  TextSpan(
-                    text: AppLocalizations.of(context)!.addNewTransactions,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                    children: [
-                      TextSpan(
-                        text:
-                            '\n\n${AppLocalizations.of(context)!.youWillBeAbleToUnderstandYourExpensesHere}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
+        child: Column(
+          
+          children: [
+            if (items.isEmpty)
+              SizedBox(
+                width: double.infinity,
+                height: 200,
+                child: Center(
+                  child: Text.rich(
+                    TextSpan(
+                      text: AppLocalizations.of(context)!.addNewTransactions,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 20,
                       ),
-                    ],
+                      children: [
+                        TextSpan(
+                          text:
+                              '\n\n${AppLocalizations.of(context)!.youWillBeAbleToUnderstandYourExpensesHere}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
-              ),
-            )
-          else
-            Column(
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.expensesOfTheMonth,
-                  style: TextStyle(color: Colors.grey, fontSize: 18),
-                ),
-                SizedBox(height: 10,),
-                SizedBox(
-                  width: double.infinity,
-                  height: 210,
-                  child: PieChart(
-                    PieChartData(
-                      sectionsSpace: 4,
-                      centerSpaceRadius: 50,
-                      sections: items
-                          .map((item) => PieChartSectionData(
-                                color: item.color,
-                                value: item.value,
-                                title:
-                                    '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
-                                radius: 30,
-                                titleStyle: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                                titlePositionPercentageOffset: 1.8,
-                              ))
-                          .toList(),
+              )
+            else
+              Column(
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.expensesOfTheMonth,
+                    style: TextStyle(color: Colors.grey, fontSize: 18),
+                  ),
+                  SizedBox(height: 10,),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 210,
+                    child: PieChart(
+                      PieChartData(
+                        sectionsSpace: 4,
+                        centerSpaceRadius: 50,
+                        sections: items
+                            .map((item) => PieChartSectionData(
+                                  color: item.color,
+                                  value: item.value,
+                                  title:
+                                      '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
+                                  radius: 30,
+                                  titleStyle: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                  titlePositionPercentageOffset: 1.8,
+                                ))
+                            .toList(),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
+            SizedBox(
+              height: 30,
             ),
-          SizedBox(
-            height: 30,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: Wrap(
-              spacing: 8,
-              runSpacing: 4,
-              alignment: WrapAlignment.center,
-              children: items
-                  .map((item) => _buildLegendItem(
-                      item.color,
-                      '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
-                      Translateservice.getTranslatedCategoryName(
-                          context, item.label)))
-                  .toList(),
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 4,
+                alignment: WrapAlignment.center,
+                children: items
+                    .map((item) => _buildLegendItem(
+                        item.color,
+                        '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
+                        Translateservice.getTranslatedCategoryName(
+                            context, item.label)))
+                    .toList(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

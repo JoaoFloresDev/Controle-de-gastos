@@ -4,14 +4,12 @@ import 'package:meus_gastos/widgets/Transactions/InsertTransactions/InsertTransa
 import 'package:meus_gastos/widgets/Dashboards/DashboardScreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
-
-
 
 class MyApp extends StatelessWidget {
   // MARK: - Build Method
@@ -71,27 +69,42 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
         tabBuilder: (context, index) {
-          if (index == 1 && selectedTab == 1) {
-            return DashboardScreen(
-              key: UniqueKey(),
-              isActive: true,
-            );
-          }
-
-          switch (index) {
-            case 0:
-              return InsertTransactions(
-                title: AppLocalizations.of(context)!.myExpenses,
-                onAddClicked: () {},
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              return Column(
+                children: [
+                  Expanded(
+                    child: _buildTabContent(index),
+                  ),
+                  
+                ],
               );
-            default:
-              return DashboardScreen(
-                key: ValueKey(index),
-                isActive: selectedTab == 1,
-              );
-          }
+            },
+          );
         },
       ),
     );
+  }
+
+  Widget _buildTabContent(int index) {
+    if (index == 1 && selectedTab == 1) {
+      return DashboardScreen(
+        key: UniqueKey(),
+        isActive: true,
+      );
+    }
+
+    switch (index) {
+      case 0:
+        return InsertTransactions(
+          title: AppLocalizations.of(context)!.myExpenses,
+          onAddClicked: () {},
+        );
+      default:
+        return DashboardScreen(
+          key: ValueKey(index),
+          isActive: selectedTab == 1,
+        );
+    }
   }
 }

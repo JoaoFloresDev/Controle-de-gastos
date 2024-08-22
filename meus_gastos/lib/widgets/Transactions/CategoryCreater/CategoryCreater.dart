@@ -6,6 +6,7 @@ import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
 
 
 class Categorycreater extends StatefulWidget {
@@ -273,8 +274,15 @@ class _CategorycreaterState extends State<Categorycreater> {
               ),
             ),
           ),
+          Expanded(child: SizedBox(),),
+          SizedBox(
+            height: 50, // Altura do banner
+            width: double.infinity, // Largura do banner
+            child: BannerAdconstruct(), // Widget do banner
+          ),
         ]),
       ),
+
     );
   }
 }

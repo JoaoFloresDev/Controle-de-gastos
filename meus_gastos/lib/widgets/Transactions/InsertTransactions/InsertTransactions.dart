@@ -6,8 +6,8 @@ import 'package:meus_gastos/services/CardService.dart' as service;
 import 'package:meus_gastos/widgets/Transactions/CardDetails/DetailScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/widgets/Transactions/CategoryCreater/CategoryCreater.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:in_app_review/in_app_review.dart';
+import 'package:meus_gastos/widgets/ads_review/constructReview.dart';
+import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
 
 class InsertTransactions extends StatefulWidget {
   const InsertTransactions({
@@ -42,37 +42,24 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       cardList = cards;
     });
   }
-  Future<void> checkAndRequestReview() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  int sessionCount = prefs.getInt('session_count') ?? 0;
-  sessionCount += 1;
-  await prefs.setInt('session_count', sessionCount);
-  print("É a $sessionCount vez");
-  // Solicite a avaliação após 5 sessões
-  if (sessionCount >= 5) {
-    final InAppReview inAppReview = InAppReview.instance;
-    print("É a quinta vez");
-    if (await inAppReview.isAvailable()) {
-      // Exibe a solicitação de avaliação se disponível
-      print("E entrou");
-      inAppReview.requestReview();
-      sessionCount = 0;
-      prefs.setInt('session_count', sessionCount);
-    }
-  }
-}
+
   // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CupertinoNavigationBar(
+        middle: Text(
+          widget.title,
+          style: TextStyle(color: Colors.white, fontSize: 16),
+        ),
+        backgroundColor: Colors.black,
+      ),
       body: Column(
         children: [
-          CupertinoNavigationBar(
-            middle: Text(
-              widget.title,
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-            backgroundColor: Colors.black,
+          SizedBox(
+            height: 50, // Altura do banner
+            width: double.infinity, // Largura do banner
+            child: BannerAdconstruct(), // Widget do banner
           ),
           if (_showHeaderCard) ...[
             Padding(
@@ -84,7 +71,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                   widget.onAddClicked();
                   setState(() async {
                     loadCards();
-                      await checkAndRequestReview();
+                    await Constructreview.checkAndRequestReview();
                   });
                 },
                 onAddCategory: () {
