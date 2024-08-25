@@ -89,9 +89,9 @@ class _Extractbycategory extends State<Extractbycategory> {
                     ),
                   )),
               SizedBox(
-                height: 50, // Altura do banner
+                height: 60, // Altura do banner
                 width: double.infinity, // Largura do banner
-                child: BannerAdconstruct(), // Widget do banner
+                child: BannerAdconstruct(adUnitId: "ca-app-pub-9935935099347118/7004395303",), // Widget do banner
               ),
               Expanded(
                 child: Container(

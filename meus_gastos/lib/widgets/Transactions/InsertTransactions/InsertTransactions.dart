@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/widgets/Transactions/CategoryCreater/CategoryCreater.dart';
 import 'package:meus_gastos/widgets/ads_review/constructReview.dart';
 import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/services/export_toExcel.dart';
 
 class InsertTransactions extends StatefulWidget {
   const InsertTransactions({
@@ -53,13 +54,21 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           style: TextStyle(color: Colors.white, fontSize: 16),
         ),
         backgroundColor: Colors.black,
+        trailing: CupertinoButton(
+          onPressed: () {
+            ExportToexcel.exportExecel();
+          },
+          child: Icon(Icons.save_alt),
+        ),
       ),
       body: Column(
         children: [
           SizedBox(
-            height: 50, // Altura do banner
+            height: 60, // Altura do banner
             width: double.infinity, // Largura do banner
-            child: BannerAdconstruct(), // Widget do banner
+            child: BannerAdconstruct(
+                adUnitId:
+                    "ca-app-pub-9935935099347118/8817473765"), // Widget do banner
           ),
           if (_showHeaderCard) ...[
             Padding(

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class BannerAdconstruct extends StatefulWidget {
+  final String adUnitId;
+  BannerAdconstruct({required this.adUnitId});
   @override
   _BannerAdExampleState createState() => _BannerAdExampleState();
 }
@@ -14,9 +16,8 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
   String getBannerAdUnitId() {
     if (Platform.isAndroid) {
       String testBannerAdUnitId = 'ca-app-pub-3940256099942544/6300978111';
-      String deverdade = 'ca-app-pub-3940256099942544/6300978111';
-
-      return testBannerAdUnitId; // Ad Unit ID do Android
+    
+      return widget.adUnitId; // Ad Unit ID do Android
     } else if (Platform.isIOS) {
       return 'ca-app-pub-9935935099347118/3146376502'; // Ad Unit ID do iOS
     } else {
@@ -30,7 +31,7 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
 
     _bannerAd = BannerAd(
       adUnitId: getBannerAdUnitId(),
-      size: AdSize.banner,
+      size: AdSize.fullBanner,
       request: AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (_) {
@@ -65,10 +66,13 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
                 child: AdWidget(ad: _bannerAd),
               )
             : Container(
-              decoration: BoxDecoration(color: Colors.black.withOpacity(0.3)),
-              width: double.maxFinite,
-              height: 50,
-              child: Text('Ad is loading...', style: TextStyle(color: Colors.grey, fontSize: 20),)),
+                decoration: BoxDecoration(color: Colors.black.withOpacity(0.3)),
+                width: double.maxFinite,
+                height: 50,
+                child: Text(
+                  'Ad is loading...',
+                  style: TextStyle(color: Colors.grey, fontSize: 20),
+                )),
       ),
     );
   }

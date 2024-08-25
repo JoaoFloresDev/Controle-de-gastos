@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -136,110 +134,116 @@ class _DashboardScreenState extends State<DashboardScreen>
         backgroundColor: Colors.black.withOpacity(0.8),
       ),
       child: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 50, // Altura do banner
-                width: double.infinity, // Largura do banner
-                child: BannerAdconstruct(), // Widget do banner
-              ),
-              SizedBox(height: 15),
-              MonthSelector(
-                currentDate: currentDate,
-                onChangeMonth: _changeMonth,
-              ),
-              SizedBox(height: 18),
-              Text(
-                "${AppLocalizations.of(context)!.totalSpent}: ${Translateservice.formatCurrency(totalGasto, context)}",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Container(
-                height: 350 + pieChartDataItems.length.toDouble() / 2 * 30 > 500
-                    ? 350 + pieChartDataItems.length.toDouble() / 2 * 30
-                    : 500,
-                child: PageView(
-                    controller: _pageController,
-                    onPageChanged: _onPageChanged,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: DashboardCard(
-                          items: pieChartDataItems,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: WeeklyStackedBarChart(
-                          weekIntervals: Last5WeeksIntervals,
-                          weeklyData: Last5WeeksProgressIndicators,
-                        ),
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: DailyStackedBarChart(
-                              last5weewdailyData: weeklyData,
-                              last5WeeksIntervals: Last5WeeksIntervals)),
-                    ]),
-              ),
-              SizedBox(height: 12), // Espaço entre o PageView e o indicador
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List<Widget>.generate(3, (index) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 4.0),
-                    width: 12.0,
-                    height: 12.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _currentIndex == index ? Colors.blue : Colors.grey,
-                    ),
-                  );
-                }),
-              ),
-              SizedBox(height: 12),
-              if (isLoading)
-                CircularProgressIndicator(color: Colors.white)
-              else
-                Column(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 60, // Altura do banner
+              width: double.infinity, // Largura do banner
+              child: BannerAdconstruct(adUnitId: "ca-app-pub-9935935099347118/6003608162"), // Widget do banner
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
                   children: [
+                    SizedBox(height: 15),
+                    MonthSelector(
+                      currentDate: currentDate,
+                      onChangeMonth: _changeMonth,
+                    ),
+                    SizedBox(height: 18),
                     Text(
-                      AppLocalizations.of(context)!.topExpensesOfTheMonth,
+                      "${AppLocalizations.of(context)!.totalSpent}: ${Translateservice.formatCurrency(totalGasto, context)}",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    for (var progressIndicator in progressIndicators)
-                      GestureDetector(
-                        onTap: () {
-                          showCupertinoDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Container(
-                                  child: Extractbycategory(
-                                      category:
-                                          progressIndicator.category.name),
-                                );
-                              });
-                        },
-                        child: LinearProgressIndicatorSection(
-                            model: progressIndicator,
-                            totalAmount: progressIndicators.fold(
-                                0,
-                                (maxValue, item) => maxValue > item.progress
-                                    ? maxValue
-                                    : item.progress)),
-                      )
+                    Container(
+                      height: 350 + pieChartDataItems.length.toDouble() / 2 * 30 > 500
+                          ? 350 + pieChartDataItems.length.toDouble() / 2 * 30
+                          : 500,
+                      child: PageView(
+                          controller: _pageController,
+                          onPageChanged: _onPageChanged,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: DashboardCard(
+                                items: pieChartDataItems,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: WeeklyStackedBarChart(
+                                weekIntervals: Last5WeeksIntervals,
+                                weeklyData: Last5WeeksProgressIndicators,
+                              ),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: DailyStackedBarChart(
+                                    last5weewdailyData: weeklyData,
+                                    last5WeeksIntervals: Last5WeeksIntervals)),
+                          ]),
+                    ),
+                    SizedBox(height: 12), // Espaço entre o PageView e o indicador
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List<Widget>.generate(3, (index) {
+                        return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 4.0),
+                          width: 12.0,
+                          height: 12.0,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: _currentIndex == index ? Colors.blue : Colors.grey,
+                          ),
+                        );
+                      }),
+                    ),
+                    SizedBox(height: 12),
+                    if (isLoading)
+                      CircularProgressIndicator(color: Colors.white)
+                    else
+                      Column(
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.topExpensesOfTheMonth,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          for (var progressIndicator in progressIndicators)
+                            GestureDetector(
+                              onTap: () {
+                                showCupertinoDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        child: Extractbycategory(
+                                            category:
+                                                progressIndicator.category.name),
+                                      );
+                                    });
+                              },
+                              child: LinearProgressIndicatorSection(
+                                  model: progressIndicator,
+                                  totalAmount: progressIndicators.fold(
+                                      0,
+                                      (maxValue, item) => maxValue > item.progress
+                                          ? maxValue
+                                          : item.progress)),
+                            )
+                        ],
+                      ),
                   ],
                 ),
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );
