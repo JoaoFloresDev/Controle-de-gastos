@@ -8,7 +8,6 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
 
-
 class Categorycreater extends StatefulWidget {
   final VoidCallback onCategoryAdded;
 
@@ -223,8 +222,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                       ),
                       placeholder: AppLocalizations.of(context)!.category,
                       placeholderStyle: TextStyle(
-                        color: const Color.fromARGB(144, 255, 255, 255)
-                      ),
+                          color: const Color.fromARGB(144, 255, 255, 255)),
                       controller: categoriaController,
                     ),
                     const SizedBox(height: 24),
@@ -274,15 +272,16 @@ class _CategorycreaterState extends State<Categorycreater> {
               ),
             ),
           ),
-          Expanded(child: SizedBox(),),
+          Expanded(
+            child: SizedBox(),
+          ),
           SizedBox(
-            height: 60, // Altura do banner
-            width: double.infinity, // Largura do banner
-            child: BannerAdconstruct(adUnitId: "ca-app-pub-9935935099347118/5432864155",), // Widget do banner
+            height: 60, // banner height
+            width: double.infinity, // banner width
+            child: BannerAdconstruct(), // banner widget
           ),
         ]),
       ),
-
     );
   }
 }
@@ -334,6 +333,8 @@ class _AddCategoryHorizontalCircleListState
     Icons.savings,
     Icons.show_chart,
     Icons.wallet,
+
+    
   ];
 
   @override

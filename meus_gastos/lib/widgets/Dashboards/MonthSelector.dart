@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MonthSelector extends StatelessWidget {
   final DateTime currentDate;
   final Function(int) onChangeMonth;
 
-  MonthSelector(
+  const MonthSelector(
       {Key? key, required this.currentDate, required this.onChangeMonth})
       : super(key: key);
 
@@ -30,19 +28,19 @@ class MonthSelector extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            icon: Icon(Icons.arrow_back, size: 40),
+            icon: const Icon(Icons.arrow_back, size: 40),
             onPressed: () => onChangeMonth(-1),
           ),
           Text(
             formattedDate,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
           IconButton(
-            icon: Icon(Icons.arrow_forward, size: 40),
+            icon: const Icon(Icons.arrow_forward, size: 40),
             onPressed: () => onChangeMonth(1),
           ),
         ],

@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-
 
 class Selectcategorys extends StatefulWidget {
   final List<CategoryModel> categorieList;
   final Function(List<int>) onSelectionChanged;
-  const Selectcategorys({
-    required this.categorieList,
-    required this.onSelectionChanged,
-  });
+  final bool? changeWeek;
+  const Selectcategorys(
+      {required this.categorieList,
+      required this.onSelectionChanged,
+      this.changeWeek,
+      Key? key})
+      : super(key: key);
 
   @override
   SelectcategoryState createState() => SelectcategoryState();
@@ -25,18 +25,17 @@ class SelectcategoryState extends State<Selectcategorys> {
   @override
   void initState() {
     super.initState();
-    // Inicialmente, todos os itens são selecionados
+    // In begin, all of categorys will be selects
     selectedIndices =
         Set<int>.from(Iterable<int>.generate(widget.categorieList.length));
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(
-          height: 60, // Ajuste a altura para acomodar o círculo e o texto
+          height: 60,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: widget.categorieList.length,
@@ -50,12 +49,11 @@ class SelectcategoryState extends State<Selectcategorys> {
                       selectedIndices.add(index);
                     }
                   });
-                  // Notifica o callback da mudança de seleção
+                  // Notify callback about change in selection of categories
                   widget.onSelectionChanged(selectedIndices.toList());
                 },
                 child: Column(
-                  mainAxisSize: MainAxisSize
-                      .min, // Para evitar preencher todo o espaço vertical
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
                       width: 40,
@@ -71,10 +69,11 @@ class SelectcategoryState extends State<Selectcategorys> {
                         widget.categorieList[index].icon,
                       ),
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
-                      Translateservice.getTranslatedCategoryUsingModel(context, widget.categorieList[index]),
-                      style: TextStyle(
+                      Translateservice.getTranslatedCategoryUsingModel(
+                          context, widget.categorieList[index]),
+                      style: const TextStyle(
                         fontSize: 9,
                         color: Colors.white,
                       ),
@@ -99,19 +98,17 @@ class SelectcategoryState extends State<Selectcategorys> {
                   widget.onSelectionChanged(selectedIndices.toList());
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 8, vertical: 4), // Ajusta o padding
-                  minimumSize:
-                      Size(80, 20), // Define um tamanho mínimo para o botão
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  minimumSize: const Size(80, 20),
                   backgroundColor: Colors.transparent,
                 ),
                 child: Text(AppLocalizations.of(context)!.selectAll,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 12,
                         color: CupertinoColors.systemBlue,
                         fontWeight: FontWeight.bold)),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               ElevatedButton(
@@ -122,14 +119,13 @@ class SelectcategoryState extends State<Selectcategorys> {
                   widget.onSelectionChanged([]);
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 8, vertical: 4), // Ajusta o padding
-                  minimumSize:
-                      Size(80, 20), // Define um tamanho mínimo para o botão
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  minimumSize: const Size(80, 20),
                   backgroundColor: Colors.transparent,
                 ),
                 child: Text(AppLocalizations.of(context)!.clear,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 12,
                         color: CupertinoColors.systemBlue,
                         fontWeight: FontWeight.bold)),

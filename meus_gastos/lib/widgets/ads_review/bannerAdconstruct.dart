@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class BannerAdconstruct extends StatefulWidget {
-  final String adUnitId;
-  BannerAdconstruct({required this.adUnitId});
   @override
   _BannerAdExampleState createState() => _BannerAdExampleState();
 }
@@ -15,11 +13,11 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
 
   String getBannerAdUnitId() {
     if (Platform.isAndroid) {
-      String testBannerAdUnitId = 'ca-app-pub-3940256099942544/6300978111';
+      String testBannerAdUnitId = 'ca-app-pub-8858389345934911/3074198669';
     
-      return widget.adUnitId; // Ad Unit ID do Android
+      return testBannerAdUnitId; // Ad Unit ID do Android
     } else if (Platform.isIOS) {
-      return 'ca-app-pub-9935935099347118/3146376502'; // Ad Unit ID do iOS
+      return 'ca-app-pub-8858389345934911/9257029729'; // Ad Unit ID do iOS
     } else {
       throw UnsupportedError('Unsupported platform');
     }
@@ -32,7 +30,7 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
     _bannerAd = BannerAd(
       adUnitId: getBannerAdUnitId(),
       size: AdSize.fullBanner,
-      request: AdRequest(),
+      request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (_) {
           setState(() {
@@ -57,23 +55,21 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: _isAdLoaded
-            ? Container(
-                width: _bannerAd.size.width.toDouble(),
-                height: _bannerAd.size.height.toDouble(),
-                child: AdWidget(ad: _bannerAd),
-              )
-            : Container(
-                decoration: BoxDecoration(color: Colors.black.withOpacity(0.3)),
-                width: double.maxFinite,
-                height: 50,
-                child: Text(
-                  'Ad is loading...',
-                  style: TextStyle(color: Colors.grey, fontSize: 20),
-                )),
-      ),
+    return Center(
+      child: _isAdLoaded
+          ? SizedBox(
+              width: _bannerAd.size.width.toDouble(),
+              height: _bannerAd.size.height.toDouble(),
+              child: AdWidget(ad: _bannerAd),
+            )
+          : Container(
+              decoration: BoxDecoration(color: Colors.black.withOpacity(0.3)),
+              width: double.maxFinite,
+              height: 50,
+              child: const Text(
+                'Ad is loading...',
+                style: TextStyle(color: Colors.grey, fontSize: 20),
+              )),
     );
   }
 }

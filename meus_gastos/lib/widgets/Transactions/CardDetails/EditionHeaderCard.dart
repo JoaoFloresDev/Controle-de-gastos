@@ -54,16 +54,14 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     });
   }
 
-// Mover o acesso ao AppLocalizations para didChangeDependencies
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final locale = Localizations.localeOf(context);
     DateTime date = widget.card.date;
 
-    // Agora é seguro acessar o AppLocalizations.of(context)
-    String formattedDate =
-        DateFormat(AppLocalizations.of(context)!.dateFormat).format(date);
+    // With that, acess AppLocalizations.of(context) is security
+    DateFormat(AppLocalizations.of(context)!.dateFormat).format(date);
 
     valorController = MoneyMaskedTextController(
       leftSymbol: Translateservice.getCurrencySymbol(context),
@@ -104,7 +102,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     );
     CardService.updateCard(widget.card.id, newCard);
 
-    Future.delayed(Duration(milliseconds: 300), () {
+    Future.delayed(const Duration(milliseconds: 300), () {
       widget.onAddClicked();
     });
   }
@@ -119,15 +117,15 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
           Row(
             children: [
               Expanded(child: ValorTextField(controller: valorController)),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Expanded(
                 child: dateController,
               ),
             ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           CupertinoTextField(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               border: Border(
                 bottom: BorderSide(
                   color: CupertinoColors.systemGrey5,
@@ -135,12 +133,12 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
               ),
             ),
             placeholder: AppLocalizations.of(context)!.description,
-            placeholderStyle: TextStyle(color: CupertinoColors.systemGrey3),
+            placeholderStyle: const TextStyle(color: CupertinoColors.systemGrey3),
             controller: descricaoController,
             focusNode: descricaoFocusNode,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Container(
             margin: EdgeInsets.zero,
             child: HorizontalCircleList(
@@ -152,13 +150,13 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 12),
             child: CupertinoButton(
               color: CupertinoColors.systemBlue,
               onPressed: adicionar,
               child: Text(
                 widget.adicionarButtonTitle,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
           ),

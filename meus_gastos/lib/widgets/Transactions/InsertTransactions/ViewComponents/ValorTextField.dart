@@ -26,7 +26,7 @@ class _ValorTextFieldState extends State<ValorTextField> {
   void _handleFocusChange() {
     if (_focusNode.hasFocus) {
       _overlayEntry = _createOverlayEntry();
-      Overlay.of(context)!.insert(_overlayEntry!);
+      Overlay.of(context).insert(_overlayEntry!);
     } else {
       _overlayEntry?.remove();
       _overlayEntry = null;
@@ -58,15 +58,15 @@ class _ValorTextFieldState extends State<ValorTextField> {
   Widget build(BuildContext context) {
     return CupertinoTextField(
       focusNode: _focusNode,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         border: Border(bottom: BorderSide(color: CupertinoColors.systemGrey)),
       ),
       style:
-          TextStyle(color: Colors.white), // Define a cor do texto como branca
+          const TextStyle(color: Colors.white),
       placeholder: AppLocalizations.of(context)!.enterAmount, // Placeholder
       placeholderStyle: TextStyle(
           color: Colors.white.withOpacity(
-              0.6)), // Define a cor do placeholder como branca com opacidade
+              0.6)),
       keyboardType: TextInputType.number,
       controller: widget.controller,
     );

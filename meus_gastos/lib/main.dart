@@ -4,7 +4,6 @@ import 'package:meus_gastos/widgets/Transactions/InsertTransactions/InsertTransa
 import 'package:meus_gastos/widgets/Dashboards/DashboardScreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,12 +11,14 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
+    return const CupertinoApp(
       debugShowCheckedModeBanner: false,
-      theme: const CupertinoThemeData(
+      theme: CupertinoThemeData(
         brightness: Brightness.light,
       ),
       localizationsDelegates: [
@@ -27,9 +28,9 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate
       ],
       supportedLocales: [
-        const Locale('en', ''),
-        const Locale('es', ''),
-        const Locale('pt', ''),
+        Locale('en', ''),
+        Locale('es', ''),
+        Locale('pt', ''),
       ],
       home: MyHomePage(),
     );
@@ -37,6 +38,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }

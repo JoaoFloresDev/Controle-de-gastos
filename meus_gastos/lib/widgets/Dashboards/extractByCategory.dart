@@ -75,10 +75,10 @@ class _Extractbycategory extends State<Extractbycategory> {
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Padding(
-                            padding: EdgeInsets.all(12),
+                            padding: const EdgeInsets.all(12),
                             child: Text(
-                              "${Translateservice.getTranslatedCategoryName(context, widget.category)}",
-                              style: TextStyle(
+                              Translateservice.getTranslatedCategoryName(context, widget.category),
+                              style: const TextStyle(
                                   fontSize: 20,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
@@ -89,9 +89,9 @@ class _Extractbycategory extends State<Extractbycategory> {
                     ),
                   )),
               SizedBox(
-                height: 60, // Altura do banner
-                width: double.infinity, // Largura do banner
-                child: BannerAdconstruct(adUnitId: "ca-app-pub-9935935099347118/7004395303",), // Widget do banner
+                height: 60, // banner height
+                width: double.infinity, // banner width
+                child: BannerAdconstruct(), // banner widget
               ),
               Expanded(
                 child: Container(
@@ -112,7 +112,7 @@ class _Extractbycategory extends State<Extractbycategory> {
                                       height:
                                           MediaQuery.of(context).size.height /
                                               1.05,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(20),
                                           topRight: Radius.circular(20),

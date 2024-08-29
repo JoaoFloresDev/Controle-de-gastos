@@ -180,6 +180,17 @@ class CardService {
     return monthlyTotals;
   }
 
+  static Future<double> getTotalExpenses(DateTime year) async {
+    final List<CardModel> cards = await CardService.retrieveCards();
+    double totalExpenses = 0.0;
+
+    for (var card in cards) {
+      totalExpenses += card.amount;
+    }
+
+    return totalExpenses;
+  }
+
   // MARK: - Utility
   static String generateUniqueId() {
     var uuid = Uuid();

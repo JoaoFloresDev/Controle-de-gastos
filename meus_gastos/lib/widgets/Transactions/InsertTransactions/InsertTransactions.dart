@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/widgets/Transactions/CategoryCreater/CategoryCreater.dart';
 import 'package:meus_gastos/widgets/ads_review/constructReview.dart';
 import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
-import 'package:meus_gastos/services/export_toExcel.dart';
+import 'package:meus_gastos/widgets/Transactions/exportExcel/exportExcelScreen.dart';
 
 class InsertTransactions extends StatefulWidget {
   const InsertTransactions({
@@ -24,7 +24,6 @@ class InsertTransactions extends StatefulWidget {
 }
 
 class _InsertTransactionsState extends State<InsertTransactions> {
-  final TextEditingController _dateController = TextEditingController();
   List<CardModel> cardList = [];
   final GlobalKey<HeaderCardState> _headerCardKey = GlobalKey();
   bool _showHeaderCard = true;
@@ -51,31 +50,40 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       appBar: CupertinoNavigationBar(
         middle: Text(
           widget.title,
-          style: TextStyle(color: Colors.white, fontSize: 16),
+          style: const TextStyle(color: Colors.white, fontSize: 16),
         ),
         backgroundColor: Colors.black,
-        trailing: CupertinoButton(
-          onPressed: () {
-            ExportToexcel.exportExecel();
+        trailing: GestureDetector(
+          onTap: () {
+            showCupertinoModalPopup(
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                      height: MediaQuery.of(context).size.height / 1.6,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                      ),
+                      child: Exportexcelscreen());
+                });
           },
-          child: Icon(Icons.save_alt),
+          child: const Icon(Icons.save_alt),
         ),
       ),
       body: Column(
         children: [
           SizedBox(
-            height: 60, // Altura do banner
-            width: double.infinity, // Largura do banner
-            child: BannerAdconstruct(
-                adUnitId:
-                    "ca-app-pub-9935935099347118/8817473765"), // Widget do banner
+            height: 60, // banner height
+            width: double.infinity, // banner width
+            child: BannerAdconstruct(), // banner widget
           ),
           if (_showHeaderCard) ...[
             Padding(
               padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
               child: HeaderCard(
                 key: _headerCardKey,
-                // adicionarButtonTitle: 'Adicionar',
                 onAddClicked: () {
                   widget.onAddClicked();
                   setState(() async {
@@ -89,7 +97,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                     builder: (BuildContext context) {
                       return Container(
                         height: MediaQuery.of(context).size.height / 1.1,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20),
@@ -161,7 +169,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       builder: (BuildContext context) {
         return Container(
           height: MediaQuery.of(context).size.height / 1.05,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -171,9 +179,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             card: card,
             onAddClicked: () {
               loadCards();
-              setState(() {
-                _showHeaderCard = false;
-              });
+              setState(() {});
             },
           ),
         );

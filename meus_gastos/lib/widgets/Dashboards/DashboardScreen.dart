@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/widgets/Dashboards/bar_chartWeek/BarChartDaysofWeek.dart';
@@ -38,10 +37,11 @@ class _DashboardScreenState extends State<DashboardScreen>
       []; // list expens of last 5 weeks (to the week chart)
   List<List<List<ProgressIndicatorModel>>> weeklyData = [];
 
+  double totalexpens = 0.0;
+
   bool isLoading = true;
   DateTime currentDate = DateTime.now();
   double totalGasto = 0.0;
-  bool graficCircle = true;
 
   PageController _pageController = PageController();
   int _currentIndex = 0;
@@ -55,13 +55,12 @@ class _DashboardScreenState extends State<DashboardScreen>
     _onScreenDisplayed();
   }
 
-  void _onScreenDisplayed() {
-    print("DashboardScreen is displayed.2");
+  void _onScreenDisplayed() async {
     if (widget.isActive) {
-      print("aaa22");
       _loadProgressIndicators(currentDate);
       _loadProgressMonthsInYear(currentDate);
     }
+    totalexpens = await CardService.getTotalExpenses(currentDate);
   }
 
   void _changeMonth(int delta) {
@@ -71,22 +70,9 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
   }
 
-  void _changeYear(int increment) {
-    setState(() {
-      currentDate = DateTime(currentDate.year + increment);
-      _loadProgressMonthsInYear(currentDate);
-      _loadProgressIndicators(currentDate);
-    });
-  }
-
   void _onPageChanged(int index) {
     setState(() {
       _currentIndex = index;
-      graficCircle = true;
-      if (index == 1) {
-        graficCircle = false;
-      }
-      _loadProgressIndicators(currentDate);
     });
   }
 
@@ -94,7 +80,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     totalOfMonths = await CardService.getTotalExpensesByMonth(currentDate);
     totalExpansivesMonths_category =
         await CardService.getMonthlyExpensesByCategoryForYear(currentDate.year);
-    print("${totalExpansivesMonths_category.isEmpty}");
   }
 
   Future<void> _loadProgressIndicators(DateTime currentDate) async {
@@ -130,119 +115,144 @@ class _DashboardScreenState extends State<DashboardScreen>
       backgroundColor: Colors.black.withOpacity(0.9),
       navigationBar: CupertinoNavigationBar(
         middle: Text(AppLocalizations.of(context)!.myControl,
-            style: TextStyle(color: Colors.white, fontSize: 20)),
+            style: const TextStyle(color: Colors.white, fontSize: 20)),
         backgroundColor: Colors.black.withOpacity(0.8),
       ),
       child: SafeArea(
         child: Column(
           children: [
             SizedBox(
-              height: 60, // Altura do banner
-              width: double.infinity, // Largura do banner
-              child: BannerAdconstruct(adUnitId: "ca-app-pub-9935935099347118/6003608162"), // Widget do banner
+              height: 60, // banner height
+              width: double.infinity, // banner width
+              child: BannerAdconstruct(), // banner Widget
             ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(height: 15),
-                    MonthSelector(
-                      currentDate: currentDate,
-                      onChangeMonth: _changeMonth,
-                    ),
-                    SizedBox(height: 18),
-                    Text(
-                      "${AppLocalizations.of(context)!.totalSpent}: ${Translateservice.formatCurrency(totalGasto, context)}",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+            if (totalexpens > 0)
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 15),
+                      MonthSelector(
+                        currentDate: currentDate,
+                        onChangeMonth: _changeMonth,
                       ),
-                    ),
-                    Container(
-                      height: 350 + pieChartDataItems.length.toDouble() / 2 * 30 > 500
-                          ? 350 + pieChartDataItems.length.toDouble() / 2 * 30
-                          : 500,
-                      child: PageView(
-                          controller: _pageController,
-                          onPageChanged: _onPageChanged,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: DashboardCard(
-                                items: pieChartDataItems,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: WeeklyStackedBarChart(
-                                weekIntervals: Last5WeeksIntervals,
-                                weeklyData: Last5WeeksProgressIndicators,
-                              ),
-                            ),
-                            Padding(
+                      const SizedBox(height: 18),
+                      Text(
+                        "${AppLocalizations.of(context)!.totalSpent}: ${Translateservice.formatCurrency(totalGasto, context)}",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height:
+                            350 + pieChartDataItems.length.toDouble() / 2 * 30 >
+                                    500
+                                ? 350 +
+                                    pieChartDataItems.length.toDouble() / 2 * 30
+                                : 500,
+                        child: PageView(
+                            controller: _pageController,
+                            onPageChanged: _onPageChanged,
+                            children: <Widget>[
+                              Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: DailyStackedBarChart(
-                                    last5weewdailyData: weeklyData,
-                                    last5WeeksIntervals: Last5WeeksIntervals)),
-                          ]),
-                    ),
-                    SizedBox(height: 12), // Espaço entre o PageView e o indicador
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List<Widget>.generate(3, (index) {
-                        return Container(
-                          margin: EdgeInsets.symmetric(horizontal: 4.0),
-                          width: 12.0,
-                          height: 12.0,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: _currentIndex == index ? Colors.blue : Colors.grey,
-                          ),
-                        );
-                      }),
-                    ),
-                    SizedBox(height: 12),
-                    if (isLoading)
-                      CircularProgressIndicator(color: Colors.white)
-                    else
-                      Column(
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.topExpensesOfTheMonth,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          for (var progressIndicator in progressIndicators)
-                            GestureDetector(
-                              onTap: () {
-                                showCupertinoDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Container(
-                                        child: Extractbycategory(
-                                            category:
-                                                progressIndicator.category.name),
-                                      );
-                                    });
-                              },
-                              child: LinearProgressIndicatorSection(
-                                  model: progressIndicator,
-                                  totalAmount: progressIndicators.fold(
-                                      0,
-                                      (maxValue, item) => maxValue > item.progress
-                                          ? maxValue
-                                          : item.progress)),
-                            )
-                        ],
+                                child: DashboardCard(
+                                  items: pieChartDataItems,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: WeeklyStackedBarChart(
+                                  weekIntervals: Last5WeeksIntervals,
+                                  weeklyData: Last5WeeksProgressIndicators,
+                                ),
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: DailyStackedBarChart(
+                                      last5weewdailyData: weeklyData,
+                                      last5WeeksIntervals:
+                                          Last5WeeksIntervals)),
+                            ]),
                       ),
-                  ],
+                      const SizedBox(
+                          height:
+                              12), // space between grafics and progressIndicators
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List<Widget>.generate(3, (index) {
+                          return Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                            width: 12.0,
+                            height: 12.0,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _currentIndex == index
+                                  ? Colors.blue
+                                  : Colors.grey,
+                            ),
+                          );
+                        }),
+                      ),
+                      const SizedBox(height: 12),
+                      if (isLoading)
+                        const CircularProgressIndicator(color: Colors.white)
+                      else
+                        Column(
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .topExpensesOfTheMonth,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            for (var progressIndicator in progressIndicators)
+                              GestureDetector(
+                                onTap: () {
+                                  showCupertinoDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Extractbycategory(
+                                            category: progressIndicator
+                                                .category.name);
+                                      });
+                                },
+                                child: LinearProgressIndicatorSection(
+                                    model: progressIndicator,
+                                    totalAmount: progressIndicators.fold(
+                                        0,
+                                        (maxValue, item) =>
+                                            maxValue > item.progress
+                                                ? maxValue
+                                                : item.progress)),
+                              )
+                          ],
+                        ),
+                    ],
+                  ),
                 ),
               ),
-            ),
+            if (totalexpens <= 0)
+              Expanded(
+                child: Container(
+                  width: double.maxFinite,
+                  alignment: Alignment.center,
+                  child: Text(
+                    AppLocalizations.of(context)!.addNewTransactions,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              )
           ],
         ),
       ),

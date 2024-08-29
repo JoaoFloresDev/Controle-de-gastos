@@ -23,7 +23,9 @@ class DailyStackedBarChart extends StatefulWidget {
 
 class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
   List<CategoryModel> selectedCategories = [];
-  int selectedWeek = 4;
+  int selectedWeek = 4; // the last week is select
+  Key selectCategoryKey =
+      UniqueKey(); // make a unique key to call the class selectCategory
   @override
   void initState() {
     super.initState();
@@ -123,6 +125,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                       .toList();
                 });
               },
+              key: selectCategoryKey,
             ),
           ],
         ),
@@ -161,7 +164,11 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        selectedWeek = index;
+                        if (selectedWeek != index) {
+                          selectedWeek = index;
+                          selectedCategories = [];
+                          selectCategoryKey = UniqueKey();
+                        }
                       });
                     },
                     child: Container(
@@ -191,7 +198,6 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         .expand((day) => day.map((data) => data.category.name))
         .toSet()
         .toList();
-
     final days = [
       AppLocalizations.of(context)!.monday,
       AppLocalizations.of(context)!.tuesday,
@@ -219,7 +225,9 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             .where((data) => data.category.name == category)
             .toList(),
         xValueMapper: (data, index) => days[index % 7],
-        yValueMapper: (data, index) => totalByDay[index] > 1 ? data.progress / totalByDay[index] * 150 : data.progress,
+        yValueMapper: (data, index) => totalByDay[index] > 1
+            ? data.progress / totalByDay[index] * 150
+            : data.progress,
         pointColorMapper: (data, _) => data.color,
         width: 0.5,
         name: Translateservice.getTranslatedCategoryName(context, category),
@@ -245,7 +253,9 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
       }),
       xValueMapper: (data, index) => days[index],
       yValueMapper: (data, index) => 30,
-      dataLabelMapper: (data, index) => data.progress > 0 ? Translateservice.formatCurrency(data.progress, context): '',
+      dataLabelMapper: (data, index) => data.progress > 0
+          ? Translateservice.formatCurrency(data.progress, context)
+          : '',
       pointColorMapper: (data, _) =>
           Colors.transparent, // Torna a barra transparente
       width: 0.5,

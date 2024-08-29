@@ -5,8 +5,6 @@ import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:meus_gastos/widgets/Dashboards/DashboardCard.dart';
 
 class WeekInterval {
   final DateTime start;

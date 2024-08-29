@@ -43,5 +43,7 @@
     "drink": "Drink",
     "dateFormat": "HH:mm MM/dd/yyyy",
     "resumeDateFormat": "MM/dd",
-    "noExpensesThisWeek" : "No expenses this week"
+    "noExpensesThisWeek" : "No expenses this week",
+    "export" : "Export",
+    "textExport" : "Click on the button below to export your data to an Excel spreadsheet."
 }

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/CategoryModel.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CategoryService {
   static const String _categoriesKey = 'categories';
@@ -37,7 +36,7 @@ class CategoryService {
       return CategoryModel.fromJson(categoryMap);
     }).toList();
 
-    // Atualiza a frequência da categoria com o ID fornecido
+    // update the frequency of category with Id forneced
     for (var cat in aux) {
       if (cat.id == category.id) {
         cat.frequency++;
@@ -48,7 +47,7 @@ class CategoryService {
       }
     }
 
-    // Serializa os dados atualizados e salva nas preferências compartilhadas
+    // Serialize the updated data and save it to shared preferences.
     List<String> updatedCategories =
         aux.map((category) => jsonEncode(category.toJson())).toList();
     await prefs.setStringList(_categoriesKey, updatedCategories);

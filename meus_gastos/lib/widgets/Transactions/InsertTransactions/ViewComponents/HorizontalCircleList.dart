@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 
 class HorizontalCircleList extends StatefulWidget {
@@ -32,7 +31,6 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
   // MARK: - Load Categories
   Future<void> loadCategories() async {
     categorieList = await CategoryService().getAllCategories();
-    print(CategoryService().printAllCategories());
     setState(() {
       categorieList = categorieList;
     });
@@ -42,7 +40,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100, // Ajuste a altura para acomodar o círculo e o texto
+      height: 100, 
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categorieList.length,
@@ -59,7 +57,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
             },
             child: Column(
               mainAxisSize: MainAxisSize
-                  .min, // Para evitar preencher todo o espaço vertical
+                  .min, 
               children: [
                 Container(
                   width: 50,
@@ -77,10 +75,10 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                     categorieList[index].icon,
                   ),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
-                  "${Translateservice.getTranslatedCategoryUsingModel(context, categorieList[index])}",
-                  style: TextStyle(
+                  Translateservice.getTranslatedCategoryUsingModel(context, categorieList[index]),
+                  style: const TextStyle(
                     fontSize: 9,
                     color: Colors.white,
                   ),

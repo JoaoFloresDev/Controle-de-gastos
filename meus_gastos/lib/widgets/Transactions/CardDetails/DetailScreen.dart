@@ -5,7 +5,6 @@ import 'EditionHeaderCard.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
 
-
 class DetailScreen extends StatefulWidget {
   final CardModel card;
   final VoidCallback onAddClicked;
@@ -25,7 +24,8 @@ class _DetailScreen extends State<DetailScreen> {
     // Acessando as traduções diretamente no método build
     final String update = AppLocalizations.of(context)!.update;
     final String cancel = AppLocalizations.of(context)!.cancel;
-    final String transactionDetails = AppLocalizations.of(context)!.transactionDetails;
+    final String transactionDetails =
+        AppLocalizations.of(context)!.transactionDetails;
 
     return GestureDetector(
       onTap: () {
@@ -56,12 +56,14 @@ class _DetailScreen extends State<DetailScreen> {
                 },
               ),
             ),
-            Expanded(child: SizedBox(),),
-          SizedBox(
-            height: 60, // Altura do banner
-            width: double.infinity, // Largura do banner
-            child: BannerAdconstruct(adUnitId: "ca-app-pub-9935935099347118/9483789805",), // Widget do banner
-          ),
+            Expanded(
+              child: SizedBox(),
+            ),
+            SizedBox(
+              height: 60, // banner height
+              width: double.infinity, // banner width
+              child: BannerAdconstruct(), // banner widget
+            ),
           ],
         ),
       ),
@@ -69,7 +71,8 @@ class _DetailScreen extends State<DetailScreen> {
   }
 
   // MARK: - Header
-  Widget _buildHeader(BuildContext context, String cancel, String transactionDetails) {
+  Widget _buildHeader(
+      BuildContext context, String cancel, String transactionDetails) {
     return Padding(
       padding: EdgeInsets.all(0),
       child: Container(

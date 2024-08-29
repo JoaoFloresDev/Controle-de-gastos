@@ -32,7 +32,10 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.weeklyData.isEmpty || widget.weekIntervals.isEmpty) {
+    bool hasExpens = widget.weeklyData
+        .expand((week) => week.map((w) => w.progress))
+        .isNotEmpty;
+    if (!hasExpens || widget.weekIntervals.isEmpty) {
       return Card(
         color: Colors.grey[900],
         elevation: 4,

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'CampoComMascara.dart';
@@ -42,10 +41,9 @@ class HeaderCardState extends State<HeaderCard> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    // Atualiza o formato do valor e da data com base nas configurações atuais
+    // update date format based in atuality configs
     final locale = Localizations.localeOf(context);
     final currencySymbol = Translateservice.getCurrencySymbol(context);
-    // final dateFormat = AppLocalizations.of(context)!.dateFormat;
 
     valorController = MoneyMaskedTextController(
       leftSymbol: currencySymbol,
@@ -56,7 +54,7 @@ class HeaderCardState extends State<HeaderCard> {
     final DateFormat formatter = DateFormat(
         AppLocalizations.of(context)!.dateFormat,
         Localizations.localeOf(context).toString());
-    String formattedDate = formatter.format(lastDateSelected);
+    formatter.format(lastDateSelected);
 
     dateController = CampoComMascara(
       currentDate: lastDateSelected,
@@ -102,18 +100,9 @@ class HeaderCardState extends State<HeaderCard> {
       descricaoController.clear();
     });
     FocusManager.instance.primaryFocus?.unfocus();
-    Future.delayed(Duration(milliseconds: 300), () {
+    Future.delayed(const Duration(milliseconds: 300), () {
       widget.onAddClicked();
     });
-  }
-
-  // MARK: - Get Current Date
-  String _getCurrentDate() {
-    DateTime now = DateTime.now();
-    final locale = Intl.getCurrentLocale();
-    String customDateFormat =
-        DateFormat('dd-MM-yyyy', locale.toString()).format(now);
-    return '$customDateFormat ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
   }
 
   // MARK: - Build Method
@@ -126,15 +115,15 @@ class HeaderCardState extends State<HeaderCard> {
           Row(
             children: [
               Expanded(child: ValorTextField(controller: valorController)),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Expanded(
                 child: dateController,
               ),
             ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           CupertinoTextField(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               border: Border(
                 bottom: BorderSide(
                   color: CupertinoColors.white,
@@ -144,10 +133,10 @@ class HeaderCardState extends State<HeaderCard> {
             placeholder: AppLocalizations.of(context)!.description,
             placeholderStyle:
                 TextStyle(color: CupertinoColors.white.withOpacity(0.5)),
-            style: TextStyle(color: CupertinoColors.white),
+            style: const TextStyle(color: CupertinoColors.white),
             controller: descricaoController,
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           Container(
             margin: EdgeInsets.zero,
             child: HorizontalCircleList(
@@ -167,13 +156,13 @@ class HeaderCardState extends State<HeaderCard> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: CupertinoButton(
               color: CupertinoColors.systemBlue,
               onPressed: adicionar,
               child: Text(
                 AppLocalizations.of(context)!.add,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
           ),

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:meus_gastos/services/DashbordService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 
 class PieChartDataItem {
@@ -28,7 +27,6 @@ class DashboardCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
-          
           children: [
             if (items.isEmpty)
               SizedBox(
@@ -38,7 +36,7 @@ class DashboardCard extends StatelessWidget {
                   child: Text.rich(
                     TextSpan(
                       text: AppLocalizations.of(context)!.addNewTransactions,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                         fontSize: 20,
@@ -47,7 +45,7 @@ class DashboardCard extends StatelessWidget {
                         TextSpan(
                           text:
                               '\n\n${AppLocalizations.of(context)!.youWillBeAbleToUnderstandYourExpensesHere}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.normal,
                             color: Colors.white,
                             fontSize: 14,
@@ -64,9 +62,11 @@ class DashboardCard extends StatelessWidget {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.expensesOfTheMonth,
-                    style: TextStyle(color: Colors.grey, fontSize: 18),
+                    style: const TextStyle(color: Colors.grey, fontSize: 18),
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   SizedBox(
                     width: double.infinity,
                     height: 210,
@@ -81,7 +81,7 @@ class DashboardCard extends StatelessWidget {
                                   title:
                                       '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
                                   radius: 30,
-                                  titleStyle: TextStyle(
+                                  titleStyle: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
@@ -93,9 +93,7 @@ class DashboardCard extends StatelessWidget {
                   ),
                 ],
               ),
-            SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.only(top: 30),
               child: Wrap(
@@ -122,9 +120,9 @@ class DashboardCard extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(Icons.circle, color: color, size: 16),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         Text('$label - $percent',
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 12)),
