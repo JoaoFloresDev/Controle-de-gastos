@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/widgets/Dashboards/bar_chartWeek/BarChartDaysofWeek.dart';
-import 'package:meus_gastos/widgets/Dashboards/extractByCategory.dart';
+import 'package:meus_gastos/Controllers/Dashboards/bar_chartWeek/BarChartDaysofWeek.dart';
+import 'package:meus_gastos/Controllers/Dashboards/extractByCategory.dart';
 import 'MonthSelector.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'LinearProgressIndicatorSection.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'DashboardCard.dart';
-import 'package:meus_gastos/widgets/Dashboards/bar_chartWeek/BarChartWeek.dart';
+import 'package:meus_gastos/Controllers/Dashboards/bar_chartWeek/BarChartWeek.dart';
 import 'package:meus_gastos/services/DashbordService.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/Controllers/ads_review/bannerAdconstruct.dart';
 
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
@@ -115,7 +115,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       backgroundColor: Colors.black.withOpacity(0.9),
       navigationBar: CupertinoNavigationBar(
         middle: Text(AppLocalizations.of(context)!.myControl,
-            style: const TextStyle(color: Colors.white, fontSize: 20)),
+            style: const TextStyle(color: Colors.white, fontSize: 16)),
         backgroundColor: Colors.black.withOpacity(0.8),
       ),
       child: SafeArea(
