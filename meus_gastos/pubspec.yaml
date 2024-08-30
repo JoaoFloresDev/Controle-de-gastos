@@ -18,7 +18,7 @@ dependencies:
   shared_preferences: ^2.0.6
   font_awesome_flutter: ^9.2.0
   uuid: ^3.0.5
-  fl_chart: ^0.40.0
+  fl_chart: ^0.68.0
   syncfusion_flutter_charts: ^20.1.55
   percent_indicator: ^4.0.0
   flutter_colorpicker: ^1.0.3
@@ -40,3 +40,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+
+dependency_overrides:
+  win32: ^5.5.4
