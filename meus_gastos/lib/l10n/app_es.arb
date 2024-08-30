@@ -45,6 +45,9 @@
     "resumeDateFormat": "dd/MM",
     "noExpensesThisWeek" : "Sin gastos esta semana",
     "export" : "Exportar",
-    "textExport" : "Haga clic en el botón de abajo para exportar sus datos a una hoja de cálculo de Excel."
+    "textExport" : "Haga clic en el botón de abajo para exportar sus datos a una hoja de cálculo de Excel o un archivo PDF.",
+    "share" : "Compartir",
+    "saveLocally" : "Guardar localmente",
+    "shareMensage" : "Descubre la mejor aplicación para el control de gastos personales"
 
 }

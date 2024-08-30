@@ -66,7 +66,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             .expand((day) => day.map((data) => data.progress))
             .isEmpty
         ? 0
-        : 200;
+        : 110;
 
     return Card(
       color: Colors.grey[900],
@@ -226,7 +226,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             .toList(),
         xValueMapper: (data, index) => days[index % 7],
         yValueMapper: (data, index) => totalByDay[index] > 1
-            ? data.progress / totalByDay[index] * 150
+            ? data.progress / totalByDay[index] * 100
             : data.progress,
         pointColorMapper: (data, _) => data.color,
         width: 0.5,

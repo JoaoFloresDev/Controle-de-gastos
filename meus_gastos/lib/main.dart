@@ -50,42 +50,39 @@ class _MyHomePageState extends State<MyHomePage> {
   // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: CupertinoTabScaffold(
-        tabBar: CupertinoTabBar(
-          backgroundColor: Colors.black38,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.home, size: 20),
-              label: 'Transações',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.chart_bar, size: 20),
-              label: 'Dashboard',
-            ),
-          ],
-          onTap: (int index) {
-            setState(() {
-              selectedTab = index;
-            });
-          },
-        ),
-        tabBuilder: (context, index) {
-          return LayoutBuilder(
-            builder: (context, constraints) {
-              return Column(
-                children: [
-                  Expanded(
-                    child: _buildTabContent(index),
-                  ),
-                  
-                ],
-              );
-            },
-          );
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        backgroundColor: Colors.black38,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.home, size: 20),
+            label: 'Transações',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.chart_bar, size: 20),
+            label: 'Dashboard',
+          ),
+        ],
+        onTap: (int index) {
+          setState(() {
+            selectedTab = index;
+          });
         },
       ),
+      tabBuilder: (context, index) {
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            return Column(
+              children: [
+                Expanded(
+                  child: _buildTabContent(index),
+                ),
+                
+              ],
+            );
+          },
+        );
+      },
     );
   }
 
