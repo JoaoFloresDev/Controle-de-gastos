@@ -3,7 +3,7 @@ import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'EditionHeaderCard.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:meus_gastos/Controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 
 class DetailScreen extends StatefulWidget {
   final CardModel card;

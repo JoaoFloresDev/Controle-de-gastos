@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/Controllers/Transactions/CardDetails/DetailScreen.dart';
-import 'package:meus_gastos/Controllers/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
+import 'package:meus_gastos/controllers/Transactions/CardDetails/DetailScreen.dart';
+import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:meus_gastos/Controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 
 class Extractbycategory extends StatefulWidget {
   final String category;

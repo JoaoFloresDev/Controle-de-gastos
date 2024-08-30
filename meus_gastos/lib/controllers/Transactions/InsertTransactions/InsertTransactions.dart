@@ -3,12 +3,12 @@ import 'ViewComponents/HeaderCard.dart';
 import 'ViewComponents/ListCard.dart';
 import '../../../models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart' as service;
-import 'package:meus_gastos/Controllers/Transactions/CardDetails/DetailScreen.dart';
+import 'package:meus_gastos/controllers/Transactions/CardDetails/DetailScreen.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/Controllers/Transactions/CategoryCreater/CategoryCreater.dart';
-import 'package:meus_gastos/Controllers/ads_review/constructReview.dart';
-import 'package:meus_gastos/Controllers/ads_review/bannerAdconstruct.dart';
-import 'package:meus_gastos/Controllers/Transactions/exportExcel/exportExcelScreen.dart';
+import 'package:meus_gastos/controllers/Transactions/CategoryCreater/CategoryCreater.dart';
+import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
+import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/controllers/Transactions/exportExcel/exportExcelScreen.dart';
 
 class InsertTransactions extends StatefulWidget {
   const InsertTransactions({

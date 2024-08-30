@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/Controllers/Transactions/InsertTransactions/InsertTransactions.dart';
-import 'package:meus_gastos/Controllers/Dashboards/DashboardScreen.dart';
+import 'package:meus_gastos/controllers/Transactions/InsertTransactions/InsertTransactions.dart';
+import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import "package:meus_gastos/models/CategoryModel.dart";
-import 'package:meus_gastos/Controllers/Dashboards/DashboardCard.dart';
+import 'package:meus_gastos/controllers/Dashboards/DashboardCard.dart';
 
 class ProgressIndicatorModel {
   String title;

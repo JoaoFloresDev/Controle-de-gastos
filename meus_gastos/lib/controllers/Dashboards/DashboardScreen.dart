@@ -1,17 +1,26 @@
+// Imports externos
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/Controllers/Dashboards/bar_chartWeek/BarChartDaysofWeek.dart';
-import 'package:meus_gastos/Controllers/Dashboards/extractByCategory.dart';
-import 'MonthSelector.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'LinearProgressIndicatorSection.dart';
-import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
-import 'DashboardCard.dart';
-import 'package:meus_gastos/Controllers/Dashboards/bar_chartWeek/BarChartWeek.dart';
-import 'package:meus_gastos/services/DashbordService.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+// Imports de serviços
+import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/services/DashbordService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:meus_gastos/Controllers/ads_review/bannerAdconstruct.dart';
+
+// Imports de modelos
+import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
+
+// Imports de controllers
+import 'package:meus_gastos/controllers/Dashboards/bar_chartWeek/BarChartDaysofWeek.dart';
+import 'package:meus_gastos/controllers/Dashboards/extractByCategory.dart';
+import 'package:meus_gastos/controllers/Dashboards/bar_chartWeek/BarChartWeek.dart';
+import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+
+// Imports de widgets
+import 'package:meus_gastos/controllers/Dashboards/DashboardCard.dart';
+import 'package:meus_gastos/controllers/Dashboards/MonthSelector.dart';
+import 'package:meus_gastos/controllers/Dashboards/LinearProgressIndicatorSection.dart';
 
 class DashboardScreen extends StatefulWidget {
   final bool isActive;

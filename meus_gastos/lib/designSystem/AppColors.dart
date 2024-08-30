@@ -12,6 +12,7 @@ class AppColors {
 
   // Cor para rótulos e texto
   static const Color button = Color(0xFF007BFF); // Azul
+
   static const Color buttonBackground = Color(0xFF007BFF); // Azul
 
   static const Color label = Color(0xFF007BFF); // Azul
