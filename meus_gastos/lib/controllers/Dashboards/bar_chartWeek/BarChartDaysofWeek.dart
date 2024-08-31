@@ -54,7 +54,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             Container(
               child: Center(
                   child: Text(AppLocalizations.of(context)!.noExpensesThisWeek,
-                      style: TextStyle(color: Colors.white, fontSize: 20))),
+                      style: TextStyle(color: AppColors.label, fontSize: 20))),
             ),
             SizedBox()
           ],
@@ -264,14 +264,16 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
       dataLabelSettings: DataLabelSettings(
         isVisible: true,
         labelAlignment: ChartDataLabelAlignment.top,
-        textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        textStyle:
+            TextStyle(color: AppColors.label, fontWeight: FontWeight.bold),
         builder: (data, point, series, pointIndex, seriesIndex) {
           // Exibe o total acima da barra
           return Text(
             data.progress > 0
                 ? Translateservice.formatCurrency(data.progress, context)
                 : '',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style:
+                TextStyle(color: AppColors.label, fontWeight: FontWeight.bold),
           );
         },
       ),

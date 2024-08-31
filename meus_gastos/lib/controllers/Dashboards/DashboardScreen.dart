@@ -1,5 +1,6 @@
+import 'package:meus_gastos/designSystem/exportDS.dart';
+
 // Imports externos
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -121,11 +122,11 @@ class _DashboardScreenState extends State<DashboardScreen>
   Widget build(BuildContext context) {
     super.build(context);
     return CupertinoPageScaffold(
-      backgroundColor: Colors.black.withOpacity(0.9),
+      backgroundColor: AppColors.background1,
       navigationBar: CupertinoNavigationBar(
         middle: Text(AppLocalizations.of(context)!.myControl,
-            style: const TextStyle(color: Colors.white, fontSize: 16)),
-        backgroundColor: Colors.black.withOpacity(0.8),
+            style: const TextStyle(color: AppColors.label, fontSize: 16)),
+        backgroundColor: AppColors.background1,
       ),
       child: SafeArea(
         child: Column(
@@ -149,7 +150,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       Text(
                         "${AppLocalizations.of(context)!.totalSpent}: ${Translateservice.formatCurrency(totalGasto, context)}",
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: AppColors.label,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -199,15 +200,15 @@ class _DashboardScreenState extends State<DashboardScreen>
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: _currentIndex == index
-                                  ? Colors.blue
-                                  : Colors.grey,
+                                  ? AppColors.button
+                                  : AppColors.buttonDeselected,
                             ),
                           );
                         }),
                       ),
                       const SizedBox(height: 12),
                       if (isLoading)
-                        const CircularProgressIndicator(color: Colors.white)
+                        const CircularProgressIndicator(color: AppColors.label)
                       else
                         Column(
                           children: [
@@ -215,7 +216,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                               AppLocalizations.of(context)!
                                   .topExpensesOfTheMonth,
                               style: const TextStyle(
-                                color: Colors.white,
+                                color: AppColors.label,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -255,7 +256,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                     AppLocalizations.of(context)!.addNewTransactions,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: AppColors.label,
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                     ),

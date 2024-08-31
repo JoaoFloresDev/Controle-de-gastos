@@ -1,7 +1,7 @@
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/material.dart';
+import 'package:meus_gastos/designSystem/exportDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:uuid/uuid.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
@@ -84,7 +84,7 @@ class CardService {
             title: categoryMap[entry.key]?.name ?? 'Unknown',
             progress: entry.value,
             category: categoryMap[entry.key]!,
-            color: categoryMap[entry.key]?.color ?? Colors.grey))
+            color: categoryMap[entry.key]?.color ?? AppColors.buttonDeselected))
         .toList();
 
     progressIndicators.sort((a, b) => b.progress.compareTo(a.progress));
@@ -99,8 +99,7 @@ class CardService {
 
     final List<CardModel> filteredCards = cards
         .where((card) =>
-            card.date.year == month.year &&
-            (card.date.month == month.month))
+            card.date.year == month.year && (card.date.month == month.month))
         .toList();
 
     for (var card in filteredCards) {
@@ -118,7 +117,7 @@ class CardService {
             title: categoryMap[entry.key]?.name ?? 'Unknown',
             progress: entry.value,
             category: categoryMap[entry.key]!,
-            color: categoryMap[entry.key]?.color ?? Colors.grey))
+            color: categoryMap[entry.key]?.color ?? AppColors.buttonDeselected))
         .toList();
 
     progressIndicators.sort((a, b) => b.progress.compareTo(a.progress));
@@ -151,8 +150,7 @@ class CardService {
       if (!monthlyExpenses[month]!.containsKey(categoryId)) {
         monthlyExpenses[month]![categoryId] = {
           'amount': 0.0,
-          'color': categoryMap[categoryId]?.color ??
-              Colors.white, // Default to white if not found
+          'color': categoryMap[categoryId]?.color ?? AppColors.label,
           'name': categoryMap[categoryId]?.name ?? "Unknown"
         };
       }
@@ -223,7 +221,7 @@ class CardService {
         id: '',
         name: 'Unknown',
         icon: Icons.help,
-        color: Colors.grey,
+        color: AppColors.buttonDeselected,
         frequency: 0,
       ),
     );

@@ -11,8 +11,8 @@ class MonthSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DateFormat format = DateFormat(
-        'MMMM yyyy', Localizations.localeOf(context).toString());
+    final DateFormat format =
+        DateFormat('MMMM yyyy', Localizations.localeOf(context).toString());
 
     String formattedDate = format.format(currentDate);
     formattedDate = formattedDate[0].toUpperCase() + formattedDate.substring(1);
@@ -34,7 +34,7 @@ class MonthSelector extends StatelessWidget {
           Text(
             formattedDate,
             style: const TextStyle(
-              color: Colors.white,
+              color: AppColors.label,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),

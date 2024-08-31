@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:meus_gastos/designSystem/exportDS.dart';
 
 class PieChartDataItem {
   final String label;
@@ -21,7 +20,7 @@ class DashboardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.grey[900],
+      color: AppColors.card,
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       child: Padding(
@@ -38,7 +37,7 @@ class DashboardCard extends StatelessWidget {
                       text: AppLocalizations.of(context)!.addNewTransactions,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: AppColors.label,
                         fontSize: 20,
                       ),
                       children: [
@@ -47,7 +46,7 @@ class DashboardCard extends StatelessWidget {
                               '\n\n${AppLocalizations.of(context)!.youWillBeAbleToUnderstandYourExpensesHere}',
                           style: const TextStyle(
                             fontWeight: FontWeight.normal,
-                            color: Colors.white,
+                            color: AppColors.label,
                             fontSize: 14,
                           ),
                         ),
@@ -62,7 +61,8 @@ class DashboardCard extends StatelessWidget {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.expensesOfTheMonth,
-                    style: const TextStyle(color: Colors.grey, fontSize: 18),
+                    style: const TextStyle(
+                        color: AppColors.labelSecondary, fontSize: 18),
                   ),
                   const SizedBox(
                     height: 10,
@@ -84,7 +84,7 @@ class DashboardCard extends StatelessWidget {
                                   titleStyle: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                      color: AppColors.label),
                                   titlePositionPercentageOffset: 1.8,
                                 ))
                             .toList(),
@@ -123,7 +123,7 @@ class DashboardCard extends StatelessWidget {
         const SizedBox(width: 8),
         Text('$label - $percent',
             style: const TextStyle(
-                color: Colors.white,
+                color: AppColors.label,
                 fontWeight: FontWeight.bold,
                 fontSize: 12)),
       ],

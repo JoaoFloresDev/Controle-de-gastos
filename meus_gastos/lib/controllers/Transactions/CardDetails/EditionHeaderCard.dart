@@ -133,10 +133,11 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
               ),
             ),
             placeholder: AppLocalizations.of(context)!.description,
-            placeholderStyle: const TextStyle(color: CupertinoColors.systemGrey3),
+            placeholderStyle:
+                const TextStyle(color: CupertinoColors.systemGrey3),
             controller: descricaoController,
             focusNode: descricaoFocusNode,
-            style: const TextStyle(color: Colors.white),
+            style: const TextStyle(color: AppColors.label),
           ),
           const SizedBox(height: 16),
           Container(

@@ -107,7 +107,7 @@ class _DetailScreen extends State<DetailScreen> {
     return Text(
       transactionDetailsText,
       style: TextStyle(
-        color: Colors.white,
+        color: AppColors.label,
         fontSize: 18,
         fontWeight: FontWeight.w500,
       ),

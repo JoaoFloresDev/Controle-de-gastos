@@ -50,7 +50,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       appBar: CupertinoNavigationBar(
         middle: Text(
           widget.title,
-          style: const TextStyle(color: Colors.white, fontSize: 16),
+          style: const TextStyle(color: AppColors.label, fontSize: 16),
         ),
         backgroundColor: Colors.black,
         trailing: GestureDetector(
@@ -123,7 +123,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
               Container(
                 height: 1,
                 width: MediaQuery.of(context).size.width - 100,
-                color: Colors.white.withOpacity(0.4),
+                color: AppColors.label.withOpacity(0.4),
               ),
               IconButton(
                 onPressed: () {

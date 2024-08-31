@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:meus_gastos/designSystem/exportDS.dart';
 
 class WeekInterval {
   final DateTime start;
@@ -69,7 +69,7 @@ class Dashbordservice {
             title: categoryMap[entry.key]?.name ?? 'Unknown',
             progress: entry.value,
             category: categoryMap[entry.key]!,
-            color: categoryMap[entry.key]?.color ?? Colors.grey))
+            color: categoryMap[entry.key]?.color ?? AppColors.buttonDeselected))
         .toList();
 
     progressIndicators.sort((a, b) => b.progress.compareTo(a.progress));
@@ -146,7 +146,7 @@ class Dashbordservice {
           CategoryModel(
               id: '',
               name: 'Unknown',
-              color: Colors.grey,
+              color: AppColors.buttonDeselected,
               icon: Icons.device_unknown);
 
       for (int i = 1; i <= 7; i++) {
@@ -186,5 +186,4 @@ class Dashbordservice {
     // Aguarda todas as chamadas assíncronas e retorna os resultados
     return await Future.wait(futures);
   }
-
 }

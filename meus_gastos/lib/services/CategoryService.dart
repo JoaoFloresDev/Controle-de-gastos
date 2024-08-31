@@ -56,7 +56,6 @@ class CategoryService {
   Future<List<CategoryModel>> getAllCategories() async {
     final prefs = await SharedPreferences.getInstance();
     bool isFirstAccess = prefs.getBool(_isFirstAccessKey) ?? true;
-
     if (isFirstAccess) {
       await prefs.setBool(_isFirstAccessKey, false);
       List<CategoryModel> defaultCategories = [

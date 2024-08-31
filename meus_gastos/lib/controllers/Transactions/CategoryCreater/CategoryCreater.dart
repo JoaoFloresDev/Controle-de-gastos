@@ -190,7 +190,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white),
+                          color: AppColors.label),
                     ),
                   ),
                 ),
@@ -230,7 +230,8 @@ class _CategorycreaterState extends State<Categorycreater> {
                       children: [
                         Text(
                           "${AppLocalizations.of(context)!.chooseColor} ",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                          style:
+                              TextStyle(color: AppColors.label, fontSize: 20),
                         ),
                         const SizedBox(width: 15),
                         GestureDetector(
@@ -333,8 +334,6 @@ class _AddCategoryHorizontalCircleListState
     Icons.savings,
     Icons.show_chart,
     Icons.wallet,
-
-    
   ];
 
   @override

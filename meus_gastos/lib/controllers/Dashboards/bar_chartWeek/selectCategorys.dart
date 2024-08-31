@@ -75,7 +75,7 @@ class SelectcategoryState extends State<Selectcategorys> {
                           context, widget.categorieList[index]),
                       style: const TextStyle(
                         fontSize: 9,
-                        color: Colors.white,
+                        color: AppColors.label,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -98,7 +98,8 @@ class SelectcategoryState extends State<Selectcategorys> {
                   widget.onSelectionChanged(selectedIndices.toList());
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   minimumSize: const Size(80, 20),
                   backgroundColor: Colors.transparent,
                 ),

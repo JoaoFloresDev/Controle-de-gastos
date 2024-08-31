@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/controllers/Transactions/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/designSystem/exportDS.dart';
 
 class Extractbycategory extends StatefulWidget {
   final String category;
@@ -45,7 +44,7 @@ class _Extractbycategory extends State<Extractbycategory> {
   Widget build(BuildContext context) {
     List<CardModel> filtered = selectbycategory(cards);
     return Container(
-        color: Colors.grey[900],
+        color: AppColors.background1,
         child: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Column(
@@ -81,7 +80,7 @@ class _Extractbycategory extends State<Extractbycategory> {
                                   context, widget.category),
                               style: const TextStyle(
                                   fontSize: 20,
-                                  color: Colors.white,
+                                  color: AppColors.label,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),

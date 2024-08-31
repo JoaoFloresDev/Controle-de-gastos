@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:flutter/material.dart';
+import 'package:meus_gastos/designSystem/exportDS.dart';
 import 'CustomButton.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -61,12 +61,9 @@ class _ValorTextFieldState extends State<ValorTextField> {
       decoration: const BoxDecoration(
         border: Border(bottom: BorderSide(color: CupertinoColors.systemGrey)),
       ),
-      style:
-          const TextStyle(color: Colors.white),
+      style: const TextStyle(color: AppColors.label),
       placeholder: AppLocalizations.of(context)!.enterAmount, // Placeholder
-      placeholderStyle: TextStyle(
-          color: Colors.white.withOpacity(
-              0.6)),
+      placeholderStyle: const TextStyle(color: AppColors.labelTertiary),
       keyboardType: TextInputType.number,
       controller: widget.controller,
     );
@@ -92,7 +89,7 @@ class KeyboardAccessory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: CupertinoColors.black,
+      color: AppColors.background1,
       height: 140,
       child: Column(
         children: [

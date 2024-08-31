@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:meus_gastos/designSystem/exportDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -21,7 +21,7 @@ class ListCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: AppColors.cardShadow,
               spreadRadius: 1,
               blurRadius: 3,
               offset: const Offset(0, 1),
@@ -40,7 +40,7 @@ class ListCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: AppColors.label,
                   ),
                 ),
                 Column(
@@ -51,13 +51,13 @@ class ListCard extends StatelessWidget {
                       height: 24,
                       margin: const EdgeInsets.symmetric(horizontal: 16),
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.1),
+                        color: AppColors.cardShadow,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         card.category.icon,
                         size: 18,
-                        color: Colors.white,
+                        color: AppColors.label,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -66,7 +66,7 @@ class ListCard extends StatelessWidget {
                           context, card.category),
                       style: const TextStyle(
                         fontSize: 9,
-                        color: Colors.white,
+                        color: AppColors.label,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -83,7 +83,7 @@ class ListCard extends StatelessWidget {
                     card.description,
                     style: const TextStyle(
                       fontSize: 16,
-                      color: Colors.white,
+                      color: AppColors.label,
                     ),
                   ),
                 ),
@@ -92,7 +92,7 @@ class ListCard extends StatelessWidget {
                       .format(card.date),
                   style: const TextStyle(
                     fontSize: 12,
-                    color: Colors.white,
+                    color: AppColors.label,
                   ),
                 ),
               ],

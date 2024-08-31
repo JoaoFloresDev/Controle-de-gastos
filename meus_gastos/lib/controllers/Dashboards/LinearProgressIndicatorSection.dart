@@ -23,7 +23,7 @@ class LinearProgressIndicatorSection extends StatelessWidget {
         children: <Widget>[
           Text(Translateservice.getTranslatedCategoryName(context, model.title),
               style: const TextStyle(
-                  color: Colors.white,
+                  color: AppColors.label,
                   fontSize: 14,
                   fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
@@ -39,7 +39,7 @@ class LinearProgressIndicatorSection extends StatelessWidget {
                 center: Text(
                   model.progress.toStringAsFixed(0),
                   style: const TextStyle(
-                      color: Colors.white,
+                      color: AppColors.label,
                       fontSize: 16,
                       fontWeight: FontWeight.bold),
                 ),
@@ -55,7 +55,7 @@ class LinearProgressIndicatorSection extends StatelessWidget {
                   child: Icon(
                     Icons.arrow_drop_down,
                     size: 30,
-                    color: Colors.white,
+                    color: AppColors.label,
                   ),
                 ),
               ),

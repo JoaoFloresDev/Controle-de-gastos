@@ -63,7 +63,8 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
               child: AdWidget(ad: _bannerAd),
             )
           : Container(
-              decoration: BoxDecoration(color: Colors.black.withOpacity(0.3)),
+              decoration:
+                  BoxDecoration(color: AppColors.label.withOpacity(0.1)),
               width: double.maxFinite,
               height: 50),
     );

@@ -44,7 +44,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
           height: 200,
           child: Center(
               child: Text(AppLocalizations.of(context)!.addNewTransactions,
-                  style: TextStyle(color: Colors.white))),
+                  style: TextStyle(color: AppColors.label))),
         ),
       );
     }
@@ -201,7 +201,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
             isVisible: true,
             labelAlignment: ChartDataLabelAlignment.top,
             textStyle:
-                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                TextStyle(color: AppColors.label, fontWeight: FontWeight.bold),
           )));
   }
 
