@@ -228,18 +228,18 @@ class _DashboardScreenState extends State<DashboardScreen>
                                     context: context,
                                     builder: (BuildContext context) {
                                       return Container(
-                                          height: SizeOf(context)
-                                              .modal
-                                              .mediumModal(),
-                                          decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(20),
-                                              topRight: Radius.circular(20),
-                                            ),
+                                        height:
+                                            SizeOf(context).modal.mediumModal(),
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(20),
+                                            topRight: Radius.circular(20),
                                           ),
-                                          child: Extractbycategory(
-                                              category: progressIndicator
-                                                  .category.name));
+                                        ),
+                                        child: Extractbycategory(
+                                            category: progressIndicator
+                                                .category.name),
+                                      );
                                     },
                                   );
                                 },

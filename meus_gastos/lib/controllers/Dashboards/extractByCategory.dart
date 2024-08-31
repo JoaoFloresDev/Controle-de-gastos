@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/controllers/Transactions/CardDetails/DetailScreen.dart';
@@ -11,10 +12,11 @@ class Extractbycategory extends StatefulWidget {
 
   Extractbycategory({Key? key, required this.category}) : super(key: key);
 
-  _Extractbycategory createState() => _Extractbycategory();
+  @override
+  _ExtractbycategoryState createState() => _ExtractbycategoryState();
 }
 
-class _Extractbycategory extends State<Extractbycategory> {
+class _ExtractbycategoryState extends State<Extractbycategory> {
   late List<CardModel> cards = [];
 
   @override
@@ -31,105 +33,101 @@ class _Extractbycategory extends State<Extractbycategory> {
   }
 
   List<CardModel> selectbycategory(List<CardModel> cardList) {
-    List<CardModel> aux = [];
-    for (var card in cardList) {
-      if (card.category.name == widget.category) {
-        aux.add(card);
-      }
-    }
-    return aux;
+    return cardList
+        .where((card) => card.category.name == widget.category)
+        .toList();
   }
 
   @override
   Widget build(BuildContext context) {
     List<CardModel> filtered = selectbycategory(cards);
-    return Container(
-        color: AppColors.modalBackground,
-        child: GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: Column(
-            children: [
-              Container(
-                  width: double.maxFinite,
-                  alignment: Alignment.center,
-                  color: AppColors.deletionButton,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'Cancel',
-                              style: TextStyle(
-                                color: AppColors.card,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: Text(
-                              Translateservice.getTranslatedCategoryName(
-                                  context, widget.category),
-                              style: const TextStyle(
-                                  fontSize: 20,
-                                  color: AppColors.label,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
-              Expanded(
-                child: Container(
-                  color: AppColors.background1,
-                  child: ListView.builder(
-                    itemCount: filtered.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        child: ListCard(
-                          onTap: (card) {
-                            FocusScope.of(context).unfocus();
-                            showCupertinoModalPopup(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Container(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              1.05,
-                                      decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          topRight: Radius.circular(20),
-                                        ),
-                                      ),
-                                      child: DetailScreen(
-                                        card: card,
-                                        onAddClicked: () {
-                                          loadCards();
-                                        },
-                                      ));
-                                });
-                          },
-                          card: filtered[filtered.length - index - 1],
-                        ),
-                      );
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: AppColors.card,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.close, color: AppColors.label),
+                    onPressed: () {
+                      print("aqui");
+                      Navigator.pop(context);
                     },
                   ),
-                ),
+
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        Translateservice.getTranslatedCategoryName(
+                            context, widget.category),
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: AppColors.label,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 48), // Space for alignment
+                ],
               ),
-            ],
+            ),
           ),
-        ));
+          Expanded(
+            child: Container(
+              color: AppColors.background1,
+              child: ListView.builder(
+                itemCount: filtered.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: ListCard(
+                      onTap: (card) {
+                        FocusScope.of(context).unfocus();
+                        showCupertinoModalPopup(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              height: MediaQuery.of(context).size.height / 1.05,
+                              decoration: BoxDecoration(
+                                color: AppColors.background1,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                ),
+                              ),
+                              child: DetailScreen(
+                                card: card,
+                                onAddClicked: () {
+                                  loadCards();
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      card: filtered[filtered.length - index - 1],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
