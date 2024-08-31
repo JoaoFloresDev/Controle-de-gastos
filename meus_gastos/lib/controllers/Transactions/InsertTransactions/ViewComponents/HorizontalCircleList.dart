@@ -67,7 +67,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                         ? AppColors.button.withOpacity(0.3)
                         : selectedIndex == index
                             ? AppColors.buttonSelected
-                            : AppColors.buttonBackground,
+                            : AppColors.buttonDeselected,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
@@ -80,7 +80,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                       context, categorieList[index]),
                   style: const TextStyle(
                     fontSize: 9,
-                    color: AppColors.label,
+                    color: Colors.white,
                   ),
                   textAlign: TextAlign.center,
                 ),

@@ -46,12 +46,12 @@ class _CampoComMascaraState extends State<CampoComMascara> {
     return CupertinoTextField(
       controller: _dateController,
       focusNode: _focusNode,
-      style: TextStyle(color: CupertinoColors.inactiveGray),
+      style: TextStyle(color: AppColors.labelPlaceholder),
       onTap: _handleTap,
       keyboardType: TextInputType.datetime,
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: CupertinoColors.systemGrey5),
+          bottom: BorderSide(color: AppColors.deletionButton),
         ),
       ),
       placeholder: AppLocalizations.of(context)!
@@ -67,7 +67,7 @@ class _CampoComMascaraState extends State<CampoComMascara> {
       builder: (BuildContext context) {
         return Container(
           height: 300,
-          color: CupertinoColors.white,
+          color: AppColors.background1,
           child: CupertinoDatePicker(
             mode: CupertinoDatePickerMode.dateAndTime,
             initialDateTime: widget.currentDate,

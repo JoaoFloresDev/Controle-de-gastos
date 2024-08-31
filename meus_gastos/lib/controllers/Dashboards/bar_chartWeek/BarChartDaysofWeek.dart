@@ -181,7 +181,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                         ),
                         child: Text(
                           _getWeekLabel(interval),
-                          style: TextStyle(color: CupertinoColors.systemBlue),
+                          style: TextStyle(color: AppColors.button),
                         )),
                   ),
                 ),

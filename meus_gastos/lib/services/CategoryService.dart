@@ -121,7 +121,7 @@ class CategoryService {
             id: 'AddCategory',
             color: Colors.cyan[300]!,
             icon: Icons.local_hospital,
-            name: 'Add',
+            name: 'addCategory',
             frequency: -1),
       ];
 

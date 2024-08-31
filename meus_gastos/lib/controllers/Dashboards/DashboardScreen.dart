@@ -200,7 +200,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: _currentIndex == index
-                                  ? AppColors.button
+                                  ? AppColors.buttonSelected
                                   : AppColors.buttonDeselected,
                             ),
                           );

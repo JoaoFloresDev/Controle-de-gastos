@@ -100,9 +100,9 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                 });
               },
               groupValue: _selectedFormat,
-              selectedColor: CupertinoColors.systemBlue,
-              unselectedColor: CupertinoColors.white,
-              borderColor: CupertinoColors.systemBlue,
+              selectedColor: AppColors.button,
+              unselectedColor: AppColors.buttonDeselected,
+              borderColor: AppColors.button,
             ),
             SizedBox(height: 30),
             // Botões de Ação
@@ -118,7 +118,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: CupertinoColors.systemBlue,
+                          color: AppColors.button,
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                         child: Padding(
@@ -142,7 +142,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: CupertinoColors.systemGreen,
+                          color: AppColors.button,
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
                         child: Padding(

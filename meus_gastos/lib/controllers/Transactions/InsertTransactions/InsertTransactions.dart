@@ -56,20 +56,25 @@ class _InsertTransactionsState extends State<InsertTransactions> {
         trailing: GestureDetector(
           onTap: () {
             showCupertinoModalPopup(
-                context: context,
-                builder: (BuildContext context) {
-                  return Container(
-                      height: MediaQuery.of(context).size.height / 1.6,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                      ),
-                      child: Exportexcelscreen());
-                });
+              context: context,
+              builder: (BuildContext context) {
+                return Container(
+                  height: MediaQuery.of(context).size.height / 1.6,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: Exportexcelscreen(),
+                );
+              },
+            );
           },
-          child: const Icon(Icons.share),
+          child: const Icon(
+            CupertinoIcons.share,
+            size: 24.0, // Ajuste o tamanho conforme necessário
+          ),
         ),
       ),
       body: Column(
@@ -122,7 +127,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             children: [
               Container(
                 height: 1,
-                width: MediaQuery.of(context).size.width - 100,
+                width: MediaQuery.of(context).size.width - 80,
                 color: AppColors.label.withOpacity(0.4),
               ),
               IconButton(
@@ -134,6 +139,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                 icon: Icon(
                   _showHeaderCard ? Icons.arrow_drop_up : Icons.arrow_drop_down,
                 ),
+                iconSize: 36.0,
               ),
             ],
           ),
@@ -143,7 +149,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
                   child: ListCard(
                     onTap: (card) {
                       widget.onAddClicked();

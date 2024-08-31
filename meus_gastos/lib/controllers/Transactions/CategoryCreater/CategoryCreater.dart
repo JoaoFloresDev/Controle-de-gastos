@@ -211,12 +211,12 @@ class _CategorycreaterState extends State<Categorycreater> {
                     ),
                     CupertinoTextField(
                       style: const TextStyle(
-                        color: CupertinoColors.systemGrey5,
+                        color: AppColors.line,
                       ),
                       decoration: const BoxDecoration(
                         border: Border(
                           bottom: BorderSide(
-                            color: CupertinoColors.systemGrey5,
+                            color: AppColors.line,
                           ),
                         ),
                       ),
@@ -240,7 +240,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                             decoration: BoxDecoration(
                               color: _currentColor,
                               border: Border.all(
-                                color: CupertinoColors.systemBlue,
+                                color: AppColors.button,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(20),
@@ -255,7 +255,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: CupertinoButton(
-                        color: CupertinoColors.systemBlue,
+                        color: AppColors.button,
                         onPressed: () {
                           if (categoriaController.text.isNotEmpty) {
                             adicionar();

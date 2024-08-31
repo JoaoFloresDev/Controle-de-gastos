@@ -128,13 +128,12 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             decoration: const BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: CupertinoColors.systemGrey5,
+                  color: AppColors.line,
                 ),
               ),
             ),
             placeholder: AppLocalizations.of(context)!.description,
-            placeholderStyle:
-                const TextStyle(color: CupertinoColors.systemGrey3),
+            placeholderStyle: const TextStyle(color: AppColors.line),
             controller: descricaoController,
             focusNode: descricaoFocusNode,
             style: const TextStyle(color: AppColors.label),
@@ -153,7 +152,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: CupertinoButton(
-              color: CupertinoColors.systemBlue,
+              color: AppColors.button,
               onPressed: adicionar,
               child: Text(
                 widget.adicionarButtonTitle,

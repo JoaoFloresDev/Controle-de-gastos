@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:meus_gastos/designSystem/exportDS.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
@@ -126,14 +127,13 @@ class HeaderCardState extends State<HeaderCard> {
             decoration: const BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: CupertinoColors.white,
+                  color: AppColors.label,
                 ),
               ),
             ),
             placeholder: AppLocalizations.of(context)!.description,
-            placeholderStyle:
-                TextStyle(color: CupertinoColors.white.withOpacity(0.5)),
-            style: const TextStyle(color: CupertinoColors.white),
+            placeholderStyle: TextStyle(color: AppColors.label),
+            style: const TextStyle(color: AppColors.label),
             controller: descricaoController,
           ),
           const SizedBox(height: 24),
@@ -157,13 +157,21 @@ class HeaderCardState extends State<HeaderCard> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: CupertinoButton(
-              color: CupertinoColors.systemBlue,
-              onPressed: adicionar,
-              child: Text(
-                AppLocalizations.of(context)!.add,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final buttonWidth = constraints.maxWidth * 0.8;
+                return SizedBox(
+                  width: buttonWidth,
+                  child: CupertinoButton(
+                    color: AppColors.button,
+                    onPressed: adicionar,
+                    child: Text(
+                      AppLocalizations.of(context)!.add,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],

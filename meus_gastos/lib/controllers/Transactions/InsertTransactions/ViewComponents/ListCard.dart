@@ -51,7 +51,7 @@ class ListCard extends StatelessWidget {
                       height: 24,
                       margin: const EdgeInsets.symmetric(horizontal: 16),
                       decoration: BoxDecoration(
-                        color: AppColors.cardShadow,
+                        color: AppColors.card,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
@@ -60,12 +60,11 @@ class ListCard extends StatelessWidget {
                         color: AppColors.label,
                       ),
                     ),
-                    const SizedBox(height: 4),
                     Text(
                       Translateservice.getTranslatedCategoryUsingModel(
                           context, card.category),
                       style: const TextStyle(
-                        fontSize: 9,
+                        fontSize: 11,
                         color: AppColors.label,
                       ),
                       textAlign: TextAlign.center,

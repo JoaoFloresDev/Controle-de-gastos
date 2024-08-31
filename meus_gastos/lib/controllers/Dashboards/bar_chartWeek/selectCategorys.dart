@@ -106,7 +106,7 @@ class SelectcategoryState extends State<Selectcategorys> {
                 child: Text(AppLocalizations.of(context)!.selectAll,
                     style: const TextStyle(
                         fontSize: 12,
-                        color: CupertinoColors.systemBlue,
+                        color: AppColors.button,
                         fontWeight: FontWeight.bold)),
               ),
               const SizedBox(
@@ -128,7 +128,7 @@ class SelectcategoryState extends State<Selectcategorys> {
                 child: Text(AppLocalizations.of(context)!.clear,
                     style: const TextStyle(
                         fontSize: 12,
-                        color: CupertinoColors.systemBlue,
+                        color: AppColors.button,
                         fontWeight: FontWeight.bold)),
               ),
             ],

@@ -59,11 +59,11 @@ class _ValorTextFieldState extends State<ValorTextField> {
     return CupertinoTextField(
       focusNode: _focusNode,
       decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: CupertinoColors.systemGrey)),
+        border: Border(bottom: BorderSide(color: AppColors.line)),
       ),
       style: const TextStyle(color: AppColors.label),
       placeholder: AppLocalizations.of(context)!.enterAmount, // Placeholder
-      placeholderStyle: const TextStyle(color: AppColors.labelTertiary),
+      placeholderStyle: const TextStyle(color: AppColors.labelPlaceholder),
       keyboardType: TextInputType.number,
       controller: widget.controller,
     );
@@ -89,7 +89,6 @@ class KeyboardAccessory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.background1,
       height: 140,
       child: Column(
         children: [
