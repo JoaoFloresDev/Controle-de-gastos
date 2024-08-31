@@ -1,11 +1,10 @@
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:meus_gastos/designSystem/ImplDS.dart';
 
 class AppColors {
   //mark - Background
   static const Color background1 = Color(0xFF121212);
-  static const Color background2 = Color(0xFF1E1E1E);
+  static const Color modalBackground = Color(0xFF2C2C2C);
 
   //mark - Card
   static const Color card = Color(0xFF2C2C2C);
@@ -26,5 +25,5 @@ class AppColors {
 
   //mark - Customs
   static const Color line = Color(0xFF8E8E93);
-  static const Color tabBar = Color(0x61000000); //0x61000000
+  static const Color tabBar = Color(0x61000000);
 }

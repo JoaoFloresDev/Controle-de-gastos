@@ -44,7 +44,7 @@ class _Extractbycategory extends State<Extractbycategory> {
   Widget build(BuildContext context) {
     List<CardModel> filtered = selectbycategory(cards);
     return Container(
-        color: AppColors.background1,
+        color: AppColors.modalBackground,
         child: GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Column(
@@ -52,7 +52,7 @@ class _Extractbycategory extends State<Extractbycategory> {
               Container(
                   width: double.maxFinite,
                   alignment: Alignment.center,
-                  color: AppColors.background1,
+                  color: AppColors.deletionButton,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: Stack(

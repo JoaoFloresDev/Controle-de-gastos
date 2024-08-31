@@ -34,7 +34,7 @@ class _DetailScreen extends State<DetailScreen> {
       child: Container(
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          color: AppColors.card,
+          color: AppColors.modalBackground,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -56,14 +56,7 @@ class _DetailScreen extends State<DetailScreen> {
                 },
               ),
             ),
-            Expanded(
-              child: SizedBox(),
-            ),
-            // SizedBox(
-            //   height: 60, // banner height
-            //   width: double.infinity, // banner width
-            //   child: BannerAdconstruct(), // banner widget
-            // ),
+            Expanded(child: SizedBox())
           ],
         ),
       ),
@@ -96,9 +89,7 @@ class _DetailScreen extends State<DetailScreen> {
       },
       child: Text(
         cancelText,
-        style: TextStyle(
-          color: AppColors.card,
-        ),
+        style: TextStyle(color: AppColors.labelPlaceholder, fontSize: 16),
       ),
     );
   }

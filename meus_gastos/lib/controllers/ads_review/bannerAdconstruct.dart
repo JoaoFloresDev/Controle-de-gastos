@@ -1,6 +1,7 @@
 import 'dart:io';
-import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:flutter/material.dart'; // Certifique-se de importar o pacote flutter/material.dart
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 
 class BannerAdconstruct extends StatefulWidget {
   @override
@@ -14,7 +15,6 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
   String getBannerAdUnitId() {
     if (Platform.isAndroid) {
       String testBannerAdUnitId = 'ca-app-pub-8858389345934911/3074198669';
-
       return testBannerAdUnitId; // Ad Unit ID do Android
     } else if (Platform.isIOS) {
       return 'ca-app-pub-8858389345934911/9257029729'; // Ad Unit ID do iOS
@@ -55,14 +55,21 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: _isAdLoaded
-          ? SizedBox(
+    return Stack(
+      children: [
+        Center(
+          child: LoadingContainer(),
+        ),
+        if (_isAdLoaded)
+          Positioned(
+            bottom: 0,
+            child: SizedBox(
               width: _bannerAd.size.width.toDouble(),
               height: _bannerAd.size.height.toDouble(),
               child: AdWidget(ad: _bannerAd),
-            )
-          : LoadingContainer(),
+            ),
+          ),
+      ],
     );
   }
 }

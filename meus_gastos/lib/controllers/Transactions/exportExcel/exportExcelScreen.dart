@@ -24,7 +24,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
       child: Container(
         width: double.maxFinite,
         decoration: BoxDecoration(
-          color: AppColors.card,
+          color: AppColors.modalBackground,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),

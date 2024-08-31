@@ -224,13 +224,24 @@ class _DashboardScreenState extends State<DashboardScreen>
                             for (var progressIndicator in progressIndicators)
                               GestureDetector(
                                 onTap: () {
-                                  showCupertinoDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Extractbycategory(
-                                            category: progressIndicator
-                                                .category.name);
-                                      });
+                                  showCupertinoModalPopup(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                          height: SizeOf(context)
+                                              .modal
+                                              .mediumModal(),
+                                          decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(20),
+                                              topRight: Radius.circular(20),
+                                            ),
+                                          ),
+                                          child: Extractbycategory(
+                                              category: progressIndicator
+                                                  .category.name));
+                                    },
+                                  );
                                 },
                                 child: LinearProgressIndicatorSection(
                                     model: progressIndicator,
