@@ -1,6 +1,6 @@
-import 'package:meus_gastos/designSystem/exportDS.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:meus_gastos/designSystem/exportDS.dart';
+// import 'package:meus_gastos/designSystem/ImplDS.dart';
 
 class AppColors {
   //mark - Background
@@ -22,7 +22,7 @@ class AppColors {
   //mark - Labels
   static const Color label = Color(0xFFFFFFFF);
   static const Color labelSecondary = Color(0xFFB0BEC5);
-  static const Color labelPlaceholder = Color(0xFF78909C);
+  static const Color labelPlaceholder = Color(0xFF8E8E93);
 
   //mark - Customs
   static const Color line = Color(0xFF8E8E93);

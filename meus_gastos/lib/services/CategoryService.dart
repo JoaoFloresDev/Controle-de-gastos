@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:meus_gastos/designSystem/exportDS.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/CategoryModel.dart';
 

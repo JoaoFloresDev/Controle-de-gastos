@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/designSystem/exportDS.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -51,7 +51,7 @@ class _CampoComMascaraState extends State<CampoComMascara> {
       keyboardType: TextInputType.datetime,
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: AppColors.deletionButton),
+          bottom: BorderSide(color: AppColors.line),
         ),
       ),
       placeholder: AppLocalizations.of(context)!

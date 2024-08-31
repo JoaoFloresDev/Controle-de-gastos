@@ -1,4 +1,4 @@
-import 'package:meus_gastos/designSystem/exportDS.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

@@ -1,4 +1,4 @@
-import 'package:meus_gastos/designSystem/exportDS.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';

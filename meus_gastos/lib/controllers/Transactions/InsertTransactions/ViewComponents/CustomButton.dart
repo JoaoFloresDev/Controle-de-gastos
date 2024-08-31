@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/designSystem/exportDS.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:meus_gastos/designSystem/exportDS.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'CustomButton.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -59,7 +59,7 @@ class _ValorTextFieldState extends State<ValorTextField> {
     return CupertinoTextField(
       focusNode: _focusNode,
       decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: AppColors.line)),
+        border: Border(bottom: BorderSide(color: AppColors.label)),
       ),
       style: const TextStyle(color: AppColors.label),
       placeholder: AppLocalizations.of(context)!.enterAmount, // Placeholder

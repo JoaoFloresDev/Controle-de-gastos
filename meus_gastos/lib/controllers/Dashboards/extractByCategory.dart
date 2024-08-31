@@ -4,7 +4,7 @@ import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/controllers/Transactions/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:meus_gastos/designSystem/exportDS.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 
 class Extractbycategory extends StatefulWidget {
   final String category;

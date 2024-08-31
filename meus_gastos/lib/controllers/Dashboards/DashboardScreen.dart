@@ -1,4 +1,4 @@
-import 'package:meus_gastos/designSystem/exportDS.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 
 // Imports externos
 import 'package:flutter/cupertino.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/designSystem/exportDS.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
@@ -127,12 +127,12 @@ class HeaderCardState extends State<HeaderCard> {
             decoration: const BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: AppColors.label,
+                  color: AppColors.line,
                 ),
               ),
             ),
             placeholder: AppLocalizations.of(context)!.description,
-            placeholderStyle: TextStyle(color: AppColors.label),
+            placeholderStyle: TextStyle(color: AppColors.labelPlaceholder),
             style: const TextStyle(color: AppColors.label),
             controller: descricaoController,
           ),
