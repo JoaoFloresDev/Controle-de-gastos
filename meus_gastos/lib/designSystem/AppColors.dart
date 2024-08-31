@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:meus_gastos/designSystem/exportDS.dart';
 // import 'package:meus_gastos/designSystem/exportDS.dart';
 
 class AppColors {

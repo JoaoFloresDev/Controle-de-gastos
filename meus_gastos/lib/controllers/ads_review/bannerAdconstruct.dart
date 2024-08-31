@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
+import 'package:meus_gastos/designSystem/exportDS.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class BannerAdconstruct extends StatefulWidget {

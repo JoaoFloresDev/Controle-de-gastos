@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:meus_gastos/designSystem/exportDS.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
@@ -34,8 +34,9 @@ class Translateservice {
     // Formata a data
     return dateFormat.format(date);
   }
-  
-  static String getTranslatedCategoryUsingModel(BuildContext context, CategoryModel category) {
+
+  static String getTranslatedCategoryUsingModel(
+      BuildContext context, CategoryModel category) {
     switch (category.id) {
       case 'Unknown':
         return AppLocalizations.of(context)!.unknown;
@@ -61,6 +62,7 @@ class Translateservice {
         return category.name; // Retorna o valor original se não houver tradução
     }
   }
+
   static String getTranslatedCategoryName(BuildContext context, String legend) {
     switch (legend) {
       case 'Unknown':

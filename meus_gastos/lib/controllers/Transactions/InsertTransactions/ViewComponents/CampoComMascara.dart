@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:meus_gastos/designSystem/exportDS.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -34,8 +34,10 @@ class _CampoComMascaraState extends State<CampoComMascara> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Acessar o contexto aqui
-    _dateFormatPattern = AppLocalizations.of(context)?.dateFormat ?? 'dd/MM/yyyy';
-    _dateController = TextEditingController(text: _formatDateTime(widget.currentDate));
+    _dateFormatPattern =
+        AppLocalizations.of(context)?.dateFormat ?? 'dd/MM/yyyy';
+    _dateController =
+        TextEditingController(text: _formatDateTime(widget.currentDate));
   }
 
   // MARK: - Build Method
@@ -52,7 +54,8 @@ class _CampoComMascaraState extends State<CampoComMascara> {
           bottom: BorderSide(color: CupertinoColors.systemGrey5),
         ),
       ),
-      placeholder: AppLocalizations.of(context)!.dateFormat, // Utiliza o formato da localização
+      placeholder: AppLocalizations.of(context)!
+          .dateFormat, // Utiliza o formato da localização
     );
   }
 
@@ -87,7 +90,8 @@ class _CampoComMascaraState extends State<CampoComMascara> {
     if (_dateFormatPattern == null) {
       return ''; // Retorna uma string vazia se o formato não estiver disponível
     }
-    final DateFormat dateFormat = DateFormat(_dateFormatPattern!, Localizations.localeOf(context).toString());
+    final DateFormat dateFormat = DateFormat(
+        _dateFormatPattern!, Localizations.localeOf(context).toString());
     String formattedDate = dateFormat.format(dateTime);
     return '$formattedDate';
   }
