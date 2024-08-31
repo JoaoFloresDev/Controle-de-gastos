@@ -21,7 +21,7 @@ class MonthSelector extends StatelessWidget {
       width: 300,
       height: 60,
       decoration: BoxDecoration(
-        color: Colors.grey[900],
+        color: AppColors.card,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(

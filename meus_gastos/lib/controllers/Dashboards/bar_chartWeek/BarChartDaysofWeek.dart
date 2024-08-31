@@ -41,7 +41,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
 
     if (!hasExpenses) {
       return Card(
-        color: Colors.grey[900],
+        color: AppColors.card,
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         child: Column(
@@ -69,7 +69,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         : 110;
 
     return Card(
-      color: Colors.grey[900],
+      color: AppColors.card,
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       child: Padding(
@@ -82,7 +82,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             ),
             Text(
               AppLocalizations.of(context)!.dailyExpensesByCategory,
-              style: TextStyle(color: Colors.grey, fontSize: 18),
+              style: TextStyle(color: AppColors.card, fontSize: 18),
             ),
             SizedBox(
               height: 250,
@@ -175,8 +175,8 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: isSelected
-                              ? CupertinoColors.white.withOpacity(0.2)
-                              : Colors.black.withOpacity(0.1),
+                              ? AppColors.buttonSelected
+                              : AppColors.buttonDeselected,
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(
@@ -232,7 +232,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         width: 0.5,
         name: Translateservice.getTranslatedCategoryName(context, category),
         borderWidth: 3,
-        borderColor: Colors.grey[900],
+        borderColor: AppColors.card,
       );
     }).toList());
 
@@ -243,12 +243,12 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
           category: CategoryModel(
               name: 'Total',
               id: Uuid().v4(),
-              color: Colors.black,
+              color: AppColors.background1,
               icon:
                   Icons.device_unknown), // Crie um modelo de categoria fictício
           progress: totalByDay[index],
           color: Colors.transparent,
-          title: 'Total', // Torna a barra transparente
+          title: 'Total',
         );
       }),
       xValueMapper: (data, index) => days[index],

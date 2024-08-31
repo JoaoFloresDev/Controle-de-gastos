@@ -37,7 +37,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         .isNotEmpty;
     if (!hasExpens || widget.weekIntervals.isEmpty) {
       return Card(
-        color: Colors.grey[900],
+        color: AppColors.card,
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         child: Container(
@@ -57,7 +57,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         : 120;
 
     return Card(
-      color: Colors.grey[900],
+      color: AppColors.card,
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       child: Padding(
@@ -69,7 +69,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
             ),
             Text(
               AppLocalizations.of(context)!.weeklyExpenses,
-              style: TextStyle(color: Colors.grey, fontSize: 18),
+              style: TextStyle(color: AppColors.card, fontSize: 18),
             ),
             SizedBox(
               height: 250,
@@ -157,9 +157,9 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
                     category: CategoryModel(
                         id: '',
                         name: category,
-                        color: Colors.grey,
+                        color: AppColors.card,
                         icon: Icons.device_unknown),
-                    color: Colors.grey));
+                    color: AppColors.card));
             final proportion = categoryData.progress / totalWeekProgress;
 
             const double maxBarHeight = 100.0;
@@ -174,15 +174,15 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
                     category: CategoryModel(
                         id: '',
                         name: category,
-                        color: Colors.grey,
+                        color: AppColors.card,
                         icon: Icons.device_unknown),
-                    color: Colors.grey));
+                    color: AppColors.card));
             return categoryData.color;
           },
           width: 0.5,
           name: Translateservice.getTranslatedCategoryName(context, category),
           borderWidth: 3,
-          borderColor: Colors.grey[900]);
+          borderColor: AppColors.card);
     }).toList()
       ..add(StackedColumnSeries<
               MapEntry<WeekInterval, List<ProgressIndicatorModel>>, String>(

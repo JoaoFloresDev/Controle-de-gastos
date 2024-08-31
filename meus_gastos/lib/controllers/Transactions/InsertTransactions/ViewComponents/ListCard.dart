@@ -17,7 +17,7 @@ class ListCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
-          color: Colors.grey[900],
+          color: AppColors.card,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(

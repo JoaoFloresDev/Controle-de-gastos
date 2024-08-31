@@ -24,7 +24,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
       child: Container(
         width: double.maxFinite,
         decoration: BoxDecoration(
-          color: Colors.grey[900],
+          color: AppColors.card,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -54,7 +54,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                           child: Text(
                             AppLocalizations.of(context)!.cancel,
                             style: TextStyle(
-                              color: Colors.grey,
+                              color: AppColors.card,
                             ),
                           ),
                         ),

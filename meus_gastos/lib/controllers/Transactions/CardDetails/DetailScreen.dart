@@ -34,7 +34,7 @@ class _DetailScreen extends State<DetailScreen> {
       child: Container(
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          color: Colors.grey.shade900,
+          color: AppColors.card,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -97,7 +97,7 @@ class _DetailScreen extends State<DetailScreen> {
       child: Text(
         cancelText,
         style: TextStyle(
-          color: Colors.grey.shade400,
+          color: AppColors.card,
         ),
       ),
     );
@@ -125,7 +125,7 @@ class _DetailScreen extends State<DetailScreen> {
       },
       icon: Icon(
         Icons.delete,
-        color: Colors.red,
+        color: AppColors.deletionButton,
       ),
     );
   }

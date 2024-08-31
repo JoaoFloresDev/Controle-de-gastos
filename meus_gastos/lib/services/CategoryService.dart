@@ -9,8 +9,6 @@ class CategoryService {
   static int maior_valor_frequency = 0;
 
   Future<void> addCategory(CategoryModel category) async {
-    print("add:");
-    print(category.name);
     category.frequency = maior_valor_frequency;
     final prefs = await SharedPreferences.getInstance();
     List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
@@ -61,7 +59,7 @@ class CategoryService {
       List<CategoryModel> defaultCategories = [
         CategoryModel(
             id: 'Unknown',
-            color: Colors.grey[800]!,
+            color: AppColors.card,
             icon: Icons.question_mark_rounded,
             name: 'Unknown',
             frequency: 0),

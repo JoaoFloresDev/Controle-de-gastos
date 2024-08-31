@@ -52,7 +52,7 @@ class _Extractbycategory extends State<Extractbycategory> {
               Container(
                   width: double.maxFinite,
                   alignment: Alignment.center,
-                  color: Colors.black,
+                  color: AppColors.background1,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: Stack(
@@ -66,7 +66,7 @@ class _Extractbycategory extends State<Extractbycategory> {
                             child: const Text(
                               'Cancel',
                               style: TextStyle(
-                                color: Colors.grey,
+                                color: AppColors.card,
                               ),
                             ),
                           ),
@@ -88,14 +88,9 @@ class _Extractbycategory extends State<Extractbycategory> {
                       ],
                     ),
                   )),
-              // SizedBox(
-              //   height: 60, // banner height
-              //   width: double.infinity, // banner width
-              //   child: BannerAdconstruct(), // banner widget
-              // ),
               Expanded(
                 child: Container(
-                  color: Colors.black38,
+                  color: AppColors.background1,
                   child: ListView.builder(
                     itemCount: filtered.length,
                     itemBuilder: (context, index) {

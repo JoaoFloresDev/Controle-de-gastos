@@ -19,7 +19,7 @@ class Categorycreater extends StatefulWidget {
 
 class _CategorycreaterState extends State<Categorycreater> {
   late TextEditingController categoriaController;
-  late Color _currentColor = Colors.black;
+  late Color _currentColor = AppColors.background1;
   final List<IconData> accountIcons = [
     Icons.account_balance,
     Icons.account_balance_wallet,
@@ -78,7 +78,7 @@ class _CategorycreaterState extends State<Categorycreater> {
           return GestureDetector(
             onTap: () => Navigator.of(context).pop(),
             child: Container(
-              color: Colors.black54,
+              color: AppColors.background1,
               child: GestureDetector(
                 onTap: () {},
                 child: CupertinoAlertDialog(
@@ -152,11 +152,11 @@ class _CategorycreaterState extends State<Categorycreater> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.transparent, // Remove o fundo branco
+      color: Colors.transparent,
       child: Container(
         padding: const EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          color: Colors.grey[900],
+          color: AppColors.card,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -176,7 +176,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                     child: Text(
                       AppLocalizations.of(context)!.cancel,
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: AppColors.card,
                       ),
                     ),
                   ),
@@ -361,8 +361,8 @@ class _AddCategoryHorizontalCircleListState
                   margin: const EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
                     color: selectedIndex == index
-                        ? Colors.grey.withOpacity(0.3)
-                        : Colors.black.withOpacity(0.1),
+                        ? AppColors.buttonDeselected
+                        : AppColors.buttonSelected,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(accountIcons[index]),

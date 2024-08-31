@@ -52,7 +52,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           widget.title,
           style: const TextStyle(color: AppColors.label, fontSize: 16),
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: AppColors.background1,
         trailing: GestureDetector(
           onTap: () {
             showCupertinoModalPopup(
@@ -157,7 +157,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           ),
         ],
       ),
-      backgroundColor: Colors.black.withOpacity(0.9),
+      backgroundColor: AppColors.background1,
     );
   }
 
