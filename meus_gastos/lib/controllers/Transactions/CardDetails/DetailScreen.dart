@@ -4,6 +4,7 @@ import 'package:meus_gastos/services/CardService.dart';
 import 'EditionHeaderCard.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+import 'package:flutter/material.dart';
 
 class DetailScreen extends StatefulWidget {
   final CardModel card;
@@ -21,20 +22,13 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreen extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
-    // Acessando as traduções diretamente no método build
-    final String update = AppLocalizations.of(context)!.update;
-    final String cancel = AppLocalizations.of(context)!.cancel;
-    final String transactionDetails =
-        AppLocalizations.of(context)!.transactionDetails;
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Container(
-        padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          color: AppColors.modalBackground,
+          color: AppColors.background1,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -42,14 +36,29 @@ class _DetailScreen extends State<DetailScreen> {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment
+              .stretch, // Faz o cabeçalho ocupar a largura total
           children: <Widget>[
-            _buildHeader(context, cancel, transactionDetails),
+            // CustomHeader colado nos cantos da superview
+            CustomHeader(
+              title: AppLocalizations.of(context)!.transactionDetails,
+              onCancelPressed: () {
+                Navigator.of(context).pop();
+              },
+              onDeletePressed: () {
+                CardService.deleteCard(widget.card.id);
+                Future.delayed(Duration(milliseconds: 300), () {
+                  widget.onAddClicked();
+                  Navigator.of(context).pop();
+                });
+              },
+            ),
             SizedBox(height: 20),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8),
               child: EditionHeaderCard(
                 card: widget.card,
-                adicionarButtonTitle: update,
+                adicionarButtonTitle: AppLocalizations.of(context)!.update,
                 onAddClicked: () {
                   widget.onAddClicked();
                   Navigator.of(context).pop();
@@ -59,64 +68,6 @@ class _DetailScreen extends State<DetailScreen> {
             Expanded(child: SizedBox())
           ],
         ),
-      ),
-    );
-  }
-
-  // MARK: - Header
-  Widget _buildHeader(
-      BuildContext context, String cancel, String transactionDetails) {
-    return Padding(
-      padding: EdgeInsets.all(0),
-      child: Container(
-        width: double.infinity,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _buildCancelButton(context, cancel),
-            _buildTitle(transactionDetails),
-            _buildDeleteButton(context),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCancelButton(BuildContext context, String cancelText) {
-    return TextButton(
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-      child: Text(
-        cancelText,
-        style: TextStyle(color: AppColors.labelPlaceholder, fontSize: 16),
-      ),
-    );
-  }
-
-  Widget _buildTitle(String transactionDetailsText) {
-    return Text(
-      transactionDetailsText,
-      style: TextStyle(
-        color: AppColors.label,
-        fontSize: 18,
-        fontWeight: FontWeight.w500,
-      ),
-    );
-  }
-
-  Widget _buildDeleteButton(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        CardService.deleteCard(widget.card.id);
-        Future.delayed(Duration(milliseconds: 300), () {
-          widget.onAddClicked();
-          Navigator.of(context).pop();
-        });
-      },
-      icon: Icon(
-        Icons.delete,
-        color: AppColors.deletionButton,
       ),
     );
   }

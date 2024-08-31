@@ -45,45 +45,15 @@ class _ExtractbycategoryState extends State<Extractbycategory> {
       backgroundColor: Colors.transparent,
       body: Column(
         children: [
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: AppColors.card,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.close, color: AppColors.label),
-                    onPressed: () {
-                      print("aqui");
-                      Navigator.pop(context);
-                    },
-                  ),
-
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        Translateservice.getTranslatedCategoryName(
-                            context, widget.category),
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: AppColors.label,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 48), // Space for alignment
-                ],
-              ),
-            ),
+          CustomHeader(
+            title: Translateservice.getTranslatedCategoryName(
+                context, widget.category),
+            onCancelPressed: () {
+              Navigator.pop(context);
+            },
+            onDeletePressed: () {
+              // Função de deletar pode ser configurada conforme a necessidade ou removida se não for necessária.
+            },
           ),
           Expanded(
             child: Container(

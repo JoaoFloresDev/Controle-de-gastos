@@ -187,9 +187,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                           Last5WeeksIntervals)),
                             ]),
                       ),
-                      const SizedBox(
-                          height:
-                              12), // space between grafics and progressIndicators
+                      const SizedBox(height: 12),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List<Widget>.generate(3, (index) {

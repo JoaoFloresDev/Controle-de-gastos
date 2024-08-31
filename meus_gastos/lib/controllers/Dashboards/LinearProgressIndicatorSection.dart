@@ -48,14 +48,17 @@ class LinearProgressIndicatorSection extends StatelessWidget {
                 backgroundColor: model.color.withOpacity(0.2),
                 progressColor: model.color,
               ),
-              const Align(
+              Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
                   padding: EdgeInsets.only(right: 10),
-                  child: Icon(
-                    Icons.arrow_drop_down,
-                    size: 30,
-                    color: AppColors.label,
+                  child: Transform.rotate(
+                    angle: -1.5708, // 90 graus em radianos
+                    child: Icon(
+                      Icons.arrow_drop_down,
+                      size: 30,
+                      color: AppColors.label,
+                    ),
                   ),
                 ),
               ),
