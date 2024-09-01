@@ -217,10 +217,11 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             .toList(),
         xValueMapper: (data, index) => days[index % 7],
         yValueMapper: (data, index) => totalByDay[index] > 1
-            ? data.progress / totalByDay[index] * 100
+            ? (data.progress / totalByDay[index]) * 95
             : data.progress,
         pointColorMapper: (data, _) => data.color,
         width: 0.5,
+        borderRadius: BorderRadius.circular(4),
         name: Translateservice.getTranslatedCategoryName(context, category),
         borderWidth: 3,
         borderColor: AppColors.card,

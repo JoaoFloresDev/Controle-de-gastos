@@ -118,7 +118,6 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
   List<
       StackedColumnSeries<MapEntry<WeekInterval, List<ProgressIndicatorModel>>,
           String>> _buildVerticalStackedBarSeries() {
-    // Lista de categorias únicas para garantir que cada categoria tenha a mesma cor em cada semana
     final List<String> categories = _getFilteredData()
         .expand((week) => week.map((data) => data.category.name))
         .toSet()
@@ -129,53 +128,57 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
       return _getFilteredData()[index]
           .fold(0.0, (sum, item) => sum + item.progress);
     }).toList();
+
     return categories.map((category) {
       return StackedColumnSeries<
-              MapEntry<WeekInterval, List<ProgressIndicatorModel>>, String>(
-          dataSource: widget.weekIntervals.asMap().entries.map((entry) {
-            return MapEntry(entry.value, widget.weeklyData[entry.key]);
-          }).toList(),
-          xValueMapper: (entry, _) => _getWeekLabel(entry.key),
-          yValueMapper: (entry, _) {
-            final totalWeekProgress = entry.value.fold(
-                0.0, (sum, item) => sum + item.progress); // Total da semana
+          MapEntry<WeekInterval, List<ProgressIndicatorModel>>, String>(
+        dataSource: widget.weekIntervals.asMap().entries.map((entry) {
+          return MapEntry(entry.value, widget.weeklyData[entry.key]);
+        }).toList(),
+        xValueMapper: (entry, _) => _getWeekLabel(entry.key),
+        yValueMapper: (entry, _) {
+          final totalWeekProgress =
+              entry.value.fold(0.0, (sum, item) => sum + item.progress);
 
-            if (totalWeekProgress == 0) return null;
+          if (totalWeekProgress == 0) return null;
 
-            final categoryData = entry.value.firstWhere(
-                (data) => data.category.name == category,
-                orElse: () => ProgressIndicatorModel(
-                    title: category,
-                    progress: 0,
-                    category: CategoryModel(
-                        id: '',
-                        name: category,
-                        color: AppColors.card,
-                        icon: Icons.device_unknown),
-                    color: AppColors.card));
-            final proportion = categoryData.progress / totalWeekProgress;
+          final categoryData = entry.value.firstWhere(
+              (data) => data.category.name == category,
+              orElse: () => ProgressIndicatorModel(
+                  title: category,
+                  progress: 0,
+                  category: CategoryModel(
+                      id: '',
+                      name: category,
+                      color: AppColors.card,
+                      icon: Icons.device_unknown),
+                  color: AppColors.card));
+          final proportion = categoryData.progress / totalWeekProgress;
 
-            const double maxBarHeight = 100.0;
-            return proportion * maxBarHeight;
-          },
-          pointColorMapper: (entry, _) {
-            final categoryData = entry.value.firstWhere(
-                (data) => data.category.name == category,
-                orElse: () => ProgressIndicatorModel(
-                    title: category,
-                    progress: 0,
-                    category: CategoryModel(
-                        id: '',
-                        name: category,
-                        color: AppColors.card,
-                        icon: Icons.device_unknown),
-                    color: AppColors.card));
-            return categoryData.color;
-          },
-          width: 0.5,
-          name: Translateservice.getTranslatedCategoryName(context, category),
-          borderWidth: 3,
-          borderColor: AppColors.card);
+          const double maxBarHeight = 100.0;
+          return proportion * maxBarHeight;
+        },
+        pointColorMapper: (entry, _) {
+          final categoryData = entry.value.firstWhere(
+              (data) => data.category.name == category,
+              orElse: () => ProgressIndicatorModel(
+                  title: category,
+                  progress: 0,
+                  category: CategoryModel(
+                      id: '',
+                      name: category,
+                      color: AppColors.card,
+                      icon: Icons.device_unknown),
+                  color: AppColors.card));
+          return categoryData.color;
+        },
+        width: 0.5,
+        borderRadius:
+            BorderRadius.circular(4), // Adiciona cantos arredondados às barras
+        name: Translateservice.getTranslatedCategoryName(context, category),
+        borderWidth: 3,
+        borderColor: AppColors.card,
+      );
     }).toList()
       ..add(StackedColumnSeries<
               MapEntry<WeekInterval, List<ProgressIndicatorModel>>, String>(
@@ -189,6 +192,8 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
               : '',
           pointColorMapper: (entry, _) => Colors.transparent,
           width: 0.5,
+          borderRadius: BorderRadius.circular(
+              6), // Adiciona cantos arredondados às barras
           name: AppLocalizations.of(context)!.total,
           dataLabelSettings: DataLabelSettings(
             isVisible: true,

@@ -67,7 +67,7 @@ class _CampoComMascaraState extends State<CampoComMascara> {
       builder: (BuildContext context) {
         return Container(
           height: 300,
-          color: AppColors.background1,
+          color: AppColors.label,
           child: CupertinoDatePicker(
             mode: CupertinoDatePickerMode.dateAndTime,
             initialDateTime: widget.currentDate,
