@@ -146,7 +146,7 @@ class Dashbordservice {
           CategoryModel(
               id: '',
               name: 'Unknown',
-              color: AppColors.buttonDeselected,
+              color: Colors.green,
               icon: Icons.device_unknown);
 
       for (int i = 1; i <= 7; i++) {

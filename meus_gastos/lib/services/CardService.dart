@@ -84,7 +84,7 @@ class CardService {
             title: categoryMap[entry.key]?.name ?? 'Unknown',
             progress: entry.value,
             category: categoryMap[entry.key]!,
-            color: categoryMap[entry.key]?.color ?? AppColors.buttonDeselected))
+            color: categoryMap[entry.key]?.color ?? Colors.green))
         .toList();
 
     progressIndicators.sort((a, b) => b.progress.compareTo(a.progress));
@@ -117,7 +117,7 @@ class CardService {
             title: categoryMap[entry.key]?.name ?? 'Unknown',
             progress: entry.value,
             category: categoryMap[entry.key]!,
-            color: categoryMap[entry.key]?.color ?? AppColors.buttonDeselected))
+            color: categoryMap[entry.key]?.color ?? Colors.green))
         .toList();
 
     progressIndicators.sort((a, b) => b.progress.compareTo(a.progress));
@@ -221,7 +221,7 @@ class CardService {
         id: '',
         name: 'Unknown',
         icon: Icons.help,
-        color: AppColors.buttonDeselected,
+        color: Colors.green,
         frequency: 0,
       ),
     );

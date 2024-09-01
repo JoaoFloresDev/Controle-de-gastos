@@ -60,10 +60,8 @@
             <key>SKAdNetworkIdentifier</key>
             <string>wzmmz9fp6w.skadnetwork</string>
         </dict>
-        <!-- Adicione mais identificadores SKAdNetwork conforme necessário -->
     </array>
 
-    <!-- Permitir carregamento arbitrário de URLs para permitir a exibição de anúncios -->
     <key>NSAppTransportSecurity</key>
     <dict>
         <key>NSAllowsArbitraryLoads</key>

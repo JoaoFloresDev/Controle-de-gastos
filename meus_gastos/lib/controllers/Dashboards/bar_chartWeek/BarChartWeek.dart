@@ -159,7 +159,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
                   category: CategoryModel(
                       id: '',
                       name: category,
-                      color: AppColors.card,
+                      color: Colors.green,
                       icon: Icons.device_unknown),
                   color: AppColors.card));
           final proportion = categoryData.progress / totalWeekProgress;
@@ -176,7 +176,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
                   category: CategoryModel(
                       id: '',
                       name: category,
-                      color: AppColors.card,
+                      color: Colors.green,
                       icon: Icons.device_unknown),
                   color: AppColors.card));
           return categoryData.color;

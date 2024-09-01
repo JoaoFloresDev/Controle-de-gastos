@@ -225,7 +225,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
           category: CategoryModel(
               name: 'Total',
               id: Uuid().v4(),
-              color: AppColors.background1,
+              color: Colors.green,
               icon: Icons.device_unknown),
           progress: totalByDay[index],
           color: Colors.transparent,
