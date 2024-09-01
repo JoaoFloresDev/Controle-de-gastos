@@ -18,7 +18,7 @@ class Categorycreater extends StatefulWidget {
 
 class _CategorycreaterState extends State<Categorycreater> {
   late TextEditingController categoriaController;
-  late Color _currentColor = AppColors.background1;
+  late Color _currentColor = Colors.lightGreen;
   int selectedIndex = 0;
 
   final List<IconData> accountIcons = [
