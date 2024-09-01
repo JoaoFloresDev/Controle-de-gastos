@@ -136,6 +136,27 @@ class _DashboardScreenState extends State<DashboardScreen>
     );
   }
 
+  double _calculatePageHeight() {
+    // Defina um valor base para o cálculo da altura
+    double baseHeight = 280;
+
+    // Calcule o incremento na altura com base no número de itens
+    double additionalHeight = pieChartDataItems.length.toDouble() / 2 * 30;
+
+    // Defina um valor mínimo e máximo para a altura
+    double minHeight = 400;
+
+    // Calcule a altura total
+    double pageHeight = baseHeight + additionalHeight;
+
+    // Assegure-se de que a altura esteja dentro dos limites mínimos e máximos
+    if (pageHeight < minHeight) {
+      pageHeight = minHeight;
+    }
+
+    return pageHeight;
+  }
+
   Widget _buildTotalSpentText(BuildContext context) {
     return Text(
       "${AppLocalizations.of(context)!.totalSpent}: ${Translateservice.formatCurrency(totalGasto, context)}",
@@ -148,9 +169,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget _buildPageView() {
-    double pageHeight = 350 + pieChartDataItems.length.toDouble() / 2 * 30 > 500
-        ? 350 + pieChartDataItems.length.toDouble() / 2 * 30
-        : 400;
+    double pageHeight = _calculatePageHeight();
 
     return SizedBox(
       height: pageHeight,

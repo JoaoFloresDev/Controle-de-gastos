@@ -1,15 +1,18 @@
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:flutter/material.dart';
 
 class CustomHeader extends StatelessWidget {
   final String title;
   final VoidCallback? onCancelPressed;
   final VoidCallback? onDeletePressed;
+  final bool
+      showDeleteButton; // Adiciona um parâmetro para controlar a exibição do botão de deletar
 
   CustomHeader({
     required this.title,
     this.onCancelPressed,
     this.onDeletePressed,
+    this.showDeleteButton =
+        false, // Define o botão de deletar como visível por padrão
   });
 
   @override
@@ -31,7 +34,7 @@ class CustomHeader extends StatelessWidget {
           _buildCancelButton(context),
           // Título
           _buildTitle(),
-          // Botão de Deletar
+          // Botão de Deletar (opcional)
           _buildDeleteButton(context),
         ],
       ),
@@ -66,7 +69,7 @@ class CustomHeader extends StatelessWidget {
       onPressed: onDeletePressed,
       icon: Icon(
         Icons.delete,
-        color: AppColors.deletionButton,
+        color: showDeleteButton ? AppColors.deletionButton : Colors.transparent,
       ),
     );
   }

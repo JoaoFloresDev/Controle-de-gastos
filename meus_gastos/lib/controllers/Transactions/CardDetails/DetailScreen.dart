@@ -52,6 +52,7 @@ class _DetailScreen extends State<DetailScreen> {
                   Navigator.of(context).pop();
                 });
               },
+              showDeleteButton: true,
             ),
             SizedBox(height: 20),
             Padding(
