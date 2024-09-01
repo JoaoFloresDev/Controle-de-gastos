@@ -17,7 +17,7 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
       String testBannerAdUnitId = 'ca-app-pub-8858389345934911/3074198669';
       return testBannerAdUnitId; // Ad Unit ID do Android
     } else if (Platform.isIOS) {
-      return 'ca-app-pub-8858389345934911/4314469007'; // Ad Unit ID do iOS
+      return 'ca-app-pub-8858389345934911/2246971036'; // Ad Unit ID do iOS
     } else {
       throw UnsupportedError('Unsupported platform');
     }
