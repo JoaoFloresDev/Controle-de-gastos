@@ -1,11 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:flutter/material.dart';
-import 'CampoComMascara.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
 
 class HorizontalCircleList extends StatefulWidget {
   final Function(int) onItemSelected;
@@ -16,32 +13,34 @@ class HorizontalCircleList extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _HorizontalCircleListState createState() => _HorizontalCircleListState();
+  HorizontalCircleListState createState() => HorizontalCircleListState();
 }
 
-class _HorizontalCircleListState extends State<HorizontalCircleList> {
+class HorizontalCircleListState extends State<HorizontalCircleList> {
   int selectedIndex = 0;
   int lastSelectedIndex = 0;
   List<CategoryModel> categorieList = [];
 
+  // MARK: - InitState
   @override
   void initState() {
     super.initState();
     loadCategories();
   }
 
+  // MARK: - Load Categories
   Future<void> loadCategories() async {
     categorieList = await CategoryService().getAllCategories();
-    print(CategoryService().printAllCategories());
     setState(() {
       categorieList = categorieList;
     });
   }
 
+  // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100, // Ajuste a altura para acomodar o círculo e o texto
+      height: 100,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categorieList.length,
@@ -57,8 +56,7 @@ class _HorizontalCircleListState extends State<HorizontalCircleList> {
               widget.onItemSelected(index);
             },
             child: Column(
-              mainAxisSize: MainAxisSize
-                  .min, // Para evitar preencher todo o espaço vertical
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   width: 50,
@@ -66,20 +64,21 @@ class _HorizontalCircleListState extends State<HorizontalCircleList> {
                   margin: const EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
                     color: categorieList[index].id == 'AddCategory'
-                        ? (Colors.blue.withOpacity(0.3))
-                        : (selectedIndex == index
-                            ? Colors.grey.withOpacity(0.3)
-                            : Colors.black.withOpacity(0.1)),
+                        ? Colors.transparent
+                        : selectedIndex == index
+                            ? AppColors.buttonSelected
+                            : AppColors.buttonDeselected,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     categorieList[index].icon,
                   ),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
-                  categorieList[index].name,
-                  style: TextStyle(
+                  Translateservice.getTranslatedCategoryUsingModel(
+                      context, categorieList[index]),
+                  style: const TextStyle(
                     fontSize: 9,
                     color: Colors.white,
                   ),

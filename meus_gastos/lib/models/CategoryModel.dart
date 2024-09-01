@@ -1,20 +1,18 @@
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/material.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 
 class CategoryModel {
   final String id;
   final Color color;
   final IconData icon;
   final String name;
-  final int frequency;
+  int frequency;
 
-  CategoryModel({
-    required this.id,
-    required this.color,
-    required this.icon,
-    required this.name,
-    required this.frequency});
+  CategoryModel(
+      {required this.id,
+      required this.color,
+      required this.icon,
+      required this.name,
+      this.frequency = 0});
 
   Map<String, dynamic> toJson() {
     return {
@@ -28,11 +26,20 @@ class CategoryModel {
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) {
     return CategoryModel(
-      id: json['id'],
-      color: Color(json['color']),
-      icon: IconData(json['icon'], fontFamily: 'MaterialIcons'),
-      name: json['name'],
-      frequency: json['frequency']
-    );
+        id: json['id'],
+        color: Color(json['color']),
+        icon: IconData(json['icon'], fontFamily: 'MaterialIcons'),
+        name: json['name'],
+        frequency: json['frequency']);
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is CategoryModel && other.id == id;
+  }
+
+  @override
+  int get hashCode => id.hashCode;
 }

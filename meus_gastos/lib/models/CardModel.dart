@@ -21,7 +21,7 @@ class CardModel {
       'amount': amount,
       'description': description,
       'date': date.toIso8601String(),
-      'category': category.toJson(), // Convertendo a categoria para JSON
+      'category': category.toJson(), // Convert category to JSON
     };
   }
 
@@ -32,7 +32,7 @@ class CardModel {
       description: map['description'],
       date: DateTime.parse(map['date']),
       category: CategoryModel.fromJson(
-          map['category']), // Convertendo o JSON para a categoria
+          map['category']), // Convert JSON to category
     );
   }
 }

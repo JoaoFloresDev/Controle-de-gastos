@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:flutter/material.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'CustomButton.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ValorTextField extends StatefulWidget {
   final MoneyMaskedTextController controller;
@@ -25,7 +26,7 @@ class _ValorTextFieldState extends State<ValorTextField> {
   void _handleFocusChange() {
     if (_focusNode.hasFocus) {
       _overlayEntry = _createOverlayEntry();
-      Overlay.of(context)!.insert(_overlayEntry!);
+      Overlay.of(context).insert(_overlayEntry!);
     } else {
       _overlayEntry?.remove();
       _overlayEntry = null;
@@ -57,15 +58,12 @@ class _ValorTextFieldState extends State<ValorTextField> {
   Widget build(BuildContext context) {
     return CupertinoTextField(
       focusNode: _focusNode,
-      decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: CupertinoColors.systemGrey)),
+      decoration: const BoxDecoration(
+        border: Border(bottom: BorderSide(color: AppColors.label)),
       ),
-      style:
-          TextStyle(color: Colors.white), // Define a cor do texto como branca
-      placeholder: "Enter amount", // Placeholder
-      placeholderStyle: TextStyle(
-          color: Colors.white.withOpacity(
-              0.6)), // Define a cor do placeholder como branca com opacidade
+      style: const TextStyle(color: AppColors.label),
+      placeholder: AppLocalizations.of(context)!.enterAmount, // Placeholder
+      placeholderStyle: const TextStyle(color: AppColors.labelPlaceholder),
       keyboardType: TextInputType.number,
       controller: widget.controller,
     );
@@ -91,8 +89,8 @@ class KeyboardAccessory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: CupertinoColors.black,
       height: 140,
+      color: Colors.black, // Define o fundo como preto
       child: Column(
         children: [
           Expanded(
