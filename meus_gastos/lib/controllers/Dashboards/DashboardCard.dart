@@ -59,14 +59,6 @@ class DashboardCard extends StatelessWidget {
             else
               Column(
                 children: [
-                  Text(
-                    AppLocalizations.of(context)!.expensesOfTheMonth,
-                    style: const TextStyle(
-                        color: AppColors.labelSecondary, fontSize: 18),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
                   SizedBox(
                     width: double.infinity,
                     height: 210,
@@ -93,7 +85,7 @@ class DashboardCard extends StatelessWidget {
                   ),
                 ],
               ),
-            const SizedBox(height: 30),
+            // const SizedBox(height: 15),
             Padding(
               padding: const EdgeInsets.only(top: 30),
               child: Wrap(

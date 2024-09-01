@@ -78,19 +78,12 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
           children: [
             _buildWeekButtons(),
             SizedBox(
-              height: 10,
-            ),
-            Text(
-              AppLocalizations.of(context)!.dailyExpensesByCategory,
-              style: TextStyle(color: AppColors.card, fontSize: 18),
-            ),
-            SizedBox(
-              height: 250,
+              height: 210,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
                   SizedBox(
-                    width: 600,
+                    width: 350,
                     child: SfCartesianChart(
                       primaryXAxis: CategoryAxis(
                           majorGridLines: MajorGridLines(width: 0)),
@@ -101,8 +94,6 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                             width: 0.5,
                             color: const Color.fromARGB(255, 78, 78, 78)),
                       ),
-                      // title: ChartTitle(
-                      //     text: AppLocalizations.of(context)!.dailyExpensesByCategory),
                       legend: Legend(isVisible: false),
                       tooltipBehavior: TooltipBehavior(enable: true),
                       series: _buildVerticalStackedBarSeries(context),

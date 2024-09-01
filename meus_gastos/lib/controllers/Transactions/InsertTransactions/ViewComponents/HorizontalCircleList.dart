@@ -64,7 +64,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                   margin: const EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
                     color: categorieList[index].id == 'AddCategory'
-                        ? AppColors.button.withOpacity(0.3)
+                        ? Colors.transparent
                         : selectedIndex == index
                             ? AppColors.buttonSelected
                             : AppColors.buttonDeselected,

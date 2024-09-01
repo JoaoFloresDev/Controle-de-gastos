@@ -6,7 +6,6 @@ import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 
 class Categorycreater extends StatefulWidget {
   final VoidCallback onCategoryAdded;
@@ -20,6 +19,8 @@ class Categorycreater extends StatefulWidget {
 class _CategorycreaterState extends State<Categorycreater> {
   late TextEditingController categoriaController;
   late Color _currentColor = AppColors.background1;
+  int selectedIndex = 0;
+
   final List<IconData> accountIcons = [
     Icons.account_balance,
     Icons.account_balance_wallet,
@@ -51,8 +52,6 @@ class _CategorycreaterState extends State<Categorycreater> {
     Icons.wallet,
   ];
 
-  int selectedIndex = 0;
-
   // MARK: - Lifecycle Methods
   @override
   void initState() {
@@ -73,59 +72,96 @@ class _CategorycreaterState extends State<Categorycreater> {
 
   void _pickColor(BuildContext context) {
     showCupertinoDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            child: Container(
-              color: AppColors.background1,
-              child: GestureDetector(
-                onTap: () {},
-                child: CupertinoAlertDialog(
-                  title: Text(
-                    AppLocalizations.of(context)!.chooseColor,
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  content: Container(
-                    padding: EdgeInsets.all(8),
-                    child: Column(
-                      children: [
-                        buildColorPicker(),
-                        TextButton(
-                          child: Text(
-                            AppLocalizations.of(context)!.select,
-                            style: const TextStyle(
-                                color: Color.fromARGB(255, 0, 93, 168),
-                                fontSize: 20),
-                          ),
+      context: context,
+      builder: (BuildContext context) {
+        return GestureDetector(
+          onTap: () => Navigator.of(context).pop(),
+          child: Container(
+            color: Colors.transparent, // Fundo transparente ao redor do diálogo
+            child: GestureDetector(
+              onTap: () {},
+              child: CupertinoAlertDialog(
+                content: Container(
+                  padding: EdgeInsets.all(8),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.chooseColor,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 16),
+                      ColorPicker(
+                        pickerColor: _currentColor,
+                        onColorChanged: (Color color) {
+                          setState(() {
+                            _currentColor = color;
+                          });
+                        },
+                        showLabel: false,
+                        pickerAreaHeightPercent: 0.6,
+                        displayThumbColor: false,
+                        enableAlpha: false,
+                        paletteType: PaletteType.hsv,
+                        pickerAreaBorderRadius:
+                            BorderRadius.all(Radius.circular(8)),
+                      ),
+                      // SizedBox(
+                      //     height: 16), // Espaçamento entre o picker e o botão
+                      SizedBox(
+                        width: 160,
+                        height: 40,
+                        child: CupertinoButton(
+                          color: AppColors.button, // Cor de fundo azul
+                          borderRadius: BorderRadius.circular(
+                              8.0), // Cantos ligeiramente arredondados
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                              vertical: 12.0), // Tamanho do botão
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
+                          child: Text(
+                            AppLocalizations.of(context)!.select,
+                            style: TextStyle(
+                              color: Colors.white, // Cor do texto branco
+                              fontSize: 16.0, // Tamanho do texto
+                              fontWeight: FontWeight.bold, // Texto em negrito
+                            ),
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 
   Widget buildColorPicker() {
-    return ColorPicker(
-      pickerColor: _currentColor,
-      onColorChanged: (Color color) {
-        setState(() {
-          _currentColor = color;
-        });
-      },
-      showLabel: false,
-      pickerAreaHeightPercent: 0.8,
-      displayThumbColor: false,
-      enableAlpha: false,
-      paletteType: PaletteType.hsv,
-    );
+    return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        padding: EdgeInsets.all(8),
+        child: ColorPicker(
+            pickerColor: _currentColor,
+            onColorChanged: (Color color) {
+              setState(() {
+                _currentColor = color;
+              });
+            },
+            showLabel: false,
+            pickerAreaHeightPercent: 0.6,
+            displayThumbColor: false,
+            enableAlpha: false,
+            paletteType: PaletteType.hsv,
+            pickerAreaBorderRadius: BorderRadius.all(Radius.circular(20))));
   }
 
   // MARK: - Add Category
@@ -145,7 +181,9 @@ class _CategorycreaterState extends State<Categorycreater> {
         frequency: frequency);
 
     await CategoryService().addCategory(category);
-    widget.onCategoryAdded(); // Notifica a view mãe
+    widget.onCategoryAdded();
+
+    Navigator.of(context).popUntil((route) => route.isFirst);
   }
 
   // MARK: - Build Method
@@ -154,134 +192,104 @@ class _CategorycreaterState extends State<Categorycreater> {
     return Material(
       color: Colors.transparent,
       child: Container(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(0),
         decoration: BoxDecoration(
-          color: AppColors.card,
+          color: AppColors.background1,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
           ),
         ),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          SizedBox(
-            width: double.maxFinite,
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.cancel,
-                      style: TextStyle(
-                        color: AppColors.card,
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      AppLocalizations.of(context)!.createCategory,
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.label),
-                    ),
-                  ),
-                ),
-              ],
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomHeader(
+              title: AppLocalizations.of(context)!.createCategory,
+              onCancelPressed: () {
+                Navigator.pop(context);
+              },
             ),
-          ),
-          GestureDetector(
-            onTap: _hideKeyboard,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                child: Column(
-                  children: [
-                    AddCategoryHorizontalCircleList(
-                      onItemSelected: (index) {
-                        selectedIndex = index;
-                      },
-                    ),
-                    CupertinoTextField(
-                      style: const TextStyle(
-                        color: AppColors.line,
-                      ),
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: AppColors.line,
-                          ),
-                        ),
-                      ),
-                      placeholder: AppLocalizations.of(context)!.category,
-                      placeholderStyle: TextStyle(
-                          color: const Color.fromARGB(144, 255, 255, 255)),
-                      controller: categoriaController,
-                    ),
-                    const SizedBox(height: 24),
-                    Row(
-                      children: [
-                        Text(
-                          "${AppLocalizations.of(context)!.chooseColor} ",
-                          style:
-                              TextStyle(color: AppColors.label, fontSize: 20),
-                        ),
-                        const SizedBox(width: 15),
-                        GestureDetector(
-                          onTap: () => _pickColor(context),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: _currentColor,
-                              border: Border.all(
-                                color: AppColors.button,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            height: 30,
-                            width: 30,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 24),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: CupertinoButton(
-                        color: AppColors.button,
-                        onPressed: () {
-                          if (categoriaController.text.isNotEmpty) {
-                            adicionar();
-                            Navigator.pop(context);
-                          }
+            GestureDetector(
+              onTap: _hideKeyboard,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  child: Column(
+                    children: [
+                      AddCategoryHorizontalCircleList(
+                        onItemSelected: (index) {
+                          setState(() {
+                            selectedIndex = index;
+                          });
                         },
-                        child: Text(
-                          AppLocalizations.of(context)!.addCategory,
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 12),
+                      CupertinoTextField(
+                        style: const TextStyle(
+                          color: AppColors.line,
+                        ),
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: AppColors.line,
+                            ),
+                          ),
+                        ),
+                        placeholder: AppLocalizations.of(context)!.category,
+                        placeholderStyle: TextStyle(
+                            color: const Color.fromARGB(144, 255, 255, 255)),
+                        controller: categoriaController,
+                      ),
+                      const SizedBox(height: 32),
+                      Row(
+                        children: [
+                          Text(
+                            "${AppLocalizations.of(context)!.chooseColor} ",
+                            style:
+                                TextStyle(color: AppColors.label, fontSize: 20),
+                          ),
+                          const SizedBox(width: 15),
+                          GestureDetector(
+                            onTap: () => _pickColor(context),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: _currentColor,
+                                border: Border.all(
+                                  color: AppColors.button,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              height: 30,
+                              width: 30,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 32),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: CupertinoButton(
+                          color: AppColors.button,
+                          onPressed: () {
+                            if (categoriaController.text.isNotEmpty) {
+                              adicionar();
+                              Navigator.pop(context);
+                            }
+                          },
+                          child: Text(
+                            AppLocalizations.of(context)!.addCategory,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ),
-          Expanded(
-            child: SizedBox(),
-          ),
-          SizedBox(
-            height: 60, // banner height
-            width: double.infinity, // banner width
-            child: BannerAdconstruct(), // banner widget
-          ),
-        ]),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -303,7 +311,6 @@ class AddCategoryHorizontalCircleList extends StatefulWidget {
 class _AddCategoryHorizontalCircleListState
     extends State<AddCategoryHorizontalCircleList> {
   int selectedIndex = 0;
-  int lastSelectedIndex = 0;
 
   final List<IconData> accountIcons = [
     Icons.account_balance,
@@ -347,7 +354,6 @@ class _AddCategoryHorizontalCircleListState
           return GestureDetector(
             onTap: () {
               setState(() {
-                lastSelectedIndex = selectedIndex;
                 selectedIndex = index;
               });
               widget.onItemSelected(index);
@@ -361,8 +367,8 @@ class _AddCategoryHorizontalCircleListState
                   margin: const EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
                     color: selectedIndex == index
-                        ? AppColors.buttonDeselected
-                        : AppColors.buttonSelected,
+                        ? AppColors.buttonSelected
+                        : AppColors.buttonDeselected,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(accountIcons[index]),

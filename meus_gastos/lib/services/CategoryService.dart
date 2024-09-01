@@ -59,7 +59,7 @@ class CategoryService {
       List<CategoryModel> defaultCategories = [
         CategoryModel(
             id: 'Unknown',
-            color: AppColors.card,
+            color: Colors.black54,
             icon: Icons.question_mark_rounded,
             name: 'Unknown',
             frequency: 0),
@@ -120,7 +120,7 @@ class CategoryService {
         CategoryModel(
             id: 'AddCategory',
             color: Colors.cyan[300]!,
-            icon: Icons.local_hospital,
+            icon: Icons.add,
             name: 'addCategory',
             frequency: -1),
       ];

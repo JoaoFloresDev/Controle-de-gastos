@@ -90,6 +90,7 @@ class KeyboardAccessory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 140,
+      color: Colors.black, // Define o fundo como preto
       child: Column(
         children: [
           Expanded(

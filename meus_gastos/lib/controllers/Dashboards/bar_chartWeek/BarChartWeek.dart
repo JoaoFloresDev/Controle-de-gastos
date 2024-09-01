@@ -65,13 +65,6 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         child: Column(
           children: [
             SizedBox(
-              height: 10,
-            ),
-            Text(
-              AppLocalizations.of(context)!.weeklyExpenses,
-              style: TextStyle(color: AppColors.card, fontSize: 18),
-            ),
-            SizedBox(
               height: 250,
               child: SfCartesianChart(
                 primaryXAxis:

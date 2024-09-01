@@ -18,7 +18,7 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-              color: AppColors.button,
+              color: CupertinoColors.systemGreen.withOpacity(0.1),
               spreadRadius: 3,
               blurRadius: 0,
               offset: Offset(0, 1),
@@ -30,7 +30,7 @@ class CustomButton extends StatelessWidget {
             text,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: AppColors.button,
+              color: CupertinoColors.systemGreen,
             ),
           ),
         ),

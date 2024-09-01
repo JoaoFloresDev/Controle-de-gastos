@@ -101,7 +101,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                     context: context,
                     builder: (BuildContext context) {
                       return Container(
-                        height: SizeOf(context).modal.halfModal(),
+                        height: SizeOf(context).modal.mediumModal(),
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20),

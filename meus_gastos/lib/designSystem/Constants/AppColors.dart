@@ -12,8 +12,8 @@ class AppColors {
 
   //mark - Buttons
   static const Color button = Color.fromRGBO(0, 122, 255, 1);
-  static const Color buttonDeselected = Color.fromRGBO(66, 66, 66, 0.4);
-  static const Color buttonSelected = Color.fromRGBO(255, 255, 255, 0.3);
+  static const Color buttonDeselected = Color(0xFF1A1A1A);
+  static const Color buttonSelected = Color(0xFF0F2B50);
 
   static const Color deletionButton = Color(0xFFE53935);
   static const Color buttonBackground = Color.fromRGBO(255, 255, 255, 0.1);

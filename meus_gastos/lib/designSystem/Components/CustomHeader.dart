@@ -1,8 +1,4 @@
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:flutter/material.dart';
 
 class CustomHeader extends StatelessWidget {
@@ -21,10 +17,10 @@ class CustomHeader extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: AppColors.card, // Define a cor de fundo como branca
+        color: AppColors.card,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20), // Arredonda o canto superior esquerdo
-          topRight: Radius.circular(20), // Arredonda o canto superior direito
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
         ),
       ),
       padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),

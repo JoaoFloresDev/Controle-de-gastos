@@ -61,8 +61,8 @@ class SelectcategoryState extends State<Selectcategorys> {
                       margin: const EdgeInsets.symmetric(horizontal: 8),
                       decoration: BoxDecoration(
                         color: selectedIndices.contains(index)
-                            ? AppColors.card.withOpacity(0.3)
-                            : Colors.black.withOpacity(0.1),
+                            ? AppColors.buttonSelected
+                            : AppColors.buttonDeselected,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
