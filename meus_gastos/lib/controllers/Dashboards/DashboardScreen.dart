@@ -1,3 +1,4 @@
+import 'package:meus_gastos/controllers/Transactions/exportExcel/exportExcelScreen.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 
 // Imports externos
@@ -138,10 +139,11 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   double _calculatePageHeight() {
     // Defina um valor base para o cálculo da altura
-    double baseHeight = 280;
+    double baseHeight = 300;
 
     // Calcule o incremento na altura com base no número de itens
-    double additionalHeight = pieChartDataItems.length.toDouble() / 2 * 30;
+    double additionalHeight =
+        (pieChartDataItems.length.toDouble() / 2 * 40).clamp(40, 120);
 
     // Defina um valor mínimo e máximo para a altura
     double minHeight = 400;
@@ -297,6 +299,29 @@ class _DashboardScreenState extends State<DashboardScreen>
           style: const TextStyle(color: AppColors.label, fontSize: 16),
         ),
         backgroundColor: AppColors.background1,
+        trailing: GestureDetector(
+          onTap: () {
+            showCupertinoModalPopup(
+              context: context,
+              builder: (BuildContext context) {
+                return Container(
+                  height: SizeOf(context).modal.halfModal(),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: Exportexcelscreen(),
+                );
+              },
+            );
+          },
+          child: const Icon(
+            CupertinoIcons.share,
+            size: 24.0, // Ajuste o tamanho conforme necessário
+          ),
+        ),
       ),
       child: SafeArea(
         child: Column(

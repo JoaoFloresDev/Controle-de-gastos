@@ -26,6 +26,7 @@ class DashboardCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (items.isEmpty)
               SizedBox(
@@ -58,10 +59,11 @@ class DashboardCard extends StatelessWidget {
               )
             else
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
                     width: double.infinity,
-                    height: 210,
+                    height: 200,
                     child: PieChart(
                       PieChartData(
                         sectionsSpace: 4,
@@ -85,9 +87,8 @@ class DashboardCard extends StatelessWidget {
                   ),
                 ],
               ),
-            // const SizedBox(height: 15),
             Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 20),
               child: Wrap(
                 spacing: 8,
                 runSpacing: 4,

@@ -53,29 +53,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           style: const TextStyle(color: AppColors.label, fontSize: 16),
         ),
         backgroundColor: AppColors.background1,
-        trailing: GestureDetector(
-          onTap: () {
-            showCupertinoModalPopup(
-              context: context,
-              builder: (BuildContext context) {
-                return Container(
-                  height: SizeOf(context).modal.halfModal(),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                  ),
-                  child: Exportexcelscreen(),
-                );
-              },
-            );
-          },
-          child: const Icon(
-            CupertinoIcons.share,
-            size: 24.0, // Ajuste o tamanho conforme necessário
-          ),
-        ),
       ),
       body: Column(
         children: [

@@ -1,11 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/services/DashbordService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:meus_gastos/controllers/Dashboards/bar_chartWeek/selectCategorys.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WeeklyStackedBarChart extends StatefulWidget {
@@ -16,6 +17,7 @@ class WeeklyStackedBarChart extends StatefulWidget {
     required this.weekIntervals,
     required this.weeklyData,
   });
+
   @override
   _WeeklyStackedBarChartState createState() => _WeeklyStackedBarChartState();
 }
@@ -26,7 +28,6 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
   @override
   void initState() {
     super.initState();
-
     selectedCategories = Dashbordservice.extractCategories(widget.weeklyData);
   }
 
@@ -35,21 +36,11 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
     bool hasExpens = widget.weeklyData
         .expand((week) => week.map((w) => w.progress))
         .isNotEmpty;
+
     if (!hasExpens || widget.weekIntervals.isEmpty) {
-      return Card(
-        color: AppColors.card,
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        child: Container(
-          height: 200,
-          child: Center(
-              child: Text(AppLocalizations.of(context)!.addNewTransactions,
-                  style: TextStyle(color: AppColors.label))),
-        ),
-      );
+      return _buildEmptyCard(context);
     }
 
-    // Calcula o valor máximo do eixo Y, garantindo que não haja erro
     double maxY = widget.weeklyData
             .expand((week) => week.map((data) => data.progress))
             .isEmpty
@@ -60,45 +51,63 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
       color: AppColors.card,
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 250,
-              child: SfCartesianChart(
-                primaryXAxis:
-                    CategoryAxis(majorGridLines: MajorGridLines(width: 0)),
-                primaryYAxis: NumericAxis(
-                  isVisible: false,
-                  maximum: maxY,
-                  majorGridLines: MajorGridLines(
-                      width: 0.5, color: const Color.fromARGB(255, 78, 78, 78)),
-                ),
-                // title: ChartTitle(
-                //     text: AppLocalizations.of(context)!.weeklyExpenses),
-                legend: Legend(isVisible: false),
-                tooltipBehavior: TooltipBehavior(enable: true),
-                series: _buildVerticalStackedBarSeries(),
-                borderWidth: 0,
-                plotAreaBorderWidth: 0,
-                plotAreaBorderColor: Colors.transparent,
-              ),
-            ),
-            Selectcategorys(
-              categorieList:
-                  Dashbordservice.extractCategories(widget.weeklyData),
-              onSelectionChanged: (selectedIndices) {
-                setState(() {
-                  selectedCategories = selectedIndices
-                      .map((index) => Dashbordservice.extractCategories(
-                          widget.weeklyData)[index])
-                      .toList();
-                });
-              },
-            ),
-          ],
+      child: Column(
+        children: [
+          Expanded(child: _buildChart(maxY)),
+          _buildCategorySelector(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmptyCard(BuildContext context) {
+    return Card(
+      color: AppColors.card,
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      child: Container(
+        height: 200,
+        child: Center(
+          child: Text(
+            AppLocalizations.of(context)!.addNewTransactions,
+            style: TextStyle(color: AppColors.label),
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildChart(double maxY) {
+    return SfCartesianChart(
+      primaryXAxis: CategoryAxis(majorGridLines: MajorGridLines(width: 0)),
+      primaryYAxis: NumericAxis(
+        isVisible: false,
+        maximum: maxY,
+        majorGridLines: MajorGridLines(
+            width: 0.5, color: const Color.fromARGB(255, 78, 78, 78)),
+      ),
+      legend: Legend(isVisible: false),
+      tooltipBehavior: TooltipBehavior(enable: true),
+      series: _buildVerticalStackedBarSeries(),
+      borderWidth: 0,
+      plotAreaBorderWidth: 0,
+      plotAreaBorderColor: Colors.transparent,
+    );
+  }
+
+  Widget _buildCategorySelector() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: SelectCategories(
+        categoryList: Dashbordservice.extractCategories(widget.weeklyData),
+        onSelectionChanged: (selectedIndices) {
+          setState(() {
+            selectedCategories = selectedIndices
+                .map((index) =>
+                    Dashbordservice.extractCategories(widget.weeklyData)[index])
+                .toList();
+          });
+        },
       ),
     );
   }

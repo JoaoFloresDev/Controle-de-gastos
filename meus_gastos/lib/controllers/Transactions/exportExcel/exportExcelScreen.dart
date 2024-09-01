@@ -77,7 +77,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                     padding: EdgeInsets.symmetric(
                         vertical: 8, horizontal: 24), // Aumenta o padding
                     child: Text('PDF'),
-                  ),
+                  )
                 },
                 onValueChanged: (value) {
                   setState(() {

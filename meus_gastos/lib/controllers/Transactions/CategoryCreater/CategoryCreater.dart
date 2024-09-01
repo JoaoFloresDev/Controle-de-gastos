@@ -166,7 +166,7 @@ class _CategorycreaterState extends State<Categorycreater> {
 
   // MARK: - Add Category
   void adicionar() async {
-    int frequency = 1;
+    int frequency = 2;
     CategoryModel? categoryHighFrequency =
         await CardService.getCategoryWithHighestFrequency();
     if (categoryHighFrequency != null && categoryHighFrequency.id.isNotEmpty) {

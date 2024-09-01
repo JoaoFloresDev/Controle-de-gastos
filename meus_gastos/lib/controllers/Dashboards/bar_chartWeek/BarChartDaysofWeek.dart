@@ -14,8 +14,10 @@ class DailyStackedBarChart extends StatefulWidget {
   final List<List<List<ProgressIndicatorModel>>> last5weewdailyData;
   final List<WeekInterval> last5WeeksIntervals;
 
-  DailyStackedBarChart(
-      {required this.last5weewdailyData, required this.last5WeeksIntervals});
+  DailyStackedBarChart({
+    required this.last5weewdailyData,
+    required this.last5WeeksIntervals,
+  });
 
   @override
   _DailyStackedBarChartState createState() => _DailyStackedBarChartState();
@@ -23,9 +25,9 @@ class DailyStackedBarChart extends StatefulWidget {
 
 class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
   List<CategoryModel> selectedCategories = [];
-  int selectedWeek = 4; // the last week is select
-  Key selectCategoryKey =
-      UniqueKey(); // make a unique key to call the class selectCategory
+  int selectedWeek = 4; // Última semana selecionada
+  Key selectCategoryKey = UniqueKey(); // Chave única para SelectCategories
+
   @override
   void initState() {
     super.initState();
@@ -40,26 +42,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         .isNotEmpty;
 
     if (!hasExpenses) {
-      return Card(
-        color: AppColors.card,
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _buildWeekButtons(),
-            ),
-            Container(
-              child: Center(
-                  child: Text(AppLocalizations.of(context)!.noExpensesThisWeek,
-                      style: TextStyle(color: AppColors.label, fontSize: 20))),
-            ),
-            SizedBox()
-          ],
-        ),
-      );
+      return _buildEmptyCard(context);
     }
 
     double maxY = widget.last5weewdailyData[selectedWeek]
@@ -72,41 +55,17 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
       color: AppColors.card,
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            _buildWeekButtons(),
-            SizedBox(
-              height: 210,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  SizedBox(
-                    width: 350,
-                    child: SfCartesianChart(
-                      primaryXAxis: CategoryAxis(
-                          majorGridLines: MajorGridLines(width: 0)),
-                      primaryYAxis: NumericAxis(
-                        isVisible: false,
-                        maximum: maxY,
-                        majorGridLines: MajorGridLines(
-                            width: 0.5,
-                            color: const Color.fromARGB(255, 78, 78, 78)),
-                      ),
-                      legend: Legend(isVisible: false),
-                      tooltipBehavior: TooltipBehavior(enable: true),
-                      series: _buildVerticalStackedBarSeries(context),
-                      borderWidth: 0,
-                      plotAreaBorderWidth: 0,
-                      plotAreaBorderColor: Colors.transparent,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Selectcategorys(
-              categorieList: Dashbordservice.extractCategories(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: _buildWeekButtons(),
+          ),
+          Expanded(child: _buildChart(maxY)),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: SelectCategories(
+              categoryList: Dashbordservice.extractCategories(
                   widget.last5weewdailyData[selectedWeek]),
               onSelectionChanged: (selectedIndices) {
                 setState(() {
@@ -118,77 +77,109 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
               },
               key: selectCategoryKey,
             ),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmptyCard(BuildContext context) {
+    return Card(
+      color: AppColors.card,
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: _buildWeekButtons(),
+          ),
+          SizedBox(height: 40),
+          Center(
+            child: Text(
+              AppLocalizations.of(context)!.noExpensesThisWeek,
+              style: TextStyle(color: AppColors.label, fontSize: 20),
+            ),
+          ),
+          SizedBox(height: 10),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildChart(double maxY) {
+    return SfCartesianChart(
+      primaryXAxis: CategoryAxis(majorGridLines: MajorGridLines(width: 0)),
+      primaryYAxis: NumericAxis(
+        isVisible: false,
+        maximum: maxY,
+        majorGridLines: MajorGridLines(
+            width: 0.5, color: const Color.fromARGB(255, 78, 78, 78)),
+      ),
+      legend: Legend(isVisible: false),
+      tooltipBehavior: TooltipBehavior(enable: true),
+      series: _buildVerticalStackedBarSeries(),
+      borderWidth: 0,
+      plotAreaBorderWidth: 0,
+      plotAreaBorderColor: Colors.transparent,
+    );
+  }
+
+  Widget _buildWeekButtons() {
+    return Container(
+      width: double.infinity,
+      height: 50.0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: List.generate(
+          widget.last5WeeksIntervals.length,
+          (int index) {
+            WeekInterval interval = widget.last5WeeksIntervals[index];
+            bool isSelected = selectedWeek == index;
+
+            return Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      if (selectedWeek != index) {
+                        selectedWeek = index;
+                        selectedCategories = [];
+                        selectCategoryKey = UniqueKey();
+                      }
+                    });
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? AppColors.buttonSelected
+                          : AppColors.buttonDeselected,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Text(
+                      _getWeekLabel(interval),
+                      style: TextStyle(color: AppColors.button),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );
   }
 
-  List<List<ProgressIndicatorModel>> _getFilteredData() {
-    if (selectedCategories.isEmpty) {
-      return widget.last5weewdailyData[selectedWeek];
-    }
-
-    return widget.last5weewdailyData[selectedWeek].map((day) {
-      return day.where((data) {
-        return selectedCategories.contains(data.category);
-      }).toList();
-    }).toList();
-  }
-
-  Widget _buildWeekButtons() {
-    return Container(
-        width: double
-            .infinity, // Use double.infinity para ocupar toda a largura disponível
-        height: 40.0, // Defina uma altura fixa para o Container
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List.generate(
-            widget.last5WeeksIntervals.length,
-            (int index) {
-              WeekInterval interval = widget.last5WeeksIntervals[index];
-              bool isSelected = selectedWeek == index;
-
-              return Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 3.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        if (selectedWeek != index) {
-                          selectedWeek = index;
-                          selectedCategories = [];
-                          selectCategoryKey = UniqueKey();
-                        }
-                      });
-                    },
-                    child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: isSelected
-                              ? AppColors.buttonSelected
-                              : AppColors.buttonDeselected,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          _getWeekLabel(interval),
-                          style: TextStyle(color: AppColors.button),
-                        )),
-                  ),
-                ),
-              );
-            },
-          ),
-        ));
-  }
-
   List<StackedColumnSeries<ProgressIndicatorModel, String>>
-      _buildVerticalStackedBarSeries(BuildContext context) {
-    // Lista de categorias únicas para garantir que cada categoria tenha a mesma cor em cada dia
+      _buildVerticalStackedBarSeries() {
     final List<String> categories = _getFilteredData()
         .expand((day) => day.map((data) => data.category.name))
         .toSet()
         .toList();
+
     final days = [
       AppLocalizations.of(context)!.monday,
       AppLocalizations.of(context)!.tuesday,
@@ -196,7 +187,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
       AppLocalizations.of(context)!.thursday,
       AppLocalizations.of(context)!.friday,
       AppLocalizations.of(context)!.saturday,
-      AppLocalizations.of(context)!.sunday
+      AppLocalizations.of(context)!.sunday,
     ];
 
     List<double> totalByDay = List.generate(
@@ -206,9 +197,9 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             .fold(0.0, (sum, data) => sum + data.progress);
       },
     );
+
     List<StackedColumnSeries<ProgressIndicatorModel, String>> seriesList = [];
 
-    // Adiciona a série de barras empilhadas para cada categoria
     seriesList.addAll(categories.map((category) {
       return StackedColumnSeries<ProgressIndicatorModel, String>(
         dataSource: _getFilteredData()
@@ -223,12 +214,11 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         width: 0.5,
         borderRadius: BorderRadius.circular(4),
         name: Translateservice.getTranslatedCategoryName(context, category),
-        borderWidth: 3,
+        borderWidth: 2,
         borderColor: AppColors.card,
       );
     }).toList());
 
-    // Adiciona a série de totais diários
     seriesList.add(StackedColumnSeries<ProgressIndicatorModel, String>(
       dataSource: List.generate(days.length, (index) {
         return ProgressIndicatorModel(
@@ -236,8 +226,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
               name: 'Total',
               id: Uuid().v4(),
               color: AppColors.background1,
-              icon:
-                  Icons.device_unknown), // Crie um modelo de categoria fictício
+              icon: Icons.device_unknown),
           progress: totalByDay[index],
           color: Colors.transparent,
           title: 'Total',
@@ -248,9 +237,9 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
       dataLabelMapper: (data, index) => data.progress > 0
           ? Translateservice.formatCurrency(data.progress, context)
           : '',
-      pointColorMapper: (data, _) =>
-          Colors.transparent, // Torna a barra transparente
+      pointColorMapper: (data, _) => Colors.transparent,
       width: 0.5,
+      borderRadius: BorderRadius.circular(4),
       name: 'Total',
       borderWidth: 0,
       dataLabelSettings: DataLabelSettings(
@@ -259,13 +248,14 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         textStyle:
             TextStyle(color: AppColors.label, fontWeight: FontWeight.bold),
         builder: (data, point, series, pointIndex, seriesIndex) {
-          // Exibe o total acima da barra
           return Text(
             data.progress > 0
                 ? Translateservice.formatCurrency(data.progress, context)
                 : '',
-            style:
-                TextStyle(color: AppColors.label, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 8,
+                color: AppColors.label,
+                fontWeight: FontWeight.bold),
           );
         },
       ),
@@ -274,8 +264,20 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
     return seriesList;
   }
 
+  List<List<ProgressIndicatorModel>> _getFilteredData() {
+    if (selectedCategories.isEmpty) {
+      return widget.last5weewdailyData[selectedWeek];
+    }
+
+    return widget.last5weewdailyData[selectedWeek].map((day) {
+      return day.where((data) {
+        return selectedCategories.contains(data.category);
+      }).toList();
+    }).toList();
+  }
+
   String _getWeekLabel(WeekInterval week) {
-    final DateFormat formatter =
+    final formatter =
         DateFormat(AppLocalizations.of(context)!.resumeDateFormat);
     return '${formatter.format(week.start)} \n${formatter.format(week.end)}';
   }
