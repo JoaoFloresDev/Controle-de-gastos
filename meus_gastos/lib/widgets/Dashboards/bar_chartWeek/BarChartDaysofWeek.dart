@@ -5,7 +5,7 @@ import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/services/DashbordService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:meus_gastos/Controllers/Dashboards/bar_chartWeek/selectCategorys.dart';
+import 'package:meus_gastos/widgets/Dashboards/bar_chartWeek/selectCategorys.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:uuid/uuid.dart';
@@ -225,7 +225,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             .where((data) => data.category.name == category)
             .toList(),
         xValueMapper: (data, index) => days[index % 7],
-        yValueMapper: (data, index) => totalByDay[index] > 1
+        yValueMapper: (data, index) => totalByDay[index] > 0
             ? data.progress / totalByDay[index] * 100
             : data.progress,
         pointColorMapper: (data, _) => data.color,

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/Controllers/Transactions/InsertTransactions/InsertTransactions.dart';
-import 'package:meus_gastos/Controllers/Dashboards/DashboardScreen.dart';
+import 'package:meus_gastos/services/app_tuor_tutorial.dart';
+import 'package:meus_gastos/services/in_app_save.dart';
+import 'package:meus_gastos/widgets/Transactions/InsertTransactions/InsertTransactions.dart';
+import 'package:meus_gastos/widgets/Dashboards/DashboardScreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,19 +50,69 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int selectedTab = 0;
 
+  final exportButon = GlobalKey();
+  final cardsExpens = GlobalKey();
+  final dashboardTab = GlobalKey();
+  final valueExpens = GlobalKey();
+  final date = GlobalKey();
+  final description = GlobalKey();
+  final categories = GlobalKey();
+  final addButon = GlobalKey();
+
+  late TutorialCoachMark tutorialCoachMark;
+
+  void _initHearderCardInAppTour() {
+    tutorialCoachMark = TutorialCoachMark(
+      targets: addTargetsHearderCard(
+          valueExpens: valueExpens,
+          description: description,
+          date: date,
+          addButton: addButon,
+          categories: categories,
+          cardsExpens: cardsExpens,
+          dashboardTab: dashboardTab,
+          exportButon: exportButon,),
+      colorShadow: CupertinoColors.black,
+      paddingFocus: 10,
+      hideSkip: true,
+      opacityShadow: 0.5,
+      onFinish: () {
+        InAppSave.saveInsertTransationsStatus();
+      },
+    );
+  }
+
+  void _showInAppTour() {
+    Future.delayed(const Duration(seconds: 2), () {
+      InAppSave.getInsertTransactionsStatus().then((value) {
+        if (value == false) {
+          tutorialCoachMark.show(context: context);
+        }
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initHearderCardInAppTour();
+    _showInAppTour();
+  }
+
   // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
         backgroundColor: Colors.black38,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+        items: <BottomNavigationBarItem>[
+          const BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.home, size: 20),
             label: 'Transações',
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.chart_bar, size: 20),
+            key: dashboardTab,
+            icon: const Icon(CupertinoIcons.chart_bar, size: 20),
             label: 'Dashboard',
           ),
         ],
@@ -98,6 +151,13 @@ class _MyHomePageState extends State<MyHomePage> {
         return InsertTransactions(
           title: AppLocalizations.of(context)!.myExpenses,
           onAddClicked: () {},
+          cardsExpens: cardsExpens,
+          exportButon: exportButon,
+          addButon: addButon,
+          categories: categories,
+          date: date,
+          description: description,
+          valueExpens: valueExpens,
         );
       default:
         return DashboardScreen(

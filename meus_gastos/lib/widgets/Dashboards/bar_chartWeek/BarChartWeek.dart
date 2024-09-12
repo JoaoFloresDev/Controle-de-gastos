@@ -5,7 +5,7 @@ import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/services/DashbordService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:meus_gastos/Controllers/Dashboards/bar_chartWeek/selectCategorys.dart';
+import 'package:meus_gastos/widgets/Dashboards/bar_chartWeek/selectCategorys.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WeeklyStackedBarChart extends StatefulWidget {

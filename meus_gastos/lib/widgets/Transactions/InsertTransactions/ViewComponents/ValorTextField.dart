@@ -24,15 +24,14 @@ class _ValorTextFieldState extends State<ValorTextField> {
   }
 
   void _handleFocusChange() {
+    
     if (_focusNode.hasFocus) {
       _overlayEntry = _createOverlayEntry();
       Overlay.of(context).insert(_overlayEntry!);
     } else {
-      _overlayEntry?.remove();
-      _overlayEntry = null;
+      _removeOverlay();
     }
   }
-
   OverlayEntry _createOverlayEntry() {
     final screenWidth = MediaQuery.of(context).size.width;
     return OverlayEntry(
@@ -52,6 +51,10 @@ class _ValorTextFieldState extends State<ValorTextField> {
         }),
       ),
     );
+  }
+  void _removeOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
   }
 
   @override

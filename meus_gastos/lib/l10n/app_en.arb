@@ -48,5 +48,13 @@
     "textExport" : "Click on the button below to export your data to an Excel spreadsheet or PDF file.",
     "share" : "Share",
     "saveLocally" : "Save Locally",
-    "shareMensage" : "Discover the best app for personal expense tracking"
+    "shareMensage" : "Discover the best app for personal expense tracking",
+    "valueTutorial": "Here you enter the value of your expense.",
+    "dateTutorial": "Here you enter the date when your expense was made.",
+    "commentTutorial": "Here you add comments about your expense.",
+    "categoryTutorial": "Here you select the category for your expense.",
+    "addExpenseTutorial": "Here you add your expense to the monthly list.",
+    "cardsTutorial": "Here are your expense cards. You can edit them after adding.",
+    "exportTutorial": "Here you can export your expenses to an Excel sheet or PDF file.",
+    "graphicsTutorial": "Here you can view graphics of your expenses by month, week, or day"
 }

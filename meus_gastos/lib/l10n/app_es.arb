@@ -48,6 +48,14 @@
     "textExport" : "Haga clic en el botón de abajo para exportar sus datos a una hoja de cálculo de Excel o un archivo PDF.",
     "share" : "Compartir",
     "saveLocally" : "Guardar localmente",
-    "shareMensage" : "Descubre la mejor aplicación para el control de gastos personales"
+    "shareMensage" : "Descubre la mejor aplicación para el control de gastos personales",
+    "valueTutorial": "Aquí ingresas el valor de tu gasto.",
+    "dateTutorial": "Aquí ingresas la fecha en que se realizó tu gasto.",
+    "commentTutorial": "Aquí agregas comentarios sobre tu gasto.",
+    "categoryTutorial": "Aquí seleccionas la categoría de tu gasto.",
+    "addExpenseTutorial": "Aquí añades tu gasto a la lista mensual.",
+    "cardsTutorial": "Aquí están tus tarjetas de gastos. Puedes editarlas después de agregarlas.",
+    "exportTutorial": "Aquí puedes exportar tus gastos a una hoja de Excel o un archivo PDF.",
+    "graphicsTutorial": "Aquí puedes ver gráficos de tus gastos por mes, semana o día"
 
 }

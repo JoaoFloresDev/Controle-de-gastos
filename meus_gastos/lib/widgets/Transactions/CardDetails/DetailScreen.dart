@@ -3,7 +3,7 @@ import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'EditionHeaderCard.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:meus_gastos/Controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
 
 class DetailScreen extends StatefulWidget {
   final CardModel card;
@@ -59,11 +59,11 @@ class _DetailScreen extends State<DetailScreen> {
             Expanded(
               child: SizedBox(),
             ),
-            // SizedBox(
-            //   height: 60, // banner height
-            //   width: double.infinity, // banner width
-            //   child: BannerAdconstruct(), // banner widget
-            // ),
+            SizedBox(
+              height: 60, // banner height
+              width: double.infinity, // banner width
+              child: BannerAdconstruct(), // banner widget
+            ),
           ],
         ),
       ),

@@ -15,7 +15,7 @@ class ListCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTap(card),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         decoration: BoxDecoration(
           color: Colors.grey[900],
           borderRadius: BorderRadius.circular(20),
@@ -40,15 +40,15 @@ class ListCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Colors.white, // Text color changed to white
                   ),
                 ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      width: 24,
-                      height: 24,
+                      width: 30,
+                      height: 30,
                       margin: const EdgeInsets.symmetric(horizontal: 16),
                       decoration: BoxDecoration(
                         color: Colors.black.withOpacity(0.1),
@@ -57,16 +57,15 @@ class ListCard extends StatelessWidget {
                       child: Icon(
                         card.category.icon,
                         size: 18,
-                        color: Colors.white,
+                        color: Colors.white, // Icon color changed to white
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      Translateservice.getTranslatedCategoryUsingModel(
-                          context, card.category),
+                      Translateservice.getTranslatedCategoryUsingModel(context, card.category), // translate
                       style: const TextStyle(
                         fontSize: 9,
-                        color: Colors.white,
+                        color: Colors.white, // Text color changed to white
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -75,27 +74,23 @@ class ListCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    card.description,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  ),
+            Text(
+              card.description,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.white, // Description text color changed to white
+              ),
+            ),
+            const SizedBox(height: 2),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                DateFormat(AppLocalizations.of(context)!.dateFormat).format(card.date),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Colors.white, // Date text color changed to white
                 ),
-                Text(
-                  DateFormat(AppLocalizations.of(context)!.dateFormat)
-                      .format(card.date),
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
+              ),
             ),
           ],
         ),

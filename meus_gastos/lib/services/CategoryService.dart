@@ -11,7 +11,9 @@ class CategoryService {
   Future<void> addCategory(CategoryModel category) async {
     print("add:");
     print(category.name);
-    category.frequency = maior_valor_frequency;
+    category.frequency = maior_valor_frequency + 1;
+    maior_valor_frequency = category.frequency;
+    print(category.frequency);
     final prefs = await SharedPreferences.getInstance();
     List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
     categories.add(jsonEncode(category.toJson()));

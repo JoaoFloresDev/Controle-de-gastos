@@ -14,7 +14,7 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
   String getBannerAdUnitId() {
     if (Platform.isAndroid) {
       String testBannerAdUnitId = 'ca-app-pub-8858389345934911/3074198669';
-
+    
       return testBannerAdUnitId; // Ad Unit ID do Android
     } else if (Platform.isIOS) {
       return 'ca-app-pub-8858389345934911/9257029729'; // Ad Unit ID do iOS
@@ -65,7 +65,11 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
           : Container(
               decoration: BoxDecoration(color: Colors.black.withOpacity(0.3)),
               width: double.maxFinite,
-              height: 50),
+              height: 50,
+              child: const Text(
+                'Ad is loading...',
+                style: TextStyle(color: Colors.grey, fontSize: 20),
+              )),
     );
   }
 }

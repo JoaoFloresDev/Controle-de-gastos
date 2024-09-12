@@ -6,7 +6,7 @@ import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:meus_gastos/Controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
 
 class Categorycreater extends StatefulWidget {
   final VoidCallback onCategoryAdded;
@@ -52,17 +52,19 @@ class _CategorycreaterState extends State<Categorycreater> {
   ];
 
   int selectedIndex = 0;
-
+  late FocusNode _textFieldFocusNode;
   // MARK: - Lifecycle Methods
   @override
   void initState() {
     super.initState();
     categoriaController = TextEditingController();
+    _textFieldFocusNode = FocusNode();
   }
 
   @override
   void dispose() {
     categoriaController.dispose();
+    _textFieldFocusNode.dispose();
     super.dispose();
   }
 
@@ -72,6 +74,7 @@ class _CategorycreaterState extends State<Categorycreater> {
   }
 
   void _pickColor(BuildContext context) {
+    _hideKeyboard();
     showCupertinoDialog(
         context: context,
         builder: (BuildContext context) {
@@ -153,134 +156,142 @@ class _CategorycreaterState extends State<Categorycreater> {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent, // Remove o fundo branco
-      child: Container(
-        padding: const EdgeInsets.all(12.0),
-        decoration: BoxDecoration(
-          color: Colors.grey[900],
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-        ),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          SizedBox(
-            width: double.maxFinite,
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.cancel,
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      AppLocalizations.of(context)!.createCategory,
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white),
-                    ),
-                  ),
-                ),
-              ],
+      child: GestureDetector(
+        onTap: _hideKeyboard,
+        child: Container(
+          padding: const EdgeInsets.all(12.0),
+          decoration: BoxDecoration(
+            color: Colors.grey[900],
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
             ),
           ),
-          GestureDetector(
-            onTap: _hideKeyboard,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                child: Column(
-                  children: [
-                    AddCategoryHorizontalCircleList(
-                      onItemSelected: (index) {
-                        selectedIndex = index;
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            SizedBox(
+              width: double.maxFinite,
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
                       },
-                    ),
-                    CupertinoTextField(
-                      style: const TextStyle(
-                        color: CupertinoColors.systemGrey5,
-                      ),
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: CupertinoColors.systemGrey5,
-                          ),
+                      child: Text(
+                        AppLocalizations.of(context)!.cancel,
+                        style: const TextStyle(
+                          color: Colors.grey,
                         ),
                       ),
-                      placeholder: AppLocalizations.of(context)!.category,
-                      placeholderStyle: TextStyle(
-                          color: const Color.fromARGB(144, 255, 255, 255)),
-                      controller: categoriaController,
                     ),
-                    const SizedBox(height: 24),
-                    Row(
-                      children: [
-                        Text(
-                          "${AppLocalizations.of(context)!.chooseColor} ",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                        const SizedBox(width: 15),
-                        GestureDetector(
-                          onTap: () => _pickColor(context),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: _currentColor,
-                              border: Border.all(
-                                color: CupertinoColors.systemBlue,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            height: 30,
-                            width: 30,
-                          ),
-                        ),
-                      ],
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        AppLocalizations.of(context)!.createCategory,
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                      ),
                     ),
-                    const SizedBox(height: 24),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: CupertinoButton(
-                        color: CupertinoColors.systemBlue,
-                        onPressed: () {
-                          if (categoriaController.text.isNotEmpty) {
-                            adicionar();
-                            Navigator.pop(context);
-                          }
+                  ),
+                ],
+              ),
+            ),
+            GestureDetector(
+              onTap: _hideKeyboard,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  child: Column(
+                    children: [
+                      AddCategoryHorizontalCircleList(
+                        onItemSelected: (index) {
+                          selectedIndex = index;
                         },
-                        child: Text(
-                          AppLocalizations.of(context)!.addCategory,
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      CupertinoTextField(
+                        focusNode: _textFieldFocusNode,
+                        style: const TextStyle(
+                          color: CupertinoColors.systemGrey5,
+                        ),
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: CupertinoColors.systemGrey5,
+                            ),
+                          ),
+                        ),
+                        placeholder: AppLocalizations.of(context)!.category,
+                        placeholderStyle: TextStyle(
+                            color: const Color.fromARGB(144, 255, 255, 255)),
+                        controller: categoriaController,
+                      ),
+                      const SizedBox(height: 24),
+                      Row(
+                        children: [
+                          Text(
+                            "${AppLocalizations.of(context)!.chooseColor} ",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          const SizedBox(width: 15),
+                          GestureDetector(
+                            onTap: () {
+                              _hideKeyboard();
+                              _textFieldFocusNode.unfocus();
+                              _pickColor(context);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: _currentColor,
+                                border: Border.all(
+                                  color: CupertinoColors.systemBlue,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              height: 30,
+                              width: 30,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 24),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: CupertinoButton(
+                          color: CupertinoColors.systemBlue,
+                          onPressed: () {
+                            if (categoriaController.text.isNotEmpty) {
+                              adicionar();
+                              Navigator.pop(context);
+                            }
+                          },
+                          child: Text(
+                            AppLocalizations.of(context)!.addCategory,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: SizedBox(),
-          ),
-          SizedBox(
-            height: 60, // banner height
-            width: double.infinity, // banner width
-            child: BannerAdconstruct(), // banner widget
-          ),
-        ]),
+            Expanded(
+              child: SizedBox(),
+            ),
+            SizedBox(
+              height: 60, // banner height
+              width: double.infinity, // banner width
+              child: BannerAdconstruct(), // banner widget
+            ),
+          ]),
+        ),
       ),
     );
   }
@@ -333,8 +344,6 @@ class _AddCategoryHorizontalCircleListState
     Icons.savings,
     Icons.show_chart,
     Icons.wallet,
-
-    
   ];
 
   @override

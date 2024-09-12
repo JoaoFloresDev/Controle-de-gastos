@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/Controllers/Transactions/CardDetails/DetailScreen.dart';
-import 'package:meus_gastos/Controllers/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
+import 'package:meus_gastos/widgets/Transactions/CardDetails/DetailScreen.dart';
+import 'package:meus_gastos/widgets/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:meus_gastos/Controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Extractbycategory extends StatefulWidget {
   final String category;
@@ -62,11 +63,11 @@ class _Extractbycategory extends State<Extractbycategory> {
                           alignment: Alignment.centerLeft,
                           child: TextButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              Future.microtask(() => Navigator.pop(context));
                             },
-                            child: const Text(
-                              'Cancel',
-                              style: TextStyle(
+                            child: Text(
+                              AppLocalizations.of(context)!.cancel,
+                              style: const TextStyle(
                                 color: Colors.grey,
                               ),
                             ),
@@ -77,8 +78,7 @@ class _Extractbycategory extends State<Extractbycategory> {
                           child: Padding(
                             padding: const EdgeInsets.all(12),
                             child: Text(
-                              Translateservice.getTranslatedCategoryName(
-                                  context, widget.category),
+                              Translateservice.getTranslatedCategoryName(context, widget.category),
                               style: const TextStyle(
                                   fontSize: 20,
                                   color: Colors.white,
@@ -89,11 +89,11 @@ class _Extractbycategory extends State<Extractbycategory> {
                       ],
                     ),
                   )),
-              // SizedBox(
-              //   height: 60, // banner height
-              //   width: double.infinity, // banner width
-              //   child: BannerAdconstruct(), // banner widget
-              // ),
+              SizedBox(
+                height: 60, // banner height
+                width: double.infinity, // banner width
+                child: BannerAdconstruct(), // banner widget
+              ),
               Expanded(
                 child: Container(
                   color: Colors.black38,

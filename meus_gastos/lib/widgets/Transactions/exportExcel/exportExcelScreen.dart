@@ -1,7 +1,7 @@
 import 'package:excel/excel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:meus_gastos/Controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'export_toExcel.dart';
@@ -90,9 +90,8 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
             // Dropdown para seleção de formato
             CupertinoSegmentedControl<String>(
               children: const {
-                'Excel':
-                    Padding(padding: EdgeInsets.all(8), child: Text('Excel')),
-                'PDF': Padding(padding: EdgeInsets.all(8), child: Text('PDF')),
+                'Excel': Padding(padding: EdgeInsets.all(8), child:Text('Excel')),
+                'PDF': Padding(padding: EdgeInsets.all(8), child:Text('PDF')),
               },
               onValueChanged: (value) {
                 setState(() {
@@ -126,8 +125,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                           child: Text(
                             AppLocalizations.of(context)!.saveLocally,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                                fontWeight: FontWeight.bold, color: Colors.white),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -150,8 +148,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                           child: Text(
                             AppLocalizations.of(context)!.share,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                                fontWeight: FontWeight.bold, color: Colors.white),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -164,11 +161,11 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
             Expanded(
               child: SizedBox(),
             ),
-            // SizedBox(
-            //   height: 60, // banner height
-            //   width: double.infinity, // banner width
-            //   child: BannerAdconstruct(), // banner widget
-            // ),
+            SizedBox(
+              height: 60, // banner height
+              width: double.infinity, // banner width
+              child: BannerAdconstruct(), // banner widget
+            ),
           ],
         ),
       ),
@@ -225,8 +222,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
     try {
       await Share.shareXFiles(
         [XFile(filePath)],
-        text:
-            '${AppLocalizations.of(context)!.shareMensage}: https://play.google.com/store/apps/details?id=meus_gastos.my_expenses&pcampaignid=web_share',
+        text: '${AppLocalizations.of(context)!.shareMensage}: https://play.google.com/store/apps/details?id=meus_gastos.my_expenses&pcampaignid=web_share',
         sharePositionOrigin: Rect.fromLTWH(0, 0, 1, 1),
       );
       print('Arquivo compartilhado com sucesso!');
