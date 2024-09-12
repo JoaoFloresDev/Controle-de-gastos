@@ -1,3 +1,5 @@
+import 'dart:ui';
+import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/controllers/Transactions/exportExcel/exportExcelScreen.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 
@@ -44,7 +46,44 @@ class _DashboardScreenState extends State<DashboardScreen>
   List<WeekInterval> Last5WeeksIntervals = [];
   List<List<ProgressIndicatorModel>> Last5WeeksProgressIndicators = [];
   List<List<List<ProgressIndicatorModel>>> weeklyData = [];
-
+  List<ProgressIndicatorModel> progressIndicators2 = [
+    ProgressIndicatorModel(
+      title: "Alimentação",
+      progress: 400,
+      category: CategoryModel(
+        id: "1",
+        name: "Alimentação",
+        color: const Color.fromARGB(255, 41, 40, 40), // Cor para a categoria
+        icon: CupertinoIcons.cart, // Ícone fictício
+        frequency: 5, // Frequência de ocorrência
+      ),
+      color: Color.fromARGB(255, 41, 40, 40), // Cor do indicador
+    ),
+    ProgressIndicatorModel(
+      title: "Transporte",
+      progress: 200,
+      category: CategoryModel(
+        id: "2",
+        name: "Transporte",
+        color: Color.fromARGB(255, 41, 40, 40), // Cor para a categoria
+        icon: CupertinoIcons.car, // Ícone fictício
+        frequency: 3, // Frequência de ocorrência
+      ),
+      color: Color.fromARGB(255, 41, 40, 40), // Cor do indicador
+    ),
+    ProgressIndicatorModel(
+      title: "Lazer",
+      progress: 300,
+      category: CategoryModel(
+        id: "3",
+        name: "Lazer",
+        color: Color.fromARGB(255, 41, 40, 40), // Cor para a categoria
+        icon: CupertinoIcons.smiley, // Ícone fictício
+        frequency: 2, // Frequência de ocorrência
+      ),
+      color: Color.fromARGB(255, 41, 40, 40), // Cor do indicador
+    ),
+  ];
   double totalexpens = 0.0;
   bool isLoading = true;
   DateTime currentDate = DateTime.now();
@@ -224,6 +263,35 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget _buildProgressIndicators(BuildContext context) {
+    if (progressIndicators.isEmpty) {
+      return Column(
+        crossAxisAlignment:
+            CrossAxisAlignment.center, // Centraliza os itens horizontalmente
+        children: [
+          Text(
+            AppLocalizations.of(context)!.topExpensesOfTheMonth,
+            style: const TextStyle(
+              color: AppColors.label,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center, // Centraliza o texto dentro do widget
+          ),
+          const SizedBox(height: 16),
+          Text(
+            "Aqui serão listados seus gastos por categoria, \nclassificados do maior para o menor",
+            style: const TextStyle(
+              color: AppColors.label,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center, // Centraliza o texto dentro do widget
+          ),
+          const SizedBox(height: 30),
+        ],
+      );
+    }
+
     return Column(
       children: [
         Text(
@@ -271,22 +339,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     return const CircularProgressIndicator(color: AppColors.label);
   }
 
-  Widget _buildEmptyState(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      alignment: Alignment.center,
-      child: Text(
-        AppLocalizations.of(context)!.addNewTransactions,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          color: AppColors.label,
-          fontSize: 40,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
-
   //mark - construção da tela
   @override
   Widget build(BuildContext context) {
@@ -327,31 +379,26 @@ class _DashboardScreenState extends State<DashboardScreen>
         child: Column(
           children: [
             _buildBannerAd(),
-            if (totalexpens > 0)
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 15),
-                      _buildMonthSelector(),
-                      const SizedBox(height: 18),
-                      _buildTotalSpentText(context),
-                      _buildPageView(),
-                      const SizedBox(height: 12),
-                      _buildPageIndicators(),
-                      const SizedBox(height: 12),
-                      if (isLoading)
-                        _buildLoadingIndicator()
-                      else
-                        _buildProgressIndicators(context),
-                    ],
-                  ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 15),
+                    _buildMonthSelector(),
+                    const SizedBox(height: 18),
+                    _buildTotalSpentText(context),
+                    _buildPageView(),
+                    const SizedBox(height: 12),
+                    _buildPageIndicators(),
+                    const SizedBox(height: 12),
+                    if (isLoading)
+                      _buildLoadingIndicator()
+                    else
+                      _buildProgressIndicators(context),
+                  ],
                 ),
-              )
-            else
-              Expanded(
-                child: _buildEmptyState(context),
               ),
+            )
           ],
         ),
       ),

@@ -9,6 +9,13 @@ import 'package:meus_gastos/controllers/Dashboards/bar_chartWeek/selectCategorys
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:uuid/uuid.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 
 class DailyStackedBarChart extends StatefulWidget {
   final List<List<List<ProgressIndicatorModel>>> last5weewdailyData;
@@ -42,7 +49,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         .isNotEmpty;
 
     if (!hasExpenses) {
-      return _buildEmptyCard(context);
+      return _buildEmptyState(context);
     }
 
     double maxY = widget.last5weewdailyData[selectedWeek]
@@ -83,28 +90,128 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
     );
   }
 
-  Widget _buildEmptyCard(BuildContext context) {
-    return Card(
-      color: AppColors.card,
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-      child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: _buildWeekButtons(),
-          ),
-          SizedBox(height: 40),
-          Center(
-            child: Text(
-              AppLocalizations.of(context)!.noExpensesThisWeek,
-              style: TextStyle(color: AppColors.label, fontSize: 20),
+  Widget _buildEmptyState(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Card(
+          color: AppColors.card,
+          elevation: 4,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+          child: SizedBox(
+            height: 300, // Altura suficiente para gráfico e legendas
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: SfCartesianChart(
+                    primaryXAxis: CategoryAxis(
+                      majorGridLines: MajorGridLines(width: 0),
+                    ),
+                    primaryYAxis: NumericAxis(
+                      isVisible: false,
+                      maximum: 100,
+                      majorGridLines: MajorGridLines(
+                        width: 0.5,
+                        color: Colors.grey[600]!,
+                      ),
+                    ),
+                    series: <ChartSeries>[
+                      StackedColumnSeries<Map<String, dynamic>, String>(
+                        dataSource: _buildPlaceholderData(),
+                        xValueMapper: (data, _) => data['week'],
+                        yValueMapper: (data, _) => data['progress'],
+                        pointColorMapper: (_, __) => Colors.grey[500],
+                        width: 0.5,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 4,
+                    alignment: WrapAlignment.center,
+                    children: _buildExampleLegend(),
+                  ),
+                ),
+              ],
             ),
           ),
-          SizedBox(height: 10),
-        ],
-      ),
+        ),
+        ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            child: Container(
+              width: double.infinity,
+              height: 300,
+              color: Colors.black.withOpacity(0),
+            ),
+          ),
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              AppLocalizations.of(context)!.addNewTransactions,
+              style: TextStyle(
+                color: AppColors.label,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              AppLocalizations.of(context)!
+                  .youWillBeAbleToUnderstandYourExpensesHere,
+              style: TextStyle(
+                color: AppColors.label,
+                fontSize: 14,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  List<Map<String, dynamic>> _buildPlaceholderData() {
+    return [
+      {'week': 'Week 1', 'progress': 40.0},
+      {'week': 'Week 2', 'progress': 60.0},
+      {'week': 'Week 3', 'progress': 30.0},
+      {'week': 'Week 4', 'progress': 50.0},
+    ];
+  }
+
+  List<Widget> _buildExampleLegend() {
+    return [
+      _buildLegendItem(Colors.grey[400]!, '40%', 'Exemplo 1'),
+      _buildLegendItem(Colors.grey[500]!, '30%', 'Exemplo 2'),
+      _buildLegendItem(Colors.grey[600]!, '20%', 'Exemplo 3'),
+      _buildLegendItem(Colors.grey[700]!, '10%', 'Exemplo 4'),
+    ];
+  }
+
+  Widget _buildLegendItem(Color color, String percent, String label) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.circle, color: color, size: 16),
+        const SizedBox(width: 8),
+        Text('$label - $percent',
+            style: const TextStyle(
+                color: AppColors.label,
+                fontWeight: FontWeight.bold,
+                fontSize: 12)),
+      ],
     );
   }
 

@@ -9,7 +9,9 @@ class CategoryService {
   static int maior_valor_frequency = 0;
 
   Future<void> addCategory(CategoryModel category) async {
-    category.frequency = maior_valor_frequency;
+    category.frequency = maior_valor_frequency + 1;
+    maior_valor_frequency = category.frequency;
+    print(category.frequency);
     final prefs = await SharedPreferences.getInstance();
     List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
     categories.add(jsonEncode(category.toJson()));
@@ -135,7 +137,7 @@ class CategoryService {
       final Map<String, dynamic> categoryMap = jsonDecode(category);
       return CategoryModel.fromJson(categoryMap);
     }).toList();
-    aux.sort((a, b) => b.frequency.compareTo(a.frequency));
+    aux.sort((a, b) => a.frequency.compareTo(b.frequency));
     return aux;
   }
 
