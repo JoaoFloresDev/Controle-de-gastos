@@ -14,7 +14,7 @@ class Modal {
   Modal(this.context);
 
   double halfModal() {
-    return MediaQuery.of(context).size.height / 2;
+    return 400;
   }
 
   double mediumModal() {

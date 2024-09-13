@@ -56,5 +56,9 @@
     "addExpenseTutorial": "Here you add your expense to the monthly list.",
     "cardsTutorial": "Here are your expense cards. You can edit them after adding.",
     "exportTutorial": "Here you can export your expenses to an Excel sheet or PDF file.",
-    "graphicsTutorial": "Here you can view graphics of your expenses by month, week, or day"
+    "graphicsTutorial": "Here you can view graphics of your expenses by month, week, or day",
+  "pieGraphPlaceholder": "See the percentage of spending by category",
+  "weaklyGraphPlaceholder": "See your weekly spending by category",
+  "dailyGraphPlaceholder": "See your daily spending by category",
+  "categoryExpensesDescription": "Here your expenses by category will be listed, \nclassified from largest to smallest"
 }

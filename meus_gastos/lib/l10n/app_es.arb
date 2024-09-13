@@ -56,5 +56,9 @@
     "addExpenseTutorial": "Aquí añades tu gasto a la lista mensual.",
     "cardsTutorial": "Aquí están tus tarjetas de gastos. Puedes editarlas después de agregarlas.",
     "exportTutorial": "Aquí puedes exportar tus gastos a una hoja de Excel o un archivo PDF.",
-    "graphicsTutorial": "Aquí puedes ver gráficos de tus gastos por mes, semana o día"
+    "graphicsTutorial": "Aquí puedes ver gráficos de tus gastos por mes, semana o día",
+    "pieGraphPlaceholder": "Vea el porcentaje de gastos por categoría",
+  "weaklyGraphPlaceholder": "Vea sus gastos semanales por categoría",
+  "dailyGraphPlaceholder": "Vea sus gastos diarios por categoría",
+  "categoryExpensesDescription": "Aquí se enumerarán sus gastos por categoría, \nclasificados del mayor al menor"
 }

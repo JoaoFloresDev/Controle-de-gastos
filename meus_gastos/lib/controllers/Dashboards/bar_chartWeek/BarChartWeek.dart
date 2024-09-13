@@ -144,7 +144,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
             ),
             const SizedBox(height: 16),
             Text(
-              "Veja seus gastos semanais por categoria",
+              AppLocalizations.of(context)!.weaklyGraphPlaceholder,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: AppColors.label,

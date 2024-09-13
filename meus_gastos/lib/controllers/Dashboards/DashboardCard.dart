@@ -137,7 +137,8 @@ class DashboardCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        "Veja a porcentagem de gastos por categoria", // Texto secundário
+                        AppLocalizations.of(context)!
+                            .pieGraphPlaceholder, // Texto secundário
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColors.label,

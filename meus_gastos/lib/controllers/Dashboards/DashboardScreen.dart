@@ -84,6 +84,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       color: Color.fromARGB(255, 41, 40, 40), // Cor do indicador
     ),
   ];
+
   double totalexpens = 0.0;
   bool isLoading = true;
   DateTime currentDate = DateTime.now();
@@ -279,7 +280,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           ),
           const SizedBox(height: 16),
           Text(
-            "Aqui serão listados seus gastos por categoria, \nclassificados do maior para o menor",
+            AppLocalizations.of(context)!.categoryExpensesDescription,
             style: const TextStyle(
               color: AppColors.label,
               fontSize: 14,
@@ -336,7 +337,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget _buildLoadingIndicator() {
-    return const CircularProgressIndicator(color: AppColors.label);
+    return const CircularProgressIndicator(color: AppColors.background1);
   }
 
   //mark - construção da tela
@@ -376,31 +377,35 @@ class _DashboardScreenState extends State<DashboardScreen>
         ),
       ),
       child: SafeArea(
-        child: Column(
-          children: [
-            _buildBannerAd(),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 15),
-                    _buildMonthSelector(),
-                    const SizedBox(height: 18),
-                    _buildTotalSpentText(context),
-                    _buildPageView(),
-                    const SizedBox(height: 12),
-                    _buildPageIndicators(),
-                    const SizedBox(height: 12),
-                    if (isLoading)
-                      _buildLoadingIndicator()
-                    else
-                      _buildProgressIndicators(context),
-                  ],
-                ),
+        child: isLoading
+            ? Center(
+                child: _buildLoadingIndicator(),
+              )
+            : Column(
+                children: [
+                  _buildBannerAd(),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 15),
+                          _buildMonthSelector(),
+                          const SizedBox(height: 18),
+                          _buildTotalSpentText(context),
+                          _buildPageView(),
+                          const SizedBox(height: 12),
+                          _buildPageIndicators(),
+                          const SizedBox(height: 12),
+                          if (isLoading)
+                            _buildLoadingIndicator()
+                          else
+                            _buildProgressIndicators(context),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
               ),
-            )
-          ],
-        ),
       ),
     );
   }

@@ -61,7 +61,7 @@ class CategoryService {
       List<CategoryModel> defaultCategories = [
         CategoryModel(
             id: 'Unknown',
-            color: Colors.black54,
+            color: const Color.fromARGB(255, 183, 128, 0),
             icon: Icons.question_mark_rounded,
             name: 'Unknown',
             frequency: 0),

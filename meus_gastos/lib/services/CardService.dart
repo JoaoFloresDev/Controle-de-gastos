@@ -36,8 +36,7 @@ class CardService {
   // MARK: - Add, Delete, and Update Cards
   static Future<void> addCard(CardModel cardModel) async {
     await modifyCards((cards) {
-      if (!(cardModel.amount == 0))
-        cards.add(cardModel);
+      if (!(cardModel.amount == 0)) cards.add(cardModel);
       return cards;
     });
   }
@@ -85,7 +84,8 @@ class CardService {
             title: categoryMap[entry.key]?.name ?? 'Unknown',
             progress: entry.value,
             category: categoryMap[entry.key]!,
-            color: categoryMap[entry.key]?.color ?? AppColors.buttonDeselected))
+            color: categoryMap[entry.key]?.color ??
+                const Color.fromARGB(255, 183, 128, 0)))
         .toList();
 
     progressIndicators.sort((a, b) => b.progress.compareTo(a.progress));
@@ -118,7 +118,8 @@ class CardService {
             title: categoryMap[entry.key]?.name ?? 'Unknown',
             progress: entry.value,
             category: categoryMap[entry.key]!,
-            color: categoryMap[entry.key]?.color ?? AppColors.buttonDeselected))
+            color: categoryMap[entry.key]?.color ??
+                const Color.fromARGB(255, 183, 128, 0)))
         .toList();
 
     progressIndicators.sort((a, b) => b.progress.compareTo(a.progress));

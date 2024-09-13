@@ -168,7 +168,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             ),
             const SizedBox(height: 16),
             Text(
-              "Veja seus gastos diarios por categoria",
+              AppLocalizations.of(context)!.dailyGraphPlaceholder,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: AppColors.label,
