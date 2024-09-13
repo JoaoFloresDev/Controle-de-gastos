@@ -44,9 +44,9 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
 
   @override
   Widget build(BuildContext context) {
-    bool hasExpenses = widget.last5weewdailyData[selectedWeek]
-        .expand((day) => day.map((data) => data.progress))
-        .isNotEmpty;
+    bool hasExpenses = widget.last5weewdailyData.any((week) {
+      return week.any((day) => day.isNotEmpty);
+    });
 
     if (!hasExpenses) {
       return _buildEmptyState(context);
@@ -166,13 +166,13 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
             Text(
-              AppLocalizations.of(context)!
-                  .youWillBeAbleToUnderstandYourExpensesHere,
+              "Veja seus gastos diarios por categoria",
               style: TextStyle(
+                fontWeight: FontWeight.bold,
                 color: AppColors.label,
-                fontSize: 14,
+                fontSize: 16,
               ),
               textAlign: TextAlign.center,
             ),

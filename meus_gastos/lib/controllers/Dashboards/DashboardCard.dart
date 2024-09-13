@@ -135,14 +135,13 @@ class DashboardCard extends StatelessWidget {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 16),
                       Text(
-                        AppLocalizations.of(context)!
-                            .youWillBeAbleToUnderstandYourExpensesHere, // Texto secundário
+                        "Veja a porcentagem de gastos por categoria", // Texto secundário
                         style: const TextStyle(
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.bold,
                           color: AppColors.label,
-                          fontSize: 14,
+                          fontSize: 16,
                         ),
                         textAlign: TextAlign.center,
                       ),

@@ -142,13 +142,13 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 16),
             Text(
-              AppLocalizations.of(context)!
-                  .youWillBeAbleToUnderstandYourExpensesHere,
+              "Veja seus gastos semanais por categoria",
               style: TextStyle(
+                fontWeight: FontWeight.bold,
                 color: AppColors.label,
-                fontSize: 14,
+                fontSize: 16,
               ),
               textAlign: TextAlign.center,
             ),
