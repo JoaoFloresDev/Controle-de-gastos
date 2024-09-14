@@ -246,6 +246,12 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         .expand((week) => week.map((data) => data.category.name))
         .toSet()
         .toList();
+    
+    List<double> weeklyTotals = widget.weekIntervals.map((weekInterval) {
+      int index = widget.weekIntervals.indexOf(weekInterval);
+      return _getFilteredData()[index]
+          .fold(0.0, (sum, item) => sum + item.progress);
+    }).toList();
 
     return categories.map((category) {
       return StackedColumnSeries<
@@ -297,7 +303,26 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         borderWidth: 3,
         borderColor: AppColors.card,
       );
-    }).toList();
+    }).toList()
+    ..add(StackedColumnSeries<
+              MapEntry<WeekInterval, List<ProgressIndicatorModel>>, String>(
+          dataSource: widget.weekIntervals.asMap().entries.map((entry) {
+            return MapEntry(entry.value, widget.weeklyData[entry.key]);
+          }).toList(),
+          xValueMapper: (entry, _) => _getWeekLabel(entry.key),
+          yValueMapper: (entry, index) => 20,
+          dataLabelMapper: (entry, index) => weeklyTotals[index] > 0
+              ? Translateservice.formatCurrency(weeklyTotals[index], context)
+              : '',
+          pointColorMapper: (entry, _) => Colors.transparent,
+          width: 0.5,
+          name: AppLocalizations.of(context)!.total,
+          dataLabelSettings: DataLabelSettings(
+            isVisible: true,
+            labelAlignment: ChartDataLabelAlignment.top,
+            textStyle:
+                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          )));
   }
 
   String _getWeekLabel(WeekInterval week) {
