@@ -9,7 +9,7 @@ import 'package:meus_gastos/controllers/Transactions/CategoryCreater/CategoryCre
 import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/controllers/Transactions/exportExcel/exportExcelScreen.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // class InsertTransactions extends StatefulWidget {
 //   const InsertTransactions({
 //     required this.onAddClicked,
@@ -178,6 +178,7 @@ import '../../../models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart' as service;
 // import 'package:meus_gastos/widgets/Transactions/CardDetails/DetailScreen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 // import 'package:meus_gastos/widgets/Transactions/CategoryCreater/CategoryCreater.dart';
 // import 'package:meus_gastos/widgets/ads_review/constructReview.dart';
 // import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
@@ -317,25 +318,35 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                   ),
                 ],
               ),
-              Expanded(
-                key: widget.cardsExpens,
-                child: ListView.builder(
-                  itemCount: cardList.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      child: ListCard(
-                        onTap: (card) {
-                          widget.onAddClicked();
-                          _showCupertinoModalBottomSheet(context, card);
-                        },
-                        card: cardList[cardList.length - index - 1],
-                      ),
-                    );
-                  },
+              if (cardList.length > 0)
+                Expanded(
+                  key: widget.cardsExpens,
+                  child: ListView.builder(
+                    itemCount: cardList.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        child: ListCard(
+                          onTap: (card) {
+                            widget.onAddClicked();
+                            _showCupertinoModalBottomSheet(context, card);
+                          },
+                          card: cardList[cardList.length - index - 1],
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
+              if (cardList.length == 0)
+                Expanded(
+                    child: Column(
+                  children: [
+                    Icon(Icons.remove_circle_outline,color: AppColors.card, size: 100,),
+                    Text(AppLocalizations.of(context)!.addNewTransactions,
+                        style: TextStyle(color: AppColors.label, fontSize: 20)),
+                  ],
+                ))
             ],
           ),
         ),
