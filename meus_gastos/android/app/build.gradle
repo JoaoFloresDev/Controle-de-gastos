@@ -54,7 +54,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 34
         compileSdkVersion 34
-        versionCode flutterVersionCode.toInteger()
+        versionCode 5
         versionName flutterVersionName
     }
 
@@ -81,4 +81,6 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation 'com.google.android.gms:play-services-ads:21.0.0'
+}
