@@ -64,8 +64,8 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
           Positioned(
             bottom: 0,
             child: SizedBox(
-              width: _bannerAd.size.width.toDouble(),
-              height: _bannerAd.size.height.toDouble(),
+              width: 468,
+              height: 60,
               child: AdWidget(ad: _bannerAd),
             ),
           ),
