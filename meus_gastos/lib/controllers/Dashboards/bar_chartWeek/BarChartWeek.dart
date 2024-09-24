@@ -252,7 +252,8 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
       return _getFilteredData()[index]
           .fold(0.0, (sum, item) => sum + item.progress);
     }).toList();
-
+    double maxWeeklyTotal = weeklyTotals.reduce((a, b) => a > b ? a : b);
+    
     return categories.map((category) {
       return StackedColumnSeries<
           MapEntry<WeekInterval, List<ProgressIndicatorModel>>, String>(
@@ -277,7 +278,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
                       color: AppColors.card,
                       icon: Icons.device_unknown),
                   color: AppColors.card));
-          final proportion = categoryData.progress / totalWeekProgress;
+          final proportion = categoryData.progress / maxWeeklyTotal;
 
           const double maxBarHeight = 100.0;
           return proportion * maxBarHeight;

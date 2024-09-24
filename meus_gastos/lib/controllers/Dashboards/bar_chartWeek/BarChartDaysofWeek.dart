@@ -57,7 +57,9 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             .isEmpty
         ? 0
         : 110;
-
+    double maxDailySum = widget.last5weewdailyData[selectedWeek]
+    .map((day) => day.map((data) => data.progress).reduce((a, b) => a + b)) // Soma os progressos de cada dia
+    .reduce((a, b) => a > b ? a : b);
     return Card(
       color: AppColors.card,
       elevation: 4,
@@ -68,7 +70,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             padding: const EdgeInsets.all(8.0),
             child: _buildWeekButtons(),
           ),
-          Expanded(child: _buildChart(maxY)),
+          Expanded(child: _buildChart(maxY, maxDailySum)),
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: SelectCategories(
@@ -215,7 +217,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
     );
   }
 
-  Widget _buildChart(double maxY) {
+  Widget _buildChart(double maxY, double maxDailySum) {
     return SfCartesianChart(
       primaryXAxis: CategoryAxis(majorGridLines: MajorGridLines(width: 0)),
       primaryYAxis: NumericAxis(
@@ -226,7 +228,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
       ),
       legend: Legend(isVisible: false),
       tooltipBehavior: TooltipBehavior(enable: true),
-      series: _buildVerticalStackedBarSeries(),
+      series: _buildVerticalStackedBarSeries(maxDailySum),
       borderWidth: 0,
       plotAreaBorderWidth: 0,
       plotAreaBorderColor: Colors.transparent,
@@ -281,7 +283,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
   }
 
   List<StackedColumnSeries<ProgressIndicatorModel, String>>
-      _buildVerticalStackedBarSeries() {
+      _buildVerticalStackedBarSeries(double maxDailySum) {
     final List<String> categories = _getFilteredData()
         .expand((day) => day.map((data) => data.category.name))
         .toSet()
@@ -314,9 +316,8 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             .where((data) => data.category.name == category)
             .toList(),
         xValueMapper: (data, index) => days[index % 7],
-        yValueMapper: (data, index) => totalByDay[index] > 1
-            ? (data.progress / totalByDay[index]) * 95
-            : data.progress,
+        yValueMapper: (data, index) =>
+            totalByDay[index] > 1 ? (data.progress / maxDailySum) * 95 : data.progress,
         pointColorMapper: (data, _) => data.color,
         width: 0.5,
         borderRadius: BorderRadius.circular(4),
@@ -325,7 +326,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         borderColor: AppColors.card,
       );
     }).toList());
-
+    print(maxDailySum);
     seriesList.add(StackedColumnSeries<ProgressIndicatorModel, String>(
       dataSource: List.generate(days.length, (index) {
         return ProgressIndicatorModel(

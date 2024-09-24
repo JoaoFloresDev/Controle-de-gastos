@@ -175,51 +175,49 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
   }
 
   void _shareViaWhatsApp() async {
-    void _shareViaWhatsApp() async {
-      // Caminho onde o arquivo será salvo
-      Directory directory = await getApplicationDocumentsDirectory();
-      String filePath = '';
+    // Caminho onde o arquivo será salvo
+    Directory directory = await getApplicationDocumentsDirectory();
+    String filePath = '';
 
-      if (_selectedFormat == 'Excel') {
-        // Construir o arquivo Excel
-        Excel excel = await ExportToExcel.buildExcelFromCards();
+    if (_selectedFormat == 'Excel') {
+      // Construir o arquivo Excel
+      Excel excel = await ExportToExcel.buildExcelFromCards();
 
-        // Definir o caminho do arquivo Excel
-        filePath = '${directory.path}/sheet_of_expens.xlsx';
+      // Definir o caminho do arquivo Excel
+      filePath = '${directory.path}/sheet_of_expens.xlsx';
 
-        // Salvar o Excel localmente
-        File(filePath)
-          ..createSync(recursive: true)
-          ..writeAsBytesSync(excel.encode()!);
-      } else if (_selectedFormat == 'PDF') {
-        // Construir o arquivo Excel para gerar o PDF
-        Excel excel = await ExportToExcel.buildExcelFromCards();
+      // Salvar o Excel localmente
+      File(filePath)
+        ..createSync(recursive: true)
+        ..writeAsBytesSync(excel.encode()!);
+    } else if (_selectedFormat == 'PDF') {
+      // Construir o arquivo Excel para gerar o PDF
+      Excel excel = await ExportToExcel.buildExcelFromCards();
 
-        // Criar o PDF a partir do Excel
-        List<int> pdfBytes = await ExportToExcel.buildPdfFromExcel(excel);
+      // Criar o PDF a partir do Excel
+      List<int> pdfBytes = await ExportToExcel.buildPdfFromExcel(excel);
 
-        // Definir o caminho do arquivo PDF
-        filePath = '${directory.path}/sheet_of_expens.pdf';
+      // Definir o caminho do arquivo PDF
+      filePath = '${directory.path}/sheet_of_expens.pdf';
 
-        // Salvar o PDF localmente
-        File(filePath).writeAsBytesSync(pdfBytes);
-      } else {
-        print('Formato não suportado para compartilhamento.');
-        return;
-      }
+      // Salvar o PDF localmente
+      File(filePath).writeAsBytesSync(pdfBytes);
+    } else {
+      print('Formato não suportado para compartilhamento.');
+      return;
+    }
 
-      // Compartilhar o arquivo usando o pacote Share Plus
-      try {
-        await Share.shareXFiles(
-          [XFile(filePath)],
-          text:
-              '${AppLocalizations.of(context)!.shareMensage}: https://play.google.com/store/apps/details?id=meus_gastos.my_expenses&pcampaignid=web_share',
-          sharePositionOrigin: Rect.fromLTWH(0, 0, 1, 1),
-        );
-        print('Arquivo compartilhado com sucesso!');
-      } catch (e) {
-        print('Erro ao compartilhar o arquivo: $e');
-      }
+    // Compartilhar o arquivo usando o pacote Share Plus
+    try {
+      await Share.shareXFiles(
+        [XFile(filePath)],
+        text:
+            '${AppLocalizations.of(context)!.shareMensage}: https://play.google.com/store/apps/details?id=meus_gastos.my_expenses&pcampaignid=web_share',
+        sharePositionOrigin: Rect.fromLTWH(0, 0, 1, 1),
+      );
+      print('Arquivo compartilhado com sucesso!');
+    } catch (e) {
+      print('Erro ao compartilhar o arquivo: $e');
     }
   }
 }
