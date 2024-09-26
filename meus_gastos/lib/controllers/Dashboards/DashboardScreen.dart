@@ -163,9 +163,10 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget _buildBannerAd() {
-    return SizedBox(
+    return Container(
       height: 60,
-      width: double.infinity,
+      width: 468,
+      alignment: Alignment.center,
       child: BannerAdconstruct(),
     );
   }

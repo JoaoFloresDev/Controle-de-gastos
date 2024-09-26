@@ -248,9 +248,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Column(
             children: [
-              SizedBox(
+              Container(
                 height: 60, // banner height
-                width: double.infinity, // banner width
+                width: 468, // banner width
+                alignment: Alignment.center,
                 child: BannerAdconstruct(), // banner widget
               ),
               if (_showHeaderCard) ...[
@@ -342,7 +343,11 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                 Expanded(
                     child: Column(
                   children: [
-                    Icon(Icons.remove_circle_outline,color: AppColors.card, size: 100,),
+                    Icon(
+                      Icons.remove_circle_outline,
+                      color: AppColors.card,
+                      size: 100,
+                    ),
                     Text(AppLocalizations.of(context)!.addNewTransactions,
                         style: TextStyle(color: AppColors.label, fontSize: 20)),
                   ],

@@ -3,23 +3,20 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-List<TargetFocus> addTargetsHearderCard(
-    {required valueExpens,
-    required date,
-    required description,
-    required categories,
-    required addButton,
-    required dashboardTab,
-    required cardsExpens,
-    required exportButon}) {
+List<TargetFocus> addTargetsHearderCard({
+  required valueExpens,
+  required categories,
+  required addButton,
+}) {
   List<TargetFocus> targets = [];
 
   // MARK: value camp
   targets.add(TargetFocus(
       keyTarget: valueExpens,
-      alignSkip: Alignment.bottomRight,
+      identify: "valueExpens",
       radius: 30,
       shape: ShapeLightFocus.RRect,
+      enableOverlayTab: true,
       contents: [
         TargetContent(
           align: ContentAlign.bottom,
@@ -37,58 +34,14 @@ List<TargetFocus> addTargetsHearderCard(
           },
         )
       ]));
-  // // MARK: date
-  // targets.add(TargetFocus(
-  //     keyTarget: date,
-  //     alignSkip: Alignment.bottomLeft,
-  //     radius: 20,
-  //     shape: ShapeLightFocus.RRect,
-  //     contents: [
-  //       TargetContent(
-  //         align: ContentAlign.bottom,
-  //         builder: (context, controller) {
-  //           return Container(
-  //             alignment: Alignment.center,
-  //             child: Text(
-  //               AppLocalizations.of(context)!.dateTutorial,
-  //               style: TextStyle(
-  //                   color: Colors.white,
-  //                   fontWeight: FontWeight.bold,
-  //                   fontSize: 40),
-  //             ),
-  //           );
-  //         },
-  //       )
-  //     ]));
-  // // MARK: description
-  // targets.add(TargetFocus(
-  //     keyTarget: description,
-  //     alignSkip: Alignment.bottomCenter,
-  //     radius: 20,
-  //     shape: ShapeLightFocus.RRect,
-  //     contents: [
-  //       TargetContent(
-  //         align: ContentAlign.bottom,
-  //         builder: (context, controller) {
-  //           return Container(
-  //             alignment: Alignment.center,
-  //             child: Text(
-  //               AppLocalizations.of(context)!.commentTutorial,
-  //               style: TextStyle(
-  //                   color: Colors.white,
-  //                   fontWeight: FontWeight.bold,
-  //                   fontSize: 40),
-  //             ),
-  //           );
-  //         },
-  //       )
-  //     ]));
+
   // MARK: categorys
   targets.add(TargetFocus(
       keyTarget: categories,
-      alignSkip: Alignment.bottomCenter,
+      identify: "categories",
       radius: 30,
       shape: ShapeLightFocus.RRect,
+      enableOverlayTab: true,
       contents: [
         TargetContent(
           align: ContentAlign.bottom,
@@ -109,9 +62,9 @@ List<TargetFocus> addTargetsHearderCard(
   // MARK: addButon
   targets.add(TargetFocus(
       keyTarget: addButton,
-      alignSkip: Alignment.bottomCenter,
       radius: 30,
       shape: ShapeLightFocus.RRect,
+      enableOverlayTab: true,
       contents: [
         TargetContent(
           align: ContentAlign.bottom,
@@ -129,77 +82,7 @@ List<TargetFocus> addTargetsHearderCard(
           },
         )
       ]));
-  // MARK: cards list
-  // targets.add(TargetFocus(
-  //     keyTarget: cardsExpens,
-  //     alignSkip: Alignment.topCenter,
-  //     radius: 30,
-  //     shape: ShapeLightFocus.RRect,
-  //     contents: [
-  //       TargetContent(
-  //         align: ContentAlign.top,
-  //         builder: (context, controller) {
-  //           return Container(
-  //             alignment: Alignment.center,
-  //             child: Text(
-  //               AppLocalizations.of(context)!.cardsTutorial,
-  //               style: TextStyle(
-  //                   color: Colors.white,
-  //                   fontWeight: FontWeight.bold,
-  //                   fontSize: 40),
-  //             ),
-  //           );
-  //         },
-  //       )
-  //     ]));
 
-  // MARK: export button
-  // targets.add(TargetFocus(
-  //     keyTarget: exportButon,
-  //     alignSkip: Alignment.bottomLeft,
-  //     radius: 30,
-  //     shape: ShapeLightFocus.Circle,
-  //     contents: [
-  //       TargetContent(
-  //         align: ContentAlign.bottom,
-  //         builder: (context, controller) {
-  //           return Container(
-  //             alignment: Alignment.center,
-  //             child: Text(
-  //               AppLocalizations.of(context)!.exportTutorial,
-  //               style: TextStyle(
-  //                   color: Colors.white,
-  //                   fontWeight: FontWeight.bold,
-  //                   fontSize: 40),
-  //             ),
-  //           );
-  //         },
-  //       )
-  //     ]));
-
-  // MARK: Dashboard
-  // targets.add(TargetFocus(
-  //     keyTarget: dashboardTab,
-  //     alignSkip: Alignment.topLeft,
-  //     radius: 30,
-  //     shape: ShapeLightFocus.Circle,
-  //     contents: [
-  //       TargetContent(
-  //         align: ContentAlign.top,
-  //         builder: (context, controller) {
-  //           return Container(
-  //             alignment: Alignment.center,
-  //             child: Text(
-  //               AppLocalizations.of(context)!.graphicsTutorial,
-  //               style: TextStyle(
-  //                   color: Colors.white,
-  //                   fontWeight: FontWeight.bold,
-  //                   fontSize: 40),
-  //             ),
-  //           );
-  //         },
-  //       )
-  //     ]));
   return targets;
 }
 

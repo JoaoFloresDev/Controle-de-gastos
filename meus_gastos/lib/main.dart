@@ -68,18 +68,20 @@ class _MyHomePageState extends State<MyHomePage> {
     tutorialCoachMark = TutorialCoachMark(
       targets: addTargetsHearderCard(
         valueExpens: valueExpens,
-        description: description,
-        date: date,
         addButton: addButon,
         categories: categories,
-        cardsExpens: cardsExpens,
-        dashboardTab: dashboardTab,
-        exportButon: exportButon,
       ),
       colorShadow: CupertinoColors.black,
       paddingFocus: 10,
       hideSkip: true,
-      opacityShadow: 0.5,
+      opacityShadow: 0.6,
+      onClickOverlay: (TargetFocus target) {
+        print("Overlay clicked for target: ${target.identify}");
+        if (tutorialCoachMark.targets.indexOf(target) ==
+            tutorialCoachMark.targets.length - 1) {
+          tutorialCoachMark.skip(); // Pula se for o último
+        }
+      },
       onFinish: () {
         InAppSave.saveInsertTransationsStatus();
       },
@@ -89,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _showInAppTour() {
     Future.delayed(const Duration(seconds: 2), () {
       InAppSave.getInsertTransactionsStatus().then((value) {
-        if (value == false) {
+        if (value == true) {
           tutorialCoachMark.show(context: context);
         }
       });
