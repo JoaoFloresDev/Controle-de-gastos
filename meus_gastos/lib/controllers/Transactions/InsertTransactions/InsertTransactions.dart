@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'ViewComponents/HeaderCard.dart';
 import 'ViewComponents/ListCard.dart';
@@ -220,7 +223,27 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   @override
   void initState() {
     super.initState();
-    loadCards();
+    InAppPurchase.instance.purchaseStream.listen((purchases) {
+      _handlePurchaseUpdates(purchases);
+    });
+  }
+
+  void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
+    for (var purchase in purchases) {
+      if (purchase.status == PurchaseStatus.purchased) {
+        setState(() {
+          _isPro = true;
+        });
+        // Confirma a compra e finaliza a transação
+        InAppPurchase.instance.completePurchase(purchase);
+      } else if (purchase.status == PurchaseStatus.error) {
+        // Tratamento de erros
+        print('Erro na compra: ${purchase.error}');
+      } else if (purchase.status == PurchaseStatus.restored) {
+        // Compra restaurada, confirmar a finalização
+        InAppPurchase.instance.completePurchase(purchase);
+      }
+    }
   }
 
   // MARK: - Load Cards
@@ -243,6 +266,18 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             style: const TextStyle(color: AppColors.label, fontSize: 16),
           ),
           backgroundColor: AppColors.background1,
+                    trailing: GestureDetector(
+            onTap: () {
+              _showProModal(context); // Chamando o modal de assinatura
+            },
+            child: const Text(
+              "PRO",
+              style: TextStyle(
+                  color: AppColors.label,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
         ),
         body: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -384,5 +419,110 @@ class _InsertTransactionsState extends State<InsertTransactions> {
         );
       },
     );
+  }
+
+    final String yearlyProId = 'yearly.pro'; // Seu ID de produto para assinatura
+  bool _available = true;
+  bool _isLoading = false;
+  bool _isPro = false;
+
+  void _showProModal(BuildContext context) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: MediaQuery.of(context).size.height / 1.5,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Upgrade to PRO",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  "Enjoy exclusive features with PRO.",
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 40),
+                CupertinoButton.filled(
+                  onPressed: _isLoading
+                      ? null
+                      : () {
+                          _buySubscription();
+                        },
+                  child: _isLoading
+                      ? const CircularProgressIndicator()
+                      : const Text("Upgrade Now"),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _buySubscription() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    // Verifica se a API está disponível
+    final bool available = await InAppPurchase.instance.isAvailable();
+    if (!available) {
+      setState(() {
+        _available = false;
+        _isLoading = false;
+      });
+      return;
+    }
+
+    // Consulta os detalhes do produto
+    final ProductDetailsResponse response =
+        await InAppPurchase.instance.queryProductDetails({yearlyProId});
+
+    // Verifica se houve erro na consulta ou se o produto não foi encontrado
+    if (response.error != null || response.notFoundIDs.isNotEmpty) {
+      setState(() {
+        _available = false;
+        _isLoading = false;
+      });
+      return;
+    }
+
+    // Se encontrou o produto, inicia a compra
+    if (response.productDetails.isNotEmpty) {
+      final ProductDetails productDetails = response.productDetails.first;
+      final PurchaseParam purchaseParam =
+          PurchaseParam(productDetails: productDetails);
+
+      // Inicia o processo de compra
+      InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
+    } else {
+      // Caso não encontre o produto, mostra uma mensagem de erro
+      setState(() {
+        _available = false;
+        _isLoading = false;
+      });
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 }
