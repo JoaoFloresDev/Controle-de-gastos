@@ -26,14 +26,11 @@ class _CampoComMascaraState extends State<CampoComMascara> {
   @override
   void initState() {
     super.initState();
-    // Não acessar o contexto aqui
-    // _dateFormatPattern será configurado no didChangeDependencies
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Acessar o contexto aqui
     _dateFormatPattern =
         AppLocalizations.of(context)?.dateFormat ?? 'dd/MM/yyyy';
     _dateController =
@@ -73,9 +70,7 @@ class _CampoComMascaraState extends State<CampoComMascara> {
             initialDateTime: widget.currentDate,
             onDateTimeChanged: (DateTime newDateTime) {
               setState(() {
-                // Formata a data de acordo com a localização
                 _dateController.text = _formatDateTime(newDateTime);
-                // Chama o callback com o valor de data em formato US/ISO para salvar
                 widget.onCompletion(newDateTime);
               });
             },

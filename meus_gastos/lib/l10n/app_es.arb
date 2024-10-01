@@ -18,7 +18,7 @@
     "total" : "Total",
     "expensesOfTheMonth": "Gastos del Mes por Categoría",
     "topExpensesOfTheMonth": "Mayores gastos del Mes",
-    "addNewTransactions": "Añadir nuevas transacciones",
+    "addNewTransactions": "Ingrese el monto, seleccione la categoría y toque 'Agregar' para registrar su transacción",
     "youWillBeAbleToUnderstandYourExpensesHere": "Podrás entender\n tus gastos aquí",
     "dailyExpensesByCategory": "Gastos Diarios por Categoría",
     "monday": "Lunes",
