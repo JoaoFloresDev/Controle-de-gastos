@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _showInAppTour() {
     Future.delayed(const Duration(seconds: 2), () {
       InAppSave.getInsertTransactionsStatus().then((value) {
-        if (value == true) {
+        if (value == false) {
           tutorialCoachMark.show(context: context);
         }
       });
