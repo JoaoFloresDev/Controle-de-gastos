@@ -3,38 +3,87 @@ import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
+import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 
-class ProModal extends StatelessWidget {
+class ProModal extends StatefulWidget {
   final bool isLoading;
   final ProductDetails? yearlyProductDetails;
   final ProductDetails? monthlyProductDetails;
-  final VoidCallback onBuyYearlySubscription;
-  final VoidCallback onBuyMonthlySubscription;
 
   const ProModal({
     Key? key,
     required this.isLoading,
     required this.yearlyProductDetails,
     required this.monthlyProductDetails,
-    required this.onBuyYearlySubscription,
-    required this.onBuyMonthlySubscription,
   }) : super(key: key);
 
-String formatPrice(double price, String currencySymbol) {
-  // Verifica se a moeda é BRL, para usar o formato correto
-  final format = NumberFormat.currency(
-    locale: currencySymbol == 'R\$' ? 'pt_BR' : Intl.defaultLocale,
-    symbol: currencySymbol,
-  );
-  return format.format(price);
+  @override
+  _ProModalState createState() => _ProModalState();
 }
 
+class _ProModalState extends State<ProModal> {
+  bool _isLoading = false;
+
+  // Função para formatar preço
+  String formatPrice(double price, String currencySymbol) {
+    final format = NumberFormat.currency(
+      locale: currencySymbol == 'R\$' ? 'pt_BR' : Intl.defaultLocale,
+      symbol: currencySymbol,
+    );
+    return format.format(price);
+  }
+
+  // Função para realizar a compra de uma assinatura
+  Future<void> _buySubscription(String productId) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    final paymentWrapper = SKPaymentQueueWrapper();
+    final transactions = await paymentWrapper.transactions();
+    transactions.forEach((transaction) async {
+      await paymentWrapper.finishTransaction(transaction);
+    });
+
+    final bool available = await InAppPurchase.instance.isAvailable();
+    if (!available) {
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
+
+    final ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails({productId});
+
+    if (response.error == null && response.productDetails.isNotEmpty) {
+      final productDetails = response.productDetails.first;
+      final purchaseParam = PurchaseParam(productDetails: productDetails);
+      InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  // Função para restaurar compras anteriores
+  Future<void> _restorePurchases() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    await InAppPurchase.instance.restorePurchases();
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 650,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      height: 630,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         color: AppColors.modalBackground,
         borderRadius: const BorderRadius.only(
@@ -49,80 +98,97 @@ String formatPrice(double price, String currencySymbol) {
           ),
         ],
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+      child: Stack(
         children: [
-          const Icon(
-            Icons.star_rounded,
-            color: Colors.amber,
-            size: 80,
-          ),
-          const Text(
-            "Versão Premium",
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: AppColors.label,
-            ),
-          ),
-          const Text(
-            "Desfrute de todos os recursos exclusivos:",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              color: AppColors.labelSecondary,
-            ),
-          ),
-          const SizedBox(height: 20),
-          _buildFeatureRow(
-            icon: Icons.file_present_rounded,
-            label: "Exportação para excel ou pdf",
-          ),
-          _buildFeatureRow(
-            icon: Icons.block,
-            label: "Remoção completa de anúncios",
-          ),
-          const SizedBox(height: 26),
-          isLoading
-              ? const CircularProgressIndicator(
-                  color: AppColors.label,
-                )
-              : Column(
-                  children: [
-                    _buildSubscriptionButton(
-                      label: "Assinatura mensal",
-                      price: monthlyProductDetails != null
-                          ? formatPrice(
-                              monthlyProductDetails!.rawPrice,
-                              monthlyProductDetails!.currencySymbol,
-                            )
-                          : 'Indisponível',
-                      onPressed: onBuyMonthlySubscription,
-                    ),
-                    const SizedBox(height: 22),
-                    _buildSubscriptionButton(
-                      label: "Assinatura anual",
-                      price: yearlyProductDetails != null
-                          ? formatPrice(
-                              yearlyProductDetails!.rawPrice,
-                              yearlyProductDetails!.currencySymbol,
-                            )
-                          : 'Indisponível',
-                      onPressed: onBuyYearlySubscription,
-                    ),
-                  ],
-                ),
-          const SizedBox(height: 10),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text(
-              "Talvez mais tarde",
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 16,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(height: 26),
+              const Icon(
+                Icons.star_rounded,
+                color: Colors.amber,
+                size: 80,
               ),
+              const Text(
+                "Versão Premium",
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.label,
+                ),
+              ),
+              const Text(
+                "Desfrute de todos os recursos exclusivos:",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: AppColors.labelSecondary,
+                ),
+              ),
+              const SizedBox(height: 30),
+              _buildFeatureRow(
+                icon: Icons.file_present_rounded,
+                label: "Exportação para excel ou pdf",
+              ),
+              _buildFeatureRow(
+                icon: Icons.block,
+                label: "Remoção completa de anúncios",
+              ),
+              const SizedBox(height: 40),
+              widget.isLoading || _isLoading
+                  ? const CircularProgressIndicator(
+                      color: AppColors.label,
+                    )
+                  : Column(
+                      children: [
+                        _buildSubscriptionButton(
+                          label: "Assinatura mensal",
+                          price: widget.monthlyProductDetails != null
+                              ? formatPrice(
+                                  widget.monthlyProductDetails!.rawPrice,
+                                  widget.monthlyProductDetails!.currencySymbol,
+                                )
+                              : 'Indisponível',
+                          onPressed: () => _buySubscription(widget.monthlyProductDetails?.id ?? ''),
+                        ),
+                        const SizedBox(height: 22),
+                        _buildSubscriptionButton(
+                          label: "Assinatura anual",
+                          price: widget.yearlyProductDetails != null
+                              ? formatPrice(
+                                  widget.yearlyProductDetails!.rawPrice,
+                                  widget.yearlyProductDetails!.currencySymbol,
+                                )
+                              : 'Indisponível',
+                          onPressed: () => _buySubscription(widget.yearlyProductDetails?.id ?? ''),
+                        ),
+                        const SizedBox(height: 15),
+                        TextButton(
+                          onPressed: _restorePurchases,
+                          child: const Text(
+                            "Restaurar Compras",
+                            style: TextStyle(
+                              color: AppColors.label,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+            ],
+          ),
+          Positioned(
+            left: 0,
+            child: IconButton(
+              icon: const Icon(
+                CupertinoIcons.clear,
+                color: AppColors.label,
+                size: 28,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
           ),
         ],
@@ -163,7 +229,7 @@ String formatPrice(double price, String currencySymbol) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start, // Alinhamento à esquerda
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const SizedBox(width: 8),
           Icon(

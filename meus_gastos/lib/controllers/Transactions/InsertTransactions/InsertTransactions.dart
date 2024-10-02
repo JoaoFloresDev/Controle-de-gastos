@@ -147,42 +147,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
         return ProModal(
           isLoading: _isLoading,
           yearlyProductDetails: _yearlyDetails,
-          monthlyProductDetails: _monthlyDetails,
-          onBuyMonthlySubscription: () => _buySubscription(monthlyProId),
-          onBuyYearlySubscription: () => _buySubscription(yearlyProId),
+          monthlyProductDetails: _monthlyDetails
         );
       },
     );
-  }
-
-  // Função para comprar assinatura
-  Future<void> _buySubscription(String productId) async {
-    print("aqui!");
-    final paymentWrapper = SKPaymentQueueWrapper();
-final transactions = await paymentWrapper.transactions();
-transactions.forEach((transaction) async {
-    await paymentWrapper.finishTransaction(transaction);
-});
-    final bool available = await InAppPurchase.instance.isAvailable();
-    if (!available) {
-      setState(() {
-        _isLoading = false;
-      });
-      return;
-    }
-
-    final ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails({productId});
-
-    if (response.error == null && response.productDetails.isNotEmpty) {
-      final productDetails = response.productDetails.first;
-
-      final purchaseParam = PurchaseParam(productDetails: productDetails);
-      InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
-    } else {
-      setState(() {
-        _isLoading = false;
-      });
-    }
   }
 
   // MARK: - Build Method
