@@ -11,7 +11,6 @@ import 'package:meus_gastos/controllers/Transactions/CardDetails/DetailScreen.da
 import 'package:meus_gastos/controllers/Transactions/CategoryCreater/CategoryCreater.dart';
 import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
-import 'package:meus_gastos/controllers/Transactions/exportExcel/exportExcelScreen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import '../../../controllers/Transactions/Purchase/ProModal.dart';
@@ -50,11 +49,13 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   bool _showHeaderCard = true;
 
   // Variáveis para In-App Purchase
-  final String yearlyProId = 'yearly.pro'; // Seu ID de produto para assinatura
-  final String monthlyProId = 'monthly.pro';
-  bool _available = true;
+  final String yearlyProId = 'yearly.pro'; // Seu ID de produto para assinatura anual
+  final String monthlyProId = 'monthly.pro'; // Seu ID de produto para assinatura mensal
   bool _isLoading = false;
   bool _isPro = false;
+
+  ProductDetails? _yearlyDetails;
+  ProductDetails? _monthlyDetails;
 
   // MARK: - InitState
   @override
@@ -76,45 +77,30 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     InAppPurchase.instance.restorePurchases();
   }
 
-void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
-  for (var purchase in purchases) {
-    switch (purchase.status) {
-      case PurchaseStatus.pending:
-        // Exibir um indicador de carregamento, se necessário
-        break;
-      case PurchaseStatus.purchased:
-        // Atualizar o estado do aplicativo para mostrar que o usuário é PRO
-        setState(() {
-          _isPro = true;
-        });
-        // Finalizar a compra para removê-la da fila de transações pendentes
-        InAppPurchase.instance.completePurchase(purchase);
-        break;
-      case PurchaseStatus.error:
-        // Tratar o erro e completar a compra
-        print('Erro na compra: ${purchase.error}');
-        InAppPurchase.instance.completePurchase(purchase);
-        break;
-      case PurchaseStatus.restored:
-        // Atualizar o estado do aplicativo para mostrar que o usuário é PRO
-        setState(() {
-          _isPro = true;
-        });
-        // Finalizar a compra restaurada
-        InAppPurchase.instance.completePurchase(purchase);
-        break;
-      default:
-        // Caso padrão, se necessário
-        break;
+  void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
+    for (var purchase in purchases) {
+      switch (purchase.status) {
+        case PurchaseStatus.pending:
+          break;
+        case PurchaseStatus.purchased:
+        case PurchaseStatus.restored:
+          setState(() {
+            _isPro = true;
+          });
+          InAppPurchase.instance.completePurchase(purchase);
+          break;
+        case PurchaseStatus.error:
+          print('Erro na compra: ${purchase.error}');
+          InAppPurchase.instance.completePurchase(purchase);
+          break;
+        default:
+          break;
+      }
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
-
-  // Após processar todas as compras, redefinir o estado de carregamento
-  setState(() {
-    _isLoading = false;
-  });
-}
-
 
   // MARK: - Load Cards
   Future<void> loadCards() async {
@@ -122,6 +108,81 @@ void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
     setState(() {
       cardList = cards;
     });
+  }
+
+  // Exibe o ProModal
+  void _showProModal(BuildContext context) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    final bool available = await InAppPurchase.instance.isAvailable();
+    if (!available) {
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
+
+    // Recupera os detalhes dos produtos mensal e anual
+    final ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails({yearlyProId, monthlyProId});
+
+    if (response.error != null || response.productDetails.isEmpty) {
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
+
+    // Armazenando detalhes dos produtos mensal e anual
+    setState(() {
+      _yearlyDetails = response.productDetails.firstWhere((product) => product.id == yearlyProId);
+      _monthlyDetails = response.productDetails.firstWhere((product) => product.id == monthlyProId);
+      _isLoading = false;
+    });
+
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return ProModal(
+          isLoading: _isLoading,
+          yearlyProductDetails: _yearlyDetails,
+          monthlyProductDetails: _monthlyDetails,
+          onBuyMonthlySubscription: () => _buySubscription(monthlyProId),
+          onBuyYearlySubscription: () => _buySubscription(yearlyProId),
+        );
+      },
+    );
+  }
+
+  // Função para comprar assinatura
+  Future<void> _buySubscription(String productId) async {
+    print("aqui!");
+    final paymentWrapper = SKPaymentQueueWrapper();
+final transactions = await paymentWrapper.transactions();
+transactions.forEach((transaction) async {
+    await paymentWrapper.finishTransaction(transaction);
+});
+    final bool available = await InAppPurchase.instance.isAvailable();
+    if (!available) {
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    }
+
+    final ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails({productId});
+
+    if (response.error == null && response.productDetails.isNotEmpty) {
+      final productDetails = response.productDetails.first;
+
+      final purchaseParam = PurchaseParam(productDetails: productDetails);
+      InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   // MARK: - Build Method
@@ -232,8 +293,7 @@ void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
                     itemCount: cardList.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         child: ListCard(
                           onTap: (card) {
                             widget.onAddClicked();
@@ -303,154 +363,4 @@ void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
       },
     );
   }
-
-  // Exibe o ProModal
-void _showProModal(BuildContext context) async {
-  // Exibe um indicador de carregamento enquanto carrega os detalhes do produto
-  setState(() {
-    _isLoading = true;
-  });
-
-  // Recupera os detalhes do produto
-  final bool available = await InAppPurchase.instance.isAvailable();
-  if (!available) {
-    setState(() {
-      _isLoading = false;
-    });
-    // Você pode mostrar um alerta de erro aqui, se preferir
-    return;
-  }
-
-  final ProductDetailsResponse response =
-      await InAppPurchase.instance.queryProductDetails({yearlyProId});
-
-  if (response.error != null || response.productDetails.isEmpty) {
-    setState(() {
-      _isLoading = false;
-      _productDetails = null; // Nenhum produto encontrado ou erro
-    });
-    // Mostre um alerta ou outro feedback de erro para o usuário
-    return;
-  }
-
-  // Definindo os detalhes do produto corretamente
-  setState(() {
-    _productDetails = response.productDetails.first;
-    _isLoading = false;
-  });
-
-  // Depois de carregar as informações, exibe o modal
-  showCupertinoModalPopup(
-    context: context,
-    builder: (BuildContext context) {
-      return ProModal(
-        isLoading: _isLoading,
-        yearlyProductDetails: _productDetails,
-        monthlyProductDetails: _productDetails,
-        onBuyMonthlySubscription: _buySubscriptionMonthly,
-        onBuyYearlySubscription: _buySubscription,
-      );
-    },
-  );
-}
-
-
-
-ProductDetails? _productDetails;
-
-Future<void> _buySubscription() async {
-  final paymentWrapper = SKPaymentQueueWrapper();
-  final transactions = await paymentWrapper.transactions();
-  transactions.forEach((transaction) async {
-    await paymentWrapper.finishTransaction(transaction);
-  });
-  
-  print("aqui!");
-  
-  setState(() {
-    _isLoading = true;
-  });
-
-  // Verifica se a compra está disponível
-  final bool available = await InAppPurchase.instance.isAvailable();
-  if (!available) {
-    setState(() {
-      _isLoading = false;
-    });
-    return;
-  }
-
-  // Recupera os detalhes do produto
-  final ProductDetailsResponse response =
-      await InAppPurchase.instance.queryProductDetails({yearlyProId});
-  print("aqui!2");
-
-  if (response.error == null && response.productDetails.isNotEmpty) {
-    print("aqui!3");
-    setState(() {
-      _productDetails = response.productDetails.first;
-      _isLoading = false;
-    });
-
-    // Inicia a compra da assinatura
-    final purchaseParam = PurchaseParam(productDetails: _productDetails!);
-    
-    // Para uma assinatura, use buyNonConsumable
-    InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
-  } else {
-    print("aqui!4");
-    setState(() {
-      _isLoading = false;
-    });
-  }
-}
-
-Future<void> _buySubscriptionMonthly() async {
-  final paymentWrapper = SKPaymentQueueWrapper();
-  final transactions = await paymentWrapper.transactions();
-  transactions.forEach((transaction) async {
-    await paymentWrapper.finishTransaction(transaction);
-  });
-  
-  print("aqui!");
-  
-  setState(() {
-    _isLoading = true;
-  });
-
-  // Verifica se a compra está disponível
-  final bool available = await InAppPurchase.instance.isAvailable();
-  if (!available) {
-    setState(() {
-      _isLoading = false;
-    });
-    return;
-  }
-
-  // Recupera os detalhes do produto
-  final ProductDetailsResponse response =
-      await InAppPurchase.instance.queryProductDetails({monthlyProId});
-  print("aqui!2");
-
-  if (response.error == null && response.productDetails.isNotEmpty) {
-    print("aqui!3");
-    setState(() {
-      _productDetails = response.productDetails.first;
-      _isLoading = false;
-    });
-
-    // Inicia a compra da assinatura
-    final purchaseParam = PurchaseParam(productDetails: _productDetails!);
-    
-    // Para uma assinatura, use buyNonConsumable
-    InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
-  } else {
-    print("aqui!4");
-    setState(() {
-      _isLoading = false;
-    });
-  }
-}
-
-
 }
