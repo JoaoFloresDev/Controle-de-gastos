@@ -347,7 +347,7 @@ void _showProModal(BuildContext context) async {
         isLoading: _isLoading,
         yearlyProductDetails: _productDetails,
         monthlyProductDetails: _productDetails,
-        onBuyMonthlySubscription: _buySubscription,
+        onBuyMonthlySubscription: _buySubscriptionMonthly,
         onBuyYearlySubscription: _buySubscription,
       );
     },
@@ -382,7 +382,54 @@ Future<void> _buySubscription() async {
 
   // Recupera os detalhes do produto
   final ProductDetailsResponse response =
-      await InAppPurchase.instance.queryProductDetails({yearlyProId, monthlyProId});
+      await InAppPurchase.instance.queryProductDetails({yearlyProId});
+  print("aqui!2");
+
+  if (response.error == null && response.productDetails.isNotEmpty) {
+    print("aqui!3");
+    setState(() {
+      _productDetails = response.productDetails.first;
+      _isLoading = false;
+    });
+
+    // Inicia a compra da assinatura
+    final purchaseParam = PurchaseParam(productDetails: _productDetails!);
+    
+    // Para uma assinatura, use buyNonConsumable
+    InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
+  } else {
+    print("aqui!4");
+    setState(() {
+      _isLoading = false;
+    });
+  }
+}
+
+Future<void> _buySubscriptionMonthly() async {
+  final paymentWrapper = SKPaymentQueueWrapper();
+  final transactions = await paymentWrapper.transactions();
+  transactions.forEach((transaction) async {
+    await paymentWrapper.finishTransaction(transaction);
+  });
+  
+  print("aqui!");
+  
+  setState(() {
+    _isLoading = true;
+  });
+
+  // Verifica se a compra está disponível
+  final bool available = await InAppPurchase.instance.isAvailable();
+  if (!available) {
+    setState(() {
+      _isLoading = false;
+    });
+    return;
+  }
+
+  // Recupera os detalhes do produto
+  final ProductDetailsResponse response =
+      await InAppPurchase.instance.queryProductDetails({monthlyProId});
   print("aqui!2");
 
   if (response.error == null && response.productDetails.isNotEmpty) {
