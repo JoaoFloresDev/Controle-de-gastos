@@ -1,3 +1,4 @@
+import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
@@ -13,6 +14,7 @@ import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/controllers/Transactions/exportExcel/exportExcelScreen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import '../../../controllers/Transactions/Purchase/ProModal.dart';
 
 class InsertTransactions extends StatefulWidget {
   const InsertTransactions({
@@ -301,100 +303,104 @@ void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
     );
   }
 
-  void _showProModal(BuildContext context) {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: MediaQuery.of(context).size.height / 1.5,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "Upgrade to PRO",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  "Desfrute de recursos exclusivos com o PRO.",
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 40),
-                CupertinoButton.filled(
-                  onPressed: _isLoading
-                      ? null
-                      : () {
-                          _buySubscription();
-                        },
-                  child: _isLoading
-                      ? const CircularProgressIndicator()
-                      : const Text("Upgrade Now"),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
+  // Exibe o ProModal
+void _showProModal(BuildContext context) async {
+  // Exibe um indicador de carregamento enquanto carrega os detalhes do produto
+  setState(() {
+    _isLoading = true;
+  });
 
-  Future<void> _buySubscription() async {
-    if (_isLoading) return; // Evita múltiplas chamadas
+  // Recupera os detalhes do produto
+  final bool available = await InAppPurchase.instance.isAvailable();
+  if (!available) {
     setState(() {
-      _isLoading = true;
+      _isLoading = false;
     });
-
-    // Verifica se a API está disponível
-    final bool available = await InAppPurchase.instance.isAvailable();
-    if (!available) {
-      setState(() {
-        _available = false;
-        _isLoading = false;
-      });
-      return;
-    }
-
-    // Consulta os detalhes do produto
-    final ProductDetailsResponse response =
-        await InAppPurchase.instance.queryProductDetails({yearlyProId});
-
-    // Verifica se houve erro na consulta ou se o produto não foi encontrado
-    if (response.error != null || response.notFoundIDs.isNotEmpty) {
-      setState(() {
-        _available = false;
-        _isLoading = false;
-      });
-      return;
-    }
-
-    // Se encontrou o produto, inicia a compra
-    if (response.productDetails.isNotEmpty) {
-      final ProductDetails productDetails = response.productDetails.first;
-      final PurchaseParam purchaseParam =
-          PurchaseParam(productDetails: productDetails);
-
-      // Inicia o processo de compra
-      InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
-    } else {
-      // Caso não encontre o produto, mostra uma mensagem de erro
-      setState(() {
-        _available = false;
-        _isLoading = false;
-      });
-    }
+    // Você pode mostrar um alerta de erro aqui, se preferir
+    return;
   }
+
+  final ProductDetailsResponse response =
+      await InAppPurchase.instance.queryProductDetails({yearlyProId});
+
+  if (response.error != null || response.productDetails.isEmpty) {
+    setState(() {
+      _isLoading = false;
+      _productDetails = null; // Nenhum produto encontrado ou erro
+    });
+    // Mostre um alerta ou outro feedback de erro para o usuário
+    return;
+  }
+
+  // Definindo os detalhes do produto corretamente
+  setState(() {
+    _productDetails = response.productDetails.first;
+    _isLoading = false;
+  });
+
+  // Depois de carregar as informações, exibe o modal
+  showCupertinoModalPopup(
+    context: context,
+    builder: (BuildContext context) {
+      return ProModal(
+        isLoading: _isLoading,
+        productDetails: _productDetails, // Detalhes do produto que você obteve
+        onBuySubscription: _buySubscription,
+      );
+    },
+  );
+}
+
+
+
+ProductDetails? _productDetails;
+
+Future<void> _buySubscription() async {
+  final paymentWrapper = SKPaymentQueueWrapper();
+final transactions = await paymentWrapper.transactions();
+transactions.forEach((transaction) async {
+    await paymentWrapper.finishTransaction(transaction);
+});
+
+  // Inicia o processo de compra
+  setState(() {
+    _isLoading = true;
+  });
+
+  // Verifica se o InAppPurchase está disponível
+  final bool available = await InAppPurchase.instance.isAvailable();
+  if (!available) {
+    setState(() {
+      _isLoading = false;
+    });
+    // Notifica o usuário que a loja não está disponível
+    print("Loja indisponível");
+    return;
+  }
+
+  // Verifica se o produto foi carregado
+  if (_productDetails == null) {
+    setState(() {
+      _isLoading = false;
+    });
+    print("Detalhes do produto indisponíveis");
+    return;
+  }
+
+  // Faz a compra do produto (não consumível, no caso de uma assinatura)
+  final purchaseParam = PurchaseParam(productDetails: _productDetails!);
+  bool success = await InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
+
+  if (!success) {
+    setState(() {
+      _isLoading = false;
+    });
+    print("Erro ao iniciar a compra");
+    return;
+  }
+
+  // A compra está em progresso. O fluxo continua no listener de `purchaseStream`.
+}
+
+
 }
