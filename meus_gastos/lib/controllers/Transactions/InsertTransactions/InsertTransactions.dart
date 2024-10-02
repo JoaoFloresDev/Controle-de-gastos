@@ -51,6 +51,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
   // Variáveis para In-App Purchase
   final String yearlyProId = 'yearly.pro'; // Seu ID de produto para assinatura
+  final String monthlyProId = 'monthly.pro';
   bool _available = true;
   bool _isLoading = false;
   bool _isPro = false;
@@ -342,11 +343,6 @@ void _showProModal(BuildContext context) async {
   showCupertinoModalPopup(
     context: context,
     builder: (BuildContext context) {
-      // return ProModal(
-      //   isLoading: _isLoading,
-      //   productDetails: _productDetails, // Detalhes do produto que você obteve
-      //   onBuySubscription: _buySubscription,
-      // );
       return ProModal(
         isLoading: _isLoading,
         yearlyProductDetails: _productDetails,
@@ -364,15 +360,18 @@ ProductDetails? _productDetails;
 
 Future<void> _buySubscription() async {
   final paymentWrapper = SKPaymentQueueWrapper();
-final transactions = await paymentWrapper.transactions();
-transactions.forEach((transaction) async {
+  final transactions = await paymentWrapper.transactions();
+  transactions.forEach((transaction) async {
     await paymentWrapper.finishTransaction(transaction);
-});
+  });
+  
   print("aqui!");
+  
   setState(() {
     _isLoading = true;
   });
 
+  // Verifica se a compra está disponível
   final bool available = await InAppPurchase.instance.isAvailable();
   if (!available) {
     setState(() {
@@ -381,19 +380,30 @@ transactions.forEach((transaction) async {
     return;
   }
 
+  // Recupera os detalhes do produto
   final ProductDetailsResponse response =
-      await InAppPurchase.instance.queryProductDetails({yearlyProId});
-print("aqui!2");
+      await InAppPurchase.instance.queryProductDetails({yearlyProId, monthlyProId});
+  print("aqui!2");
+
   if (response.error == null && response.productDetails.isNotEmpty) {
+    print("aqui!3");
     setState(() {
       _productDetails = response.productDetails.first;
       _isLoading = false;
     });
+
+    // Inicia a compra da assinatura
+    final purchaseParam = PurchaseParam(productDetails: _productDetails!);
+    
+    // Para uma assinatura, use buyNonConsumable
+    InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
   } else {
+    print("aqui!4");
     setState(() {
       _isLoading = false;
     });
   }
 }
+
 
 }
