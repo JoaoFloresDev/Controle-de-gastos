@@ -5,14 +5,18 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 
 class ProModal extends StatelessWidget {
   final bool isLoading;
-  final ProductDetails? productDetails; // Detalhes do produto da assinatura
-  final VoidCallback onBuySubscription;
+  final ProductDetails? yearlyProductDetails;
+  final ProductDetails? monthlyProductDetails;
+  final VoidCallback onBuyYearlySubscription;
+  final VoidCallback onBuyMonthlySubscription;
 
   const ProModal({
     Key? key,
     required this.isLoading,
-    required this.productDetails,
-    required this.onBuySubscription,
+    required this.yearlyProductDetails,
+    required this.monthlyProductDetails,
+    required this.onBuyYearlySubscription,
+    required this.onBuyMonthlySubscription,
   }) : super(key: key);
 
   @override
@@ -68,29 +72,52 @@ class ProModal extends StatelessWidget {
             label: "Remoção completa de anúncios",
           ),
           const SizedBox(height: 40),
-          // Exibir o botão com preço da assinatura anual
           isLoading
               ? const CircularProgressIndicator(
                   color: AppColors.label,
                 )
-              : ElevatedButton(
-                  onPressed: onBuySubscription,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.button, // Cor de fundo azul
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 32, vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+              : Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: onBuyMonthlySubscription,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.button,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        "Assinatura mensal - ${monthlyProductDetails?.price ?? 'Indisponível'}",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    "Assinatura anual - ${productDetails?.price ?? 'Indisponível'}",
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white, // Texto branco
+                    const SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: onBuyYearlySubscription,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.button,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        "Assinatura anual - ${yearlyProductDetails?.price ?? 'Indisponível'}",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
           const SizedBox(height: 10),
           TextButton(
@@ -114,14 +141,14 @@ class ProModal extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center, // Alinhando o conteúdo ao centro
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
             icon,
             color: AppColors.button,
             size: 30,
           ),
-          const SizedBox(width: 8), // Espaçamento menor entre ícone e texto
+          const SizedBox(width: 8),
           Text(
             label,
             style: const TextStyle(

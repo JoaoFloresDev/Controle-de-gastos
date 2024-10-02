@@ -342,10 +342,17 @@ void _showProModal(BuildContext context) async {
   showCupertinoModalPopup(
     context: context,
     builder: (BuildContext context) {
+      // return ProModal(
+      //   isLoading: _isLoading,
+      //   productDetails: _productDetails, // Detalhes do produto que você obteve
+      //   onBuySubscription: _buySubscription,
+      // );
       return ProModal(
         isLoading: _isLoading,
-        productDetails: _productDetails, // Detalhes do produto que você obteve
-        onBuySubscription: _buySubscription,
+        yearlyProductDetails: _productDetails,
+        monthlyProductDetails: _productDetails,
+        onBuyMonthlySubscription: _buySubscription,
+        onBuyYearlySubscription: _buySubscription,
       );
     },
   );
@@ -361,46 +368,32 @@ final transactions = await paymentWrapper.transactions();
 transactions.forEach((transaction) async {
     await paymentWrapper.finishTransaction(transaction);
 });
-
-  // Inicia o processo de compra
+  print("aqui!");
   setState(() {
     _isLoading = true;
   });
 
-  // Verifica se o InAppPurchase está disponível
   final bool available = await InAppPurchase.instance.isAvailable();
   if (!available) {
     setState(() {
       _isLoading = false;
     });
-    // Notifica o usuário que a loja não está disponível
-    print("Loja indisponível");
     return;
   }
 
-  // Verifica se o produto foi carregado
-  if (_productDetails == null) {
+  final ProductDetailsResponse response =
+      await InAppPurchase.instance.queryProductDetails({yearlyProId});
+print("aqui!2");
+  if (response.error == null && response.productDetails.isNotEmpty) {
+    setState(() {
+      _productDetails = response.productDetails.first;
+      _isLoading = false;
+    });
+  } else {
     setState(() {
       _isLoading = false;
     });
-    print("Detalhes do produto indisponíveis");
-    return;
   }
-
-  // Faz a compra do produto (não consumível, no caso de uma assinatura)
-  final purchaseParam = PurchaseParam(productDetails: _productDetails!);
-  bool success = await InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
-
-  if (!success) {
-    setState(() {
-      _isLoading = false;
-    });
-    print("Erro ao iniciar a compra");
-    return;
-  }
-
-  // A compra está em progresso. O fluxo continua no listener de `purchaseStream`.
 }
-
 
 }
