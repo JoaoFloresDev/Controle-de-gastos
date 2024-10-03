@@ -1,3 +1,4 @@
+import 'package:meus_gastos/comprarPro/comprarPro.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'ViewComponents/HeaderCard.dart';
 import 'ViewComponents/ListCard.dart';
@@ -179,6 +180,7 @@ import 'package:meus_gastos/services/CardService.dart' as service;
 // import 'package:meus_gastos/widgets/Transactions/CardDetails/DetailScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:meus_gastos/gastos_fixos/criar_gastosFixos.dart';
 // import 'package:meus_gastos/widgets/Transactions/CategoryCreater/CategoryCreater.dart';
 // import 'package:meus_gastos/widgets/ads_review/constructReview.dart';
 // import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
@@ -214,6 +216,8 @@ class InsertTransactions extends StatefulWidget {
 class _InsertTransactionsState extends State<InsertTransactions> {
   List<CardModel> cardList = [];
   final GlobalKey<HeaderCardState> _headerCardKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   bool _showHeaderCard = true;
 
   // MARK: - InitState
@@ -237,12 +241,79 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: CupertinoNavigationBar(
+          leading: GestureDetector(
+            onTap: () {
+              _scaffoldKey.currentState?.openDrawer(); // Abre o menu lateral
+            },
+            child: Icon(CupertinoIcons.bars, size: 24),
+          ),
           middle: Text(
             widget.title,
             style: const TextStyle(color: AppColors.label, fontSize: 16),
           ),
           backgroundColor: AppColors.background1,
+        ),
+        drawer: Drawer(
+          backgroundColor: AppColors.background1,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: AppColors.background1,
+                ),
+                child: Text(
+                  'Menu',
+                  style: TextStyle(
+                    color: AppColors.label,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text(
+                  'Início',
+                  style: TextStyle(color: AppColors.label),
+                ),
+                onTap: () {
+                  Navigator.pop(context); // Fecha o menu
+                  // não vai a lugar nenhum pois já está no inicio
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.insert_invitation_rounded),
+                title: Text(
+                  'Adicionar Gastos Fixos',
+                  style: TextStyle(color: AppColors.label),
+                ),
+                onTap: () {
+                  Navigator.pop(context); // Fecha o menu
+                  print("Entrou");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CriarGastosFixos()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.payment_rounded),
+                title: Text(
+                  'Retirar os anuncios',
+                  style: TextStyle(color: AppColors.label),
+                ),
+                onTap: () {
+                  Navigator.pop(context); // Fecha o menu
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ComprarPro()),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
         body: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),

@@ -23,13 +23,16 @@ dependencies:
   percent_indicator: ^4.0.0
   flutter_colorpicker: ^1.0.3
   in_app_review: ^2.0.4
-  google_mobile_ads: ^3.0.0
+  google_mobile_ads: ^5.1.0
   excel: ^4.0.6
   syncfusion_flutter_pdf: ^20.4.54
   path_provider: ^2.1.4
   open_filex: ^4.0.0
-  share_plus: ^6.1.0
+  share_plus: ^10.0.2
   tutorial_coach_mark: ^1.2.11
+  flutter_stripe: ^11.1.0
+  flutter_dotenv: ^5.1.0
+  http: ^1.2.1
 
   
 dev_dependencies:
