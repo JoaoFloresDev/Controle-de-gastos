@@ -18,8 +18,6 @@ class ProModal extends StatefulWidget {
 }
 
 class _ProModalState extends State<ProModal> {
-  bool _isLoading = false;
-
   ProductDetails? yearlyProductDetails;
   ProductDetails? monthlyProductDetails;
 
@@ -51,7 +49,10 @@ class _ProModalState extends State<ProModal> {
         case PurchaseStatus.pending:
           break;
         case PurchaseStatus.purchased:
+        print("PurchaseStatus.purchased");
+        break;
         case PurchaseStatus.restored:
+          print("PurchaseStatus.restored");
           InAppPurchase.instance.completePurchase(purchase);
           break;
         case PurchaseStatus.error:
@@ -62,21 +63,12 @@ class _ProModalState extends State<ProModal> {
           break;
       }
     }
-    setState(() {
-      _isLoading = true;
-    });
   }
 
   Future<void> _fetchProductDetails() async {
-    setState(() {
-      _isLoading = true;
-    });
 
     final bool available = await InAppPurchase.instance.isAvailable();
     if (!available) {
-      setState(() {
-        _isLoading = false;
-      });
       return;
     }
 
@@ -84,20 +76,15 @@ class _ProModalState extends State<ProModal> {
     final ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails({yearlyProId, monthlyProId});
 
     if (response.error != null || response.productDetails.isEmpty) {
-      setState(() {
-        _isLoading = false;
-      });
       return;
     }
 
     setState(() {
       yearlyProductDetails = response.productDetails.firstWhere((product) => product.id == yearlyProId);
       monthlyProductDetails = response.productDetails.firstWhere((product) => product.id == monthlyProId);
-      _isLoading = false;
     });
   }
 
-  // Função para formatar preço
   String formatPrice(double price, String currencySymbol) {
     final format = NumberFormat.currency(
       locale: currencySymbol == 'R\$' ? 'pt_BR' : Intl.defaultLocale,
@@ -108,10 +95,6 @@ class _ProModalState extends State<ProModal> {
 
   // Função para realizar a compra de uma assinatura
   Future<void> _buySubscription(String productId) async {
-    setState(() {
-      _isLoading = true;
-    });
-
     final paymentWrapper = SKPaymentQueueWrapper();
     final transactions = await paymentWrapper.transactions();
     for (var transaction in transactions) {
@@ -120,9 +103,6 @@ class _ProModalState extends State<ProModal> {
 
     final bool available = await InAppPurchase.instance.isAvailable();
     if (!available) {
-      setState(() {
-        _isLoading = false;
-      });
       return;
     }
 
@@ -133,23 +113,11 @@ class _ProModalState extends State<ProModal> {
       final purchaseParam = PurchaseParam(productDetails: productDetails);
       InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
     }
-
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   // Função para restaurar compras anteriores
   Future<void> _restorePurchases() async {
-    setState(() {
-      _isLoading = true;
-    });
-
     await InAppPurchase.instance.restorePurchases();
-
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   @override
@@ -208,11 +176,7 @@ class _ProModalState extends State<ProModal> {
                 label: "Remoção completa de anúncios",
               ),
               const SizedBox(height: 40),
-              widget.isLoading || _isLoading
-                  ? const CircularProgressIndicator(
-                      color: AppColors.label,
-                    )
-                  : Column(
+              Column(
                       children: [
                         _buildSubscriptionButton(
                           label: "Assinatura mensal",
