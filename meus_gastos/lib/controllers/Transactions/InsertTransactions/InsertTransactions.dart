@@ -164,9 +164,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       context: context,
       builder: (BuildContext context) {
         return ProModal(
-            isLoading: _isLoading,
-            yearlyProductDetails: _yearlyDetails,
-            monthlyProductDetails: _monthlyDetails);
+          isLoading: _isLoading
+        );
       },
     );
   }

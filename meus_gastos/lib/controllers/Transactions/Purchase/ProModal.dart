@@ -7,14 +7,10 @@ import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 
 class ProModal extends StatefulWidget {
   final bool isLoading;
-  final ProductDetails? yearlyProductDetails;
-  final ProductDetails? monthlyProductDetails;
 
   const ProModal({
     Key? key,
-    required this.isLoading,
-    required this.yearlyProductDetails,
-    required this.monthlyProductDetails,
+    required this.isLoading
   }) : super(key: key);
 
   @override
@@ -22,9 +18,73 @@ class ProModal extends StatefulWidget {
 }
 
 class _ProModalState extends State<ProModal> {
-  bool _isLoading = false;
+  ProductDetails? yearlyProductDetails;
+  ProductDetails? monthlyProductDetails;
 
-  // Função para formatar preço
+  final String yearlyProId = 'yearly.pro'; // Seu ID de produto para assinatura anual
+  final String monthlyProId = 'monthly.pro'; // Seu ID de produto para assinatura mensal
+
+  @override
+  void initState() {
+    super.initState();
+    InAppPurchase.instance.purchaseStream.listen((purchases) {
+      _handlePurchaseUpdates(purchases);
+    });
+
+    // Verifica e processa compras pendentes
+    _verifyPastPurchases();
+
+    // Carrega os detalhes dos produtos
+    _fetchProductDetails();
+  }
+
+  Future<void> _verifyPastPurchases() async {
+    // Inicia o processo de restauração de compras
+    InAppPurchase.instance.restorePurchases();
+  }
+
+  void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
+    for (var purchase in purchases) {
+      switch (purchase.status) {
+        case PurchaseStatus.pending:
+          break;
+        case PurchaseStatus.purchased:
+        print("PurchaseStatus.purchased");
+        break;
+        case PurchaseStatus.restored:
+          print("PurchaseStatus.restored");
+          InAppPurchase.instance.completePurchase(purchase);
+          break;
+        case PurchaseStatus.error:
+          print('Erro na compra: ${purchase.error}');
+          InAppPurchase.instance.completePurchase(purchase);
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  Future<void> _fetchProductDetails() async {
+
+    final bool available = await InAppPurchase.instance.isAvailable();
+    if (!available) {
+      return;
+    }
+
+    // Recupera os detalhes dos produtos mensal e anual
+    final ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails({yearlyProId, monthlyProId});
+
+    if (response.error != null || response.productDetails.isEmpty) {
+      return;
+    }
+
+    setState(() {
+      yearlyProductDetails = response.productDetails.firstWhere((product) => product.id == yearlyProId);
+      monthlyProductDetails = response.productDetails.firstWhere((product) => product.id == monthlyProId);
+    });
+  }
+
   String formatPrice(double price, String currencySymbol) {
     final format = NumberFormat.currency(
       locale: currencySymbol == 'R\$' ? 'pt_BR' : Intl.defaultLocale,
@@ -35,21 +95,14 @@ class _ProModalState extends State<ProModal> {
 
   // Função para realizar a compra de uma assinatura
   Future<void> _buySubscription(String productId) async {
-    setState(() {
-      _isLoading = true;
-    });
-
     final paymentWrapper = SKPaymentQueueWrapper();
     final transactions = await paymentWrapper.transactions();
-    transactions.forEach((transaction) async {
+    for (var transaction in transactions) {
       await paymentWrapper.finishTransaction(transaction);
-    });
+    }
 
     final bool available = await InAppPurchase.instance.isAvailable();
     if (!available) {
-      setState(() {
-        _isLoading = false;
-      });
       return;
     }
 
@@ -60,23 +113,11 @@ class _ProModalState extends State<ProModal> {
       final purchaseParam = PurchaseParam(productDetails: productDetails);
       InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
     }
-
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   // Função para restaurar compras anteriores
   Future<void> _restorePurchases() async {
-    setState(() {
-      _isLoading = true;
-    });
-
     await InAppPurchase.instance.restorePurchases();
-
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   @override
@@ -135,32 +176,28 @@ class _ProModalState extends State<ProModal> {
                 label: "Remoção completa de anúncios",
               ),
               const SizedBox(height: 40),
-              widget.isLoading || _isLoading
-                  ? const CircularProgressIndicator(
-                      color: AppColors.label,
-                    )
-                  : Column(
+              Column(
                       children: [
                         _buildSubscriptionButton(
                           label: "Assinatura mensal",
-                          price: widget.monthlyProductDetails != null
+                          price: monthlyProductDetails != null
                               ? formatPrice(
-                                  widget.monthlyProductDetails!.rawPrice,
-                                  widget.monthlyProductDetails!.currencySymbol,
+                                  monthlyProductDetails!.rawPrice,
+                                  monthlyProductDetails!.currencySymbol,
                                 )
                               : 'Indisponível',
-                          onPressed: () => _buySubscription(widget.monthlyProductDetails?.id ?? ''),
+                          onPressed: () => _buySubscription(monthlyProductDetails?.id ?? ''),
                         ),
                         const SizedBox(height: 22),
                         _buildSubscriptionButton(
                           label: "Assinatura anual",
-                          price: widget.yearlyProductDetails != null
+                          price: yearlyProductDetails != null
                               ? formatPrice(
-                                  widget.yearlyProductDetails!.rawPrice,
-                                  widget.yearlyProductDetails!.currencySymbol,
+                                  yearlyProductDetails!.rawPrice,
+                                  yearlyProductDetails!.currencySymbol,
                                 )
                               : 'Indisponível',
-                          onPressed: () => _buySubscription(widget.yearlyProductDetails?.id ?? ''),
+                          onPressed: () => _buySubscription(yearlyProductDetails?.id ?? ''),
                         ),
                         const SizedBox(height: 15),
                         TextButton(
