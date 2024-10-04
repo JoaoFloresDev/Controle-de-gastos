@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
-import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 
 class ProModal extends StatefulWidget {
   final bool isLoading;
+  final VoidCallback onSubscriptionPurchased;
 
   const ProModal({
     Key? key,
-    required this.isLoading
+    required this.isLoading,
+    required this.onSubscriptionPurchased,
   }) : super(key: key);
 
   @override
@@ -21,67 +22,73 @@ class _ProModalState extends State<ProModal> {
   ProductDetails? yearlyProductDetails;
   ProductDetails? monthlyProductDetails;
 
-  final String yearlyProId = 'yearly.pro'; // Seu ID de produto para assinatura anual
-  final String monthlyProId = 'monthly.pro'; // Seu ID de produto para assinatura mensal
+  final String yearlyProId = 'yearly.pro';
+  final String monthlyProId = 'monthly.pro';
+
+  // Conjunto para armazenar os IDs dos produtos comprados
+  Set<String> purchasedProductIds = {};
+
+  late InAppPurchase _inAppPurchase;
+  late Stream<List<PurchaseDetails>> _subscription;
 
   @override
   void initState() {
     super.initState();
-    InAppPurchase.instance.purchaseStream.listen((purchases) {
-      _handlePurchaseUpdates(purchases);
+    _inAppPurchase = InAppPurchase.instance;
+    _subscription = _inAppPurchase.purchaseStream;
+    _subscription.listen(_listenToPurchaseUpdated, onDone: () {
+      _subscription.drain();
+    }, onError: (error) {
+      // Trate erros aqui, se necessário
     });
 
-    // Verifica e processa compras pendentes
-    _verifyPastPurchases();
-
-    // Carrega os detalhes dos produtos
     _fetchProductDetails();
+
+    // Chamar restorePurchases ao iniciar para verificar compras existentes
+    _restorePurchases();
   }
 
-  Future<void> _verifyPastPurchases() async {
-    // Inicia o processo de restauração de compras
-    InAppPurchase.instance.restorePurchases();
-  }
+  void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
+    bool isPurchaseUpdated = false;
 
-  void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
-    for (var purchase in purchases) {
-      switch (purchase.status) {
-        case PurchaseStatus.pending:
-          break;
-        case PurchaseStatus.purchased:
-        print("PurchaseStatus.purchased");
-        break;
-        case PurchaseStatus.restored:
-          print("PurchaseStatus.restored");
-          InAppPurchase.instance.completePurchase(purchase);
-          break;
-        case PurchaseStatus.error:
-          print('Erro na compra: ${purchase.error}');
-          InAppPurchase.instance.completePurchase(purchase);
-          break;
-        default:
-          break;
+    for (var purchaseDetails in purchaseDetailsList) {
+      if (purchaseDetails.status == PurchaseStatus.purchased ||
+          purchaseDetails.status == PurchaseStatus.restored) {
+        _deliverProduct(purchaseDetails);
+        isPurchaseUpdated = true;
+      } else if (purchaseDetails.status == PurchaseStatus.error) {
+        // Trate erros de compra aqui, se necessário
+      }
+      if (purchaseDetails.pendingCompletePurchase) {
+        InAppPurchase.instance.completePurchase(purchaseDetails);
       }
     }
+
+    if (isPurchaseUpdated) {
+      widget.onSubscriptionPurchased(); // Notifica o widget pai
+    }
+  }
+
+  void _deliverProduct(PurchaseDetails purchase) {
+    setState(() {
+      purchasedProductIds.add(purchase.productID); // Adiciona o produto comprado ao conjunto
+    });
+    // Não é necessário chamar onSubscriptionPurchased aqui novamente
   }
 
   Future<void> _fetchProductDetails() async {
-
     final bool available = await InAppPurchase.instance.isAvailable();
-    if (!available) {
-      return;
-    }
+    if (!available) return;
 
-    // Recupera os detalhes dos produtos mensal e anual
-    final ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails({yearlyProId, monthlyProId});
-
-    if (response.error != null || response.productDetails.isEmpty) {
-      return;
-    }
+    final ProductDetailsResponse response = await InAppPurchase.instance
+        .queryProductDetails({yearlyProId, monthlyProId});
+    if (response.error != null || response.productDetails.isEmpty) return;
 
     setState(() {
-      yearlyProductDetails = response.productDetails.firstWhere((product) => product.id == yearlyProId);
-      monthlyProductDetails = response.productDetails.firstWhere((product) => product.id == monthlyProId);
+      yearlyProductDetails = response.productDetails
+          .firstWhere((product) => product.id == yearlyProId);
+      monthlyProductDetails = response.productDetails
+          .firstWhere((product) => product.id == monthlyProId);
     });
   }
 
@@ -93,21 +100,12 @@ class _ProModalState extends State<ProModal> {
     return format.format(price);
   }
 
-  // Função para realizar a compra de uma assinatura
   Future<void> _buySubscription(String productId) async {
-    final paymentWrapper = SKPaymentQueueWrapper();
-    final transactions = await paymentWrapper.transactions();
-    for (var transaction in transactions) {
-      await paymentWrapper.finishTransaction(transaction);
-    }
-
     final bool available = await InAppPurchase.instance.isAvailable();
-    if (!available) {
-      return;
-    }
+    if (!available) return;
 
-    final ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails({productId});
-
+    final ProductDetailsResponse response =
+        await InAppPurchase.instance.queryProductDetails({productId});
     if (response.error == null && response.productDetails.isNotEmpty) {
       final productDetails = response.productDetails.first;
       final purchaseParam = PurchaseParam(productDetails: productDetails);
@@ -115,9 +113,9 @@ class _ProModalState extends State<ProModal> {
     }
   }
 
-  // Função para restaurar compras anteriores
   Future<void> _restorePurchases() async {
     await InAppPurchase.instance.restorePurchases();
+    // As compras restauradas serão entregues via _listenToPurchaseUpdated
   }
 
   @override
@@ -177,42 +175,41 @@ class _ProModalState extends State<ProModal> {
               ),
               const SizedBox(height: 40),
               Column(
-                      children: [
-                        _buildSubscriptionButton(
-                          label: "Assinatura mensal",
-                          price: monthlyProductDetails != null
-                              ? formatPrice(
-                                  monthlyProductDetails!.rawPrice,
-                                  monthlyProductDetails!.currencySymbol,
-                                )
-                              : 'Indisponível',
-                          onPressed: () => _buySubscription(monthlyProductDetails?.id ?? ''),
-                        ),
-                        const SizedBox(height: 22),
-                        _buildSubscriptionButton(
-                          label: "Assinatura anual",
-                          price: yearlyProductDetails != null
-                              ? formatPrice(
-                                  yearlyProductDetails!.rawPrice,
-                                  yearlyProductDetails!.currencySymbol,
-                                )
-                              : 'Indisponível',
-                          onPressed: () => _buySubscription(yearlyProductDetails?.id ?? ''),
-                        ),
-                        const SizedBox(height: 15),
-                        TextButton(
-                          onPressed: _restorePurchases,
-                          child: const Text(
-                            "Restaurar Compras",
-                            style: TextStyle(
-                              color: AppColors.label,
-                              fontSize: 16,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ),
-                      ],
+                children: [
+                  _buildSubscriptionButton(
+                    label: "Assinatura mensal",
+                    price: monthlyProductDetails != null
+                        ? formatPrice(monthlyProductDetails!.rawPrice,
+                            monthlyProductDetails!.currencySymbol)
+                        : 'Indisponível',
+                    onPressed: () =>
+                        _buySubscription(monthlyProductDetails?.id ?? ''),
+                    productId: monthlyProductDetails?.id ?? '',
+                  ),
+                  const SizedBox(height: 22),
+                  _buildSubscriptionButton(
+                    label: "Assinatura anual",
+                    price: yearlyProductDetails != null
+                        ? formatPrice(yearlyProductDetails!.rawPrice,
+                            yearlyProductDetails!.currencySymbol)
+                        : 'Indisponível',
+                    onPressed: () =>
+                        _buySubscription(yearlyProductDetails?.id ?? ''),
+                    productId: yearlyProductDetails?.id ?? '',
+                  ),
+                  const SizedBox(height: 15),
+                  TextButton(
+                    onPressed: _restorePurchases,
+                    child: const Text(
+                      "Restaurar Compras",
+                      style: TextStyle(
+                        color: AppColors.label,
+                        fontSize: 16,
+                      ),
                     ),
+                  ),
+                ],
+              ),
             ],
           ),
           Positioned(
@@ -223,9 +220,7 @@ class _ProModalState extends State<ProModal> {
                 color: AppColors.label,
                 size: 28,
               ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              onPressed: () => Navigator.of(context).pop(),
             ),
           ),
         ],
@@ -237,21 +232,28 @@ class _ProModalState extends State<ProModal> {
     required String label,
     required String price,
     required VoidCallback onPressed,
+    required String productId,
   }) {
+    // Verifica se o produto foi comprado
+    bool isPurchased = purchasedProductIds.contains(productId);
+
     return SizedBox(
       width: double.infinity,
       height: 50,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed:
+            isPurchased ? null : onPressed, // Desabilita o botão se comprado
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.button,
+          backgroundColor: isPurchased
+              ? Colors.green
+              : AppColors.button, // Muda a cor do botão se comprado
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
         child: Text(
-          "$label - $price",
+          isPurchased ? "Comprado" : "$label - $price",
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,

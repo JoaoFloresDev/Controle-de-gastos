@@ -1,7 +1,5 @@
-import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'ViewComponents/HeaderCard.dart';
 import 'ViewComponents/ListCard.dart';
@@ -14,6 +12,8 @@ import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import '../../../controllers/Transactions/Purchase/ProModal.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 
 class InsertTransactions extends StatefulWidget {
   const InsertTransactions({
@@ -49,57 +49,71 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   bool _showHeaderCard = true;
 
   // Variáveis para In-App Purchase
-  final String yearlyProId = 'yearly.pro'; // Seu ID de produto para assinatura anual
-  final String monthlyProId = 'monthly.pro'; // Seu ID de produto para assinatura mensal
+  final String yearlyProId = 'yearly.pro';
+  final String monthlyProId = 'monthly.pro';
   bool _isLoading = false;
   bool _isPro = false;
 
-  ProductDetails? _yearlyDetails;
-  ProductDetails? _monthlyDetails;
+  late InAppPurchase _inAppPurchase;
+  late Stream<List<PurchaseDetails>> _subscription;
+
+  // Conjunto para armazenar os IDs dos produtos comprados
+  Set<String> purchasedProductIds = {};
 
   // MARK: - InitState
   @override
   void initState() {
     super.initState();
-    InAppPurchase.instance.purchaseStream.listen((purchases) {
-      _handlePurchaseUpdates(purchases);
-    });
-
-    // Verifica e processa compras pendentes
-    _verifyPastPurchases();
-
-    // Carrega os cartões iniciais
     loadCards();
+    _initInAppPurchase();
+  }
+
+  // Inicializa o InAppPurchase e configura o listener
+  void _initInAppPurchase() {
+    _inAppPurchase = InAppPurchase.instance;
+    _subscription = _inAppPurchase.purchaseStream;
+    _subscription.listen(_listenToPurchaseUpdated, onDone: () {
+      _subscription.drain();
+    }, onError: (error) {
+      // Trate erros aqui, se necessário
+    });
+    _verifyPastPurchases();
   }
 
   Future<void> _verifyPastPurchases() async {
-    // Inicia o processo de restauração de compras
-    InAppPurchase.instance.restorePurchases();
+    // Chama o método restorePurchases para restaurar compras anteriores
+    await InAppPurchase.instance.restorePurchases();
+
+    // Aguarda as compras restauradas para atualizar o estado
+    // As compras restauradas serão recebidas no listener _listenToPurchaseUpdated
   }
 
-  void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
-    for (var purchase in purchases) {
-      switch (purchase.status) {
-        case PurchaseStatus.pending:
-          break;
-        case PurchaseStatus.purchased:
-        case PurchaseStatus.restored:
-          setState(() {
-            _isPro = true;
-          });
-          InAppPurchase.instance.completePurchase(purchase);
-          break;
-        case PurchaseStatus.error:
-          print('Erro na compra: ${purchase.error}');
-          InAppPurchase.instance.completePurchase(purchase);
-          break;
-        default:
-          break;
+  void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
+    bool isProUpdated = false;
+
+    for (var purchaseDetails in purchaseDetailsList) {
+      if (purchaseDetails.status == PurchaseStatus.purchased ||
+          purchaseDetails.status == PurchaseStatus.restored) {
+        _deliverProduct(purchaseDetails);
+        isProUpdated = true;
+      } else if (purchaseDetails.status == PurchaseStatus.error) {
+        // Trate erros de compra aqui, se necessário
+      }
+      if (purchaseDetails.pendingCompletePurchase) {
+        InAppPurchase.instance.completePurchase(purchaseDetails);
       }
     }
-    setState(() {
-      _isLoading = false;
-    });
+
+    if (isProUpdated) {
+      setState(() {
+        _isPro = true; // Atualiza o estado para PRO
+      });
+    }
+  }
+
+  void _deliverProduct(PurchaseDetails purchase) {
+    purchasedProductIds.add(purchase.productID);
+    // Você pode adicionar lógica adicional aqui, se necessário
   }
 
   // MARK: - Load Cards
@@ -112,40 +126,16 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
   // Exibe o ProModal
   void _showProModal(BuildContext context) async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    final bool available = await InAppPurchase.instance.isAvailable();
-    if (!available) {
-      setState(() {
-        _isLoading = false;
-      });
-      return;
-    }
-
-    // Recupera os detalhes dos produtos mensal e anual
-    final ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails({yearlyProId, monthlyProId});
-
-    if (response.error != null || response.productDetails.isEmpty) {
-      setState(() {
-        _isLoading = false;
-      });
-      return;
-    }
-
-    // Armazenando detalhes dos produtos mensal e anual
-    setState(() {
-      _yearlyDetails = response.productDetails.firstWhere((product) => product.id == yearlyProId);
-      _monthlyDetails = response.productDetails.firstWhere((product) => product.id == monthlyProId);
-      _isLoading = false;
-    });
-
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {
         return ProModal(
-          isLoading: _isLoading
+          isLoading: _isLoading,
+          onSubscriptionPurchased: () {
+            setState(() {
+              _isPro = true;
+            });
+          },
         );
       },
     );
@@ -259,7 +249,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                     itemCount: cardList.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         child: ListCard(
                           onTap: (card) {
                             widget.onAddClicked();
@@ -286,7 +277,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                           color: AppColors.card,
                           size: 60,
                         ),
-                        const SizedBox(height: 16), // Espaçamento entre ícone e texto
+                        const SizedBox(
+                            height: 16), // Espaçamento entre ícone e texto
                         Text(
                           AppLocalizations.of(context)!.addNewTransactions,
                           style: TextStyle(color: AppColors.label, fontSize: 16),
