@@ -2,8 +2,10 @@ import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:meus_gastos/comprarPro/comprarPro.dart';
+import 'package:meus_gastos/comprarPro/Buyscreen.dart';
+import 'package:meus_gastos/controllers/Transactions/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/gastos_fixos/criar_gastosFixos.dart';
 import 'ViewComponents/HeaderCard.dart';
 import 'ViewComponents/ListCard.dart';
 import '../../../models/CardModel.dart';
@@ -55,8 +57,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   bool _showHeaderCard = true;
 
   // Variáveis para In-App Purchase
-  final String yearlyProId = 'yearly.pro'; // Seu ID de produto para assinatura anual
-  final String monthlyProId = 'monthly.pro'; // Seu ID de produto para assinatura mensal
+  final String yearlyProId =
+      'yearly.pro'; // Seu ID de produto para assinatura anual
+  final String monthlyProId =
+      'monthly.pro'; // Seu ID de produto para assinatura mensal
   bool _isLoading = false;
   bool _isPro = false;
 
@@ -125,13 +129,20 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     final bool available = await InAppPurchase.instance.isAvailable();
     if (!available) {
       setState(() {
+        print("Deu ruim pros androids");
+        showCupertinoModalPopup(
+            context: context,
+            builder: (BuildContext context) {
+              return Buyscreen(); // provisory
+            });
         _isLoading = false;
       });
       return;
     }
 
     // Recupera os detalhes dos produtos mensal e anual
-    final ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails({yearlyProId, monthlyProId});
+    final ProductDetailsResponse response = await InAppPurchase.instance
+        .queryProductDetails({yearlyProId, monthlyProId});
 
     if (response.error != null || response.productDetails.isEmpty) {
       setState(() {
@@ -142,8 +153,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
     // Armazenando detalhes dos produtos mensal e anual
     setState(() {
-      _yearlyDetails = response.productDetails.firstWhere((product) => product.id == yearlyProId);
-      _monthlyDetails = response.productDetails.firstWhere((product) => product.id == monthlyProId);
+      _yearlyDetails = response.productDetails
+          .firstWhere((product) => product.id == yearlyProId);
+      _monthlyDetails = response.productDetails
+          .firstWhere((product) => product.id == monthlyProId);
       _isLoading = false;
     });
 
@@ -151,10 +164,9 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       context: context,
       builder: (BuildContext context) {
         return ProModal(
-          isLoading: _isLoading,
-          yearlyProductDetails: _yearlyDetails,
-          monthlyProductDetails: _monthlyDetails
-        );
+            isLoading: _isLoading,
+            yearlyProductDetails: _yearlyDetails,
+            monthlyProductDetails: _monthlyDetails);
       },
     );
   }
@@ -242,10 +254,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                 ),
                 onTap: () {
                   Navigator.pop(context); // Fecha o menu
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ComprarPro()),
-                  );
+                  _showProModal(context); // Chamando o modal de assinatura
                 },
               ),
             ],
@@ -334,7 +343,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                     itemCount: cardList.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
                         child: ListCard(
                           onTap: (card) {
                             widget.onAddClicked();
@@ -361,10 +371,12 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                           color: AppColors.card,
                           size: 60,
                         ),
-                        const SizedBox(height: 16), // Espaçamento entre ícone e texto
+                        const SizedBox(
+                            height: 16), // Espaçamento entre ícone e texto
                         Text(
                           AppLocalizations.of(context)!.addNewTransactions,
-                          style: TextStyle(color: AppColors.label, fontSize: 16),
+                          style:
+                              TextStyle(color: AppColors.label, fontSize: 16),
                           textAlign: TextAlign.center,
                         ),
                       ],
