@@ -1,3 +1,4 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -65,55 +66,21 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   void initState() {
     super.initState();
     loadCards();
-    _initInAppPurchase();
+    // _initInAppPurchase();
+    _checkUserProStatus();
   }
 
-  // Inicializa o InAppPurchase e configura o listener
-  void _initInAppPurchase() {
-    _inAppPurchase = InAppPurchase.instance;
-    _subscription = _inAppPurchase.purchaseStream;
-    _subscription.listen(_listenToPurchaseUpdated, onDone: () {
-      _subscription.drain();
-    }, onError: (error) {
-      // Trate erros aqui, se necessário
+  Future<void> _checkUserProStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool isYearlyPro = prefs.getBool('yearly.pro') ?? false;
+    bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
+    setState(() {
+      _isPro = isYearlyPro || isMonthlyPro;
     });
-    _verifyPastPurchases();
-  }
-
-  Future<void> _verifyPastPurchases() async {
-    // Chama o método restorePurchases para restaurar compras anteriores
-    await InAppPurchase.instance.restorePurchases();
-
-    // Aguarda as compras restauradas para atualizar o estado
-    // As compras restauradas serão recebidas no listener _listenToPurchaseUpdated
-  }
-
-  void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
-    bool isProUpdated = false;
-
-    for (var purchaseDetails in purchaseDetailsList) {
-      if (purchaseDetails.status == PurchaseStatus.purchased ||
-          purchaseDetails.status == PurchaseStatus.restored) {
-        _deliverProduct(purchaseDetails);
-        isProUpdated = true;
-      } else if (purchaseDetails.status == PurchaseStatus.error) {
-        // Trate erros de compra aqui, se necessário
-      }
-      if (purchaseDetails.pendingCompletePurchase) {
-        InAppPurchase.instance.completePurchase(purchaseDetails);
-      }
-    }
-
-    if (isProUpdated) {
-      setState(() {
-        _isPro = true; // Atualiza o estado para PRO
-      });
-    }
   }
 
   void _deliverProduct(PurchaseDetails purchase) {
     purchasedProductIds.add(purchase.productID);
-    // Você pode adicionar lógica adicional aqui, se necessário
   }
 
   // MARK: - Load Cards
@@ -172,10 +139,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             children: [
               if (!_isPro) // Se o usuário não é PRO, mostra o banner
                 Container(
-                  height: 60, // Altura do banner
-                  width: 468, // Largura do banner
+                  height: 60,
+                  width: 468,
                   alignment: Alignment.center,
-                  child: BannerAdconstruct(), // Widget do banner
+                  child: BannerAdconstruct(),
                 ),
               if (_showHeaderCard) ...[
                 Padding(
@@ -247,7 +214,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                   key: widget.cardsExpens,
                   child: ListView.builder(
                     itemCount: cardList.length,
-                    itemBuilder: (context, index) {
+                   itemBuilder: (context, index) {
                       return Padding(
                         padding:
                             const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -271,14 +238,13 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(height: 80), // Espaçamento acima do ícone
+                        SizedBox(height: 20),
                         Icon(
                           Icons.inbox,
                           color: AppColors.card,
                           size: 60,
                         ),
-                        const SizedBox(
-                            height: 16), // Espaçamento entre ícone e texto
+                        const SizedBox(height: 16),
                         Text(
                           AppLocalizations.of(context)!.addNewTransactions,
                           style: TextStyle(color: AppColors.label, fontSize: 16),

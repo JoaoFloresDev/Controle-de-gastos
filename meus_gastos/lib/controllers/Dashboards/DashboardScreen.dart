@@ -1,3 +1,4 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/controllers/Transactions/exportExcel/exportExcelScreen.dart';
@@ -16,10 +17,8 @@ import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 
 // Imports de controllers
-import 'package:meus_gastos/controllers/Dashboards/bar_chartWeek/BarChartDaysofWeek.dart';
-import 'package:meus_gastos/controllers/Dashboards/extractByCategory.dart';
-import 'package:meus_gastos/controllers/Dashboards/bar_chartWeek/BarChartWeek.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 
 // Imports de widgets
 import 'package:meus_gastos/controllers/Dashboards/DashboardCard.dart';
@@ -37,55 +36,12 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
+
   //mark - propriedades
   List<ProgressIndicatorModel> progressIndicators = [];
   List<PieChartDataItem> pieChartDataItems = [];
   List<double> totalOfMonths = [];
-  Map<int, Map<String, Map<String, dynamic>>> totalExpansivesMonths_category =
-      {};
-  List<WeekInterval> Last5WeeksIntervals = [];
-  List<List<ProgressIndicatorModel>> Last5WeeksProgressIndicators = [];
-  List<List<List<ProgressIndicatorModel>>> weeklyData = [];
-  List<ProgressIndicatorModel> progressIndicators2 = [
-    ProgressIndicatorModel(
-      title: "Alimentação",
-      progress: 400,
-      category: CategoryModel(
-        id: "1",
-        name: "Alimentação",
-        color: const Color.fromARGB(255, 41, 40, 40), // Cor para a categoria
-        icon: CupertinoIcons.cart, // Ícone fictício
-        frequency: 5, // Frequência de ocorrência
-      ),
-      color: Color.fromARGB(255, 41, 40, 40), // Cor do indicador
-    ),
-    ProgressIndicatorModel(
-      title: "Transporte",
-      progress: 200,
-      category: CategoryModel(
-        id: "2",
-        name: "Transporte",
-        color: Color.fromARGB(255, 41, 40, 40), // Cor para a categoria
-        icon: CupertinoIcons.car, // Ícone fictício
-        frequency: 3, // Frequência de ocorrência
-      ),
-      color: Color.fromARGB(255, 41, 40, 40), // Cor do indicador
-    ),
-    ProgressIndicatorModel(
-      title: "Lazer",
-      progress: 300,
-      category: CategoryModel(
-        id: "3",
-        name: "Lazer",
-        color: Color.fromARGB(255, 41, 40, 40), // Cor para a categoria
-        icon: CupertinoIcons.smiley, // Ícone fictício
-        frequency: 2, // Frequência de ocorrência
-      ),
-      color: Color.fromARGB(255, 41, 40, 40), // Cor do indicador
-    ),
-  ];
-
-  double totalexpens = 0.0;
+  bool _isPro = false; // Indica se o usuário é PRO
   bool isLoading = true;
   DateTime currentDate = DateTime.now();
   double totalGasto = 0.0;
@@ -99,20 +55,38 @@ class _DashboardScreenState extends State<DashboardScreen>
   @override
   void initState() {
     super.initState();
+    _verifyPastPurchases(); // Verifica se o usuário é PRO
     _onScreenDisplayed();
+    _checkUserProStatus();
   }
 
-  //mark - métodos privados
+  Future<void> _checkUserProStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool isYearlyPro = prefs.getBool('yearly.pro') ?? false;
+    bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
+    setState(() {
+      _isPro = isYearlyPro || isMonthlyPro;
+    });
+  }
+
+  // Método para verificar compras passadas e definir o estado PRO
+  Future<void> _verifyPastPurchases() async {
+    // Restaura as compras, mas não retorna uma lista diretamente
+    await InAppPurchase.instance.restorePurchases();
+  
+    // O estado de restauração será escutado no listener _listenToPurchaseUpdated
+  }
+
+  // Método para carregar os dados na inicialização
   Future<void> _onScreenDisplayed() async {
     if (widget.isActive) {
       await _loadInitialData();
     }
-    totalexpens = await CardService.getTotalExpenses(currentDate);
+    totalGasto = await CardService.getTotalExpenses(currentDate);
   }
 
   Future<void> _loadInitialData() async {
     await _loadProgressIndicators(currentDate);
-    await _loadProgressMonthsInYear(currentDate);
   }
 
   void _changeMonth(int delta) {
@@ -128,34 +102,16 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
   }
 
-  Future<void> _loadProgressMonthsInYear(DateTime currentDate) async {
-    totalOfMonths = await CardService.getTotalExpensesByMonth(currentDate);
-    totalExpansivesMonths_category =
-        await CardService.getMonthlyExpensesByCategoryForYear(currentDate.year);
-  }
-
   Future<void> _loadProgressIndicators(DateTime currentDate) async {
     if (!mounted) return;
     setState(() {
       isLoading = true;
     });
 
-    progressIndicators =
-        await CardService.getProgressIndicatorsByMonth(currentDate);
-    pieChartDataItems = progressIndicators
-        .map((indicator) => indicator.toPieChartDataItem())
-        .toList();
+    progressIndicators = await CardService.getProgressIndicatorsByMonth(currentDate);
+    pieChartDataItems = progressIndicators.map((indicator) => indicator.toPieChartDataItem()).toList();
 
-    totalGasto = progressIndicators.fold(
-        0.0, (sum, indicator) => sum + indicator.progress);
-
-    totalOfMonths = await CardService.getTotalExpensesByMonth(currentDate);
-
-    Last5WeeksIntervals = Dashbordservice.getLast5WeeksIntervals(currentDate);
-    Last5WeeksProgressIndicators =
-        await Dashbordservice.getLast5WeeksProgressIndicators(currentDate);
-    weeklyData = await Dashbordservice.getProgressIndicatorsOfDaysForLast5Weeks(
-        currentDate);
+    totalGasto = progressIndicators.fold(0.0, (sum, indicator) => sum + indicator.progress);
 
     setState(() {
       isLoading = false;
@@ -163,6 +119,9 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget _buildBannerAd() {
+    if (_isPro) {
+      return const SizedBox.shrink(); // Se for PRO, não exibe o banner
+    }
     return Container(
       height: 60,
       width: 468,
@@ -179,25 +138,12 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   double _calculatePageHeight() {
-    // Defina um valor base para o cálculo da altura
     double baseHeight = 300;
-
-    // Calcule o incremento na altura com base no número de itens
-    double additionalHeight =
-        (pieChartDataItems.length.toDouble() / 2 * 40).clamp(40, 120);
-
-    // Defina um valor mínimo e máximo para a altura
+    double additionalHeight = (pieChartDataItems.length.toDouble() / 2 * 40).clamp(40, 120);
     double minHeight = 400;
-
-    // Calcule a altura total
     double pageHeight = baseHeight + additionalHeight;
 
-    // Assegure-se de que a altura esteja dentro dos limites mínimos e máximos
-    if (pageHeight < minHeight) {
-      pageHeight = minHeight;
-    }
-
-    return pageHeight;
+    return pageHeight < minHeight ? minHeight : pageHeight;
   }
 
   Widget _buildTotalSpentText(BuildContext context) {
@@ -222,53 +168,17 @@ class _DashboardScreenState extends State<DashboardScreen>
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: DashboardCard(
-              items: pieChartDataItems,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: WeeklyStackedBarChart(
-              weekIntervals: Last5WeeksIntervals,
-              weeklyData: Last5WeeksProgressIndicators,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: DailyStackedBarChart(
-              last5weewdailyData: weeklyData,
-              last5WeeksIntervals: Last5WeeksIntervals,
-            ),
+            child: DashboardCard(items: pieChartDataItems),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildPageIndicators() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List<Widget>.generate(3, (index) {
-        return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 4.0),
-          width: 12.0,
-          height: 12.0,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: _currentIndex == index
-                ? AppColors.buttonSelected
-                : AppColors.buttonDeselected,
-          ),
-        );
-      }),
-    );
-  }
-
   Widget _buildProgressIndicators(BuildContext context) {
     if (progressIndicators.isEmpty) {
       return Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.center, // Centraliza os itens horizontalmente
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             AppLocalizations.of(context)!.topExpensesOfTheMonth,
@@ -277,18 +187,9 @@ class _DashboardScreenState extends State<DashboardScreen>
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
-            textAlign: TextAlign.center, // Centraliza o texto dentro do widget
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
-          Text(
-            AppLocalizations.of(context)!.categoryExpensesDescription,
-            style: const TextStyle(
-              color: AppColors.label,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center, // Centraliza o texto dentro do widget
-          ),
           const SizedBox(height: 30),
         ],
       );
@@ -306,34 +207,14 @@ class _DashboardScreenState extends State<DashboardScreen>
         ),
         for (var progressIndicator in progressIndicators)
           GestureDetector(
-            onTap: () => _showExpenseDetails(context, progressIndicator),
+            onTap: () {},
             child: LinearProgressIndicatorSection(
               model: progressIndicator,
               totalAmount: progressIndicators.fold(
-                  0,
-                  (maxValue, item) =>
-                      maxValue > item.progress ? maxValue : item.progress),
+                  0, (maxValue, item) => maxValue > item.progress ? maxValue : item.progress),
             ),
           ),
       ],
-    );
-  }
-
-  void _showExpenseDetails(BuildContext context, ProgressIndicatorModel model) {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: SizeOf(context).modal.mediumModal(),
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: Extractbycategory(category: model.category.name),
-        );
-      },
     );
   }
 
@@ -373,7 +254,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           },
           child: const Icon(
             CupertinoIcons.share,
-            size: 24.0, // Ajuste o tamanho conforme necessário
+            size: 24.0,
           ),
         ),
       ),
@@ -384,7 +265,7 @@ class _DashboardScreenState extends State<DashboardScreen>
               )
             : Column(
                 children: [
-                  _buildBannerAd(),
+                  _buildBannerAd(), // Mostra ou esconde a propaganda com base no estado _isPro
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
@@ -394,8 +275,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                           const SizedBox(height: 18),
                           _buildTotalSpentText(context),
                           _buildPageView(),
-                          const SizedBox(height: 12),
-                          _buildPageIndicators(),
                           const SizedBox(height: 12),
                           if (isLoading)
                             _buildLoadingIndicator()

@@ -1,3 +1,4 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -25,7 +26,9 @@ class _ProModalState extends State<ProModal> {
   final String yearlyProId = 'yearly.pro';
   final String monthlyProId = 'monthly.pro';
 
-  // Conjunto para armazenar os IDs dos produtos comprados
+  bool isYearlyPro = false;
+  bool isMonthlyPro = false;
+
   Set<String> purchasedProductIds = {};
 
   late InAppPurchase _inAppPurchase;
@@ -43,11 +46,18 @@ class _ProModalState extends State<ProModal> {
     });
 
     _fetchProductDetails();
-
-    // Chamar restorePurchases ao iniciar para verificar compras existentes
     _restorePurchases();
+    updateProStatus();
   }
 
+  Future<void> updateProStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isYearlyPro = prefs.getBool('yearly.pro') ?? false;
+      isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
+    });
+  }
+  
   void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
     bool isPurchaseUpdated = false;
 
@@ -56,6 +66,12 @@ class _ProModalState extends State<ProModal> {
           purchaseDetails.status == PurchaseStatus.restored) {
         _deliverProduct(purchaseDetails);
         isPurchaseUpdated = true;
+        if (purchaseDetails.productID == yearlyProId) {
+          saveIsPremiumyearly();
+        }
+        if (purchaseDetails.productID == monthlyProId) {
+          saveIsPremiummonthly();
+        }
       } else if (purchaseDetails.status == PurchaseStatus.error) {
         // Trate erros de compra aqui, se necessário
       }
@@ -65,15 +81,30 @@ class _ProModalState extends State<ProModal> {
     }
 
     if (isPurchaseUpdated) {
-      widget.onSubscriptionPurchased(); // Notifica o widget pai
+      widget.onSubscriptionPurchased();
     }
+  }
+
+  Future<void> saveIsPremiummonthly() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('monthly.pro', true);
+    setState(() {
+      isMonthlyPro = true;
+    });
+  }
+
+  Future<void> saveIsPremiumyearly() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('yearly.pro', true);
+    setState(() {
+      isYearlyPro = true;
+    });
   }
 
   void _deliverProduct(PurchaseDetails purchase) {
     setState(() {
-      purchasedProductIds.add(purchase.productID); // Adiciona o produto comprado ao conjunto
+      purchasedProductIds.add(purchase.productID); 
     });
-    // Não é necessário chamar onSubscriptionPurchased aqui novamente
   }
 
   Future<void> _fetchProductDetails() async {
@@ -115,7 +146,6 @@ class _ProModalState extends State<ProModal> {
 
   Future<void> _restorePurchases() async {
     await InAppPurchase.instance.restorePurchases();
-    // As compras restauradas serão entregues via _listenToPurchaseUpdated
   }
 
   @override
@@ -181,7 +211,7 @@ class _ProModalState extends State<ProModal> {
                     price: monthlyProductDetails != null
                         ? formatPrice(monthlyProductDetails!.rawPrice,
                             monthlyProductDetails!.currencySymbol)
-                        : 'Indisponível',
+                        : 'Carregando...',
                     onPressed: () =>
                         _buySubscription(monthlyProductDetails?.id ?? ''),
                     productId: monthlyProductDetails?.id ?? '',
@@ -192,7 +222,7 @@ class _ProModalState extends State<ProModal> {
                     price: yearlyProductDetails != null
                         ? formatPrice(yearlyProductDetails!.rawPrice,
                             yearlyProductDetails!.currencySymbol)
-                        : 'Indisponível',
+                        : 'Carregando...',
                     onPressed: () =>
                         _buySubscription(yearlyProductDetails?.id ?? ''),
                     productId: yearlyProductDetails?.id ?? '',
@@ -234,26 +264,25 @@ class _ProModalState extends State<ProModal> {
     required VoidCallback onPressed,
     required String productId,
   }) {
-    // Verifica se o produto foi comprado
-    bool isPurchased = purchasedProductIds.contains(productId);
+    bool isPurchased = (productId == yearlyProId && isYearlyPro) ||
+        (productId == monthlyProId && isMonthlyPro);
 
     return SizedBox(
       width: double.infinity,
       height: 50,
       child: ElevatedButton(
-        onPressed:
-            isPurchased ? null : onPressed, // Desabilita o botão se comprado
+        onPressed: isPurchased ? voidFunc : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: isPurchased
-              ? Colors.green
-              : AppColors.button, // Muda a cor do botão se comprado
+              ? const Color.fromARGB(255, 6, 185, 0)
+              : AppColors.button,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
         child: Text(
-          isPurchased ? "Comprado" : "$label - $price",
+          isPurchased ? "$label ✓✓" : "$label - $price",
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -263,6 +292,8 @@ class _ProModalState extends State<ProModal> {
       ),
     );
   }
+
+  void voidFunc() {}
 
   Widget _buildFeatureRow({required IconData icon, required String label}) {
     return Padding(
