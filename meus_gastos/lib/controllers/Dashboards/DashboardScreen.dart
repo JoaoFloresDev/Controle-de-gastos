@@ -1,4 +1,3 @@
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/controllers/Transactions/exportExcel/exportExcelScreen.dart';
@@ -36,7 +35,6 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
-
   //mark - propriedades
   List<ProgressIndicatorModel> progressIndicators = [];
   List<PieChartDataItem> pieChartDataItems = [];
@@ -57,16 +55,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     super.initState();
     _verifyPastPurchases(); // Verifica se o usuário é PRO
     _onScreenDisplayed();
-    _checkUserProStatus();
-  }
-
-  Future<void> _checkUserProStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    bool isYearlyPro = prefs.getBool('yearly.pro') ?? false;
-    bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
-    setState(() {
-      _isPro = isYearlyPro || isMonthlyPro;
-    });
   }
 
   // Método para verificar compras passadas e definir o estado PRO
