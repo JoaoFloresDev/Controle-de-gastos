@@ -1,7 +1,11 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:meus_gastos/comprarPro/Buyscreen.dart';
+import 'package:meus_gastos/controllers/Transactions/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/gastos_fixos/criar_gastosFixos.dart';
 import 'ViewComponents/HeaderCard.dart';
 import 'ViewComponents/ListCard.dart';
 import '../../../models/CardModel.dart';
@@ -15,6 +19,10 @@ import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import '../../../controllers/Transactions/Purchase/ProModal.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
+// import 'package:meus_gastos/widgets/Transactions/CategoryCreater/CategoryCreater.dart';
+// import 'package:meus_gastos/widgets/ads_review/constructReview.dart';
+// import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
+// import 'package:meus_gastos/widgets/Transactions/exportExcel/exportExcelScreen.dart';
 
 class InsertTransactions extends StatefulWidget {
   const InsertTransactions({
@@ -47,6 +55,8 @@ class InsertTransactions extends StatefulWidget {
 class _InsertTransactionsState extends State<InsertTransactions> {
   List<CardModel> cardList = [];
   final GlobalKey<HeaderCardState> _headerCardKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   bool _showHeaderCard = true;
 
   // Variáveis para In-App Purchase
@@ -114,7 +124,14 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: CupertinoNavigationBar(
+          leading: GestureDetector(
+            onTap: () {
+              _scaffoldKey.currentState?.openDrawer(); // Abre o menu lateral
+            },
+            child: Icon(CupertinoIcons.bars, size: 24),
+          ),
           middle: Text(
             widget.title,
             style: const TextStyle(color: AppColors.label, fontSize: 16),
@@ -131,6 +148,63 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
+          ),
+        ),
+        drawer: Drawer(
+          backgroundColor: AppColors.background1,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: AppColors.background1,
+                ),
+                child: Text(
+                  'Menu',
+                  style: TextStyle(
+                    color: AppColors.label,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text(
+                  'Início',
+                  style: TextStyle(color: AppColors.label),
+                ),
+                onTap: () {
+                  Navigator.pop(context); // Fecha o menu
+                  // não vai a lugar nenhum pois já está no inicio
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.insert_invitation_rounded),
+                title: Text(
+                  'Adicionar Gastos Fixos',
+                  style: TextStyle(color: AppColors.label),
+                ),
+                onTap: () {
+                  Navigator.pop(context); // Fecha o menu
+                  print("Entrou");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CriarGastosFixos()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.payment_rounded),
+                title: Text(
+                  'Retirar os anuncios',
+                  style: TextStyle(color: AppColors.label),
+                ),
+                onTap: () {
+                  Navigator.pop(context); // Fecha o menu
+                  _showProModal(context); // Chamando o modal de assinatura
+                },
+              ),
+            ],
           ),
         ),
         body: GestureDetector(
@@ -247,7 +321,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                         const SizedBox(height: 16),
                         Text(
                           AppLocalizations.of(context)!.addNewTransactions,
-                          style: TextStyle(color: AppColors.label, fontSize: 16),
+                          style:
+                              TextStyle(color: AppColors.label, fontSize: 16),
                           textAlign: TextAlign.center,
                         ),
                       ],
