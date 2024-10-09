@@ -60,5 +60,13 @@
     "pieGraphPlaceholder": "Vea el porcentaje de gastos por categoría",
   "weaklyGraphPlaceholder": "Vea sus gastos semanales por categoría",
   "dailyGraphPlaceholder": "Vea sus gastos diarios por categoría",
-  "categoryExpensesDescription": "Aquí se enumerarán sus gastos por categoría, \nclasificados del mayor al menor"
+  "categoryExpensesDescription": "Aquí se enumerarán sus gastos por categoría, \nclasificados del mayor al menor",
+    "premiumVersion": "Versión Premium",
+  "enjoyExclusiveFeatures": "Disfruta de todas las funciones exclusivas:",
+  "exportToExcelOrPdf": "Exportar a Excel o PDF",
+  "removeAds": "Eliminación completa de anuncios",
+  "monthlySubscription": "Suscripción mensual",
+  "yearlySubscription": "Suscripción anual",
+  "restorePurchases": "Restaurar compras",
+  "loading": "Cargando..."
 }

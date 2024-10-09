@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProModal extends StatefulWidget {
   final bool isLoading;
@@ -57,7 +58,7 @@ class _ProModalState extends State<ProModal> {
       isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
     });
   }
-  
+
   void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
     bool isPurchaseUpdated = false;
 
@@ -103,7 +104,7 @@ class _ProModalState extends State<ProModal> {
 
   void _deliverProduct(PurchaseDetails purchase) {
     setState(() {
-      purchasedProductIds.add(purchase.productID); 
+      purchasedProductIds.add(purchase.productID);
     });
   }
 
@@ -178,18 +179,18 @@ class _ProModalState extends State<ProModal> {
                 color: Colors.amber,
                 size: 80,
               ),
-              const Text(
-                "Versão Premium",
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context)!.premiumVersion,
+                style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: AppColors.label,
                 ),
               ),
-              const Text(
-                "Desfrute de todos os recursos exclusivos:",
+              Text(
+                AppLocalizations.of(context)!.enjoyExclusiveFeatures,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   color: AppColors.labelSecondary,
                 ),
@@ -197,32 +198,32 @@ class _ProModalState extends State<ProModal> {
               const SizedBox(height: 30),
               _buildFeatureRow(
                 icon: Icons.file_present_rounded,
-                label: "Exportação para excel ou pdf",
+                label: AppLocalizations.of(context)!.exportToExcelOrPdf,
               ),
               _buildFeatureRow(
                 icon: Icons.block,
-                label: "Remoção completa de anúncios",
+                label: AppLocalizations.of(context)!.removeAds,
               ),
               const SizedBox(height: 40),
               Column(
                 children: [
                   _buildSubscriptionButton(
-                    label: "Assinatura mensal",
+                    label: AppLocalizations.of(context)!.monthlySubscription,
                     price: monthlyProductDetails != null
                         ? formatPrice(monthlyProductDetails!.rawPrice,
                             monthlyProductDetails!.currencySymbol)
-                        : 'Carregando...',
+                        : AppLocalizations.of(context)!.loading,
                     onPressed: () =>
                         _buySubscription(monthlyProductDetails?.id ?? ''),
                     productId: monthlyProductDetails?.id ?? '',
                   ),
                   const SizedBox(height: 22),
                   _buildSubscriptionButton(
-                    label: "Assinatura anual",
+                    label: AppLocalizations.of(context)!.yearlySubscription,
                     price: yearlyProductDetails != null
                         ? formatPrice(yearlyProductDetails!.rawPrice,
                             yearlyProductDetails!.currencySymbol)
-                        : 'Carregando...',
+                        : AppLocalizations.of(context)!.loading,
                     onPressed: () =>
                         _buySubscription(yearlyProductDetails?.id ?? ''),
                     productId: yearlyProductDetails?.id ?? '',
@@ -230,9 +231,9 @@ class _ProModalState extends State<ProModal> {
                   const SizedBox(height: 15),
                   TextButton(
                     onPressed: _restorePurchases,
-                    child: const Text(
-                      "Restaurar Compras",
-                      style: TextStyle(
+                    child: Text(
+                      AppLocalizations.of(context)!.restorePurchases,
+                      style: const TextStyle(
                         color: AppColors.label,
                         fontSize: 16,
                       ),
@@ -295,29 +296,31 @@ class _ProModalState extends State<ProModal> {
 
   void voidFunc() {}
 
-  Widget _buildFeatureRow({required IconData icon, required String label}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const SizedBox(width: 8),
-          Icon(
-            icon,
-            color: AppColors.button,
-            size: 30,
+Widget _buildFeatureRow({required IconData icon, required String label}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 8),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SizedBox(width: 8),
+        Icon(
+          icon,
+          color: AppColors.button,
+          size: 30,
+        ),
+        const SizedBox(width: 8),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: AppColors.label,
           ),
-          const SizedBox(width: 8),
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: AppColors.label,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
+
 }
