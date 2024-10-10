@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -211,7 +212,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Column(
             children: [
-              if (!_isPro) // Se o usuário não é PRO, mostra o banner
+              if (!_isPro && !Platform.isMacOS) // Se o usuário não é PRO, mostra o banner
                 Container(
                   height: 60,
                   width: 468,
