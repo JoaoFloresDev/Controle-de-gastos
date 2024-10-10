@@ -371,15 +371,6 @@ class _DashboardScreenState extends State<DashboardScreen>
           style: const TextStyle(color: AppColors.label, fontSize: 16),
         ),
         backgroundColor: AppColors.background1,
-              leading: GestureDetector(
-        onTap: () {
-          _showMenuOptions(context);
-        },
-        child: const Icon(
-          CupertinoIcons.question_circle,
-          size: 24.0,
-        ),
-      ),
         trailing: GestureDetector(
           onTap: () {
             showCupertinoModalPopup(
@@ -449,14 +440,14 @@ class _DashboardScreenState extends State<DashboardScreen>
               Navigator.of(context).pop();
               _launchURL('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
             },
-            child: const Text('Termos de uso'),
+            child: const Text('Terms of Use'),
           ),
           CupertinoActionSheetAction(
             onPressed: () {
               Navigator.of(context).pop();
               _launchURL('https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing');
             },
-            child: const Text('Política de privacidade'),
+            child: const Text('Privacy Policy'),
           ),
         ],
         cancelButton: CupertinoActionSheetAction(
