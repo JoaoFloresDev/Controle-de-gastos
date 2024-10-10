@@ -1,3 +1,4 @@
+import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
 import 'package:meus_gastos/models/CategoryModel.dart';
@@ -370,6 +371,15 @@ class _DashboardScreenState extends State<DashboardScreen>
           style: const TextStyle(color: AppColors.label, fontSize: 16),
         ),
         backgroundColor: AppColors.background1,
+              leading: GestureDetector(
+        onTap: () {
+          _showMenuOptions(context);
+        },
+        child: const Icon(
+          CupertinoIcons.question_circle,
+          size: 24.0,
+        ),
+      ),
         trailing: GestureDetector(
           onTap: () {
             showCupertinoModalPopup(
@@ -427,4 +437,44 @@ class _DashboardScreenState extends State<DashboardScreen>
       ),
     );
   }
+
+  void _showMenuOptions(BuildContext context) {
+  showCupertinoModalPopup(
+    context: context,
+    builder: (BuildContext context) {
+      return CupertinoActionSheet(
+        actions: <Widget>[
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _launchURL('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
+            },
+            child: const Text('Termos de uso'),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _launchURL('https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing');
+            },
+            child: const Text('Política de privacidade'),
+          ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('Cancel'),
+        ),
+      );
+    },
+  );
+}
+
+void _launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 }

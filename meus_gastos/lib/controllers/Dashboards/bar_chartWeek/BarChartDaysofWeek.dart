@@ -100,74 +100,78 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
     );
   }
 
-  Widget _buildEmptyState(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Card(
-          color: AppColors.card,
-          elevation: 4,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-          child: SizedBox(
-            height: 300, // Altura suficiente para gráfico e legendas
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  height: 200,
-                  child: SfCartesianChart(
-                    primaryXAxis: CategoryAxis(
-                      majorGridLines: MajorGridLines(width: 0),
-                    ),
-                    primaryYAxis: NumericAxis(
-                      isVisible: false,
-                      maximum: 100,
-                      majorGridLines: MajorGridLines(
-                        width: 0.5,
-                        color: Colors.grey[600]!,
-                      ),
-                    ),
-                    series: <ChartSeries>[
-                      StackedColumnSeries<Map<String, dynamic>, String>(
-                        dataSource: _buildPlaceholderData(),
-                        xValueMapper: (data, _) => data['week'],
-                        yValueMapper: (data, _) => data['progress'],
-                        pointColorMapper: (_, __) => Colors.grey[500],
-                        width: 0.5,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ],
+Widget _buildEmptyState(BuildContext context) {
+  return Stack(
+    alignment: Alignment.center,
+    children: [
+      Card(
+        color: AppColors.card,
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: SizedBox(
+          height: 300, // Altura suficiente para gráfico e legendas
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: double.infinity,
+                height: 200,
+                child: SfCartesianChart(
+                  primaryXAxis: CategoryAxis(
+                    majorGridLines: MajorGridLines(width: 0),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Wrap(
-                    spacing: 8,
-                    runSpacing: 4,
-                    alignment: WrapAlignment.center,
-                    children: _buildExampleLegend(),
+                  primaryYAxis: NumericAxis(
+                    isVisible: false,
+                    maximum: 100,
+                    majorGridLines: MajorGridLines(
+                      width: 0.5,
+                      color: const Color.fromARGB(255, 63, 63, 63)!,
+                    ),
                   ),
+                  series: <ChartSeries>[
+                    StackedColumnSeries<Map<String, dynamic>, String>(
+                      dataSource: _buildPlaceholderData(),
+                      xValueMapper: (data, _) => data['week'],
+                      yValueMapper: (data, _) => data['progress'],
+                      pointColorMapper: (_, __) =>
+                          const Color.fromARGB(255, 64, 64, 64),
+                      width: 0.5,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Wrap(
+                  spacing: 8,
+                  runSpacing: 4,
+                  alignment: WrapAlignment.center,
+                  children: _buildExampleLegend(),
+                ),
+              ),
+            ],
           ),
         ),
-        ClipRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-            child: Container(
-              width: double.infinity,
-              height: 300,
-              color: Colors.black.withOpacity(0),
-            ),
+      ),
+      ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+          child: Container(
+            width: double.infinity,
+            height: 300,
+            color: Colors.black.withOpacity(0),
           ),
         ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
+      ),
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0), // Adicionando padding horizontal
+            child: Text(
               AppLocalizations.of(context)!.addNewTransactions,
               style: TextStyle(
                 color: AppColors.label,
@@ -176,8 +180,11 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
-            Text(
+          ),
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0), // Adicionando padding horizontal
+            child: Text(
               AppLocalizations.of(context)!.dailyGraphPlaceholder,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -186,11 +193,13 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
               ),
               textAlign: TextAlign.center,
             ),
-          ],
-        ),
-      ],
-    );
-  }
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
 
   List<Map<String, dynamic>> _buildPlaceholderData() {
     return [

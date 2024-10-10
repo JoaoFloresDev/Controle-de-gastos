@@ -57,7 +57,7 @@ class DashboardCard extends StatelessWidget {
                                   titleStyle: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                      color: Color.fromARGB(255, 58, 58, 58)),
                                   titlePositionPercentageOffset: 1.8,
                                 ),
                                 PieChartSectionData(
@@ -68,7 +68,7 @@ class DashboardCard extends StatelessWidget {
                                   titleStyle: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                      color: Color.fromARGB(255, 58, 58, 58)),
                                   titlePositionPercentageOffset: 1.8,
                                 ),
                                 PieChartSectionData(
@@ -79,7 +79,7 @@ class DashboardCard extends StatelessWidget {
                                   titleStyle: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                      color: Color.fromARGB(255, 58, 58, 58)),
                                   titlePositionPercentageOffset: 1.8,
                                 ),
                                 PieChartSectionData(
@@ -90,7 +90,7 @@ class DashboardCard extends StatelessWidget {
                                   titleStyle: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                      color: Color.fromARGB(255, 58, 58, 58)),
                                   titlePositionPercentageOffset: 1.8,
                                 ),
                               ],

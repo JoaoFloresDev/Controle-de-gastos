@@ -29,8 +29,10 @@ class _ProModalState extends State<ProModal> {
 
   bool isYearlyPro = false;
   bool isMonthlyPro = false;
+  bool isLoadingPrice = true;
 
   Set<String> purchasedProductIds = {};
+  Set<String> loadingPurchases = {};
 
   late InAppPurchase _inAppPurchase;
   late Stream<List<PurchaseDetails>> _subscription;
@@ -84,6 +86,9 @@ class _ProModalState extends State<ProModal> {
     if (isPurchaseUpdated) {
       widget.onSubscriptionPurchased();
     }
+    setState(() {
+      loadingPurchases.clear();
+    });
   }
 
   Future<void> saveIsPremiummonthly() async {
@@ -109,18 +114,33 @@ class _ProModalState extends State<ProModal> {
   }
 
   Future<void> _fetchProductDetails() async {
+    setState(() {
+      isLoadingPrice = true;
+    });
+
     final bool available = await InAppPurchase.instance.isAvailable();
-    if (!available) return;
+    if (!available) {
+      setState(() {
+        isLoadingPrice = false;
+      });
+      return;
+    }
 
     final ProductDetailsResponse response = await InAppPurchase.instance
         .queryProductDetails({yearlyProId, monthlyProId});
-    if (response.error != null || response.productDetails.isEmpty) return;
+    if (response.error != null || response.productDetails.isEmpty) {
+      setState(() {
+        isLoadingPrice = false;
+      });
+      return;
+    }
 
     setState(() {
       yearlyProductDetails = response.productDetails
           .firstWhere((product) => product.id == yearlyProId);
       monthlyProductDetails = response.productDetails
           .firstWhere((product) => product.id == monthlyProId);
+      isLoadingPrice = false;
     });
   }
 
@@ -133,8 +153,17 @@ class _ProModalState extends State<ProModal> {
   }
 
   Future<void> _buySubscription(String productId) async {
+    setState(() {
+      loadingPurchases.add(productId);
+    });
+
     final bool available = await InAppPurchase.instance.isAvailable();
-    if (!available) return;
+    if (!available) {
+      setState(() {
+        loadingPurchases.remove(productId);
+      });
+      return;
+    }
 
     final ProductDetailsResponse response =
         await InAppPurchase.instance.queryProductDetails({productId});
@@ -142,6 +171,10 @@ class _ProModalState extends State<ProModal> {
       final productDetails = response.productDetails.first;
       final purchaseParam = PurchaseParam(productDetails: productDetails);
       InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
+    } else {
+      setState(() {
+        loadingPurchases.remove(productId);
+      });
     }
   }
 
@@ -187,6 +220,7 @@ class _ProModalState extends State<ProModal> {
                   color: AppColors.label,
                 ),
               ),
+              const SizedBox(height: 15),
               Text(
                 AppLocalizations.of(context)!.enjoyExclusiveFeatures,
                 textAlign: TextAlign.center,
@@ -268,6 +302,8 @@ class _ProModalState extends State<ProModal> {
     bool isPurchased = (productId == yearlyProId && isYearlyPro) ||
         (productId == monthlyProId && isMonthlyPro);
 
+    bool isLoading = isLoadingPrice || loadingPurchases.contains(productId);
+
     return SizedBox(
       width: double.infinity,
       height: 50,
@@ -275,52 +311,60 @@ class _ProModalState extends State<ProModal> {
         onPressed: isPurchased ? voidFunc : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: isPurchased
-              ? const Color.fromARGB(255, 6, 185, 0)
+              ? const Color.fromARGB(255, 5, 162, 0)
               : AppColors.button,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        child: Text(
-          isPurchased ? "$label ✓✓" : "$label - $price",
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        child: isLoading
+            ? const SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              )
+            : Text(
+                isPurchased ? "$label ✓✓" : "$label - $price",
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
       ),
     );
   }
 
   void voidFunc() {}
 
-Widget _buildFeatureRow({required IconData icon, required String label}) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const SizedBox(width: 8),
-        Icon(
-          icon,
-          color: AppColors.button,
-          size: 30,
-        ),
-        const SizedBox(width: 8),
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: AppColors.label,
+  Widget _buildFeatureRow({required IconData icon, required String label}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(width: 8),
+          Icon(
+            icon,
+            color: AppColors.button,
+            size: 30,
           ),
-        ),
-      ],
-    ),
-  );
-}
-
+          const SizedBox(width: 8),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: AppColors.label,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

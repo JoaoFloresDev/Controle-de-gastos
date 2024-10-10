@@ -126,12 +126,12 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: CupertinoNavigationBar(
-          leading: GestureDetector(
-            onTap: () {
-              _scaffoldKey.currentState?.openDrawer(); // Abre o menu lateral
-            },
-            child: Icon(CupertinoIcons.bars, size: 24),
-          ),
+          // leading: GestureDetector(
+          //   onTap: () {
+          //     _scaffoldKey.currentState?.openDrawer(); // Abre o menu lateral
+          //   },
+          //   child: Icon(CupertinoIcons.bars, size: 24),
+          // ),
           middle: Text(
             widget.title,
             style: const TextStyle(color: AppColors.label, fontSize: 16),
