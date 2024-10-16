@@ -58,6 +58,8 @@ class Translateservice {
         return AppLocalizations.of(context)!.videoGame;
       case 'Drink':
         return AppLocalizations.of(context)!.drink;
+      case 'Repeat':
+        return AppLocalizations.of(context)!.repeat;
       default:
         return category.name; // Retorna o valor original se não houver tradução
     }

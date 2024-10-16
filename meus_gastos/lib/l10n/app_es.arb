@@ -60,5 +60,6 @@
     "pieGraphPlaceholder": "Vea el porcentaje de gastos por categoría",
   "weaklyGraphPlaceholder": "Vea sus gastos semanales por categoría",
   "dailyGraphPlaceholder": "Vea sus gastos diarios por categoría",
-  "categoryExpensesDescription": "Aquí se enumerarán sus gastos por categoría, \nclasificados del mayor al menor"
+  "categoryExpensesDescription": "Aquí se enumerarán sus gastos por categoría, \nclasificados del mayor al menor",
+  "repeat" : "Apelante"
 }

@@ -60,5 +60,6 @@
   "pieGraphPlaceholder": "See the percentage of spending by category",
   "weaklyGraphPlaceholder": "See your weekly spending by category",
   "dailyGraphPlaceholder": "See your daily spending by category",
-  "categoryExpensesDescription": "Here your expenses by category will be listed, \nclassified from largest to smallest"
+  "categoryExpensesDescription": "Here your expenses by category will be listed, \nclassified from largest to smallest",
+  "repeat" : "Repeat"
 }

@@ -5,7 +5,10 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/comprarPro/Buyscreen.dart';
 import 'package:meus_gastos/controllers/Transactions/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/gastos_fixos/ListCard.dart';
 import 'package:meus_gastos/gastos_fixos/criar_gastosFixos.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'ViewComponents/HeaderCard.dart';
 import 'ViewComponents/ListCard.dart';
 import '../../../models/CardModel.dart';
@@ -51,6 +54,8 @@ class InsertTransactions extends StatefulWidget {
 
 class _InsertTransactionsState extends State<InsertTransactions> {
   List<CardModel> cardList = [];
+  List<FixedExpense> fixedCards = [];
+  List<CardModel> mergeCardList = [];
   final GlobalKey<HeaderCardState> _headerCardKey = GlobalKey();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -115,8 +120,13 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   // MARK: - Load Cards
   Future<void> loadCards() async {
     var cards = await service.CardService.retrieveCards();
-    setState(() {
+    var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
+    setState(() async {
       cardList = cards;
+      fixedCards = fcard;
+      mergeCardList =
+          await Fixedexpensesservice.MergeFixedWithNormal(fixedCards, cardList);
+      print(mergeCardList.first.amount);
     });
   }
 
@@ -163,9 +173,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {
-        return ProModal(
-          isLoading: _isLoading
-        );
+        return ProModal(isLoading: _isLoading);
       },
     );
   }
@@ -335,27 +343,29 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                   ),
                 ],
               ),
-              if (cardList.isNotEmpty)
+              if (mergeCardList.isNotEmpty)
                 Expanded(
                   key: widget.cardsExpens,
                   child: ListView.builder(
-                    itemCount: cardList.length,
+                    itemCount: mergeCardList.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 5),
                         child: ListCard(
                           onTap: (card) {
+                            if(mergeCardList[cardList.length - index - 1].category.name != 'Recorrente') {
                             widget.onAddClicked();
                             _showCupertinoModalBottomSheet(context, card);
+                            }
                           },
-                          card: cardList[cardList.length - index - 1],
+                          card: mergeCardList[cardList.length - index - 1],
                         ),
                       );
                     },
                   ),
                 ),
-              if (cardList.isEmpty)
+              if (cardList.isEmpty && fixedCards.isEmpty)
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(

@@ -60,5 +60,7 @@
     "pieGraphPlaceholder": "Veja a porcentagem de gastos por categoria",
     "weaklyGraphPlaceholder": "Veja seus gastos semanais por categoria",
     "dailyGraphPlaceholder": "Veja seus gastos diarios por categoria",
-    "categoryExpensesDescription": "Aqui serão listados seus gastos por categoria, \nclassificados do maior para o menor"
+    "categoryExpensesDescription": "Aqui serão listados seus gastos por categoria, \nclassificados do maior para o menor",
+    "repeat" : "Recorrente"
+
 }

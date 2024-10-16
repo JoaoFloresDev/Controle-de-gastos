@@ -100,7 +100,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
                         dataSource: _buildPlaceholderData(),
                         xValueMapper: (data, _) => data['week'],
                         yValueMapper: (data, _) => data['progress'],
-                        pointColorMapper: (_, __) => Colors.grey[500],
+                        pointColorMapper: (data, __) => data['color'],
                         width: 0.5,
                         borderRadius: BorderRadius.circular(4),
                       ),
@@ -160,10 +160,10 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
 
   List<Map<String, dynamic>> _buildPlaceholderData() {
     return [
-      {'week': 'Week 1', 'progress': 40.0},
-      {'week': 'Week 2', 'progress': 60.0},
-      {'week': 'Week 3', 'progress': 30.0},
-      {'week': 'Week 4', 'progress': 50.0},
+      {'week': 'Week 1', 'progress': 40.0, 'color': Colors.grey[400]},
+      {'week': 'Week 2', 'progress': 60.0, 'color': Color.fromARGB(255, 70, 69, 69)},
+      {'week': 'Week 3', 'progress': 30.0, 'color': const Color.fromARGB(255, 245, 245, 245)},
+      {'week': 'Week 4', 'progress': 50.0, 'color': const Color.fromARGB(255, 10, 10, 10)},
     ];
   }
 
