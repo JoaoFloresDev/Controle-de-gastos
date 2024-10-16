@@ -1,16 +1,20 @@
+import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
-import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProModal extends StatefulWidget {
   final bool isLoading;
+  final VoidCallback onSubscriptionPurchased;
 
   const ProModal({
     Key? key,
-    required this.isLoading
+    required this.isLoading,
+    required this.onSubscriptionPurchased,
   }) : super(key: key);
 
   @override
@@ -21,67 +25,123 @@ class _ProModalState extends State<ProModal> {
   ProductDetails? yearlyProductDetails;
   ProductDetails? monthlyProductDetails;
 
-  final String yearlyProId = 'yearly.pro'; // Seu ID de produto para assinatura anual
-  final String monthlyProId = 'monthly.pro'; // Seu ID de produto para assinatura mensal
+  final String yearlyProId = 'yearly.pro';
+  final String monthlyProId = 'monthly.pro';
+
+  bool isYearlyPro = false;
+  bool isMonthlyPro = false;
+  bool isLoadingPrice = true;
+
+  Set<String> purchasedProductIds = {};
+  Set<String> loadingPurchases = {};
+
+  late InAppPurchase _inAppPurchase;
+  late Stream<List<PurchaseDetails>> _subscription;
 
   @override
   void initState() {
     super.initState();
-    InAppPurchase.instance.purchaseStream.listen((purchases) {
-      _handlePurchaseUpdates(purchases);
+    _inAppPurchase = InAppPurchase.instance;
+    _subscription = _inAppPurchase.purchaseStream;
+    _subscription.listen(_listenToPurchaseUpdated, onDone: () {
+      _subscription.drain();
+    }, onError: (error) {
+      // Trate erros aqui, se necessário
     });
 
-    // Verifica e processa compras pendentes
-    _verifyPastPurchases();
-
-    // Carrega os detalhes dos produtos
     _fetchProductDetails();
+    _restorePurchases();
+    updateProStatus();
   }
 
-  Future<void> _verifyPastPurchases() async {
-    // Inicia o processo de restauração de compras
-    InAppPurchase.instance.restorePurchases();
+  Future<void> updateProStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isYearlyPro = prefs.getBool('yearly.pro') ?? false;
+      isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
+    });
   }
 
-  void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
-    for (var purchase in purchases) {
-      switch (purchase.status) {
-        case PurchaseStatus.pending:
-          break;
-        case PurchaseStatus.purchased:
-        print("PurchaseStatus.purchased");
-        break;
-        case PurchaseStatus.restored:
-          print("PurchaseStatus.restored");
-          InAppPurchase.instance.completePurchase(purchase);
-          break;
-        case PurchaseStatus.error:
-          print('Erro na compra: ${purchase.error}');
-          InAppPurchase.instance.completePurchase(purchase);
-          break;
-        default:
-          break;
+  void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
+    bool isPurchaseUpdated = false;
+
+    for (var purchaseDetails in purchaseDetailsList) {
+      if (purchaseDetails.status == PurchaseStatus.purchased ||
+          purchaseDetails.status == PurchaseStatus.restored) {
+        _deliverProduct(purchaseDetails);
+        isPurchaseUpdated = true;
+        if (purchaseDetails.productID == yearlyProId) {
+          saveIsPremiumyearly();
+        }
+        if (purchaseDetails.productID == monthlyProId) {
+          saveIsPremiummonthly();
+        }
+      } else if (purchaseDetails.status == PurchaseStatus.error) {
+        // Trate erros de compra aqui, se necessário
+      }
+      if (purchaseDetails.pendingCompletePurchase) {
+        InAppPurchase.instance.completePurchase(purchaseDetails);
       }
     }
+
+    if (isPurchaseUpdated) {
+      widget.onSubscriptionPurchased();
+    }
+    setState(() {
+      loadingPurchases.clear();
+    });
+  }
+
+  Future<void> saveIsPremiummonthly() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('monthly.pro', true);
+    setState(() {
+      isMonthlyPro = true;
+    });
+  }
+
+  Future<void> saveIsPremiumyearly() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('yearly.pro', true);
+    setState(() {
+      isYearlyPro = true;
+    });
+  }
+
+  void _deliverProduct(PurchaseDetails purchase) {
+    setState(() {
+      purchasedProductIds.add(purchase.productID);
+    });
   }
 
   Future<void> _fetchProductDetails() async {
+    setState(() {
+      isLoadingPrice = true;
+    });
 
     final bool available = await InAppPurchase.instance.isAvailable();
     if (!available) {
+      setState(() {
+        isLoadingPrice = false;
+      });
       return;
     }
 
-    // Recupera os detalhes dos produtos mensal e anual
-    final ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails({yearlyProId, monthlyProId});
-
+    final ProductDetailsResponse response = await InAppPurchase.instance
+        .queryProductDetails({yearlyProId, monthlyProId});
     if (response.error != null || response.productDetails.isEmpty) {
+      setState(() {
+        isLoadingPrice = false;
+      });
       return;
     }
 
     setState(() {
-      yearlyProductDetails = response.productDetails.firstWhere((product) => product.id == yearlyProId);
-      monthlyProductDetails = response.productDetails.firstWhere((product) => product.id == monthlyProId);
+      yearlyProductDetails = response.productDetails
+          .firstWhere((product) => product.id == yearlyProId);
+      monthlyProductDetails = response.productDetails
+          .firstWhere((product) => product.id == monthlyProId);
+      isLoadingPrice = false;
     });
   }
 
@@ -93,29 +153,32 @@ class _ProModalState extends State<ProModal> {
     return format.format(price);
   }
 
-  // Função para realizar a compra de uma assinatura
   Future<void> _buySubscription(String productId) async {
-    final paymentWrapper = SKPaymentQueueWrapper();
-    final transactions = await paymentWrapper.transactions();
-    for (var transaction in transactions) {
-      await paymentWrapper.finishTransaction(transaction);
-    }
+    setState(() {
+      loadingPurchases.add(productId);
+    });
 
     final bool available = await InAppPurchase.instance.isAvailable();
     if (!available) {
+      setState(() {
+        loadingPurchases.remove(productId);
+      });
       return;
     }
 
-    final ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails({productId});
-
+    final ProductDetailsResponse response =
+        await InAppPurchase.instance.queryProductDetails({productId});
     if (response.error == null && response.productDetails.isNotEmpty) {
       final productDetails = response.productDetails.first;
       final purchaseParam = PurchaseParam(productDetails: productDetails);
       InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
+    } else {
+      setState(() {
+        loadingPurchases.remove(productId);
+      });
     }
   }
 
-  // Função para restaurar compras anteriores
   Future<void> _restorePurchases() async {
     await InAppPurchase.instance.restorePurchases();
   }
@@ -150,18 +213,19 @@ class _ProModalState extends State<ProModal> {
                 color: Colors.amber,
                 size: 80,
               ),
-              const Text(
-                "Versão Premium",
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context)!.premiumVersion,
+                style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: AppColors.label,
                 ),
               ),
-              const Text(
-                "Desfrute de todos os recursos exclusivos:",
+              const SizedBox(height: 15),
+              Text(
+                AppLocalizations.of(context)!.enjoyExclusiveFeatures,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   color: AppColors.labelSecondary,
                 ),
@@ -169,50 +233,49 @@ class _ProModalState extends State<ProModal> {
               const SizedBox(height: 30),
               _buildFeatureRow(
                 icon: Icons.file_present_rounded,
-                label: "Exportação para excel ou pdf",
+                label: AppLocalizations.of(context)!.exportToExcelOrPdf,
               ),
               _buildFeatureRow(
                 icon: Icons.block,
-                label: "Remoção completa de anúncios",
+                label: AppLocalizations.of(context)!.removeAds,
               ),
               const SizedBox(height: 40),
               Column(
-                      children: [
-                        _buildSubscriptionButton(
-                          label: "Assinatura mensal",
-                          price: monthlyProductDetails != null
-                              ? formatPrice(
-                                  monthlyProductDetails!.rawPrice,
-                                  monthlyProductDetails!.currencySymbol,
-                                )
-                              : 'Indisponível',
-                          onPressed: () => _buySubscription(monthlyProductDetails?.id ?? ''),
-                        ),
-                        const SizedBox(height: 22),
-                        _buildSubscriptionButton(
-                          label: "Assinatura anual",
-                          price: yearlyProductDetails != null
-                              ? formatPrice(
-                                  yearlyProductDetails!.rawPrice,
-                                  yearlyProductDetails!.currencySymbol,
-                                )
-                              : 'Indisponível',
-                          onPressed: () => _buySubscription(yearlyProductDetails?.id ?? ''),
-                        ),
-                        const SizedBox(height: 15),
-                        TextButton(
-                          onPressed: _restorePurchases,
-                          child: const Text(
-                            "Restaurar Compras",
-                            style: TextStyle(
-                              color: AppColors.label,
-                              fontSize: 16,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ),
-                      ],
+                children: [
+                  _buildSubscriptionButton(
+                    label: AppLocalizations.of(context)!.monthlySubscription,
+                    price: monthlyProductDetails != null
+                        ? formatPrice(monthlyProductDetails!.rawPrice,
+                            monthlyProductDetails!.currencySymbol)
+                        : AppLocalizations.of(context)!.loading,
+                    onPressed: () =>
+                        _buySubscription(monthlyProductDetails?.id ?? ''),
+                    productId: monthlyProductDetails?.id ?? '',
+                  ),
+                  const SizedBox(height: 22),
+                  _buildSubscriptionButton(
+                    label: AppLocalizations.of(context)!.yearlySubscription,
+                    price: yearlyProductDetails != null
+                        ? formatPrice(yearlyProductDetails!.rawPrice,
+                            yearlyProductDetails!.currencySymbol)
+                        : AppLocalizations.of(context)!.loading,
+                    onPressed: () =>
+                        _buySubscription(yearlyProductDetails?.id ?? ''),
+                    productId: yearlyProductDetails?.id ?? '',
+                  ),
+                  const SizedBox(height: 15),
+                  TextButton(
+                    onPressed: _restorePurchases,
+                    child: Text(
+                      AppLocalizations.of(context)!.restorePurchases,
+                      style: const TextStyle(
+                        color: AppColors.label,
+                        fontSize: 16,
+                      ),
                     ),
+                  ),
+                ],
+              ),
             ],
           ),
           Positioned(
@@ -223,8 +286,20 @@ class _ProModalState extends State<ProModal> {
                 color: AppColors.label,
                 size: 28,
               ),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ),
+                    Positioned(
+            right: 10,
+            child: IconButton(
+              icon: const Icon(
+                CupertinoIcons.question_circle,
+                color: AppColors.label,
+                size: 28,
+              ),
               onPressed: () {
-                Navigator.of(context).pop();
+                // Ação a ser realizada ao clicar no botão de ajuda
+                _showMenuOptions(context);
               },
             ),
           ),
@@ -232,41 +307,100 @@ class _ProModalState extends State<ProModal> {
       ),
     );
   }
+  void _showMenuOptions(BuildContext context) {
+  showCupertinoModalPopup(
+    context: context,
+    builder: (BuildContext context) {
+      return CupertinoActionSheet(
+        actions: <Widget>[
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _launchURL('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
+            },
+            child: const Text('Terms of Use'),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _launchURL('https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing');
+            },
+            child: const Text('Privacy Policy'),
+          ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('Cancel'),
+        ),
+      );
+    },
+  );
+}
+
+void _launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
   Widget _buildSubscriptionButton({
     required String label,
     required String price,
     required VoidCallback onPressed,
+    required String productId,
   }) {
+    bool isPurchased = (productId == yearlyProId && isYearlyPro) ||
+        (productId == monthlyProId && isMonthlyPro);
+
+    bool isLoading = isLoadingPrice || loadingPurchases.contains(productId);
+
     return SizedBox(
       width: double.infinity,
       height: 50,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: isPurchased ? voidFunc : onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.button,
+          backgroundColor: isPurchased
+              ? const Color.fromARGB(255, 5, 162, 0)
+              : AppColors.button,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        child: Text(
-          "$label - $price",
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        child: isLoading
+            ? const SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              )
+            : Text(
+                isPurchased ? "$label ✓✓" : "$label - $price",
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
       ),
     );
   }
+
+  void voidFunc() {}
 
   Widget _buildFeatureRow({required IconData icon, required String label}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(width: 8),
           Icon(

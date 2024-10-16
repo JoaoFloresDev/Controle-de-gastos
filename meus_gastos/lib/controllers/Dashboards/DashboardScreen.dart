@@ -1,3 +1,5 @@
+import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/controllers/Transactions/exportExcel/exportExcelScreen.dart';
@@ -37,6 +39,9 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
+
+      bool _isPro = false;
+
   //mark - propriedades
   List<ProgressIndicatorModel> progressIndicators = [];
   List<PieChartDataItem> pieChartDataItems = [];
@@ -100,6 +105,16 @@ class _DashboardScreenState extends State<DashboardScreen>
   void initState() {
     super.initState();
     _onScreenDisplayed();
+    _checkUserProStatus();
+  }
+
+    Future<void> _checkUserProStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool isYearlyPro = prefs.getBool('yearly.pro') ?? false;
+    bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
+    setState(() {
+      _isPro = isYearlyPro || isMonthlyPro;
+    });
   }
 
   //mark - métodos privados
@@ -163,6 +178,9 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget _buildBannerAd() {
+    if (_isPro) {
+      return const SizedBox.shrink();
+    }
     return Container(
       height: 60,
       width: 468,
@@ -410,4 +428,44 @@ class _DashboardScreenState extends State<DashboardScreen>
       ),
     );
   }
+
+  void _showMenuOptions(BuildContext context) {
+  showCupertinoModalPopup(
+    context: context,
+    builder: (BuildContext context) {
+      return CupertinoActionSheet(
+        actions: <Widget>[
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _launchURL('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
+            },
+            child: const Text('Terms of Use'),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _launchURL('https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing');
+            },
+            child: const Text('Privacy Policy'),
+          ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('Cancel'),
+        ),
+      );
+    },
+  );
+}
+
+void _launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 }

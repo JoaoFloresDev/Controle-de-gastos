@@ -133,24 +133,32 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              AppLocalizations.of(context)!.addNewTransactions,
-              style: TextStyle(
-                color: AppColors.label,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0), // Adicionando padding horizontal
+              child: Text(
+                AppLocalizations.of(context)!.addNewTransactions,
+                style: TextStyle(
+                  color: AppColors.label,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
-            Text(
-              AppLocalizations.of(context)!.weaklyGraphPlaceholder,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: AppColors.label,
-                fontSize: 16,
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0), // Adicionando padding horizontal
+              child: Text(
+                AppLocalizations.of(context)!.dailyGraphPlaceholder,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.label,
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
           ],
         ),
@@ -161,9 +169,21 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
   List<Map<String, dynamic>> _buildPlaceholderData() {
     return [
       {'week': 'Week 1', 'progress': 40.0, 'color': Colors.grey[400]},
-      {'week': 'Week 2', 'progress': 60.0, 'color': Color.fromARGB(255, 70, 69, 69)},
-      {'week': 'Week 3', 'progress': 30.0, 'color': const Color.fromARGB(255, 245, 245, 245)},
-      {'week': 'Week 4', 'progress': 50.0, 'color': const Color.fromARGB(255, 10, 10, 10)},
+      {
+        'week': 'Week 2',
+        'progress': 60.0,
+        'color': Color.fromARGB(255, 70, 69, 69)
+      },
+      {
+        'week': 'Week 3',
+        'progress': 30.0,
+        'color': const Color.fromARGB(255, 245, 245, 245)
+      },
+      {
+        'week': 'Week 4',
+        'progress': 50.0,
+        'color': const Color.fromARGB(255, 10, 10, 10)
+      },
     ];
   }
 
@@ -246,14 +266,14 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         .expand((week) => week.map((data) => data.category.name))
         .toSet()
         .toList();
-    
+
     List<double> weeklyTotals = widget.weekIntervals.map((weekInterval) {
       int index = widget.weekIntervals.indexOf(weekInterval);
       return _getFilteredData()[index]
           .fold(0.0, (sum, item) => sum + item.progress);
     }).toList();
     double maxWeeklyTotal = weeklyTotals.reduce((a, b) => a > b ? a : b);
-    
+
     return categories.map((category) {
       return StackedColumnSeries<
           MapEntry<WeekInterval, List<ProgressIndicatorModel>>, String>(
@@ -305,7 +325,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         borderColor: AppColors.card,
       );
     }).toList()
-    ..add(StackedColumnSeries<
+      ..add(StackedColumnSeries<
               MapEntry<WeekInterval, List<ProgressIndicatorModel>>, String>(
           dataSource: widget.weekIntervals.asMap().entries.map((entry) {
             return MapEntry(entry.value, widget.weeklyData[entry.key]);

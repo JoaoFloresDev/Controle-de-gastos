@@ -123,7 +123,7 @@ class CategoryService {
             id: 'AddCategory',
             color: Colors.cyan[300]!,
             icon: Icons.add,
-            name: 'addCategory',
+            name: 'AddCategory',
             frequency: -1),
       ];
 

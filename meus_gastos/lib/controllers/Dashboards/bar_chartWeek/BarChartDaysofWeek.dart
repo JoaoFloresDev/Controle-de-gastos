@@ -57,11 +57,13 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             .isEmpty
         ? 0
         : 110;
-    double maxDailySum = maxY > 0 ? widget.last5weewdailyData[selectedWeek]
-          .map((day) => day
-              .map((data) => data.progress)
-              .reduce((a, b) => a + b)) // Soma os progressos de cada dia
-          .reduce((a, b) => a > b ? a : b) : 0;
+    double maxDailySum = maxY > 0
+        ? widget.last5weewdailyData[selectedWeek]
+            .map((day) => day
+                .map((data) => data.progress)
+                .reduce((a, b) => a + b)) // Soma os progressos de cada dia
+            .reduce((a, b) => a > b ? a : b)
+        : 0;
     print(maxDailySum);
     return Card(
       color: AppColors.card,
@@ -77,8 +79,9 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
           if (maxY == 0)
             Expanded(
                 child: Center(
-                  child: Text(AppLocalizations.of(context)!.noExpensesThisWeek,
-                      style: TextStyle(color: Colors.white, fontSize: 20)))),
+                    child: Text(
+                        AppLocalizations.of(context)!.noExpensesThisWeek,
+                        style: TextStyle(color: Colors.white, fontSize: 20)))),
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: SelectCategories(
@@ -167,24 +170,32 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              AppLocalizations.of(context)!.addNewTransactions,
-              style: TextStyle(
-                color: AppColors.label,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0), // Adicionando padding horizontal
+              child: Text(
+                AppLocalizations.of(context)!.addNewTransactions,
+                style: TextStyle(
+                  color: AppColors.label,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
-            Text(
-              AppLocalizations.of(context)!.dailyGraphPlaceholder,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: AppColors.label,
-                fontSize: 16,
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0), // Adicionando padding horizontal
+              child: Text(
+                AppLocalizations.of(context)!.dailyGraphPlaceholder,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.label,
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
           ],
         ),
@@ -195,9 +206,21 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
   List<Map<String, dynamic>> _buildPlaceholderData() {
     return [
       {'week': 'Week 1', 'progress': 40.0, 'color': Colors.grey[400]},
-      {'week': 'Week 2', 'progress': 60.0, 'color': Color.fromARGB(255, 0, 0, 0)},
-      {'week': 'Week 3', 'progress': 30.0, 'color': Color.fromARGB(255, 240, 240, 240)},
-      {'week': 'Week 4', 'progress': 50.0, 'color': Color.fromARGB(255, 66, 66, 66)},
+      {
+        'week': 'Week 2',
+        'progress': 60.0,
+        'color': Color.fromARGB(255, 0, 0, 0)
+      },
+      {
+        'week': 'Week 3',
+        'progress': 30.0,
+        'color': Color.fromARGB(255, 240, 240, 240)
+      },
+      {
+        'week': 'Week 4',
+        'progress': 50.0,
+        'color': Color.fromARGB(255, 66, 66, 66)
+      },
     ];
   }
 

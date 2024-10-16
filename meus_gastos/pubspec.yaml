@@ -23,31 +23,24 @@ dependencies:
   percent_indicator: ^4.0.0
   flutter_colorpicker: ^1.0.3
   in_app_review: ^2.0.4
-  google_mobile_ads: ^5.1.0
+  google_mobile_ads: ^3.0.0
   excel: ^4.0.6
   syncfusion_flutter_pdf: ^20.4.54
   path_provider: ^2.1.4
   open_filex: ^4.0.0
-  share_plus: ^10.0.2
+  share_plus: ^6.1.0
   tutorial_coach_mark: ^1.2.11
-  flutter_stripe: ^11.1.0
-  flutter_dotenv: ^5.1.0
-  http: ^1.2.1
-  in_app_purchase: ^3.0.6
+  in_app_purchase: ^3.2.0
 
-  
 dev_dependencies:
   flutter_launcher_icons: ^0.9.2
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^3.0.0
 
 flutter:
   uses-material-design: true
   generate: true
-  fonts:
-    - family: MaterialIcons
 
 dependency_overrides:
   win32: ^5.5.4

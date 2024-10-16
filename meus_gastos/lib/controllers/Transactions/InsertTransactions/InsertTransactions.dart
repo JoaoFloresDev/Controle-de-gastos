@@ -1,4 +1,5 @@
-import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
+import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
@@ -19,6 +20,9 @@ import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import '../../../controllers/Transactions/Purchase/ProModal.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 // import 'package:meus_gastos/widgets/Transactions/CategoryCreater/CategoryCreater.dart';
 // import 'package:meus_gastos/widgets/ads_review/constructReview.dart';
 // import 'package:meus_gastos/widgets/ads_review/bannerAdconstruct.dart';
@@ -62,59 +66,37 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   bool _showHeaderCard = true;
 
   // Variáveis para In-App Purchase
-  final String yearlyProId =
-      'yearly.pro'; // Seu ID de produto para assinatura anual
-  final String monthlyProId =
-      'monthly.pro'; // Seu ID de produto para assinatura mensal
+  final String yearlyProId = 'yearly.pro';
+  final String monthlyProId = 'monthly.pro';
   bool _isLoading = false;
   bool _isPro = false;
 
-  ProductDetails? _yearlyDetails;
-  ProductDetails? _monthlyDetails;
+  late InAppPurchase _inAppPurchase;
+  late Stream<List<PurchaseDetails>> _subscription;
+
+  // Conjunto para armazenar os IDs dos produtos comprados
+  Set<String> purchasedProductIds = {};
 
   // MARK: - InitState
   @override
   void initState() {
     super.initState();
-    InAppPurchase.instance.purchaseStream.listen((purchases) {
-      _handlePurchaseUpdates(purchases);
-    });
-
-    // Verifica e processa compras pendentes
-    _verifyPastPurchases();
-
-    // Carrega os cartões iniciais
     loadCards();
+    // _initInAppPurchase();
+    _checkUserProStatus();
   }
 
-  Future<void> _verifyPastPurchases() async {
-    // Inicia o processo de restauração de compras
-    InAppPurchase.instance.restorePurchases();
-  }
-
-  void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
-    for (var purchase in purchases) {
-      switch (purchase.status) {
-        case PurchaseStatus.pending:
-          break;
-        case PurchaseStatus.purchased:
-        case PurchaseStatus.restored:
-          setState(() {
-            _isPro = true;
-          });
-          InAppPurchase.instance.completePurchase(purchase);
-          break;
-        case PurchaseStatus.error:
-          print('Erro na compra: ${purchase.error}');
-          InAppPurchase.instance.completePurchase(purchase);
-          break;
-        default:
-          break;
-      }
-    }
+  Future<void> _checkUserProStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool isYearlyPro = prefs.getBool('yearly.pro') ?? false;
+    bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
     setState(() {
-      _isLoading = false;
+      _isPro = isYearlyPro || isMonthlyPro;
     });
+  }
+
+  void _deliverProduct(PurchaseDetails purchase) {
+    purchasedProductIds.add(purchase.productID);
   }
 
   // MARK: - Load Cards
@@ -132,48 +114,17 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
   // Exibe o ProModal
   void _showProModal(BuildContext context) async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    final bool available = await InAppPurchase.instance.isAvailable();
-    if (!available) {
-      setState(() {
-        print("Deu ruim pros androids");
-        showCupertinoModalPopup(
-            context: context,
-            builder: (BuildContext context) {
-              return Buyscreen(); // provisory
-            });
-        _isLoading = false;
-      });
-      return;
-    }
-
-    // Recupera os detalhes dos produtos mensal e anual
-    final ProductDetailsResponse response = await InAppPurchase.instance
-        .queryProductDetails({yearlyProId, monthlyProId});
-
-    if (response.error != null || response.productDetails.isEmpty) {
-      setState(() {
-        _isLoading = false;
-      });
-      return;
-    }
-
-    // Armazenando detalhes dos produtos mensal e anual
-    setState(() {
-      _yearlyDetails = response.productDetails
-          .firstWhere((product) => product.id == yearlyProId);
-      _monthlyDetails = response.productDetails
-          .firstWhere((product) => product.id == monthlyProId);
-      _isLoading = false;
-    });
-
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {
-        return ProModal(isLoading: _isLoading);
+        return ProModal(
+          isLoading: _isLoading,
+          onSubscriptionPurchased: () {
+            setState(() {
+              _isPro = true;
+            });
+          },
+        );
       },
     );
   }
@@ -186,12 +137,12 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: CupertinoNavigationBar(
-          leading: GestureDetector(
-            onTap: () {
-              _scaffoldKey.currentState?.openDrawer(); // Abre o menu lateral
-            },
-            child: Icon(CupertinoIcons.bars, size: 24),
-          ),
+          // leading: GestureDetector(
+          //   onTap: () {
+          //     _scaffoldKey.currentState?.openDrawer(); // Abre o menu lateral
+          //   },
+          //   child: Icon(CupertinoIcons.bars, size: 24),
+          // ),
           middle: Text(
             widget.title,
             style: const TextStyle(color: AppColors.label, fontSize: 16),
@@ -271,12 +222,12 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Column(
             children: [
-              if (!_isPro) // Se o usuário não é PRO, mostra o banner
+              if (!_isPro && !Platform.isMacOS) // Se o usuário não é PRO, mostra o banner
                 Container(
-                  height: 60, // Altura do banner
-                  width: 468, // Largura do banner
+                  height: 60,
+                  width: 468,
                   alignment: Alignment.center,
-                  child: BannerAdconstruct(), // Widget do banner
+                  child: BannerAdconstruct(),
                 ),
               if (_showHeaderCard) ...[
                 Padding(
@@ -350,8 +301,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                     itemCount: mergeCardList.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         child: ListCard(
                           onTap: (card) {
                             if(mergeCardList[cardList.length - index - 1].category.name != 'Recorrente') {
@@ -374,14 +325,13 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(height: 80), // Espaçamento acima do ícone
+                        SizedBox(height: 20),
                         Icon(
                           Icons.inbox,
                           color: AppColors.card,
                           size: 60,
                         ),
-                        const SizedBox(
-                            height: 16), // Espaçamento entre ícone e texto
+                        const SizedBox(height: 16),
                         Text(
                           AppLocalizations.of(context)!.addNewTransactions,
                           style:
