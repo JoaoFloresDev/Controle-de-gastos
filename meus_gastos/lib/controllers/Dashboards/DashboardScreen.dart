@@ -127,7 +127,6 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   Future<void> _loadInitialData() async {
     await _loadProgressIndicators(currentDate);
-    await _loadProgressMonthsInYear(currentDate);
   }
 
   void _changeMonth(int delta) {
@@ -143,11 +142,11 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
   }
 
-  Future<void> _loadProgressMonthsInYear(DateTime currentDate) async {
-    totalOfMonths = await CardService.getTotalExpensesByMonth(currentDate);
-    totalExpansivesMonths_category =
-        await CardService.getMonthlyExpensesByCategoryForYear(currentDate.year);
-  }
+  // Future<void> _loadProgressMonthsInYear(DateTime currentDate) async {
+  //   totalOfMonths = await CardService.getTotalExpensesByMonth(currentDate);
+  //   totalExpansivesMonths_category =
+  //       await CardService.getMonthlyExpensesByCategoryForYear(currentDate.year);
+  // }
 
   Future<void> _loadProgressIndicators(DateTime currentDate) async {
     if (!mounted) return;
@@ -157,6 +156,7 @@ class _DashboardScreenState extends State<DashboardScreen>
 
     progressIndicators =
         await CardService.getProgressIndicatorsByMonth(currentDate);
+    // print("............. ${progressIndicators.length}");
     pieChartDataItems = progressIndicators
         .map((indicator) => indicator.toPieChartDataItem())
         .toList();
@@ -164,7 +164,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     totalGasto = progressIndicators.fold(
         0.0, (sum, indicator) => sum + indicator.progress);
 
-    totalOfMonths = await CardService.getTotalExpensesByMonth(currentDate);
+    // totalOfMonths = await CardService.getTotalExpensesByMonth(currentDate);
 
     Last5WeeksIntervals = Dashbordservice.getLast5WeeksIntervals(currentDate);
     Last5WeeksProgressIndicators =

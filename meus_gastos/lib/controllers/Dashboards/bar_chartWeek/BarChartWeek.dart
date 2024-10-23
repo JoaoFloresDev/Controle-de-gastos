@@ -95,7 +95,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
                         color: Colors.grey[600]!,
                       ),
                     ),
-                    series: <ChartSeries>[
+                    series: <CartesianSeries>[
                       StackedColumnSeries<Map<String, dynamic>, String>(
                         dataSource: _buildPlaceholderData(),
                         xValueMapper: (data, _) => data['week'],

@@ -108,7 +108,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       fixedCards = fcard;
       mergeCardList =
           await Fixedexpensesservice.MergeFixedWithNormal(fixedCards, cardList);
-      print(mergeCardList.first.amount);
     });
   }
 
@@ -137,12 +136,12 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       child: Scaffold(
         key: _scaffoldKey,
         appBar: CupertinoNavigationBar(
-          // leading: GestureDetector(
-          //   onTap: () {
-          //     _scaffoldKey.currentState?.openDrawer(); // Abre o menu lateral
-          //   },
-          //   child: Icon(CupertinoIcons.bars, size: 24),
-          // ),
+          leading: GestureDetector(
+            onTap: () {
+              _showCupertinoModalBottomFixedExpenses(context);
+            },
+            child: Icon(Icons.repeat, size: 24),
+          ),
           middle: Text(
             widget.title,
             style: const TextStyle(color: AppColors.label, fontSize: 16),
@@ -161,68 +160,66 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             ),
           ),
         ),
-        drawer: Drawer(
-          backgroundColor: AppColors.background1,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: AppColors.background1,
-                ),
-                child: Text(
-                  'Menu',
-                  style: TextStyle(
-                    color: AppColors.label,
-                    fontSize: 24,
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: Icon(Icons.home),
-                title: Text(
-                  'Início',
-                  style: TextStyle(color: AppColors.label),
-                ),
-                onTap: () {
-                  Navigator.pop(context); // Fecha o menu
-                  // não vai a lugar nenhum pois já está no inicio
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.insert_invitation_rounded),
-                title: Text(
-                  'Adicionar Gastos Fixos',
-                  style: TextStyle(color: AppColors.label),
-                ),
-                onTap: () {
-                  Navigator.pop(context); // Fecha o menu
-                  print("Entrou");
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CriarGastosFixos()),
-                  );
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.payment_rounded),
-                title: Text(
-                  'Retirar os anuncios',
-                  style: TextStyle(color: AppColors.label),
-                ),
-                onTap: () {
-                  Navigator.pop(context); // Fecha o menu
-                  _showProModal(context); // Chamando o modal de assinatura
-                },
-              ),
-            ],
-          ),
-        ),
+        // drawer: Drawer(
+        //   backgroundColor: AppColors.background1,
+        //   child: ListView(
+        //     padding: EdgeInsets.zero,
+        //     children: <Widget>[
+        //       DrawerHeader(
+        //         decoration: BoxDecoration(
+        //           color: AppColors.background1,
+        //         ),
+        //         child: Text(
+        //           'Menu',
+        //           style: TextStyle(
+        //             color: AppColors.label,
+        //             fontSize: 24,
+        //           ),
+        //         ),
+        //       ),
+        //       ListTile(
+        //         leading: Icon(Icons.home),
+        //         title: Text(
+        //           'Início',
+        //           style: TextStyle(color: AppColors.label),
+        //         ),
+        //         onTap: () {
+        //           Navigator.pop(context); // Fecha o menu
+        //           // não vai a lugar nenhum pois já está no inicio
+        //         },
+        //       ),
+        //       ListTile(
+        //         leading: Icon(Icons.insert_invitation_rounded),
+        //         title: Text(
+        //           'Adicionar Gastos Fixos',
+        //           style: TextStyle(color: AppColors.label),
+        //         ),
+        //         onTap: () {
+        //           Navigator.pop(context); // Fecha o menu
+        //           print("Entrou");
+        //           _showCupertinoModalBottomFixedExpenses(context);
+        //         },
+        //       ),
+        //       ListTile(
+        //         leading: Icon(Icons.payment_rounded),
+        //         title: Text(
+        //           'Retirar os anuncios',
+        //           style: TextStyle(color: AppColors.label),
+        //         ),
+        //         onTap: () {
+        //           Navigator.pop(context); // Fecha o menu
+        //           _showProModal(context); // Chamando o modal de assinatura
+        //         },
+        //       ),
+        //     ],
+        //   ),
+        // ),
         body: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Column(
             children: [
-              if (!_isPro && !Platform.isMacOS) // Se o usuário não é PRO, mostra o banner
+              if (!_isPro &&
+                  !Platform.isMacOS) // Se o usuário não é PRO, mostra o banner
                 Container(
                   height: 60,
                   width: 468,
@@ -301,13 +298,16 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                     itemCount: mergeCardList.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
                         child: ListCard(
                           onTap: (card) {
-                            if(mergeCardList[cardList.length - index - 1].category.name != 'Recorrente') {
-                            widget.onAddClicked();
-                            _showCupertinoModalBottomSheet(context, card);
+                            if (mergeCardList[cardList.length - index - 1]
+                                    .category
+                                    .name !=
+                                'Recorrente') {
+                              widget.onAddClicked();
+                              _showCupertinoModalBottomSheet(context, card);
                             }
                           },
                           card: mergeCardList[cardList.length - index - 1],
@@ -367,8 +367,34 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           child: DetailScreen(
             card: card,
             onAddClicked: () {
-              loadCards();
-              setState(() {});
+              setState(() {
+                loadCards();
+              });
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  void _showCupertinoModalBottomFixedExpenses(BuildContext context) {
+    FocusScope.of(context).unfocus();
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: MediaQuery.of(context).size.height / 1.05,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: CriarGastosFixos(
+            onAddPressedBack: () {
+              setState(() {
+                loadCards();
+              });
             },
           ),
         );

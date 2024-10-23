@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
@@ -45,7 +46,10 @@ class Dashbordservice {
 
   static Future<List<ProgressIndicatorModel>> getProgressIndicatorsByWeek(
       DateTime start, DateTime end) async {
-    final List<CardModel> cards = await CardService.retrieveCards();
+    final List<CardModel> cards = await CardService.mergeFixWithNormal();
+    // var fcards = await Fixedexpensesservice.getSortedFixedExpenses();
+    // final List<CardModel> cards =
+    //     await Fixedexpensesservice.MergeFixedWithNormal(fcards, ncards);
     final Map<String, double> totals = {};
 
     final List<CardModel> filteredCards = cards
@@ -58,10 +62,15 @@ class Dashbordservice {
       totals[card.category.id] = (totals[card.category.id] ?? 0) + card.amount;
     }
 
+    var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
+    CategoryModel fixedCategory = fcard.first.category;
+
     final List<CategoryModel> categories =
         await CategoryService().getAllCategories();
     final Map<String, CategoryModel> categoryMap = {
-      for (var category in categories) category.id: category
+      for (var category in categories) category.id: category,
+      fixedCategory.id: fixedCategory,
+
     };
 
     final List<ProgressIndicatorModel> progressIndicators = totals.entries
@@ -96,6 +105,7 @@ class Dashbordservice {
 
     for (var progressIndicators in progressIndicatorsList) {
       for (var progressIndicator in progressIndicators) {
+        print(progressIndicator.category.name);
         categoriesSet.add(progressIndicator.category);
       }
     }
@@ -106,7 +116,8 @@ class Dashbordservice {
 // to the grafic of day expens of week
   static Future<List<List<ProgressIndicatorModel>>>
       getDailyProgressIndicatorsByWeek(DateTime start, DateTime end) async {
-    final List<CardModel> cards = await CardService.retrieveCards();
+    // final List<CardModel> cards = await CardService.retrieveCards();
+    final List<CardModel> cards = await CardService.mergeFixWithNormal();
 
     // Filtrar os cartões dentro do intervalo de tempo
     final List<CardModel> filteredCards = cards.where((card) {
@@ -131,10 +142,14 @@ class Dashbordservice {
           (dailyTotals[categoryId]![dayOfWeek] ?? 0) + card.amount;
     }
 
+    var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
+    CategoryModel fixedCategory = fcard.first.category;
+
     final List<CategoryModel> categories =
         await CategoryService().getAllCategories();
     final Map<String, CategoryModel> categoryMap = {
-      for (var category in categories) category.id: category
+      for (var category in categories) category.id: category,
+      fixedCategory.id: fixedCategory,
     };
 
     // Criar a lista de listas para armazenar os indicadores de progresso para cada dia da semana

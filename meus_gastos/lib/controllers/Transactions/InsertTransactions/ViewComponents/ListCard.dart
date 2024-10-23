@@ -17,7 +17,7 @@ class ListCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
-          color: AppColors.card,
+          color: card.category.name == 'Recorrente' ? Colors.red.withOpacity(0.2) : AppColors.card,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(

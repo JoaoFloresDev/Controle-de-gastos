@@ -35,7 +35,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
 
   late int lastDateSelected = widget.card.day;
   List<CategoryModel> categorieList = [];
-  int lastIndexSelected = 0;
   final DateTime dataInicial = DateTime.now();
   final double valorInicial = 0.0;
 
@@ -43,7 +42,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   @override
   void initState() {
     super.initState();
-    loadCategories();
 
     descricaoController = TextEditingController(text: widget.card.description);
 
@@ -68,7 +66,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
 
   final TextEditingController _dateController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
-
   void _handleTap() {
     _focusNode.unfocus(); // Fecha o teclado, se estiver aberto
     showCupertinoModalPopup(
@@ -83,6 +80,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                 height: 200,
                 child: CupertinoPicker(
                   itemExtent: 32.0, // Altura de cada item
+                  scrollController: FixedExtentScrollController(initialItem: widget.card.day-1),
                   onSelectedItemChanged: (int index) {
                     setState(() {
                       int selectedDay = index + 1; // Dia selecionado (1 a 31)
@@ -91,6 +89,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                           'Dia $selectedDay'; // Atualiza o campo de texto
                     });
                   },
+
                   children: List<Widget>.generate(31, (int index) {
                     return Center(
                       child:
@@ -116,10 +115,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   }
 
   // MARK: - Load Categories
-  Future<void> loadCategories() async {
-    categorieList = await CategoryService().getAllCategories();
-    setState(() {});
-  }
+
 
   // MARK: - Adicionar
   void adicionar() {
@@ -127,7 +123,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       price: valorController.numberValue,
       description: descricaoController.text,
       day: lastDateSelected,
-      category: categorieList[lastIndexSelected],
+      category: widget.card.category,
       id: Uuid().v4(),
     );
     Fixedexpensesservice.updateCard(widget.card.id, newCard);
@@ -156,7 +152,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                   decoration: const BoxDecoration(
                     border: Border(bottom: BorderSide(color: AppColors.label)),
                   ),
-                  placeholder: "Dia X",
+                  placeholder: "Dia ${lastDateSelected}",
                   placeholderStyle:
                       const TextStyle(color: AppColors.labelPlaceholder),
                   readOnly: true, // Impede que o usuário edite diretamente
@@ -180,6 +176,19 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             focusNode: descricaoFocusNode,
             style: const TextStyle(color: AppColors.label),
           ),
+          const SizedBox(height: 24),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                      color: AppColors.buttonSelected,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      widget.card.category.icon,
+                    ),
+                  ),
           const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),

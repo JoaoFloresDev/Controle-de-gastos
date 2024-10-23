@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/controllers/Transactions/CardDetails/DetailScreen.dart';
@@ -18,6 +19,7 @@ class Extractbycategory extends StatefulWidget {
 
 class _ExtractbycategoryState extends State<Extractbycategory> {
   late List<CardModel> cards = [];
+  late List<CardModel> mergeCardList = [];
 
   @override
   void initState() {
@@ -26,9 +28,13 @@ class _ExtractbycategoryState extends State<Extractbycategory> {
   }
 
   Future<void> loadCards() async {
-    var cardList = await CardService.retrieveCards();
+    var cardListNormal = await CardService.retrieveCards();
+    var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
+    mergeCardList = await Fixedexpensesservice.MergeFixedWithNormal(
+        fcard, cardListNormal);
     setState(() {
-      cards = cardList;
+      cards = mergeCardList;
+      print(cards.length);
     });
   }
 
@@ -40,7 +46,11 @@ class _ExtractbycategoryState extends State<Extractbycategory> {
 
   @override
   Widget build(BuildContext context) {
+    
     List<CardModel> filtered = selectbycategory(cards);
+    if (widget.category == "Recorrente") {
+      print("${filtered.length}++++++${widget.category}");
+    }
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Column(

@@ -1,3 +1,6 @@
+import 'package:meus_gastos/gastos_fixos/criar_gastosFixos.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -64,9 +67,15 @@ class CardService {
     await prefs.remove(_storageKey);
   }
 
+  static Future<List<CardModel>> mergeFixWithNormal() async {
+    var cards = await retrieveCards();
+    var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
+    return Fixedexpensesservice.MergeFixedWithNormal(fcard, cards);
+  }
+
   // MARK: - Progress Indicators
   static Future<List<ProgressIndicatorModel>> getProgressIndicators() async {
-    final List<CardModel> cards = await retrieveCards();
+    final List<CardModel> cards = await mergeFixWithNormal();
     final Map<String, double> totals = {};
 
     for (var card in cards) {
@@ -95,23 +104,27 @@ class CardService {
 
   static Future<List<ProgressIndicatorModel>> getProgressIndicatorsByMonth(
       DateTime month) async {
-    final List<CardModel> cards = await retrieveCards();
+    final List<CardModel> cards = await mergeFixWithNormal();
+    // final List<CardModel> mcards = await mergeFixWithNormal();
+    print(cards.length);
     final Map<String, double> totals = {};
 
     final List<CardModel> filteredCards = cards
         .where((card) =>
             card.date.year == month.year && (card.date.month == month.month))
         .toList();
-
     for (var card in filteredCards) {
       totals[card.category.id] = (totals[card.category.id] ?? 0) + card.amount;
     }
-
+    var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
+    CategoryModel fixedcategory = fcard.first.category;
     final List<CategoryModel> categories =
         await CategoryService().getAllCategories();
     final Map<String, CategoryModel> categoryMap = {
-      for (var category in categories) category.id: category
+      for (var category in categories) category.id: category,
+      fixedcategory.id: fixedcategory
     };
+    print("CHEGA AQUI");
 
     final List<ProgressIndicatorModel> progressIndicators = totals.entries
         .map((entry) => ProgressIndicatorModel(

@@ -132,7 +132,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                         color: Colors.grey[600]!,
                       ),
                     ),
-                    series: <ChartSeries>[
+                    series: <CartesianSeries>[
                       StackedColumnSeries<Map<String, dynamic>, String>(
                         dataSource: _buildPlaceholderData(),
                         xValueMapper: (data, _) => data['week'],
@@ -348,7 +348,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             .toList(),
         xValueMapper: (data, index) => days[index % 7],
         yValueMapper: (data, index) => totalByDay[index] > 1
-            ? (data.progress / maxDailySum) * 95
+            ? (data.progress / maxDailySum) * 90
             : data.progress,
         pointColorMapper: (data, _) => data.color,
         width: 0.5,
@@ -372,7 +372,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         );
       }),
       xValueMapper: (data, index) => days[index],
-      yValueMapper: (data, index) => 30,
+      yValueMapper: (data, index) => 20,
       dataLabelMapper: (data, index) => data.progress > 0
           ? Translateservice.formatCurrency(data.progress, context)
           : '',
