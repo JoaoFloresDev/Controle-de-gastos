@@ -3,16 +3,17 @@ import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'EditionHeaderCard.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:flutter/material.dart';
 
-class DetailScreen extends StatefulWidget {
+class DetailScreenFixedExpenses extends StatefulWidget {
   final FixedExpense card;
   final VoidCallback onAddClicked;
 
-  DetailScreen({
+  DetailScreenFixedExpenses({
     required this.card,
     required this.onAddClicked,
   });
@@ -21,7 +22,13 @@ class DetailScreen extends StatefulWidget {
   _DetailScreen createState() => _DetailScreen();
 }
 
-class _DetailScreen extends State<DetailScreen> {
+class _DetailScreen extends State<DetailScreenFixedExpenses> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -66,9 +73,10 @@ class _DetailScreen extends State<DetailScreen> {
                   widget.onAddClicked();
                   Navigator.of(context).pop();
                 },
-                botomPageIsVisible: false,
+                botomPageIsVisible: true,
               ),
             ),
+            
             Expanded(child: SizedBox())
           ],
         ),

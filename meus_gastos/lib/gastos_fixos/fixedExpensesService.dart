@@ -44,6 +44,17 @@ class Fixedexpensesservice {
     return [];
   }
 
+  static Future<List<String>> getFixedExpenseIds() async {
+    final List<String> fixedExpenseIds = [];
+    final List<FixedExpense> list_expenses = await getSortedFixedExpenses();
+    if (list_expenses != null) {
+      for (var item in list_expenses) {
+        fixedExpenseIds.add(item.id);
+      }
+    }
+    return fixedExpenseIds;
+  }
+
   // MARK: - Modify Cards
   static Future<void> modifyCards(
       List<FixedExpense> modification(List<FixedExpense> cards)) async {
@@ -92,9 +103,12 @@ class Fixedexpensesservice {
 
   static Future<List<CardModel>> MergeFixedWithNormal(
       List<FixedExpense> fixedCards, List<CardModel> normalCards) async {
+    List<String> normalIds = await CardService.getNormalExpenseIds();
     for (var fcard in fixedCards) {
-      if (DateTime.now().day >= fcard.day) {
-        normalCards.add(Fixed_to_NormalCard(fcard));
+      if (!normalIds.contains(fcard.id)) {
+        if (DateTime.now().day >= fcard.day) {
+          normalCards.add(Fixed_to_NormalCard(fcard));
+        }
       }
     }
     return normalCards..sort((a, b) => a.date.compareTo(b.date));

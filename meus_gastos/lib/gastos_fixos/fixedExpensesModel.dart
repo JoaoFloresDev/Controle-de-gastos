@@ -12,7 +12,8 @@ class FixedExpense {
       required this.price,
       required this.day,
       required this.category,
-      required this.id});
+      required this.id,
+      });
 
   // Para salvar em SharedPreferences, converter em Map
   Map<String, dynamic> toJson() {

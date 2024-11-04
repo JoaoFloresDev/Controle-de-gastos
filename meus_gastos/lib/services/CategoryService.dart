@@ -39,10 +39,9 @@ class CategoryService {
     // update the frequency of category with Id forneced
     for (var cat in aux) {
       if (cat.id == category.id) {
-        cat.frequency++;
-        if (cat.frequency > maior_valor_frequency) {
-          maior_valor_frequency = cat.frequency;
-        }
+        cat.frequency = maior_valor_frequency;
+        maior_valor_frequency = cat.frequency;
+
         break;
       }
     }
@@ -119,6 +118,36 @@ class CategoryService {
             icon: Icons.local_drink_outlined,
             name: 'Drink',
             frequency: 0),
+        CategoryModel(
+          id: '1',
+          color: Colors.blue,
+          icon: Icons.water_drop,
+          name: 'Água',
+        ),
+        CategoryModel(
+          id: '2',
+          color: Colors.yellow,
+          icon: Icons.lightbulb,
+          name: 'Luz',
+        ),
+        CategoryModel(
+          id: '7',
+          color: Colors.purple,
+          icon: Icons.wifi,
+          name: 'Internet',
+        ),
+        CategoryModel(
+          id: '8',
+          color: Colors.pink,
+          icon: Icons.phone,
+          name: 'Telefone',
+        ),
+        CategoryModel(
+          id: '10',
+          color: Colors.teal,
+          icon: Icons.credit_card,
+          name: 'Cartão de crédito',
+        ),
         CategoryModel(
             id: 'AddCategory',
             color: Colors.cyan[300]!,

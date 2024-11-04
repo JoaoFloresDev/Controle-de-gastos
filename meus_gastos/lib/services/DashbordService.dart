@@ -46,7 +46,8 @@ class Dashbordservice {
 
   static Future<List<ProgressIndicatorModel>> getProgressIndicatorsByWeek(
       DateTime start, DateTime end) async {
-    final List<CardModel> cards = await CardService.mergeFixWithNormal();
+    final List<CardModel> cards = await CardService.retrieveCards();
+    if (cards.isEmpty) return [];
     // var fcards = await Fixedexpensesservice.getSortedFixedExpenses();
     // final List<CardModel> cards =
     //     await Fixedexpensesservice.MergeFixedWithNormal(fcards, ncards);
@@ -70,7 +71,6 @@ class Dashbordservice {
     final Map<String, CategoryModel> categoryMap = {
       for (var category in categories) category.id: category,
       fixedCategory.id: fixedCategory,
-
     };
 
     final List<ProgressIndicatorModel> progressIndicators = totals.entries
@@ -117,8 +117,8 @@ class Dashbordservice {
   static Future<List<List<ProgressIndicatorModel>>>
       getDailyProgressIndicatorsByWeek(DateTime start, DateTime end) async {
     // final List<CardModel> cards = await CardService.retrieveCards();
-    final List<CardModel> cards = await CardService.mergeFixWithNormal();
-
+    final List<CardModel> cards = await CardService.retrieveCards();
+    if (cards.isEmpty) return [];
     // Filtrar os cartões dentro do intervalo de tempo
     final List<CardModel> filteredCards = cards.where((card) {
       return card.date.isAfter(start) &&

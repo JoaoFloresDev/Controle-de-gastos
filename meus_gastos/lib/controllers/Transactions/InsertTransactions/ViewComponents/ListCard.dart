@@ -7,8 +7,9 @@ import 'package:meus_gastos/services/TranslateService.dart';
 class ListCard extends StatelessWidget {
   final CardModel card;
   final Function(CardModel) onTap;
+  final Color background;
 
-  const ListCard({super.key, required this.card, required this.onTap});
+  const ListCard({super.key, required this.card, required this.onTap, required this.background});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class ListCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
-          color: card.category.name == 'Recorrente' ? Colors.red.withOpacity(0.2) : AppColors.card,
+          color: background,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(

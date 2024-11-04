@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/designSystem/Components/CustomHeader.dart';
+import 'package:meus_gastos/gastos_fixos/HorizontalCircleList.dart';
+import 'package:meus_gastos/services/CategoryService.dart';
 import 'CardDetails/DetailScreen.dart';
 import 'ListCard.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ValorTextField.dart';
@@ -28,11 +30,75 @@ class CriarGastosFixos extends StatefulWidget {
 class _CriarGastosFixos extends State<CriarGastosFixos> {
   late MoneyMaskedTextController valorController;
   final descricaoController = TextEditingController();
-  int lastIndexSelected = 0;
+  int lastIndexSelected_category = 0;
+  int lastIndexSelected_day = 1;
+
   List<FixedExpense> _fixedExpenses = [];
 
+  List<CategoryModel> icons_list_recorrent = [];
+  // CategoryModel(
+  //   id: '1',
+  //   color: Colors.blue,
+  //   icon: Icons.water_drop,
+  //   name: 'Água',
+  // ),
+  // CategoryModel(
+  //   id: '2',
+  //   color: Colors.yellow,
+  //   icon: Icons.lightbulb,
+  //   name: 'Luz',
+  // ),
+  // CategoryModel(
+  //   id: '3',
+  //   color: Colors.green,
+  //   icon: Icons.account_balance_wallet,
+  //   name: 'PIX',
+  // ),
+  // CategoryModel(
+  //   id: '4',
+  //   color: Colors.orange,
+  //   icon: Icons.home,
+  //   name: 'Aluguel',
+  // ),
+  // CategoryModel(
+  //   id: '5',
+  //   color: Colors.grey,
+  //   icon: Icons.apartment,
+  //   name: 'Condomínio',
+  // ),
+  // CategoryModel(
+  //   id: '6',
+  //   color: Colors.red,
+  //   icon: Icons.local_gas_station,
+  //   name: 'Combustível',
+  // ),
+  // CategoryModel(
+  //   id: '7',
+  //   color: Colors.purple,
+  //   icon: Icons.wifi,
+  //   name: 'Internet',
+  // ),
+  // CategoryModel(
+  //   id: '8',
+  //   color: Colors.pink,
+  //   icon: Icons.phone,
+  //   name: 'Telefone',
+  // ),
+  // CategoryModel(
+  //   id: '9',
+  //   color: Colors.brown,
+  //   icon: Icons.tv,
+  //   name: 'TV por assinatura',
+  // ),
+  // CategoryModel(
+  //   id: '10',
+  //   color: Colors.teal,
+  //   icon: Icons.credit_card,
+  //   name: 'Cartão de crédito',
+  // ),
+
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     super.didChangeDependencies();
 
     // Atualiza o formato da data baseado nas configurações do usuário
@@ -44,6 +110,13 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
       decimalSeparator: locale.languageCode == 'pt' ? ',' : '.',
       initialValue: 0.0,
     );
+  }
+
+  Future<void> loadCategories() async {
+    var categorieList = await CategoryService().getAllCategories();
+    setState(() {
+      icons_list_recorrent = categorieList.sublist(0, categorieList.length - 1);
+    });
   }
 
   final TextEditingController _dateController = TextEditingController();
@@ -66,11 +139,11 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                     print(index);
                     setState(() {
                       if ((0 <= index) && (index <= 31)) {
-                        int selectedDay = index+1;
-                        lastIndexSelected = selectedDay;
-                        print(lastIndexSelected);
+                        int selectedDay = index + 1;
+                        lastIndexSelected_day = selectedDay;
+                        print(lastIndexSelected_day);
                         _dateController.text =
-                            'Dia $lastIndexSelected'; // Atualiza o campo de texto
+                            'Dia $lastIndexSelected_day'; // Atualiza o campo de texto
                       }
                     });
                   },
@@ -99,6 +172,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
   void initState() {
     super.initState(); // Necessário no initState
     _loadFixedExpenses();
+    loadCategories();
   }
 
   Future<void> _loadFixedExpenses() async {
@@ -152,7 +226,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                             border: Border(
                                 bottom: BorderSide(color: AppColors.label)),
                           ),
-                          placeholder: "Dia ${lastIndexSelected}",
+                          placeholder: "Dia ${lastIndexSelected_day}",
                           placeholderStyle: const TextStyle(
                               color: AppColors.labelPlaceholder),
                           readOnly:
@@ -178,27 +252,14 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                     controller: descricaoController,
                   ),
                   const SizedBox(height: 24),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    decoration: BoxDecoration(
-                      color: AppColors.buttonSelected,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      category.icon,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    Translateservice.getTranslatedCategoryUsingModel(
-                        context, category),
-                    style: const TextStyle(
-                      fontSize: 9,
-                      color: Colors.white,
-                    ),
-                    textAlign: TextAlign.center,
+                  HorizontalCircleList(
+                    onItemSelected: (index) {
+                      setState(() {
+                        lastIndexSelected_category = index;
+                      });
+                      print(lastIndexSelected_category);
+                    },
+                    icons_list_recorrent: icons_list_recorrent,
                   ),
                   SizedBox(
                     height: 10,
@@ -211,8 +272,9 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                         await Fixedexpensesservice.addCard(FixedExpense(
                             description: descricaoController.text,
                             price: valorController.numberValue,
-                            day: lastIndexSelected,
-                            category: category,
+                            day: lastIndexSelected_day,
+                            category: icons_list_recorrent[
+                                lastIndexSelected_category],
                             id: Uuid().v4()));
                         setState(() {
                           widget.onAddPressedBack();
@@ -269,11 +331,13 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                               _showCupertinoModalBottomSheet(context, card);
                             },
                             card: FixedExpense(
-                                id: _fixedExpenses[index].id,
-                                price: _fixedExpenses[index].price,
-                                description: _fixedExpenses[index].description,
-                                day: _fixedExpenses[index].day,
-                                category: category),
+                              id: _fixedExpenses[index].id,
+                              price: _fixedExpenses[index].price,
+                              description: _fixedExpenses[index].description,
+                              day: _fixedExpenses[index].day,
+                              category: icons_list_recorrent[
+                                  lastIndexSelected_category],
+                            ),
                           ),
                         );
                       },

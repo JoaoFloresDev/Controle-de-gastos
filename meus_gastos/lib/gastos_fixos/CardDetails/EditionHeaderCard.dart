@@ -2,7 +2,10 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
+import 'package:meus_gastos/gastos_fixos/HorizontalCircleList.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/services/CardService.dart';
 import 'package:uuid/uuid.dart';
 import '../fixedExpensesService.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/CampoComMascara.dart';
@@ -16,12 +19,12 @@ class EditionHeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;
   final String adicionarButtonTitle;
   final FixedExpense card;
-
-  const EditionHeaderCard({
-    required this.onAddClicked,
-    required this.adicionarButtonTitle,
-    required this.card,
-  });
+  final bool botomPageIsVisible;
+  const EditionHeaderCard(
+      {required this.onAddClicked,
+      required this.adicionarButtonTitle,
+      required this.card,
+      required this.botomPageIsVisible});
 
   @override
   _EditionHeaderCardState createState() => _EditionHeaderCardState();
@@ -37,11 +40,22 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   List<CategoryModel> categorieList = [];
   final DateTime dataInicial = DateTime.now();
   final double valorInicial = 0.0;
+  int lastIndexSelected_category = 0;
+  List<CategoryModel> icons_list_recorrent = [];
+  late bool _isPaga;
+
+  Future<void> loadCategories() async {
+    var categorieList = await CategoryService().getAllCategories();
+    setState(() {
+      icons_list_recorrent = categorieList.sublist(0, categorieList.length - 1);
+    });
+  }
 
   // MARK: - InitState
   @override
   void initState() {
     super.initState();
+    _isPaga = false;
 
     descricaoController = TextEditingController(text: widget.card.description);
 
@@ -50,6 +64,9 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       descricaoFocusNode.requestFocus();
     });
+    loadCategories();
+    lastIndexSelected_category =
+        icons_list_recorrent.indexOf(widget.card.category);
   }
 
   @override
@@ -62,6 +79,12 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       decimalSeparator: locale.languageCode == 'pt' ? ',' : '.',
       initialValue: widget.card.price,
     );
+  }
+
+  void _toggleStatus() {
+    setState(() {
+      _isPaga = !_isPaga; // Alterna entre 'Paga' e 'Não Paga'.
+    });
   }
 
   final TextEditingController _dateController = TextEditingController();
@@ -80,7 +103,8 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                 height: 200,
                 child: CupertinoPicker(
                   itemExtent: 32.0, // Altura de cada item
-                  scrollController: FixedExtentScrollController(initialItem: widget.card.day-1),
+                  scrollController: FixedExtentScrollController(
+                      initialItem: widget.card.day - 1),
                   onSelectedItemChanged: (int index) {
                     setState(() {
                       int selectedDay = index + 1; // Dia selecionado (1 a 31)
@@ -116,17 +140,29 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
 
   // MARK: - Load Categories
 
-
   // MARK: - Adicionar
   void adicionar() {
-    final newCard = FixedExpense(
-      price: valorController.numberValue,
-      description: descricaoController.text,
-      day: lastDateSelected,
-      category: widget.card.category,
-      id: Uuid().v4(),
-    );
-    Fixedexpensesservice.updateCard(widget.card.id, newCard);
+    print(icons_list_recorrent[lastIndexSelected_category].name);
+    if (_isPaga) {
+      final newCard = CardModel(
+        amount: valorController.numberValue,
+        description: descricaoController.text,
+        date: DateTime(
+            DateTime.now().year, DateTime.now().month, lastDateSelected),
+        category: icons_list_recorrent[lastIndexSelected_category],
+        id: widget.card.id,
+      );
+      CardService.addCard(newCard);
+    } else {
+      final newCard = FixedExpense(
+        price: valorController.numberValue,
+        description: descricaoController.text,
+        day: lastDateSelected,
+        category: icons_list_recorrent[lastIndexSelected_category],
+        id: Uuid().v4(),
+      );
+      Fixedexpensesservice.updateCard(widget.card.id, newCard);
+    }
 
     Future.delayed(const Duration(milliseconds: 300), () {
       widget.onAddClicked();
@@ -176,19 +212,28 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             focusNode: descricaoFocusNode,
             style: const TextStyle(color: AppColors.label),
           ),
-          const SizedBox(height: 24),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    decoration: BoxDecoration(
-                      color: AppColors.buttonSelected,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      widget.card.category.icon,
-                    ),
-                  ),
+          HorizontalCircleList(
+            onItemSelected: (index) {
+              setState(() {
+                lastIndexSelected_category = index;
+              });
+              print(lastIndexSelected_category);
+            },
+            icons_list_recorrent: icons_list_recorrent,
+          ),
+          if (widget.botomPageIsVisible)
+            ElevatedButton(
+              onPressed: _toggleStatus,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _isPaga ? Colors.green : Colors.red,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+              ),
+              child: Text(
+                _isPaga ? 'Paga' : 'Não Paga',
+                style: const TextStyle(fontSize: 20, color: Colors.white),
+              ),
+            ),
           const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),

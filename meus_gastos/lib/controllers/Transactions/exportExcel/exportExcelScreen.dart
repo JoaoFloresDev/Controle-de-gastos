@@ -17,6 +17,13 @@ class Exportexcelscreen extends StatefulWidget {
 
 class _Exportexcelscreen extends State<Exportexcelscreen> {
   String _selectedFormat = 'Excel';
+  bool _isLoadingShare = false;
+  bool _isLoadingSaveLocaly = false;
+
+
+  Widget _buildLoadingIndicator() {
+    return const CircularProgressIndicator(color: AppColors.label);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +104,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap: _saveLocally,
+                      onTap: _isLoadingSaveLocaly ? null : _saveLocally,
                       child: Container(
                         decoration: BoxDecoration(
                           color: AppColors.button,
@@ -105,7 +112,10 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
-                          child: Row(
+                          child: 
+                          _isLoadingSaveLocaly ?
+                          _buildLoadingIndicator() :
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(CupertinoIcons.cloud_download,
@@ -125,7 +135,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                     ),
                     SizedBox(height: 22), // Espaçamento entre os botões
                     GestureDetector(
-                      onTap: _shareViaWhatsApp,
+                      onTap: _isLoadingShare ? null : _shareViaWhatsApp,
                       child: Container(
                         decoration: BoxDecoration(
                           color: AppColors.button,
@@ -133,7 +143,9 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
-                          child: Row(
+                          child: _isLoadingShare ?
+                          _buildLoadingIndicator() :
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(CupertinoIcons.share,
@@ -163,6 +175,9 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
   }
 
   void _saveLocally() async {
+    setState(() {
+      _isLoadingSaveLocaly = true;
+    });
     Excel excel = await ExportToExcel.buildExcelFromCards();
     if (_selectedFormat == 'Excel') {
       ExportToExcel.saveExcelFileLocally(
@@ -172,9 +187,15 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
           excel); // Substitua por seu método de exportação para PDF
     }
     // Implemente lógica para salvar localmente
+    setState(() {
+      _isLoadingSaveLocaly = false;
+    });
   }
 
   void _shareViaWhatsApp() async {
+    setState(() {
+      _isLoadingShare = true;
+    });
     // Caminho onde o arquivo será salvo
     Directory directory = await getApplicationDocumentsDirectory();
     String filePath = '';
@@ -219,5 +240,8 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
     } catch (e) {
       print('Erro ao compartilhar o arquivo: $e');
     }
+    setState(() {
+      _isLoadingShare = false;
+    });
   }
 }

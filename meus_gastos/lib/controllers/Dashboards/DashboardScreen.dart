@@ -39,8 +39,7 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
-
-      bool _isPro = false;
+  bool _isPro = false;
 
   //mark - propriedades
   List<ProgressIndicatorModel> progressIndicators = [];
@@ -108,7 +107,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     _checkUserProStatus();
   }
 
-    Future<void> _checkUserProStatus() async {
+  Future<void> _checkUserProStatus() async {
     final prefs = await SharedPreferences.getInstance();
     bool isYearlyPro = prefs.getBool('yearly.pro') ?? false;
     bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
@@ -283,6 +282,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget _buildProgressIndicators(BuildContext context) {
+    print(progressIndicators.isEmpty);
     if (progressIndicators.isEmpty) {
       return Column(
         crossAxisAlignment:
@@ -430,42 +430,44 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   void _showMenuOptions(BuildContext context) {
-  showCupertinoModalPopup(
-    context: context,
-    builder: (BuildContext context) {
-      return CupertinoActionSheet(
-        actions: <Widget>[
-          CupertinoActionSheetAction(
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          actions: <Widget>[
+            CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _launchURL(
+                    'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
+              },
+              child: const Text('Terms of Use'),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _launchURL(
+                    'https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing');
+              },
+              child: const Text('Privacy Policy'),
+            ),
+          ],
+          cancelButton: CupertinoActionSheetAction(
             onPressed: () {
               Navigator.of(context).pop();
-              _launchURL('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
             },
-            child: const Text('Terms of Use'),
+            child: const Text('Cancel'),
           ),
-          CupertinoActionSheetAction(
-            onPressed: () {
-              Navigator.of(context).pop();
-              _launchURL('https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing');
-            },
-            child: const Text('Privacy Policy'),
-          ),
-        ],
-        cancelButton: CupertinoActionSheetAction(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Cancel'),
-        ),
-      );
-    },
-  );
-}
-
-void _launchURL(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
+        );
+      },
+    );
   }
-}
+
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 }

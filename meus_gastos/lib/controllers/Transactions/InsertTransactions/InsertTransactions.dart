@@ -1,9 +1,10 @@
 import 'dart:io';
+import 'package:meus_gastos/controllers/Transactions/Purchase/ProModalAndroid.dart';
+import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:meus_gastos/comprarPro/Buyscreen.dart';
 import 'package:meus_gastos/controllers/Transactions/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/gastos_fixos/ListCard.dart';
@@ -70,6 +71,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   final String monthlyProId = 'monthly.pro';
   bool _isLoading = false;
   bool _isPro = false;
+  List<String> fixedExpenseIds = [];
+  List<String> normalExpenseIds = [];
 
   late InAppPurchase _inAppPurchase;
   late Stream<List<PurchaseDetails>> _subscription;
@@ -82,6 +85,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   void initState() {
     super.initState();
     loadCards();
+
     // _initInAppPurchase();
     _checkUserProStatus();
   }
@@ -103,6 +107,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   Future<void> loadCards() async {
     var cards = await service.CardService.retrieveCards();
     var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
+    _loadFixedExpenseIds();
     setState(() async {
       cardList = cards;
       fixedCards = fcard;
@@ -111,21 +116,45 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     });
   }
 
+  Future<void> _loadFixedExpenseIds() async {
+    final Fixedids = await Fixedexpensesservice.getFixedExpenseIds();
+    final normalids = await service.CardService.getNormalExpenseIds();
+    setState(() {
+      fixedExpenseIds = Fixedids;
+      normalExpenseIds = normalids;
+    });
+  }
+
   // Exibe o ProModal
   void _showProModal(BuildContext context) async {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (BuildContext context) {
-        return ProModal(
-          isLoading: _isLoading,
-          onSubscriptionPurchased: () {
-            setState(() {
-              _isPro = true;
-            });
-          },
-        );
-      },
-    );
+    if (Platform.isIOS)
+      showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext context) {
+          return ProModal(
+            isLoading: _isLoading,
+            onSubscriptionPurchased: () {
+              setState(() {
+                _isPro = true;
+              });
+            },
+          );
+        },
+      );
+    if (Platform.isAndroid)
+      showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext context) {
+          return ProModalAndroid(
+            isLoading: _isLoading,
+            onSubscriptionPurchased: () {
+              setState(() {
+                _isPro = true;
+              });
+            },
+          );
+        },
+      );
   }
 
   // MARK: - Build Method
@@ -160,60 +189,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             ),
           ),
         ),
-        // drawer: Drawer(
-        //   backgroundColor: AppColors.background1,
-        //   child: ListView(
-        //     padding: EdgeInsets.zero,
-        //     children: <Widget>[
-        //       DrawerHeader(
-        //         decoration: BoxDecoration(
-        //           color: AppColors.background1,
-        //         ),
-        //         child: Text(
-        //           'Menu',
-        //           style: TextStyle(
-        //             color: AppColors.label,
-        //             fontSize: 24,
-        //           ),
-        //         ),
-        //       ),
-        //       ListTile(
-        //         leading: Icon(Icons.home),
-        //         title: Text(
-        //           'Início',
-        //           style: TextStyle(color: AppColors.label),
-        //         ),
-        //         onTap: () {
-        //           Navigator.pop(context); // Fecha o menu
-        //           // não vai a lugar nenhum pois já está no inicio
-        //         },
-        //       ),
-        //       ListTile(
-        //         leading: Icon(Icons.insert_invitation_rounded),
-        //         title: Text(
-        //           'Adicionar Gastos Fixos',
-        //           style: TextStyle(color: AppColors.label),
-        //         ),
-        //         onTap: () {
-        //           Navigator.pop(context); // Fecha o menu
-        //           print("Entrou");
-        //           _showCupertinoModalBottomFixedExpenses(context);
-        //         },
-        //       ),
-        //       ListTile(
-        //         leading: Icon(Icons.payment_rounded),
-        //         title: Text(
-        //           'Retirar os anuncios',
-        //           style: TextStyle(color: AppColors.label),
-        //         ),
-        //         onTap: () {
-        //           Navigator.pop(context); // Fecha o menu
-        //           _showProModal(context); // Chamando o modal de assinatura
-        //         },
-        //       ),
-        //     ],
-        //   ),
-        // ),
         body: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Column(
@@ -297,20 +272,32 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                   child: ListView.builder(
                     itemCount: mergeCardList.length,
                     itemBuilder: (context, index) {
+                      final card =
+                          mergeCardList[mergeCardList.length - index - 1];
+                      if (normalExpenseIds.contains(card.id)) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          child: ListCard(
+                            onTap: (card) {
+                              widget.onAddClicked();
+                              _showCupertinoModalBottomSheet(context, card);
+                            },
+                            card: mergeCardList[cardList.length - index - 1],
+                            background: AppColors.background1,
+                          ),
+                        );
+                      }
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 5),
                         child: ListCard(
                           onTap: (card) {
-                            if (mergeCardList[cardList.length - index - 1]
-                                    .category
-                                    .name !=
-                                'Recorrente') {
-                              widget.onAddClicked();
-                              _showCupertinoModalBottomSheet(context, card);
-                            }
+                            widget.onAddClicked();
+                            _showCupertinoModalBottomSheet_Fixed(context, card);
                           },
                           card: mergeCardList[cardList.length - index - 1],
+                          background: Colors.red,
                         ),
                       );
                     },
@@ -366,6 +353,32 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           ),
           child: DetailScreen(
             card: card,
+            onAddClicked: () {
+              setState(() {
+                loadCards();
+              });
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  _showCupertinoModalBottomSheet_Fixed(BuildContext context, CardModel card) {
+    FocusScope.of(context).unfocus();
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: MediaQuery.of(context).size.height / 1.05,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: DetailScreenFixedExpenses(
+            card: fixedCards.firstWhere((fcard) => fcard.id == card.id),
             onAddClicked: () {
               setState(() {
                 loadCards();
