@@ -62,6 +62,8 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
     print("Chegou aqui");
     getProducts();
     print(_products.length);
+    _restorePurchases();
+    updateProStatus();
   }
 
   Future<void> updateProStatus() async {
@@ -78,6 +80,7 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
         await iApEngine.queryProducts(storeProductIds).then((response) {
           setState(() {
             _products.addAll(response.productDetails);
+            isLoadingPrice = false;
           });
         });
       }
@@ -193,7 +196,7 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
                         : AppLocalizations.of(context)!.loading,
                     onPressed: () => {
                       _buySubscription(_products[0].id ?? ''),
-                      iApEngine.handlePurchase(_products[0], storeProductIds)
+                      // iApEngine.handlePurchase(_products[0], storeProductIds)
                     },
                     productId: _products.isNotEmpty ? _products[0].id : '',
                   ),
@@ -206,7 +209,7 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
                         : AppLocalizations.of(context)!.loading,
                     onPressed: () => {
                       _buySubscription(_products[1].id ?? ''),
-                      iApEngine.handlePurchase(_products[1], storeProductIds)
+                      // iApEngine.handlePurchase(_products[1], storeProductIds)
                     },
                     productId: _products.isNotEmpty ? _products[1].id : '',
                   ),
@@ -275,10 +278,10 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
       final purchaseParam = PurchaseParam(productDetails: productDetails);
       InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
     } else {
+    }
       setState(() {
         loadingPurchases.remove(productId);
       });
-    }
   }
 
   Widget _buildSubscriptionButton({

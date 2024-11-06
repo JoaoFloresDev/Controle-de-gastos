@@ -108,12 +108,11 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     var cards = await service.CardService.retrieveCards();
     var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
     _loadFixedExpenseIds();
-    setState(() async {
-      cardList = cards;
-      fixedCards = fcard;
-      mergeCardList =
-          await Fixedexpensesservice.MergeFixedWithNormal(fixedCards, cardList);
-    });
+    cardList = cards;
+    fixedCards = fcard;
+    mergeCardList =
+        await Fixedexpensesservice.MergeFixedWithNormal(fixedCards, cardList);
+    setState(() {});
   }
 
   Future<void> _loadFixedExpenseIds() async {

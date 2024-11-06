@@ -35,7 +35,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
 
   late DateTime lastDateSelected = widget.card.date;
   List<CategoryModel> categorieList = [];
-  int lastIndexSelected = 0;
+  late int lastIndexSelected;
   final DateTime dataInicial = DateTime.now();
   final double valorInicial = 0.0;
 
@@ -88,6 +88,11 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   // MARK: - Load Categories
   Future<void> loadCategories() async {
     categorieList = await CategoryService().getAllCategories();
+    lastIndexSelected = categorieList.indexWhere(
+          (category) => category.id == widget.card.category.id);
+      if (lastIndexSelected == -1) {
+        lastIndexSelected = 0; 
+      }
     setState(() {});
   }
 
@@ -147,6 +152,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                   lastIndexSelected = index;
                 });
               },
+              defaultdIndexCategory: lastIndexSelected,
             ),
           ),
           Padding(

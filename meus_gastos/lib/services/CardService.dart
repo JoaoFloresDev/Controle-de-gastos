@@ -1,6 +1,3 @@
-import 'package:meus_gastos/gastos_fixos/criar_gastosFixos.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -67,11 +64,6 @@ class CardService {
     await prefs.remove(_storageKey);
   }
 
-  // static Future<List<CardModel>> mergeFixWithNormal() async {
-  //   var cards = await retrieveCards();
-  //   var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
-  //   return Fixedexpensesservice.MergeFixedWithNormal(fcard, cards);
-  // }
 
   // MARK: - Progress Indicators
   static Future<List<ProgressIndicatorModel>> getProgressIndicators() async {
@@ -116,13 +108,10 @@ class CardService {
     for (var card in filteredCards) {
       totals[card.category.id] = (totals[card.category.id] ?? 0) + card.amount;
     }
-    var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
-    CategoryModel fixedcategory = fcard.first.category;
     final List<CategoryModel> categories =
         await CategoryService().getAllCategories();
     final Map<String, CategoryModel> categoryMap = {
-      for (var category in categories) category.id: category,
-      fixedcategory.id: fixedcategory
+      for (var category in categories) category.id: category
     };
     print("CHEGA AQUI");
 

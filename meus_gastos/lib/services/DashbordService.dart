@@ -1,5 +1,4 @@
 import 'package:intl/intl.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
@@ -48,9 +47,6 @@ class Dashbordservice {
       DateTime start, DateTime end) async {
     final List<CardModel> cards = await CardService.retrieveCards();
     if (cards.isEmpty) return [];
-    // var fcards = await Fixedexpensesservice.getSortedFixedExpenses();
-    // final List<CardModel> cards =
-    //     await Fixedexpensesservice.MergeFixedWithNormal(fcards, ncards);
     final Map<String, double> totals = {};
 
     final List<CardModel> filteredCards = cards
@@ -63,14 +59,11 @@ class Dashbordservice {
       totals[card.category.id] = (totals[card.category.id] ?? 0) + card.amount;
     }
 
-    var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
-    CategoryModel fixedCategory = fcard.first.category;
 
     final List<CategoryModel> categories =
         await CategoryService().getAllCategories();
     final Map<String, CategoryModel> categoryMap = {
       for (var category in categories) category.id: category,
-      fixedCategory.id: fixedCategory,
     };
 
     final List<ProgressIndicatorModel> progressIndicators = totals.entries
@@ -142,14 +135,10 @@ class Dashbordservice {
           (dailyTotals[categoryId]![dayOfWeek] ?? 0) + card.amount;
     }
 
-    var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
-    CategoryModel fixedCategory = fcard.first.category;
-
     final List<CategoryModel> categories =
         await CategoryService().getAllCategories();
     final Map<String, CategoryModel> categoryMap = {
       for (var category in categories) category.id: category,
-      fixedCategory.id: fixedCategory,
     };
 
     // Criar a lista de listas para armazenar os indicadores de progresso para cada dia da semana

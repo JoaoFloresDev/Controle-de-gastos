@@ -63,19 +63,17 @@ class ExportToExcel {
   static Future<List<int>> buildPdfFromExcel(Excel excel) async {
     // Criar um documento PDF
     final PdfDocument document = PdfDocument();
-    final PdfPage page = document.pages.add();
-    final PdfGrid pdfGrid = PdfGrid();
 
-    // Definir as colunas do PDF com base nas colunas da primeira planilha
     if (excel.tables.isNotEmpty) {
       final sheet = excel.tables[excel.tables.keys.first];
-      // Encontrar o número máximo de colunas
-      int maxCols = 0;
-      for (var row in sheet!.rows) {
-        if (row.length > maxCols) {
-          maxCols = row.length;
-        }
-      }
+      if (sheet == null) return [];
+
+      final PdfPage page = document.pages.add();
+      final PdfGrid pdfGrid = PdfGrid();
+
+      // Encontrar o número máximo de colunas e definir a grade do PDF
+      int maxCols = sheet.rows
+          .fold<int>(0, (prev, row) => row.length > prev ? row.length : prev);
       pdfGrid.columns.add(count: maxCols);
 
       // Adicionar linhas ao PDF com base nos dados da planilha
@@ -85,24 +83,39 @@ class ExportToExcel {
           pdfGridRow.cells[i].value = row[i]?.value?.toString() ?? '';
         }
       }
+
+      // Ajustar a grade para a largura da página
+      pdfGrid.style = PdfGridStyle(
+        cellPadding: PdfPaddings(left: 5, right: 5, top: 5, bottom: 5),
+        font: PdfStandardFont(PdfFontFamily.helvetica, 12),
+      );
+
+      pdfGrid.draw(
+        page: page,
+        bounds: Rect.fromLTWH(
+            0, 0, page.getClientSize().width, page.getClientSize().height),
+      );
     }
 
-    // Desenhar a grade no PDF
-    pdfGrid.draw(page: page, bounds: const Rect.fromLTWH(0, 0, 500, 500));
-
     // Salvar o documento em bytes
-    final List<int> pdfBytes = document.saveSync();
+    final List<int> pdfBytes = await document.save();
     document.dispose();
     return pdfBytes;
   }
 
   // Função para salvar o PDF localmente
   static Future<void> savePdfLocally(List<int> pdfBytes) async {
-    Directory directory = await getApplicationDocumentsDirectory();
-    String filePath = '${directory.path}/sheet_of_expens.pdf';
+    try {
+      // Obtém o diretório de documentos do aplicativo
+      Directory directory = await getApplicationDocumentsDirectory();
+      String filePath = '${directory.path}/sheet_of_expens.pdf';
 
-    final File file = File(filePath);
-    await file.writeAsBytes(pdfBytes);
+      final File file = File(filePath);
+      await file.writeAsBytes(pdfBytes);
+      print('PDF salvo em: $filePath');
+    } catch (e) {
+      print('Erro ao salvar o PDF: $e');
+    }
   }
 
   // Função principal para converter o Excel em PDF

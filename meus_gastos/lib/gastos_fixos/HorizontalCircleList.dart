@@ -7,10 +7,12 @@ import 'package:meus_gastos/services/TranslateService.dart';
 class HorizontalCircleList extends StatefulWidget {
   final Function(int) onItemSelected;
   final List<CategoryModel> icons_list_recorrent;
+  final int defaultIndexCategory;
   const HorizontalCircleList({
     Key? key,
     required this.onItemSelected,
     required this.icons_list_recorrent,
+    required this.defaultIndexCategory,
   }) : super(key: key);
 
   @override
@@ -20,8 +22,13 @@ class HorizontalCircleList extends StatefulWidget {
 class HorizontalCircleListState extends State<HorizontalCircleList> {
   int selectedIndex = 0;
   int lastSelectedIndex = 0;
-
-  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    selectedIndex = widget.defaultIndexCategory;
+    lastSelectedIndex = selectedIndex;
+  }
 
   // MARK: - Build Method
   @override
@@ -35,8 +42,8 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
           return GestureDetector(
             onTap: () {
               setState(() {
-              lastSelectedIndex = selectedIndex;
-              selectedIndex = index;
+                lastSelectedIndex = selectedIndex;
+                selectedIndex = index;
               });
               widget.onItemSelected(index);
             },
@@ -49,8 +56,8 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                   margin: const EdgeInsets.symmetric(horizontal: 8),
                   decoration: BoxDecoration(
                     color: selectedIndex == index
-                            ? AppColors.buttonSelected
-                            : AppColors.buttonDeselected,
+                        ? AppColors.buttonSelected
+                        : AppColors.buttonDeselected,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(

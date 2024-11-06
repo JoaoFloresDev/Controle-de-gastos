@@ -260,6 +260,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                       print(lastIndexSelected_category);
                     },
                     icons_list_recorrent: icons_list_recorrent,
+                    defaultIndexCategory: 0,
                   ),
                   SizedBox(
                     height: 10,
@@ -269,6 +270,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                     child: CupertinoButton(
                       color: AppColors.button,
                       onPressed: () async {
+                        print(icons_list_recorrent[lastIndexSelected_category].name);
                         await Fixedexpensesservice.addCard(FixedExpense(
                             description: descricaoController.text,
                             price: valorController.numberValue,
@@ -335,8 +337,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                               price: _fixedExpenses[index].price,
                               description: _fixedExpenses[index].description,
                               day: _fixedExpenses[index].day,
-                              category: icons_list_recorrent[
-                                  lastIndexSelected_category],
+                              category: _fixedExpenses[index].category,
                             ),
                           ),
                         );

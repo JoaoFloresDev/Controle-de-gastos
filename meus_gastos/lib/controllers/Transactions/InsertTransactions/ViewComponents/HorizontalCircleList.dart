@@ -6,10 +6,11 @@ import 'package:meus_gastos/services/TranslateService.dart';
 
 class HorizontalCircleList extends StatefulWidget {
   final Function(int) onItemSelected;
-
+  final int defaultdIndexCategory;
   const HorizontalCircleList({
     Key? key,
     required this.onItemSelected,
+    required this.defaultdIndexCategory,
   }) : super(key: key);
 
   @override
@@ -25,6 +26,8 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
   @override
   void initState() {
     super.initState();
+    selectedIndex = widget.defaultdIndexCategory;
+    lastSelectedIndex = selectedIndex;
     loadCategories();
   }
 
@@ -33,6 +36,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
     categorieList = await CategoryService().getAllCategories();
     setState(() {
       categorieList = categorieList;
+
     });
   }
 

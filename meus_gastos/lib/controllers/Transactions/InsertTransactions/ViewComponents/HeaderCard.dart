@@ -356,6 +356,7 @@ class HeaderCardState extends State<HeaderCard> {
                     });
                   }
                 },
+                defaultdIndexCategory: 0,
               ),
             ),
             Padding(

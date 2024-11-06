@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/controllers/Transactions/CardDetails/DetailScreen.dart';
@@ -28,13 +27,9 @@ class _ExtractbycategoryState extends State<Extractbycategory> {
   }
 
   Future<void> loadCards() async {
-    var cardListNormal = await CardService.retrieveCards();
-    var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
-    mergeCardList = await Fixedexpensesservice.MergeFixedWithNormal(
-        fcard, cardListNormal);
+    var cardList = await CardService.retrieveCards();
     setState(() {
-      cards = mergeCardList;
-      print(cards.length);
+      cards = cardList;
     });
   }
 
@@ -46,11 +41,8 @@ class _ExtractbycategoryState extends State<Extractbycategory> {
 
   @override
   Widget build(BuildContext context) {
-    
     List<CardModel> filtered = selectbycategory(cards);
-    if (widget.category == "Recorrente") {
-      print("${filtered.length}++++++${widget.category}");
-    }
+    print(filtered.length);
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Column(

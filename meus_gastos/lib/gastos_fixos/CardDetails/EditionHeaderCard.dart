@@ -40,15 +40,27 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   List<CategoryModel> categorieList = [];
   final DateTime dataInicial = DateTime.now();
   final double valorInicial = 0.0;
-  int lastIndexSelected_category = 0;
+  late int lastIndexSelected_category;
   List<CategoryModel> icons_list_recorrent = [];
   late bool _isPaga;
 
   Future<void> loadCategories() async {
     var categorieList = await CategoryService().getAllCategories();
-    setState(() {
-      icons_list_recorrent = categorieList.sublist(0, categorieList.length - 1);
-    });
+    if (categorieList.isNotEmpty) {
+      setState(() {
+        icons_list_recorrent =
+            categorieList.sublist(0, categorieList.length - 1);
+        lastIndexSelected_category = icons_list_recorrent.indexWhere(
+          (category) => category.id == widget.card.category.id);
+      
+      // Define um valor padrão se o item não for encontrado
+      if (lastIndexSelected_category == -1) {
+        lastIndexSelected_category = 0; // ou qualquer valor de fallback
+      }
+
+      });
+    }
+    print(lastIndexSelected_category);
   }
 
   // MARK: - InitState
@@ -65,8 +77,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       descricaoFocusNode.requestFocus();
     });
     loadCategories();
-    lastIndexSelected_category =
-        icons_list_recorrent.indexOf(widget.card.category);
   }
 
   @override
@@ -220,6 +230,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
               print(lastIndexSelected_category);
             },
             icons_list_recorrent: icons_list_recorrent,
+            defaultIndexCategory: lastIndexSelected_category ?? 0,
           ),
           if (widget.botomPageIsVisible)
             ElevatedButton(
