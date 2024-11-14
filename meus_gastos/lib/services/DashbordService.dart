@@ -5,6 +5,7 @@ import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:flutter/material.dart';
 
 class WeekInterval {
   final DateTime start;
@@ -29,11 +30,9 @@ class Dashbordservice {
       currentDate = DateTime(currentDate.year, currentDate.month,
           DateTime(currentDate.year, currentDate.month + 1, 0).day);
     }
-    // Encontrar a última segunda-feira
     DateTime lastMonday = currentDate
         .subtract(Duration(days: currentDate.weekday - DateTime.monday));
 
-    // Iterar pelas últimas 5 semanas
     for (int i = 4; i >= 0; i--) {
       DateTime startOfWeek = lastMonday.subtract(Duration(days: 7 * i));
       DateTime endOfWeek = startOfWeek.add(Duration(days: 6));
@@ -59,7 +58,6 @@ class Dashbordservice {
       totals[card.category.id] = (totals[card.category.id] ?? 0) + card.amount;
     }
 
-
     final List<CategoryModel> categories =
         await CategoryService().getAllCategories();
     final Map<String, CategoryModel> categoryMap = {
@@ -70,7 +68,12 @@ class Dashbordservice {
         .map((entry) => ProgressIndicatorModel(
             title: categoryMap[entry.key]?.name ?? 'Unknown',
             progress: entry.value,
-            category: categoryMap[entry.key]!,
+            category: categoryMap[entry.key] ??
+                CategoryModel(
+                    id: entry.key,
+                    name: 'Unknown',
+                    color: Colors.grey,
+                    icon: Icons.help),
             color: categoryMap[entry.key]?.color ?? AppColors.buttonDeselected))
         .toList();
 
@@ -106,19 +109,16 @@ class Dashbordservice {
     return categoriesSet.toList();
   }
 
-// to the grafic of day expens of week
   static Future<List<List<ProgressIndicatorModel>>>
       getDailyProgressIndicatorsByWeek(DateTime start, DateTime end) async {
-    // final List<CardModel> cards = await CardService.retrieveCards();
     final List<CardModel> cards = await CardService.retrieveCards();
     if (cards.isEmpty) return [];
-    // Filtrar os cartões dentro do intervalo de tempo
+
     final List<CardModel> filteredCards = cards.where((card) {
       return card.date.isAfter(start) &&
           card.date.isBefore(end.add(const Duration(days: 1)));
     }).toList();
 
-    // Inicializar um mapa para armazenar os gastos por categoria e por dia da semana
     Map<String, Map<int, double>> dailyTotals = {};
 
     for (var card in filteredCards) {
@@ -126,9 +126,7 @@ class Dashbordservice {
       int dayOfWeek = card.date.weekday;
 
       if (!dailyTotals.containsKey(categoryId)) {
-        dailyTotals[categoryId] = {
-          for (int i = 1; i <= 7; i++) i: 0.0
-        }; // Inicializa os 7 dias
+        dailyTotals[categoryId] = {for (int i = 1; i <= 7; i++) i: 0.0};
       }
 
       dailyTotals[categoryId]![dayOfWeek] =
@@ -141,14 +139,12 @@ class Dashbordservice {
       for (var category in categories) category.id: category,
     };
 
-    // Criar a lista de listas para armazenar os indicadores de progresso para cada dia da semana
     List<List<ProgressIndicatorModel>> weeklyData = List.generate(7, (_) => []);
 
-    // Preencher o weeklyData com os ProgressIndicatorModels correspondentes
     dailyTotals.forEach((categoryId, dayTotals) {
       CategoryModel category = categoryMap[categoryId] ??
           CategoryModel(
-              id: '',
+              id: categoryId,
               name: 'Unknown',
               color: AppColors.buttonDeselected,
               icon: Icons.device_unknown);
@@ -165,7 +161,6 @@ class Dashbordservice {
       }
     });
 
-    // Ordenar os indicadores de progresso em cada dia pelo valor de progress
     for (var dailyProgress in weeklyData) {
       dailyProgress.sort((a, b) => b.progress.compareTo(a.progress));
     }
@@ -175,19 +170,15 @@ class Dashbordservice {
 
   static Future<List<List<List<ProgressIndicatorModel>>>>
       getProgressIndicatorsOfDaysForLast5Weeks(DateTime currentDate) async {
-    List<WeekInterval> intervals = getLast5WeeksIntervals(
-        currentDate); // Obtém os intervalos das últimas 5 semanas
+    List<WeekInterval> intervals = getLast5WeeksIntervals(currentDate);
 
-    List<Future<List<List<ProgressIndicatorModel>>>> futures =
-        []; // Lista para armazenar os futuros
+    List<Future<List<List<ProgressIndicatorModel>>>> futures = [];
 
-    // Para cada intervalo de semana, chama a função getDailyProgressIndicatorsByWeek
     for (var interval in intervals) {
       futures
           .add(getDailyProgressIndicatorsByWeek(interval.start, interval.end));
     }
 
-    // Aguarda todas as chamadas assíncronas e retorna os resultados
     return await Future.wait(futures);
   }
 }

@@ -396,13 +396,14 @@ class _DashboardScreenState extends State<DashboardScreen>
         ),
       ),
       child: SafeArea(
+        // child: Spacer()
         child: isLoading
             ? Center(
                 child: _buildLoadingIndicator(),
               )
             : Column(
                 children: [
-                  _buildBannerAd(),
+                  // _buildBannerAd(),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(

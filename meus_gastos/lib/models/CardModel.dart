@@ -31,8 +31,9 @@ class CardModel {
       amount: map['amount'],
       description: map['description'],
       date: DateTime.parse(map['date']),
-      category: CategoryModel.fromJson(
-          map['category']), // Convert JSON to category
+      category: map['category'] is String
+          ? CategoryModel(name: map['category']) // Para dados antigos
+          : CategoryModel.fromJson(map['category']), // Para dados novos
     );
   }
 }
