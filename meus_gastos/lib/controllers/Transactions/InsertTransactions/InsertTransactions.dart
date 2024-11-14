@@ -210,11 +210,16 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                     description: widget.description,
                     valueExpens: widget.valueExpens,
                     key: _headerCardKey,
-                    onAddClicked: () {
+                    onAddClicked: () async {
                       widget.onAddClicked();
-                      setState(() async {
                         await loadCards();
                         await Constructreview.checkAndRequestReview();
+                        if (_headerCardKey.currentState != null) {
+                          await _headerCardKey.currentState!.loadCategories();
+                        } else {
+                          print("Não deu");
+                        }
+                      setState(() {
                       });
                     },
                     onAddCategory: () {

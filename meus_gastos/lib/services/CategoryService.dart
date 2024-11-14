@@ -12,6 +12,8 @@ class CategoryService {
     category.frequency = maior_valor_frequency + 1;
     maior_valor_frequency = category.frequency;
     print(category.frequency);
+    print(maior_valor_frequency);
+
     final prefs = await SharedPreferences.getInstance();
     List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
     categories.add(jsonEncode(category.toJson()));
@@ -35,13 +37,15 @@ class CategoryService {
       final Map<String, dynamic> categoryMap = jsonDecode(category);
       return CategoryModel.fromJson(categoryMap);
     }).toList();
-
+    int _maior_valor_frequency = aux.isNotEmpty
+      ? aux.map((cat) => cat.frequency).reduce((a, b) => a > b ? a : b)
+      : 0;
     // update the frequency of category with Id forneced
     for (var cat in aux) {
       if (cat.id == category.id) {
-        cat.frequency = maior_valor_frequency;
+        cat.frequency = _maior_valor_frequency + 1;
         maior_valor_frequency = cat.frequency;
-
+        print(maior_valor_frequency);
         break;
       }
     }
@@ -119,41 +123,46 @@ class CategoryService {
             name: 'Drink',
             frequency: 0),
         CategoryModel(
-          id: '1',
+          id: 'Water',
           color: Colors.blue,
           icon: Icons.water_drop,
-          name: 'Água',
+          name: 'Water',
+          frequency: 0
         ),
         CategoryModel(
-          id: '2',
+          id: 'Light',
           color: Colors.yellow,
           icon: Icons.lightbulb,
-          name: 'Luz',
+          name: 'Light',
+          frequency: 0
         ),
         CategoryModel(
-          id: '7',
+          id: 'Wifi',
           color: Colors.purple,
           icon: Icons.wifi,
-          name: 'Internet',
+          name: 'Wifi',
+          frequency: 0
         ),
         CategoryModel(
-          id: '8',
+          id: 'Phone',
           color: Colors.pink,
           icon: Icons.phone,
-          name: 'Telefone',
+          name: 'Phone',
+          frequency: 0
         ),
         CategoryModel(
-          id: '10',
+          id: 'CreditCard',
           color: Colors.teal,
           icon: Icons.credit_card,
-          name: 'Cartão de crédito',
+          name: 'Credit Card',
+          frequency: 0
         ),
         CategoryModel(
             id: 'AddCategory',
             color: Colors.cyan[300]!,
             icon: Icons.add,
             name: 'AddCategory',
-            frequency: -1),
+            frequency: -10),
       ];
 
       for (var category in defaultCategories) {

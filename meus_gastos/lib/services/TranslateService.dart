@@ -58,8 +58,16 @@ class Translateservice {
         return AppLocalizations.of(context)!.videoGame;
       case 'Drink':
         return AppLocalizations.of(context)!.drink;
-      case 'Repeat':
-        return AppLocalizations.of(context)!.repeat;
+      case 'Water':
+        return AppLocalizations.of(context)!.water;
+      case 'Light':
+        return AppLocalizations.of(context)!.light;
+      case 'Wifi':
+        return AppLocalizations.of(context)!.wifi;
+      case 'Phone':
+        return AppLocalizations.of(context)!.phone;
+      case 'CreditCard':
+        return AppLocalizations.of(context)!.creditCard;
       case 'AddCategory':
         return AppLocalizations.of(context)!.addCategory;
       default:
@@ -89,8 +97,16 @@ class Translateservice {
         return AppLocalizations.of(context)!.videoGame;
       case 'Drink':
         return AppLocalizations.of(context)!.drink;
-      case 'Repeat':
-        return AppLocalizations.of(context)!.repeat;
+      case 'Water':
+        return AppLocalizations.of(context)!.water;
+      case 'Light':
+          return AppLocalizations.of(context)!.light;
+      case 'Wifi':
+          return AppLocalizations.of(context)!.wifi;
+      case 'Phone':
+          return AppLocalizations.of(context)!.phone;
+      case 'Credit Card':
+          return AppLocalizations.of(context)!.creditCard;
       case 'AddCategory':
         return AppLocalizations.of(context)!.addCategory;
       default:
