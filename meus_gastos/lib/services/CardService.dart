@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -119,7 +120,13 @@ class CardService {
         .map((entry) => ProgressIndicatorModel(
             title: categoryMap[entry.key]?.name ?? 'Unknown',
             progress: entry.value,
-            category: categoryMap[entry.key]!,
+            category: categoryMap[entry.key] ?? CategoryModel(
+        id: "1",
+        name: "Alimentação",
+        color: const Color.fromARGB(255, 41, 40, 40), // Cor para a categoria
+        icon: CupertinoIcons.cart, // Ícone fictício
+        frequency: 5, // Frequência de ocorrência
+      ),
             color: categoryMap[entry.key]?.color ??
                 const Color.fromARGB(255, 183, 128, 0)))
         .toList();
