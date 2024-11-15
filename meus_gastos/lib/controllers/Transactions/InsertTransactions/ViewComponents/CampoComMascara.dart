@@ -1,3 +1,4 @@
+import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:intl/intl.dart';
@@ -44,15 +45,14 @@ class _CampoComMascaraState extends State<CampoComMascara> {
       controller: _dateController,
       focusNode: _focusNode,
       style: TextStyle(color: AppColors.labelPlaceholder),
-      onTap: _handleTap,
+      onTap: Platform.isMacOS ? null : _handleTap, // Desativa o picker para macOS
       keyboardType: TextInputType.datetime,
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(color: AppColors.line),
         ),
       ),
-      placeholder: AppLocalizations.of(context)!
-          .dateFormat, // Utiliza o formato da localização
+      placeholder: AppLocalizations.of(context)!.dateFormat,
     );
   }
 
@@ -83,7 +83,7 @@ class _CampoComMascaraState extends State<CampoComMascara> {
   // MARK: - Format DateTime para exibição (de acordo com o AppLocalizations)
   String _formatDateTime(DateTime dateTime) {
     if (_dateFormatPattern == null) {
-      return ''; // Retorna uma string vazia se o formato não estiver disponível
+      return ''; 
     }
     final DateFormat dateFormat = DateFormat(
         _dateFormatPattern!, Localizations.localeOf(context).toString());

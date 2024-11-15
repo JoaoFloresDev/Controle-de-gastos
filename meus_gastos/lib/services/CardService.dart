@@ -119,15 +119,15 @@ class CardService {
     final Map<String, CategoryModel> categoryMap = {
       for (var category in categories) category.id: category
     };
-
+    
     final List<ProgressIndicatorModel> progressIndicators = totals.entries
         .map((entry) => ProgressIndicatorModel(
-            title: categoryMap[entry.key]?.name ?? 'Unknown',
+            title: categoryMap[entry.key]?.name ?? entry.key,
             progress: entry.value,
             category: categoryMap[entry.key] ??
                 CategoryModel(
                   id: entry.key,
-                  name: 'Unknown',
+                  name: entry.key,
                   color: Colors.grey,
                   icon: Icons.help,
                 ),

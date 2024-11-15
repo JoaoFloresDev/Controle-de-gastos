@@ -301,7 +301,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                             _showCupertinoModalBottomSheet_Fixed(context, card);
                           },
                           card: mergeCardList[cardList.length - index - 1],
-                          background: Colors.red,
+                          background: Colors.blue,
                         ),
                       );
                     },

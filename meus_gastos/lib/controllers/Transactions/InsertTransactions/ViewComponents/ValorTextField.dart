@@ -1,3 +1,4 @@
+import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -24,7 +25,7 @@ class _ValorTextFieldState extends State<ValorTextField> {
   }
 
   void _handleFocusChange() {
-    if (_focusNode.hasFocus) {
+    if (_focusNode.hasFocus && !Platform.isMacOS) {
       _overlayEntry = _createOverlayEntry();
       Overlay.of(context).insert(_overlayEntry!);
     } else {
@@ -40,16 +41,19 @@ class _ValorTextFieldState extends State<ValorTextField> {
         bottom: MediaQuery.of(context).viewInsets.bottom,
         left: 0,
         width: screenWidth,
-        child: KeyboardAccessory(add: (int value) {
-          widget.controller.updateValue(widget.controller.numberValue + value);
-        }, sub: (int value) {
-          double result = widget.controller.numberValue - value;
-          if (result > 0) {
-            widget.controller.updateValue(result);
-          } else {
-            widget.controller.updateValue(0.0);
-          }
-        }),
+        child: KeyboardAccessory(
+          add: (int value) {
+            widget.controller.updateValue(widget.controller.numberValue + value);
+          },
+          sub: (int value) {
+            double result = widget.controller.numberValue - value;
+            if (result > 0) {
+              widget.controller.updateValue(result);
+            } else {
+              widget.controller.updateValue(0.0);
+            }
+          },
+        ),
       ),
     );
   }
