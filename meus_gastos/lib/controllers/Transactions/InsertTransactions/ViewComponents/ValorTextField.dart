@@ -8,7 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ValorTextField extends StatefulWidget {
   final MoneyMaskedTextController controller;
 
-  ValorTextField({required this.controller});
+  const ValorTextField({super.key, required this.controller});
 
   @override
   _ValorTextFieldState createState() => _ValorTextFieldState();
@@ -87,8 +87,7 @@ class KeyboardAccessory extends StatelessWidget {
   final ValueChanged<int> add;
   final ValueChanged<int> sub;
 
-  const KeyboardAccessory({Key? key, required this.add, required this.sub})
-      : super(key: key);
+  const KeyboardAccessory({super.key, required this.add, required this.sub});
 
   @override
   Widget build(BuildContext context) {

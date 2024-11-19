@@ -35,7 +35,7 @@ class Dashbordservice {
 
     for (int i = 4; i >= 0; i--) {
       DateTime startOfWeek = lastMonday.subtract(Duration(days: 7 * i));
-      DateTime endOfWeek = startOfWeek.add(Duration(days: 6));
+      DateTime endOfWeek = startOfWeek.add(const Duration(days: 6));
       intervals.add(WeekInterval(startOfWeek, endOfWeek));
     }
 

@@ -25,7 +25,7 @@ class CardService {
 
   // MARK: - Modify Cards
   static Future<void> modifyCards(
-      List<CardModel> modification(List<CardModel> cards)) async {
+      List<CardModel> Function(List<CardModel> cards) modification) async {
     final List<CardModel> cards = await retrieveCards();
     final List<CardModel> modifiedCards = modification(cards);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -167,7 +167,7 @@ class CardService {
 
   // MARK: - Utility
   static String generateUniqueId() {
-    var uuid = Uuid();
+    var uuid = const Uuid();
     return uuid.v4();
   }
 

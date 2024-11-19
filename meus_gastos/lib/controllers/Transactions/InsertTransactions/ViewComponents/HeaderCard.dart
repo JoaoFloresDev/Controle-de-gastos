@@ -25,13 +25,13 @@ class HeaderCard extends StatefulWidget {
     // required this.adicionarButtonTitle,
     required this.onAddClicked,
     required this.onAddCategory,
-    required Key? key,
+    required super.key,
     required this.valueExpens,
     required this.date,
     required this.description,
     required this.categories,
     required this.addButon,
-  }) : super(key: key);
+  });
 
   @override
   HeaderCardState createState() => HeaderCardState();
@@ -177,18 +177,22 @@ class HeaderCardState extends State<HeaderCard> {
                 defaultdIndexCategory: 0,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: CupertinoButton(
-                key: widget.addButon,
-                color: CupertinoColors.systemBlue,
-                onPressed: adicionar,
-                child: Text(
-                  AppLocalizations.of(context)!.add,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 8),
+  child: CupertinoButton(
+    key: widget.addButon,
+    color: CupertinoColors.systemBlue,
+    onPressed: adicionar,
+    child: Text(
+      AppLocalizations.of(context)!.add,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+        color: CupertinoColors.white, // Cor do texto definida como branca
+      ),
+    ),
+  ),
+),
+
           ],
         ),
       ),

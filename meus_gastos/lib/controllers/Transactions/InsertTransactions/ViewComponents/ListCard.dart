@@ -20,12 +20,12 @@ class ListCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: background,
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: AppColors.cardShadow,
               spreadRadius: 1,
               blurRadius: 3,
-              offset: const Offset(0, 1),
+              offset: Offset(0, 1),
             ),
           ],
         ),
@@ -51,7 +51,7 @@ class ListCard extends StatelessWidget {
                       width: 24,
                       height: 24,
                       margin: const EdgeInsets.symmetric(horizontal: 16),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: AppColors.card,
                         shape: BoxShape.circle,
                       ),

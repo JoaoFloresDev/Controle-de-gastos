@@ -13,8 +13,8 @@ class SelectCategories extends StatefulWidget {
     required this.categoryList,
     required this.onSelectionChanged,
     this.changeWeek,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _SelectCategoriesState createState() => _SelectCategoriesState();

@@ -8,11 +8,11 @@ class CampoComMascara extends StatefulWidget {
   final DateTime currentDate;
   final Function(DateTime) onCompletion;
 
-  CampoComMascara({
+  const CampoComMascara({
     required this.currentDate,
     required this.onCompletion,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _CampoComMascaraState createState() => _CampoComMascaraState();
@@ -44,10 +44,10 @@ class _CampoComMascaraState extends State<CampoComMascara> {
     return CupertinoTextField(
       controller: _dateController,
       focusNode: _focusNode,
-      style: TextStyle(color: AppColors.labelPlaceholder),
+      style: const TextStyle(color: AppColors.labelPlaceholder),
       onTap: Platform.isMacOS ? null : _handleTap, // Desativa o picker para macOS
       keyboardType: TextInputType.datetime,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(color: AppColors.line),
         ),
@@ -88,7 +88,7 @@ class _CampoComMascaraState extends State<CampoComMascara> {
     final DateFormat dateFormat = DateFormat(
         _dateFormatPattern!, Localizations.localeOf(context).toString());
     String formattedDate = dateFormat.format(dateTime);
-    return '$formattedDate';
+    return formattedDate;
   }
 
   // MARK: - Format String para DateTime

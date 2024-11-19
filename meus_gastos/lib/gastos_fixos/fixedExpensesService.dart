@@ -46,9 +46,9 @@ class Fixedexpensesservice {
 
   static Future<List<String>> getFixedExpenseIds() async {
     final List<String> fixedExpenseIds = [];
-    final List<FixedExpense> list_expenses = await getSortedFixedExpenses();
-    if (list_expenses != null) {
-      for (var item in list_expenses) {
+    final List<FixedExpense> listExpenses = await getSortedFixedExpenses();
+    if (listExpenses != null) {
+      for (var item in listExpenses) {
         fixedExpenseIds.add(item.id);
       }
     }
@@ -57,7 +57,7 @@ class Fixedexpensesservice {
 
   // MARK: - Modify Cards
   static Future<void> modifyCards(
-      List<FixedExpense> modification(List<FixedExpense> cards)) async {
+      List<FixedExpense> Function(List<FixedExpense> cards) modification) async {
     final List<FixedExpense> cards = await getSortedFixedExpenses();
     final List<FixedExpense> modifiedCards = modification(cards);
     final SharedPreferences prefs = await SharedPreferences.getInstance();

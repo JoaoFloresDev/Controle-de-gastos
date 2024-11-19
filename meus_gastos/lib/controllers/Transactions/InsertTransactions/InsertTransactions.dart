@@ -32,7 +32,7 @@ import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 class InsertTransactions extends StatefulWidget {
   const InsertTransactions({
     required this.onAddClicked,
-    Key? key,
+    super.key,
     required this.title,
     required this.exportButon,
     required this.cardsExpens,
@@ -41,7 +41,7 @@ class InsertTransactions extends StatefulWidget {
     required this.categories,
     required this.description,
     required this.valueExpens,
-  }) : super(key: key);
+  });
 
   final VoidCallback onAddClicked;
   final String title;
@@ -69,7 +69,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   // Variáveis para In-App Purchase
   final String yearlyProId = 'yearly.pro';
   final String monthlyProId = 'monthly.pro';
-  bool _isLoading = false;
+  final bool _isLoading = false;
   bool _isPro = false;
   List<String> fixedExpenseIds = [];
   List<String> normalExpenseIds = [];
@@ -126,7 +126,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
   // Exibe o ProModal
   void _showProModal(BuildContext context) async {
-    if (Platform.isIOS)
+    if (Platform.isIOS) {
       showCupertinoModalPopup(
         context: context,
         builder: (BuildContext context) {
@@ -140,7 +140,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           );
         },
       );
-    if (Platform.isAndroid)
+    }
+    if (Platform.isAndroid) {
       showCupertinoModalPopup(
         context: context,
         builder: (BuildContext context) {
@@ -154,6 +155,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           );
         },
       );
+    }
   }
 
   // MARK: - Build Method
@@ -168,7 +170,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             onTap: () {
               _showCupertinoModalBottomFixedExpenses(context);
             },
-            child: Icon(Icons.repeat, size: 24),
+            child: const Icon(Icons.repeat, size: 24),
           ),
           middle: Text(
             widget.title,
@@ -316,8 +318,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(height: 20),
-                        Icon(
+                        const SizedBox(height: 20),
+                        const Icon(
                           Icons.inbox,
                           color: AppColors.card,
                           size: 60,
@@ -326,7 +328,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                         Text(
                           AppLocalizations.of(context)!.addNewTransactions,
                           style:
-                              TextStyle(color: AppColors.label, fontSize: 16),
+                              const TextStyle(color: AppColors.label, fontSize: 16),
                           textAlign: TextAlign.center,
                         ),
                       ],

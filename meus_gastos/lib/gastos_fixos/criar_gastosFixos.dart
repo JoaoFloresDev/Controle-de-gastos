@@ -17,7 +17,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:uuid/uuid.dart';
 
 class CriarGastosFixos extends StatefulWidget {
-  CriarGastosFixos({
+  const CriarGastosFixos({super.key, 
     required this.onAddPressedBack,
   });
 
@@ -131,7 +131,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
           color: Colors.white, // Defina a cor do fundo do modal
           child: Column(
             children: <Widget>[
-              Container(
+              SizedBox(
                 height: 200,
                 child: CupertinoPicker(
                   itemExtent: 32.0, // Altura de cada item
@@ -163,7 +163,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
   }
 
   CategoryModel category = CategoryModel(
-      id: Uuid().v4(),
+      id: const Uuid().v4(),
       color: Colors.yellow,
       icon: Icons.event_repeat_rounded,
       name: "Recorrente");
@@ -190,7 +190,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: AppColors.background1,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
@@ -226,7 +226,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                             border: Border(
                                 bottom: BorderSide(color: AppColors.label)),
                           ),
-                          placeholder: "Dia ${lastIndexSelected_day}",
+                          placeholder: "Dia $lastIndexSelected_day",
                           placeholderStyle: const TextStyle(
                               color: AppColors.labelPlaceholder),
                           readOnly:
@@ -262,7 +262,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                     icons_list_recorrent: icons_list_recorrent,
                     defaultIndexCategory: 0,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Padding(
@@ -277,7 +277,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                             day: lastIndexSelected_day,
                             category: icons_list_recorrent[
                                 lastIndexSelected_category],
-                            id: Uuid().v4()));
+                            id: const Uuid().v4()));
                         setState(() {
                           widget.onAddPressedBack();
                           _loadFixedExpenses();
@@ -303,8 +303,8 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(height: 80), // Espaçamento acima do ícone
-                          Icon(
+                          const SizedBox(height: 80), // Espaçamento acima do ícone
+                          const Icon(
                             Icons.inbox,
                             color: AppColors.card,
                             size: 60,
@@ -314,7 +314,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                           Text(
                             AppLocalizations.of(context)!.addNewTransactions,
                             style:
-                                TextStyle(color: AppColors.label, fontSize: 16),
+                                const TextStyle(color: AppColors.label, fontSize: 16),
                             textAlign: TextAlign.center,
                           ),
                         ],

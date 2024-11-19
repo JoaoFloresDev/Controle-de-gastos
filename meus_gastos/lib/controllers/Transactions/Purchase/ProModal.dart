@@ -12,10 +12,10 @@ class ProModal extends StatefulWidget {
   final VoidCallback onSubscriptionPurchased;
 
   const ProModal({
-    Key? key,
+    super.key,
     required this.isLoading,
     required this.onSubscriptionPurchased,
-  }) : super(key: key);
+  });
 
   @override
   _ProModalState createState() => _ProModalState();
@@ -188,9 +188,9 @@ class _ProModalState extends State<ProModal> {
     return Container(
       height: 630,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.modalBackground,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
         ),
@@ -198,7 +198,7 @@ class _ProModalState extends State<ProModal> {
           BoxShadow(
             color: AppColors.cardShadow,
             blurRadius: 10,
-            offset: const Offset(0, 5),
+            offset: Offset(0, 5),
           ),
         ],
       ),

@@ -9,7 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:io'; // Para salvar localmente
 
 class Exportexcelscreen extends StatefulWidget {
-  Exportexcelscreen({Key? key}) : super(key: key);
+  const Exportexcelscreen({super.key});
 
   @override
   _Exportexcelscreen createState() => _Exportexcelscreen();
@@ -30,7 +30,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
     return Container(
       child: Container(
         width: double.maxFinite,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: AppColors.modalBackground,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
@@ -47,43 +47,43 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    icon: Icon(CupertinoIcons.clear, color: AppColors.label),
+                    icon: const Icon(CupertinoIcons.clear, color: AppColors.label),
                     onPressed: () => Navigator.pop(context),
                   ),
                   Text(
                     AppLocalizations.of(context)!.export,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: AppColors.label,
                     ),
                   ),
-                  SizedBox(width: 44), // Espaçamento para balancear o layout
+                  const SizedBox(width: 44), // Espaçamento para balancear o layout
                 ],
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               // Texto explicativo
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
                   AppLocalizations.of(context)!.textExport,
-                  style: TextStyle(color: AppColors.label),
+                  style: const TextStyle(color: AppColors.label),
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 28),
+              const SizedBox(height: 28),
               // Controle Segmentado
               CupertinoSegmentedControl<String>(
                 children: {
                   'Excel': Container(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                         vertical: 8, horizontal: 24), // Aumenta o padding
-                    child: Text('Excel'),
+                    child: const Text('Excel'),
                   ),
                   'PDF': Container(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                         vertical: 8, horizontal: 24), // Aumenta o padding
-                    child: Text('PDF'),
+                    child: const Text('PDF'),
                   )
                 },
                 onValueChanged: (value) {
@@ -97,7 +97,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                 borderColor: AppColors.button,
               ),
 
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               // Botões de Ação (um abaixo do outro)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -118,12 +118,12 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(CupertinoIcons.cloud_download,
+                              const Icon(CupertinoIcons.cloud_download,
                                   color: AppColors.label),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Text(
                                 AppLocalizations.of(context)!.saveLocally,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.label,
                                 ),
@@ -133,7 +133,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 22), // Espaçamento entre os botões
+                    const SizedBox(height: 22), // Espaçamento entre os botões
                     GestureDetector(
                       onTap: _isLoadingShare ? null : _shareViaWhatsApp,
                       child: Container(
@@ -148,12 +148,12 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(CupertinoIcons.share,
+                              const Icon(CupertinoIcons.share,
                                   color: AppColors.label),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Text(
                                 AppLocalizations.of(context)!.share,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: AppColors.label,
                                 ),
@@ -166,7 +166,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -234,7 +234,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
         [XFile(filePath)],
         text:
             '${AppLocalizations.of(context)!.shareMensage}: https://play.google.com/store/apps/details?id=meus_gastos.my_expenses&pcampaignid=web_share',
-        sharePositionOrigin: Rect.fromLTWH(0, 0, 1, 1),
+        sharePositionOrigin: const Rect.fromLTWH(0, 0, 1, 1),
       );
       print('Arquivo compartilhado com sucesso!');
     } catch (e) {

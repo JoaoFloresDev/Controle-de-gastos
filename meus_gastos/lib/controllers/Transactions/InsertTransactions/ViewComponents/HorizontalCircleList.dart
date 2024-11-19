@@ -8,10 +8,10 @@ class HorizontalCircleList extends StatefulWidget {
   final Function(int) onItemSelected;
   final int defaultdIndexCategory;
   const HorizontalCircleList({
-    Key? key,
+    super.key,
     required this.onItemSelected,
     required this.defaultdIndexCategory,
-  }) : super(key: key);
+  });
 
   @override
   HorizontalCircleListState createState() => HorizontalCircleListState();

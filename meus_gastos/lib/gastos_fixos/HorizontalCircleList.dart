@@ -9,11 +9,11 @@ class HorizontalCircleList extends StatefulWidget {
   final List<CategoryModel> icons_list_recorrent;
   final int defaultIndexCategory;
   const HorizontalCircleList({
-    Key? key,
+    super.key,
     required this.onItemSelected,
     required this.icons_list_recorrent,
     required this.defaultIndexCategory,
-  }) : super(key: key);
+  });
 
   @override
   HorizontalCircleListState createState() => HorizontalCircleListState();

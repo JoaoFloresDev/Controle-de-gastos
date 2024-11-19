@@ -21,7 +21,7 @@ class DailyStackedBarChart extends StatefulWidget {
   final List<List<List<ProgressIndicatorModel>>> last5weewdailyData;
   final List<WeekInterval> last5WeeksIntervals;
 
-  DailyStackedBarChart({
+  const DailyStackedBarChart({super.key, 
     required this.last5weewdailyData,
     required this.last5WeeksIntervals,
   });
@@ -81,7 +81,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                 child: Center(
                     child: Text(
                         AppLocalizations.of(context)!.noExpensesThisWeek,
-                        style: TextStyle(color: Colors.white, fontSize: 20)))),
+                        style: const TextStyle(color: Colors.white, fontSize: 20)))),
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: SelectCategories(
@@ -121,7 +121,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                   width: double.infinity,
                   height: 200,
                   child: SfCartesianChart(
-                    primaryXAxis: CategoryAxis(
+                    primaryXAxis: const CategoryAxis(
                       majorGridLines: MajorGridLines(width: 0),
                     ),
                     primaryYAxis: NumericAxis(
@@ -175,7 +175,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                   horizontal: 16.0), // Adicionando padding horizontal
               child: Text(
                 AppLocalizations.of(context)!.addNewTransactions,
-                style: TextStyle(
+                style: const TextStyle(
                   color: AppColors.label,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -189,7 +189,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                   horizontal: 16.0), // Adicionando padding horizontal
               child: Text(
                 AppLocalizations.of(context)!.dailyGraphPlaceholder,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: AppColors.label,
                   fontSize: 16,
@@ -209,17 +209,17 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
       {
         'week': 'Week 2',
         'progress': 60.0,
-        'color': Color.fromARGB(255, 0, 0, 0)
+        'color': const Color.fromARGB(255, 0, 0, 0)
       },
       {
         'week': 'Week 3',
         'progress': 30.0,
-        'color': Color.fromARGB(255, 240, 240, 240)
+        'color': const Color.fromARGB(255, 240, 240, 240)
       },
       {
         'week': 'Week 4',
         'progress': 50.0,
-        'color': Color.fromARGB(255, 66, 66, 66)
+        'color': const Color.fromARGB(255, 66, 66, 66)
       },
     ];
   }
@@ -250,14 +250,14 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
 
   Widget _buildChart(double maxY, double maxDailySum) {
     return SfCartesianChart(
-      primaryXAxis: CategoryAxis(majorGridLines: MajorGridLines(width: 0)),
+      primaryXAxis: const CategoryAxis(majorGridLines: MajorGridLines(width: 0)),
       primaryYAxis: NumericAxis(
         isVisible: false,
         maximum: maxY,
-        majorGridLines: MajorGridLines(
-            width: 0.5, color: const Color.fromARGB(255, 78, 78, 78)),
+        majorGridLines: const MajorGridLines(
+            width: 0.5, color: Color.fromARGB(255, 78, 78, 78)),
       ),
-      legend: Legend(isVisible: false),
+      legend: const Legend(isVisible: false),
       tooltipBehavior: TooltipBehavior(enable: true),
       series: _buildVerticalStackedBarSeries(maxDailySum),
       borderWidth: 0,
@@ -267,7 +267,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
   }
 
   Widget _buildWeekButtons() {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 50.0,
       child: Row(
@@ -301,7 +301,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                     ),
                     child: Text(
                       _getWeekLabel(interval),
-                      style: TextStyle(color: AppColors.button),
+                      style: const TextStyle(color: AppColors.button),
                     ),
                   ),
                 ),
@@ -363,7 +363,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         return ProgressIndicatorModel(
           category: CategoryModel(
               name: 'Total',
-              id: Uuid().v4(),
+              id: const Uuid().v4(),
               color: AppColors.background1,
               icon: Icons.device_unknown),
           progress: totalByDay[index],
@@ -385,13 +385,13 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         isVisible: true,
         labelAlignment: ChartDataLabelAlignment.top,
         textStyle:
-            TextStyle(color: AppColors.label, fontWeight: FontWeight.bold),
+            const TextStyle(color: AppColors.label, fontWeight: FontWeight.bold),
         builder: (data, point, series, pointIndex, seriesIndex) {
           return Text(
             data.progress > 0
                 ? Translateservice.formatCurrency(data.progress, context)
                 : '',
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 8,
                 color: AppColors.label,
                 fontWeight: FontWeight.bold),

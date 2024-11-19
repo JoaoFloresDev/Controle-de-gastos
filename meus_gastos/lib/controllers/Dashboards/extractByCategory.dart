@@ -10,7 +10,7 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 class Extractbycategory extends StatefulWidget {
   final String category;
 
-  Extractbycategory({Key? key, required this.category}) : super(key: key);
+  const Extractbycategory({super.key, required this.category});
 
   @override
   _ExtractbycategoryState createState() => _ExtractbycategoryState();
@@ -74,7 +74,7 @@ class _ExtractbycategoryState extends State<Extractbycategory> {
                           builder: (BuildContext context) {
                             return Container(
                               height: MediaQuery.of(context).size.height / 1.05,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: AppColors.background1,
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(20),

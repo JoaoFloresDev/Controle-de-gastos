@@ -19,7 +19,7 @@ class WeeklyStackedBarChart extends StatefulWidget {
   final List<WeekInterval> weekIntervals;
   final List<List<ProgressIndicatorModel>> weeklyData;
 
-  WeeklyStackedBarChart({
+  const WeeklyStackedBarChart({super.key, 
     required this.weekIntervals,
     required this.weeklyData,
   });
@@ -84,7 +84,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
                   width: double.infinity,
                   height: 200,
                   child: SfCartesianChart(
-                    primaryXAxis: CategoryAxis(
+                    primaryXAxis: const CategoryAxis(
                       majorGridLines: MajorGridLines(width: 0),
                     ),
                     primaryYAxis: NumericAxis(
@@ -138,7 +138,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
                   horizontal: 16.0), // Adicionando padding horizontal
               child: Text(
                 AppLocalizations.of(context)!.addNewTransactions,
-                style: TextStyle(
+                style: const TextStyle(
                   color: AppColors.label,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -152,7 +152,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
                   horizontal: 16.0), // Adicionando padding horizontal
               child: Text(
                 AppLocalizations.of(context)!.dailyGraphPlaceholder,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: AppColors.label,
                   fontSize: 16,
@@ -172,7 +172,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
       {
         'week': 'Week 2',
         'progress': 60.0,
-        'color': Color.fromARGB(255, 70, 69, 69)
+        'color': const Color.fromARGB(255, 70, 69, 69)
       },
       {
         'week': 'Week 3',
@@ -214,14 +214,14 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
   Widget _buildChart(double maxY) {
     // Construção do gráfico real quando houver dados
     return SfCartesianChart(
-      primaryXAxis: CategoryAxis(majorGridLines: MajorGridLines(width: 0)),
+      primaryXAxis: const CategoryAxis(majorGridLines: MajorGridLines(width: 0)),
       primaryYAxis: NumericAxis(
         isVisible: false,
         maximum: maxY,
-        majorGridLines: MajorGridLines(
-            width: 0.5, color: const Color.fromARGB(255, 78, 78, 78)),
+        majorGridLines: const MajorGridLines(
+            width: 0.5, color: Color.fromARGB(255, 78, 78, 78)),
       ),
-      legend: Legend(isVisible: false),
+      legend: const Legend(isVisible: false),
       tooltipBehavior: TooltipBehavior(enable: true),
       series: _buildVerticalStackedBarSeries(),
       borderWidth: 0,
@@ -338,7 +338,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
           pointColorMapper: (entry, _) => Colors.transparent,
           width: 0.5,
           name: AppLocalizations.of(context)!.total,
-          dataLabelSettings: DataLabelSettings(
+          dataLabelSettings: const DataLabelSettings(
             isVisible: true,
             labelAlignment: ChartDataLabelAlignment.top,
             textStyle:

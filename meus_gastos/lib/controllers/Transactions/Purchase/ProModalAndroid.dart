@@ -14,10 +14,10 @@ class ProModalAndroid extends StatefulWidget {
   final VoidCallback onSubscriptionPurchased;
 
   const ProModalAndroid({
-    Key? key,
+    super.key,
     required this.isLoading,
     required this.onSubscriptionPurchased,
-  }) : super(key: key);
+  });
 
   @override
   _ProModalAndroidState createState() => _ProModalAndroidState();
@@ -134,9 +134,9 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
     return Container(
       height: 630,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.modalBackground,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
         ),
@@ -144,7 +144,7 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
           BoxShadow(
             color: AppColors.cardShadow,
             blurRadius: 10,
-            offset: const Offset(0, 5),
+            offset: Offset(0, 5),
           ),
         ],
       ),

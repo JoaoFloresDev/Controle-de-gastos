@@ -37,13 +37,13 @@ class CategoryService {
       final Map<String, dynamic> categoryMap = jsonDecode(category);
       return CategoryModel.fromJson(categoryMap);
     }).toList();
-    int _maior_valor_frequency = aux.isNotEmpty
+    int maior_valor_frequency = aux.isNotEmpty
       ? aux.map((cat) => cat.frequency).reduce((a, b) => a > b ? a : b)
       : 0;
     // update the frequency of category with Id forneced
     for (var cat in aux) {
       if (cat.id == category.id) {
-        cat.frequency = _maior_valor_frequency + 1;
+        cat.frequency = maior_valor_frequency + 1;
         maior_valor_frequency = cat.frequency;
         print(maior_valor_frequency);
         break;
@@ -181,10 +181,10 @@ class CategoryService {
 
   Future<void> printAllCategories() async {
     final categories = await getAllCategories();
-    categories.forEach((category) {
+    for (var category in categories) {
       print(
           'ID: ${category.id}, Name: ${category.name}, Color: ${category.color}, Icon: ${category.icon}, Frequency: ${category.frequency}');
-    });
+    }
   }
 
   static Future<void> incrementCategoryFrequency(String categoryId) async {

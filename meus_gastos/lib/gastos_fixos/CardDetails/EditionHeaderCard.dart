@@ -21,7 +21,7 @@ class EditionHeaderCard extends StatefulWidget {
   final FixedExpense card;
   final bool botomPageIsVisible;
   const EditionHeaderCard(
-      {required this.onAddClicked,
+      {super.key, required this.onAddClicked,
       required this.adicionarButtonTitle,
       required this.card,
       required this.botomPageIsVisible});
@@ -109,7 +109,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
           color: Colors.white, // Defina a cor do fundo do modal
           child: Column(
             children: <Widget>[
-              Container(
+              SizedBox(
                 height: 200,
                 child: CupertinoPicker(
                   itemExtent: 32.0, // Altura de cada item
@@ -169,7 +169,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
         description: descricaoController.text,
         day: lastDateSelected,
         category: icons_list_recorrent[lastIndexSelected_category],
-        id: Uuid().v4(),
+        id: const Uuid().v4(),
       );
       Fixedexpensesservice.updateCard(widget.card.id, newCard);
     }
@@ -198,7 +198,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                   decoration: const BoxDecoration(
                     border: Border(bottom: BorderSide(color: AppColors.label)),
                   ),
-                  placeholder: "Dia ${lastDateSelected}",
+                  placeholder: "Dia $lastDateSelected",
                   placeholderStyle:
                       const TextStyle(color: AppColors.labelPlaceholder),
                   readOnly: true, // Impede que o usuário edite diretamente

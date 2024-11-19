@@ -31,7 +31,7 @@ import 'package:meus_gastos/controllers/Dashboards/LinearProgressIndicatorSectio
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
 
-  DashboardScreen({Key? key, this.isActive = false}) : super(key: key);
+  const DashboardScreen({super.key, this.isActive = false});
 
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
@@ -61,7 +61,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         icon: CupertinoIcons.cart, // Ícone fictício
         frequency: 5, // Frequência de ocorrência
       ),
-      color: Color.fromARGB(255, 41, 40, 40), // Cor do indicador
+      color: const Color.fromARGB(255, 41, 40, 40), // Cor do indicador
     ),
     ProgressIndicatorModel(
       title: "Transporte",
@@ -69,11 +69,11 @@ class _DashboardScreenState extends State<DashboardScreen>
       category: CategoryModel(
         id: "2",
         name: "Transporte",
-        color: Color.fromARGB(255, 41, 40, 40), // Cor para a categoria
+        color: const Color.fromARGB(255, 41, 40, 40), // Cor para a categoria
         icon: CupertinoIcons.car, // Ícone fictício
         frequency: 3, // Frequência de ocorrência
       ),
-      color: Color.fromARGB(255, 41, 40, 40), // Cor do indicador
+      color: const Color.fromARGB(255, 41, 40, 40), // Cor do indicador
     ),
     ProgressIndicatorModel(
       title: "Lazer",
@@ -81,11 +81,11 @@ class _DashboardScreenState extends State<DashboardScreen>
       category: CategoryModel(
         id: "3",
         name: "Lazer",
-        color: Color.fromARGB(255, 41, 40, 40), // Cor para a categoria
+        color: const Color.fromARGB(255, 41, 40, 40), // Cor para a categoria
         icon: CupertinoIcons.smiley, // Ícone fictício
         frequency: 2, // Frequência de ocorrência
       ),
-      color: Color.fromARGB(255, 41, 40, 40), // Cor do indicador
+      color: const Color.fromARGB(255, 41, 40, 40), // Cor do indicador
     ),
   ];
 
@@ -94,7 +94,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   DateTime currentDate = DateTime.now();
   double totalGasto = 0.0;
 
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   int _currentIndex = 0;
 
   @override
