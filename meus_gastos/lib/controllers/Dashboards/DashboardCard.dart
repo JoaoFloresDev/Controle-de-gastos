@@ -17,7 +17,7 @@ class PieChartDataItem {
 class DashboardCard extends StatelessWidget {
   final List<PieChartDataItem> items;
 
-  DashboardCard({required this.items});
+  const DashboardCard({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {

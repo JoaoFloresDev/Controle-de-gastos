@@ -10,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class Categorycreater extends StatefulWidget {
   final VoidCallback onCategoryAdded;
 
-  Categorycreater({super.key, required this.onCategoryAdded});
+  const Categorycreater({super.key, required this.onCategoryAdded});
 
   @override
   State<Categorycreater> createState() => _CategorycreaterState();
@@ -82,16 +82,16 @@ class _CategorycreaterState extends State<Categorycreater> {
               onTap: () {},
               child: CupertinoAlertDialog(
                 content: Container(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         AppLocalizations.of(context)!.chooseColor,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       ColorPicker(
                         pickerColor: _currentColor,
                         onColorChanged: (Color color) {
@@ -105,7 +105,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                         enableAlpha: false,
                         paletteType: PaletteType.hsv,
                         pickerAreaBorderRadius:
-                            BorderRadius.all(Radius.circular(8)),
+                            const BorderRadius.all(Radius.circular(8)),
                       ),
                       // SizedBox(
                       //     height: 16), // Espaçamento entre o picker e o botão
@@ -116,7 +116,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                           color: AppColors.button, // Cor de fundo azul
                           borderRadius: BorderRadius.circular(
                               8.0), // Cantos ligeiramente arredondados
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 16.0,
                               vertical: 12.0), // Tamanho do botão
                           onPressed: () {
@@ -124,7 +124,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                           },
                           child: Text(
                             AppLocalizations.of(context)!.select,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white, // Cor do texto branco
                               fontSize: 16.0, // Tamanho do texto
                               fontWeight: FontWeight.bold, // Texto em negrito
@@ -148,7 +148,7 @@ class _CategorycreaterState extends State<Categorycreater> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
         ),
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: ColorPicker(
             pickerColor: _currentColor,
             onColorChanged: (Color color) {
@@ -161,7 +161,7 @@ class _CategorycreaterState extends State<Categorycreater> {
             displayThumbColor: false,
             enableAlpha: false,
             paletteType: PaletteType.hsv,
-            pickerAreaBorderRadius: BorderRadius.all(Radius.circular(20))));
+            pickerAreaBorderRadius: const BorderRadius.all(Radius.circular(20))));
   }
 
   // MARK: - Add Category
@@ -173,7 +173,7 @@ class _CategorycreaterState extends State<Categorycreater> {
       frequency = categoryHighFrequency.frequency + 1;
     }
     CategoryModel category = CategoryModel(
-        id: Uuid().v4(),
+        id: const Uuid().v4(),
         color: _currentColor,
         icon: accountIcons[selectedIndex],
         name: categoriaController.text,
@@ -192,7 +192,7 @@ class _CategorycreaterState extends State<Categorycreater> {
       color: Colors.transparent,
       child: Container(
         padding: const EdgeInsets.all(0),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: AppColors.background1,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
@@ -235,8 +235,8 @@ class _CategorycreaterState extends State<Categorycreater> {
                           ),
                         ),
                         placeholder: AppLocalizations.of(context)!.category,
-                        placeholderStyle: TextStyle(
-                            color: const Color.fromARGB(144, 255, 255, 255)),
+                        placeholderStyle: const TextStyle(
+                            color: Color.fromARGB(144, 255, 255, 255)),
                         controller: categoriaController,
                       ),
                       const SizedBox(height: 32),
@@ -245,7 +245,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                           Text(
                             "${AppLocalizations.of(context)!.chooseColor} ",
                             style:
-                                TextStyle(color: AppColors.label, fontSize: 20),
+                                const TextStyle(color: AppColors.label, fontSize: 20),
                           ),
                           const SizedBox(width: 15),
                           GestureDetector(
@@ -278,7 +278,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                           },
                           child: Text(
                             AppLocalizations.of(context)!.addCategory,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -298,9 +298,9 @@ class AddCategoryHorizontalCircleList extends StatefulWidget {
   final Function(int) onItemSelected;
 
   const AddCategoryHorizontalCircleList({
-    Key? key,
+    super.key,
     required this.onItemSelected,
-  }) : super(key: key);
+  });
 
   @override
   _AddCategoryHorizontalCircleListState createState() =>

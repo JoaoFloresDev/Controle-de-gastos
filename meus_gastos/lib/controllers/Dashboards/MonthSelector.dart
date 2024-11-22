@@ -6,8 +6,7 @@ class MonthSelector extends StatelessWidget {
   final Function(int) onChangeMonth;
 
   const MonthSelector(
-      {Key? key, required this.currentDate, required this.onChangeMonth})
-      : super(key: key);
+      {super.key, required this.currentDate, required this.onChangeMonth});
 
   @override
   Widget build(BuildContext context) {

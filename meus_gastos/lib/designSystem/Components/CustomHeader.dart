@@ -7,7 +7,7 @@ class CustomHeader extends StatelessWidget {
   final bool
       showDeleteButton; // Adiciona um parâmetro para controlar a exibição do botão de deletar
 
-  CustomHeader({
+  const CustomHeader({super.key, 
     required this.title,
     this.onCancelPressed,
     this.onDeletePressed,
@@ -19,14 +19,14 @@ class CustomHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.card,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
       ),
-      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -44,7 +44,7 @@ class CustomHeader extends StatelessWidget {
   // MARK: - Cancel Button
   Widget _buildCancelButton(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.close, color: AppColors.label),
+      icon: const Icon(Icons.close, color: AppColors.label),
       onPressed: () {
         Navigator.pop(context);
       },
@@ -55,7 +55,7 @@ class CustomHeader extends StatelessWidget {
   Widget _buildTitle() {
     return Text(
       title,
-      style: TextStyle(
+      style: const TextStyle(
         color: AppColors.label,
         fontSize: 18,
         fontWeight: FontWeight.bold,

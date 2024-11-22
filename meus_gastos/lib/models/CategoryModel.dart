@@ -8,23 +8,29 @@ class CategoryModel {
   int frequency;
 
   CategoryModel({
-    required this.id,
-    required this.color,
-    required this.icon,
+    this.id = '', // Valor padrão para o ID na estrutura antiga
+    this.color = Colors.grey, // Cor padrão para estrutura antiga
+    this.icon = Icons.category, // Ícone padrão para estrutura antiga
     required this.name,
     this.frequency = 0,
   });
 
-  // Converta de JSON para CategoryModel
-  factory CategoryModel.fromJson(Map<String, dynamic> json) {
+  // Converte de JSON para CategoryModel
+  factory CategoryModel.fromJson(dynamic json) {
+    // Verifica se json é uma String (estrutura antiga)
+    if (json is String) {
+      return CategoryModel(
+        name: json, // Usa o valor da string como o nome da categoria
+      );
+    }
+    
+    // Se for um Map, usa a estrutura nova
     return CategoryModel(
       id: json['id'],
       color: Color(json['color']),
-      icon: IconData(json['icon'],
-          fontFamily: json[
-              'fontFamily']), // Recupera o IconData com codePoint e fontFamily
+      icon: IconData(json['icon'], fontFamily: json['fontFamily']),
       name: json['name'],
-      frequency: json['frequency'],
+      frequency: json['frequency'] ?? 0,
     );
   }
 

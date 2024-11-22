@@ -1,3 +1,4 @@
+import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/CampoComMascara.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -5,8 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:meus_gastos/designSystem/Components/CustomHeader.dart';
 import 'package:meus_gastos/gastos_fixos/HorizontalCircleList.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
-import 'CardDetails/DetailScreen.dart';
-import 'ListCard.dart';
+import '../CardDetails/DetailScreen.dart';
+import '../ListCard.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ValorTextField.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
@@ -15,9 +16,11 @@ import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:uuid/uuid.dart';
+import 'RepetitionMenu.dart';
 
 class CriarGastosFixos extends StatefulWidget {
-  CriarGastosFixos({
+  const CriarGastosFixos({
+    super.key,
     required this.onAddPressedBack,
   });
 
@@ -34,68 +37,10 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
   int lastIndexSelected_day = 1;
 
   List<FixedExpense> _fixedExpenses = [];
-
   List<CategoryModel> icons_list_recorrent = [];
-  // CategoryModel(
-  //   id: '1',
-  //   color: Colors.blue,
-  //   icon: Icons.water_drop,
-  //   name: 'Água',
-  // ),
-  // CategoryModel(
-  //   id: '2',
-  //   color: Colors.yellow,
-  //   icon: Icons.lightbulb,
-  //   name: 'Luz',
-  // ),
-  // CategoryModel(
-  //   id: '3',
-  //   color: Colors.green,
-  //   icon: Icons.account_balance_wallet,
-  //   name: 'PIX',
-  // ),
-  // CategoryModel(
-  //   id: '4',
-  //   color: Colors.orange,
-  //   icon: Icons.home,
-  //   name: 'Aluguel',
-  // ),
-  // CategoryModel(
-  //   id: '5',
-  //   color: Colors.grey,
-  //   icon: Icons.apartment,
-  //   name: 'Condomínio',
-  // ),
-  // CategoryModel(
-  //   id: '6',
-  //   color: Colors.red,
-  //   icon: Icons.local_gas_station,
-  //   name: 'Combustível',
-  // ),
-  // CategoryModel(
-  //   id: '7',
-  //   color: Colors.purple,
-  //   icon: Icons.wifi,
-  //   name: 'Internet',
-  // ),
-  // CategoryModel(
-  //   id: '8',
-  //   color: Colors.pink,
-  //   icon: Icons.phone,
-  //   name: 'Telefone',
-  // ),
-  // CategoryModel(
-  //   id: '9',
-  //   color: Colors.brown,
-  //   icon: Icons.tv,
-  //   name: 'TV por assinatura',
-  // ),
-  // CategoryModel(
-  //   id: '10',
-  //   color: Colors.teal,
-  //   icon: Icons.credit_card,
-  //   name: 'Cartão de crédito',
-  // ),
+
+  // Variável para armazenar a data selecionada
+  DateTime _selectedDate = DateTime.now();
 
   @override
   void didChangeDependencies() async {
@@ -119,58 +64,9 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
     });
   }
 
-  final TextEditingController _dateController = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
-  void _handleTap() {
-    _focusNode.unfocus(); // Fecha o teclado, se estiver aberto
-    showCupertinoModalPopup(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: 300,
-          color: Colors.white, // Defina a cor do fundo do modal
-          child: Column(
-            children: <Widget>[
-              Container(
-                height: 200,
-                child: CupertinoPicker(
-                  itemExtent: 32.0, // Altura de cada item
-                  onSelectedItemChanged: (int index) {
-                    print(index);
-                    setState(() {
-                      if ((0 <= index) && (index <= 31)) {
-                        int selectedDay = index + 1;
-                        lastIndexSelected_day = selectedDay;
-                        print(lastIndexSelected_day);
-                        _dateController.text =
-                            'Dia $lastIndexSelected_day'; // Atualiza o campo de texto
-                      }
-                    });
-                  },
-                  children: List<Widget>.generate(31, (int index) {
-                    return Center(
-                      child:
-                          Text('Dia ${index + 1}'), // Mostra os dias de 1 a 31
-                    );
-                  }),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  CategoryModel category = CategoryModel(
-      id: Uuid().v4(),
-      color: Colors.yellow,
-      icon: Icons.event_repeat_rounded,
-      name: "Recorrente");
-
   @override
   void initState() {
-    super.initState(); // Necessário no initState
+    super.initState();
     _loadFixedExpenses();
     loadCategories();
   }
@@ -190,7 +86,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: AppColors.background1,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
@@ -218,20 +114,13 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                       ),
                       const SizedBox(width: 8),
                       Expanded(
-                        child: CupertinoTextField(
-                          controller: _dateController,
-                          focusNode: _focusNode,
-                          style: const TextStyle(color: AppColors.label),
-                          decoration: const BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(color: AppColors.label)),
-                          ),
-                          placeholder: "Dia ${lastIndexSelected_day}",
-                          placeholderStyle: const TextStyle(
-                              color: AppColors.labelPlaceholder),
-                          readOnly:
-                              true, // Impede que o usuário edite diretamente
-                          onTap: _handleTap, // Chama o modal ao clicar no campo
+                        child: CampoComMascara(
+                          currentDate: _selectedDate,
+                          onCompletion: (DateTime newDate) {
+                            setState(() {
+                              _selectedDate = newDate;
+                            });
+                          },
                         ),
                       ),
                     ],
@@ -251,18 +140,19 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                     style: const TextStyle(color: CupertinoColors.white),
                     controller: descricaoController,
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 12),
+                  RepetitionMenu(referenceDate: _selectedDate),
+                  const SizedBox(height: 12),
                   HorizontalCircleList(
                     onItemSelected: (index) {
                       setState(() {
                         lastIndexSelected_category = index;
                       });
-                      print(lastIndexSelected_category);
                     },
                     icons_list_recorrent: icons_list_recorrent,
                     defaultIndexCategory: 0,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Padding(
@@ -270,30 +160,30 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                     child: CupertinoButton(
                       color: AppColors.button,
                       onPressed: () async {
-                        print(icons_list_recorrent[lastIndexSelected_category].name);
                         await Fixedexpensesservice.addCard(FixedExpense(
-                            description: descricaoController.text,
-                            price: valorController.numberValue,
-                            day: lastIndexSelected_day,
-                            category: icons_list_recorrent[
-                                lastIndexSelected_category],
-                            id: Uuid().v4()));
+                          description: descricaoController.text,
+                          price: valorController.numberValue,
+                          day: _selectedDate.day,
+                          category:
+                              icons_list_recorrent[lastIndexSelected_category],
+                          id: const Uuid().v4(),
+                        ));
                         setState(() {
                           widget.onAddPressedBack();
                           _loadFixedExpenses();
                         });
-                        print(_fixedExpenses.isEmpty);
                       },
                       child: Text(
                         AppLocalizations.of(context)!.add,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.label),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-            // List of fixed expens
             _fixedExpenses.isEmpty
                 ? Expanded(
                     child: Padding(
@@ -303,18 +193,17 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(height: 80), // Espaçamento acima do ícone
-                          Icon(
+                          const SizedBox(height: 80),
+                          const Icon(
                             Icons.inbox,
                             color: AppColors.card,
                             size: 60,
                           ),
-                          const SizedBox(
-                              height: 16), // Espaçamento entre ícone e texto
+                          const SizedBox(height: 16),
                           Text(
                             AppLocalizations.of(context)!.addNewTransactions,
-                            style:
-                                TextStyle(color: AppColors.label, fontSize: 16),
+                            style: const TextStyle(
+                                color: AppColors.label, fontSize: 16),
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -367,7 +256,6 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
             card: card,
             onAddClicked: () {
               _loadFixedExpenses();
-              print("Apagou");
               setState(() {
                 widget.onAddPressedBack();
               });

@@ -1,3 +1,4 @@
+import 'package:open_file/open_file.dart';
 import 'dart:io';
 import 'dart:ui';
 import 'package:excel/excel.dart';
@@ -5,7 +6,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:open_filex/open_filex.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class ExportToExcel {
@@ -55,7 +55,7 @@ class ExportToExcel {
       ..writeAsBytesSync(excel.encode()!);
 
     // Abrir o arquivo salvo
-    final result = await OpenFilex.open(filePath);
+    final result = await OpenFile.open(filePath);
     print('Resultado da abertura: $result');
     print('Arquivo Excel salvo em: $filePath');
   }

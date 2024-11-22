@@ -12,7 +12,7 @@ class DetailScreen extends StatefulWidget {
   final FixedExpense card;
   final VoidCallback onAddClicked;
 
-  DetailScreen({
+  const DetailScreen({super.key, 
     required this.card,
     required this.onAddClicked,
   });
@@ -29,7 +29,7 @@ class _DetailScreen extends State<DetailScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: AppColors.background1,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20),
@@ -49,16 +49,16 @@ class _DetailScreen extends State<DetailScreen> {
               },
               onDeletePressed: () {
                 Fixedexpensesservice.deleteCard(widget.card.id);
-                Future.delayed(Duration(milliseconds: 300), () {
+                Future.delayed(const Duration(milliseconds: 300), () {
                   widget.onAddClicked();
                   Navigator.of(context).pop();
                 });
               },
               showDeleteButton: true,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: EditionHeaderCard(
                 card: widget.card,
                 adicionarButtonTitle: AppLocalizations.of(context)!.update,
@@ -69,7 +69,7 @@ class _DetailScreen extends State<DetailScreen> {
                 botomPageIsVisible: false,
               ),
             ),
-            Expanded(child: SizedBox())
+            const Expanded(child: SizedBox())
           ],
         ),
       ),

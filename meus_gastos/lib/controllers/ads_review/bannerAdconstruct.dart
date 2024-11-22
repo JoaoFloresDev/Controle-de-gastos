@@ -4,6 +4,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 
 class BannerAdconstruct extends StatefulWidget {
+  const BannerAdconstruct({super.key});
+
   @override
   _BannerAdExampleState createState() => _BannerAdExampleState();
 }
@@ -75,6 +77,8 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
 }
 
 class LoadingContainer extends StatefulWidget {
+  const LoadingContainer({super.key});
+
   @override
   _LoadingContainerState createState() => _LoadingContainerState();
 }

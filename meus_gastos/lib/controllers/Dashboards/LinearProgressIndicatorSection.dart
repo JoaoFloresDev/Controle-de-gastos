@@ -9,10 +9,10 @@ class LinearProgressIndicatorSection extends StatelessWidget {
   final double totalAmount;
 
   const LinearProgressIndicatorSection({
-    Key? key,
+    super.key,
     required this.model,
     required this.totalAmount,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +51,10 @@ class LinearProgressIndicatorSection extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
-                  padding: EdgeInsets.only(right: 10),
+                  padding: const EdgeInsets.only(right: 10),
                   child: Transform.rotate(
                     angle: -1.5708, // 90 graus em radianos
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_drop_down,
                       size: 30,
                       color: AppColors.label,

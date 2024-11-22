@@ -146,10 +146,10 @@ class CategoryService {
 
   Future<void> printAllCategories() async {
     final categories = await getAllCategories();
-    categories.forEach((category) {
+    for (var category in categories) {
       print(
           'ID: ${category.id}, Name: ${category.name}, Color: ${category.color}, Icon: ${category.icon}, Frequency: ${category.frequency}');
-    });
+    }
   }
 
   static Future<void> incrementCategoryFrequency(String categoryId) async {

@@ -17,7 +17,7 @@ class EditionHeaderCard extends StatefulWidget {
   final String adicionarButtonTitle;
   final CardModel card;
 
-  const EditionHeaderCard({
+  const EditionHeaderCard({super.key, 
     required this.onAddClicked,
     required this.adicionarButtonTitle,
     required this.card,
@@ -162,7 +162,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
               onPressed: adicionar,
               child: Text(
                 widget.adicionarButtonTitle,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold, color: CupertinoColors.white),
               ),
             ),
           ),

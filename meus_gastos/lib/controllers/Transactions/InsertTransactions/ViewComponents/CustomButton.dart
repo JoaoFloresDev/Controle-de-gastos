@@ -5,12 +5,12 @@ class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const CustomButton({Key? key, required this.text, required this.onPressed})
-      : super(key: key);
+  const CustomButton({super.key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
+      onPressed: onPressed,
       child: Container(
         width: 60,
         decoration: BoxDecoration(
@@ -35,7 +35,6 @@ class CustomButton extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: onPressed,
     );
   }
 }
@@ -44,12 +43,12 @@ class CustomButton2 extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const CustomButton2({Key? key, required this.text, required this.onPressed})
-      : super(key: key);
+  const CustomButton2({super.key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
+      onPressed: onPressed,
       child: Container(
         width: 60,
         decoration: BoxDecoration(
@@ -74,7 +73,6 @@ class CustomButton2 extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: onPressed,
     );
   }
 }
