@@ -8,7 +8,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/controllers/Transactions/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/gastos_fixos/ListCard.dart';
-import 'package:meus_gastos/gastos_fixos/criar_gastosFixos.dart';
+import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'ViewComponents/HeaderCard.dart';
@@ -110,8 +110,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     _loadFixedExpenseIds();
     cardList = cards;
     fixedCards = fcard;
-    mergeCardList =
-        await Fixedexpensesservice.MergeFixedWithNormal(fixedCards, cardList);
+    // mergeCardList =
+    //     await Fixedexpensesservice.MergeFixedWithNormal(fixedCards, cardList);
     setState(() {});
   }
 

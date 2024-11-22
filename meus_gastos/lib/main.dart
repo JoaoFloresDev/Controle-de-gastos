@@ -8,12 +8,10 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/material.dart';
 import 'package:onepref/onepref.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   InAppPurchase.instance.isAvailable();
-  MobileAds.instance.initialize();
   await OnePref.init();
   runApp(const MyApp());
 }

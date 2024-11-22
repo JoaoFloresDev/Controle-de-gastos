@@ -5,6 +5,7 @@ import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 
 class Fixedexpensesservice {
+  // Recupera todos os gastos fixos
   static Future<List<FixedExpense>> retrieveCards() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString('fixed_expenses');
@@ -18,19 +19,7 @@ class Fixedexpensesservice {
     return [];
   }
 
-  // static Future<void> saveFixedExpense(FixedExpense expense) async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-  //   // Carregar lista de gastos fixos existentes
-  //   List<String> expensesList = prefs.getStringList('fixed_expenses') ?? [];
-
-  //   // Adicionar o novo gasto
-  //   expensesList.add(jsonEncode(expense.toJson()));
-
-  //   // Salvar de volta no SharedPreferences
-  //   await prefs.setStringList('fixed_expenses', expensesList);
-  // }
-
+  // Retorna os gastos fixos ordenados por dia
   static Future<List<FixedExpense>> getSortedFixedExpenses() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString('fixed_expenses');
@@ -44,18 +33,13 @@ class Fixedexpensesservice {
     return [];
   }
 
+  // Retorna apenas os IDs dos gastos fixos
   static Future<List<String>> getFixedExpenseIds() async {
-    final List<String> fixedExpenseIds = [];
     final List<FixedExpense> listExpenses = await getSortedFixedExpenses();
-    if (listExpenses != null) {
-      for (var item in listExpenses) {
-        fixedExpenseIds.add(item.id);
-      }
-    }
-    return fixedExpenseIds;
+    return listExpenses.map((item) => item.id).toList();
   }
 
-  // MARK: - Modify Cards
+  // MARK: - Modifica os gastos fixos
   static Future<void> modifyCards(
       List<FixedExpense> Function(List<FixedExpense> cards) modification) async {
     final List<FixedExpense> cards = await getSortedFixedExpenses();
@@ -66,10 +50,10 @@ class Fixedexpensesservice {
     await prefs.setString("fixed_expenses", encodedData);
   }
 
-  // MARK: - Add, Delete, and Update Cards
-  static Future<void> addCard(FixedExpense FixedExpense) async {
+  // MARK: - Adicionar, Deletar e Atualizar Gastos Fixos
+  static Future<void> addCard(FixedExpense fixedExpense) async {
     await modifyCards((cards) {
-      if (!(FixedExpense.price == 0)) cards.add(FixedExpense);
+      if (fixedExpense.price != 0) cards.add(fixedExpense);
       return cards;
     });
   }
@@ -91,26 +75,50 @@ class Fixedexpensesservice {
     });
   }
 
-  static CardModel Fixed_to_NormalCard(FixedExpense fixedCard) {
+  // Converte um gasto fixo para um cartão normal
+  static CardModel fixedToNormalCard(FixedExpense fixedCard) {
     return CardModel(
-        id: fixedCard.id,
-        amount: fixedCard.price,
-        description: fixedCard.description,
-        date:
-            DateTime(DateTime.now().year, DateTime.now().month, fixedCard.day),
-        category: fixedCard.category);
+      id: fixedCard.id,
+      amount: fixedCard.price,
+      description: fixedCard.description,
+      date: DateTime(DateTime.now().year, DateTime.now().month, fixedCard.day),
+      category: fixedCard.category,
+    );
   }
 
-  static Future<List<CardModel>> MergeFixedWithNormal(
+  // Mescla os gastos fixos com os normais, respeitando a lógica de recorrência
+  static Future<List<CardModel>> mergeFixedWithNormal(
       List<FixedExpense> fixedCards, List<CardModel> normalCards) async {
     List<String> normalIds = await CardService.getNormalExpenseIds();
     for (var fcard in fixedCards) {
       if (!normalIds.contains(fcard.id)) {
-        if (DateTime.now().day >= fcard.day) {
-          normalCards.add(Fixed_to_NormalCard(fcard));
+        if (shouldAddRecurringExpense(fcard)) {
+          normalCards.add(fixedToNormalCard(fcard));
         }
       }
     }
     return normalCards..sort((a, b) => a.date.compareTo(b.date));
+  }
+
+  // Verifica se um gasto fixo deve ser adicionado com base na lógica de recorrência
+  static bool shouldAddRecurringExpense(FixedExpense expense) {
+    DateTime now = DateTime.now();
+    DateTime expenseDate = DateTime(now.year, now.month, expense.day);
+    return false;
+    // switch (expense.recurrence) {
+    //   case RecurrenceType.daily:
+    //     return true;
+    //   case RecurrenceType.weekly:
+    //     return now.weekday == expenseDate.weekday;
+    //   case RecurrenceType.monthly:
+    //     return now.day == expenseDate.day;
+    //   case RecurrenceType.yearly:
+    //     return now.month == expenseDate.month && now.day == expenseDate.day;
+    //   case RecurrenceType.weekdays:
+    //     return now.weekday >= DateTime.monday && now.weekday <= DateTime.friday;
+    //   case RecurrenceType.none:
+    //   default:
+    //     return now.day == expense.day;
+    // }
   }
 }

@@ -15,16 +15,18 @@ class CardModel {
     required this.category,
   });
 
+  // Converte o modelo para JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'amount': amount,
       'description': description,
-      'date': date.toIso8601String(),
-      'category': category.toJson(), // Convert category to JSON
+      'date': date.toIso8601String(), // Formato ISO 8601 para a data
+      'category': category.toJson(), // Converte a categoria para JSON
     };
   }
 
+  // Construtor para criar o modelo a partir de JSON
   factory CardModel.fromJson(Map<String, dynamic> map) {
     return CardModel(
       id: map['id'],

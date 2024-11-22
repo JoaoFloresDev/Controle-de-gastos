@@ -45,7 +45,7 @@ class _CampoComMascaraState extends State<CampoComMascara> {
       controller: _dateController,
       focusNode: _focusNode,
       style: const TextStyle(color: AppColors.labelPlaceholder),
-      onTap: Platform.isMacOS ? null : _handleTap, // Desativa o picker para macOS
+      onTap: _handleTap, // Desativa o picker para macOS
       keyboardType: TextInputType.datetime,
       decoration: const BoxDecoration(
         border: Border(
