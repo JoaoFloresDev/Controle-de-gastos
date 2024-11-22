@@ -1,19 +1,15 @@
 import 'dart:convert';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/services/CardService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/CategoryModel.dart';
 
 class CategoryService {
   static const String _categoriesKey = 'categories';
   static const String _isFirstAccessKey = 'isFirstAccess';
-  static int maior_valor_frequency = 0;
 
   Future<void> addCategory(CategoryModel category) async {
-    category.frequency = maior_valor_frequency + 1;
-    maior_valor_frequency = category.frequency;
-    print(category.frequency);
-    print(maior_valor_frequency);
-
     final prefs = await SharedPreferences.getInstance();
     List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
     categories.add(jsonEncode(category.toJson()));
@@ -28,32 +24,6 @@ class CategoryService {
       return categoryMap['id'] == id;
     });
     await prefs.setStringList(_categoriesKey, categories);
-  }
-
-  Future<void> updateFrequencyCategory(CategoryModel category) async {
-    final prefs = await SharedPreferences.getInstance();
-    List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
-    List<CategoryModel> aux = categories.map((category) {
-      final Map<String, dynamic> categoryMap = jsonDecode(category);
-      return CategoryModel.fromJson(categoryMap);
-    }).toList();
-    int _maior_valor_frequency = aux.isNotEmpty
-      ? aux.map((cat) => cat.frequency).reduce((a, b) => a > b ? a : b)
-      : 0;
-    // update the frequency of category with Id forneced
-    for (var cat in aux) {
-      if (cat.id == category.id) {
-        cat.frequency = _maior_valor_frequency + 1;
-        maior_valor_frequency = cat.frequency;
-        print(maior_valor_frequency);
-        break;
-      }
-    }
-
-    // Serialize the updated data and save it to shared preferences.
-    List<String> updatedCategories =
-        aux.map((category) => jsonEncode(category.toJson())).toList();
-    await prefs.setStringList(_categoriesKey, updatedCategories);
   }
 
   Future<List<CategoryModel>> getAllCategories() async {
@@ -123,40 +93,35 @@ class CategoryService {
             name: 'Drink',
             frequency: 0),
         CategoryModel(
-          id: 'Water',
-          color: Colors.blue,
-          icon: Icons.water_drop,
-          name: 'Water',
-          frequency: 0
-        ),
+            id: 'Water',
+            color: Colors.blue,
+            icon: Icons.water_drop,
+            name: 'Water',
+            frequency: 0),
         CategoryModel(
-          id: 'Light',
-          color: Colors.yellow,
-          icon: Icons.lightbulb,
-          name: 'Light',
-          frequency: 0
-        ),
+            id: 'Light',
+            color: Colors.yellow,
+            icon: Icons.lightbulb,
+            name: 'Light',
+            frequency: 0),
         CategoryModel(
-          id: 'Wifi',
-          color: Colors.purple,
-          icon: Icons.wifi,
-          name: 'Wifi',
-          frequency: 0
-        ),
+            id: 'Wifi',
+            color: Colors.purple,
+            icon: Icons.wifi,
+            name: 'Wifi',
+            frequency: 0),
         CategoryModel(
-          id: 'Phone',
-          color: Colors.pink,
-          icon: Icons.phone,
-          name: 'Phone',
-          frequency: 0
-        ),
+            id: 'Phone',
+            color: Colors.pink,
+            icon: Icons.phone,
+            name: 'Phone',
+            frequency: 0),
         CategoryModel(
-          id: 'CreditCard',
-          color: Colors.teal,
-          icon: Icons.credit_card,
-          name: 'Credit Card',
-          frequency: 0
-        ),
+            id: 'CreditCard',
+            color: Colors.teal,
+            icon: Icons.credit_card,
+            name: 'Credit Card',
+            frequency: 0),
         CategoryModel(
             id: 'AddCategory',
             color: Colors.cyan[300]!,
@@ -175,7 +140,7 @@ class CategoryService {
       final Map<String, dynamic> categoryMap = jsonDecode(category);
       return CategoryModel.fromJson(categoryMap);
     }).toList();
-    aux.sort((a, b) => a.frequency.compareTo(b.frequency));
+    aux.sort((a, b) => b.frequency.compareTo(a.frequency));
     return aux;
   }
 
@@ -196,9 +161,13 @@ class CategoryService {
 
     final int index =
         categoryMaps.indexWhere((category) => category['id'] == categoryId);
-    if (index != -1) {
-      categoryMaps[index]['frequency'] =
-          (categoryMaps[index]['frequency'] ?? 0) + 1;
+    CategoryModel? categoryHighFrequency =
+        await CategoryService.getCategoryWithHighestFrequency();
+    if ((index != -1) &&
+        categoryHighFrequency != null &&
+        categoryHighFrequency.id.isNotEmpty) {
+      categoryMaps[index]['frequency'] = categoryHighFrequency.frequency + 1;
+
 
       List<String> updatedCategories = categoryMaps.map((categoryMap) {
         return jsonEncode(categoryMap);
@@ -206,5 +175,37 @@ class CategoryService {
 
       await prefs.setStringList(_categoriesKey, updatedCategories);
     }
+  }
+
+  // MARK: - Category with Highest Frequency
+  static Future<CategoryModel?> getCategoryWithHighestFrequency() async {
+    final List<CategoryModel> categorys = await CategoryService().getAllCategories();
+    final Map<String, int> frequencyMap = {};
+
+    for (var cat in categorys) {
+      frequencyMap[cat.id] = (cat.frequency ?? 0);
+    }
+
+    if (frequencyMap.isEmpty) {
+      return null;
+    }
+
+    final String highestFrequencyCategoryId =
+        frequencyMap.entries.reduce((a, b) => a.value > b.value ? a : b).key;
+
+
+    final List<CategoryModel> categories =
+        await CategoryService().getAllCategories();
+
+    return categories.firstWhere(
+      (category) => category.id == highestFrequencyCategoryId,
+      orElse: () => CategoryModel(
+        id: '',
+        name: 'Unknown',
+        icon: Icons.help,
+        color: AppColors.buttonDeselected,
+        frequency: 0,
+      ),
+    );
   }
 }

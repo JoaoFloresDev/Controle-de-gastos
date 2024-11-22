@@ -286,7 +286,7 @@ class HeaderCardState extends State<HeaderCard> {
         (_horizontalCircleListKey.currentState?.categorieList ??
                 [])[lastIndexSelected]
             .id);
-
+    CategoryService().printAllCategories();
     setState(() {
       valorController.updateValue(0.0);
       descricaoController.clear();

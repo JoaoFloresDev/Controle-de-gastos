@@ -199,38 +199,6 @@ class CardService {
     return uuid.v4();
   }
 
-  // MARK: - Category with Highest Frequency
-  static Future<CategoryModel?> getCategoryWithHighestFrequency() async {
-    final List<CardModel> cards = await retrieveCards();
-    final Map<String, int> frequencyMap = {};
-
-    for (var card in cards) {
-      frequencyMap[card.category.id] =
-          (frequencyMap[card.category.id] ?? 0) + 1;
-    }
-
-    if (frequencyMap.isEmpty) {
-      return null;
-    }
-
-    final String highestFrequencyCategoryId =
-        frequencyMap.entries.reduce((a, b) => a.value > b.value ? a : b).key;
-
-    final List<CategoryModel> categories =
-        await CategoryService().getAllCategories();
-
-    return categories.firstWhere(
-      (category) => category.id == highestFrequencyCategoryId,
-      orElse: () => CategoryModel(
-        id: '',
-        name: 'Unknown',
-        icon: Icons.help,
-        color: AppColors.buttonDeselected,
-        frequency: 0,
-      ),
-    );
-  }
-
   static Future<List<String>> getNormalExpenseIds() async {
     final List<String> normalExpenseIds = [];
     final List<CardModel> list_expenses = await retrieveCards();

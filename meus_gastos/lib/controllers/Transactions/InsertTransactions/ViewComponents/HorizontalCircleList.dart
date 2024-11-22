@@ -36,7 +36,6 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
     categorieList = await CategoryService().getAllCategories();
     setState(() {
       categorieList = categorieList;
-
     });
   }
 

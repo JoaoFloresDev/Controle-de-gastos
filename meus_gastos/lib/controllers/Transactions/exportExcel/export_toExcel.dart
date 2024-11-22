@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:excel/excel.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
@@ -105,17 +106,39 @@ class ExportToExcel {
 
   // Função para salvar o PDF localmente
   static Future<void> savePdfLocally(List<int> pdfBytes) async {
-    try {
-      // Obtém o diretório de documentos do aplicativo
-      Directory directory = await getApplicationDocumentsDirectory();
-      String filePath = '${directory.path}/sheet_of_expens.pdf';
+try {
+    // Abre o gerenciador de arquivos para o usuário escolher a pasta
+    String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
 
-      final File file = File(filePath);
-      await file.writeAsBytes(pdfBytes);
-      print('PDF salvo em: $filePath');
-    } catch (e) {
-      print('Erro ao salvar o PDF: $e');
+    if (selectedDirectory == null) {
+      // O usuário cancelou a seleção
+      print('Seleção de pasta cancelada.');
+      return;
     }
+
+    // Caminho completo para salvar o arquivo
+    final filePath = '$selectedDirectory/sheet_of_expens.pdf';
+
+    // Salva o arquivo no local selecionado
+    final file = File(filePath);
+    await file.writeAsBytes(pdfBytes);
+
+    print('Arquivo salvo em: $filePath');
+  } catch (e) {
+    print('Erro ao salvar arquivo: $e');
+  }
+
+    // try {
+    //   // Obtém o diretório de documentos do aplicativo
+    //   Directory directory = await getApplicationDocumentsDirectory();
+    //   String filePath = '${directory.path}/sheet_of_expens.pdf';
+
+    //   final File file = File(filePath);
+    //   await file.writeAsBytes(pdfBytes);
+    //   print('PDF salvo em: $filePath');
+    // } catch (e) {
+    //   print('Erro ao salvar o PDF: $e');
+    // }
   }
 
   // Função principal para converter o Excel em PDF

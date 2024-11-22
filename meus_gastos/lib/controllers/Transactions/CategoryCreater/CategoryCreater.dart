@@ -168,11 +168,10 @@ class _CategorycreaterState extends State<Categorycreater> {
   void adicionar() async {
     int frequency = 2;
     CategoryModel? categoryHighFrequency =
-        await CardService.getCategoryWithHighestFrequency();
+        await CategoryService.getCategoryWithHighestFrequency();
     if (categoryHighFrequency != null && categoryHighFrequency.id.isNotEmpty) {
       frequency = categoryHighFrequency.frequency + 1;
     }
-
     CategoryModel category = CategoryModel(
         id: Uuid().v4(),
         color: _currentColor,
