@@ -110,8 +110,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     _loadFixedExpenseIds();
     cardList = cards;
     fixedCards = fcard;
-    // mergeCardList =
-    //     await Fixedexpensesservice.MergeFixedWithNormal(fixedCards, cardList);
+    mergeCardList =
+        await Fixedexpensesservice.MergeFixedWithNormal(fixedCards, cardList);
     setState(() {});
   }
 
@@ -214,15 +214,14 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                     key: _headerCardKey,
                     onAddClicked: () async {
                       widget.onAddClicked();
-                        await loadCards();
-                        await Constructreview.checkAndRequestReview();
-                        if (_headerCardKey.currentState != null) {
-                          await _headerCardKey.currentState!.loadCategories();
-                        } else {
-                          print("Não deu");
-                        }
-                      setState(() {
-                      });
+                      await loadCards();
+                      await Constructreview.checkAndRequestReview();
+                      if (_headerCardKey.currentState != null) {
+                        await _headerCardKey.currentState!.loadCategories();
+                      } else {
+                        print("Não deu");
+                      }
+                      setState(() {});
                     },
                     onAddCategory: () {
                       showCupertinoModalPopup(
@@ -327,8 +326,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                         const SizedBox(height: 16),
                         Text(
                           AppLocalizations.of(context)!.addNewTransactions,
-                          style:
-                              const TextStyle(color: AppColors.label, fontSize: 16),
+                          style: const TextStyle(
+                              color: AppColors.label, fontSize: 16),
                           textAlign: TextAlign.center,
                         ),
                       ],

@@ -104,7 +104,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap: _isLoadingSaveLocaly ? null : _saveLocally,
+                      onTap: _isLoadingSaveLocaly ? null : () => _saveLocally(context),
                       child: Container(
                         decoration: BoxDecoration(
                           color: AppColors.button,
@@ -174,17 +174,17 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
     );
   }
 
-  void _saveLocally() async {
+  void _saveLocally(BuildContext context) async {
     setState(() {
       _isLoadingSaveLocaly = true;
     });
     Excel excel = await ExportToExcel.buildExcelFromCards();
     if (_selectedFormat == 'Excel') {
       ExportToExcel.saveExcelFileLocally(
-          excel); // Substitua por seu método de exportação
+          excel, context); // Substitua por seu método de exportação
     } else {
       await ExportToExcel.convertExcelToPdf(
-          excel); // Substitua por seu método de exportação para PDF
+          excel, context); // Substitua por seu método de exportação para PDF
     }
     // Implemente lógica para salvar localmente
     setState(() {

@@ -74,5 +74,6 @@
   "monthlySubscription": "Suscripción mensual",
   "yearlySubscription": "Suscripción anual",
   "restorePurchases": "Restaurar compras",
-  "loading": "Cargando..."
+  "loading": "Cargando...",
+  "savefile": "Elige el nombre del archivo"
 }

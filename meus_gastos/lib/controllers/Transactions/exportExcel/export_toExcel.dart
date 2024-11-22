@@ -1,3 +1,4 @@
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:open_file/open_file.dart';
 import 'dart:io';
 import 'dart:ui';
@@ -7,6 +8,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class ExportToExcel {
   // Função para montar o arquivo Excel a partir dos dados
@@ -45,9 +48,27 @@ class ExportToExcel {
   }
 
   // Função para salvar o arquivo Excel localmente e abrir
-  static Future<void> saveExcelFileLocally(Excel excel) async {
-    Directory directory = await getApplicationDocumentsDirectory();
-    String filePath = '${directory.path}/sheet_of_expens.xlsx';
+  static Future<void> saveExcelFileLocally(Excel excel, BuildContext context) async {
+
+    String? fileName = await _getFileNameFromUser(context, '.xlsx');
+    if (fileName == null || fileName.isEmpty) {
+      print('Nome do arquivo não fornecido.');
+      return;
+    }
+
+    // Certifica-se de que o nome do arquivo tem a extensão ".pdf"
+    if (!fileName.endsWith('.xlsx')) {
+      fileName += '.xlsx';
+    }
+
+    String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
+
+    if (selectedDirectory == null) {
+      // O usuário cancelou a seleção
+      print('Seleção de pasta cancelada.');
+      return;
+    }
+    String filePath = '${selectedDirectory}/$fileName';
 
     // Salvar o arquivo Excel
     File(filePath)
@@ -105,8 +126,22 @@ class ExportToExcel {
   }
 
   // Função para salvar o PDF localmente
-  static Future<void> savePdfLocally(List<int> pdfBytes) async {
+  static Future<void> savePdfLocally(List<int> pdfBytes, BuildContext context) async {
 try {
+
+    // Solicita o nome do arquivo ao usuário
+    String? fileName = await _getFileNameFromUser(context, '.pdf');
+
+    if (fileName == null || fileName.isEmpty) {
+      print('Nome do arquivo não fornecido.');
+      return;
+    }
+
+    // Certifica-se de que o nome do arquivo tem a extensão ".pdf"
+    if (!fileName.endsWith('.pdf')) {
+      fileName += '.pdf';
+    }
+
     // Abre o gerenciador de arquivos para o usuário escolher a pasta
     String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
 
@@ -117,13 +152,14 @@ try {
     }
 
     // Caminho completo para salvar o arquivo
-    final filePath = '$selectedDirectory/sheet_of_expens.pdf';
+    final filePath = '$selectedDirectory/$fileName';
 
     // Salva o arquivo no local selecionado
     final file = File(filePath);
     await file.writeAsBytes(pdfBytes);
 
     print('Arquivo salvo em: $filePath');
+    final result = await OpenFile.open(filePath);
   } catch (e) {
     print('Erro ao salvar arquivo: $e');
   }
@@ -141,12 +177,40 @@ try {
     // }
   }
 
+  static Future<String?> _getFileNameFromUser(BuildContext context, String extension) async {
+  final TextEditingController textController = TextEditingController(text: 'sheet_of_expens$extension');
+
+  return await showDialog<String>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: AppColors.modalBackground, 
+        title: Text(AppLocalizations.of(context)!.savefile, style: TextStyle(color: AppColors.label,)),
+        content: TextField(
+          controller: textController,
+          style: TextStyle(color: AppColors.labelSecondary,)
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(null), // Cancela
+            child: Text(AppLocalizations.of(context)!.cancel, style: TextStyle(color: AppColors.button,)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(textController.text), // Retorna o nome
+            child: Text(AppLocalizations.of(context)!.saveLocally),
+          ),
+        ],
+      );
+    },
+  );
+}
+
   // Função principal para converter o Excel em PDF
-  static Future<void> convertExcelToPdf(Excel excel) async {
+  static Future<void> convertExcelToPdf(Excel excel, BuildContext context) async {
     // Monta o PDF a partir do arquivo Excel
     List<int> pdfBytes = await buildPdfFromExcel(excel);
 
     // Salva o arquivo localmente
-    await savePdfLocally(pdfBytes);
+    await savePdfLocally(pdfBytes, context);
   }
 }

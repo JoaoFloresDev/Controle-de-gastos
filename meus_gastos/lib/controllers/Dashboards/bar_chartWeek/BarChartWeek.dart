@@ -11,15 +11,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 
 class WeeklyStackedBarChart extends StatefulWidget {
   final List<WeekInterval> weekIntervals;
   final List<List<ProgressIndicatorModel>> weeklyData;
 
-  const WeeklyStackedBarChart({super.key, 
+  const WeeklyStackedBarChart({
+    super.key,
     required this.weekIntervals,
     required this.weeklyData,
   });
@@ -214,7 +213,8 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
   Widget _buildChart(double maxY) {
     // Construção do gráfico real quando houver dados
     return SfCartesianChart(
-      primaryXAxis: const CategoryAxis(majorGridLines: MajorGridLines(width: 0)),
+      primaryXAxis:
+          const CategoryAxis(majorGridLines: MajorGridLines(width: 0)),
       primaryYAxis: NumericAxis(
         isVisible: false,
         maximum: maxY,
@@ -259,6 +259,10 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
     }).toList();
   }
 
+  List<List<ProgressIndicatorModel>> _getAllData() {
+    return widget.weeklyData.map((week) => week.toList()).toList();
+  }
+
   List<
       StackedColumnSeries<MapEntry<WeekInterval, List<ProgressIndicatorModel>>,
           String>> _buildVerticalStackedBarSeries() {
@@ -267,9 +271,15 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         .toSet()
         .toList();
 
-    List<double> weeklyTotals = widget.weekIntervals.map((weekInterval) {
+    List<double> weeklyTotalsControl = widget.weekIntervals.map((weekInterval) {
       int index = widget.weekIntervals.indexOf(weekInterval);
       return _getFilteredData()[index]
+          .fold(0.0, (sum, item) => sum + item.progress);
+    }).toList();
+
+    List<double> weeklyTotals = widget.weekIntervals.map((weekInterval) {
+      int index = widget.weekIntervals.indexOf(weekInterval);
+      return _getAllData()[index]
           .fold(0.0, (sum, item) => sum + item.progress);
     }).toList();
     double maxWeeklyTotal = weeklyTotals.reduce((a, b) => a > b ? a : b);
@@ -332,7 +342,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
           }).toList(),
           xValueMapper: (entry, _) => _getWeekLabel(entry.key),
           yValueMapper: (entry, index) => 20,
-          dataLabelMapper: (entry, index) => weeklyTotals[index] > 0
+          dataLabelMapper: (entry, index) => weeklyTotalsControl[index] > 0
               ? Translateservice.formatCurrency(weeklyTotals[index], context)
               : '',
           pointColorMapper: (entry, _) => Colors.transparent,

@@ -67,12 +67,13 @@
     "dailyGraphPlaceholder": "See your daily spending by category",
     "categoryExpensesDescription": "Here your expenses by category will be listed, \nclassified from largest to smallest",
     "repeat" : "Repeat",
-      "premiumVersion": "Premium Version",
+    "premiumVersion": "Premium Version",
     "enjoyExclusiveFeatures": "Enjoy all the exclusive features:",
     "exportToExcelOrPdf": "Export to Excel or PDF",
     "removeAds": "Complete ad removal",
     "monthlySubscription": "Monthly Subscription",
     "yearlySubscription": "Yearly Subscription",
     "restorePurchases": "Restore Purchases",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "savefile": "Choose the file name"
 }
