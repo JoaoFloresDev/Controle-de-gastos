@@ -1,24 +1,58 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Constructreview {
-  static Future<void> checkAndRequestReview() async {
+class ReviewService {
+  static Future<void> checkAndRequestReview(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int sessionCount = prefs.getInt('session_count') ?? 0;
     sessionCount += 1;
     await prefs.setInt('session_count', sessionCount);
-    print("É a $sessionCount vez");
-    // Solicite a avaliação após 5 sessões
-    if (sessionCount >= 5) {
+
+    if (sessionCount == 16) {
       final InAppReview inAppReview = InAppReview.instance;
-      print("É a quinta vez");
       if (await inAppReview.isAvailable()) {
-        // Exibe a solicitação de avaliação se disponível
-        print("E entrou");
         inAppReview.requestReview();
-        sessionCount = 0;
-        prefs.setInt('session_count', sessionCount);
       }
+    } else if (sessionCount == 32) {
+      _showCustomReviewDialog(context);
     }
+  }
+
+  static void _showCustomReviewDialog(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!; // Obtém localizações do contexto
+
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text(localizations.add),
+          content: Text(localizations.reviewAppDescription),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop(); // Fecha o popup
+              },
+              child: Text(localizations.notNow),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop(); // Fecha o popup
+                _redirectToAppStore();
+              },
+              child: Text(localizations.reviewButton),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  static void _redirectToAppStore() {
+    final InAppReview inAppReview = InAppReview.instance;
+    inAppReview.openStoreListing(
+      appStoreId: '6502218501',
+    );
   }
 }

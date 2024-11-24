@@ -1,3 +1,4 @@
+import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:flutter/material.dart';
 
+// await Constructreview.checkAndRequestReview();
 class DetailScreen extends StatefulWidget {
   final CardModel card;
   final VoidCallback onAddClicked;
@@ -18,7 +20,6 @@ class DetailScreen extends StatefulWidget {
   @override
   _DetailScreen createState() => _DetailScreen();
 }
-
 class _DetailScreen extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {

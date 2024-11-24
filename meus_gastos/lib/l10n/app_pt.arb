@@ -75,5 +75,9 @@
     "yearlySubscription": "Assinatura anual",
     "restorePurchases": "Restaurar Compras",
     "loading": "Carregando...",
-    "savefile": "Escolha o nome do arquivo"
+    "savefile": "Escolha o nome do arquivo",
+    "reviewAppTitle": "Gostou do aplicativo?",
+    "reviewAppDescription": "Avalie nosso app na App Store para ajudar mais pessoas a descobri-lo!",
+    "NotNow": "Agora não",
+    "reviewButton": "Avaliar"
 }

@@ -75,5 +75,9 @@
     "yearlySubscription": "Yearly Subscription",
     "restorePurchases": "Restore Purchases",
     "loading": "Loading...",
-    "savefile": "Choose the file name"
+    "savefile": "Choose the file name",
+      "reviewAppTitle": "Did you like the app?",
+  "reviewAppDescription": "Rate our app on the App Store to help more people discover it!",
+  "notNow": "Not now",
+  "reviewButton": "Review"
 }

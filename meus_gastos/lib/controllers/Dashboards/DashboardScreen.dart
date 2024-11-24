@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/controllers/Transactions/exportExcel/exportExcelScreen.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 
 // Imports externos
 import 'package:flutter/cupertino.dart';
@@ -105,6 +106,11 @@ class _DashboardScreenState extends State<DashboardScreen>
     super.initState();
     _onScreenDisplayed();
     _checkUserProStatus();
+    _checkAndRequestReview();
+  }
+  
+  Future<void> _checkAndRequestReview() async {
+    ReviewService.checkAndRequestReview(context);
   }
 
   Future<void> _checkUserProStatus() async {
@@ -403,7 +409,7 @@ class _DashboardScreenState extends State<DashboardScreen>
               )
             : Column(
                 children: [
-                  // _buildBannerAd(),
+                  _buildBannerAd(),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(

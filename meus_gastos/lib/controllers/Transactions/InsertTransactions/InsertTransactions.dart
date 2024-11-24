@@ -97,6 +97,14 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     setState(() {
       _isPro = isYearlyPro || isMonthlyPro;
     });
+
+    int usageCount = prefs.getInt('usage_count') ?? 0;
+  usageCount += 1;
+  await prefs.setInt('usage_count', usageCount);
+
+  if (!_isPro && usageCount > 40 && usageCount % 4 == 0) {
+    _showProModal(context);
+  }
   }
 
   void _deliverProduct(PurchaseDetails purchase) {
@@ -197,11 +205,12 @@ class _InsertTransactionsState extends State<InsertTransactions> {
               if (!_isPro &&
                   !Platform.isMacOS) // Se o usuário não é PRO, mostra o banner
                 Container(
-                  height: 60,
-                  width: 468,
-                  alignment: Alignment.center,
-                  child: BannerAdconstruct(),
-                ),
+  height: 60,
+  width: double.infinity, // Largura total da tela
+  alignment: Alignment.center, // Centraliza no eixo X
+  child: const BannerAdconstruct(),
+),
+
               if (_showHeaderCard) ...[
                 Padding(
                   padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
@@ -215,7 +224,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                     onAddClicked: () async {
                       widget.onAddClicked();
                       await loadCards();
-                      await Constructreview.checkAndRequestReview();
                       if (_headerCardKey.currentState != null) {
                         await _headerCardKey.currentState!.loadCategories();
                       } else {

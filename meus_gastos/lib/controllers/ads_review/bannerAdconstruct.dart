@@ -55,25 +55,26 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Center(
-          child: LoadingContainer(),
-        ),
-        if (_isAdLoaded)
-          Positioned(
-            bottom: 0,
-            child: SizedBox(
-              width: 468,
-              height: 60,
-              child: AdWidget(ad: _bannerAd),
-            ),
+@override
+Widget build(BuildContext context) {
+  return Stack(
+    children: [
+      Center(
+        child: LoadingContainer(),
+      ),
+      if (_isAdLoaded)
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width, // Largura da tela
+            height: 60, // Altura fixa para o banner
+            child: AdWidget(ad: _bannerAd),
           ),
-      ],
-    );
-  }
+        ),
+    ],
+  );
+}
+
 }
 
 class LoadingContainer extends StatefulWidget {

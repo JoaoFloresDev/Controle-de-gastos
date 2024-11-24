@@ -289,20 +289,20 @@ class _ProModalState extends State<ProModal> {
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),
-                    Positioned(
-            right: 10,
-            child: IconButton(
-              icon: const Icon(
-                CupertinoIcons.question_circle,
-                color: AppColors.label,
-                size: 28,
-              ),
-              onPressed: () {
-                // Ação a ser realizada ao clicar no botão de ajuda
-                _showMenuOptions(context);
-              },
-            ),
-          ),
+          //           Positioned(
+          //   right: 10,
+          //   child: IconButton(
+          //     icon: const Icon(
+          //       CupertinoIcons.question_circle,
+          //       color: AppColors.label,
+          //       size: 28,
+          //     ),
+          //     onPressed: () {
+          //       // Ação a ser realizada ao clicar no botão de ajuda
+          //       _showMenuOptions(context);
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );
