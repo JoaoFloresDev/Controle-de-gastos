@@ -8,6 +8,8 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/material.dart';
 import 'package:onepref/onepref.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
+import 'package:meus_gastos/controllers/Calendar/CustomCalendar.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +21,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
     return const CupertinoApp(
@@ -69,7 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
-  // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
@@ -84,6 +84,10 @@ class _MyHomePageState extends State<MyHomePage> {
             key: dashboardTab,
             icon: const Icon(CupertinoIcons.chart_bar, size: 20),
             label: 'Dashboard',
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.calendar, size: 20),
+            label: 'Calendário',
           ),
         ],
         onTap: (int index) {
@@ -129,6 +133,8 @@ class _MyHomePageState extends State<MyHomePage> {
           description: description,
           valueExpens: valueExpens,
         );
+      case 2:
+        return CustomCalendar(); // Chamada da nova tela de calendário
       default:
         return DashboardScreen(
           key: ValueKey(index),

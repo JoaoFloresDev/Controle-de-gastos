@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/controllers/Transactions/exportExcel/exportExcelScreen.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
+import 'package:meus_gastos/ads_review/constructReview.dart';
 
 // Imports externos
 import 'package:flutter/cupertino.dart';
@@ -22,7 +22,7 @@ import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/controllers/Dashboards/bar_chartWeek/BarChartDaysofWeek.dart';
 import 'package:meus_gastos/controllers/Dashboards/extractByCategory.dart';
 import 'package:meus_gastos/controllers/Dashboards/bar_chartWeek/BarChartWeek.dart';
-import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/ads_review/bannerAdconstruct.dart';
 
 // Imports de widgets
 import 'package:meus_gastos/controllers/Dashboards/DashboardCard.dart';
@@ -187,11 +187,11 @@ class _DashboardScreenState extends State<DashboardScreen>
       return const SizedBox.shrink();
     }
     return Container(
-      height: 60,
-      width: 468,
-      alignment: Alignment.center,
-      child: BannerAdconstruct(),
-    );
+  height: 60,
+  width: double.infinity, // Largura total da tela
+  alignment: Alignment.center, // Centraliza no eixo X
+  child: Spacer(),
+);
   }
 
   Widget _buildMonthSelector() {

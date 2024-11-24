@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:flutter/material.dart'; // Certifique-se de importar o pacote flutter/material.dart
+import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 
@@ -7,17 +7,16 @@ class BannerAdconstruct extends StatefulWidget {
   const BannerAdconstruct({super.key});
 
   @override
-  _BannerAdExampleState createState() => _BannerAdExampleState();
+  _BannerAdconstructState createState() => _BannerAdconstructState();
 }
 
-class _BannerAdExampleState extends State<BannerAdconstruct> {
-  late BannerAd _bannerAd;
+class _BannerAdconstructState extends State<BannerAdconstruct> {
+  BannerAd? _bannerAd;
   bool _isAdLoaded = false;
 
   String getBannerAdUnitId() {
     if (Platform.isAndroid) {
-      String testBannerAdUnitId = 'ca-app-pub-8858389345934911/3074198669';
-      return testBannerAdUnitId; // Ad Unit ID do Android
+      return 'ca-app-pub-8858389345934911/3074198669'; // Ad Unit ID do Android
     } else if (Platform.isIOS) {
       return 'ca-app-pub-8858389345934911/4314469007'; // Ad Unit ID do iOS
     } else {
@@ -28,7 +27,10 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
   @override
   void initState() {
     super.initState();
+    _loadBannerAd();
+  }
 
+  void _loadBannerAd() {
     _bannerAd = BannerAd(
       adUnitId: getBannerAdUnitId(),
       size: AdSize.fullBanner,
@@ -46,35 +48,34 @@ class _BannerAdExampleState extends State<BannerAdconstruct> {
       ),
     );
 
-    _bannerAd.load();
+    _bannerAd?.load();
   }
 
   @override
   void dispose() {
-    _bannerAd.dispose();
+    _bannerAd?.dispose();
     super.dispose();
   }
 
-@override
-Widget build(BuildContext context) {
-  return Stack(
-    children: [
-      Center(
-        child: LoadingContainer(),
-      ),
-      if (_isAdLoaded)
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width, // Largura da tela
-            height: 60, // Altura fixa para o banner
-            child: AdWidget(ad: _bannerAd),
-          ),
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Center(
+          child: LoadingContainer(),
         ),
-    ],
-  );
-}
-
+        if (_isAdLoaded)
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 60, // Altura padrão do banner
+              child: AdWidget(ad: _bannerAd!),
+            ),
+          ),
+      ],
+    );
+  }
 }
 
 class LoadingContainer extends StatefulWidget {
