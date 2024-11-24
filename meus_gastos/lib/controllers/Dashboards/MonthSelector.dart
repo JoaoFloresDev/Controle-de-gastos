@@ -27,7 +27,7 @@ class MonthSelector extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            icon: const Icon(Icons.arrow_back, size: 40),
+            icon: const Icon(Icons.chevron_left, size: 40),
             onPressed: () => onChangeMonth(-1),
           ),
           Text(
@@ -39,7 +39,7 @@ class MonthSelector extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.arrow_forward, size: 40),
+            icon: const Icon(Icons.chevron_right, size: 40),
             onPressed: () => onChangeMonth(1),
           ),
         ],

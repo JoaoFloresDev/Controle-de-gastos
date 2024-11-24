@@ -69,48 +69,56 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
   }
-
+  
   @override
-  Widget build(BuildContext context) {
-    return CupertinoTabScaffold(
-      tabBar: CupertinoTabBar(
-        backgroundColor: Colors.black38,
-        items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.home, size: 20),
-            label: 'Transações',
-          ),
-          BottomNavigationBarItem(
-            key: dashboardTab,
-            icon: const Icon(CupertinoIcons.chart_bar, size: 20),
-            label: 'Dashboard',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.calendar, size: 20),
-            label: 'Calendário',
-          ),
-        ],
-        onTap: (int index) {
-          setState(() {
-            selectedTab = index;
-          });
-        },
-      ),
-      tabBuilder: (context, index) {
-        return LayoutBuilder(
-          builder: (context, constraints) {
-            return Column(
-              children: [
-                Expanded(
-                  child: _buildTabContent(index),
-                ),
-              ],
-            );
-          },
-        );
+Widget build(BuildContext context) {
+  return CupertinoTabScaffold(
+    tabBar: CupertinoTabBar(
+      backgroundColor: Colors.black38,
+      items: <BottomNavigationBarItem>[
+        const BottomNavigationBarItem(
+          icon: Icon(CupertinoIcons.home, size: 20),
+          label: 'Transações',
+        ),
+        BottomNavigationBarItem(
+          key: dashboardTab,
+          icon: const Icon(CupertinoIcons.chart_bar, size: 20),
+          label: 'Dashboard',
+        ),
+        const BottomNavigationBarItem(
+          icon: Icon(CupertinoIcons.calendar, size: 20),
+          label: 'Calendário',
+        ),
+      ],
+      onTap: (int index) {
+        setState(() {
+          selectedTab = index;
+        });
+
+        // Chama o método refreshCalendar se a aba do calendário for selecionada
+        if (index == 2) {
+          final calendarState = context.findAncestorStateOfType<CustomCalendarState>();
+          calendarState?.refreshCalendar();
+        }
       },
-    );
-  }
+    ),
+    tabBuilder: (context, index) {
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          return Column(
+            children: [
+              Expanded(
+                child: _buildTabContent(index),
+              ),
+            ],
+          );
+        },
+      );
+    },
+  );
+}
+
+
 
   Widget _buildTabContent(int index) {
     if (index == 1 && selectedTab == 1) {

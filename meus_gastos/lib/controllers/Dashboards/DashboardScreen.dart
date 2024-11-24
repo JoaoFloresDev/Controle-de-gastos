@@ -2,7 +2,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
 import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:meus_gastos/controllers/Transactions/exportExcel/exportExcelScreen.dart';
+import 'package:meus_gastos/controllers/exportExcel/exportExcelScreen.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/ads_review/constructReview.dart';
 
@@ -147,12 +147,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
   }
 
-  // Future<void> _loadProgressMonthsInYear(DateTime currentDate) async {
-  //   totalOfMonths = await CardService.getTotalExpensesByMonth(currentDate);
-  //   totalExpansivesMonths_category =
-  //       await CardService.getMonthlyExpensesByCategoryForYear(currentDate.year);
-  // }
-
   Future<void> _loadProgressIndicators(DateTime currentDate) async {
     if (!mounted) return;
     setState(() {
@@ -161,15 +155,12 @@ class _DashboardScreenState extends State<DashboardScreen>
 
     progressIndicators =
         await CardService.getProgressIndicatorsByMonth(currentDate);
-    // print("............. ${progressIndicators.length}");
     pieChartDataItems = progressIndicators
         .map((indicator) => indicator.toPieChartDataItem())
         .toList();
 
     totalGasto = progressIndicators.fold(
         0.0, (sum, indicator) => sum + indicator.progress);
-
-    // totalOfMonths = await CardService.getTotalExpensesByMonth(currentDate);
 
     Last5WeeksIntervals = Dashbordservice.getLast5WeeksIntervals(currentDate);
     Last5WeeksProgressIndicators =
@@ -402,7 +393,6 @@ class _DashboardScreenState extends State<DashboardScreen>
         ),
       ),
       child: SafeArea(
-        // child: Spacer()
         child: isLoading
             ? Center(
                 child: _buildLoadingIndicator(),
