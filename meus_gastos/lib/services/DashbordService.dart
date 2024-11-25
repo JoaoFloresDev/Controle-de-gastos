@@ -97,16 +97,15 @@ class Dashbordservice {
 
   static List<CategoryModel> extractCategories(
       List<List<ProgressIndicatorModel>> progressIndicatorsList) {
-    Set<CategoryModel> categoriesSet = {};
+      Map<String, CategoryModel> uniqueCategories = {};
 
     for (var progressIndicators in progressIndicatorsList) {
       for (var progressIndicator in progressIndicators) {
-        print(progressIndicator.category.name);
-        categoriesSet.add(progressIndicator.category);
+        uniqueCategories[progressIndicator.category.id] = progressIndicator.category;
       }
     }
 
-    return categoriesSet.toList();
+  return uniqueCategories.values.toList();
   }
 
   static Future<List<List<ProgressIndicatorModel>>>

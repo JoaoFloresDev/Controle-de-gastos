@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -238,6 +239,9 @@ class _CategorycreaterState extends State<Categorycreater> {
                         placeholderStyle: const TextStyle(
                             color: Color.fromARGB(144, 255, 255, 255)),
                         controller: categoriaController,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(15),
+                        ],
                       ),
                       const SizedBox(height: 32),
                       Row(

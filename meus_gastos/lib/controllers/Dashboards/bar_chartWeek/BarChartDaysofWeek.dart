@@ -405,7 +405,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
 
   List<List<ProgressIndicatorModel>> _getFilteredData() {
     if (selectedCategories.isEmpty) {
-      return widget.last5weewdailyData[selectedWeek];
+      return List.generate(widget.last5weewdailyData[selectedWeek].length, (_) => []);
     }
 
     return widget.last5weewdailyData[selectedWeek].map((day) {

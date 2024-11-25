@@ -108,7 +108,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     _checkUserProStatus();
     _checkAndRequestReview();
   }
-  
+
   Future<void> _checkAndRequestReview() async {
     ReviewService.checkAndRequestReview(context);
   }
@@ -178,11 +178,11 @@ class _DashboardScreenState extends State<DashboardScreen>
       return const SizedBox.shrink();
     }
     return Container(
-  height: 60,
-  width: double.infinity, // Largura total da tela
-  alignment: Alignment.center, // Centraliza no eixo X
-  child: Spacer(),
-);
+      height: 60,
+      width: double.infinity, // Largura total da tela
+      alignment: Alignment.center, // Centraliza no eixo X
+      child: BannerAdconstruct(),
+    );
   }
 
   Widget _buildMonthSelector() {

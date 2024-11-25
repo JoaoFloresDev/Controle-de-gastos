@@ -33,15 +33,17 @@ class _ExtractbycategoryState extends State<Extractbycategory> {
     });
   }
 
-  List<CardModel> selectbycategory(List<CardModel> cardList) {
+  List<CardModel> selectbycategory(
+      List<CardModel> cardList, DateTime currentDate) {
     return cardList
         .where((card) => card.category.name == widget.category)
+        .where((c) => c.date.month == currentDate.month)
         .toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<CardModel> filtered = selectbycategory(cards);
+    List<CardModel> filtered = selectbycategory(cards, DateTime.now());
     print(filtered.length);
     return Scaffold(
       backgroundColor: Colors.transparent,

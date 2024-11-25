@@ -343,7 +343,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
           xValueMapper: (entry, _) => _getWeekLabel(entry.key),
           yValueMapper: (entry, index) => 20,
           dataLabelMapper: (entry, index) => weeklyTotalsControl[index] > 0
-              ? Translateservice.formatCurrency(weeklyTotals[index], context)
+              ? Translateservice.formatCurrency(weeklyTotalsControl[index], context)
               : '',
           pointColorMapper: (entry, _) => Colors.transparent,
           width: 0.5,
