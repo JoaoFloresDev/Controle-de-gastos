@@ -122,7 +122,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
   }
 
-  //mark - métodos privados
   Future<void> _onScreenDisplayed() async {
     if (widget.isActive) {
       await _loadInitialData();
@@ -388,7 +387,8 @@ class _DashboardScreenState extends State<DashboardScreen>
             },
             child: const Icon(
             CupertinoIcons.share,
-            size: 24.0, // Ajuste o tamanho conforme necessário
+            size: 24.0, 
+            color: Colors.white,
           )
           ),
         ),

@@ -176,7 +176,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
               child: Text(
                 AppLocalizations.of(context)!.addNewTransactions,
                 style: const TextStyle(
-                  color: AppColors.label,
+                  color: Color.fromARGB(255, 96, 96, 96),
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
@@ -191,7 +191,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                 AppLocalizations.of(context)!.dailyGraphPlaceholder,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: AppColors.label,
+                  color: Color.fromARGB(255, 76, 76, 76),
                   fontSize: 16,
                 ),
                 textAlign: TextAlign.center,

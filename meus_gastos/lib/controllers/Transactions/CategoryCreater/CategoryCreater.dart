@@ -107,8 +107,6 @@ class _CategorycreaterState extends State<Categorycreater> {
                         pickerAreaBorderRadius:
                             const BorderRadius.all(Radius.circular(8)),
                       ),
-                      // SizedBox(
-                      //     height: 16), // Espaçamento entre o picker e o botão
                       SizedBox(
                         width: 160,
                         height: 40,

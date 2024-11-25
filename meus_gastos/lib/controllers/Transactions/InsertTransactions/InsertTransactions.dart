@@ -171,11 +171,15 @@ class _InsertTransactionsState extends State<InsertTransactions> {
         key: _scaffoldKey,
         appBar: CupertinoNavigationBar(
           leading: GestureDetector(
-            onTap: () {
-              _showCupertinoModalBottomFixedExpenses(context);
-            },
-            child: const Icon(Icons.repeat, size: 24),
-          ),
+  onTap: () {
+    _showCupertinoModalBottomFixedExpenses(context);
+  },
+  child: const Icon(
+    Icons.repeat,
+    size: 24,
+    color: Colors.white,
+  ),
+),
           middle: Text(
             widget.title,
             style: const TextStyle(color: AppColors.label, fontSize: 16),
@@ -293,7 +297,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                               _showCupertinoModalBottomSheet(context, card);
                             },
                             card: mergeCardList[cardList.length - index - 1],
-                            background: AppColors.background1,
+                            background: AppColors.card,
                           ),
                         );
                       }

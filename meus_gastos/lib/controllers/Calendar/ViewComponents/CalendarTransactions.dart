@@ -44,7 +44,7 @@ class TransactionList extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: Text(
-            "Nenhuma transação \npara este dia",
+            AppLocalizations.of(context)!.emptyDay,
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: AppColors.labelPlaceholder,

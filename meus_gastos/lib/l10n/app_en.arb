@@ -79,5 +79,6 @@
       "reviewAppTitle": "Did you like the app?",
   "reviewAppDescription": "Rate our app on the App Store to help more people discover it!",
   "notNow": "Not now",
-  "reviewButton": "Review"
+  "reviewButton": "Review",
+  "emptyDay": "No transactions \nfor this day"
 }

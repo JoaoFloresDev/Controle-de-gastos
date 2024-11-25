@@ -92,7 +92,7 @@ class _ExtractbycategoryState extends State<Extractbycategory> {
                         );
                       },
                       card: filtered[filtered.length - index - 1],
-                      background: AppColors.background1,
+                      background: AppColors.card,
                     ),
                   );
                 },

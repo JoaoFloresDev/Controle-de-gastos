@@ -138,7 +138,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
               child: Text(
                 AppLocalizations.of(context)!.addNewTransactions,
                 style: const TextStyle(
-                  color: AppColors.label,
+                  color: Color.fromARGB(255, 83, 81, 81),
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
@@ -153,7 +153,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
                 AppLocalizations.of(context)!.dailyGraphPlaceholder,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: AppColors.label,
+                  color: Color.fromARGB(255, 39, 39, 39),
                   fontSize: 16,
                 ),
                 textAlign: TextAlign.center,

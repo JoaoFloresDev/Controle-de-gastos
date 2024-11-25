@@ -1,3 +1,27 @@
+import 'dart:io';
+import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
+import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/gastos_fixos/ListCard.dart';
+import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
+import '../../../models/CardModel.dart';
+import 'package:meus_gastos/services/CardService.dart' as service;
+import 'package:meus_gastos/controllers/Transactions/CardDetails/DetailScreen.dart';
+import 'package:meus_gastos/controllers/Transactions/CategoryCreater/CategoryCreater.dart';
+import 'package:meus_gastos/ads_review/constructReview.dart';
+import 'package:meus_gastos/ads_review/bannerAdconstruct.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -34,6 +58,16 @@ class CustomCalendarState extends State<CustomCalendar> {
   void initState() {
     super.initState();
     _initializeCalendarData();
+    _checkUserProStatus();
+  }
+
+  Future<void> _checkUserProStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool isYearlyPro = prefs.getBool('yearly.pro') ?? false;
+    bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
+    setState(() {
+      _isPro = isYearlyPro || isMonthlyPro;
+    });
   }
 
   Future<void> _initializeCalendarData() async {
@@ -77,6 +111,8 @@ class CustomCalendarState extends State<CustomCalendar> {
     _initializeCalendarData();
   }
 
+bool _isPro = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,6 +127,8 @@ class CustomCalendarState extends State<CustomCalendar> {
       body: SafeArea(
         child: Column(
           children: [
+            if (!_isPro &&
+                  !Platform.isMacOS)
             Container(
   height: 60,
   width: double.infinity, // Largura total da tela
