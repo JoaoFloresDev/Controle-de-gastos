@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -8,56 +6,14 @@ import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
-import 'dart:io';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
-
-import 'dart:io';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/intl.dart';
-import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
-
-import 'dart:io';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/intl.dart';
-import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/intl.dart';
-import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/intl.dart';
-import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/intl.dart';
-import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'CalendarTable.dart';
+import 'CalendarHeader.dart';
+import 'CalendarTransactions.dart';
 
 class CustomCalendar extends StatefulWidget {
   final VoidCallback onCalendarRefresh;
@@ -72,7 +28,7 @@ class CustomCalendarState extends State<CustomCalendar> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   List<CardModel> _transactions = [];
-  Map<DateTime, double> _dailyExpenses = {}; // Inicialização segura
+  Map<DateTime, double> _dailyExpenses = {};
 
   @override
   void initState() {
@@ -123,18 +79,6 @@ class CustomCalendarState extends State<CustomCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    final totalExpense = _dailyExpenses[DateTime(
-          (_selectedDay ?? _focusedDay).year,
-          (_selectedDay ?? _focusedDay).month,
-          (_selectedDay ?? _focusedDay).day,
-        )] ??
-        0.0;
-    final String formattedDate = toBeginningOfSentenceCase(
-    DateFormat('EEEE, d MMM', Localizations.localeOf(context).toString())
-        .format(_selectedDay ?? _focusedDay),
-) ?? '';
-
-
     return CupertinoPageScaffold(
       backgroundColor: AppColors.background1,
       navigationBar: CupertinoNavigationBar(
@@ -147,14 +91,10 @@ class CustomCalendarState extends State<CustomCalendar> {
       child: SafeArea(
         child: Column(
           children: [
-            TableCalendar(
-              locale: Localizations.localeOf(context).languageCode,
+            CalendarTable(
               focusedDay: _focusedDay,
-              firstDay: DateTime(2010),
-              lastDay: DateTime(2100),
-              rowHeight: 50,
-              daysOfWeekHeight: 30,
-              selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+              selectedDay: _selectedDay,
+              dailyExpenses: _dailyExpenses,
               onDaySelected: (selectedDay, focusedDay) {
                 setState(() {
                   _selectedDay = selectedDay;
@@ -162,173 +102,16 @@ class CustomCalendarState extends State<CustomCalendar> {
                 });
                 _loadTransactionsForDay(selectedDay);
               },
-              calendarStyle: CalendarStyle(
-                weekendTextStyle: const TextStyle(color: AppColors.labelSecondary),
-                defaultTextStyle: const TextStyle(color: AppColors.label),
-                outsideTextStyle: const TextStyle(color: AppColors.labelPlaceholder),
-              ),
-              headerStyle: HeaderStyle(
-                formatButtonVisible: false,
-                titleCentered: true,
-                titleTextStyle: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.label,
-                ),
-                leftChevronIcon: const Icon(Icons.chevron_left),
-                rightChevronIcon: const Icon(Icons.chevron_right),
-                headerPadding: const EdgeInsets.symmetric(vertical: 4),
-              ),
-              calendarBuilders: CalendarBuilders(
-                defaultBuilder: (context, day, focusedDay) {
-                  final expense = _dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
-
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        day.day.toString(),
-                        style: const TextStyle(color: AppColors.label),
-                      ),
-                      if (expense > 0)
-                        Text(
-                          "${expense.toStringAsFixed(2)}",
-                          style: const TextStyle(
-                            color: AppColors.button,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                    ],
-                  );
-                },
-                selectedBuilder: (context, day, focusedDay) {
-                  final expense = _dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
-
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.buttonSelected,
-                      shape: BoxShape.circle,
-                    ),
-                    constraints: const BoxConstraints(
-                      minWidth: 70,
-                      minHeight: 70, // Tamanho do círculo maior
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          day.day.toString(),
-                          style: const TextStyle(
-                            color: AppColors.label,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        if (expense > 0)
-                          Text(
-                            "${expense.toStringAsFixed(2)}",
-                            style: const TextStyle(
-                              color: AppColors.button,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                      ],
-                    ),
-                  );
-                },
-                todayBuilder: (context, day, focusedDay) {
-                  final expense = _dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
-
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.card,
-                      shape: BoxShape.circle,
-                    ),
-                    constraints: const BoxConstraints(
-                      minWidth: 70,
-                      minHeight: 70, // Tamanho do círculo maior
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          day.day.toString(),
-                          style: const TextStyle(
-                            color: AppColors.label,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        if (expense > 0)
-                          Text(
-                            "${expense.toStringAsFixed(2)}",
-                            style: const TextStyle(
-                              color: AppColors.button,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                      ],
-                    ),
-                  );
-                },
-              ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      formattedDate,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.label,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Text(
-                    "R\$ ${totalExpense.toStringAsFixed(2)}",
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.button,
-                    ),
-                    textAlign: TextAlign.right,
-                  ),
-                ],
-              ),
+            CalendarHeader(
+              selectedDay: _selectedDay,
+              focusedDay: _focusedDay,
+              dailyExpenses: _dailyExpenses,
             ),
             Expanded(
-              child: _transactions.isEmpty
-                  ? Center(
-                      child: Text(
-                        "Nenhuma transação para este dia",
-                        style: const TextStyle(
-                          color: AppColors.labelPlaceholder,
-                          fontSize: 16,
-                        ),
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: _transactions.length,
-                      itemBuilder: (context, index) {
-                        final transaction = _transactions[index];
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                          child: ListCard(
-                            card: transaction,
-                            onTap: (selectedCard) {
-                              print("Card selecionado: ${selectedCard.description}");
-                            },
-                            background: AppColors.card,
-                          ),
-                        );
-                      },
-                    ),
+              child: TransactionList(
+                transactions: _transactions,
+              ),
             ),
           ],
         ),
