@@ -118,15 +118,22 @@ class CustomCalendarState extends State<CustomCalendar> {
   }
 
   void refreshCalendar() {
-    print("refreshCalendar");
     _initializeCalendarData();
   }
 
   @override
   Widget build(BuildContext context) {
-    final double totalExpense = _dailyExpenses[_selectedDay ?? _focusedDay] ?? 0.0;
-    final String formattedDate = DateFormat('EEEE, d MMM', Localizations.localeOf(context).toString())
-        .format(_selectedDay ?? _focusedDay);
+    final totalExpense = _dailyExpenses[DateTime(
+          (_selectedDay ?? _focusedDay).year,
+          (_selectedDay ?? _focusedDay).month,
+          (_selectedDay ?? _focusedDay).day,
+        )] ??
+        0.0;
+    final String formattedDate = toBeginningOfSentenceCase(
+    DateFormat('EEEE, d MMM', Localizations.localeOf(context).toString())
+        .format(_selectedDay ?? _focusedDay),
+) ?? '';
+
 
     return CupertinoPageScaffold(
       backgroundColor: AppColors.background1,
@@ -268,7 +275,7 @@ class CustomCalendarState extends State<CustomCalendar> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -287,7 +294,7 @@ class CustomCalendarState extends State<CustomCalendar> {
                     "R\$ ${totalExpense.toStringAsFixed(2)}",
                     style: const TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.bold,
                       color: AppColors.button,
                     ),
                     textAlign: TextAlign.right,
