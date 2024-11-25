@@ -19,15 +19,15 @@ import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 
 // Imports de controllers
-import 'package:meus_gastos/controllers/Dashboards/bar_chartWeek/BarChartDaysofWeek.dart';
-import 'package:meus_gastos/controllers/Dashboards/extractByCategory.dart';
-import 'package:meus_gastos/controllers/Dashboards/bar_chartWeek/BarChartWeek.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartDaysofWeek.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/extractByCategory.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartWeek.dart';
 import 'package:meus_gastos/ads_review/bannerAdconstruct.dart';
 
 // Imports de widgets
-import 'package:meus_gastos/controllers/Dashboards/DashboardCard.dart';
-import 'package:meus_gastos/controllers/Dashboards/MonthSelector.dart';
-import 'package:meus_gastos/controllers/Dashboards/LinearProgressIndicatorSection.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/MonthSelector.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgressIndicatorSection.dart';
 
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
@@ -360,17 +360,17 @@ class _DashboardScreenState extends State<DashboardScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return CupertinoPageScaffold(
+    return Scaffold(
       backgroundColor: AppColors.background1,
-      navigationBar: CupertinoNavigationBar(
-        middle: Text(
-          AppLocalizations.of(context)!.myControl,
-          style: const TextStyle(color: AppColors.label, fontSize: 16),
-        ),
-        backgroundColor: AppColors.background1,
-        trailing: GestureDetector(
-          onTap: () {
-            showCupertinoModalPopup(
+              appBar: CupertinoNavigationBar(
+          middle: Text(
+            AppLocalizations.of(context)!.myControl,
+            style: const TextStyle(color: AppColors.label, fontSize: 16),
+          ),
+          backgroundColor: AppColors.background1,
+          trailing: GestureDetector(
+            onTap: () {
+              showCupertinoModalPopup(
               context: context,
               builder: (BuildContext context) {
                 return Container(
@@ -385,14 +385,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                 );
               },
             );
-          },
-          child: const Icon(
+            },
+            child: const Icon(
             CupertinoIcons.share,
             size: 24.0, // Ajuste o tamanho conforme necessário
+          )
           ),
         ),
-      ),
-      child: SafeArea(
+      body: SafeArea(
         child: isLoading
             ? Center(
                 child: _buildLoadingIndicator(),

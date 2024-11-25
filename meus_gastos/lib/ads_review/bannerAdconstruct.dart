@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
+
 class BannerAdconstruct extends StatefulWidget {
   const BannerAdconstruct({super.key});
 
@@ -59,11 +64,13 @@ class _BannerAdconstructState extends State<BannerAdconstruct> {
 
   @override
   Widget build(BuildContext context) {
+    // Exibe o container de loading enquanto o anúncio não é carregado
     return Stack(
       children: [
-        Center(
-          child: LoadingContainer(),
-        ),
+        if (!_isAdLoaded)
+          const Center(
+            child: LoadingContainer(),
+          ),
         if (_isAdLoaded)
           Align(
             alignment: Alignment.bottomCenter,
@@ -113,6 +120,7 @@ class _LoadingContainerState extends State<LoadingContainer>
 
   @override
   Widget build(BuildContext context) {
+    // Exibe uma animação enquanto o anúncio não é carregado
     return Center(
       child: AnimatedBuilder(
         animation: _animation,

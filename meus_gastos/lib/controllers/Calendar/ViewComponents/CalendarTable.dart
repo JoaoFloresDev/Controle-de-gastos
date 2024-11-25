@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 
 class CalendarTable extends StatelessWidget {
@@ -18,45 +19,70 @@ class CalendarTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TableCalendar(
-      locale: Localizations.localeOf(context).languageCode,
-      focusedDay: focusedDay,
-      firstDay: DateTime(2010),
-      lastDay: DateTime(2100),
-      rowHeight: 50,
-      daysOfWeekHeight: 30,
-      selectedDayPredicate: (day) => isSameDay(selectedDay, day),
-      onDaySelected: onDaySelected,
-      calendarStyle: CalendarStyle(
-        weekendTextStyle: const TextStyle(color: AppColors.labelSecondary),
-        defaultTextStyle: const TextStyle(color: AppColors.label),
-        outsideTextStyle: const TextStyle(color: AppColors.labelPlaceholder),
-      ),
-      headerStyle: HeaderStyle(
-        formatButtonVisible: false,
-        titleCentered: true,
-        titleTextStyle: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: AppColors.label,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: TableCalendar(
+        locale: Localizations.localeOf(context).languageCode,
+        focusedDay: focusedDay,
+        firstDay: DateTime(2010),
+        lastDay: DateTime(2100),
+        rowHeight: 46,
+        daysOfWeekHeight: 24,
+        selectedDayPredicate: (day) => isSameDay(selectedDay, day),
+        onDaySelected: onDaySelected,
+        calendarStyle: CalendarStyle(
+          weekendTextStyle: const TextStyle(color: AppColors.labelSecondary),
+          defaultTextStyle: const TextStyle(color: AppColors.label),
+          outsideTextStyle: const TextStyle(color: AppColors.labelPlaceholder),
         ),
-        leftChevronIcon: const Icon(Icons.chevron_left),
-        rightChevronIcon: const Icon(Icons.chevron_right),
-        headerPadding: const EdgeInsets.symmetric(vertical: 4),
-      ),
-      calendarBuilders: CalendarBuilders(
-        defaultBuilder: (context, day, focusedDay) {
-          final expense = dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
-          return _buildDayCell(day, expense);
-        },
-        selectedBuilder: (context, day, focusedDay) {
-          final expense = dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
-          return _buildDayCell(day, expense, selected: true);
-        },
-        todayBuilder: (context, day, focusedDay) {
-          final expense = dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
-          return _buildDayCell(day, expense, today: true);
-        },
+        headerStyle: HeaderStyle(
+          formatButtonVisible: false,
+          titleCentered: true,
+          titleTextStyle: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: AppColors.label,
+          ),
+          leftChevronIcon: const Icon(
+            Icons.chevron_left,
+            size: 38,
+          ),
+          rightChevronIcon: const Icon(
+            Icons.chevron_right,
+            size: 38,
+          ),
+          headerPadding: const EdgeInsets.symmetric(vertical: 0),
+        ),
+        calendarBuilders: CalendarBuilders(
+          headerTitleBuilder: (context, day) {
+            final formattedDate = toBeginningOfSentenceCase(
+              DateFormat("MMMM 'de' yyyy", Localizations.localeOf(context).languageCode)
+                  .format(day),
+            );
+            return Center(
+              child: Text(
+                formattedDate ?? '',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.label,
+                ),
+              ),
+            );
+          },
+          defaultBuilder: (context, day, focusedDay) {
+            final expense = dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
+            return _buildDayCell(day, expense);
+          },
+          selectedBuilder: (context, day, focusedDay) {
+            final expense = dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
+            return _buildDayCell(day, expense, selected: true);
+          },
+          todayBuilder: (context, day, focusedDay) {
+            final expense = dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
+            return _buildDayCell(day, expense, today: true);
+          },
+        ),
       ),
     );
   }
@@ -84,10 +110,10 @@ class CalendarTable extends StatelessWidget {
           ),
           if (expense > 0)
             Text(
-              "${expense.toStringAsFixed(2)}",
+              "${expense.toStringAsFixed(0)}",
               style: const TextStyle(
                 color: AppColors.button,
-                fontSize: 10,
+                fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),
             ),

@@ -26,7 +26,7 @@ class CalendarHeader extends StatelessWidget {
         .format(selectedDay ?? focusedDay);
 
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 8),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
