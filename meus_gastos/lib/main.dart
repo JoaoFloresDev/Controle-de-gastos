@@ -64,6 +64,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int selectedTab = 0;
 
+  final GlobalKey<CustomCalendarState> calendarKey = GlobalKey<CustomCalendarState>();
   final exportButton = GlobalKey();
   final cardsExpense = GlobalKey();
   final dashboardTab = GlobalKey();
@@ -98,10 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
             selectedTab = index;
           });
 
-          // Recarrega o calendário quando a aba correspondente for selecionada
           if (index == 2) {
-            final calendarState = context.findAncestorStateOfType<CustomCalendarState>();
-            calendarState?.refreshCalendar();
+           calendarKey.currentState?.refreshCalendar();
           }
         },
       ),
@@ -140,13 +139,13 @@ class _MyHomePageState extends State<MyHomePage> {
           key: UniqueKey(),
           isActive: true,
         );
-      case 2:
-        return CustomCalendar(
-          onCalendarRefresh: () {
-            final calendarState = context.findAncestorStateOfType<CustomCalendarState>();
-            calendarState?.refreshCalendar();
-          },
-        );
+case 2:
+  return CustomCalendar(
+    key: calendarKey,
+    onCalendarRefresh: () {
+      calendarKey.currentState?.refreshCalendar();
+    },
+  );
       default:
         return DashboardScreen(
           key: ValueKey(index),

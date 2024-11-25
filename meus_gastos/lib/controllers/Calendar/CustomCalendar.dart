@@ -118,6 +118,7 @@ class CustomCalendarState extends State<CustomCalendar> {
   }
 
   void refreshCalendar() {
+    print("refreshCalendar");
     _initializeCalendarData();
   }
 
