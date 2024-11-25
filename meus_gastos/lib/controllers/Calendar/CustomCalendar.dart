@@ -28,7 +28,42 @@ import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
 
+import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
+import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
+import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
+import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
+import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+
 class CustomCalendar extends StatefulWidget {
+  final VoidCallback onCalendarRefresh;
+
+  const CustomCalendar({Key? key, required this.onCalendarRefresh}) : super(key: key);
+
   @override
   CustomCalendarState createState() => CustomCalendarState();
 }
@@ -38,7 +73,6 @@ class CustomCalendarState extends State<CustomCalendar> {
   DateTime? _selectedDay;
   List<CardModel> _transactions = [];
   Map<DateTime, double> _dailyExpenses = {}; // Inicialização segura
-  bool _isPro = false;
 
   @override
   void initState() {
@@ -49,7 +83,6 @@ class CustomCalendarState extends State<CustomCalendar> {
   Future<void> _initializeCalendarData() async {
     await _calculateDailyExpenses();
     await _loadTransactionsForDay(_focusedDay);
-    await _checkUserProStatus();
   }
 
   Future<void> _calculateDailyExpenses() async {
@@ -79,26 +112,13 @@ class CustomCalendarState extends State<CustomCalendar> {
             card.date.day == day.day)
         .toList();
 
-    final dailyTotal = transactionsForDay.fold(0.0, (sum, item) => sum + item.amount);
-
     setState(() {
       _transactions = transactionsForDay;
-      _dailyExpenses[day] = dailyTotal;
-    });
-  }
-
-  Future<void> _checkUserProStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    bool isYearlyPro = prefs.getBool('yearly.pro') ?? false;
-    bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
-    setState(() {
-      _isPro = isYearlyPro || isMonthlyPro;
     });
   }
 
   void refreshCalendar() {
-    _calculateDailyExpenses();
-    _loadTransactionsForDay(_focusedDay);
+    _initializeCalendarData();
   }
 
   @override
@@ -124,7 +144,7 @@ class CustomCalendarState extends State<CustomCalendar> {
               focusedDay: _focusedDay,
               firstDay: DateTime(2010),
               lastDay: DateTime(2100),
-              rowHeight: 60,
+              rowHeight: 50,
               daysOfWeekHeight: 30,
               selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
               onDaySelected: (selectedDay, focusedDay) {
@@ -135,14 +155,6 @@ class CustomCalendarState extends State<CustomCalendar> {
                 _loadTransactionsForDay(selectedDay);
               },
               calendarStyle: CalendarStyle(
-                todayDecoration: BoxDecoration(
-                  color: AppColors.button,
-                  shape: BoxShape.circle,
-                ),
-                selectedDecoration: BoxDecoration(
-                  color: AppColors.buttonSelected,
-                  shape: BoxShape.circle,
-                ),
                 weekendTextStyle: const TextStyle(color: AppColors.labelSecondary),
                 defaultTextStyle: const TextStyle(color: AppColors.label),
                 outsideTextStyle: const TextStyle(color: AppColors.labelPlaceholder),
@@ -182,24 +194,27 @@ class CustomCalendarState extends State<CustomCalendar> {
                     ],
                   );
                 },
-                todayBuilder: (context, day, focusedDay) {
+                selectedBuilder: (context, day, focusedDay) {
                   final expense = _dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
 
                   return Container(
                     decoration: BoxDecoration(
-                      color: AppColors.card,
+                      color: AppColors.buttonSelected,
                       shape: BoxShape.circle,
                     ),
                     constraints: const BoxConstraints(
-                      minWidth: 50,
-                      minHeight: 50,
+                      minWidth: 70,
+                      minHeight: 70, // Tamanho do círculo maior
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           day.day.toString(),
-                          style: const TextStyle(color: AppColors.label),
+                          style: const TextStyle(
+                            color: AppColors.label,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         if (expense > 0)
                           Text(
@@ -214,24 +229,27 @@ class CustomCalendarState extends State<CustomCalendar> {
                     ),
                   );
                 },
-                selectedBuilder: (context, day, focusedDay) {
+                todayBuilder: (context, day, focusedDay) {
                   final expense = _dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
 
                   return Container(
                     decoration: BoxDecoration(
-                      color: AppColors.buttonSelected,
+                      color: AppColors.card,
                       shape: BoxShape.circle,
                     ),
                     constraints: const BoxConstraints(
-                      minWidth: 60,
-                      minHeight: 60,
+                      minWidth: 70,
+                      minHeight: 70, // Tamanho do círculo maior
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           day.day.toString(),
-                          style: const TextStyle(color: AppColors.label),
+                          style: const TextStyle(
+                            color: AppColors.label,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         if (expense > 0)
                           Text(
