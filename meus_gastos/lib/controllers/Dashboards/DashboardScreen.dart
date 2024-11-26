@@ -180,7 +180,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   height: 60,
   width: double.infinity, // Largura total da tela
   alignment: Alignment.center, // Centraliza no eixo X
-  child: Spacer(),
+  child: LoadingContainer(),
 );
   }
 
@@ -191,27 +191,37 @@ class _DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-  double _calculatePageHeight() {
-    // Defina um valor base para o cálculo da altura
-    double baseHeight = 300;
+double _calculatePageHeight() {
+  double baseHeight = 300;
+  double heightPerLine = 40;
+  List<String> labels = pieChartDataItems.map((item) => item.label).toList();
+  int calculateLines(List<String> labels) {
+    int lines = 0;
+    int i = 0;
 
-    // Calcule o incremento na altura com base no número de itens
-    double additionalHeight =
-        (pieChartDataItems.length.toDouble() / 2 * 40).clamp(40, 120);
-
-    // Defina um valor mínimo e máximo para a altura
-    double minHeight = 400;
-
-    // Calcule a altura total
-    double pageHeight = baseHeight + additionalHeight;
-
-    // Assegure-se de que a altura esteja dentro dos limites mínimos e máximos
-    if (pageHeight < minHeight) {
-      pageHeight = minHeight;
+    while (i < labels.length) {
+      String current = labels[i];
+      if (i + 1 < labels.length && (current.length + labels[i + 1].length) <= 20) {
+        i += 2;
+      } else {
+        i += 1;
+      }
+      lines++;
     }
 
-    return pageHeight;
+    return lines;
   }
+
+  int totalLines = calculateLines(labels);
+  double additionalHeight = totalLines * heightPerLine;
+  double minHeight = 380;
+  double maxHeight = MediaQuery.of(context).size.height - 100;
+  double pageHeight = baseHeight + additionalHeight;
+  pageHeight = pageHeight.clamp(minHeight, maxHeight);
+
+  return pageHeight;
+}
+
 
   Widget _buildTotalSpentText(BuildContext context) {
     return Text(
@@ -234,20 +244,20 @@ class _DashboardScreenState extends State<DashboardScreen>
         onPageChanged: _onPageChanged,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
             child: DashboardCard(
               items: pieChartDataItems,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
             child: WeeklyStackedBarChart(
               weekIntervals: Last5WeeksIntervals,
               weeklyData: Last5WeeksProgressIndicators,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
             child: DailyStackedBarChart(
               last5weewdailyData: weeklyData,
               last5WeeksIntervals: Last5WeeksIntervals,
@@ -404,12 +414,12 @@ class _DashboardScreenState extends State<DashboardScreen>
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 16),
                           _buildMonthSelector(),
-                          const SizedBox(height: 18),
+                          const SizedBox(height: 16),
                           _buildTotalSpentText(context),
                           _buildPageView(),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 4),
                           _buildPageIndicators(),
                           const SizedBox(height: 12),
                           if (isLoading)
@@ -424,47 +434,5 @@ class _DashboardScreenState extends State<DashboardScreen>
               ),
       ),
     );
-  }
-
-  void _showMenuOptions(BuildContext context) {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoActionSheet(
-          actions: <Widget>[
-            CupertinoActionSheetAction(
-              onPressed: () {
-                Navigator.of(context).pop();
-                _launchURL(
-                    'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
-              },
-              child: const Text('Terms of Use'),
-            ),
-            CupertinoActionSheetAction(
-              onPressed: () {
-                Navigator.of(context).pop();
-                _launchURL(
-                    'https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing');
-              },
-              child: const Text('Privacy Policy'),
-            ),
-          ],
-          cancelButton: CupertinoActionSheetAction(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('Cancel'),
-          ),
-        );
-      },
-    );
-  }
-
-  void _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }

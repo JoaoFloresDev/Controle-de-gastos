@@ -127,22 +127,22 @@ class DashboardCard extends StatelessWidget {
                     children: [
                       Text(
                         AppLocalizations.of(context)!
-                            .addNewTransactions, // Texto principal
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.label,
-                          fontSize: 20,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        AppLocalizations.of(context)!
                             .pieGraphPlaceholder, // Texto secundário
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColors.label,
-                          fontSize: 16,
+                          fontSize: 18,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 24),
+                      Text(
+                        AppLocalizations.of(context)!
+                            .addNewTransactions, // Texto principal
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.label,
+                          fontSize: 12,
                         ),
                         textAlign: TextAlign.center,
                       ),

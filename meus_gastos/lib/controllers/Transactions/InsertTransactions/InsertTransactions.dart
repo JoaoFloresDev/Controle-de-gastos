@@ -220,11 +220,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                     onAddClicked: () async {
                       widget.onAddClicked();
                       await loadCards();
-                      if (_headerCardKey.currentState != null) {
-                        await _headerCardKey.currentState!.loadCategories();
-                      } else {
-                        print("Não deu");
-                      }
                       setState(() {});
                     },
                     onAddCategory: () {

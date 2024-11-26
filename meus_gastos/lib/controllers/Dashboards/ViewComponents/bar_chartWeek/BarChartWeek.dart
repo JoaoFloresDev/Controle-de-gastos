@@ -136,11 +136,11 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
               padding: const EdgeInsets.symmetric(
                   horizontal: 16.0), // Adicionando padding horizontal
               child: Text(
-                AppLocalizations.of(context)!.addNewTransactions,
+                AppLocalizations.of(context)!.dailyGraphPlaceholder,
                 style: const TextStyle(
-                  color: Color.fromARGB(255, 83, 81, 81),
+                  color: AppColors.label,
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 18,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -148,13 +148,13 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0), // Adicionando padding horizontal
+                  horizontal: 32.0),
               child: Text(
-                AppLocalizations.of(context)!.dailyGraphPlaceholder,
+                AppLocalizations.of(context)!.addNewTransactions,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 39, 39, 39),
-                  fontSize: 16,
+                  color: AppColors.label,
+                  fontSize: 12,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -167,21 +167,21 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
 
   List<Map<String, dynamic>> _buildPlaceholderData() {
     return [
-      {'week': 'Week 1', 'progress': 40.0, 'color': Colors.grey[400]},
+      {'week': 'Week 1', 'progress': 40.0, 'color': const Color.fromARGB(255, 48, 48, 48)},
       {
         'week': 'Week 2',
         'progress': 60.0,
-        'color': const Color.fromARGB(255, 70, 69, 69)
+        'color': const Color.fromARGB(255, 85, 85, 85)
       },
       {
         'week': 'Week 3',
         'progress': 30.0,
-        'color': const Color.fromARGB(255, 245, 245, 245)
+        'color': const Color.fromARGB(255, 80, 80, 80)
       },
       {
         'week': 'Week 4',
         'progress': 50.0,
-        'color': const Color.fromARGB(255, 10, 10, 10)
+        'color': const Color.fromARGB(255, 40, 40, 40)
       },
     ];
   }

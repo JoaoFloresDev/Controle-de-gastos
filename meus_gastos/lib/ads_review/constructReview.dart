@@ -27,7 +27,7 @@ class ReviewService {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text(localizations.add),
+          title: Text(localizations.reviewAppTitle),
           content: Text(localizations.reviewAppDescription),
           actions: [
             TextButton(

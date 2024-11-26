@@ -119,7 +119,7 @@ bool _isPro = false;
       backgroundColor: AppColors.background1,
       appBar: CupertinoNavigationBar(
           middle: Text(
-            "Calendário",
+            AppLocalizations.of(context)!.calendar,
             style: const TextStyle(color: AppColors.label, fontSize: 16),
           ),
           backgroundColor: AppColors.background1
@@ -133,7 +133,7 @@ bool _isPro = false;
   height: 60,
   width: double.infinity, // Largura total da tela
   alignment: Alignment.center, // Centraliza no eixo X
-  child: Spacer(),
+  child: LoadingContainer(),
 ),
             CalendarTable(
               focusedDay: _focusedDay,
