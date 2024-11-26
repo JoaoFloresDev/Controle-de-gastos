@@ -174,7 +174,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             onTap: () {
               _showCupertinoModalBottomFixedExpenses(context);
             },
-            child: const Icon(Icons.repeat, size: 24),
+            child: const Icon(Icons.repeat, size: 24, color: AppColors.label),
           ),
           middle: Text(
             widget.title,
