@@ -80,5 +80,9 @@
   "reviewAppDescription": "Rate our app on the App Store to help more people discover it!",
   "notNow": "Not now",
   "reviewButton": "Review",
-  "emptyDay": "No transactions \nfor this day"
+  "emptyDay": "No transactions \nfor this day",
+  "transactions": "Transactions",
+"dashboards": "Graphs",
+"calendar": "Calendar"
+
 }

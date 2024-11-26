@@ -1,3 +1,11 @@
+import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/InsertTransactions.dart';
@@ -62,51 +70,52 @@ class _MyHomePageState extends State<MyHomePage> {
   final categories = GlobalKey();
   final addButton = GlobalKey();
 
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoTabScaffold(
-      tabBar: CupertinoTabBar(
-        backgroundColor: Colors.black38,
-        items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.home, size: 20),
-            label: 'Transações',
-          ),
-          BottomNavigationBarItem(
-            key: dashboardTab,
-            icon: const Icon(CupertinoIcons.chart_bar, size: 20),
-            label: 'Dashboard',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.calendar, size: 20),
-            label: 'Calendário',
-          ),
-        ],
-        onTap: (int index) {
-          setState(() {
-            selectedTab = index;
-          });
+@override
+Widget build(BuildContext context) {
+  return CupertinoTabScaffold(
+    tabBar: CupertinoTabBar(
+      backgroundColor: Colors.black38,
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: const Icon(CupertinoIcons.home, size: 20),
+          label: AppLocalizations.of(context)!.transactions,
+        ),
+        BottomNavigationBarItem(
+          key: dashboardTab,
+          icon: const Icon(CupertinoIcons.chart_bar, size: 20),
+          label: AppLocalizations.of(context)!.dashboards,
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(CupertinoIcons.calendar, size: 20),
+          label: AppLocalizations.of(context)!.calendar,
+        ),
+      ],
+      onTap: (int index) {
+        setState(() {
+          selectedTab = index;
+        });
 
-          if (index == 2) {
-           calendarKey.currentState?.refreshCalendar();
-          }
-        },
-      ),
-      tabBuilder: (context, index) {
-        return LayoutBuilder(
-          builder: (context, constraints) {
-            return Column(
-              children: [
-                Expanded(
-                  child: _buildTabContent(index),
-                ),
-              ],
-            );
-          },
-        );
+        if (index == 2) {
+          calendarKey.currentState?.refreshCalendar();
+        }
       },
-    );
-  }
+    ),
+    tabBuilder: (context, index) {
+      return LayoutBuilder(
+        builder: (context, constraints) {
+          return Column(
+            children: [
+              Expanded(
+                child: _buildTabContent(index),
+              ),
+            ],
+          );
+        },
+      );
+    },
+  );
+}
+
 
   Widget _buildTabContent(int index) {
     switch (index) {

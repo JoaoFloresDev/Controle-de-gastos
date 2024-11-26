@@ -80,5 +80,9 @@
   "reviewAppDescription": "¡Califica nuestra aplicación en la App Store para ayudar a más personas a descubrirla!",
   "NotNow": "Ahora no",
   "reviewButton": "Calificar",
-  "emptyDay": "Ninguna transacción \npara este día"
+  "emptyDay": "Ninguna transacción \npara este día",
+  "transactions": "Transacciones",
+"dashboards": "Gráficos",
+"calendar": "Calendario"
+
 }
