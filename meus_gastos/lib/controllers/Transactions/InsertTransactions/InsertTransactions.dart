@@ -171,15 +171,11 @@ class _InsertTransactionsState extends State<InsertTransactions> {
         key: _scaffoldKey,
         appBar: CupertinoNavigationBar(
           leading: GestureDetector(
-  onTap: () {
-    _showCupertinoModalBottomFixedExpenses(context);
-  },
-  child: const Icon(
-    Icons.repeat,
-    size: 24,
-    color: Colors.white,
-  ),
-),
+            onTap: () {
+              _showCupertinoModalBottomFixedExpenses(context);
+            },
+            child: const Icon(Icons.repeat, size: 24),
+          ),
           middle: Text(
             widget.title,
             style: const TextStyle(color: AppColors.label, fontSize: 16),
