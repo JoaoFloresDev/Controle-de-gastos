@@ -80,7 +80,7 @@ class TransactionList extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height / 1.05,
+          height: MediaQuery.of(context).size.height - 150,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
@@ -90,7 +90,7 @@ class TransactionList extends StatelessWidget {
           child: DetailScreen(
             card: card,
             onAddClicked: () {
-              onRefresh(); // Chama o callback para atualizar as transações
+              onRefresh(); 
             },
           ),
         );
