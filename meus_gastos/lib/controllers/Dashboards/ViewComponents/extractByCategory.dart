@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/controllers/Transactions/CardDetails/DetailScreen.dart';
+import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -73,7 +73,7 @@ class _ExtractbycategoryState extends State<Extractbycategory> {
                           context: context,
                           builder: (BuildContext context) {
                             return Container(
-                              height: MediaQuery.of(context).size.height - 150,
+                              height: MediaQuery.of(context).size.height - 180,
                               decoration: const BoxDecoration(
                                 color: AppColors.background1,
                                 borderRadius: BorderRadius.only(

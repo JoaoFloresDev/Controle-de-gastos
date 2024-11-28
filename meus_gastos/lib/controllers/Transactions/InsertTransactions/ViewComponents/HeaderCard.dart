@@ -155,7 +155,7 @@ class HeaderCardState extends State<HeaderCard> {
               style: const TextStyle(color: CupertinoColors.white),
               controller: descricaoController,
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 12),
             Container(
               key: widget.categories,
               margin: EdgeInsets.zero,

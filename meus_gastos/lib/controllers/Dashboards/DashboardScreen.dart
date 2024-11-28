@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/controllers/exportExcel/exportExcelScreen.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/ads_review/constructReview.dart';
+import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 
 // Imports externos
 import 'package:flutter/cupertino.dart';
@@ -22,12 +22,14 @@ import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartDaysofWeek.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/extractByCategory.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartWeek.dart';
-import 'package:meus_gastos/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 
 // Imports de widgets
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/MonthSelector.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgressIndicatorSection.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/TotalSpentCarousel.dart';
+import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
@@ -222,17 +224,32 @@ double _calculatePageHeight() {
   return pageHeight;
 }
 
+Widget _buildTotalSpentCarousel(BuildContext context) {
+  final double dailyAverage = totalGasto / DateTime(currentDate.year, currentDate.month + 1, 0).day;
+  final double dailyAverageWithoutFixedCosts = totalGasto * 0.7 / DateTime(currentDate.year, currentDate.month + 1, 0).day; // Exemplo com 70% dos gastos variáveis
+  final double weeklyAverage = dailyAverage * 7;
+  final double projectedMonthSpending = dailyAverage * DateTime(currentDate.year, currentDate.month + 1, 0).day;
+  final double previousMonthVariation = ((totalGasto - (totalOfMonths.isNotEmpty ? totalOfMonths.last : totalGasto)) / totalGasto) * 100;
+  final String topCategory = progressIndicators.isNotEmpty
+      ? progressIndicators.reduce((a, b) => a.progress > b.progress ? a : b).title
+      : "Sem categoria";
+  final double topCategoryValue = progressIndicators.isNotEmpty
+      ? progressIndicators.reduce((a, b) => a.progress > b.progress ? a : b).progress
+      : 0;
 
-  Widget _buildTotalSpentText(BuildContext context) {
-    return Text(
-      "${AppLocalizations.of(context)!.totalSpent}: ${Translateservice.formatCurrency(totalGasto, context)}",
-      style: const TextStyle(
-        color: AppColors.label,
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
+  return TotalSpentCarousel(
+    totalGasto: totalGasto,
+    motivationalPhrases: [
+      "Média diária: ${dailyAverage.toStringAsFixed(2)}",
+      "Média diária sem gastos fixos: ${dailyAverageWithoutFixedCosts.toStringAsFixed(2)}",
+      "Média semanal: ${weeklyAverage.toStringAsFixed(2)}",
+      "Categoria com maior gasto: $topCategory (${topCategoryValue.toStringAsFixed(2)})",
+      "Projeção de gastos para o mês: ${projectedMonthSpending.toStringAsFixed(2)}",
+      "Variação em relação ao mês anterior: ${previousMonthVariation.toStringAsFixed(2)}%",
+    ],
+  );
+}
+
 
   Widget _buildPageView() {
     double pageHeight = _calculatePageHeight();
@@ -348,7 +365,7 @@ double _calculatePageHeight() {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: SizeOf(context).modal.mediumModal(),
+          height: MediaQuery.of(context).size.height - 180,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
@@ -416,8 +433,9 @@ double _calculatePageHeight() {
                         children: [
                           const SizedBox(height: 16),
                           _buildMonthSelector(),
-                          const SizedBox(height: 16),
-                          _buildTotalSpentText(context),
+                          const SizedBox(height: 2),
+                          _buildTotalSpentCarousel(context),
+                          const SizedBox(height: 4),
                           _buildPageView(),
                           const SizedBox(height: 4),
                           _buildPageIndicators(),

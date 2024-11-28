@@ -13,10 +13,10 @@ import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import '../../../models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart' as service;
-import 'package:meus_gastos/controllers/Transactions/CardDetails/DetailScreen.dart';
-import 'package:meus_gastos/controllers/Transactions/CategoryCreater/CategoryCreater.dart';
-import 'package:meus_gastos/ads_review/constructReview.dart';
-import 'package:meus_gastos/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
+import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
+import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import '../../Purchase/ProModal.dart';
@@ -80,7 +80,7 @@ class TransactionList extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height - 150,
+          height: MediaQuery.of(context).size.height - 180,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
