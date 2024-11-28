@@ -225,31 +225,99 @@ double _calculatePageHeight() {
 }
 
 Widget _buildTotalSpentCarousel(BuildContext context) {
-  final double dailyAverage = totalGasto / DateTime(currentDate.year, currentDate.month + 1, 0).day;
-  final double dailyAverageWithoutFixedCosts = totalGasto * 0.7 / DateTime(currentDate.year, currentDate.month + 1, 0).day; // Exemplo com 70% dos gastos variáveis
-  final double weeklyAverage = dailyAverage * 7;
-  final double projectedMonthSpending = dailyAverage * DateTime(currentDate.year, currentDate.month + 1, 0).day;
-  final double previousMonthVariation = ((totalGasto - (totalOfMonths.isNotEmpty ? totalOfMonths.last : totalGasto)) / totalGasto) * 100;
-  final String topCategory = progressIndicators.isNotEmpty
-      ? progressIndicators.reduce((a, b) => a.progress > b.progress ? a : b).title
-      : "Sem categoria";
-  final double topCategoryValue = progressIndicators.isNotEmpty
-      ? progressIndicators.reduce((a, b) => a.progress > b.progress ? a : b).progress
-      : 0;
+  return FutureBuilder(
+    future: _fetchCarouselData(),
+    builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+      if (!snapshot.hasData || snapshot.connectionState != ConnectionState.done) {
+        return const Center(child: CircularProgressIndicator());
+      }
 
-  return TotalSpentCarousel(
-    totalGasto: totalGasto,
-    motivationalPhrases: [
-      "Média diária: ${dailyAverage.toStringAsFixed(2)}",
-      "Média diária sem gastos fixos: ${dailyAverageWithoutFixedCosts.toStringAsFixed(2)}",
-      "Média semanal: ${weeklyAverage.toStringAsFixed(2)}",
-      "Categoria com maior gasto: $topCategory (${topCategoryValue.toStringAsFixed(2)})",
-      "Projeção de gastos para o mês: ${projectedMonthSpending.toStringAsFixed(2)}",
-      "Variação em relação ao mês anterior: ${previousMonthVariation.toStringAsFixed(2)}%",
-    ],
+      final data = snapshot.data!;
+      return TotalSpentCarousel(
+        totalGasto: data['totalGasto'],
+        motivationalPhrases: [
+          "Média diária: ${data['dailyAverage'].toStringAsFixed(2)}",
+          "Média diária custos fixos: ${data['dailyFixedAverage'].toStringAsFixed(2)}",
+          "Média diária custos variáveis: ${data['dailyVariableAverage'].toStringAsFixed(2)}",
+          "Média semanal: ${data['weeklyAverage'].toStringAsFixed(2)}",
+          "Projeção de gastos para o mês: ${data['projectedSpending'].toStringAsFixed(2)}",
+          "Variação em relação ao mês anterior: ${data['monthVariation'].toStringAsFixed(2)}%",
+          "Categoria com maior aumento: ${data['categoryWithHighestIncrease']}",
+          "Categoria com maior diminuição: ${data['categoryWithHighestDecrease']}",
+          "Categoria mais usada: ${data['mostUsedCategory']}",
+          "Maior gasto: ${data['topCategory']} (${data['topCategoryValue'].toStringAsFixed(2)})",
+          "Dia com maior média de gastos: ${data['highestAverageDayLabel']}",
+          "Dia mais caro: ${data['highestSpendingDayLabel']} (${data['highestSpendingDay']})",
+          "Custo médio por compra: ${data['averageCostPerTransaction'].toStringAsFixed(2)}",
+          "Gastos fixos: ${data['fixedCosts'].toStringAsFixed(2)} | Gastos variáveis: ${data['variableCosts'].toStringAsFixed(2)}",
+        ],
+      );
+    },
   );
 }
 
+Future<Map<String, dynamic>> _fetchCarouselData() async {
+  final List<ProgressIndicatorModel> progressIndicators =
+      await CardService.getProgressIndicatorsByMonth(currentDate);
+  final double totalGasto = await CardService.getTotalExpenses(currentDate);
+  final List<double> monthlyTotals =
+      await CardService.getTotalExpensesByMonth(currentDate);
+
+  int totalDaysInMonth = DateTime(currentDate.year, currentDate.month + 1, 0).day;
+  double dailyAverage = totalDaysInMonth > 0 ? totalGasto / totalDaysInMonth : 0.0;
+  double fixedCosts = totalGasto * 0.7; // Exemplo de 70% fixos
+  double variableCosts = totalGasto - fixedCosts;
+  double dailyFixedAverage = fixedCosts / totalDaysInMonth;
+  double dailyVariableAverage = variableCosts / totalDaysInMonth;
+  double weeklyAverage = dailyAverage * 7;
+  double projectedSpending = dailyAverage * totalDaysInMonth;
+
+  double previousMonthSpending = monthlyTotals.isNotEmpty
+      ? monthlyTotals[(currentDate.month - 2).clamp(0, 11)]
+      : 0.0;
+  double monthVariation = previousMonthSpending > 0
+      ? ((totalGasto - previousMonthSpending) / previousMonthSpending) * 100
+      : 0.0;
+
+  final topCategory = progressIndicators.isNotEmpty
+      ? progressIndicators.reduce((a, b) => a.progress > b.progress ? a : b).title
+      : "Nenhuma categoria";
+  final topCategoryValue = progressIndicators.isNotEmpty
+      ? progressIndicators.reduce((a, b) => a.progress > b.progress ? a : b).progress
+      : 0.0;
+
+  // Placeholder logic, replace with actual category increase/decrease calculation
+  String categoryWithHighestIncrease = "Luz"; 
+  String categoryWithHighestDecrease = "Água";
+
+  String mostUsedCategory = topCategory;
+  double highestSpendingDay = 350.0; // Placeholder
+  String highestSpendingDayLabel = "15/11"; // Placeholder
+  String highestAverageDayLabel = "Sexta"; // Placeholder
+  int totalTransactions = 90; // Placeholder
+  double averageCostPerTransaction = totalTransactions > 0 ? totalGasto / totalTransactions : 0.0;
+
+  return {
+    "totalGasto": totalGasto,
+    "dailyAverage": dailyAverage,
+    "dailyFixedAverage": dailyFixedAverage,
+    "dailyVariableAverage": dailyVariableAverage,
+    "weeklyAverage": weeklyAverage,
+    "projectedSpending": projectedSpending,
+    "monthVariation": monthVariation,
+    "topCategory": topCategory,
+    "topCategoryValue": topCategoryValue,
+    "fixedCosts": fixedCosts,
+    "variableCosts": variableCosts,
+    "categoryWithHighestIncrease": categoryWithHighestIncrease,
+    "categoryWithHighestDecrease": categoryWithHighestDecrease,
+    "mostUsedCategory": mostUsedCategory,
+    "highestSpendingDay": highestSpendingDay,
+    "highestSpendingDayLabel": highestSpendingDayLabel,
+    "highestAverageDayLabel": highestAverageDayLabel,
+    "averageCostPerTransaction": averageCostPerTransaction,
+  };
+}
 
   Widget _buildPageView() {
     double pageHeight = _calculatePageHeight();
@@ -433,12 +501,12 @@ Widget _buildTotalSpentCarousel(BuildContext context) {
                         children: [
                           const SizedBox(height: 16),
                           _buildMonthSelector(),
-                          const SizedBox(height: 2),
-                          _buildTotalSpentCarousel(context),
-                          const SizedBox(height: 4),
+                          const SizedBox(height: 8),
                           _buildPageView(),
                           const SizedBox(height: 4),
                           _buildPageIndicators(),
+                          const SizedBox(height: 2),
+                          _buildTotalSpentCarousel(context),
                           const SizedBox(height: 12),
                           if (isLoading)
                             _buildLoadingIndicator()
