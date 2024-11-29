@@ -225,198 +225,13 @@ class _DashboardScreenState extends State<DashboardScreen>
     return pageHeight;
   }
 
-  Future<Map<String, dynamic>> _fetchCarouselData() async {
-    final List<ProgressIndicatorModel> progressIndicators =
-        await CardService.getProgressIndicatorsByMonth(currentDate);
-    final double totalGasto = await CardService.getTotalExpenses(currentDate);
-    final List<double> monthlyTotals =
-        await CardService.getTotalExpensesByMonth(currentDate);
-
-    int totalDaysInMonth =
-        DateTime(currentDate.year, currentDate.month + 1, 0).day;
-    double dailyAverage =
-        totalDaysInMonth > 0 ? totalGasto / totalDaysInMonth : 0.0;
-    double fixedCosts = totalGasto * 0.7; // Exemplo de 70% fixos
-    double variableCosts = totalGasto - fixedCosts;
-    double dailyFixedAverage = fixedCosts / totalDaysInMonth;
-    double dailyVariableAverage = variableCosts / totalDaysInMonth;
-    double weeklyAverage = dailyAverage * 7;
-    double projectedSpending = dailyAverage * totalDaysInMonth;
-
-    double previousMonthSpending = monthlyTotals.isNotEmpty
-        ? monthlyTotals[(currentDate.month - 2).clamp(0, 11)]
-        : 0.0;
-    double monthVariation = previousMonthSpending > 0
-        ? ((totalGasto - previousMonthSpending) / previousMonthSpending) * 100
-        : 0.0;
-
-    final topCategory = progressIndicators.isNotEmpty
-        ? progressIndicators
-            .reduce((a, b) => a.progress > b.progress ? a : b)
-            .title
-        : "Nenhuma categoria";
-    final topCategoryValue = progressIndicators.isNotEmpty
-        ? progressIndicators
-            .reduce((a, b) => a.progress > b.progress ? a : b)
-            .progress
-        : 0.0;
-
-    // Placeholder logic, replace with actual category increase/decrease calculation
-    String categoryWithHighestIncrease = "Luz";
-    String categoryWithHighestDecrease = "Água";
-
-    String mostUsedCategory = topCategory;
-    double highestSpendingDay = 350.0; // Placeholder
-    String highestSpendingDayLabel = "15/11"; // Placeholder
-    String highestAverageDayLabel = "Sexta"; // Placeholder
-    int totalTransactions = 90; // Placeholder
-    double averageCostPerTransaction =
-        totalTransactions > 0 ? totalGasto / totalTransactions : 0.0;
-
-    return {
-      "totalGasto": totalGasto,
-      "dailyAverage": dailyAverage,
-      "dailyFixedAverage": dailyFixedAverage,
-      "dailyVariableAverage": dailyVariableAverage,
-      "weeklyAverage": weeklyAverage,
-      "projectedSpending": projectedSpending,
-      "monthVariation": monthVariation,
-      "topCategory": topCategory,
-      "topCategoryValue": topCategoryValue,
-      "fixedCosts": fixedCosts,
-      "variableCosts": variableCosts,
-      "categoryWithHighestIncrease": categoryWithHighestIncrease,
-      "categoryWithHighestDecrease": categoryWithHighestDecrease,
-      "mostUsedCategory": mostUsedCategory,
-      "highestSpendingDay": highestSpendingDay,
-      "highestSpendingDayLabel": highestSpendingDayLabel,
-      "highestAverageDayLabel": highestAverageDayLabel,
-      "averageCostPerTransaction": averageCostPerTransaction,
-    };
-  }
-
-  Widget _buildTotalSpentCarousel(BuildContext context) {
-    return FutureBuilder(
-      future: _fetchCarouselData(),
-      builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-        if (!snapshot.hasData ||
-            snapshot.connectionState != ConnectionState.done) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        final data = snapshot.data!;
-        final List<Map<String, dynamic>> groupedPhrases = [
-          {
-            "sections": [
-              {
-                "title": "Média Diária",
-                "phrases": [
-                  [
-                    "Geral: R\$ ${data['dailyAverage'].toStringAsFixed(2)}",
-                    "Custo fixo: R\$ ${data['dailyFixedAverage'].toStringAsFixed(2)} (30%)",
-                    "Custo variável: R\$ ${data['dailyVariableAverage'].toStringAsFixed(2)} (40%)"
-                  ],
-                  [
-                    "Dias úteis: R\$ 80 (20%)",
-                    "Finais de semana: R\$ 120 (80%)",
-                  ],
-                ],
-              },
-              {
-                "title": "Dias de maior custo variável",
-                "phrases": [
-                  [
-                    "1. ${data['highestAverageDayLabel']}: R\$ 300 (10%)",
-                    "2. ${data['highestAverageDayLabel']}: R\$ 300 (10%)",
-                  ],
-                ],
-              },
-              {
-                "title": "Projeção para o mês",
-                "phrases": [
-                  [
-                    "Geral: R\$ ${data['projectedSpending'].toStringAsFixed(2)} (+30%)",
-                    "Custo fixo: R\$ ${data['dailyFixedAverage'].toStringAsFixed(2)} (30%)",
-                    "Custo variável: R\$ ${data['dailyVariableAverage'].toStringAsFixed(2)} (40%)"
-                  ],
-                ],
-              },
-            ],
-          },
-          {
-            "sections": [
-              {
-                "title": "Seu mês",
-                "phrases": [
-                  [
-                    "Gastos geral: R\$ 123123 (70%)",
-                    "Gastos fixos: R\$ 123123 (70%)",
-                    "Gastos variáveis: R\$ 123123 (30%)"
-                  ],
-                  [
-                    "Custo médio por compra: R\$ ${data['averageCostPerTransaction'].toStringAsFixed(2)} (+30%)",
-                    "Transações diárias: 3 (+0%)"
-                  ],
-                  [
-                    "Dia mais caro do mês: ${data['highestSpendingDayLabel']} - R\$ ${data['highestSpendingDay']}"
-                  ]
-                ],
-              },
-              {
-                "title": "Categorias",
-                "phrases": [
-                  [
-                    "Maior aumento: ${data['categoryWithHighestIncrease']} (+10%)",
-                    "Maior queda: ${data['categoryWithHighestDecrease']} (-20%)",
-                    "Mais usado: ${data['mostUsedCategory']} (+20%)"
-                  ]
-                ],
-              },
-            ],
-          },
-          {
-            "sections": [
-              {
-                "title": "Médias semanais",
-                "phrases": [
-                  [
-                    "Geral: R\$ ${data['weeklyAverage'].toStringAsFixed(2)}",
-                    "Custo fixo: R\$ 123123 (30%)",
-                    "Custos variáveis: R\$ 123123 (70%)"
-                  ],
-                  [
-                    "1ª dezena: R\$ 100 (20%)",
-                    "2ª dezena: R\$ 100 (25%)",
-                    "3ª dezena: R\$ 1000 (30%)"
-                  ],
-                ],
-              },
-              {
-                "title": "Dias de maior custo geral",
-                "phrases": [
-                  [
-                    "1. ${data['highestAverageDayLabel']}: R\$ 300 (10%)",
-                    "2. ${data['highestAverageDayLabel']}: R\$ 300 (10%)",
-                    "3. ${data['highestAverageDayLabel']}: R\$ 300 (10%)",
-                    "4. ${data['highestAverageDayLabel']}: R\$ 300 (10%)"
-                  ]
-                ],
-              },
-            ],
-          }
-        ];
-
-        return Padding(
-          padding: const EdgeInsets.only(left: 0, right: 0, top: 4, bottom: 8),
-          child: SizedBox(
-            height: 500,
-            child: TotalSpentCarouselWithTitles(
-              totalGasto: data['totalGasto'],
-              groupedPhrases: groupedPhrases,
-            ),
-          ),
-        );
-      },
+  Widget _buildTotalSpentCarousel() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 12),
+      child: SizedBox(
+        height: 495,
+        child: TotalSpentCarouselWithTitles(),
+      ),
     );
   }
 
@@ -537,7 +352,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height - 180,
+          height: MediaQuery.of(context).size.height - 120,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
@@ -619,10 +434,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                           _buildTotalSpentText(context),
                           const SizedBox(height: 8),
                           _buildPageView(),
-                          const SizedBox(height: 4),
                           _buildPageIndicators(),
-                          const SizedBox(height: 2),
-                          _buildTotalSpentCarousel(context),
+                          const SizedBox(height: 12),
+                          _buildTotalSpentCarousel(),
                           const SizedBox(height: 12),
                           if (isLoading)
                             _buildLoadingIndicator()

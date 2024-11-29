@@ -245,7 +245,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height - 180,
+          height: MediaQuery.of(context).size.height - 120,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),

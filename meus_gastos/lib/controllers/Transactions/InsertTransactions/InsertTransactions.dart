@@ -95,12 +95,12 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     });
 
     int usageCount = prefs.getInt('usage_count') ?? 0;
-  usageCount += 1;
-  await prefs.setInt('usage_count', usageCount);
+    usageCount += 1;
+    await prefs.setInt('usage_count', usageCount);
 
-  if (!_isPro && usageCount > 40 && usageCount % 4 == 0) {
-    _showProModal(context);
-  }
+    if (!_isPro && usageCount > 40 && usageCount % 4 == 0) {
+      _showProModal(context);
+    }
   }
 
   void _deliverProduct(PurchaseDetails purchase) {
@@ -201,12 +201,11 @@ class _InsertTransactionsState extends State<InsertTransactions> {
               if (!_isPro &&
                   !Platform.isMacOS) // Se o usuário não é PRO, mostra o banner
                 Container(
-  height: 60,
-  width: double.infinity, // Largura total da tela
-  alignment: Alignment.center, // Centraliza no eixo X
-  child: const BannerAdconstruct(),
-),
-
+                  height: 60,
+                  width: double.infinity, // Largura total da tela
+                  alignment: Alignment.center, // Centraliza no eixo X
+                  child: const BannerAdconstruct(),
+                ),
               if (_showHeaderCard) ...[
                 Padding(
                   padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
@@ -348,7 +347,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height - 180,
+          height: MediaQuery.of(context).size.height - 120,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
