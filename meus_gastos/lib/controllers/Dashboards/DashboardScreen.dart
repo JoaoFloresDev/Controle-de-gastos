@@ -110,7 +110,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     _checkUserProStatus();
     _checkAndRequestReview();
   }
-  
+
   Future<void> _checkAndRequestReview() async {
     ReviewService.checkAndRequestReview(context);
   }
@@ -179,11 +179,11 @@ class _DashboardScreenState extends State<DashboardScreen>
       return const SizedBox.shrink();
     }
     return Container(
-  height: 60,
-  width: double.infinity, // Largura total da tela
-  alignment: Alignment.center, // Centraliza no eixo X
-  child: LoadingContainer(),
-);
+      height: 60,
+      width: double.infinity, // Largura total da tela
+      alignment: Alignment.center, // Centraliza no eixo X
+      child: LoadingContainer(),
+    );
   }
 
   Widget _buildMonthSelector() {
@@ -193,131 +193,232 @@ class _DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-double _calculatePageHeight() {
-  double baseHeight = 300;
-  double heightPerLine = 40;
-  List<String> labels = pieChartDataItems.map((item) => item.label).toList();
-  int calculateLines(List<String> labels) {
-    int lines = 0;
-    int i = 0;
+  double _calculatePageHeight() {
+    double baseHeight = 300;
+    double heightPerLine = 40;
+    List<String> labels = pieChartDataItems.map((item) => item.label).toList();
+    int calculateLines(List<String> labels) {
+      int lines = 0;
+      int i = 0;
 
-    while (i < labels.length) {
-      String current = labels[i];
-      if (i + 1 < labels.length && (current.length + labels[i + 1].length) <= 20) {
-        i += 2;
-      } else {
-        i += 1;
+      while (i < labels.length) {
+        String current = labels[i];
+        if (i + 1 < labels.length &&
+            (current.length + labels[i + 1].length) <= 20) {
+          i += 2;
+        } else {
+          i += 1;
+        }
+        lines++;
       }
-      lines++;
+
+      return lines;
     }
 
-    return lines;
+    int totalLines = calculateLines(labels);
+    double additionalHeight = totalLines * heightPerLine;
+    double minHeight = 380;
+    double maxHeight = MediaQuery.of(context).size.height - 100;
+    double pageHeight = baseHeight + additionalHeight;
+    pageHeight = pageHeight.clamp(minHeight, maxHeight);
+
+    return pageHeight;
   }
 
-  int totalLines = calculateLines(labels);
-  double additionalHeight = totalLines * heightPerLine;
-  double minHeight = 380;
-  double maxHeight = MediaQuery.of(context).size.height - 100;
-  double pageHeight = baseHeight + additionalHeight;
-  pageHeight = pageHeight.clamp(minHeight, maxHeight);
+  Future<Map<String, dynamic>> _fetchCarouselData() async {
+    final List<ProgressIndicatorModel> progressIndicators =
+        await CardService.getProgressIndicatorsByMonth(currentDate);
+    final double totalGasto = await CardService.getTotalExpenses(currentDate);
+    final List<double> monthlyTotals =
+        await CardService.getTotalExpensesByMonth(currentDate);
 
-  return pageHeight;
-}
+    int totalDaysInMonth =
+        DateTime(currentDate.year, currentDate.month + 1, 0).day;
+    double dailyAverage =
+        totalDaysInMonth > 0 ? totalGasto / totalDaysInMonth : 0.0;
+    double fixedCosts = totalGasto * 0.7; // Exemplo de 70% fixos
+    double variableCosts = totalGasto - fixedCosts;
+    double dailyFixedAverage = fixedCosts / totalDaysInMonth;
+    double dailyVariableAverage = variableCosts / totalDaysInMonth;
+    double weeklyAverage = dailyAverage * 7;
+    double projectedSpending = dailyAverage * totalDaysInMonth;
 
-Widget _buildTotalSpentCarousel(BuildContext context) {
-  return FutureBuilder(
-    future: _fetchCarouselData(),
-    builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-      if (!snapshot.hasData || snapshot.connectionState != ConnectionState.done) {
-        return const Center(child: CircularProgressIndicator());
-      }
+    double previousMonthSpending = monthlyTotals.isNotEmpty
+        ? monthlyTotals[(currentDate.month - 2).clamp(0, 11)]
+        : 0.0;
+    double monthVariation = previousMonthSpending > 0
+        ? ((totalGasto - previousMonthSpending) / previousMonthSpending) * 100
+        : 0.0;
 
-      final data = snapshot.data!;
-      return TotalSpentCarousel(
-        totalGasto: data['totalGasto'],
-        motivationalPhrases: [
-          "Média diária: ${data['dailyAverage'].toStringAsFixed(2)}",
-          "Média diária custos fixos: ${data['dailyFixedAverage'].toStringAsFixed(2)}",
-          "Média diária custos variáveis: ${data['dailyVariableAverage'].toStringAsFixed(2)}",
-          "Média semanal: ${data['weeklyAverage'].toStringAsFixed(2)}",
-          "Projeção de gastos para o mês: ${data['projectedSpending'].toStringAsFixed(2)}",
-          "Variação em relação ao mês anterior: ${data['monthVariation'].toStringAsFixed(2)}%",
-          "Categoria com maior aumento: ${data['categoryWithHighestIncrease']}",
-          "Categoria com maior diminuição: ${data['categoryWithHighestDecrease']}",
-          "Categoria mais usada: ${data['mostUsedCategory']}",
-          "Maior gasto: ${data['topCategory']} (${data['topCategoryValue'].toStringAsFixed(2)})",
-          "Dia com maior média de gastos: ${data['highestAverageDayLabel']}",
-          "Dia mais caro: ${data['highestSpendingDayLabel']} (${data['highestSpendingDay']})",
-          "Custo médio por compra: ${data['averageCostPerTransaction'].toStringAsFixed(2)}",
-          "Gastos fixos: ${data['fixedCosts'].toStringAsFixed(2)} | Gastos variáveis: ${data['variableCosts'].toStringAsFixed(2)}",
-        ],
-      );
-    },
-  );
-}
+    final topCategory = progressIndicators.isNotEmpty
+        ? progressIndicators
+            .reduce((a, b) => a.progress > b.progress ? a : b)
+            .title
+        : "Nenhuma categoria";
+    final topCategoryValue = progressIndicators.isNotEmpty
+        ? progressIndicators
+            .reduce((a, b) => a.progress > b.progress ? a : b)
+            .progress
+        : 0.0;
 
-Future<Map<String, dynamic>> _fetchCarouselData() async {
-  final List<ProgressIndicatorModel> progressIndicators =
-      await CardService.getProgressIndicatorsByMonth(currentDate);
-  final double totalGasto = await CardService.getTotalExpenses(currentDate);
-  final List<double> monthlyTotals =
-      await CardService.getTotalExpensesByMonth(currentDate);
+    // Placeholder logic, replace with actual category increase/decrease calculation
+    String categoryWithHighestIncrease = "Luz";
+    String categoryWithHighestDecrease = "Água";
 
-  int totalDaysInMonth = DateTime(currentDate.year, currentDate.month + 1, 0).day;
-  double dailyAverage = totalDaysInMonth > 0 ? totalGasto / totalDaysInMonth : 0.0;
-  double fixedCosts = totalGasto * 0.7; // Exemplo de 70% fixos
-  double variableCosts = totalGasto - fixedCosts;
-  double dailyFixedAverage = fixedCosts / totalDaysInMonth;
-  double dailyVariableAverage = variableCosts / totalDaysInMonth;
-  double weeklyAverage = dailyAverage * 7;
-  double projectedSpending = dailyAverage * totalDaysInMonth;
+    String mostUsedCategory = topCategory;
+    double highestSpendingDay = 350.0; // Placeholder
+    String highestSpendingDayLabel = "15/11"; // Placeholder
+    String highestAverageDayLabel = "Sexta"; // Placeholder
+    int totalTransactions = 90; // Placeholder
+    double averageCostPerTransaction =
+        totalTransactions > 0 ? totalGasto / totalTransactions : 0.0;
 
-  double previousMonthSpending = monthlyTotals.isNotEmpty
-      ? monthlyTotals[(currentDate.month - 2).clamp(0, 11)]
-      : 0.0;
-  double monthVariation = previousMonthSpending > 0
-      ? ((totalGasto - previousMonthSpending) / previousMonthSpending) * 100
-      : 0.0;
+    return {
+      "totalGasto": totalGasto,
+      "dailyAverage": dailyAverage,
+      "dailyFixedAverage": dailyFixedAverage,
+      "dailyVariableAverage": dailyVariableAverage,
+      "weeklyAverage": weeklyAverage,
+      "projectedSpending": projectedSpending,
+      "monthVariation": monthVariation,
+      "topCategory": topCategory,
+      "topCategoryValue": topCategoryValue,
+      "fixedCosts": fixedCosts,
+      "variableCosts": variableCosts,
+      "categoryWithHighestIncrease": categoryWithHighestIncrease,
+      "categoryWithHighestDecrease": categoryWithHighestDecrease,
+      "mostUsedCategory": mostUsedCategory,
+      "highestSpendingDay": highestSpendingDay,
+      "highestSpendingDayLabel": highestSpendingDayLabel,
+      "highestAverageDayLabel": highestAverageDayLabel,
+      "averageCostPerTransaction": averageCostPerTransaction,
+    };
+  }
 
-  final topCategory = progressIndicators.isNotEmpty
-      ? progressIndicators.reduce((a, b) => a.progress > b.progress ? a : b).title
-      : "Nenhuma categoria";
-  final topCategoryValue = progressIndicators.isNotEmpty
-      ? progressIndicators.reduce((a, b) => a.progress > b.progress ? a : b).progress
-      : 0.0;
+  Widget _buildTotalSpentCarousel(BuildContext context) {
+    return FutureBuilder(
+      future: _fetchCarouselData(),
+      builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+        if (!snapshot.hasData ||
+            snapshot.connectionState != ConnectionState.done) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-  // Placeholder logic, replace with actual category increase/decrease calculation
-  String categoryWithHighestIncrease = "Luz"; 
-  String categoryWithHighestDecrease = "Água";
+        final data = snapshot.data!;
+        final List<Map<String, dynamic>> groupedPhrases = [
+          {
+            "sections": [
+              {
+                "title": "Média Diária",
+                "phrases": [
+                  [
+                    "Geral: R\$ ${data['dailyAverage'].toStringAsFixed(2)}",
+                    "Custo fixo: R\$ ${data['dailyFixedAverage'].toStringAsFixed(2)} (30%)",
+                    "Custo variável: R\$ ${data['dailyVariableAverage'].toStringAsFixed(2)} (40%)"
+                  ],
+                  [
+                    "Dias úteis: R\$ 80 (20%)",
+                    "Finais de semana: R\$ 120 (80%)",
+                  ],
+                ],
+              },
+              {
+                "title": "Dias de maior custo variável",
+                "phrases": [
+                  [
+                    "1. ${data['highestAverageDayLabel']}: R\$ 300 (10%)",
+                    "2. ${data['highestAverageDayLabel']}: R\$ 300 (10%)",
+                  ],
+                ],
+              },
+              {
+                "title": "Projeção para o mês",
+                "phrases": [
+                  [
+                    "Geral: R\$ ${data['projectedSpending'].toStringAsFixed(2)} (+30%)",
+                    "Custo fixo: R\$ ${data['dailyFixedAverage'].toStringAsFixed(2)} (30%)",
+                    "Custo variável: R\$ ${data['dailyVariableAverage'].toStringAsFixed(2)} (40%)"
+                  ],
+                ],
+              },
+            ],
+          },
+          {
+            "sections": [
+              {
+                "title": "Seu mês",
+                "phrases": [
+                  [
+                    "Gastos geral: R\$ 123123 (70%)",
+                    "Gastos fixos: R\$ 123123 (70%)",
+                    "Gastos variáveis: R\$ 123123 (30%)"
+                  ],
+                  [
+                    "Custo médio por compra: R\$ ${data['averageCostPerTransaction'].toStringAsFixed(2)} (+30%)",
+                    "Transações diárias: 3"
+                  ],
+                  [
+                    "Dia mais caro do mês: R\$ ${data['highestSpendingDayLabel']} (${data['highestSpendingDay']})"
+                  ]
+                ],
+              },
+              {
+                "title": "Categorias",
+                "phrases": [
+                  [
+                    "Maior aumento: ${data['categoryWithHighestIncrease']} (+10%)",
+                    "Maior queda: ${data['categoryWithHighestDecrease']} (-20%)",
+                    "Mais usado: ${data['mostUsedCategory']} (+20%)"
+                  ]
+                ],
+              },
+            ],
+          },
+          {
+            "sections": [
+              {
+                "title": "Médias semanais",
+                "phrases": [
+                  [
+                    "Geral: R\$ ${data['weeklyAverage'].toStringAsFixed(2)}",
+                    "Custo fixo: R\$ 123123 (30%)",
+                    "Custos variáveis: R\$ 123123 (70%)"
+                  ],
+                  [
+                    "1ª dezena: R\$ 100 (20%)",
+                    "2ª dezena: R\$ 100 (25%)",
+                    "3ª dezena: R\$ 1000 (30%)"
+                  ],
+                ],
+              },
+              {
+                "title": "Dias de maior custo geral",
+                "phrases": [
+                  [
+                    "1. ${data['highestAverageDayLabel']}: R\$ 300 (10%)",
+                    "2. ${data['highestAverageDayLabel']}: R\$ 300 (10%)",
+                    "3. ${data['highestAverageDayLabel']}: R\$ 300 (10%)",
+                    "4. ${data['highestAverageDayLabel']}: R\$ 300 (10%)"
+                  ]
+                ],
+              },
+            ],
+          }
+        ];
 
-  String mostUsedCategory = topCategory;
-  double highestSpendingDay = 350.0; // Placeholder
-  String highestSpendingDayLabel = "15/11"; // Placeholder
-  String highestAverageDayLabel = "Sexta"; // Placeholder
-  int totalTransactions = 90; // Placeholder
-  double averageCostPerTransaction = totalTransactions > 0 ? totalGasto / totalTransactions : 0.0;
-
-  return {
-    "totalGasto": totalGasto,
-    "dailyAverage": dailyAverage,
-    "dailyFixedAverage": dailyFixedAverage,
-    "dailyVariableAverage": dailyVariableAverage,
-    "weeklyAverage": weeklyAverage,
-    "projectedSpending": projectedSpending,
-    "monthVariation": monthVariation,
-    "topCategory": topCategory,
-    "topCategoryValue": topCategoryValue,
-    "fixedCosts": fixedCosts,
-    "variableCosts": variableCosts,
-    "categoryWithHighestIncrease": categoryWithHighestIncrease,
-    "categoryWithHighestDecrease": categoryWithHighestDecrease,
-    "mostUsedCategory": mostUsedCategory,
-    "highestSpendingDay": highestSpendingDay,
-    "highestSpendingDayLabel": highestSpendingDayLabel,
-    "highestAverageDayLabel": highestAverageDayLabel,
-    "averageCostPerTransaction": averageCostPerTransaction,
-  };
-}
+        return Padding(
+          padding: const EdgeInsets.only(left: 0, right: 0, top: 4, bottom: 8),
+          child: SizedBox(
+            height: 600,
+            child: TotalSpentCarouselWithTitles(
+              totalGasto: data['totalGasto'],
+              groupedPhrases: groupedPhrases,
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   Widget _buildPageView() {
     double pageHeight = _calculatePageHeight();
@@ -329,20 +430,23 @@ Future<Map<String, dynamic>> _fetchCarouselData() async {
         onPageChanged: _onPageChanged,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
+            padding:
+                const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
             child: DashboardCard(
               items: pieChartDataItems,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
+            padding:
+                const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
             child: WeeklyStackedBarChart(
               weekIntervals: Last5WeeksIntervals,
               weeklyData: Last5WeeksProgressIndicators,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
+            padding:
+                const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
             child: DailyStackedBarChart(
               last5weewdailyData: weeklyData,
               last5WeeksIntervals: Last5WeeksIntervals,
@@ -450,43 +554,53 @@ Future<Map<String, dynamic>> _fetchCarouselData() async {
     return const CircularProgressIndicator(color: AppColors.background1);
   }
 
+  Widget _buildTotalSpentText(BuildContext context) {
+    return Text(
+      "${AppLocalizations.of(context)!.totalSpent}: ${Translateservice.formatCurrency(totalGasto, context)}",
+      style: const TextStyle(
+        color: AppColors.label,
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
   //mark - construção da tela
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
       backgroundColor: AppColors.background1,
-              appBar: CupertinoNavigationBar(
-          middle: Text(
-            AppLocalizations.of(context)!.myControl,
-            style: const TextStyle(color: AppColors.label, fontSize: 16),
-          ),
-          backgroundColor: AppColors.background1,
-          trailing: GestureDetector(
+      appBar: CupertinoNavigationBar(
+        middle: Text(
+          AppLocalizations.of(context)!.myControl,
+          style: const TextStyle(color: AppColors.label, fontSize: 16),
+        ),
+        backgroundColor: AppColors.background1,
+        trailing: GestureDetector(
             onTap: () {
               showCupertinoModalPopup(
-              context: context,
-              builder: (BuildContext context) {
-                return Container(
-                  height: SizeOf(context).modal.halfModal(),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                    height: SizeOf(context).modal.halfModal(),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
                     ),
-                  ),
-                  child: Exportexcelscreen(),
-                );
-              },
-            );
+                    child: Exportexcelscreen(),
+                  );
+                },
+              );
             },
             child: const Icon(
-            CupertinoIcons.share,
-            size: 24.0, 
-            color: Colors.white,
-          )
-          ),
-        ),
+              CupertinoIcons.share,
+              size: 24.0,
+              color: Colors.white,
+            )),
+      ),
       body: SafeArea(
         child: isLoading
             ? Center(
@@ -501,6 +615,8 @@ Future<Map<String, dynamic>> _fetchCarouselData() async {
                         children: [
                           const SizedBox(height: 16),
                           _buildMonthSelector(),
+                          const SizedBox(height: 16),
+                          _buildTotalSpentText(context),
                           const SizedBox(height: 8),
                           _buildPageView(),
                           const SizedBox(height: 4),
