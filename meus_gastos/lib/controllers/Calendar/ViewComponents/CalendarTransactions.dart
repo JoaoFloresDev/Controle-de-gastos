@@ -90,7 +90,7 @@ class TransactionList extends StatelessWidget {
           child: DetailScreen(
             card: card,
             onAddClicked: () {
-              onRefresh(); 
+              onRefresh();
             },
           ),
         );

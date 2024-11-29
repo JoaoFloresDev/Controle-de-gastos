@@ -1,15 +1,18 @@
-import 'package:excel/excel.dart';
+import 'package:meus_gastos/controllers/exportExcel/export_toExcel.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'export_toExcel.dart';
+import 'package:meus_gastos/models/CardModel.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'dart:io'; // Para salvar localmente
+import 'dart:io';
+import 'package:excel/excel.dart';
 
 class Exportexcelscreen extends StatefulWidget {
-  const Exportexcelscreen({super.key});
+  final String? category;
+  const Exportexcelscreen({super.key, this.category});
 
   @override
   _Exportexcelscreen createState() => _Exportexcelscreen();
@@ -18,8 +21,7 @@ class Exportexcelscreen extends StatefulWidget {
 class _Exportexcelscreen extends State<Exportexcelscreen> {
   String _selectedFormat = 'Excel';
   bool _isLoadingShare = false;
-  bool _isLoadingSaveLocaly = false;
-
+  bool _isLoadingSaveLocally = false;
 
   Widget _buildLoadingIndicator() {
     return const CircularProgressIndicator(color: AppColors.label);
@@ -40,14 +42,14 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisSize: MainAxisSize.min, // Ajusta o tamanho para o conteúdo
+            mainAxisSize: MainAxisSize.min,
             children: [
-              // Título e botão de cancelar
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    icon: const Icon(CupertinoIcons.clear, color: AppColors.label),
+                    icon: const Icon(CupertinoIcons.clear,
+                        color: AppColors.label),
                     onPressed: () => Navigator.pop(context),
                   ),
                   Text(
@@ -58,11 +60,10 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                       color: AppColors.label,
                     ),
                   ),
-                  const SizedBox(width: 44), // Espaçamento para balancear o layout
+                  const SizedBox(width: 44),
                 ],
               ),
               const SizedBox(height: 15),
-              // Texto explicativo
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Text(
@@ -72,18 +73,22 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                 ),
               ),
               const SizedBox(height: 28),
-              // Controle Segmentado
               CupertinoSegmentedControl<String>(
                 children: {
                   'Excel': Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8, horizontal: 24), // Aumenta o padding
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
                     child: const Text('Excel'),
                   ),
                   'PDF': Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8, horizontal: 24), // Aumenta o padding
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
                     child: const Text('PDF'),
+                  ),
+                  'Texto': Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                    child: const Text('Texto'),
                   )
                 },
                 onValueChanged: (value) {
@@ -96,15 +101,15 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                 unselectedColor: AppColors.buttonDeselected,
                 borderColor: AppColors.button,
               ),
-
               const SizedBox(height: 30),
-              // Botões de Ação (um abaixo do outro)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap: _isLoadingSaveLocaly ? null : () => _saveLocally(context),
+                      onTap: _isLoadingSaveLocally
+                          ? null
+                          : () => _saveLocally(context),
                       child: Container(
                         decoration: BoxDecoration(
                           color: AppColors.button,
@@ -112,30 +117,29 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
-                          child: 
-                          _isLoadingSaveLocaly ?
-                          _buildLoadingIndicator() :
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(CupertinoIcons.cloud_download,
-                                  color: AppColors.label),
-                              const SizedBox(width: 8),
-                              Text(
-                                AppLocalizations.of(context)!.saveLocally,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.label,
+                          child: _isLoadingSaveLocally
+                              ? _buildLoadingIndicator()
+                              : Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(CupertinoIcons.cloud_download,
+                                        color: AppColors.label),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      AppLocalizations.of(context)!.saveLocally,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.label,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 22), // Espaçamento entre os botões
+                    const SizedBox(height: 22),
                     GestureDetector(
-                      onTap: _isLoadingShare ? null : _shareViaWhatsApp,
+                      onTap: _isLoadingShare ? null : _shareData,
                       child: Container(
                         decoration: BoxDecoration(
                           color: AppColors.button,
@@ -143,23 +147,23 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
-                          child: _isLoadingShare ?
-                          _buildLoadingIndicator() :
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(CupertinoIcons.share,
-                                  color: AppColors.label),
-                              const SizedBox(width: 8),
-                              Text(
-                                AppLocalizations.of(context)!.share,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.label,
+                          child: _isLoadingShare
+                              ? _buildLoadingIndicator()
+                              : Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(CupertinoIcons.share,
+                                        color: AppColors.label),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      AppLocalizations.of(context)!.share,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.label,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
                         ),
                       ),
                     ),
@@ -174,74 +178,95 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
     );
   }
 
-  void _saveLocally(BuildContext context) async {
+  Future<void> _saveLocally(BuildContext context) async {
     setState(() {
-      _isLoadingSaveLocaly = true;
+      _isLoadingSaveLocally = true;
     });
-    Excel excel = await ExportToExcel.buildExcelFromCards();
+
     if (_selectedFormat == 'Excel') {
-      ExportToExcel.saveExcelFileLocally(
-          excel, context); // Substitua por seu método de exportação
+      Excel excel = await ExportToExcel.buildExcelFromCards(
+        category: widget.category,
+      );
+      await ExportToExcel.saveExcelFileLocally(excel, context);
+    } else if (_selectedFormat == 'PDF') {
+      Excel excel = await ExportToExcel.buildExcelFromCards(
+        category: widget.category,
+      );
+      await ExportToExcel.convertExcelToPdf(excel, context);
     } else {
-      await ExportToExcel.convertExcelToPdf(
-          excel, context); // Substitua por seu método de exportação para PDF
+      await _shareAsText();
     }
-    // Implemente lógica para salvar localmente
+
     setState(() {
-      _isLoadingSaveLocaly = false;
+      _isLoadingSaveLocally = false;
     });
   }
 
-  void _shareViaWhatsApp() async {
+  Future<void> _shareData() async {
     setState(() {
       _isLoadingShare = true;
     });
-    // Caminho onde o arquivo será salvo
-    Directory directory = await getApplicationDocumentsDirectory();
-    String filePath = '';
 
     if (_selectedFormat == 'Excel') {
-      // Construir o arquivo Excel
-      Excel excel = await ExportToExcel.buildExcelFromCards();
+      Excel excel = await ExportToExcel.buildExcelFromCards(
+        category: widget.category,
+      );
 
-      // Definir o caminho do arquivo Excel
-      filePath = '${directory.path}/sheet_of_expens.xlsx';
+      Directory directory = await getApplicationDocumentsDirectory();
+      String filePath = '${directory.path}/sheet_of_expens.xlsx';
 
-      // Salvar o Excel localmente
       File(filePath)
         ..createSync(recursive: true)
         ..writeAsBytesSync(excel.encode()!);
-    } else if (_selectedFormat == 'PDF') {
-      // Construir o arquivo Excel para gerar o PDF
-      Excel excel = await ExportToExcel.buildExcelFromCards();
 
-      // Criar o PDF a partir do Excel
-      List<int> pdfBytes = await ExportToExcel.buildPdfFromExcel(excel);
-
-      // Definir o caminho do arquivo PDF
-      filePath = '${directory.path}/sheet_of_expens.pdf';
-
-      // Salvar o PDF localmente
-      File(filePath).writeAsBytesSync(pdfBytes);
-    } else {
-      print('Formato não suportado para compartilhamento.');
-      return;
-    }
-
-    // Compartilhar o arquivo usando o pacote Share Plus
-    try {
       await Share.shareXFiles(
         [XFile(filePath)],
-        text:
-            '${AppLocalizations.of(context)!.shareMensage}: https://play.google.com/store/apps/details?id=meus_gastos.my_expenses&pcampaignid=web_share',
-        sharePositionOrigin: const Rect.fromLTWH(0, 0, 1, 1),
+        text: AppLocalizations.of(context)!.shareMensage,
       );
-      print('Arquivo compartilhado com sucesso!');
-    } catch (e) {
-      print('Erro ao compartilhar o arquivo: $e');
+    } else if (_selectedFormat == 'PDF') {
+      Excel excel = await ExportToExcel.buildExcelFromCards(
+        category: widget.category,
+      );
+      List<int> pdfBytes = await ExportToExcel.buildPdfFromExcel(excel);
+
+      Directory directory = await getApplicationDocumentsDirectory();
+      String filePath = '${directory.path}/sheet_of_expens.pdf';
+
+      File(filePath).writeAsBytesSync(pdfBytes);
+
+      await Share.shareXFiles(
+        [XFile(filePath)],
+        text: AppLocalizations.of(context)!.shareMensage,
+      );
+    } else {
+      await _shareAsText();
     }
+
     setState(() {
       _isLoadingShare = false;
     });
+  }
+
+  Future<void> _shareAsText() async {
+    try {
+      List<CardModel> cards = await CardService.retrieveCards();
+      if (widget.category != null) {
+        cards = cards
+            .where((card) => card.category.name == widget.category)
+            .toList();
+      }
+
+      String message = '${AppLocalizations.of(context)!.shareMensage}\n\n';
+      message += cards.map((card) {
+        return '${card.date.toLocal().toString().split(' ')[0]}\t${card.category.name}\tR\$ ${card.amount.toStringAsFixed(2)}';
+      }).join('\n');
+
+      await Share.share(
+        message,
+        subject: AppLocalizations.of(context)!.shareMensage,
+      );
+    } catch (e) {
+      print('Erro ao compartilhar mensagem de texto: $e');
+    }
   }
 }

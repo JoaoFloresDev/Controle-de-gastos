@@ -20,7 +20,7 @@ import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 
 // Imports de controllers
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartDaysofWeek.dart';
-import 'package:meus_gastos/controllers/Dashboards/ViewComponents/extractByCategory.dart';
+import 'package:meus_gastos/controllers/ExtractByCategory/ExtractByCategory.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartWeek.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 

@@ -1,3 +1,4 @@
+import 'package:meus_gastos/controllers/exportExcel/exportExcelScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CardModel.dart';
@@ -48,15 +49,34 @@ class _ExtractbycategoryState extends State<Extractbycategory> {
       body: Column(
         children: [
           CustomHeader(
-            title: Translateservice.getTranslatedCategoryName(
-                context, widget.category),
-            onCancelPressed: () {
-              Navigator.pop(context);
-            },
-            onDeletePressed: () {
-              // Função de deletar pode ser configurada conforme a necessidade ou removida se não for necessária.
-            },
-          ),
+              title: Translateservice.getTranslatedCategoryName(
+                  context, widget.category),
+              onCancelPressed: () {
+                Navigator.pop(context);
+              },
+              onDeletePressed: () {
+                showCupertinoModalPopup(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Container(
+                      height: SizeOf(context).modal.halfModal(),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                      ),
+                      child: Exportexcelscreen(category: widget.category),
+                    );
+                  },
+                );
+              },
+              showDeleteButton: true,
+              deleteButtonIcon: const Icon(
+                CupertinoIcons.share,
+                size: 24.0,
+                color: Colors.white,
+              )),
           Expanded(
             child: Container(
               color: AppColors.background1,
