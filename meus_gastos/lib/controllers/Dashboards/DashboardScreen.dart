@@ -355,10 +355,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                   ],
                   [
                     "Custo médio por compra: R\$ ${data['averageCostPerTransaction'].toStringAsFixed(2)} (+30%)",
-                    "Transações diárias: 3"
+                    "Transações diárias: 3 (+0%)"
                   ],
                   [
-                    "Dia mais caro do mês: R\$ ${data['highestSpendingDayLabel']} (${data['highestSpendingDay']})"
+                    "Dia mais caro do mês: ${data['highestSpendingDayLabel']} - R\$ ${data['highestSpendingDay']}"
                   ]
                 ],
               },
@@ -409,7 +409,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         return Padding(
           padding: const EdgeInsets.only(left: 0, right: 0, top: 4, bottom: 8),
           child: SizedBox(
-            height: 600,
+            height: 500,
             child: TotalSpentCarouselWithTitles(
               totalGasto: data['totalGasto'],
               groupedPhrases: groupedPhrases,

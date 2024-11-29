@@ -137,43 +137,4 @@ class TotalSpentCarouselWithTitles extends StatelessWidget {
     }
     return rows;
   }
-
-  List<TextSpan> _highlightParentheses(
-    String text,
-    TextStyle defaultStyle,
-    TextStyle parenthesesStyle,
-  ) {
-    final RegExp regex = RegExp(r'\(([^)]+)\)');
-    final matches = regex.allMatches(text);
-
-    if (matches.isEmpty) {
-      return [TextSpan(text: text, style: defaultStyle)];
-    }
-
-    List<TextSpan> spans = [];
-    int currentIndex = 0;
-
-    for (final match in matches) {
-      final startIndex = match.start;
-      final endIndex = match.end;
-
-      if (currentIndex < startIndex) {
-        spans.add(TextSpan(
-            text: text.substring(currentIndex, startIndex),
-            style: defaultStyle));
-      }
-
-      spans.add(TextSpan(
-          text: text.substring(startIndex, endIndex), style: parenthesesStyle));
-
-      currentIndex = endIndex;
-    }
-
-    if (currentIndex < text.length) {
-      spans.add(
-          TextSpan(text: text.substring(currentIndex), style: defaultStyle));
-    }
-
-    return spans;
-  }
 }
