@@ -150,7 +150,7 @@ class TotalSpentCarouselWithTitles extends StatelessWidget {
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 8),
                 padding: const EdgeInsets.only(
-                    left: 20, right: 20, top: 16, bottom: 16),
+                    left: 20, right: 20, top: 16, bottom: 0),
                 decoration: BoxDecoration(
                   color: AppColors.card,
                   borderRadius: BorderRadius.circular(16),
@@ -237,7 +237,7 @@ class TotalSpentCarouselWithTitles extends StatelessWidget {
                             ],
                           ],
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 8),
                       ],
                     );
                   }).toList(),

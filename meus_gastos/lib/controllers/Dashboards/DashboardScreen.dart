@@ -229,7 +229,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 12),
       child: SizedBox(
-        height: 495,
+        height: 440,
         child: TotalSpentCarouselWithTitles(currentMonth: currentDate),
       ),
     );
