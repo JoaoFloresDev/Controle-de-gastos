@@ -146,7 +146,6 @@ class TotalSpentCarouselWithTitles extends StatelessWidget {
             itemBuilder: (context, index) {
               final group = groupedPhrases[index];
               final sections = group['sections'] as List<Map<String, dynamic>>;
-
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 8),
                 padding: const EdgeInsets.only(
