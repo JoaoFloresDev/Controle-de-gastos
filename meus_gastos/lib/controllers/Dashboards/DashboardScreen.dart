@@ -230,7 +230,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 12),
       child: SizedBox(
         height: 495,
-        child: TotalSpentCarouselWithTitles(),
+        child: TotalSpentCarouselWithTitles(currentMonth: currentDate),
       ),
     );
   }
@@ -283,8 +283,8 @@ class _DashboardScreenState extends State<DashboardScreen>
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: _currentIndex == index
-                ? AppColors.buttonSelected
-                : AppColors.buttonDeselected,
+                ? AppColors.button
+                : AppColors.buttonSelected,
           ),
         );
       }),
@@ -437,7 +437,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                           _buildPageIndicators(),
                           const SizedBox(height: 12),
                           _buildTotalSpentCarousel(),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 8),
                           if (isLoading)
                             _buildLoadingIndicator()
                           else
