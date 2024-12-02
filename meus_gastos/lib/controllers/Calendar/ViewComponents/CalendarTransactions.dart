@@ -61,7 +61,7 @@ class TransactionList extends StatelessWidget {
       itemBuilder: (context, index) {
         final transaction = reversedTransactions[index];
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
           child: ListCard(
             card: transaction,
             onTap: (selectedCard) {

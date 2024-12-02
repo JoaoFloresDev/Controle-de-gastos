@@ -42,7 +42,8 @@ import 'ViewComponents/CalendarTransactions.dart';
 class CustomCalendar extends StatefulWidget {
   final VoidCallback onCalendarRefresh;
 
-  const CustomCalendar({Key? key, required this.onCalendarRefresh}) : super(key: key);
+  const CustomCalendar({Key? key, required this.onCalendarRefresh})
+      : super(key: key);
 
   @override
   CustomCalendarState createState() => CustomCalendarState();
@@ -111,7 +112,7 @@ class CustomCalendarState extends State<CustomCalendar> {
     _initializeCalendarData();
   }
 
-bool _isPro = false;
+  bool _isPro = false;
 
   @override
   Widget build(BuildContext context) {
@@ -122,19 +123,17 @@ bool _isPro = false;
             AppLocalizations.of(context)!.calendar,
             style: const TextStyle(color: AppColors.label, fontSize: 16),
           ),
-          backgroundColor: AppColors.background1
-        ),
+          backgroundColor: AppColors.background1),
       body: SafeArea(
         child: Column(
           children: [
-            if (!_isPro &&
-                  !Platform.isMacOS)
-            Container(
-  height: 60,
-  width: double.infinity, // Largura total da tela
-  alignment: Alignment.center, // Centraliza no eixo X
-  child: LoadingContainer(),
-),
+            if (!_isPro && !Platform.isMacOS)
+              Container(
+                height: 60,
+                width: double.infinity, // Largura total da tela
+                alignment: Alignment.center, // Centraliza no eixo X
+                child: LoadingContainer(),
+              ),
             CalendarTable(
               focusedDay: _focusedDay,
               selectedDay: _selectedDay,
@@ -152,15 +151,14 @@ bool _isPro = false;
               focusedDay: _focusedDay,
               dailyExpenses: _dailyExpenses,
             ),
-Expanded(
-  child: TransactionList(
-    transactions: _transactions,
-    onRefresh: () {
-      _loadTransactionsForDay(_selectedDay ?? DateTime.now());
-    },
-  ),
-),
-
+            Expanded(
+              child: TransactionList(
+                transactions: _transactions,
+                onRefresh: () {
+                  _loadTransactionsForDay(_selectedDay ?? DateTime.now());
+                },
+              ),
+            ),
           ],
         ),
       ),

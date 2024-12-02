@@ -22,11 +22,12 @@ class CalendarHeader extends StatelessWidget {
           (selectedDay ?? focusedDay).day,
         )] ??
         0.0;
-    final formattedDate = DateFormat('EEEE, d MMM', Localizations.localeOf(context).toString())
-        .format(selectedDay ?? focusedDay);
+    final formattedDate =
+        DateFormat('EEEE, d MMM', Localizations.localeOf(context).toString())
+            .format(selectedDay ?? focusedDay);
 
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 4, bottom: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

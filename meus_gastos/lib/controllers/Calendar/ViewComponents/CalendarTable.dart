@@ -26,8 +26,8 @@ class CalendarTable extends StatelessWidget {
         focusedDay: focusedDay,
         firstDay: DateTime(2010),
         lastDay: DateTime(2100),
-        rowHeight: 46,
-        daysOfWeekHeight: 24,
+        rowHeight: 38,
+        daysOfWeekHeight: 20,
         selectedDayPredicate: (day) => isSameDay(selectedDay, day),
         onDaySelected: onDaySelected,
         calendarStyle: CalendarStyle(
@@ -56,7 +56,8 @@ class CalendarTable extends StatelessWidget {
         calendarBuilders: CalendarBuilders(
           headerTitleBuilder: (context, day) {
             final formattedDate = toBeginningOfSentenceCase(
-              DateFormat("MMMM 'de' yyyy", Localizations.localeOf(context).languageCode)
+              DateFormat("MMMM 'de' yyyy",
+                      Localizations.localeOf(context).languageCode)
                   .format(day),
             );
             return Center(
@@ -71,15 +72,18 @@ class CalendarTable extends StatelessWidget {
             );
           },
           defaultBuilder: (context, day, focusedDay) {
-            final expense = dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
+            final expense =
+                dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
             return _buildDayCell(day, expense);
           },
           selectedBuilder: (context, day, focusedDay) {
-            final expense = dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
+            final expense =
+                dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
             return _buildDayCell(day, expense, selected: true);
           },
           todayBuilder: (context, day, focusedDay) {
-            final expense = dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
+            final expense =
+                dailyExpenses[DateTime(day.year, day.month, day.day)] ?? 0.0;
             return _buildDayCell(day, expense, today: true);
           },
         ),
@@ -87,7 +91,8 @@ class CalendarTable extends StatelessWidget {
     );
   }
 
-  Widget _buildDayCell(DateTime day, double expense, {bool selected = false, bool today = false}) {
+  Widget _buildDayCell(DateTime day, double expense,
+      {bool selected = false, bool today = false}) {
     return Container(
       decoration: BoxDecoration(
         color: selected
@@ -97,7 +102,7 @@ class CalendarTable extends StatelessWidget {
                 : null,
         shape: BoxShape.circle,
       ),
-      constraints: const BoxConstraints(minWidth: 70, minHeight: 70),
+      constraints: const BoxConstraints(minWidth: 40, minHeight: 40),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -105,6 +110,7 @@ class CalendarTable extends StatelessWidget {
             day.day.toString(),
             style: const TextStyle(
               color: AppColors.label,
+              fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
           ),
