@@ -23,8 +23,8 @@ class _BannerAdconstructState extends State<BannerAdconstruct> {
     if (Platform.isAndroid) {
       return 'ca-app-pub-8858389345934911/3074198669'; // Ad Unit ID do Android
     } else if (Platform.isIOS) {
-      // return 'ca-app-pub-8858389345934911/4314469007';
-      return 'ca-app-pub-3940256099942544/2934735716'; // de teste
+      return 'ca-app-pub-8858389345934911/4314469007';
+      // return 'ca-app-pub-3940256099942544/2934735716'; // de teste
     } else {
       throw UnsupportedError('Unsupported platform');
     }

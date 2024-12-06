@@ -26,8 +26,8 @@ class CalendarTable extends StatelessWidget {
         focusedDay: focusedDay,
         firstDay: DateTime(2010),
         lastDay: DateTime(2100),
-        rowHeight: 38,
-        daysOfWeekHeight: 20,
+        rowHeight: 48,
+        daysOfWeekHeight: 24,
         selectedDayPredicate: (day) => isSameDay(selectedDay, day),
         onDaySelected: onDaySelected,
         calendarStyle: CalendarStyle(

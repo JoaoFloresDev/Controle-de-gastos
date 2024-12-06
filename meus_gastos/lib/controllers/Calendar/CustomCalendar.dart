@@ -1,3 +1,4 @@
+import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'dart:io';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
@@ -62,6 +63,10 @@ class CustomCalendarState extends State<CustomCalendar> {
     _checkUserProStatus();
   }
 
+  Future<void> _checkAndRequestReview() async {
+    ReviewService.checkAndRequestReview(context);
+  }
+
   Future<void> _checkUserProStatus() async {
     final prefs = await SharedPreferences.getInstance();
     bool isYearlyPro = prefs.getBool('yearly.pro') ?? false;
@@ -74,6 +79,7 @@ class CustomCalendarState extends State<CustomCalendar> {
   Future<void> _initializeCalendarData() async {
     await _calculateDailyExpenses();
     await _loadTransactionsForDay(_focusedDay);
+    _checkAndRequestReview();
   }
 
   Future<void> _calculateDailyExpenses() async {

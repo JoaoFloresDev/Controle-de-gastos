@@ -10,18 +10,24 @@ class ReviewService {
     sessionCount += 1;
     await prefs.setInt('session_count', sessionCount);
 
-    if (sessionCount == 16) {
+    print("entrou");
+    print(sessionCount);
+    if (sessionCount == 4) {
+      print("aqui!");
       final InAppReview inAppReview = InAppReview.instance;
       if (await inAppReview.isAvailable()) {
+        print("aqui!12aaa");
         inAppReview.requestReview();
       }
-    } else if (sessionCount == 32) {
+    } else if (sessionCount == 12) {
+      print("aqui!12");
       _showCustomReviewDialog(context);
     }
   }
 
   static void _showCustomReviewDialog(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!; // Obtém localizações do contexto
+    final localizations =
+        AppLocalizations.of(context)!; // Obtém localizações do contexto
 
     showDialog(
       context: context,

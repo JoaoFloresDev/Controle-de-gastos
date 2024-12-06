@@ -108,11 +108,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     super.initState();
     _onScreenDisplayed();
     _checkUserProStatus();
-    _checkAndRequestReview();
-  }
-
-  Future<void> _checkAndRequestReview() async {
-    ReviewService.checkAndRequestReview(context);
   }
 
   Future<void> _checkUserProStatus() async {
@@ -352,7 +347,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height - 120,
+          height: MediaQuery.of(context).size.height - 150,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),

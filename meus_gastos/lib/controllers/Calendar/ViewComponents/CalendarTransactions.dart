@@ -61,7 +61,7 @@ class TransactionList extends StatelessWidget {
       itemBuilder: (context, index) {
         final transaction = reversedTransactions[index];
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
           child: ListCard(
             card: transaction,
             onTap: (selectedCard) {
@@ -80,7 +80,7 @@ class TransactionList extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height - 120,
+          height: MediaQuery.of(context).size.height - 150,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),

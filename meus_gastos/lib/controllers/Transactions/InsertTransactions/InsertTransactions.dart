@@ -347,7 +347,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height - 120,
+          height: MediaQuery.of(context).size.height - 150,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
