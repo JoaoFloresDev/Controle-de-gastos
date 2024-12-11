@@ -5,7 +5,7 @@ import 'dart:ui';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/controllers/exportExcel/exportExcelScreen.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/ads_review/constructReview.dart';
+import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 
 // Imports externos
 import 'package:flutter/cupertino.dart';
@@ -20,16 +20,17 @@ import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 
 // Imports de controllers
-import 'package:meus_gastos/controllers/Dashboards/bar_chartWeek/BarChartDaysofWeek.dart';
-import 'package:meus_gastos/controllers/Dashboards/extractByCategory.dart';
-import 'package:meus_gastos/controllers/Dashboards/bar_chartWeek/BarChartWeek.dart';
-import 'package:meus_gastos/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartDaysofWeek.dart';
+import 'package:meus_gastos/controllers/ExtractByCategory/ExtractByCategory.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartWeek.dart';
+import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 
 // Imports de widgets
-import 'package:meus_gastos/controllers/Dashboards/DashboardCard.dart';
-import 'package:meus_gastos/controllers/Dashboards/MonthSelector.dart';
-import 'package:meus_gastos/controllers/Dashboards/LinearProgressIndicatorSection.dart';
-import 'package:meus_gastos/monthInsights/monthInsightsServices.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/MonthSelector.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgressIndicatorSection.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/TotalSpentCarousel.dart';
+import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
@@ -108,11 +109,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     super.initState();
     _onScreenDisplayed();
     _checkUserProStatus();
-    _checkAndRequestReview();
-  }
-
-  Future<void> _checkAndRequestReview() async {
-    ReviewService.checkAndRequestReview(context);
   }
 
   Future<void> _checkUserProStatus() async {
@@ -124,7 +120,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
   }
 
-  //mark - métodos privados
   Future<void> _onScreenDisplayed() async {
     if (widget.isActive) {
       await _loadInitialData();
@@ -183,7 +178,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       height: 60,
       width: double.infinity, // Largura total da tela
       alignment: Alignment.center, // Centraliza no eixo X
-      child: BannerAdconstruct(),
+      child: LoadingContainer(),
     );
   }
 
@@ -195,34 +190,43 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   double _calculatePageHeight() {
-    // Defina um valor base para o cálculo da altura
     double baseHeight = 300;
+    double heightPerLine = 40;
+    List<String> labels = pieChartDataItems.map((item) => item.label).toList();
+    int calculateLines(List<String> labels) {
+      int lines = 0;
+      int i = 0;
 
-    // Calcule o incremento na altura com base no número de itens
-    double additionalHeight =
-        (pieChartDataItems.length.toDouble() / 2 * 40).clamp(40, 120);
+      while (i < labels.length) {
+        String current = labels[i];
+        if (i + 1 < labels.length &&
+            (current.length + labels[i + 1].length) <= 20) {
+          i += 2;
+        } else {
+          i += 1;
+        }
+        lines++;
+      }
 
-    // Defina um valor mínimo e máximo para a altura
-    double minHeight = 400;
-
-    // Calcule a altura total
-    double pageHeight = baseHeight + additionalHeight;
-
-    // Assegure-se de que a altura esteja dentro dos limites mínimos e máximos
-    if (pageHeight < minHeight) {
-      pageHeight = minHeight;
+      return lines;
     }
+
+    int totalLines = calculateLines(labels);
+    double additionalHeight = totalLines * heightPerLine;
+    double minHeight = 380;
+    double maxHeight = MediaQuery.of(context).size.height - 100;
+    double pageHeight = baseHeight + additionalHeight;
+    pageHeight = pageHeight.clamp(minHeight, maxHeight);
 
     return pageHeight;
   }
 
-  Widget _buildTotalSpentText(BuildContext context) {
-    return Text(
-      "${AppLocalizations.of(context)!.totalSpent}: ${Translateservice.formatCurrency(totalGasto, context)}",
-      style: const TextStyle(
-        color: AppColors.label,
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
+  Widget _buildTotalSpentCarousel() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 12),
+      child: SizedBox(
+        height: 440,
+        child: TotalSpentCarouselWithTitles(currentMonth: currentDate),
       ),
     );
   }
@@ -237,20 +241,23 @@ class _DashboardScreenState extends State<DashboardScreen>
         onPageChanged: _onPageChanged,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding:
+                const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
             child: DashboardCard(
               items: pieChartDataItems,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding:
+                const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
             child: WeeklyStackedBarChart(
               weekIntervals: Last5WeeksIntervals,
               weeklyData: Last5WeeksProgressIndicators,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding:
+                const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
             child: DailyStackedBarChart(
               last5weewdailyData: weeklyData,
               last5WeeksIntervals: Last5WeeksIntervals,
@@ -272,8 +279,8 @@ class _DashboardScreenState extends State<DashboardScreen>
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: _currentIndex == index
-                ? AppColors.buttonSelected
-                : AppColors.buttonDeselected,
+                ? AppColors.button
+                : AppColors.buttonSelected,
           ),
         );
       }),
@@ -341,7 +348,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: SizeOf(context).modal.mediumModal(),
+          height: MediaQuery.of(context).size.height - 150,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
@@ -358,43 +365,54 @@ class _DashboardScreenState extends State<DashboardScreen>
     return const CircularProgressIndicator(color: AppColors.background1);
   }
 
+  Widget _buildTotalSpentText(BuildContext context) {
+    return Text(
+      "${AppLocalizations.of(context)!.totalSpent}: ${Translateservice.formatCurrency(totalGasto, context)}",
+      style: const TextStyle(
+        color: AppColors.label,
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
   //mark - construção da tela
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return CupertinoPageScaffold(
+    return Scaffold(
       backgroundColor: AppColors.background1,
-      navigationBar: CupertinoNavigationBar(
+      appBar: CupertinoNavigationBar(
         middle: Text(
           AppLocalizations.of(context)!.myControl,
           style: const TextStyle(color: AppColors.label, fontSize: 16),
         ),
         backgroundColor: AppColors.background1,
         trailing: GestureDetector(
-          onTap: () {
-            showCupertinoModalPopup(
-              context: context,
-              builder: (BuildContext context) {
-                return Container(
-                  height: SizeOf(context).modal.halfModal(),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
+            onTap: () {
+              showCupertinoModalPopup(
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                    height: SizeOf(context).modal.halfModal(),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
                     ),
-                  ),
-                  child: Exportexcelscreen(),
-                );
-              },
-            );
-          },
-          child: const Icon(
-            CupertinoIcons.share,
-            size: 24.0, // Ajuste o tamanho conforme necessário
-          ),
-        ),
+                    child: Exportexcelscreen(),
+                  );
+                },
+              );
+            },
+            child: const Icon(
+              CupertinoIcons.share,
+              size: 24.0,
+              color: Colors.white,
+            )),
       ),
-      child: SafeArea(
+      body: SafeArea(
         child: isLoading
             ? Center(
                 child: _buildLoadingIndicator(),
@@ -406,17 +424,19 @@ class _DashboardScreenState extends State<DashboardScreen>
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 16),
                           _buildMonthSelector(),
-                          const SizedBox(height: 18),
+                          const SizedBox(height: 16),
                           _buildTotalSpentText(context),
+                          const SizedBox(height: 8),
                           _buildPageView(),
-                          const SizedBox(height: 12),
                           _buildPageIndicators(),
                           const SizedBox(height: 12),
-                          MonthInsights(
-                            currentDate: currentDate,
-                          ),
+                          // MonthInsights(
+                          //   currentDate: currentDate,
+                          // ),
+                          _buildTotalSpentCarousel(),
+                          const SizedBox(height: 8),
                           if (isLoading)
                             _buildLoadingIndicator()
                           else
@@ -429,47 +449,5 @@ class _DashboardScreenState extends State<DashboardScreen>
               ),
       ),
     );
-  }
-
-  void _showMenuOptions(BuildContext context) {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoActionSheet(
-          actions: <Widget>[
-            CupertinoActionSheetAction(
-              onPressed: () {
-                Navigator.of(context).pop();
-                _launchURL(
-                    'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
-              },
-              child: const Text('Terms of Use'),
-            ),
-            CupertinoActionSheetAction(
-              onPressed: () {
-                Navigator.of(context).pop();
-                _launchURL(
-                    'https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing');
-              },
-              child: const Text('Privacy Policy'),
-            ),
-          ],
-          cancelButton: CupertinoActionSheetAction(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('Cancel'),
-          ),
-        );
-      },
-    );
-  }
-
-  void _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }

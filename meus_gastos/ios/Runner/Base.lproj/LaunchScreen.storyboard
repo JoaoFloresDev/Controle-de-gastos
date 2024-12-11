@@ -1,37 +1,70 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" colorMatched="YES" initialViewController="2AK-Be-XYd">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="EHf-IW-A2E">
+        <scene sceneID="0zF-59-CVW">
             <objects>
-                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                <viewController id="2AK-Be-XYd" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Ydg-fD-yQy"/>
-                        <viewControllerLayoutGuide type="bottom" id="xbc-2k-c8Z"/>
+                        <viewControllerLayoutGuide type="top" id="EbZ-fE-tkI"/>
+                        <viewControllerLayoutGuide type="bottom" id="YQr-O8-jab"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleToFill" id="Jl4-Vy-kJn">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="YRO-k0-Ey4">
-                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kmp-TX-gWl">
+                                <rect key="frame" x="36.666666666666657" y="331" width="320" height="190"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gabitLogo" translatesAutoresizingMaskIntoConstraints="NO" id="4lF-ZO-I6L">
+                                        <rect key="frame" x="110" y="0.0" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="4lF-ZO-I6L" secondAttribute="height" multiplier="1:1" id="aF1-2Z-71w"/>
+                                            <constraint firstAttribute="width" constant="100" id="rIQ-Th-xOz"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gambit Studio" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzb-GV-0CI">
+                                        <rect key="frame" x="10" y="130" width="300" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="3xE-le-Yxt"/>
+                                            <constraint firstAttribute="width" constant="300" id="ioc-zA-D4N"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SnellRoundhand-Bold" family="Snell Roundhand" pointSize="40"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="hzb-GV-0CI" firstAttribute="top" secondItem="4lF-ZO-I6L" secondAttribute="bottom" constant="30" id="7GD-BW-D4w"/>
+                                    <constraint firstItem="4lF-ZO-I6L" firstAttribute="centerX" secondItem="kmp-TX-gWl" secondAttribute="centerX" id="Xce-Ji-ejN"/>
+                                    <constraint firstAttribute="bottom" secondItem="hzb-GV-0CI" secondAttribute="bottom" id="j1n-qh-oEE"/>
+                                    <constraint firstItem="hzb-GV-0CI" firstAttribute="leading" secondItem="kmp-TX-gWl" secondAttribute="leading" constant="10" id="mIQ-Nc-9L8"/>
+                                    <constraint firstAttribute="trailing" secondItem="hzb-GV-0CI" secondAttribute="trailing" constant="10" id="nU5-Ll-5Qx"/>
+                                    <constraint firstItem="4lF-ZO-I6L" firstAttribute="top" secondItem="kmp-TX-gWl" secondAttribute="top" id="qHU-Hv-S8K"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="PIl-uQ-B5D"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1a2-6s-vTC"/>
-                            <constraint firstItem="YRO-k0-Ey4" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="4X2-HB-R7a"/>
+                            <constraint firstItem="kmp-TX-gWl" firstAttribute="centerX" secondItem="Jl4-Vy-kJn" secondAttribute="centerX" id="Tc3-s4-w9x"/>
+                            <constraint firstItem="kmp-TX-gWl" firstAttribute="centerY" secondItem="Jl4-Vy-kJn" secondAttribute="centerY" id="ikK-5p-i3L"/>
                         </constraints>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tUf-td-TkU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchImage" width="168" height="185"/>
+        <image name="gabitLogo" width="512" height="512"/>
     </resources>
 </document>

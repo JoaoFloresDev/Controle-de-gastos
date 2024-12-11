@@ -1,25 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/InsertTransactions.dart';
-import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/material.dart';
-import 'package:onepref/onepref.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-import 'package:meus_gastos/controllers/Calendar/CustomCalendar.dart';
-
-
-import 'package:flutter/cupertino.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/InsertTransactions.dart';
 import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
-import 'package:meus_gastos/controllers/Calendar/CustomCalendar.dart';
-import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:onepref/onepref.dart';
+import 'package:meus_gastos/controllers/Calendar/CustomCalendar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,6 +52,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int selectedTab = 0;
 
+  final GlobalKey<CustomCalendarState> calendarKey =
+      GlobalKey<CustomCalendarState>();
   final exportButton = GlobalKey();
   final cardsExpense = GlobalKey();
   final dashboardTab = GlobalKey();
@@ -79,18 +69,18 @@ class _MyHomePageState extends State<MyHomePage> {
       tabBar: CupertinoTabBar(
         backgroundColor: Colors.black38,
         items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.home, size: 20),
-            label: 'Transações',
+          BottomNavigationBarItem(
+            icon: const Icon(CupertinoIcons.home, size: 20),
+            label: AppLocalizations.of(context)!.transactions,
           ),
           BottomNavigationBarItem(
             key: dashboardTab,
             icon: const Icon(CupertinoIcons.chart_bar, size: 20),
-            label: 'Dashboard',
+            label: AppLocalizations.of(context)!.dashboards,
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.calendar, size: 20),
-            label: 'Calendário',
+          BottomNavigationBarItem(
+            icon: const Icon(CupertinoIcons.calendar, size: 20),
+            label: AppLocalizations.of(context)!.calendar,
           ),
         ],
         onTap: (int index) {
@@ -98,10 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
             selectedTab = index;
           });
 
-          // Recarrega o calendário quando a aba correspondente for selecionada
           if (index == 2) {
-            final calendarState = context.findAncestorStateOfType<CustomCalendarState>();
-            calendarState?.refreshCalendar();
+            calendarKey.currentState?.refreshCalendar();
           }
         },
       ),
@@ -142,9 +130,9 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       case 2:
         return CustomCalendar(
+          key: calendarKey,
           onCalendarRefresh: () {
-            final calendarState = context.findAncestorStateOfType<CustomCalendarState>();
-            calendarState?.refreshCalendar();
+            calendarKey.currentState?.refreshCalendar();
           },
         );
       default:

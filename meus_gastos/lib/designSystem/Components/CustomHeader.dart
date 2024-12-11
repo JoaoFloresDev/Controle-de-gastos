@@ -4,15 +4,17 @@ class CustomHeader extends StatelessWidget {
   final String title;
   final VoidCallback? onCancelPressed;
   final VoidCallback? onDeletePressed;
-  final bool
-      showDeleteButton; // Adiciona um parâmetro para controlar a exibição do botão de deletar
+  final bool showDeleteButton;
+  final Icon deleteButtonIcon; // Agora obrigatório com valor padrão
 
-  const CustomHeader({super.key, 
+  const CustomHeader({
+    super.key,
     required this.title,
     this.onCancelPressed,
     this.onDeletePressed,
-    this.showDeleteButton =
-        false, // Define o botão de deletar como visível por padrão
+    this.showDeleteButton = false,
+    this.deleteButtonIcon =
+        const Icon(Icons.delete, color: AppColors.deletionButton),
   });
 
   @override
@@ -67,10 +69,9 @@ class CustomHeader extends StatelessWidget {
   Widget _buildDeleteButton(BuildContext context) {
     return IconButton(
       onPressed: onDeletePressed,
-      icon: Icon(
-        Icons.delete,
-        color: showDeleteButton ? AppColors.deletionButton : Colors.transparent,
-      ),
+      icon: showDeleteButton
+          ? deleteButtonIcon
+          : const Icon(Icons.delete, color: Colors.transparent),
     );
   }
 }
