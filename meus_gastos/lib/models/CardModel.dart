@@ -2,10 +2,11 @@ import 'package:meus_gastos/models/CategoryModel.dart';
 
 class CardModel {
   final String id;
-  final double amount;
+  late double amount;
   final String description;
   final DateTime date;
   final CategoryModel category;
+  final String idFixoControl;
 
   CardModel({
     required this.id,
@@ -13,6 +14,7 @@ class CardModel {
     required this.description,
     required this.date,
     required this.category,
+    this.idFixoControl = '0',
   });
 
   // Converte o modelo para JSON
@@ -23,6 +25,7 @@ class CardModel {
       'description': description,
       'date': date.toIso8601String(), // Formato ISO 8601 para a data
       'category': category.toJson(), // Converte a categoria para JSON
+      'idFixoControl': idFixoControl,
     };
   }
 
@@ -36,6 +39,10 @@ class CardModel {
       category: map['category'] is String
           ? CategoryModel(name: map['category']) // Para dados antigos
           : CategoryModel.fromJson(map['category']), // Para dados novos
+      idFixoControl:
+          map.containsKey('idFixoControl') && map['idFixoControl'] != null
+              ? map['idFixoControl'].toString()
+              : '0',
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:meus_gastos/monthInsights/monthInsights.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
@@ -28,6 +29,7 @@ import 'package:meus_gastos/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/controllers/Dashboards/DashboardCard.dart';
 import 'package:meus_gastos/controllers/Dashboards/MonthSelector.dart';
 import 'package:meus_gastos/controllers/Dashboards/LinearProgressIndicatorSection.dart';
+import 'package:meus_gastos/monthInsights/monthInsightsServices.dart';
 
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
@@ -412,6 +414,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                           const SizedBox(height: 12),
                           _buildPageIndicators(),
                           const SizedBox(height: 12),
+                          MonthInsights(
+                            currentDate: currentDate,
+                          ),
                           if (isLoading)
                             _buildLoadingIndicator()
                           else

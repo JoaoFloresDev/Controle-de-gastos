@@ -14,6 +14,7 @@ import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:meus_gastos/gastos_fixos/UI/RepetitionMenu.dart';
 
 class EditionHeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;
@@ -21,7 +22,8 @@ class EditionHeaderCard extends StatefulWidget {
   final FixedExpense card;
   final bool botomPageIsVisible;
   const EditionHeaderCard(
-      {super.key, required this.onAddClicked,
+      {super.key,
+      required this.onAddClicked,
       required this.adicionarButtonTitle,
       required this.card,
       required this.botomPageIsVisible});
@@ -36,7 +38,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   late CampoComMascara dateController;
   late FocusNode descricaoFocusNode;
 
-  late int lastDateSelected = widget.card.day;
+  late int lastDateSelected = widget.card.date.day;
   List<CategoryModel> categorieList = [];
   final DateTime dataInicial = DateTime.now();
   final double valorInicial = 0.0;
@@ -44,20 +46,22 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   List<CategoryModel> icons_list_recorrent = [];
   late bool _isPaga;
 
+  DateTime _selectedDate = DateTime.now();
+  String tipoRepeticao = "mensal";
+
   Future<void> loadCategories() async {
     var categorieList = await CategoryService().getAllCategories();
     if (categorieList.isNotEmpty) {
       setState(() {
         icons_list_recorrent =
             categorieList.sublist(0, categorieList.length - 1);
-        lastIndexSelected_category = icons_list_recorrent.indexWhere(
-          (category) => category.id == widget.card.category.id);
-      
-      // Define um valor padrão se o item não for encontrado
-      if (lastIndexSelected_category == -1) {
-        lastIndexSelected_category = 0; // ou qualquer valor de fallback
-      }
+        lastIndexSelected_category = icons_list_recorrent
+            .indexWhere((category) => category.id == widget.card.category.id);
 
+        // Define um valor padrão se o item não for encontrado
+        if (lastIndexSelected_category == -1) {
+          lastIndexSelected_category = 0; // ou qualquer valor de fallback
+        }
       });
     }
     print(lastIndexSelected_category);
@@ -97,47 +101,8 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     });
   }
 
-  final TextEditingController _dateController = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
-  void _handleTap() {
-    _focusNode.unfocus(); // Fecha o teclado, se estiver aberto
-    showCupertinoModalPopup(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: 300,
-          color: Colors.white, // Defina a cor do fundo do modal
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 200,
-                child: CupertinoPicker(
-                  itemExtent: 32.0, // Altura de cada item
-                  scrollController: FixedExtentScrollController(
-                      initialItem: widget.card.day - 1),
-                  onSelectedItemChanged: (int index) {
-                    setState(() {
-                      int selectedDay = index + 1; // Dia selecionado (1 a 31)
-                      lastDateSelected = selectedDay;
-                      _dateController.text =
-                          'Dia $selectedDay'; // Atualiza o campo de texto
-                    });
-                  },
 
-                  children: List<Widget>.generate(31, (int index) {
-                    return Center(
-                      child:
-                          Text('Dia ${index + 1}'), // Mostra os dias de 1 a 31
-                    );
-                  }),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+  
 
   // MARK: - Dispose
   @override
@@ -167,9 +132,11 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       final newCard = FixedExpense(
         price: valorController.numberValue,
         description: descricaoController.text,
-        day: lastDateSelected,
+        date: DateTime(
+            DateTime.now().year, DateTime.now().month, lastDateSelected),
         category: icons_list_recorrent[lastIndexSelected_category],
         id: const Uuid().v4(),
+        tipoRepeticao: tipoRepeticao,
       );
       Fixedexpensesservice.updateCard(widget.card.id, newCard);
     }
@@ -191,18 +158,13 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
               Expanded(child: ValorTextField(controller: valorController)),
               const SizedBox(width: 8),
               Expanded(
-                child: CupertinoTextField(
-                  controller: _dateController,
-                  focusNode: _focusNode,
-                  style: const TextStyle(color: AppColors.label),
-                  decoration: const BoxDecoration(
-                    border: Border(bottom: BorderSide(color: AppColors.label)),
-                  ),
-                  placeholder: "Dia $lastDateSelected",
-                  placeholderStyle:
-                      const TextStyle(color: AppColors.labelPlaceholder),
-                  readOnly: true, // Impede que o usuário edite diretamente
-                  onTap: _handleTap, // Chama o modal ao clicar no campo
+                child: CampoComMascara(
+                  currentDate: _selectedDate,
+                  onCompletion: (DateTime newDate) {
+                    setState(() {
+                      _selectedDate = newDate;
+                    });
+                  },
                 ),
               ),
             ],
@@ -222,6 +184,16 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             focusNode: descricaoFocusNode,
             style: const TextStyle(color: AppColors.label),
           ),
+          const SizedBox(height: 12),
+          RepetitionMenu(
+            referenceDate: _selectedDate,
+            onRepetitionSelected: (String selectedRepetition) {
+              setState(() {
+                tipoRepeticao = selectedRepetition;
+              });
+            },
+          ),
+          const SizedBox(height: 12),
           HorizontalCircleList(
             onItemSelected: (index) {
               setState(() {

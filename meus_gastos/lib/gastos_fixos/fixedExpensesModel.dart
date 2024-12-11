@@ -4,25 +4,27 @@ class FixedExpense {
   String id;
   String description;
   double price;
-  int day;
+  DateTime date;
   CategoryModel category;
+  String tipoRepeticao = 'mensal';
 
   FixedExpense(
       {required this.description,
       required this.price,
-      required this.day,
+      required this.date,
       required this.category,
       required this.id,
-      });
+      required this.tipoRepeticao});
 
   // Para salvar em SharedPreferences, converter em Map
   Map<String, dynamic> toJson() {
     return {
       'description': description,
       'price': price,
-      'day': day,
+      'date': date.toIso8601String(),
       'category': category,
       'id': id,
+      'tipoRepeticao': tipoRepeticao,
     };
   }
 
@@ -31,9 +33,10 @@ class FixedExpense {
     return FixedExpense(
       description: json['description'],
       price: json['price'],
-      day: json['day'],
+      date: DateTime.parse(json['date']),
       category: CategoryModel.fromJson(json['category']),
       id: json['id'],
+      tipoRepeticao: json['tipoRepeticao'],
     );
   }
 }

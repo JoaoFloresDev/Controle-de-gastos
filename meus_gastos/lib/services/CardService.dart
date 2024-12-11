@@ -37,7 +37,7 @@ class CardService {
   // MARK: - Add, Delete, and Update Cards
   static Future<void> addCard(CardModel cardModel) async {
     await modifyCards((cards) {
-      if (!(cardModel.amount == 0)) cards.add(cardModel);
+      cards.add(cardModel);
       return cards;
     });
   }
@@ -178,5 +178,9 @@ class CardService {
       normalExpenseIds.add(item.id);
     }
     return normalExpenseIds;
+  }
+
+  List<String> getIdFixoControlList(List<CardModel> cards) {
+    return cards.map((card) => card.idFixoControl).toList();
   }
 }

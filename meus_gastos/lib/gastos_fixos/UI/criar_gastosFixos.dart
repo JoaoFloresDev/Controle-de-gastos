@@ -35,6 +35,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
   final descricaoController = TextEditingController();
   int lastIndexSelected_category = 0;
   int lastIndexSelected_day = 1;
+  String tipoRepeticao = "mensal";
 
   List<FixedExpense> _fixedExpenses = [];
   List<CategoryModel> icons_list_recorrent = [];
@@ -141,7 +142,14 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                     controller: descricaoController,
                   ),
                   const SizedBox(height: 12),
-                  RepetitionMenu(referenceDate: _selectedDate),
+                  RepetitionMenu(
+                    referenceDate: _selectedDate,
+                    onRepetitionSelected: (String selectedRepetition) {
+                      setState(() {
+                        tipoRepeticao = selectedRepetition;
+                      });
+                    },
+                  ),
                   const SizedBox(height: 12),
                   HorizontalCircleList(
                     onItemSelected: (index) {
@@ -163,10 +171,11 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                         await Fixedexpensesservice.addCard(FixedExpense(
                           description: descricaoController.text,
                           price: valorController.numberValue,
-                          day: _selectedDate.day,
+                          date: _selectedDate,
                           category:
                               icons_list_recorrent[lastIndexSelected_category],
                           id: const Uuid().v4(),
+                          tipoRepeticao: tipoRepeticao,
                         ));
                         setState(() {
                           widget.onAddPressedBack();
@@ -225,8 +234,9 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                               id: _fixedExpenses[index].id,
                               price: _fixedExpenses[index].price,
                               description: _fixedExpenses[index].description,
-                              day: _fixedExpenses[index].day,
+                              date: _fixedExpenses[index].date,
                               category: _fixedExpenses[index].category,
+                              tipoRepeticao: tipoRepeticao,
                             ),
                           ),
                         );

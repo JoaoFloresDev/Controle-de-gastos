@@ -79,5 +79,14 @@
     "reviewAppTitle": "Gostou do aplicativo?",
     "reviewAppDescription": "Avalie nosso app na App Store para ajudar mais pessoas a descobri-lo!",
     "NotNow": "Agora não",
-    "reviewButton": "Avaliar"
+    "reviewButton": "Avaliar",
+    "recurringExpenses" : "Gastos Recorrentes",
+    "mediaDiaria": "Média Diária",
+    "geral": "Geral",
+    "custoFixo": "Custo Fixo",
+    "custoVariavel": "Custo Variável",
+    "diasUteis": "Dias Úteis",
+    "finaisDeSemana": "Finais de \nSemana",
+    "diasMaiorCustoVariavel": "Dias com Maior Custo Variável",
+    "projecaoMes": "Projeção para o Mês"
 }

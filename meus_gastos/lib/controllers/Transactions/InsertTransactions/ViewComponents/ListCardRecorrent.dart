@@ -1,15 +1,34 @@
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'fixedExpensesModel.dart';
 
-class ListCardFixeds extends StatelessWidget {
-  final FixedExpense card;
-  final Function(FixedExpense) onTap;
+class ListCardRecorrent extends StatelessWidget {
+  final CardModel card;
+  final Function(CardModel) onTap;
+  final Future<void> onAddClicked;
 
-  const ListCardFixeds({super.key, required this.card, required this.onTap});
+  const ListCardRecorrent(
+      {super.key,
+      required this.card,
+      required this.onTap,
+      required this.onAddClicked});
+
+  void adicionar() async {
+    final newCard = CardModel(
+      amount: card.amount,
+      description: card.description,
+      date: card.date,
+      category: card.category,
+      id: CardService.generateUniqueId(),
+      idFixoControl: card.idFixoControl,
+    );
+    await CardService.addCard(newCard);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +37,7 @@ class ListCardFixeds extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
-          color: AppColors.card,
+          color: AppColors.background1,
           borderRadius: BorderRadius.circular(20),
           boxShadow: const [
             BoxShadow(
@@ -33,11 +52,18 @@ class ListCardFixeds extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
+            Align(
+              alignment: Alignment.center,
+              child: Text("${AppLocalizations.of(context)!.recurringExpenses}",
+                  style: TextStyle(
+                    color: AppColors.label,
+                  )),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  Translateservice.formatCurrency(card.price, context),
+                  Translateservice.formatCurrency(card.amount, context),
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -89,7 +115,7 @@ class ListCardFixeds extends StatelessWidget {
                 ),
                 Text(
                   DateFormat(AppLocalizations.of(context)!.dateFormat)
-                      .format(DateTime(DateTime.now().year, DateTime.now().month, card.date.day)),
+                      .format(card.date),
                   style: const TextStyle(
                     fontSize: 12,
                     color: AppColors.label,
@@ -97,9 +123,51 @@ class ListCardFixeds extends StatelessWidget {
                 ),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    // Ação do botão excluir
+                    print('Excluir pressionado');
+
+                    fakeExpens(card);
+                    onAddClicked;
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red, // Cor de fundo do botão
+                  ),
+                  child: Text('Excluir',
+                      style: TextStyle(
+                        color: AppColors.label,
+                      )),
+                ),
+                SizedBox(width: 16), // Espaço entre os botões
+                ElevatedButton(
+                  onPressed: () {
+                    // Ação do botão adicionar
+                    print('Adicionar pressionado');
+                    adicionar();
+                    onAddClicked;
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue, // Cor de fundo do botão
+                  ),
+                  child: Text('Adicionar',
+                      style: TextStyle(
+                        color: AppColors.label,
+                      )),
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> fakeExpens(CardModel cardFix) async {
+    cardFix.amount = 0;
+    await CardService.addCard(cardFix);
   }
 }

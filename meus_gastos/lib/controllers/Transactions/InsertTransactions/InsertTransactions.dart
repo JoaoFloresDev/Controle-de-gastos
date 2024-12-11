@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
+import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
 import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
@@ -69,6 +70,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   bool _isPro = false;
   List<String> fixedExpenseIds = [];
   List<String> normalExpenseIds = [];
+  List<String> IdsFixosControlList = [];
 
   late InAppPurchase _inAppPurchase;
   late Stream<List<PurchaseDetails>> _subscription;
@@ -95,12 +97,12 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     });
 
     int usageCount = prefs.getInt('usage_count') ?? 0;
-  usageCount += 1;
-  await prefs.setInt('usage_count', usageCount);
+    usageCount += 1;
+    await prefs.setInt('usage_count', usageCount);
 
-  if (!_isPro && usageCount > 40 && usageCount % 4 == 0) {
-    _showProModal(context);
-  }
+    if (!_isPro && usageCount > 40 && usageCount % 4 == 0) {
+      _showProModal(context);
+    }
   }
 
   void _deliverProduct(PurchaseDetails purchase) {
@@ -122,9 +124,12 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   Future<void> _loadFixedExpenseIds() async {
     final Fixedids = await Fixedexpensesservice.getFixedExpenseIds();
     final normalids = await service.CardService.getNormalExpenseIds();
+    final fixedsControlIds =
+        await service.CardService().getIdFixoControlList(cardList);
     setState(() {
       fixedExpenseIds = Fixedids;
       normalExpenseIds = normalids;
+      IdsFixosControlList = fixedsControlIds;
     });
   }
 
@@ -201,12 +206,11 @@ class _InsertTransactionsState extends State<InsertTransactions> {
               if (!_isPro &&
                   !Platform.isMacOS) // Se o usuário não é PRO, mostra o banner
                 Container(
-  height: 60,
-  width: double.infinity, // Largura total da tela
-  alignment: Alignment.center, // Centraliza no eixo X
-  child: const BannerAdconstruct(),
-),
-
+                  height: 60,
+                  width: double.infinity, // Largura total da tela
+                  alignment: Alignment.center, // Centraliza no eixo X
+                  child: const BannerAdconstruct(),
+                ),
               if (_showHeaderCard) ...[
                 Padding(
                   padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
@@ -300,13 +304,13 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 5),
-                        child: ListCard(
+                        child: ListCardRecorrent(
                           onTap: (card) {
                             widget.onAddClicked();
                             _showCupertinoModalBottomSheet_Fixed(context, card);
                           },
                           card: mergeCardList[cardList.length - index - 1],
-                          background: Colors.blue,
+                          onAddClicked: loadCards(),
                         ),
                       );
                     },
@@ -387,16 +391,30 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             ),
           ),
           child: DetailScreenFixedExpenses(
-            card: fixedCards.firstWhere((fcard) => fcard.id == card.id),
-            onAddClicked: () {
-              setState(() {
-                loadCards();
-              });
-            },
-          ),
+              card: fixedCards
+                  .firstWhere((fcard) => fcard.id == card.idFixoControl),
+              onAddClicked: () {
+                setState(() {
+                  loadCards();
+                });
+              },
+              onDeleteClicked: (FixedExpense cardFix) async {
+                // adicionar gasto falso
+                await fakeExpens(cardFix);
+
+                setState(() {
+                  loadCards();
+                });
+              }),
         );
       },
     );
+  }
+
+  Future<void> fakeExpens(FixedExpense cardFix) async {
+    cardFix.price = 0;
+    var car = Fixedexpensesservice.Fixed_to_NormalCard(cardFix);
+    await service.CardService.addCard(car);
   }
 
   void _showCupertinoModalBottomFixedExpenses(BuildContext context) {

@@ -1,0 +1,160 @@
+/* aqui será desenvolvido o controle dos intervalos 
+01 - Mensal: todo mês, se o dia atual for maior que o definido, aparece gasto fixo
+02 - Semanal: Toda semana aparece o gasto fixo, a partir de segunda
+03 - Anual: Se o dia/mês for maior que o definido no gasto fixo,  
+*/
+
+//Mensal
+import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/services/CardService.dart';
+
+class Intervalscontrol {
+  List<CardModel> filterCardsByDateMonth(List<CardModel> cards, int givenDay) {
+    DateTime now = DateTime.now();
+    // Filtra os cards
+    return cards.where((card) {
+      // Verifica se a data do card está no mesmo mês e ano que o atual
+      bool isSameMonth =
+          card.date.year == now.year && card.date.month == now.month;
+
+      // Verifica se o dia do card é maior ou igual ao dado
+      bool isAfterGivenDay = card.date.day >= givenDay;
+
+      // Retorna true se ambas as condições forem atendidas
+      return isSameMonth && isAfterGivenDay;
+    }).toList();
+  }
+
+  bool mensalInterval(FixedExpense gastoFixo, List<CardModel> cards) {
+    List<CardModel> filteredCard =
+        filterCardsByDateMonth(cards, gastoFixo.date.day);
+    List<String> IdsFixosControlList =
+        CardService().getIdFixoControlList(filteredCard);
+    if (!(IdsFixosControlList.contains(gastoFixo.id))) {
+      return true;
+    }
+    return false;
+  }
+
+  List<CardModel> filteredByWeek(List<CardModel> cards) {
+    // Define os limites da última semana
+    DateTime today = DateTime.now();
+    DateTime sevenDaysAgo = today.subtract(Duration(days: 7));
+
+    // Filtra os cartões
+    return cards.where((card) {
+      // Verifica se a data do cartão está nos últimos 7 dias
+      return card.date.isAfter(sevenDaysAgo) &&
+          card.date.isBefore(today.add(Duration(days: 1)));
+    }).toList();
+  }
+
+  bool weekInterval(FixedExpense gastoFixo, List<CardModel> cards) {
+    List<CardModel> filteredCard = filteredByWeek(cards);
+    List<String> IdsFixosControlList =
+        CardService().getIdFixoControlList(filteredCard);
+    if (!(IdsFixosControlList.contains(gastoFixo.id))) {
+      return true;
+    }
+    return false;
+  }
+
+  List<CardModel> filterCardsByYear(
+      List<CardModel> cards, FixedExpense gastoFixo) {
+    // Ano de referência
+    int referenceYear = gastoFixo.date.year;
+
+    // Data de referência
+    DateTime referenceDate = gastoFixo.date;
+
+    // Filtra os cartões
+    return cards.where((card) {
+      // Verifica se o cartão está no mesmo ano
+      bool isInSameYear = card.date.year == referenceYear;
+
+      // Verifica se o cartão está depois da data de referência
+      bool isAfterReferenceDate = card.date.isAfter(referenceDate);
+
+      return isInSameYear && isAfterReferenceDate;
+    }).toList();
+  }
+
+  bool yearInterval(FixedExpense gastoFixo, List<CardModel> cards) {
+    List<CardModel> filteredCard = filterCardsByYear(cards, gastoFixo);
+    List<String> IdsFixosControlList =
+        CardService().getIdFixoControlList(filteredCard);
+    if (!(IdsFixosControlList.contains(gastoFixo.id))) {
+      return true;
+    }
+    return false;
+  }
+
+  List<CardModel> filterByToday(List<CardModel> cards) {
+    // Obtém a data de hoje (apenas ano, mês e dia)
+    DateTime today = DateTime.now();
+    DateTime todayStart = DateTime(today.year, today.month, today.day);
+    DateTime todayEnd = todayStart.add(Duration(days: 1));
+
+    // Filtra os itens cuja data está entre o início e o fim do dia de hoje
+    return cards.where((card) {
+      DateTime itemDate = card.date;
+      return itemDate.isAfter(todayStart.subtract(Duration(milliseconds: 1))) &&
+          itemDate.isBefore(todayEnd);
+    }).toList();
+  }
+
+  bool isWeekday() {
+    // Obtém o número do dia da semana atual (1 = segunda-feira, 7 = domingo)
+    int todayWeekday = DateTime.now().weekday;
+
+    // Retorna true se for um dia útil (segunda a sexta)
+    return todayWeekday >= 1 && todayWeekday <= 5;
+  }
+
+  bool semanalInterval(FixedExpense gastoFixo, List<CardModel> cards) {
+    List<CardModel> filteredCard = filterByToday(cards);
+    List<String> IdsFixosControlList =
+        CardService().getIdFixoControlList(filteredCard);
+    if (!(IdsFixosControlList.contains(gastoFixo.id)) && (isWeekday())) {
+      return true;
+    }
+    return false;
+  }
+
+  bool diaryInterval(FixedExpense gastoFixo, List<CardModel> cards) {
+    List<CardModel> filteredCard = filterByToday(cards);
+    List<String> IdsFixosControlList =
+        CardService().getIdFixoControlList(filteredCard);
+    if (!(IdsFixosControlList.contains(gastoFixo.id))) {
+      return true;
+    }
+    return false;
+  }
+
+  bool IsapresentetionNecessary(FixedExpense gastoFixo, List<CardModel> cards) {
+    switch (gastoFixo.tipoRepeticao) {
+      case 'mensal':
+        // verifica se o dia do mês é maior que o gastoFixo.date.day e se não existe o gasto ainda
+        return mensalInterval(gastoFixo, cards);
+      case 'semanal':
+        print(
+            "Impressão do gasto fixo semanal ${weekInterval(gastoFixo, cards)}");
+        // verifica se o dia da semana é maior que o gastoFixo.date.day.ofsemana e se o gasto ainda não existe
+        return weekInterval(gastoFixo, cards);
+      case 'anual':
+        // verifica se dia/mês > gastoFixo.date.dia/mês e se ainda não existe o gasto
+        return yearInterval(gastoFixo, cards);
+      case 'seg_sex':
+        // verifica se está em um dia da semana e se não tem o gasto fixo no dia
+        return semanalInterval(gastoFixo, cards);
+      case 'diario':
+        print(diaryInterval(gastoFixo, cards));
+        // verifica se no dia atual não tem o gasto fixo.
+        return diaryInterval(gastoFixo, cards);
+      default:
+        // mensal
+        return mensalInterval(gastoFixo, cards);
+    }
+  }
+}

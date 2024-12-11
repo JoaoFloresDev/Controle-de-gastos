@@ -1,3 +1,4 @@
+import 'package:meus_gastos/gastos_fixos/intervalsControl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -13,7 +14,7 @@ class Fixedexpensesservice {
       return jsonList
           .map((jsonItem) => FixedExpense.fromJson(jsonItem))
           .toList()
-        ..sort((a, b) => a.day.compareTo(b.day));
+        ..sort((a, b) => a.date.compareTo(b.date));
     }
     return [];
   }
@@ -39,7 +40,7 @@ class Fixedexpensesservice {
       return jsonList
           .map((jsonItem) => FixedExpense.fromJson(jsonItem))
           .toList()
-        ..sort((a, b) => a.day.compareTo(b.day));
+        ..sort((a, b) => a.date.compareTo(b.date));
     }
     return [];
   }
@@ -57,7 +58,8 @@ class Fixedexpensesservice {
 
   // MARK: - Modify Cards
   static Future<void> modifyCards(
-      List<FixedExpense> Function(List<FixedExpense> cards) modification) async {
+      List<FixedExpense> Function(List<FixedExpense> cards)
+          modification) async {
     final List<FixedExpense> cards = await getSortedFixedExpenses();
     final List<FixedExpense> modifiedCards = modification(cards);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -91,14 +93,34 @@ class Fixedexpensesservice {
     });
   }
 
+  static DateTime getCurrentWeekdayDate(DateTime referenceDate) {
+    // Obtém o dia da semana da data de referência (1 = segunda-feira, 7 = domingo)
+    int referenceWeekday = referenceDate.weekday;
+
+    // Obtém o dia da semana de hoje
+    DateTime today = DateTime.now();
+    int todayWeekday = today.weekday;
+
+    // Calcula a diferença entre os dias da semana
+    int difference = referenceWeekday - todayWeekday;
+
+    // Retorna a data do mesmo dia da semana da data de referência nesta semana
+    return today.add(Duration(days: difference));
+  }
+
   static CardModel Fixed_to_NormalCard(FixedExpense fixedCard) {
+    int day = fixedCard.date.day;
+    if (fixedCard.tipoRepeticao == 'semanal')
+      day = getCurrentWeekdayDate(fixedCard.date).day;
+    if ((fixedCard.tipoRepeticao == 'seg_sex') || fixedCard.tipoRepeticao == 'diario') day = DateTime.now().day;
+
     return CardModel(
-        id: fixedCard.id,
+        id: CardService.generateUniqueId(),
         amount: fixedCard.price,
         description: fixedCard.description,
-        date:
-            DateTime(DateTime.now().year, DateTime.now().month, fixedCard.day),
-        category: fixedCard.category);
+        date: DateTime(DateTime.now().year, DateTime.now().month, day),
+        category: fixedCard.category,
+        idFixoControl: fixedCard.id);
   }
 
   static Future<List<CardModel>> MergeFixedWithNormal(
@@ -106,7 +128,7 @@ class Fixedexpensesservice {
     List<String> normalIds = await CardService.getNormalExpenseIds();
     for (var fcard in fixedCards) {
       if (!normalIds.contains(fcard.id)) {
-        if (DateTime.now().day >= fcard.day) {
+        if (Intervalscontrol().IsapresentetionNecessary(fcard, normalCards)) {
           normalCards.add(Fixed_to_NormalCard(fcard));
         }
       }
@@ -114,4 +136,3 @@ class Fixedexpensesservice {
     return normalCards..sort((a, b) => a.date.compareTo(b.date));
   }
 }
-

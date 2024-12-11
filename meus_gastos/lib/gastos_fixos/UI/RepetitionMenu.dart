@@ -18,8 +18,12 @@ import 'package:uuid/uuid.dart';
 
 class RepetitionMenu extends StatefulWidget {
   final DateTime referenceDate;
+  final Function(String selectedRepetition) onRepetitionSelected;
 
-  const RepetitionMenu({super.key, required this.referenceDate});
+  const RepetitionMenu(
+      {super.key,
+      required this.referenceDate,
+      required this.onRepetitionSelected});
 
   @override
   _RepetitionMenuState createState() => _RepetitionMenuState();
@@ -53,7 +57,8 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
     final DateFormat dayFormat = DateFormat('d');
     final DateFormat monthDayFormat = DateFormat('d MMMM', 'pt_BR');
 
-    final String dayOfWeek = DateFormat.EEEE('pt_BR').format(widget.referenceDate);
+    final String dayOfWeek =
+        DateFormat.EEEE('pt_BR').format(widget.referenceDate);
     final String dayOfMonth = dayFormat.format(widget.referenceDate);
     final String monthDay = monthDayFormat.format(widget.referenceDate);
 
@@ -68,6 +73,7 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
                 setState(() {
                   _selectedRepetition = "Mensal: todo dia $dayOfMonth";
                 });
+                widget.onRepetitionSelected('mensal');
                 Navigator.pop(context);
               },
               child: Text("Mensal: todo dia $dayOfMonth"),
@@ -77,6 +83,7 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
                 setState(() {
                   _selectedRepetition = "Semanal: toda $dayOfWeek";
                 });
+                widget.onRepetitionSelected('semanal');
                 Navigator.pop(context);
               },
               child: Text("Semanal: toda $dayOfWeek"),
@@ -86,6 +93,7 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
                 setState(() {
                   _selectedRepetition = "Anual: todo dia $monthDay";
                 });
+                widget.onRepetitionSelected('anual');
                 Navigator.pop(context);
               },
               child: Text("Anual: todo dia $monthDay"),
@@ -93,8 +101,11 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
             CupertinoActionSheetAction(
               onPressed: () {
                 setState(() {
-                  _selectedRepetition = "Dias da semana: de segunda a sexta-feira";
+                  _selectedRepetition =
+                      "Dias da semana: de segunda a sexta-feira";
                 });
+                widget.onRepetitionSelected('seg_sex');
+
                 Navigator.pop(context);
               },
               child: const Text("Dias da semana: de segunda a sexta-feira"),
@@ -104,6 +115,7 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
                 setState(() {
                   _selectedRepetition = "Diariamente";
                 });
+                widget.onRepetitionSelected('diario');
                 Navigator.pop(context);
               },
               child: const Text("Diariamente"),

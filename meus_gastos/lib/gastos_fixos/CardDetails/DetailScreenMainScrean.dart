@@ -12,10 +12,13 @@ import 'package:flutter/material.dart';
 class DetailScreenFixedExpenses extends StatefulWidget {
   final FixedExpense card;
   final VoidCallback onAddClicked;
+final void Function(FixedExpense cardFixed) onDeleteClicked;
 
-  const DetailScreenFixedExpenses({super.key, 
+  const DetailScreenFixedExpenses({
+    super.key,
     required this.card,
     required this.onAddClicked,
+    required this.onDeleteClicked,
   });
 
   @override
@@ -55,9 +58,11 @@ class _DetailScreen extends State<DetailScreenFixedExpenses> {
                 Navigator.of(context).pop();
               },
               onDeletePressed: () {
-                Fixedexpensesservice.deleteCard(widget.card.id);
+                // Fixedexpensesservice.deleteCard(widget.card.id);
                 Future.delayed(const Duration(milliseconds: 300), () {
-                  widget.onAddClicked();
+                  // Adiciona falso gasto normal, para que não mostre o gasto fixo no determinado período
+                  widget.onDeleteClicked(widget.card);
+                  // widget.onAddClicked();
                   Navigator.of(context).pop();
                 });
               },
@@ -76,7 +81,7 @@ class _DetailScreen extends State<DetailScreenFixedExpenses> {
                 botomPageIsVisible: true,
               ),
             ),
-            
+
             const Expanded(child: SizedBox())
           ],
         ),

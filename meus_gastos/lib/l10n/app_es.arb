@@ -76,8 +76,18 @@
   "restorePurchases": "Restaurar compras",
   "loading": "Cargando...",
   "savefile": "Elige el nombre del archivo",
-    "reviewAppTitle": "¿Te gustó la aplicación?",
+  "reviewAppTitle": "¿Te gustó la aplicación?",
   "reviewAppDescription": "¡Califica nuestra aplicación en la App Store para ayudar a más personas a descubrirla!",
   "NotNow": "Ahora no",
-  "reviewButton": "Calificar"
+  "reviewButton": "Calificar",
+  "recurringExpenses": "Gastos Recurrentes",
+  "mediaDiaria": "Promedio Diario",
+  "geral": "General",
+  "custoFixo": "Costo Fijo",
+  "custoVariavel": "Costo Variable",
+  "diasUteis": "Días Laborales",
+  "finaisDeSemana": "Fines de \nSemana",
+  "diasMaiorCustoVariavel": "Días con Mayor Costo Variable",
+  "projecaoMes": "Proyección Mensual"
+
 }
