@@ -19,18 +19,21 @@ import 'package:uuid/uuid.dart';
 class RepetitionMenu extends StatefulWidget {
   final DateTime referenceDate;
   final Function(String selectedRepetition) onRepetitionSelected;
+  final String defaultRepetition;
 
   const RepetitionMenu(
       {super.key,
       required this.referenceDate,
-      required this.onRepetitionSelected});
+      required this.onRepetitionSelected,
+      required this.defaultRepetition
+      });
 
   @override
   _RepetitionMenuState createState() => _RepetitionMenuState();
 }
 
 class _RepetitionMenuState extends State<RepetitionMenu> {
-  late String _selectedRepetition;
+  late String _selectedRepetition = widget.defaultRepetition;
 
   @override
   void initState() {

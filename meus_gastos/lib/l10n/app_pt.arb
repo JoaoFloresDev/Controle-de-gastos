@@ -95,5 +95,17 @@
     "emptyDay": "Nenhuma transação \npara este dia",
     "transactions": "Transações",
     "dashboards": "Graficos",
-    "calendar": "Calendário"
+    "calendar": "Calendário",
+    "myMonthNow" : "Meu mês até agora",
+    "averageCostPerPurchase" : "Custo médio por compra",
+    "mostExpensiveDay" : "Dia mais caro do mês",
+    "distribution" : "Distribuição",
+    "firstTenDays" : "1ª dezena",
+    "secondTenDays" : "2ª dezena",
+    "thirdTenDays" : "3ª dezena",
+    "currentMonthVsPrevious" : "Mês atual / Mês anterior",
+    "highestIncrease" : "Maior aumento",
+    "highestDrop" : "Maior queda",
+    "mostUsed" : "Mais usada",
+    "dailyTransactions" : "Transações diárias" 
 }

@@ -38,22 +38,26 @@ class Intervalscontrol {
   }
 
   List<CardModel> filteredByWeek(List<CardModel> cards) {
-    // Define os limites da última semana
-    DateTime today = DateTime.now();
-    DateTime sevenDaysAgo = today.subtract(Duration(days: 7));
+  // Define os limites da semana atual
+  DateTime today = DateTime.now();
 
-    // Filtra os cartões
-    return cards.where((card) {
-      // Verifica se a data do cartão está nos últimos 7 dias
-      return card.date.isAfter(sevenDaysAgo) &&
-          card.date.isBefore(today.add(Duration(days: 1)));
-    }).toList();
-  }
+  // Calcula o início (segunda-feira) da semana atual
+  DateTime startOfWeek = today.subtract(Duration(days: today.weekday - 1));
+
+  // Calcula o final (domingo) da semana atual
+  DateTime endOfWeek = startOfWeek.add(Duration(days: 6));
+
+  // Filtra os cartões
+  return cards.where((card) {
+    // Verifica se a data do cartão está entre a segunda e o domingo da semana atual
+    return card.date.isAfter(startOfWeek.subtract(Duration(seconds: 1))) &&
+        card.date.isBefore(endOfWeek.add(Duration(days: 1)));
+  }).toList();
+}
 
   bool weekInterval(FixedExpense gastoFixo, List<CardModel> cards) {
     List<CardModel> filteredCard = filteredByWeek(cards);
-    List<String> IdsFixosControlList =
-        CardService().getIdFixoControlList(filteredCard);
+    List<String> IdsFixosControlList = CardService().getIdFixoControlList(filteredCard);
     if (!(IdsFixosControlList.contains(gastoFixo.id))) {
       return true;
     }
@@ -138,8 +142,6 @@ class Intervalscontrol {
         // verifica se o dia do mês é maior que o gastoFixo.date.day e se não existe o gasto ainda
         return mensalInterval(gastoFixo, cards);
       case 'semanal':
-        print(
-            "Impressão do gasto fixo semanal ${weekInterval(gastoFixo, cards)}");
         // verifica se o dia da semana é maior que o gastoFixo.date.day.ofsemana e se o gasto ainda não existe
         return weekInterval(gastoFixo, cards);
       case 'anual':
@@ -149,7 +151,6 @@ class Intervalscontrol {
         // verifica se está em um dia da semana e se não tem o gasto fixo no dia
         return semanalInterval(gastoFixo, cards);
       case 'diario':
-        print(diaryInterval(gastoFixo, cards));
         // verifica se no dia atual não tem o gasto fixo.
         return diaryInterval(gastoFixo, cards);
       default:

@@ -278,38 +278,39 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                 Expanded(
                   key: widget.cardsExpens,
                   child: ListView.builder(
-                    itemCount: mergeCardList.length,
-                    itemBuilder: (context, index) {
-                      final card =
-                          mergeCardList[mergeCardList.length - index - 1];
-                      if (normalExpenseIds.contains(card.id)) {
+                      itemCount: mergeCardList.length,
+                      itemBuilder: (context, index) {
+                        final card =
+                            mergeCardList[mergeCardList.length - index - 1];
+                        if (card.amount == 0) return SizedBox();
+                        if (normalExpenseIds.contains(card.id)) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            child: ListCard(
+                              onTap: (card) {
+                                widget.onAddClicked();
+                                _showCupertinoModalBottomSheet(context, card);
+                              },
+                              card: mergeCardList[cardList.length - index - 1],
+                              background: AppColors.card,
+                            ),
+                          );
+                        }
                         return Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 5),
-                          child: ListCard(
+                          child: ListCardRecorrent(
                             onTap: (card) {
                               widget.onAddClicked();
-                              _showCupertinoModalBottomSheet(context, card);
+                              _showCupertinoModalBottomSheet_Fixed(
+                                  context, card);
                             },
                             card: mergeCardList[cardList.length - index - 1],
-                            background: AppColors.card,
+                            onAddClicked: loadCards(),
                           ),
                         );
-                      }
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        child: ListCardRecorrent(
-                          onTap: (card) {
-                            widget.onAddClicked();
-                            _showCupertinoModalBottomSheet_Fixed(context, card);
-                          },
-                          card: mergeCardList[cardList.length - index - 1],
-                          onAddClicked: loadCards(),
-                        ),
-                      );
-                    },
-                  ),
+                      }),
                 ),
               if (cardList.isEmpty && fixedCards.isEmpty)
                 Expanded(

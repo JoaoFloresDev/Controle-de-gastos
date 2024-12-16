@@ -192,6 +192,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                 tipoRepeticao = selectedRepetition;
               });
             },
+            defaultRepetition: widget.card.tipoRepeticao,
           ),
           const SizedBox(height: 12),
           HorizontalCircleList(

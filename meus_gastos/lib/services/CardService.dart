@@ -170,7 +170,9 @@ class CardService {
 
     final List<CardModel> filteredCards = cards
         .where((card) =>
-            card.date.year == month.year && card.date.month == month.month)
+            card.date.year == month.year &&
+            card.date.month == month.month &&
+            card.amount != 0)
         .toList();
 
     for (var card in filteredCards) {

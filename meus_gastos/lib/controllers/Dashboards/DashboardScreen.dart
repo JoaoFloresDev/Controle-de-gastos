@@ -1,4 +1,3 @@
-import 'package:meus_gastos/monthInsights/monthInsights.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
@@ -29,7 +28,7 @@ import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/MonthSelector.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgressIndicatorSection.dart';
-import 'package:meus_gastos/controllers/Dashboards/ViewComponents/TotalSpentCarousel.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -226,7 +225,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 12),
       child: SizedBox(
         height: 440,
-        child: TotalSpentCarouselWithTitles(currentMonth: currentDate),
+        child: TotalSpentCarouselWithTitles(currentDate: currentDate),
       ),
     );
   }
@@ -419,11 +418,11 @@ class _DashboardScreenState extends State<DashboardScreen>
               )
             : Column(
                 children: [
-                  _buildBannerAd(),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
+                          _buildBannerAd(),
                           const SizedBox(height: 16),
                           _buildMonthSelector(),
                           const SizedBox(height: 16),

@@ -96,17 +96,20 @@ class Dashbordservice {
   }
 
   static List<CategoryModel> extractCategories(
-      List<List<ProgressIndicatorModel>> progressIndicatorsList) {
-      Map<String, CategoryModel> uniqueCategories = {};
+    List<List<ProgressIndicatorModel>> progressIndicatorsList) {
+  Map<String, CategoryModel> uniqueCategories = {};
 
-    for (var progressIndicators in progressIndicatorsList) {
-      for (var progressIndicator in progressIndicators) {
-        uniqueCategories[progressIndicator.category.id] = progressIndicator.category;
+  for (var progressIndicators in progressIndicatorsList) {
+    for (var progressIndicator in progressIndicators) {
+      if (progressIndicator.progress != 0) { 
+        uniqueCategories[progressIndicator.category.id] = 
+            progressIndicator.category;
       }
     }
+  }
 
   return uniqueCategories.values.toList();
-  }
+}
 
   static Future<List<List<ProgressIndicatorModel>>>
       getDailyProgressIndicatorsByWeek(DateTime start, DateTime end) async {

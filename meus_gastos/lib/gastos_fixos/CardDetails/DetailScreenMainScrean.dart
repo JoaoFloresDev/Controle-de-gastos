@@ -78,7 +78,7 @@ class _DetailScreen extends State<DetailScreenFixedExpenses> {
                   widget.onAddClicked();
                   Navigator.of(context).pop();
                 },
-                botomPageIsVisible: true,
+                botomPageIsVisible: false,
               ),
             ),
 

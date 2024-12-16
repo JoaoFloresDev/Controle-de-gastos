@@ -13,6 +13,7 @@ class ListCardFixeds extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print("${card.date.day}");
     return GestureDetector(
       onTap: () => onTap(card),
       child: Container(
@@ -88,8 +89,9 @@ class ListCardFixeds extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  DateFormat(AppLocalizations.of(context)!.dateFormat)
-                      .format(DateTime(DateTime.now().year, DateTime.now().month, card.date.day)),
+                  DateFormat(AppLocalizations.of(context)!.dateFormat).format(
+                      DateTime(DateTime.now().year, DateTime.now().month,
+                          card.date.day)),
                   style: const TextStyle(
                     fontSize: 12,
                     color: AppColors.label,
