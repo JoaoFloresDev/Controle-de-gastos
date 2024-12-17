@@ -15,12 +15,14 @@ class TotalSpentCarouselWithTitles extends StatefulWidget {
     required this.currentDate,
   });
 
+
+
   @override
-  _TotalSpentCarouselWithTitles createState() =>
-      _TotalSpentCarouselWithTitles();
+  TotalSpentCarouselWithTitlesState createState() =>
+      TotalSpentCarouselWithTitlesState();
 }
 
-class _TotalSpentCarouselWithTitles
+class TotalSpentCarouselWithTitlesState
     extends State<TotalSpentCarouselWithTitles> {
   double avaregeDaily = 0.0;
   double monthExpenses = 0.0;
@@ -37,74 +39,89 @@ class _TotalSpentCarouselWithTitles
   List<double> tenDaysExpenses = [];
   Map<String, double> resumeCurrentMonth = {};
   Map<String, double> resumePreviousMonth = {};
+  Map<String, double> highestIncrease = {};
+  Map<String, double> highestDrop = {};
+  Map<String, int> highestFrequency = {};
+  Map<String, double> listOfExpensesByCategoryOfCurrentMonth = {};
+  Map<String, double> listDiferencesExpenseByCategory = {};
+  double projecaoFixed = 0.0;
 
   @override
   void initState() {
     super.initState();
-    getValues();
+    getValues(widget.currentDate);
   }
 
   //didChanges...
   @override
-  void didChangeDependencies() {
+  Future<void> didChangeDependencies() async {
     super.didChangeDependencies();
-    getValues();
+    await buildGroupedPhrases(widget.currentDate);
   }
 
-  Future<void> getValues() async {
+  Future<void> getValues(DateTime currentDate) async {
     await CardService.retrieveCards();
     var mediaValues =
-        await Monthinsightsservices.monthExpenses(widget.currentDate);
+        await Monthinsightsservices.monthExpenses(currentDate);
     var gastosMensaisAteAgora =
-        await Monthinsightsservices.monthExpenses(widget.currentDate);
+        await Monthinsightsservices.monthExpenses(currentDate);
     var ValuesFixeds =
-        await Monthinsightsservices.getFixedExpenses(widget.currentDate);
+        await Monthinsightsservices.getFixedExpenses(currentDate);
     var valuesBusnisses =
-        await Monthinsightsservices.getBusinessDaysExpenses(widget.currentDate);
+        await Monthinsightsservices.getBusinessDaysExpenses(currentDate);
     var valuesWeekends =
-        await Monthinsightsservices.getWeekendExpenses(widget.currentDate);
+        await Monthinsightsservices.getWeekendExpenses(currentDate);
     var daysExpensers =
-        await Monthinsightsservices.doisDiasComMaiorGasto(widget.currentDate);
+        await Monthinsightsservices.doisDiasComMaiorGasto(currentDate);
     var averageCostPerPurchaseAux =
-        await Monthinsightsservices.avaregeCostPerPurchase(widget.currentDate);
+        await Monthinsightsservices.avaregeCostPerPurchase(currentDate);
     var mediaDiariaDeTransacoes =
-        await Monthinsightsservices.avareCardsByDay(widget.currentDate);
+        await Monthinsightsservices.avareCardsByDay(currentDate);
     var auxiliarDayWithBiggerExpense =
-        await Monthinsightsservices.dayWithHigerExpense(widget.currentDate);
+        await Monthinsightsservices.dayWithHigerExpense(currentDate);
     var auxDezenasDaysExpenses =
-        await Monthinsightsservices.expensesInDezenas(widget.currentDate);
+        await Monthinsightsservices.expensesInDezenas(currentDate);
     resumePreviousMonth = await Monthinsightsservices.resumeMonth(
-        Monthinsightsservices.diminuirUmMes(widget.currentDate));
+        Monthinsightsservices.diminuirUmMes(currentDate));
     resumeCurrentMonth =
-        await Monthinsightsservices.resumeMonth(widget.currentDate);
+        await Monthinsightsservices.resumeMonth(currentDate);
+    listDiferencesExpenseByCategory = await Monthinsightsservices.diferencesExpenseByCategory(currentDate);
+    highestFrequency = await Monthinsightsservices.mostFrequentCategoryByMonth(currentDate);
+    listOfExpensesByCategoryOfCurrentMonth = await Monthinsightsservices.expenseByCategoryOfCurrentMonth(currentDate);
+    projecaoFixed = await Monthinsightsservices.projectionFixedForTheMonth(currentDate);
     setState(() {
       avaregeDaily =
-          Monthinsightsservices.dailyAverage(widget.currentDate, mediaValues);
-
+          Monthinsightsservices.dailyAverage(currentDate, mediaValues);
       // gastos do mes selecionado em questão
       monthExpenses = gastosMensaisAteAgora;
       monthFixedExpensesTotals = ValuesFixeds;
       monthFixedExpenses =
-          Monthinsightsservices.dailyAverage(widget.currentDate, ValuesFixeds);
+          Monthinsightsservices.dailyAverage(currentDate, ValuesFixeds);
       businessExpensives = valuesBusnisses;
       avaregeBusinessDailys = Monthinsightsservices.dailyAverageBusinessDays(
-          widget.currentDate, valuesBusnisses);
+          currentDate, valuesBusnisses);
       weekendExpensives = valuesWeekends;
       avaregeWeekendExpensives = Monthinsightsservices.dailyAverageWeekendDays(
-          widget.currentDate, valuesWeekends);
+          currentDate, valuesWeekends);
       daysWithMostVariavelExepenses = daysExpensers;
       averageCostPerPurchase = averageCostPerPurchaseAux;
       transectionsDaily = mediaDiariaDeTransacoes.round();
       dayWithHigerExpense = auxiliarDayWithBiggerExpense;
       tenDaysExpenses = auxDezenasDaysExpenses;
-
       resumeCurrentMonth = resumeCurrentMonth;
       resumePreviousMonth = resumePreviousMonth;
+      highestIncrease = Monthinsightsservices.highestIncreaseCategory(listDiferencesExpenseByCategory);
+      highestDrop = Monthinsightsservices.highestDropCategory(listDiferencesExpenseByCategory);
+      highestFrequency = highestFrequency;
+      listOfExpensesByCategoryOfCurrentMonth = listOfExpensesByCategoryOfCurrentMonth;
+      listDiferencesExpenseByCategory = listDiferencesExpenseByCategory;
+      projecaoFixed = projecaoFixed;
+
     });
-    print(resumeCurrentMonth['businessDays']);
+    print(listOfExpensesByCategoryOfCurrentMonth[highestFrequency.keys.first]);
   }
 
-  Future<List<Map<String, dynamic>>> buildGroupedPhrases() async {
+  Future<List<Map<String, dynamic>>> buildGroupedPhrases(DateTime currentDate) async {
     return [
       {
         "sections": [
@@ -137,11 +154,14 @@ class _TotalSpentCarouselWithTitles
             "title": "${AppLocalizations.of(context)!.projecaoMes}",
             "phrases": [
               [
-                "${AppLocalizations.of(context)!.geral}: 0.0",
+                "${AppLocalizations.of(context)!.geral}: ${Translateservice.formatCurrency(((currentDate.month == DateTime.now().month && currentDate.year == DateTime.now().year)) ?
+                 ((avaregeDaily - monthFixedExpenses)*Monthinsightsservices.daysInCurrentMonth(currentDate) + projecaoFixed) : monthExpenses, context)}",
               ],
               [
-                "${AppLocalizations.of(context)!.custoFixo}: 0.0 (%)",
-                "${AppLocalizations.of(context)!.custoVariavel}: 0.0 (%)"
+                "${AppLocalizations.of(context)!.custoFixo}: ${Translateservice.formatCurrency(projecaoFixed, context)} (${(projecaoFixed/((currentDate.month == DateTime.now().month && currentDate.year == DateTime.now().year) ?
+                 ((avaregeDaily - monthFixedExpenses)*Monthinsightsservices.daysInCurrentMonth(currentDate) + projecaoFixed) : monthExpenses)*100).round()}%)",
+                "${AppLocalizations.of(context)!.custoVariavel}: ${Translateservice.formatCurrency(((avaregeDaily - monthFixedExpenses)*Monthinsightsservices.daysInCurrentMonth(currentDate)), context)} (${((avaregeDaily - monthFixedExpenses)*Monthinsightsservices.daysInCurrentMonth(currentDate)/((currentDate.month == DateTime.now().month && currentDate.year == DateTime.now().year) ?
+                 ((avaregeDaily - monthFixedExpenses)*Monthinsightsservices.daysInCurrentMonth(currentDate) + projecaoFixed) : monthExpenses)*100).round()}%)"
               ],
             ],
           },
@@ -217,9 +237,14 @@ class _TotalSpentCarouselWithTitles
             "title": "${AppLocalizations.of(context)!.category}",
             "phrases": [
               [
-                "${AppLocalizations.of(context)!.highestIncrease}: Mercado (+10%)",
-                "${AppLocalizations.of(context)!.highestDrop}: Agua (-20%)",
-                "${AppLocalizations.of(context)!.mostUsed}: Luz (+20%)"
+                "${AppLocalizations.of(context)!.highestIncrease}: "
+                "${Translateservice.getTranslatedCategoryName(context, highestIncrease.keys.first)} "
+                "(+${highestIncrease.values.first > 0 && (listOfExpensesByCategoryOfCurrentMonth[highestIncrease.keys.first] ?? 0) > 0 ? ((highestIncrease.values.first / (listOfExpensesByCategoryOfCurrentMonth[highestIncrease.keys.first] ?? 0)) * 100).round() : 0}%)",
+                "${AppLocalizations.of(context)!.highestDrop}: "
+                "${Translateservice.getTranslatedCategoryName(context, highestDrop.keys.first)} "
+                "(-${highestDrop.values.first > 0 && (listOfExpensesByCategoryOfCurrentMonth[highestDrop.keys.first] ?? 0) > 0 ? ((highestDrop.values.first / (listOfExpensesByCategoryOfCurrentMonth[highestDrop.keys.first] ?? 0)) * 100).round() : 0}%)",
+
+                "${AppLocalizations.of(context)!.mostUsed}: ${Translateservice.getTranslatedCategoryName(context, highestFrequency.keys.first)} (${((listDiferencesExpenseByCategory[highestFrequency.keys.first]??0)/(listOfExpensesByCategoryOfCurrentMonth[highestFrequency.keys.first]??0)*100).round()}%)"
               ]
             ],
           },
@@ -230,8 +255,10 @@ class _TotalSpentCarouselWithTitles
 
   @override
   Widget build(BuildContext context) {
+    
+    print("${widget.currentDate.toLocal()}");
     return FutureBuilder<List<Map<String, dynamic>>>(
-      future: buildGroupedPhrases(),
+      future: buildGroupedPhrases(widget.currentDate),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(

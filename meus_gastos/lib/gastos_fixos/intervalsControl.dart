@@ -116,6 +116,8 @@ class Intervalscontrol {
     return todayWeekday >= 1 && todayWeekday <= 5;
   }
 
+  
+
   bool semanalInterval(FixedExpense gastoFixo, List<CardModel> cards) {
     List<CardModel> filteredCard = filterByToday(cards);
     List<String> IdsFixosControlList =

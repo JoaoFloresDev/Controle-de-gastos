@@ -1,3 +1,4 @@
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
@@ -31,6 +32,7 @@ import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgress
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';
 import 'package:flutter/material.dart';
 
+
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
 
@@ -43,6 +45,8 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
   bool _isPro = false;
+
+  final GlobalKey<TotalSpentCarouselWithTitlesState> insights = GlobalKey<TotalSpentCarouselWithTitlesState>();
 
   //mark - propriedades
   List<ProgressIndicatorModel> progressIndicators = [];
@@ -134,6 +138,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     setState(() {
       currentDate = DateTime(currentDate.year, currentDate.month + delta);
       _loadProgressIndicators(currentDate);
+
     });
   }
 
@@ -225,7 +230,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 12),
       child: SizedBox(
         height: 440,
-        child: TotalSpentCarouselWithTitles(currentDate: currentDate),
+        child: TotalSpentCarouselWithTitles(key: ValueKey(currentDate), currentDate: currentDate),
       ),
     );
   }
