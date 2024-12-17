@@ -182,7 +182,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       height: 60,
       width: double.infinity, // Largura total da tela
       alignment: Alignment.center, // Centraliza no eixo X
-      child: LoadingContainer(),
+      child: BannerAdconstruct(),
     );
   }
 

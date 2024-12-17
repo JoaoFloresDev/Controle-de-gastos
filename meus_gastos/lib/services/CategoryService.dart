@@ -167,12 +167,13 @@ class CategoryService {
         categoryHighFrequency != null &&
         categoryHighFrequency.id.isNotEmpty) {
       categoryMaps[index]['frequency'] = categoryHighFrequency.frequency + 1;
+      // print("DADADAD${categoryMaps[index]['frequency']}");
 
 
       List<String> updatedCategories = categoryMaps.map((categoryMap) {
         return jsonEncode(categoryMap);
       }).toList();
-
+      
       await prefs.setStringList(_categoriesKey, updatedCategories);
     }
   }

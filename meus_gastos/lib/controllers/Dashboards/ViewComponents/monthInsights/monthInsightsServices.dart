@@ -408,6 +408,16 @@ class Monthinsightsservices {
     // Armazenando a diferença no mapa
     differencesByCategory[categoryId] = difference;
   }
+  for (var categoryId in totalsOfPreviousMonths.keys) {
+    final double currentMonthTotal = totalsOfCurrentMonths[categoryId] ?? 0;
+    final double previousMonthTotal = totalsOfPreviousMonths[categoryId] ?? 0;
+
+    // Calculando a diferença entre o mês atual e o mês anterior
+    final double difference = currentMonthTotal - previousMonthTotal;
+
+    // Armazenando a diferença no mapa
+    differencesByCategory[categoryId] = difference;
+  }
 
   // Retornando o mapa com as diferenças de gastos por categoria
   return differencesByCategory;
@@ -430,13 +440,15 @@ class Monthinsightsservices {
   static Map<String, double> highestDropCategory(Map<String, double> differencesByCategory){
     String categoryHighestIncrease = '-';
     double expenseHighestIncrease = 0.0;
+    
     var expense;
     for (var entry in differencesByCategory.entries) {
-    if (entry.value < expenseHighestIncrease) {
-      categoryHighestIncrease = entry.key;
-      expenseHighestIncrease = entry.value;
+      print("!!!!!!!!!!!$entry.value");
+      if (entry.value < expenseHighestIncrease) {
+        categoryHighestIncrease = entry.key;
+        expenseHighestIncrease = entry.value;
+      }
     }
-  }
     return {categoryHighestIncrease : expenseHighestIncrease};
   }
 
@@ -461,17 +473,18 @@ class Monthinsightsservices {
 
     String categoriaMaisFrequente = '';
     int maiorFrequencia = 0;
-
+    int count_general = 0;
     // Encontra a categoria com maior frequência
     frequency.forEach((categoria, count) {
       if (count > maiorFrequencia) {
         maiorFrequencia = count;
         categoriaMaisFrequente = categoria;
       }
+      count_general = count_general + count;
     });
 
     return {
-      categoriaMaisFrequente: maiorFrequencia,
+      categoriaMaisFrequente: ((maiorFrequencia/count_general) * 100).round(),
     };
   }
 

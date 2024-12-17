@@ -100,12 +100,13 @@ class HeaderCardState extends State<HeaderCard> {
     );
     if (!(newCard.amount == 0)) CardService.addCard(newCard);
 
-    CategoryService.incrementCategoryFrequency(
+    await CategoryService.incrementCategoryFrequency(
         (_horizontalCircleListKey.currentState?.categorieList ??
                 [])[lastIndexSelected]
             .id);
     CategoryService().printAllCategories();
     setState(() {
+      _horizontalCircleListKey.currentState?.loadCategories();
       valorController.updateValue(0.0);
       descricaoController.clear();
     });
