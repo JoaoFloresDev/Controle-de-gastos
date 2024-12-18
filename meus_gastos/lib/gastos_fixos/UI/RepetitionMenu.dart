@@ -53,7 +53,28 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
   void _updateRepetitionText() {
     final DateFormat dayFormat = DateFormat('d');
     final String dayOfMonth = dayFormat.format(widget.referenceDate);
-    _selectedRepetition = "Mensal: todo dia $dayOfMonth";
+    print("${widget.defaultRepetition}");
+    switch (widget.defaultRepetition){
+          case ('mensal'):
+            _selectedRepetition = "Mensal: todo dia $dayOfMonth";
+            break;
+          case ('semanal'):
+            _selectedRepetition = "Semanal: toda ${DateFormat.EEEE('pt_BR').format(widget.referenceDate)}";
+            break;
+          case ('anual'):
+            _selectedRepetition = "Anual: todo dia ${DateFormat('d MMMM', 'pt_BR').format(widget.referenceDate)}";
+            break;
+          case ('seg_sex'):
+            _selectedRepetition =
+                      "Dias da semana: de segunda a sexta-feira";
+            break;
+          case ('diario'):
+            _selectedRepetition = "Diariamente";
+            break;
+          default:
+            _selectedRepetition = "Mensal: todo dia $dayOfMonth";
+            break;
+        }
   }
 
   void _showRepetitionOptions(BuildContext context) {

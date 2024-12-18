@@ -42,12 +42,12 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   List<CategoryModel> categorieList = [];
   final DateTime dataInicial = DateTime.now();
   final double valorInicial = 0.0;
-  late int lastIndexSelected_category;
+  late int lastIndexSelected_category = 0;
   List<CategoryModel> icons_list_recorrent = [];
   late bool _isPaga;
 
   DateTime _selectedDate = DateTime.now();
-  String tipoRepeticao = "mensal";
+  String tipoRepeticao = "";
 
   Future<void> loadCategories() async {
     var categorieList = await CategoryService().getAllCategories();
@@ -80,6 +80,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       descricaoFocusNode.requestFocus();
     });
+    tipoRepeticao = widget.card.tipoRepeticao;
     loadCategories();
   }
 
@@ -118,28 +119,17 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   // MARK: - Adicionar
   void adicionar() {
     print(icons_list_recorrent[lastIndexSelected_category].name);
-    if (_isPaga) {
-      final newCard = CardModel(
-        amount: valorController.numberValue,
-        description: descricaoController.text,
-        date: DateTime(
-            DateTime.now().year, DateTime.now().month, lastDateSelected),
-        category: icons_list_recorrent[lastIndexSelected_category],
-        id: widget.card.id,
-      );
-      CardService.addCard(newCard);
-    } else {
-      final newCard = FixedExpense(
-        price: valorController.numberValue,
-        description: descricaoController.text,
-        date: DateTime(
-            DateTime.now().year, DateTime.now().month, lastDateSelected),
-        category: icons_list_recorrent[lastIndexSelected_category],
-        id: const Uuid().v4(),
-        tipoRepeticao: tipoRepeticao,
-      );
-      Fixedexpensesservice.updateCard(widget.card.id, newCard);
-    }
+    
+    final newCard = FixedExpense(
+      price: valorController.numberValue,
+      description: descricaoController.text,
+      date: DateTime(
+          DateTime.now().year, DateTime.now().month, lastDateSelected),
+      category: icons_list_recorrent[lastIndexSelected_category],
+      id: const Uuid().v4(),
+      tipoRepeticao: tipoRepeticao,
+    );
+    Fixedexpensesservice.updateCard(widget.card.id, newCard);
 
     Future.delayed(const Duration(milliseconds: 300), () {
       widget.onAddClicked();
@@ -185,15 +175,18 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             style: const TextStyle(color: AppColors.label),
           ),
           const SizedBox(height: 12),
-          RepetitionMenu(
-            referenceDate: _selectedDate,
-            onRepetitionSelected: (String selectedRepetition) {
-              setState(() {
-                tipoRepeticao = selectedRepetition;
-              });
-            },
-            defaultRepetition: widget.card.tipoRepeticao,
-          ),
+          if(widget.botomPageIsVisible)
+            RepetitionMenu(
+              referenceDate: _selectedDate,
+              onRepetitionSelected: (String selectedRepetition) {
+                setState(() {
+                  tipoRepeticao = selectedRepetition;
+
+                  print(tipoRepeticao);
+                });
+              },
+              defaultRepetition: widget.card.tipoRepeticao,
+            ),
           const SizedBox(height: 12),
           HorizontalCircleList(
             onItemSelected: (index) {
@@ -205,28 +198,22 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             icons_list_recorrent: icons_list_recorrent,
             defaultIndexCategory: lastIndexSelected_category ?? 0,
           ),
-          if (widget.botomPageIsVisible)
-            ElevatedButton(
-              onPressed: _toggleStatus,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _isPaga ? Colors.green : Colors.red,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-              ),
-              child: Text(
-                _isPaga ? 'Paga' : 'Não Paga',
-                style: const TextStyle(fontSize: 20, color: Colors.white),
-              ),
-            ),
           const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: CupertinoButton(
-              color: AppColors.button,
-              onPressed: adicionar,
-              child: Text(
-                widget.adicionarButtonTitle,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+            child: SizedBox(
+              width: double.infinity,
+              child: CupertinoButton(
+                color: AppColors.button,
+                onPressed: () {
+                  adicionar();
+                  widget.onAddClicked;
+                  Fixedexpensesservice.printCardsInfo();
+                },
+                child: Text(
+                  widget.adicionarButtonTitle,
+                  style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.label),
+                ),
               ),
             ),
           ),

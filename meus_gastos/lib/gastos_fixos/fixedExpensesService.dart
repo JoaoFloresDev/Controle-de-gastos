@@ -135,4 +135,18 @@ class Fixedexpensesservice {
     }
     return normalCards..sort((a, b) => a.date.compareTo(b.date));
   }
+
+  
+  static Future<void> printCardsInfo() async {
+    List<FixedExpense> cards = await Fixedexpensesservice.retrieveCards();
+  for (var card in cards) {
+    print('ID: ${card.id}');
+    print('Description: ${card.description}');
+    print('Price: \$${card.price.toStringAsFixed(2)}');
+    print('Date: ${card.date.toLocal()}');
+    print('Category: ${card.category}');
+    print('Tipo de Repetição: ${card.tipoRepeticao}');
+    print('---------------------------');
+  }
+}
 }

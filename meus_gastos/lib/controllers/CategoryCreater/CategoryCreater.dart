@@ -280,7 +280,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                           },
                           child: Text(
                             AppLocalizations.of(context)!.addCategory,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.label),
                           ),
                         ),
                       ),

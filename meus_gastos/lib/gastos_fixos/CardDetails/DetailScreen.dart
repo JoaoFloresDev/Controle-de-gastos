@@ -66,7 +66,7 @@ class _DetailScreen extends State<DetailScreen> {
                   widget.onAddClicked();
                   Navigator.of(context).pop();
                 },
-                botomPageIsVisible: false,
+                botomPageIsVisible: true,
               ),
             ),
             const Expanded(child: SizedBox())

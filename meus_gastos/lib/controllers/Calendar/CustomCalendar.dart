@@ -138,7 +138,7 @@ class CustomCalendarState extends State<CustomCalendar> {
                 height: 60,
                 width: double.infinity, // Largura total da tela
                 alignment: Alignment.center, // Centraliza no eixo X
-                child: LoadingContainer(),
+                child: BannerAdconstruct(),
               ),
             CalendarTable(
               focusedDay: _focusedDay,

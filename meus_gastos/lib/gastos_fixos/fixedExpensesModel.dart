@@ -1,3 +1,4 @@
+import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 
 class FixedExpense {
@@ -6,7 +7,7 @@ class FixedExpense {
   double price;
   DateTime date;
   CategoryModel category;
-  String tipoRepeticao = 'mensal';
+  String tipoRepeticao='mensal';
 
   FixedExpense(
       {required this.description,
@@ -39,4 +40,5 @@ class FixedExpense {
       tipoRepeticao: json['tipoRepeticao'],
     );
   }
+
 }

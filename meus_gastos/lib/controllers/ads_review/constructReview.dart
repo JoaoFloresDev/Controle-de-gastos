@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:meus_gastos/controllers/Transactions/InsertTransactions/InsertTransactions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ReviewService {
@@ -10,7 +14,7 @@ class ReviewService {
     sessionCount += 1;
     await prefs.setInt('session_count', sessionCount);
 
-    print("entrou");
+    print("$sessionCount");
     print(sessionCount);
     if (sessionCount == 4) {
       print("aqui!");
@@ -19,7 +23,12 @@ class ReviewService {
         print("aqui!12aaa");
         inAppReview.requestReview();
       }
-    } else if (sessionCount == 12) {
+    } else if (sessionCount == 8){
+      // showProModal
+    } else if(sessionCount == 10){
+      // show AdMOb
+    } else if (sessionCount >= 12) {
+      await prefs.setInt('session_count', 0);
       print("aqui!12");
       _showCustomReviewDialog(context);
     }
@@ -54,6 +63,8 @@ class ReviewService {
       },
     );
   }
+
+  
 
   static void _redirectToAppStore() {
     final InAppReview inAppReview = InAppReview.instance;

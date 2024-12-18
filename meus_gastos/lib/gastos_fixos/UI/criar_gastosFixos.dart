@@ -166,28 +166,31 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: CupertinoButton(
-                      color: AppColors.button,
-                      onPressed: () async {
-                        await Fixedexpensesservice.addCard(FixedExpense(
-                          description: descricaoController.text,
-                          price: valorController.numberValue,
-                          date: _selectedDate,
-                          category:
-                              icons_list_recorrent[lastIndexSelected_category],
-                          id: const Uuid().v4(),
-                          tipoRepeticao: tipoRepeticao,
-                        ));
-                        setState(() {
-                          widget.onAddPressedBack();
-                          _loadFixedExpenses();
-                        });
-                      },
-                      child: Text(
-                        AppLocalizations.of(context)!.add,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.label),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: CupertinoButton(
+                        color: AppColors.button,
+                        onPressed: () async {
+                          await Fixedexpensesservice.addCard(FixedExpense(
+                            description: descricaoController.text,
+                            price: valorController.numberValue,
+                            date: _selectedDate,
+                            category:
+                                icons_list_recorrent[lastIndexSelected_category],
+                            id: const Uuid().v4(),
+                            tipoRepeticao: tipoRepeticao,
+                          ));
+                          setState(() {
+                            widget.onAddPressedBack();
+                            _loadFixedExpenses();
+                          });
+                        },
+                        child: Text(
+                          AppLocalizations.of(context)!.add,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.label),
+                        ),
                       ),
                     ),
                   ),
@@ -237,7 +240,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                               description: _fixedExpenses[index].description,
                               date: _fixedExpenses[index].date,
                               category: _fixedExpenses[index].category,
-                              tipoRepeticao: tipoRepeticao,
+                              tipoRepeticao: _fixedExpenses[index].tipoRepeticao,
                             ),
                           ),
                         );
@@ -251,6 +254,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
   }
 
   void _showCupertinoModalBottomSheet(BuildContext context, FixedExpense card) {
+    print(card.tipoRepeticao);
     FocusScope.of(context).unfocus();
     showCupertinoModalPopup(
       context: context,
