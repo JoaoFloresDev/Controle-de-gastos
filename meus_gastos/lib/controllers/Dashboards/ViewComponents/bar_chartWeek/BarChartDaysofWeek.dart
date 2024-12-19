@@ -358,6 +358,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         borderColor: AppColors.card,
       );
     }).toList());
+    
     seriesList.add(StackedColumnSeries<ProgressIndicatorModel, String>(
       dataSource: List.generate(days.length, (index) {
         return ProgressIndicatorModel(

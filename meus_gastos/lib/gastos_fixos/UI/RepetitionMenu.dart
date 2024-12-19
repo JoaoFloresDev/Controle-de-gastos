@@ -38,7 +38,10 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
   @override
   void initState() {
     super.initState();
-    _updateRepetitionText();
+    // _updateRepetitionText();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+    _updateRepetitionText(context);
+  });
   }
 
   @override
@@ -46,43 +49,46 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
     super.didUpdateWidget(oldWidget);
     // Atualiza os textos quando a `referenceDate` for alterada
     if (widget.referenceDate != oldWidget.referenceDate) {
-      _updateRepetitionText();
+      _updateRepetitionText(context);
     }
   }
 
-  void _updateRepetitionText() {
+  void _updateRepetitionText(BuildContext context) {
     final DateFormat dayFormat = DateFormat('d');
     final String dayOfMonth = dayFormat.format(widget.referenceDate);
     print("${widget.defaultRepetition}");
     switch (widget.defaultRepetition){
           case ('mensal'):
-            _selectedRepetition = "Mensal: todo dia $dayOfMonth";
+            _selectedRepetition = "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth";
             break;
           case ('semanal'):
-            _selectedRepetition = "Semanal: toda ${DateFormat.EEEE('pt_BR').format(widget.referenceDate)}";
+            _selectedRepetition = "${AppLocalizations.of(context)!.weeklyEvery} ${DateFormat.EEEE('pt_BR').format(widget.referenceDate)}";
             break;
           case ('anual'):
-            _selectedRepetition = "Anual: todo dia ${DateFormat('d MMMM', 'pt_BR').format(widget.referenceDate)}";
+            _selectedRepetition = "${AppLocalizations.of(context)!.yearlyEveryDay} ${DateFormat('d MMMM', 'pt_BR').format(widget.referenceDate)}";
             break;
           case ('seg_sex'):
             _selectedRepetition =
-                      "Dias da semana: de segunda a sexta-feira";
+                      "${AppLocalizations.of(context)!.weekdaysMondayToFriday}";
             break;
           case ('diario'):
-            _selectedRepetition = "Diariamente";
+            _selectedRepetition = "${AppLocalizations.of(context)!.daily}";
             break;
           default:
-            _selectedRepetition = "Mensal: todo dia $dayOfMonth";
+            _selectedRepetition = "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth";
             break;
         }
   }
 
   void _showRepetitionOptions(BuildContext context) {
     final DateFormat dayFormat = DateFormat('d');
-    final DateFormat monthDayFormat = DateFormat('d MMMM', 'pt_BR');
-
+    Locale locale = Localizations.localeOf(context);
+    String languageCode = locale.languageCode; // Exemplo: 'pt'
+    String countryCode = locale.countryCode ?? ''; // Exemplo: 'BR'
+    String localeString = countryCode.isNotEmpty ? '$languageCode\_$countryCode' : languageCode;
+    final DateFormat monthDayFormat = DateFormat('d MMMM', localeString);
     final String dayOfWeek =
-        DateFormat.EEEE('pt_BR').format(widget.referenceDate);
+        DateFormat.EEEE(localeString).format(widget.referenceDate);
     final String dayOfMonth = dayFormat.format(widget.referenceDate);
     final String monthDay = monthDayFormat.format(widget.referenceDate);
 
@@ -90,66 +96,66 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
       context: context,
       builder: (BuildContext context) {
         return CupertinoActionSheet(
-          title: const Text("Selecione uma opção de repetição"),
+          title: Text(AppLocalizations.of(context)!.selectAnOption),
           actions: <Widget>[
             CupertinoActionSheetAction(
               onPressed: () {
                 setState(() {
-                  _selectedRepetition = "Mensal: todo dia $dayOfMonth";
+                  _selectedRepetition = "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth";
                 });
                 widget.onRepetitionSelected('mensal');
                 Navigator.pop(context);
               },
-              child: Text("Mensal: todo dia $dayOfMonth"),
+              child: Text("${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth"),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
                 setState(() {
-                  _selectedRepetition = "Semanal: toda $dayOfWeek";
+                  _selectedRepetition = "${AppLocalizations.of(context)!.weeklyEvery} $dayOfWeek";
                 });
                 widget.onRepetitionSelected('semanal');
                 Navigator.pop(context);
               },
-              child: Text("Semanal: toda $dayOfWeek"),
+              child: Text("${AppLocalizations.of(context)!.weeklyEvery} $dayOfWeek"),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
                 setState(() {
-                  _selectedRepetition = "Anual: todo dia $monthDay";
+                  _selectedRepetition = "${AppLocalizations.of(context)!.yearlyEveryDay} $monthDay";
                 });
                 widget.onRepetitionSelected('anual');
                 Navigator.pop(context);
               },
-              child: Text("Anual: todo dia $monthDay"),
+              child: Text("${AppLocalizations.of(context)!.yearlyEveryDay} $monthDay"),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
                 setState(() {
                   _selectedRepetition =
-                      "Dias da semana: de segunda a sexta-feira";
+                      "${AppLocalizations.of(context)!.weekdaysMondayToFriday}";
                 });
                 widget.onRepetitionSelected('seg_sex');
 
                 Navigator.pop(context);
               },
-              child: const Text("Dias da semana: de segunda a sexta-feira"),
+              child: Text("${AppLocalizations.of(context)!.weekdaysMondayToFriday}"),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
                 setState(() {
-                  _selectedRepetition = "Diariamente";
+                  _selectedRepetition = "${AppLocalizations.of(context)!.daily}";
                 });
                 widget.onRepetitionSelected('diario');
                 Navigator.pop(context);
               },
-              child: const Text("Diariamente"),
+              child:  Text("${AppLocalizations.of(context)!.daily}"),
             ),
           ],
           cancelButton: CupertinoActionSheetAction(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text("Cancelar"),
+            child: Text("${AppLocalizations.of(context)!.cancel}"),
           ),
         );
       },

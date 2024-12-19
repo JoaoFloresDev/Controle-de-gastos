@@ -247,15 +247,28 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
     );
   }
 
+  List<String> getListIdsOfSelectedCategories(){
+    List<String> ids = [];
+    for(var cat in selectedCategories){
+      ids.add(cat.id);
+    }
+    return ids;
+  }
+
   List<List<ProgressIndicatorModel>> _getFilteredData() {
     if (selectedCategories.isEmpty) {
+      print('Nenhuma categoria selecionada.');
       return List.generate(widget.weeklyData.length, (_) => []);
     }
-
+    for (var cat in selectedCategories){
+    }
     return widget.weeklyData.map((week) {
+      print("${week.length>0 ? week.first.category.name : week.isEmpty}************");
       return week.where((data) {
-        return selectedCategories.contains(data.category);
-      }).toList();
+        // print('${data.category.name} ${selectedCategories.contains(data.category)}');
+        return getListIdsOfSelectedCategories().contains(data.category.id);
+      }
+      ).toList();
     }).toList();
   }
 
@@ -271,11 +284,17 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         .toSet()
         .toList();
 
-    List<double> weeklyTotalsControl = widget.weekIntervals.map((weekInterval) {
-      int index = widget.weekIntervals.indexOf(weekInterval);
+    List<double> weeklyTotalsControl = widget.weekIntervals.asMap().entries.map((entry) {
+      int index = entry.key; // Índice atual
+      var filteredData = _getFilteredData()[index];
+      print('Semana $index: Dados filtrados: $filteredData');
       return _getFilteredData()[index]
           .fold(0.0, (sum, item) => sum + item.progress);
     }).toList();
+
+    for( var dia in weeklyTotalsControl){
+      print('$dia!!!');
+    }
 
     List<double> weeklyTotals = widget.weekIntervals.map((weekInterval) {
       int index = widget.weekIntervals.indexOf(weekInterval);
@@ -284,7 +303,10 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
     }).toList();
     double maxWeeklyTotal = weeklyTotals.reduce((a, b) => a > b ? a : b);
 
-    return categories.map((category) {
+    List<StackedColumnSeries<
+          MapEntry<WeekInterval, List<ProgressIndicatorModel>>, String>> seriesList = [];
+
+    seriesList.addAll(categories.map((category) {
       return StackedColumnSeries<
           MapEntry<WeekInterval, List<ProgressIndicatorModel>>, String>(
         dataSource: widget.weekIntervals.asMap().entries.map((entry) {
@@ -334,8 +356,8 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         borderWidth: 3,
         borderColor: AppColors.card,
       );
-    }).toList()
-      ..add(StackedColumnSeries<
+    }).toList());
+      seriesList.add(StackedColumnSeries<
               MapEntry<WeekInterval, List<ProgressIndicatorModel>>, String>(
           dataSource: widget.weekIntervals.asMap().entries.map((entry) {
             return MapEntry(entry.value, widget.weeklyData[entry.key]);
@@ -344,7 +366,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
           yValueMapper: (entry, index) => 20,
           dataLabelMapper: (entry, index) => weeklyTotalsControl[index] > 0
               ? Translateservice.formatCurrency(weeklyTotalsControl[index], context)
-              : '',
+              : "",
           pointColorMapper: (entry, _) => Colors.transparent,
           width: 0.5,
           name: AppLocalizations.of(context)!.total,
@@ -354,6 +376,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
             textStyle:
                 TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           )));
+      return seriesList;
   }
 
   String _getWeekLabel(WeekInterval week) {

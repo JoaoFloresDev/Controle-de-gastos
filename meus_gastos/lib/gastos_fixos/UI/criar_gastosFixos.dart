@@ -149,7 +149,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                         tipoRepeticao = selectedRepetition;
                       });
                     },
-                    defaultRepetition: '',
+                    defaultRepetition: 'mensal',
                   ),
                   const SizedBox(height: 12),
                   HorizontalCircleList(

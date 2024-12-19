@@ -107,5 +107,11 @@
   "highestIncrease" : "Mayor aumento",
   "highestDrop" : "Mayor caída",
   "mostUsed" : "Más usada",
-  "dailyTransactions" : "Transacciones diarias"
+  "dailyTransactions" : "Transacciones diarias",
+  "monthlyEveryDay": "Mensual: todos los días",
+  "weeklyEvery": "Semanal: toda",
+  "yearlyEveryDay": "Anual: todos los días",
+  "weekdaysMondayToFriday": "Días de semana: de lunes a viernes",
+  "daily": "Diariamente",
+  "selectAnOption": "Seleccione una opción de repetición"
 }
