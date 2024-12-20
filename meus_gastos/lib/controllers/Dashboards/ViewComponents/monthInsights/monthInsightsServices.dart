@@ -484,7 +484,7 @@ class Monthinsightsservices {
     });
 
     return {
-      categoriaMaisFrequente: ((maiorFrequencia/count_general) * 100).round(),
+      categoriaMaisFrequente: (((maiorFrequencia??0)/(count_general==0 ? 1 : count_general)) * 100).round(),
     };
   }
 
@@ -508,6 +508,9 @@ class Monthinsightsservices {
   static Future<double> projectionFixedForTheMonth(DateTime currentDate) async {
       List<FixedExpense> fixedCards = await Fixedexpensesservice.retrieveCards();
       double totalExpenseFixed = 0.0;
+      if ((currentDate.month < DateTime.now().month && currentDate.year == DateTime.now().year) || (currentDate.year < DateTime.now().year)){
+        return getFixedExpenses(currentDate);
+      }
       for (var card in fixedCards){
         switch (card.tipoRepeticao){
           case ('mensal'):
@@ -517,8 +520,9 @@ class Monthinsightsservices {
             totalExpenseFixed = totalExpenseFixed + card.price * countWeekDaysInMonth(currentDate);
             break;
           case ('anual'):
-            if (card.date.month == currentDate.month)
+            if (card.date.month == currentDate.month) {
               totalExpenseFixed = totalExpenseFixed + card.price;
+            }
             break;
           case ('seg_sex'):
             totalExpenseFixed = totalExpenseFixed + card.price * calcularDiasUteisNoMes(currentDate);

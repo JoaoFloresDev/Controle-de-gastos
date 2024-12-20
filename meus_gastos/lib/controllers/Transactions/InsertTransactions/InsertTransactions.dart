@@ -303,8 +303,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                           child: ListCardRecorrent(
                             onTap: (card) {
                               widget.onAddClicked();
-                              _showCupertinoModalBottomSheet_Fixed(
-                                  context, card);
+                              // _showCupertinoModalBottomSheet_Fixed(
+                              //     context, card);
                             },
                             card: mergeCardList[cardList.length - index - 1],
                             onAddClicked: loadCards(),

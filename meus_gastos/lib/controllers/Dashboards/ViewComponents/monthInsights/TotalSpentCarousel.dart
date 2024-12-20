@@ -58,6 +58,18 @@ class TotalSpentCarouselWithTitlesState
     super.didChangeDependencies();
     await buildGroupedPhrases(widget.currentDate);
   }
+  
+  @override
+  void didUpdateWidget(TotalSpentCarouselWithTitles oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Atualiza os textos quando a `referenceDate` for alterada
+      print("${widget.currentDate}AAAAAAAAAAA");
+    if (widget.currentDate != oldWidget.currentDate) {
+      setState(() {
+        getValues(widget.currentDate);  
+      });
+    }
+  }
 
   Future<void> getValues(DateTime currentDate) async {
     await CardService.retrieveCards();
@@ -132,12 +144,12 @@ class TotalSpentCarouselWithTitlesState
                 "${AppLocalizations.of(context)!.geral}: ${Translateservice.formatCurrency(avaregeDaily, context)}",
               ],
               [
-                "${AppLocalizations.of(context)!.custoFixo}: ${Translateservice.formatCurrency(monthFixedExpenses, context)} (${(monthFixedExpenses / avaregeDaily * 100).round()}%)",
-                "${AppLocalizations.of(context)!.custoVariavel}: ${Translateservice.formatCurrency((avaregeDaily - monthFixedExpenses), context)} (${((avaregeDaily - monthFixedExpenses) / avaregeDaily * 100).round()}%)"
+                "${AppLocalizations.of(context)!.custoFixo}: ${Translateservice.formatCurrency(monthFixedExpenses, context)} (${(monthFixedExpenses / (avaregeDaily == 0 ? 1 : avaregeDaily) * 100).round()}%)",
+                "${AppLocalizations.of(context)!.custoVariavel}: ${Translateservice.formatCurrency((avaregeDaily - monthFixedExpenses), context)} (${((avaregeDaily - monthFixedExpenses) / (avaregeDaily == 0 ? 1 : avaregeDaily) * 100).round()}%)"
               ],
               [
-                "${AppLocalizations.of(context)!.diasUteis}: ${Translateservice.formatCurrency(avaregeBusinessDailys, context)} (${(businessExpensives / monthExpenses * 100).round()}%)",
-                "${AppLocalizations.of(context)!.finaisDeSemana}: ${Translateservice.formatCurrency(avaregeWeekendExpensives, context)} (${(avaregeWeekendExpensives / monthExpenses * 100).round()}%)",
+                "${AppLocalizations.of(context)!.diasUteis}: ${Translateservice.formatCurrency(avaregeBusinessDailys, context)} (${(businessExpensives / (monthExpenses == 0 ? 1 : monthExpenses) * 100).round()}%)",
+                "${AppLocalizations.of(context)!.finaisDeSemana}: ${Translateservice.formatCurrency(avaregeWeekendExpensives, context)} (${(avaregeWeekendExpensives / (monthExpenses == 0 ? 1 : monthExpenses) * 100).round()}%)",
               ],
             ],
           },
@@ -145,8 +157,8 @@ class TotalSpentCarouselWithTitlesState
             "title": "${AppLocalizations.of(context)!.diasMaiorCustoVariavel}",
             "phrases": [
               [
-                "1. ${daysWithMostVariavelExepenses[0].key}: ${Translateservice.formatCurrency(daysWithMostVariavelExepenses[0].value, context)} (${(daysWithMostVariavelExepenses[0].value / monthExpenses * 100).round()}%)",
-                "2. ${daysWithMostVariavelExepenses[1].key}: ${Translateservice.formatCurrency(daysWithMostVariavelExepenses[1].value, context)} (${(daysWithMostVariavelExepenses[1].value / monthExpenses * 100).round()}%)"
+                daysWithMostVariavelExepenses.length>=2? "1. ${daysWithMostVariavelExepenses[0].key}: ${Translateservice.formatCurrency(daysWithMostVariavelExepenses[0].value, context)} (${(daysWithMostVariavelExepenses[0].value / (monthExpenses == 0 ? 1 : monthExpenses) * 100).round()}%)" : "",
+                daysWithMostVariavelExepenses.length>=2 ? "2. ${daysWithMostVariavelExepenses[1].key}: ${Translateservice.formatCurrency(daysWithMostVariavelExepenses[1].value, context)} (${(daysWithMostVariavelExepenses[1].value / (monthExpenses == 0 ? 1 : monthExpenses) * 100).round()}%)" : ""
               ],
             ],
           },
@@ -155,13 +167,16 @@ class TotalSpentCarouselWithTitlesState
             "phrases": [
               [
                 "${AppLocalizations.of(context)!.geral}: ${Translateservice.formatCurrency(((currentDate.month == DateTime.now().month && currentDate.year == DateTime.now().year)) ?
-                 ((avaregeDaily - monthFixedExpenses)*Monthinsightsservices.daysInCurrentMonth(currentDate) + projecaoFixed) : monthExpenses, context)}",
+                 ((avaregeDaily - monthFixedExpenses)*Monthinsightsservices.daysInCurrentMonth(currentDate) + projecaoFixed) : monthExpenses + 
+                 (((currentDate.month > DateTime.now().month && currentDate.year == DateTime.now().year) || (currentDate.year > DateTime.now().year)) ? projecaoFixed : 0), context)}",
               ],
               [
-                "${AppLocalizations.of(context)!.custoFixo}: ${Translateservice.formatCurrency(projecaoFixed, context)} (${(projecaoFixed/((currentDate.month == DateTime.now().month && currentDate.year == DateTime.now().year) ?
-                 ((avaregeDaily - monthFixedExpenses)*Monthinsightsservices.daysInCurrentMonth(currentDate) + projecaoFixed) : monthExpenses)*100).round()}%)",
-                "${AppLocalizations.of(context)!.custoVariavel}: ${Translateservice.formatCurrency(((avaregeDaily - monthFixedExpenses)*Monthinsightsservices.daysInCurrentMonth(currentDate)), context)} (${((avaregeDaily - monthFixedExpenses)*Monthinsightsservices.daysInCurrentMonth(currentDate)/((currentDate.month == DateTime.now().month && currentDate.year == DateTime.now().year) ?
-                 ((avaregeDaily - monthFixedExpenses)*Monthinsightsservices.daysInCurrentMonth(currentDate) + projecaoFixed) : monthExpenses)*100).round()}%)"
+                "${AppLocalizations.of(context)!.custoFixo}: ${Translateservice.formatCurrency(projecaoFixed, context)} (${((projecaoFixed == 0 ? 0 : projecaoFixed)/((currentDate.month == DateTime.now().month && currentDate.year == DateTime.now().year) ?
+                 ((((avaregeDaily == 0 ? 0 : avaregeDaily) - (monthFixedExpenses == 0 ? 0 : monthFixedExpenses))*Monthinsightsservices.daysInCurrentMonth(currentDate)) + (projecaoFixed == 0 ? 1 : projecaoFixed)) : (monthExpenses == 0 ? (projecaoFixed == 0 ? 1 : projecaoFixed) : monthExpenses))*100).round()}%)",
+                
+                "${AppLocalizations.of(context)!.custoVariavel}: ${Translateservice.formatCurrency(((avaregeDaily - monthFixedExpenses)*Monthinsightsservices.daysInCurrentMonth(currentDate)), context)} "
+                "(${(((avaregeDaily == 0 ? 0 : avaregeDaily) - (monthFixedExpenses == 0 ? 0 : monthFixedExpenses))*Monthinsightsservices.daysInCurrentMonth(currentDate)/((currentDate.month == DateTime.now().month && currentDate.year == DateTime.now().year) ?
+                 (((avaregeDaily == 0 ? 0 : avaregeDaily) - (monthFixedExpenses == 0 ? 0 : monthFixedExpenses))*Monthinsightsservices.daysInCurrentMonth(currentDate) + (projecaoFixed == 0 ? 1 : projecaoFixed)) : (monthExpenses == 0 ? 1 : monthExpenses))*100).round()}%)"
               ],
             ],
           },
@@ -176,15 +191,15 @@ class TotalSpentCarouselWithTitlesState
                 "${AppLocalizations.of(context)!.geral}: ${Translateservice.formatCurrency(monthExpenses, context)}"
               ],
               [
-                "${AppLocalizations.of(context)!.custoFixo}: ${Translateservice.formatCurrency(monthFixedExpensesTotals, context)} (${(monthFixedExpensesTotals / monthExpenses * 100).truncate()}%)",
-                "${AppLocalizations.of(context)!.custoVariavel}: ${Translateservice.formatCurrency(monthExpenses - monthFixedExpensesTotals, context)} (${((monthExpenses - monthFixedExpensesTotals) / monthExpenses * 100).truncate()}%)"
+                "${AppLocalizations.of(context)!.custoFixo}: ${Translateservice.formatCurrency(monthFixedExpensesTotals, context)} (${(monthFixedExpensesTotals / (monthExpenses == 0 ? 1 : monthExpenses) * 100).truncate()}%)",
+                "${AppLocalizations.of(context)!.custoVariavel}: ${Translateservice.formatCurrency(monthExpenses - monthFixedExpensesTotals, context)} (${((monthExpenses - monthFixedExpensesTotals) / (monthExpenses == 0 ? 1 : monthExpenses) * 100).truncate()}%)"
               ],
               [
-                "${AppLocalizations.of(context)!.averageCostPerPurchase}: ${Translateservice.formatCurrency(averageCostPerPurchase, context)}",
+                "${AppLocalizations.of(context)!.averageCostPerPurchase}: ${Translateservice.formatCurrency(averageCostPerPurchase>0 ? averageCostPerPurchase : 0, context)}",
                 "${AppLocalizations.of(context)!.dailyTransactions}: ${transectionsDaily}"
               ],
               [
-                "${AppLocalizations.of(context)!.mostExpensiveDay}: ${getFormatResume(dayWithHigerExpense.keys.first)} - ${Translateservice.formatCurrency(dayWithHigerExpense.values.first, context)}"
+                "${AppLocalizations.of(context)!.mostExpensiveDay}: ${dayWithHigerExpense.isNotEmpty? getFormatResume(dayWithHigerExpense.keys.first) : '-'} - ${Translateservice.formatCurrency(dayWithHigerExpense.isNotEmpty ? dayWithHigerExpense.values.first : 0, context)}"
               ]
             ],
           },
@@ -192,9 +207,9 @@ class TotalSpentCarouselWithTitlesState
             "title": "${AppLocalizations.of(context)!.distribution}",
             "phrases": [
               [
-                "${AppLocalizations.of(context)!.firstTenDays}: ${Translateservice.formatCurrency(tenDaysExpenses[0], context)} (${(tenDaysExpenses[0] / monthExpenses * 100).round()}%)",
-                "${AppLocalizations.of(context)!.secondTenDays}: ${Translateservice.formatCurrency(tenDaysExpenses[1], context)} (${(tenDaysExpenses[1] / monthExpenses * 100).round()}%)",
-                "${AppLocalizations.of(context)!.thirdTenDays}: ${Translateservice.formatCurrency(tenDaysExpenses[2], context)} (${(tenDaysExpenses[2] / monthExpenses * 100).round()}%)"
+                "${AppLocalizations.of(context)!.firstTenDays}: ${Translateservice.formatCurrency(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[0] : 0, context)} (${((tenDaysExpenses.isNotEmpty ? tenDaysExpenses[0] : 0)/ (monthExpenses == 0 ? 1 : monthExpenses) * 100).round()}%)",
+                "${AppLocalizations.of(context)!.secondTenDays}: ${Translateservice.formatCurrency(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[1] : 0, context)} (${((tenDaysExpenses.isNotEmpty ? tenDaysExpenses[1] : 0)/ (monthExpenses == 0 ? 1 : monthExpenses) * 100).round()}%)",
+                "${AppLocalizations.of(context)!.thirdTenDays}: ${Translateservice.formatCurrency(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[2] : 0, context)} (${((tenDaysExpenses.isNotEmpty ? tenDaysExpenses[2] :0) / (monthExpenses == 0 ? 1 : monthExpenses) * 100).round()}%)"
               ],
             ],
           },
@@ -245,13 +260,12 @@ class TotalSpentCarouselWithTitlesState
             "phrases": [
               [
                 "${AppLocalizations.of(context)!.highestIncrease}: "
-                "${Translateservice.getTranslatedCategoryName(context, highestIncrease.keys.first)} "
-                "(+${highestIncrease.values.first > 0 && (listOfExpensesByCategoryOfCurrentMonth[highestIncrease.keys.first] ?? 0) > 0 ? ((highestIncrease.values.first / (listOfExpensesByCategoryOfCurrentMonth[highestIncrease.keys.first] ?? 0)) * 100).round() : 0}%)",
+                "${Translateservice.getTranslatedCategoryName(context, highestIncrease.isNotEmpty ? highestIncrease.keys.first : '')}(+${highestIncrease.isNotEmpty && (listOfExpensesByCategoryOfCurrentMonth[highestIncrease.keys.first] ?? 0) > 0 ? ((highestIncrease.values.first / (listOfExpensesByCategoryOfCurrentMonth[highestIncrease.keys.first] ?? 0)) * 100).round() : 0}%)",
                 "${AppLocalizations.of(context)!.highestDrop}: "
-                "${Translateservice.getTranslatedCategoryName(context, highestDrop.keys.first)} "
-                "(${(listOfExpensesByCategoryOfCurrentMonth[highestDrop.keys.first] ?? 0) > 0 ? ((highestDrop.values.first / (listOfExpensesByCategoryOfCurrentMonth[highestDrop.keys.first] ?? 0)) * 100).round() : '-100'}%)",
+                "${Translateservice.getTranslatedCategoryName(context, highestIncrease.isNotEmpty ? highestDrop.keys.first : "")} "
+                "(${(listOfExpensesByCategoryOfCurrentMonth[highestDrop.isNotEmpty ? highestDrop.keys.first : ''] ?? 0) > 0 ? ((highestDrop.values.first / (listOfExpensesByCategoryOfCurrentMonth[highestDrop.isNotEmpty ? highestDrop.keys.first : ''] ?? 0)) * 100).round() : '-100'}%)",
 
-                "${AppLocalizations.of(context)!.mostUsed}: ${Translateservice.getTranslatedCategoryName(context, highestFrequency.keys.first)} (${(highestFrequency.values.first??0)}%)"
+                "${AppLocalizations.of(context)!.mostUsed}: ${Translateservice.getTranslatedCategoryName(context, highestFrequency.isNotEmpty ? highestFrequency.keys.first : '')} (${(highestFrequency.isNotEmpty ? highestFrequency.values.first : 0)}%)"
               ]
             ],
           },

@@ -113,5 +113,7 @@
     "yearlyEveryDay": "Anual: todo dia",
     "weekdaysMondayToFriday": "Dias da semana: de segunda a sexta-feira",
     "daily": "Diariamente",
-    "selectAnOption": "Selecione uma opção de repetição"
+    "selectAnOption": "Selecione uma opção de repetição",
+    "monthlyInsights": "Insights do mês",
+    "delete": "Excluir"
 }

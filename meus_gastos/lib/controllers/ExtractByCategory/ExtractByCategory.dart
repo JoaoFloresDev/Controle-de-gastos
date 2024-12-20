@@ -38,7 +38,7 @@ class _ExtractbycategoryState extends State<Extractbycategory> {
       List<CardModel> cardList, DateTime currentDate) {
     return cardList
         .where((card) => card.category.name == widget.category)
-        .where((c) => c.date.month == currentDate.month)
+        .where((c) => (c.date.month == currentDate.month && c.amount>0))
         .toList();
   }
 

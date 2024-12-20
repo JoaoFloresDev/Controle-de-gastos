@@ -4,32 +4,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
+import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
+import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/InsertTransactions.dart';
+import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ReviewService {
+
   static Future<void> checkAndRequestReview(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int sessionCount = prefs.getInt('session_count') ?? 0;
     sessionCount += 1;
     await prefs.setInt('session_count', sessionCount);
-
     print("$sessionCount");
     print(sessionCount);
     if (sessionCount == 4) {
       print("aqui!");
       final InAppReview inAppReview = InAppReview.instance;
       if (await inAppReview.isAvailable()) {
-        print("aqui!12aaa");
         inAppReview.requestReview();
       }
     } else if (sessionCount == 8){
-      // showProModal
-    } else if(sessionCount == 10){
-      // show AdMOb
-    } else if (sessionCount >= 12) {
+      _showProModal(context);
+    } else if (sessionCount >= 10) {
       await prefs.setInt('session_count', 0);
-      print("aqui!12");
       _showCustomReviewDialog(context);
     }
   }
@@ -71,5 +70,32 @@ class ReviewService {
     inAppReview.openStoreListing(
       appStoreId: '6502218501',
     );
+  }
+
+  static void _showProModal(BuildContext context) async {
+    if (Platform.isIOS) {
+      showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext context) {
+          return ProModal(
+            isLoading: false,
+            onSubscriptionPurchased: () {
+            },
+          );
+        },
+      );
+    }
+    if (Platform.isAndroid) {
+      showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext context) {
+          return ProModalAndroid(
+            isLoading: true,
+            onSubscriptionPurchased: () {
+            },
+          );
+        },
+      );
+    }
   }
 }

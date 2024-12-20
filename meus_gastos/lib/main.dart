@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,6 +13,8 @@ import 'package:meus_gastos/controllers/Calendar/CustomCalendar.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   InAppPurchase.instance.isAvailable();
+  MobileAds.instance.initialize();
+
   await OnePref.init();
   runApp(const MyApp());
 }
@@ -54,6 +57,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final GlobalKey<CustomCalendarState> calendarKey =
       GlobalKey<CustomCalendarState>();
+  final GlobalKey<CustomCalendarState> calendarKey2 =
+      GlobalKey<CustomCalendarState>();
+
   final exportButton = GlobalKey();
   final cardsExpense = GlobalKey();
   final dashboardTab = GlobalKey();
@@ -62,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final description = GlobalKey();
   final categories = GlobalKey();
   final addButton = GlobalKey();
-
+  
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(

@@ -1,6 +1,7 @@
 import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'dart:io';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
+import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
@@ -55,16 +56,31 @@ class CustomCalendarState extends State<CustomCalendar> {
   DateTime? _selectedDay;
   List<CardModel> _transactions = [];
   Map<DateTime, double> _dailyExpenses = {};
+  
+  final InterstitialAdManager _adManager = InterstitialAdManager();
+
 
   @override
   void initState() {
     super.initState();
     _initializeCalendarData();
     _checkUserProStatus();
+    _adManager.loadAd();
+  }
+
+  @override
+  void dispose() {
+    _adManager.dispose(); // Libera os recursos do anúncio ao sair da tela.
+    super.dispose();
   }
 
   Future<void> _checkAndRequestReview() async {
     ReviewService.checkAndRequestReview(context);
+    final prefs = await SharedPreferences.getInstance();
+    int sessionCount = prefs.getInt('session_count') ?? 0;
+    if (sessionCount == 6){
+      _adManager.showAd(context);
+    }
   }
 
   Future<void> _checkUserProStatus() async {

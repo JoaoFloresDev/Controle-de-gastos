@@ -230,8 +230,47 @@ class _DashboardScreenState extends State<DashboardScreen>
       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 12),
       child: SizedBox(
         height: 440,
-        child: TotalSpentCarouselWithTitles(key: ValueKey(currentDate), currentDate: currentDate),
-      ),
+        child:  totalGasto == 0 ?
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+            color: AppColors.card,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                offset: const Offset(0, 4),
+                blurRadius: 8,
+                spreadRadius: 2,
+              ),
+            ],
+          ),
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.monthlyInsights, 
+                style: const TextStyle(
+                  color: AppColors.label,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center, // Centraliza o texto dentro do widget
+              ),
+              SizedBox(height: 16,),
+              Text(
+                AppLocalizations.of(context)!.youWillBeAbleToUnderstandYourExpensesHere,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.label,
+                  fontSize: 14,
+                ),
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),) : 
+        TotalSpentCarouselWithTitles(key: ValueKey(currentDate), currentDate: currentDate))
     );
   }
 

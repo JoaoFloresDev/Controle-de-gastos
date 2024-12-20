@@ -38,7 +38,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   late CampoComMascara dateController;
   late FocusNode descricaoFocusNode;
 
-  late int lastDateSelected = widget.card.date.day;
+  late DateTime lastDateSelected = widget.card.date;
   List<CategoryModel> categorieList = [];
   final DateTime dataInicial = DateTime.now();
   final double valorInicial = 0.0;
@@ -94,6 +94,18 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       decimalSeparator: locale.languageCode == 'pt' ? ',' : '.',
       initialValue: widget.card.price,
     );
+
+    final DateFormat formatter = DateFormat(
+        AppLocalizations.of(context)!.dateFormat,
+        Localizations.localeOf(context).toString());
+    formatter.format(lastDateSelected);
+
+    dateController = CampoComMascara(
+      currentDate: lastDateSelected,
+      onCompletion: (DateTime dateTime) {
+        _selectedDate = dateTime;
+      },
+    );
   }
 
   void _toggleStatus() {
@@ -123,10 +135,9 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     final newCard = FixedExpense(
       price: valorController.numberValue,
       description: descricaoController.text,
-      date: DateTime(
-          DateTime.now().year, DateTime.now().month, lastDateSelected),
+      date: _selectedDate,
       category: icons_list_recorrent[lastIndexSelected_category],
-      id: const Uuid().v4(),
+      id: widget.card.id,
       tipoRepeticao: tipoRepeticao,
     );
     Fixedexpensesservice.updateCard(widget.card.id, newCard);

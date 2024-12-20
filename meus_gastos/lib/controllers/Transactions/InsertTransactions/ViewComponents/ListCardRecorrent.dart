@@ -126,37 +126,44 @@ class ListCardRecorrent extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () async {
-                    // Ação do botão excluir
-                    print('Excluir pressionado');
-
-                    fakeExpens(card);
-                    onAddClicked;
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red, // Cor de fundo do botão
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      // Ação do botão excluir
+                      print('Excluir pressionado');
+                  
+                      fakeExpens(card);
+                      onAddClicked;
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.deletionButton, // Cor de fundo do botão
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                    ),
+                    child: Text(AppLocalizations.of(context)!.delete,
+                        style: TextStyle(
+                          color: AppColors.label,
+                          
+                        )),
                   ),
-                  child: Text('Excluir',
-                      style: TextStyle(
-                        color: AppColors.label,
-                      )),
                 ),
                 SizedBox(width: 16), // Espaço entre os botões
-                ElevatedButton(
-                  onPressed: () {
-                    // Ação do botão adicionar
-                    print('Adicionar pressionado');
-                    adicionar();
-                    onAddClicked;
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue, // Cor de fundo do botão
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Ação do botão adicionar
+                      print('Adicionar pressionado');
+                      adicionar();
+                      onAddClicked;
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.button, // Cor de fundo do botão
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                    ),
+                    child: Text(AppLocalizations.of(context)!.add,
+                        style: TextStyle(
+                          color: AppColors.label,
+                        )),
                   ),
-                  child: Text('Adicionar',
-                      style: TextStyle(
-                        color: AppColors.label,
-                      )),
                 ),
               ],
             ),

@@ -185,7 +185,10 @@ Padding(
     child: CupertinoButton(
       key: widget.addButon,
       color: CupertinoColors.systemBlue,
-      onPressed: adicionar,
+      onPressed: () {
+        adicionar();
+      },
+        
       child: Text(
         AppLocalizations.of(context)!.add,
         style: const TextStyle(

@@ -112,6 +112,8 @@
     "yearlyEveryDay": "Yearly: every day",
     "weekdaysMondayToFriday": "Weekdays: from Monday to Friday",
     "daily": "Daily",
-    "selectAnOption": "Select a repetition option"
+    "selectAnOption": "Select a repetition option",
+    "monthlyInsights": "Monthly insights",
+    "delete": "Delete"
 
 }

@@ -286,7 +286,14 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                     setState(() {
                       if (selectedWeek != index) {
                         selectedWeek = index;
+                        // selectedCategories = 
                         selectedCategories = [];
+                        Set<int> selectedIndices = Set<int>.from(Iterable<int>.generate(Dashbordservice.extractCategories(
+                  widget.last5weewdailyData[selectedWeek]).length));
+                        selectedCategories = selectedIndices
+                      .map((index) => Dashbordservice.extractCategories(
+                          widget.last5weewdailyData[selectedWeek])[index])
+                      .toList();
                         selectCategoryKey = UniqueKey();
                       }
                     });

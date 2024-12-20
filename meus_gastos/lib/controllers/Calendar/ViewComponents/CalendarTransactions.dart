@@ -60,6 +60,7 @@ class TransactionList extends StatelessWidget {
       itemCount: reversedTransactions.length,
       itemBuilder: (context, index) {
         final transaction = reversedTransactions[index];
+        if (transaction.amount == 0) return SizedBox();
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
           child: ListCard(
