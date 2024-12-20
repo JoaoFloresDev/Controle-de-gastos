@@ -419,7 +419,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-  //mark - construção da tela
+  //MARK: construção da tela
   @override
   Widget build(BuildContext context) {
     super.build(context);

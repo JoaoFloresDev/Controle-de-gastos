@@ -38,7 +38,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   late CampoComMascara dateController;
   late FocusNode descricaoFocusNode;
 
-  late DateTime lastDateSelected = widget.card.date;
   List<CategoryModel> categorieList = [];
   final DateTime dataInicial = DateTime.now();
   final double valorInicial = 0.0;
@@ -46,7 +45,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   List<CategoryModel> icons_list_recorrent = [];
   late bool _isPaga;
 
-  DateTime _selectedDate = DateTime.now();
+  late DateTime _selectedDate = widget.card.date;
   String tipoRepeticao = "";
 
   Future<void> loadCategories() async {
@@ -98,10 +97,10 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     final DateFormat formatter = DateFormat(
         AppLocalizations.of(context)!.dateFormat,
         Localizations.localeOf(context).toString());
-    formatter.format(lastDateSelected);
+    formatter.format(_selectedDate);
 
     dateController = CampoComMascara(
-      currentDate: lastDateSelected,
+      currentDate: _selectedDate,
       onCompletion: (DateTime dateTime) {
         _selectedDate = dateTime;
       },

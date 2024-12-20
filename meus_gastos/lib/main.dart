@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
             label: AppLocalizations.of(context)!.transactions,
           ),
           BottomNavigationBarItem(
-            key: dashboardTab,
+            // key: dashboardTab,
             icon: const Icon(CupertinoIcons.chart_bar, size: 20),
             label: AppLocalizations.of(context)!.dashboards,
           ),
@@ -131,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
       case 1:
         return DashboardScreen(
-          key: UniqueKey(),
+          key: dashboardTab,
           isActive: true,
         );
       case 2:

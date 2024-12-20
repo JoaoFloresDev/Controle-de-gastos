@@ -10,6 +10,7 @@ import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 
 class Intervalscontrol {
+
   List<CardModel> filterCardsByDateMonth(List<CardModel> cards, int givenDay) {
     DateTime now = DateTime.now();
     // Filtra os cards
@@ -39,14 +40,15 @@ class Intervalscontrol {
 
   List<CardModel> filteredByWeek(List<CardModel> cards) {
   // Define os limites da semana atual
-  DateTime today = DateTime.now();
+  DateTime today = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
 
   // Calcula o início (segunda-feira) da semana atual
   DateTime startOfWeek = today.subtract(Duration(days: today.weekday - 1));
 
   // Calcula o final (domingo) da semana atual
   DateTime endOfWeek = startOfWeek.add(Duration(days: 6));
-
+  // print("${startOfWeek.subtract(Duration(seconds: 1))} - ${endOfWeek.day}");
   // Filtra os cartões
   return cards.where((card) {
     // Verifica se a data do cartão está entre a segunda e o domingo da semana atual
@@ -58,6 +60,7 @@ class Intervalscontrol {
   bool weekInterval(FixedExpense gastoFixo, List<CardModel> cards) {
     List<CardModel> filteredCard = filteredByWeek(cards);
     List<String> IdsFixosControlList = CardService().getIdFixoControlList(filteredCard);
+
     if (!(IdsFixosControlList.contains(gastoFixo.id))) {
       return true;
     }

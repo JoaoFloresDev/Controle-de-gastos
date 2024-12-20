@@ -36,8 +36,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
     categorieList = await CategoryService().getAllCategories();
     setState(() {
       categorieList = categorieList;
-      selectedIndex = 0;
-      lastSelectedIndex = selectedIndex;
+
     });
   }
 

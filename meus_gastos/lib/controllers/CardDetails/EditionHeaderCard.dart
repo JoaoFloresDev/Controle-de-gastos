@@ -43,7 +43,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   @override
   void initState() {
     super.initState();
-    loadCategories();
+    _loadCategories();
 
     descricaoController = TextEditingController(text: widget.card.description);
 
@@ -84,16 +84,24 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     descricaoFocusNode.dispose();
     super.dispose();
   }
+  Future<void> _loadCategories() async{
+    await loadCategories();
+  }
 
   // MARK: - Load Categories
   Future<void> loadCategories() async {
     categorieList = await CategoryService().getAllCategories();
+    CategoryService().printAllCategories();
     lastIndexSelected = categorieList.indexWhere(
           (category) => category.id == widget.card.category.id);
       if (lastIndexSelected == -1) {
         lastIndexSelected = 0; 
       }
-    setState(() {});
+    setState(() {
+      lastIndexSelected = categorieList.indexWhere(
+          (category) => category.id == widget.card.category.id);
+          print(lastIndexSelected);
+    });
   }
 
   // MARK: - Adicionar
@@ -115,6 +123,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
+    print(lastDateSelected);
     return Padding(
       padding: const EdgeInsets.all(0.0),
       child: Column(

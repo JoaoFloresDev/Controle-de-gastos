@@ -263,7 +263,7 @@ class TotalSpentCarouselWithTitlesState
                 "${Translateservice.getTranslatedCategoryName(context, highestIncrease.isNotEmpty ? highestIncrease.keys.first : '')}(+${highestIncrease.isNotEmpty && (listOfExpensesByCategoryOfCurrentMonth[highestIncrease.keys.first] ?? 0) > 0 ? ((highestIncrease.values.first / (listOfExpensesByCategoryOfCurrentMonth[highestIncrease.keys.first] ?? 0)) * 100).round() : 0}%)",
                 "${AppLocalizations.of(context)!.highestDrop}: "
                 "${Translateservice.getTranslatedCategoryName(context, highestIncrease.isNotEmpty ? highestDrop.keys.first : "")} "
-                "(${(listOfExpensesByCategoryOfCurrentMonth[highestDrop.isNotEmpty ? highestDrop.keys.first : ''] ?? 0) > 0 ? ((highestDrop.values.first / (listOfExpensesByCategoryOfCurrentMonth[highestDrop.isNotEmpty ? highestDrop.keys.first : ''] ?? 0)) * 100).round() : '-100'}%)",
+                "(${(listOfExpensesByCategoryOfCurrentMonth[highestDrop.isNotEmpty ? highestDrop.keys.first : ''] ?? 0) > 0 ? ((highestDrop.values.first / (listOfExpensesByCategoryOfCurrentMonth[highestDrop.isNotEmpty ? highestDrop.keys.first : ''] ?? 0)) * 100).round() : '0'}%)",
 
                 "${AppLocalizations.of(context)!.mostUsed}: ${Translateservice.getTranslatedCategoryName(context, highestFrequency.isNotEmpty ? highestFrequency.keys.first : '')} (${(highestFrequency.isNotEmpty ? highestFrequency.values.first : 0)}%)"
               ]
