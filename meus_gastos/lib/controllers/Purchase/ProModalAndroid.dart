@@ -88,43 +88,44 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
   }
 
   Future<void> listenPurchases(List<PurchaseDetails> list) async {
-    for (final purchase in list) {
-      if ((purchase.status == PurchaseStatus.restored) ||
-          (purchase.status == PurchaseStatus.purchased)) {
-        if (iApEngine
-            .getProductIdsOnly(storeProductIds)
-            .contains(purchase.productID)) {
-          final InAppPurchaseAndroidPlatformAddition androidAddition = iApEngine
-              .inAppPurchase
-              .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
-        }
-        if (purchase.pendingCompletePurchase) {
-          await iApEngine.inAppPurchase.completePurchase(purchase);
-        }
+  for (final purchase in list) {
+    if ((purchase.status == PurchaseStatus.restored) || 
+        (purchase.status == PurchaseStatus.purchased)) {
+      
+      // Identificar produto comprado
+      if (storeProductIds[0].id == purchase.productID) {
+        await restore_purchases(purchase); // Atualizar estado
+        widget.onSubscriptionPurchased(); // Ação pós-compra
+      } else if (storeProductIds[1].id == purchase.productID) {
+        await restore_purchases(purchase); // Atualizar estado
+        widget.onSubscriptionPurchased(); // Ação pós-compra
+      }
 
-        // restore purchase of the usuary
+      // Completar a compra se pendente
+      if (purchase.pendingCompletePurchase) {
+        await InAppPurchase.instance.completePurchase(purchase);
       }
     }
   }
+}
 
   Future<void> restore_purchases(PurchaseDetails purchaseDetails) async {
-    final prefs = await SharedPreferences.getInstance();
-    isMonthlyPro = prefs.getBool(monthlyProKey) ?? false;
-    isYearlyPro = prefs.getBool(YearlyProKey) ?? false;
-    if (storeProductIds[0].id == purchaseDetails.productID) {
-      setState(() {
-        isMonthlyPro = true;
-        prefs.setBool(monthlyProKey, true);
-      });
-    }
-    if (storeProductIds[1].id == purchaseDetails.productID) {
-      setState(() {
-        isYearlyPro = true;
-        prefs.setBool(YearlyProKey, true);
-      });
-    }
+  final prefs = await SharedPreferences.getInstance();
+  if (storeProductIds[0].id == purchaseDetails.productID) {
+    await prefs.setBool(monthlyProKey, true);
+    setState(() {
+      isMonthlyPro = true;
+    });
+  } else if (storeProductIds[1].id == purchaseDetails.productID) {
+    await prefs.setBool(YearlyProKey, true);
+    setState(() {
+      isYearlyPro = true;
+    });
   }
 
+  // Atualizar UI após restauração
+  updateProStatus();
+}
   Future<void> _restorePurchases() async {
     await InAppPurchase.instance.restorePurchases();
   }
