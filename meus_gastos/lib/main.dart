@@ -62,13 +62,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final exportButton = GlobalKey();
   final cardsExpense = GlobalKey();
-  final dashboardTab = GlobalKey();
+  final GlobalKey<DashboardScreenState> dashboardKey = GlobalKey<DashboardScreenState>();
   final valueExpense = GlobalKey();
   final date = GlobalKey();
   final description = GlobalKey();
   final categories = GlobalKey();
   final addButton = GlobalKey();
-  
+
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
@@ -130,8 +130,9 @@ class _MyHomePageState extends State<MyHomePage> {
           valueExpens: valueExpense,
         );
       case 1:
+        dashboardKey.currentState?.inicializeDashboard();
         return DashboardScreen(
-          key: dashboardTab,
+          key: dashboardKey,
           isActive: true,
         );
       case 2:
@@ -142,6 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         );
       default:
+        // dashboardTab.currentState?.inicializeDashboard();
         return DashboardScreen(
           key: ValueKey(index),
           isActive: selectedTab == 1,

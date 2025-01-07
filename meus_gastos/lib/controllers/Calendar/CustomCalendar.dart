@@ -63,8 +63,8 @@ class CustomCalendarState extends State<CustomCalendar> {
   @override
   void initState() {
     super.initState();
-    _initializeCalendarData();
     _checkUserProStatus();
+    _initializeCalendarData();
     _adManager.loadAd();
   }
 
@@ -78,7 +78,8 @@ class CustomCalendarState extends State<CustomCalendar> {
     ReviewService.checkAndRequestReview(context);
     final prefs = await SharedPreferences.getInstance();
     int sessionCount = prefs.getInt('session_count') ?? 0;
-    if (sessionCount == 6){
+    if ((sessionCount == 6) || (sessionCount % 5 == 0 && sessionCount > 10)){
+      if (!_isPro)
       _adManager.showAd(context);
     }
   }

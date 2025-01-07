@@ -43,6 +43,7 @@ class _BannerAdconstructState extends State<BannerAdconstruct> {
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (_) {
+          print("$_isAdLoaded");
           setState(() {
             _isAdLoaded = true;
           });

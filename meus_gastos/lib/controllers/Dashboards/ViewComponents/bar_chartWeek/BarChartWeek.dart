@@ -263,7 +263,6 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
     for (var cat in selectedCategories){
     }
     return widget.weeklyData.map((week) {
-      print("${week.length>0 ? week.first.category.name : week.isEmpty}************");
       return week.where((data) {
         // print('${data.category.name} ${selectedCategories.contains(data.category)}');
         return getListIdsOfSelectedCategories().contains(data.category.id);

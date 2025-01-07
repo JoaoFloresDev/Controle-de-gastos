@@ -87,22 +87,42 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
     });
   }
 
+  // Future<void> listenPurchases(List<PurchaseDetails> list) async {
+  //   for (final purchase in list) {
+  //     if ((purchase.status == PurchaseStatus.restored) ||
+  //         (purchase.status == PurchaseStatus.purchased)) {
+  //       if (iApEngine
+  //           .getProductIdsOnly(storeProductIds)
+  //           .contains(purchase.productID)) {
+  //         final InAppPurchaseAndroidPlatformAddition androidAddition = iApEngine
+  //             .inAppPurchase
+  //             .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+  //       }
+  //       if (purchase.pendingCompletePurchase) {
+  //         await iApEngine.inAppPurchase.completePurchase(purchase);
+  //       }
+
+  //       // restore purchase of the usuary
+  //     }
+  //   }
+  // }
   Future<void> listenPurchases(List<PurchaseDetails> list) async {
     for (final purchase in list) {
       if ((purchase.status == PurchaseStatus.restored) ||
           (purchase.status == PurchaseStatus.purchased)) {
-        if (iApEngine
-            .getProductIdsOnly(storeProductIds)
-            .contains(purchase.productID)) {
-          final InAppPurchaseAndroidPlatformAddition androidAddition = iApEngine
-              .inAppPurchase
-              .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
-        }
-        if (purchase.pendingCompletePurchase) {
-          await iApEngine.inAppPurchase.completePurchase(purchase);
+        // Identificar produto comprado
+        if (storeProductIds[0].id == purchase.productID) {
+          await restore_purchases(purchase); // Atualizar estado
+          widget.onSubscriptionPurchased(); // Ação pós-compra
+        } else if (storeProductIds[1].id == purchase.productID) {
+          await restore_purchases(purchase); // Atualizar estado
+          widget.onSubscriptionPurchased(); // Ação pós-compra
         }
 
-        // restore purchase of the usuary
+        // Completar a compra se pendente
+        if (purchase.pendingCompletePurchase) {
+          await InAppPurchase.instance.completePurchase(purchase);
+        }
       }
     }
   }
@@ -123,6 +143,8 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
         prefs.setBool(YearlyProKey, true);
       });
     }
+    // Atualizar UI após restauração
+    updateProStatus();
   }
 
   Future<void> _restorePurchases() async {
@@ -277,11 +299,10 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
       final productDetails = response.productDetails.first;
       final purchaseParam = PurchaseParam(productDetails: productDetails);
       InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
-    } else {
-    }
-      setState(() {
-        loadingPurchases.remove(productId);
-      });
+    } else {}
+    setState(() {
+      loadingPurchases.remove(productId);
+    });
   }
 
   Widget _buildSubscriptionButton({

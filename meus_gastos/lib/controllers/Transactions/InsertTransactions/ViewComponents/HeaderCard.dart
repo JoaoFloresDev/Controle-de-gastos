@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
@@ -107,6 +109,7 @@ class HeaderCardState extends State<HeaderCard> {
     CategoryService().printAllCategories();
     setState(() {
       _horizontalCircleListKey.currentState?.loadCategories();
+      _horizontalCircleListKey.currentState?.selectedIndex = 0;
       valorController.updateValue(0.0);
       descricaoController.clear();
     });
@@ -178,29 +181,28 @@ class HeaderCardState extends State<HeaderCard> {
                 defaultdIndexCategory: 0,
               ),
             ),
-Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 8),
-  child: SizedBox(
-    width: double.infinity, // Define a largura para ocupar toda a área disponível
-    child: CupertinoButton(
-      key: widget.addButon,
-      color: CupertinoColors.systemBlue,
-      onPressed: () {
-        adicionar();
-      },
-        
-      child: Text(
-        AppLocalizations.of(context)!.add,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          color: CupertinoColors.white, // Cor do texto definida como branca
-        ),
-      ),
-    ),
-  ),
-),
-
-
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: SizedBox(
+                width: double
+                    .infinity, // Define a largura para ocupar toda a área disponível
+                child: CupertinoButton(
+                  key: widget.addButon,
+                  color: CupertinoColors.systemBlue,
+                  onPressed: () {
+                    adicionar();
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)!.add,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: CupertinoColors
+                          .white, // Cor do texto definida como branca
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

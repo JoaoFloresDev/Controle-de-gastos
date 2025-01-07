@@ -1,4 +1,5 @@
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarouselWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
@@ -32,21 +33,21 @@ import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgress
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';
 import 'package:flutter/material.dart';
 
-
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
 
-  const DashboardScreen({super.key, this.isActive = false});
+  const DashboardScreen({Key? key, this.isActive = false}) : super(key: key);
 
   @override
-  _DashboardScreenState createState() => _DashboardScreenState();
+  DashboardScreenState createState() => DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen>
+class DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
   bool _isPro = false;
 
-  final GlobalKey<TotalSpentCarouselWithTitlesState> insights = GlobalKey<TotalSpentCarouselWithTitlesState>();
+  final GlobalKey<TotalSpentCarouselWithTitlesState> insights =
+      GlobalKey<TotalSpentCarouselWithTitlesState>();
 
   //mark - propriedades
   List<ProgressIndicatorModel> progressIndicators = [];
@@ -104,12 +105,19 @@ class _DashboardScreenState extends State<DashboardScreen>
   final PageController _pageController = PageController();
   int _currentIndex = 0;
 
+
   @override
   bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
+    _onScreenDisplayed();
+    _checkUserProStatus();
+  }
+
+  void inicializeDashboard() {
+    _currentIndex = 0;
     _onScreenDisplayed();
     _checkUserProStatus();
   }
@@ -138,14 +146,12 @@ class _DashboardScreenState extends State<DashboardScreen>
     setState(() {
       currentDate = DateTime(currentDate.year, currentDate.month + delta);
       _loadProgressIndicators(currentDate);
-
     });
   }
 
   void _onPageChanged(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
+    _currentIndex = index;
+    setState(() {});
   }
 
   Future<void> _loadProgressIndicators(DateTime currentDate) async {
@@ -179,11 +185,11 @@ class _DashboardScreenState extends State<DashboardScreen>
       return const SizedBox.shrink();
     }
     return Container(
-      height: 60,
-      width: double.infinity, // Largura total da tela
-      alignment: Alignment.center, // Centraliza no eixo X
-      child: BannerAdconstruct(),
-    );
+        height: 60,
+        width: double.infinity, // Largura total da tela
+        alignment: Alignment.center, // Centraliza no eixo X
+        child: BannerAdconstruct(),
+        );
   }
 
   Widget _buildMonthSelector() {
@@ -226,51 +232,9 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget _buildTotalSpentCarousel() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 12),
-      child: SizedBox(
-        height: 440,
-        child:  totalGasto == 0 ?
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            color: AppColors.card,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                offset: const Offset(0, 4),
-                blurRadius: 8,
-                spreadRadius: 2,
-              ),
-            ],
-          ),
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.monthlyInsights, 
-                style: const TextStyle(
-                  color: AppColors.label,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center, // Centraliza o texto dentro do widget
-              ),
-              SizedBox(height: 16,),
-              Text(
-                AppLocalizations.of(context)!.youWillBeAbleToUnderstandYourExpensesHere,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.label,
-                  fontSize: 14,
-                ),
-                textAlign: TextAlign.center,
-              )
-            ],
-          ),) : 
-        TotalSpentCarouselWithTitles(key: ValueKey(currentDate), currentDate: currentDate))
+    return Totalspentcarouselwidget(
+      currentDate: currentDate,
+      totalGasto: totalGasto,
     );
   }
 
