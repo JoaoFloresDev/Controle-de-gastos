@@ -11,24 +11,29 @@ import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ReviewService {
-
   static Future<void> checkAndRequestReview(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int sessionCount = prefs.getInt('session_count') ?? 0;
+    bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
+    bool isYearlyPro = prefs.getBool("yearly.pro") ?? false;
     sessionCount += 1;
     await prefs.setInt('session_count', sessionCount);
     print("$sessionCount");
-    print(sessionCount);
+
     if (sessionCount == 4) {
       print("aqui!");
       final InAppReview inAppReview = InAppReview.instance;
       if (await inAppReview.isAvailable()) {
         inAppReview.requestReview();
       }
-    } else if (sessionCount == 8){
-      _showProModal(context);
-    } else if (sessionCount >= 10) {
-      await prefs.setInt('session_count', 0);
+    } else if (sessionCount == 8 ||
+        ((sessionCount % 3 == 0 && !(sessionCount % 5 == 0)) &&
+            sessionCount > 10)) {
+      if (!(isYearlyPro || isMonthlyPro)) {
+        _showProModal(context);
+      }
+    } else if (sessionCount == 10) {
+      // await prefs.setInt('session_count', 0);
       _showCustomReviewDialog(context);
     }
   }
@@ -63,8 +68,6 @@ class ReviewService {
     );
   }
 
-  
-
   static void _redirectToAppStore() {
     final InAppReview inAppReview = InAppReview.instance;
     inAppReview.openStoreListing(
@@ -79,8 +82,7 @@ class ReviewService {
         builder: (BuildContext context) {
           return ProModal(
             isLoading: false,
-            onSubscriptionPurchased: () {
-            },
+            onSubscriptionPurchased: () {},
           );
         },
       );
@@ -91,8 +93,7 @@ class ReviewService {
         builder: (BuildContext context) {
           return ProModalAndroid(
             isLoading: true,
-            onSubscriptionPurchased: () {
-            },
+            onSubscriptionPurchased: () {},
           );
         },
       );
