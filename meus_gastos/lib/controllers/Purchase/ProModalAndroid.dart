@@ -88,46 +88,46 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
   }
 
   Future<void> listenPurchases(List<PurchaseDetails> list) async {
-  for (final purchase in list) {
-    if ((purchase.status == PurchaseStatus.restored) || 
-        (purchase.status == PurchaseStatus.purchased)) {
-      
-      // Identificar produto comprado
-      if (storeProductIds[0].id == purchase.productID) {
-        await restore_purchases(purchase); // Atualizar estado
-        widget.onSubscriptionPurchased(); // Ação pós-compra
-      } else if (storeProductIds[1].id == purchase.productID) {
-        await restore_purchases(purchase); // Atualizar estado
-        widget.onSubscriptionPurchased(); // Ação pós-compra
-      }
+    for (final purchase in list) {
+      if ((purchase.status == PurchaseStatus.restored) ||
+          (purchase.status == PurchaseStatus.purchased)) {
+        // Identificar produto comprado
+        if (storeProductIds[0].id == purchase.productID) {
+          await restore_purchases(purchase); // Atualizar estado
+          widget.onSubscriptionPurchased(); // Ação pós-compra
+        } else if (storeProductIds[1].id == purchase.productID) {
+          await restore_purchases(purchase); // Atualizar estado
+          widget.onSubscriptionPurchased(); // Ação pós-compra
+        }
 
-      // Completar a compra se pendente
-      if (purchase.pendingCompletePurchase) {
-        await InAppPurchase.instance.completePurchase(purchase);
+        // Completar a compra se pendente
+        if (purchase.pendingCompletePurchase) {
+          await InAppPurchase.instance.completePurchase(purchase);
+        }
       }
     }
   }
-}
 
   Future<void> restore_purchases(PurchaseDetails purchaseDetails) async {
-  final prefs = await SharedPreferences.getInstance();
-  if (storeProductIds[0].id == purchaseDetails.productID) {
-    await prefs.setBool(monthlyProKey, true);
-    setState(() {
-      isMonthlyPro = true;
-    });
-  } else if (storeProductIds[1].id == purchaseDetails.productID) {
-    await prefs.setBool(YearlyProKey, true);
-    setState(() {
-      isYearlyPro = true;
-    });
+    final prefs = await SharedPreferences.getInstance();
+    if (storeProductIds[0].id == purchaseDetails.productID) {
+      await prefs.setBool(monthlyProKey, true);
+      setState(() {
+        isMonthlyPro = true;
+      });
+    } else if (storeProductIds[1].id == purchaseDetails.productID) {
+      await prefs.setBool(YearlyProKey, true);
+      setState(() {
+        isYearlyPro = true;
+      });
+    }
+
+    // Atualizar UI após restauração
+    updateProStatus();
   }
 
-  // Atualizar UI após restauração
-  updateProStatus();
-}
   Future<void> _restorePurchases() async {
-    await InAppPurchase.instance.restorePurchases();
+    final purchases = await InAppPurchase.instance.restorePurchases();
   }
 
   @override
@@ -278,11 +278,10 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
       final productDetails = response.productDetails.first;
       final purchaseParam = PurchaseParam(productDetails: productDetails);
       InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
-    } else {
-    }
-      setState(() {
-        loadingPurchases.remove(productId);
-      });
+    } else {}
+    setState(() {
+      loadingPurchases.remove(productId);
+    });
   }
 
   Widget _buildSubscriptionButton({
