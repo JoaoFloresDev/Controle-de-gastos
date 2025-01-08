@@ -54,7 +54,7 @@ android {
         applicationId "meus_gastos.my_expenses"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 34
         compileSdkVersion 34
         versionCode 23
@@ -89,3 +89,6 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:21.0.0'
     implementation 'com.google.android.material:material:1.10.0'
 }
+
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
