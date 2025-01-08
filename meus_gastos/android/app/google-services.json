@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "984231457254",
+    "project_id": "meus-gastos-8fc37",
+    "storage_bucket": "meus-gastos-8fc37.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984231457254:android:30b946361ac389e909a627",
+        "android_client_info": {
+          "package_name": "meus_gastos.my_expenses"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE_nqZ0JE-Lbz8uPSR3uhA9Zz2hmE5pw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
