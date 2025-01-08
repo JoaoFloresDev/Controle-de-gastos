@@ -75,7 +75,7 @@ class CustomCalendarState extends State<CustomCalendar> {
   }
 
   Future<void> _checkAndRequestReview() async {
-    ReviewService.checkAndRequestReview(context);
+    ReviewService.checkAndRequestReview(context, _isPro);
     final prefs = await SharedPreferences.getInstance();
     int sessionCount = prefs.getInt('session_count') ?? 0;
     if ((sessionCount == 6) || (sessionCount % 5 == 0 && sessionCount > 10)){

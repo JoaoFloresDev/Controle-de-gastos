@@ -129,26 +129,27 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
 
   Future<void> restore_purchases(PurchaseDetails purchaseDetails) async {
     final prefs = await SharedPreferences.getInstance();
-    isMonthlyPro = prefs.getBool(monthlyProKey) ?? false;
-    isYearlyPro = prefs.getBool(YearlyProKey) ?? false;
     if (storeProductIds[0].id == purchaseDetails.productID) {
+      await prefs.setBool(monthlyProKey, true);
       setState(() {
         isMonthlyPro = true;
-        prefs.setBool(monthlyProKey, true);
       });
-    }
-    if (storeProductIds[1].id == purchaseDetails.productID) {
+    } else if (storeProductIds[1].id == purchaseDetails.productID) {
+      await prefs.setBool(YearlyProKey, true);
       setState(() {
         isYearlyPro = true;
-        prefs.setBool(YearlyProKey, true);
       });
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/version-1
     // Atualizar UI após restauração
     updateProStatus();
   }
 
   Future<void> _restorePurchases() async {
-    await InAppPurchase.instance.restorePurchases();
+    final purchases = await InAppPurchase.instance.restorePurchases();
   }
 
   @override

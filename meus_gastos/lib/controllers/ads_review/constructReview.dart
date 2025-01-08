@@ -11,7 +11,8 @@ import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ReviewService {
-  static Future<void> checkAndRequestReview(BuildContext context) async {
+
+  static Future<void> checkAndRequestReview(BuildContext context, bool isPro) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int sessionCount = prefs.getInt('session_count') ?? 0;
     bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
@@ -29,7 +30,8 @@ class ReviewService {
     } else if (sessionCount == 8 ||
         ((sessionCount % 3 == 0 && !(sessionCount % 5 == 0)) &&
             sessionCount > 10)) {
-      if (!(isYearlyPro || isMonthlyPro)) {
+
+      if (!isPro) {
         _showProModal(context);
       }
     } else if (sessionCount == 10) {
