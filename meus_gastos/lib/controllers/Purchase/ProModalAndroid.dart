@@ -140,10 +140,6 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
         isYearlyPro = true;
       });
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/version-1
     // Atualizar UI após restauração
     updateProStatus();
   }
