@@ -1,5 +1,8 @@
 plugins {
     id "com.android.application"
+    // START: FlutterFire Configuration
+    id 'com.google.gms.google-services'
+    // END: FlutterFire Configuration
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
@@ -56,6 +59,7 @@ android {
         compileSdkVersion 34
         versionCode 23
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
      signingConfigs {

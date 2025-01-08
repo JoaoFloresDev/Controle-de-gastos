@@ -9,13 +9,17 @@ import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:onepref/onepref.dart';
 import 'package:meus_gastos/controllers/Calendar/CustomCalendar.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   InAppPurchase.instance.isAvailable();
   MobileAds.instance.initialize();
-
   await OnePref.init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
