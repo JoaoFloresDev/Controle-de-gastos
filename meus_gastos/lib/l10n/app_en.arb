@@ -114,6 +114,12 @@
     "daily": "Daily",
     "selectAnOption": "Select a repetition option",
     "monthlyInsights": "Monthly insights",
-    "delete": "Delete"
+    "delete": "Delete",
+    "signup": "Sing Up",
+    "signin": "Sing In",
+    "name":"Name",
+    "password": "Password",
+    "alreadyHaveAccount": "Already have an account? Login",
+    "dontHaveAccount" : "Don't have an account yet? Sign up"
 
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
+import 'package:meus_gastos/controllers/cadastro_login/cadastro.dart';
 import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
@@ -186,17 +187,42 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             style: const TextStyle(color: AppColors.label, fontSize: 16),
           ),
           backgroundColor: AppColors.background1,
-          trailing: GestureDetector(
-            onTap: () {
-              _showProModal(context); // Chamando o modal de assinatura
-            },
-            child: const Text(
-              "PRO",
-              style: TextStyle(
-                  color: AppColors.label,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold),
-            ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize
+                .min, // Garante que o Row ocupe apenas o espaço necessário
+            children: [
+              GestureDetector(
+                onTap: () {
+                  _singUpScreen();
+                  print("Entrou");
+                },
+                child: const Padding(
+                  padding: EdgeInsets.only(
+                      right: 8.0), // Espaçamento entre os textos
+                  child: Text(
+                    "Login",
+                    style: TextStyle(
+                      color: AppColors.button,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  _showProModal(context); // Chamando o modal de assinatura
+                },
+                child: const Text(
+                  "PRO",
+                  style: TextStyle(
+                    color: AppColors.label,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         body: GestureDetector(
@@ -433,6 +459,24 @@ class _InsertTransactionsState extends State<InsertTransactions> {
               });
             },
           ),
+        );
+      },
+    );
+  }
+  void _singUpScreen() {
+    FocusScope.of(context).unfocus();
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: MediaQuery.of(context).size.height / 1.05,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: singUpScreen()
         );
       },
     );

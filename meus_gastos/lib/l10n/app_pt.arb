@@ -115,5 +115,11 @@
     "daily": "Diariamente",
     "selectAnOption": "Selecione uma opção de repetição",
     "monthlyInsights": "Insights do mês",
-    "delete": "Excluir"
+    "delete": "Excluir",
+    "signup": "Cadastrar",
+    "signin": "Entrar",
+    "name": "Nome",
+    "password": "Senha",
+    "alreadyHaveAccount": "Já possui uma conta? Login",
+    "dontHaveAccount" : "Ainda não tem uma conta? Cadastre-se"
 }

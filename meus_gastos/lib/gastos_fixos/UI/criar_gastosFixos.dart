@@ -105,7 +105,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
               showDeleteButton: false,
             ),
             Padding(
-              padding: const EdgeInsets.all(0.0),
+              padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
               child: Column(
                 children: [
                   Row(
@@ -131,14 +131,14 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                     decoration: const BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          color: CupertinoColors.white,
+                          color: AppColors.label,
                         ),
                       ),
                     ),
                     placeholder: AppLocalizations.of(context)!.description,
-                    placeholderStyle: TextStyle(
-                        color: CupertinoColors.white.withOpacity(0.5)),
-                    style: const TextStyle(color: CupertinoColors.white),
+                    placeholderStyle:
+                        TextStyle(color: AppColors.labelPlaceholder),
+                    style: const TextStyle(color: AppColors.label),
                     controller: descricaoController,
                   ),
                   const SizedBox(height: 12),
@@ -175,8 +175,8 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                             description: descricaoController.text,
                             price: valorController.numberValue,
                             date: _selectedDate,
-                            category:
-                                icons_list_recorrent[lastIndexSelected_category],
+                            category: icons_list_recorrent[
+                                lastIndexSelected_category],
                             id: const Uuid().v4(),
                             tipoRepeticao: tipoRepeticao,
                           ));
@@ -240,7 +240,8 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                               description: _fixedExpenses[index].description,
                               date: _fixedExpenses[index].date,
                               category: _fixedExpenses[index].category,
-                              tipoRepeticao: _fixedExpenses[index].tipoRepeticao,
+                              tipoRepeticao:
+                                  _fixedExpenses[index].tipoRepeticao,
                             ),
                           ),
                         );
