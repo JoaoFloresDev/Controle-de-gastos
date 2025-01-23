@@ -118,8 +118,11 @@
     "delete": "Excluir",
     "signup": "Cadastrar",
     "signin": "Entrar",
+    "signout": "Sair",
     "name": "Nome",
     "password": "Senha",
     "alreadyHaveAccount": "Já possui uma conta? Login",
-    "dontHaveAccount" : "Ainda não tem uma conta? Cadastre-se"
+    "dontHaveAccount" : "Ainda não tem uma conta? Cadastre-se",
+    "other" : "Outro",
+    "contactus" : "Entre em contato conosco"
 }

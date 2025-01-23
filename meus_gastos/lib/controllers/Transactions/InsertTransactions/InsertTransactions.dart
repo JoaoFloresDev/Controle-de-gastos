@@ -1,7 +1,9 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
-import 'package:meus_gastos/controllers/cadastro_login/cadastro.dart';
+import 'package:meus_gastos/controllers/cadastro_login/logout.dart';
+import 'package:meus_gastos/controllers/cadastro_login/login.dart';
 import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
@@ -79,6 +81,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   // Conjunto para armazenar os IDs dos produtos comprados
   Set<String> purchasedProductIds = {};
 
+  User? user;
+
   // MARK: - InitState
   @override
   void initState() {
@@ -86,7 +90,14 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     loadCards();
 
     // _initInAppPurchase();
+    user = FirebaseAuth.instance.currentUser!;
     _checkUserProStatus();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    user = FirebaseAuth.instance.currentUser!;
   }
 
   Future<void> _checkUserProStatus() async {
@@ -193,16 +204,19 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             children: [
               GestureDetector(
                 onTap: () {
-                  _singUpScreen();
+                  if (user != null)
+                    _singOutScreen();
+                  else
+                    _singInScreen();
                   print("Entrou");
                 },
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.only(
                       right: 8.0), // Espaçamento entre os textos
                   child: Text(
-                    "Login",
+                    "${user != null ? "Logout" : "Login"}",
                     style: TextStyle(
-                      color: AppColors.button,
+                      color: user != null ? AppColors.deletionButton : AppColors.button,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -463,21 +477,39 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       },
     );
   }
-  void _singUpScreen() {
+
+  void _singInScreen() {
     FocusScope.of(context).unfocus();
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height / 1.05,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+            height: MediaQuery.of(context).size.height / 1.5,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
             ),
-          ),
-          child: singUpScreen()
-        );
+            child: singInScreen());
+      },
+    );
+  }
+
+  void _singOutScreen() {
+    FocusScope.of(context).unfocus();
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+            height: MediaQuery.of(context).size.height / 1.5,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: Logout());
       },
     );
   }

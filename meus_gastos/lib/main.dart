@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:meus_gastos/controllers/settings/settings.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -66,7 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final exportButton = GlobalKey();
   final cardsExpense = GlobalKey();
-  final GlobalKey<DashboardScreenState> dashboardKey = GlobalKey<DashboardScreenState>();
+  final GlobalKey<DashboardScreenState> dashboardKey =
+      GlobalKey<DashboardScreenState>();
   final valueExpense = GlobalKey();
   final date = GlobalKey();
   final description = GlobalKey();
@@ -91,6 +93,10 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: const Icon(CupertinoIcons.calendar, size: 20),
             label: AppLocalizations.of(context)!.calendar,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(CupertinoIcons.ellipsis, size: 20),
+            label: AppLocalizations.of(context)!.other,
           ),
         ],
         onTap: (int index) {
@@ -146,6 +152,8 @@ class _MyHomePageState extends State<MyHomePage> {
             calendarKey.currentState?.refreshCalendar();
           },
         );
+      case 3:
+        return Settings();
       default:
         // dashboardTab.currentState?.inicializeDashboard();
         return DashboardScreen(

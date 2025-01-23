@@ -117,9 +117,12 @@
     "delete": "Delete",
     "signup": "Sing Up",
     "signin": "Sing In",
+    "signout" : "Sign Out",
     "name":"Name",
     "password": "Password",
     "alreadyHaveAccount": "Already have an account? Login",
-    "dontHaveAccount" : "Don't have an account yet? Sign up"
+    "dontHaveAccount" : "Don't have an account yet? Sign up",
+    "other" : "Other",
+    "contactus" : "Contact us"
 
 }

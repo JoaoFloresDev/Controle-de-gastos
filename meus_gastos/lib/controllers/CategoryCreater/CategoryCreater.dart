@@ -160,7 +160,8 @@ class _CategorycreaterState extends State<Categorycreater> {
             displayThumbColor: false,
             enableAlpha: false,
             paletteType: PaletteType.hsv,
-            pickerAreaBorderRadius: const BorderRadius.all(Radius.circular(20))));
+            pickerAreaBorderRadius:
+                const BorderRadius.all(Radius.circular(20))));
   }
 
   // MARK: - Add Category
@@ -246,8 +247,8 @@ class _CategorycreaterState extends State<Categorycreater> {
                         children: [
                           Text(
                             "${AppLocalizations.of(context)!.chooseColor} ",
-                            style:
-                                const TextStyle(color: AppColors.label, fontSize: 20),
+                            style: const TextStyle(
+                                color: AppColors.label, fontSize: 20),
                           ),
                           const SizedBox(width: 15),
                           GestureDetector(
@@ -280,7 +281,9 @@ class _CategorycreaterState extends State<Categorycreater> {
                           },
                           child: Text(
                             AppLocalizations.of(context)!.addCategory,
-                            style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.label),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.label),
                           ),
                         ),
                       ),
@@ -314,34 +317,75 @@ class _AddCategoryHorizontalCircleListState
   int selectedIndex = 0;
 
   final List<IconData> accountIcons = [
-    Icons.account_balance,
-    Icons.account_balance_wallet,
-    Icons.account_box,
-    Icons.account_circle,
-    Icons.add_shopping_cart,
-    Icons.attach_money,
-    Icons.bar_chart,
-    Icons.calculate,
-    Icons.calendar_today,
-    Icons.card_giftcard,
-    Icons.card_membership,
-    Icons.card_travel,
-    Icons.check,
-    Icons.check_box,
-    Icons.check_circle,
-    Icons.credit_card,
-    Icons.dashboard,
-    Icons.date_range,
-    Icons.description,
-    Icons.euro_symbol,
-    Icons.monetization_on,
-    Icons.money,
-    Icons.payment,
-    Icons.pie_chart,
-    Icons.receipt,
-    Icons.savings,
-    Icons.show_chart,
-    Icons.wallet,
+    // Alimentação
+    Icons.restaurant, // Restaurante
+    Icons.fastfood, // Comida rápida
+    Icons.local_pizza, // Pizza ou delivery
+    Icons.coffee, // Cafeteria ou bebidas
+
+    // Transporte
+    Icons.directions_car, // Carro
+    Icons.local_taxi, // Táxi ou ride-share
+    Icons.train, // Trem ou transporte público
+    Icons.directions_bus, // Ônibus
+    Icons.airplanemode_active, // Viagem de avião
+    Icons.electric_bike, // Bicicleta elétrica ou transporte alternativo
+
+    // Compras
+    Icons.shopping_cart, // Compras gerais
+    Icons.shopping_bag, // Sacola de compras
+    Icons.card_giftcard, // Presentes
+    Icons.local_mall, // Shopping ou lojas
+
+    // Entretenimento e lazer
+    Icons.movie, // Cinema ou filmes
+    Icons.sports_esports, // Jogos eletrônicos
+    Icons.music_note, // Música
+    Icons.theater_comedy, // Teatro ou eventos
+    Icons.local_bar, // Bar ou festas
+
+    // Contas e serviços
+    Icons.lightbulb, // Eletricidade
+    Icons.water_drop, // Água
+    Icons.wifi, // Internet
+    Icons.phone, // Telefone
+    Icons.home, // Aluguel ou hipoteca
+
+    // Saúde e bem-estar
+    Icons.health_and_safety, // Saúde geral
+    Icons.medical_services, // Serviços médicos
+    Icons.fitness_center, // Academia
+    Icons.spa, // Bem-estar ou estética
+
+    // Educação
+    Icons.school, // Educação ou cursos
+    Icons.menu_book, // Livros ou materiais de estudo
+    Icons.laptop, // Cursos online ou tecnologia
+
+    // Família e cuidado pessoal
+    Icons.child_friendly, // Crianças
+    Icons.pets, // Animais de estimação
+    Icons.cleaning_services, // Limpeza
+    Icons.baby_changing_station, // Produtos para bebês
+
+    // Economia e investimentos
+    Icons.attach_money, // Dinheiro
+    Icons.savings, // Poupança
+    Icons.trending_up, // Investimentos
+    Icons.money_off, // Gastos inesperados
+
+    // Viagens e turismo
+    Icons.hotel, // Hospedagem
+    Icons.beach_access, // Praia ou férias
+    Icons.map, // Turismo
+
+    // Outras categorias
+    Icons.construction, // Manutenção ou reparos
+    Icons.work, // Trabalho
+    Icons.volunteer_activism, // Doações
+    Icons.local_florist, // Flores ou jardinagem
+    Icons.cake, // Festas ou celebrações
+    Icons.devices, // Eletrônicos
   ];
 
   @override

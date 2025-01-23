@@ -118,9 +118,12 @@
   "delete": "Eliminar",
   "signup": "Registrarse",
   "signin": "iniciar sesión",
+  "signout" : "Cerrar Sesión",
   "name": "Nombre",
   "password": "Contraseña",
   "alreadyHaveAccount": "¿Ya tienes una cuenta? Iniciar sesión",
-  "dontHaveAccount" : "¿Aún no tienes una cuenta? Regístrate"
+  "dontHaveAccount" : "¿Aún no tienes una cuenta? Regístrate",
+  "other" : "Otro",
+  "contactus": "Contáctanos"
 
 }
