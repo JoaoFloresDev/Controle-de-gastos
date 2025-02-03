@@ -231,7 +231,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                         context: context,
                         builder: (BuildContext context) {
                           return Container(
-                            height: MediaQuery.of(context).size.height / 1.1,
+                            height: MediaQuery.of(context).size.height - 70,
                             decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20),
@@ -353,7 +353,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height - 150,
+          height: MediaQuery.of(context).size.height - 70,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
@@ -379,7 +379,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height / 1.05,
+          height: MediaQuery.of(context).size.height - 70,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
@@ -419,7 +419,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height / 1.05,
+          height: MediaQuery.of(context).size.height - 70,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),

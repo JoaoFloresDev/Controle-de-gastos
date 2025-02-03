@@ -110,17 +110,17 @@ class CategoryService {
             icon: Icons.wifi,
             name: 'Wifi',
             frequency: 0),
+            CategoryModel(
+            id: 'CreditCard',
+            color: Colors.teal,
+            icon: Icons.credit_card,
+            name: 'Credit Card',
+            frequency: 0),
         CategoryModel(
             id: 'Phone',
             color: Colors.pink,
             icon: Icons.phone,
             name: 'Phone',
-            frequency: 0),
-        CategoryModel(
-            id: 'CreditCard',
-            color: Colors.teal,
-            icon: Icons.credit_card,
-            name: 'Credit Card',
             frequency: 0),
         CategoryModel(
             id: 'AddCategory',

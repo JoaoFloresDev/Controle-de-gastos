@@ -95,7 +95,7 @@ class _ExtractbycategoryState extends State<Extractbycategory> {
                           context: context,
                           builder: (BuildContext context) {
                             return Container(
-                              height: MediaQuery.of(context).size.height - 150,
+                              height: MediaQuery.of(context).size.height - 70,
                               decoration: const BoxDecoration(
                                 color: AppColors.background1,
                                 borderRadius: BorderRadius.only(

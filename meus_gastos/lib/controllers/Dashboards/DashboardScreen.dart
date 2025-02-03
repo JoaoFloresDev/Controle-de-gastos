@@ -218,7 +218,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     int totalLines = calculateLines(labels);
     double additionalHeight = totalLines * heightPerLine;
     double minHeight = 380;
-    double maxHeight = MediaQuery.of(context).size.height - 100;
+    double maxHeight = MediaQuery.of(context).size.height - 70;
     double pageHeight = baseHeight + additionalHeight;
     pageHeight = pageHeight.clamp(minHeight, maxHeight);
 
@@ -391,7 +391,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height - 150,
+          height: MediaQuery.of(context).size.height - 70,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
