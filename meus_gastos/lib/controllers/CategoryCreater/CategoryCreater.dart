@@ -313,36 +313,39 @@ class _AddCategoryHorizontalCircleListState
     extends State<AddCategoryHorizontalCircleList> {
   int selectedIndex = 0;
 
-  final List<IconData> accountIcons = [
-    Icons.account_balance,
-    Icons.account_balance_wallet,
-    Icons.account_box,
-    Icons.account_circle,
-    Icons.add_shopping_cart,
-    Icons.attach_money,
-    Icons.bar_chart,
-    Icons.calculate,
-    Icons.calendar_today,
-    Icons.card_giftcard,
-    Icons.card_membership,
-    Icons.card_travel,
-    Icons.check,
-    Icons.check_box,
-    Icons.check_circle,
-    Icons.credit_card,
-    Icons.dashboard,
-    Icons.date_range,
-    Icons.description,
-    Icons.euro_symbol,
-    Icons.monetization_on,
-    Icons.money,
-    Icons.payment,
-    Icons.pie_chart,
-    Icons.receipt,
-    Icons.savings,
-    Icons.show_chart,
-    Icons.wallet,
-  ];
+final List<IconData> accountIcons = [
+  Icons.restaurant, // Alimentação
+  Icons.local_grocery_store, // Supermercado
+  Icons.directions_car, // Transporte
+  Icons.home, // Moradia
+  Icons.electrical_services, // Utilidades
+  Icons.healing, // Saúde
+  Icons.shopping_cart, // Compras
+  Icons.local_dining, // Restaurantes
+  Icons.movie, // Entretenimento
+  Icons.school, // Educação
+  Icons.fitness_center, // Atividades físicas
+  Icons.local_bar, // Bebidas / Lazer
+  Icons.pets, // Pets
+  Icons.flight, // Viagens
+  Icons.credit_card, // Finanças / Cartão
+  Icons.monetization_on, // Investimentos
+  Icons.savings, // Poupança
+  Icons.attach_money, // Outras despesas financeiras
+  Icons.account_balance_wallet, // Gestão de contas
+  Icons.card_travel, // Transporte de longa distância
+  // Ícones adicionais:
+  Icons.local_florist, // Hobbies / Presentes
+  Icons.fastfood, // Lanches rápidos
+  Icons.free_breakfast, // Café / Desjejum
+  Icons.bike_scooter, // Mobilidade alternativa
+  Icons.wifi, // Internet / Telecomunicações
+  Icons.phone_android, // Telefonia
+  Icons.build, // Manutenção / Reparos
+  Icons.local_offer, // Promoções / Ofertas
+  Icons.pie_chart, // Distribuição de gastos (Categoria Geral)
+];
+
 
   @override
   Widget build(BuildContext context) {

@@ -79,15 +79,17 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  Translateservice.getTranslatedCategoryUsingModel(
-                      context, categorieList[index]),
-                  style: const TextStyle(
-                    fontSize: 9,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+Container(
+  width: 80,
+  child: Text(
+    Translateservice.getTranslatedCategoryUsingModel(context, categorieList[index]),
+    style: const TextStyle(fontSize: 9, color: Colors.white),
+    textAlign: TextAlign.center,
+    maxLines: 2,
+    overflow: TextOverflow.ellipsis,
+  ),
+),
+
               ],
             ),
           );

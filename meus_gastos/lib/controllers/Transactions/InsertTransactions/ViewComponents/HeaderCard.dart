@@ -178,6 +178,7 @@ class HeaderCardState extends State<HeaderCard> {
                 defaultdIndexCategory: 0,
               ),
             ),
+            const SizedBox(height: 6),
 Padding(
   padding: const EdgeInsets.symmetric(horizontal: 8),
   child: SizedBox(
