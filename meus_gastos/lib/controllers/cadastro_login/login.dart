@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/controllers/cadastro_login/logout.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -7,6 +9,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/services/authentication.dart';
 
 class singInScreen extends StatefulWidget {
+  final VoidCallback updateUser;
+  singInScreen({required this.updateUser});
   @override
   _singInScreen createState() => _singInScreen();
 }
@@ -115,6 +119,7 @@ class _singInScreen extends State<singInScreen> {
                             final user = await _authService.signInWithGoogle();
                             if (user != null) {
                               print('Usuário logado: ${user.displayName}');
+                              widget.updateUser;
                               Navigator.of(context).pop();
                             } else {
                               print('Login cancelado ou falhou.');

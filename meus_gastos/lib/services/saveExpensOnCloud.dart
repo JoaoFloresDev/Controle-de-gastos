@@ -5,10 +5,7 @@ import 'package:meus_gastos/services/CardService.dart';
 
 class SaveExpensOnCloud {
   String? userId;
-  SaveExpensOnCloud() : userId = FirebaseAuth.instance.currentUser?.uid {
-    // TODO: implement SaveExpensOnCloud
-    throw UnimplementedError();
-  }
+  SaveExpensOnCloud() : userId = FirebaseAuth.instance.currentUser?.uid;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> addDatesOfOfflineState() async {

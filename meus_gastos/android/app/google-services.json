@@ -12,7 +12,20 @@
           "package_name": "meus_gastos.my_expenses"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "984231457254-chafmtqg5g9ca3tr6oghpu3guk239ihv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "meus_gastos.my_expenses",
+            "certificate_hash": "0feb4fcb4e834940cab7b180d3d71d9c119367c8"
+          }
+        },
+        {
+          "client_id": "984231457254-r57k9lqpt8hennknahpuu12g2h8dgq57.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCE_nqZ0JE-Lbz8uPSR3uhA9Zz2hmE5pw8"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "984231457254-r57k9lqpt8hennknahpuu12g2h8dgq57.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "984231457254-cd3t1b4e9oolfqlv34m94jrs7ai0tocu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gambit.meusgastos.meusGastos"
+              }
+            }
+          ]
         }
       }
     }

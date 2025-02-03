@@ -5,12 +5,14 @@ import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:meus_gastos/services/saveExpensOnCloud.dart';
 import 'CampoComMascara.dart';
 import 'HorizontalCircleList.dart';
 import 'ValorTextField.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;
@@ -45,6 +47,7 @@ class HeaderCardState extends State<HeaderCard> {
   final descricaoController = TextEditingController();
   DateTime lastDateSelected = DateTime.now();
   int lastIndexSelected = 0;
+  User? user;
 
   final GlobalKey<HorizontalCircleListState> _horizontalCircleListKey =
       GlobalKey<HorizontalCircleListState>();
@@ -52,7 +55,7 @@ class HeaderCardState extends State<HeaderCard> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
+    user = FirebaseAuth.instance.currentUser;
     // update date format based in atuality configs
     final locale = Localizations.localeOf(context);
     final currencySymbol = Translateservice.getCurrencySymbol(context);
@@ -80,6 +83,7 @@ class HeaderCardState extends State<HeaderCard> {
   @override
   void initState() {
     super.initState();
+    user = FirebaseAuth.instance.currentUser;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _horizontalCircleListKey.currentState?.loadCategories();
     });
@@ -100,6 +104,11 @@ class HeaderCardState extends State<HeaderCard> {
           [])[lastIndexSelected],
       id: CardService.generateUniqueId(),
     );
+    if (user != null)
+      SaveExpensOnCloud().addNewDate(newCard);
+    else
+      print("Sem usuário");
+
     if (!(newCard.amount == 0)) CardService.addCard(newCard);
 
     await CategoryService.incrementCategoryFrequency(

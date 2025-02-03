@@ -7,6 +7,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/services/authentication.dart';
 
 class Logout extends StatefulWidget {
+  final VoidCallback updateUser;
+  const Logout({required this.updateUser});
   @override
   _Logout createState() => _Logout();
 }
@@ -104,6 +106,7 @@ class _Logout extends State<Logout> {
                         // user?.reload();
                       });
                       print('Usuário deslogado.');
+                      widget.updateUser;
                       Navigator.of(context).pop();
                     },
                     child: Text("Logout",
@@ -133,7 +136,13 @@ class _Logout extends State<Logout> {
               topRight: Radius.circular(20),
             ),
           ),
-          child: singInScreen(), // Aqui chamamos a função que retorna o widget
+          child: singInScreen(
+            updateUser: () {
+              setState(() {
+                user = FirebaseAuth.instance.currentUser;
+              });
+            },
+          ), // Aqui chamamos a função que retorna o widget
         );
       },
     );

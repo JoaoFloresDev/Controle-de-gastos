@@ -183,7 +183,14 @@ class _Settings extends State<Settings> {
                 } else {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => singInScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => singInScreen(
+                              updateUser: () {
+                                setState(() {
+                                  user = FirebaseAuth.instance.currentUser;
+                                });
+                              },
+                            )),
                   );
                 }
               },

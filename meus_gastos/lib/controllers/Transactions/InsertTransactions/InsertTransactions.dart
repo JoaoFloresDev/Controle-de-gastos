@@ -90,14 +90,30 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     loadCards();
 
     // _initInAppPurchase();
-    user = FirebaseAuth.instance.currentUser!;
+    user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      // O usuário está logado
+      print("Usuário logado: ${user?.email}");
+    } else {
+      // O usuário não está logado
+      print("Usuário deslogado.");
+    }
     _checkUserProStatus();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    user = FirebaseAuth.instance.currentUser!;
+    setState(() {
+      user = FirebaseAuth.instance.currentUser;
+    });
+    if (user != null) {
+      // O usuário está logado
+      print("Usuário logado: ${user?.email}");
+    } else {
+      // O usuário não está logado
+      print("Usuário deslogado.");
+    }
   }
 
   Future<void> _checkUserProStatus() async {
@@ -216,7 +232,9 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                   child: Text(
                     "${user != null ? "Logout" : "Login"}",
                     style: TextStyle(
-                      color: user != null ? AppColors.deletionButton : AppColors.button,
+                      color: user != null
+                          ? AppColors.deletionButton
+                          : AppColors.button,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -478,6 +496,12 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     );
   }
 
+  void _updateUser() {
+    setState(() {
+      user = FirebaseAuth.instance.currentUser;
+    });
+  }
+
   void _singInScreen() {
     FocusScope.of(context).unfocus();
     showCupertinoModalPopup(
@@ -491,7 +515,11 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                 topRight: Radius.circular(20),
               ),
             ),
-            child: singInScreen());
+            child: singInScreen(updateUser: () {
+              setState(() {
+                user = FirebaseAuth.instance.currentUser;
+              });
+            }));
       },
     );
   }
@@ -509,7 +537,11 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                 topRight: Radius.circular(20),
               ),
             ),
-            child: Logout());
+            child: Logout(updateUser: () {
+              setState(() {
+                user = FirebaseAuth.instance.currentUser;
+              });
+            }));
       },
     );
   }
