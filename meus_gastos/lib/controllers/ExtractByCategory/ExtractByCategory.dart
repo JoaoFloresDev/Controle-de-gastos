@@ -8,18 +8,16 @@ import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComp
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 
-class Extractbycategory extends StatefulWidget {
+class ExtractByCategory extends StatefulWidget {
   final String category;
-
-  const Extractbycategory({super.key, required this.category});
+  const ExtractByCategory({Key? key, required this.category}) : super(key: key);
 
   @override
-  _ExtractbycategoryState createState() => _ExtractbycategoryState();
+  _ExtractByCategoryState createState() => _ExtractByCategoryState();
 }
 
-class _ExtractbycategoryState extends State<Extractbycategory> {
+class _ExtractByCategoryState extends State<ExtractByCategory> {
   late List<CardModel> cards = [];
-  late List<CardModel> mergeCardList = [];
 
   @override
   void initState() {
@@ -34,90 +32,120 @@ class _ExtractbycategoryState extends State<Extractbycategory> {
     });
   }
 
-  List<CardModel> selectbycategory(
-      List<CardModel> cardList, DateTime currentDate) {
+  List<CardModel> selectByCategory(List<CardModel> cardList, DateTime currentDate) {
     return cardList
         .where((card) => card.category.name == widget.category)
-        .where((c) => (c.date.month == currentDate.month && c.amount>0))
+        .where((c) => (c.date.month == currentDate.month && c.amount > 0))
         .toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<CardModel> filtered = selectbycategory(cards, DateTime.now());
-    print(filtered.length);
+    List<CardModel> filtered = selectByCategory(cards, DateTime.now());
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.black,
       body: Column(
         children: [
-          CustomHeader(
-              title: Translateservice.getTranslatedCategoryName(
-                  context, widget.category),
-              onCancelPressed: () {
-                Navigator.pop(context);
-              },
-              onDeletePressed: () {
-                showCupertinoModalPopup(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Container(
-                      height: SizeOf(context).modal.halfModal(),
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                      ),
-                      child: Exportexcelscreen(category: widget.category),
-                    );
-                  },
-                );
-              },
-              showDeleteButton: true,
-              deleteButtonIcon: const Icon(
-                CupertinoIcons.share,
-                size: 24.0,
-                color: Colors.white,
-              )),
-          Expanded(
+          SafeArea(
             child: Container(
-              color: AppColors.background1,
-              child: ListView.builder(
-                itemCount: filtered.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: ListCard(
-                      onTap: (card) {
-                        FocusScope.of(context).unfocus();
-                        showCupertinoModalPopup(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                              height: MediaQuery.of(context).size.height - 150,
-                              decoration: const BoxDecoration(
-                                color: AppColors.background1,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  topRight: Radius.circular(20),
-                                ),
-                              ),
-                              child: DetailScreen(
-                                card: card,
-                                onAddClicked: () {
-                                  loadCards();
-                                },
-                              ),
-                            );
-                          },
-                        );
-                      },
-                      card: filtered[filtered.length - index - 1],
-                      background: AppColors.card,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: const BoxDecoration(
+                color: AppColors.card,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    child: const Icon(CupertinoIcons.clear, color: Colors.white, size: 28),
+                    onPressed: () {
+                      print("Close button pressed");
+                      Navigator.pop(context);
+                    },
+                  ),
+                  Text(
+                    Translateservice.getTranslatedCategoryName(context, widget.category),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
                     ),
-                  );
-                },
+                  ),
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    child: const Icon(CupertinoIcons.share, color: Colors.white, size: 28),
+                    onPressed: () {
+                      showCupertinoModalPopup(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                            height: SizeOf(context).modal.halfModal(),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                            ),
+                            child: Exportexcelscreen(category: widget.category),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // Lista de transações sem espaço extra entre o header e o conteúdo
+          Expanded(
+            child: Transform.translate(
+              offset: const Offset(0, -4), // desloca 4 pixels para cima
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.black,
+                  // borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                ),
+                child: filtered.isEmpty
+                    ? Center(
+                        child: Text(
+                          "No transactions found",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      )
+                    : ListView.builder(
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                        itemCount: filtered.length,
+                        itemBuilder: (context, index) {
+                          CardModel card = filtered[filtered.length - index - 1];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: ListCard(
+                              onTap: (card) {
+                                FocusScope.of(context).unfocus();
+                                showCupertinoModalPopup(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                      height: MediaQuery.of(context).size.height - 70,
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.background1,
+                                        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                                      ),
+                                      child: DetailScreen(
+                                        card: card,
+                                        onAddClicked: () {
+                                          loadCards();
+                                        },
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              card: card,
+                              background: AppColors.card,
+                            ),
+                          );
+                        },
+                      ),
               ),
             ),
           ),

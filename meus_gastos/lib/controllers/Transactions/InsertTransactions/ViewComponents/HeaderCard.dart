@@ -190,28 +190,30 @@ class HeaderCardState extends State<HeaderCard> {
                 defaultdIndexCategory: 0,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: SizedBox(
-                width: double
-                    .infinity, // Define a largura para ocupar toda a área disponível
-                child: CupertinoButton(
-                  key: widget.addButon,
-                  color: CupertinoColors.systemBlue,
-                  onPressed: () {
-                    adicionar();
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.add,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: CupertinoColors
-                          .white, // Cor do texto definida como branca
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            const SizedBox(height: 6),
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 8),
+  child: SizedBox(
+    width: double.infinity, // Define a largura para ocupar toda a área disponível
+    child: CupertinoButton(
+      key: widget.addButon,
+      color: CupertinoColors.systemBlue,
+      onPressed: () {
+        adicionar();
+      },
+        
+      child: Text(
+        AppLocalizations.of(context)!.add,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          color: CupertinoColors.white, // Cor do texto definida como branca
+        ),
+      ),
+    ),
+  ),
+),
+
+
           ],
         ),
       ),

@@ -67,8 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final exportButton = GlobalKey();
   final cardsExpense = GlobalKey();
-  final GlobalKey<DashboardScreenState> dashboardKey =
-      GlobalKey<DashboardScreenState>();
+  //mark - variables
+final GlobalKey<DashboardScreenState> dashboardTab = GlobalKey<DashboardScreenState>();
+
   final valueExpense = GlobalKey();
   final date = GlobalKey();
   final description = GlobalKey();
@@ -104,6 +105,10 @@ class _MyHomePageState extends State<MyHomePage> {
             selectedTab = index;
           });
 
+if (index == 1) {
+    dashboardTab.currentState?.refreshData();
+  }
+  
           if (index == 2) {
             calendarKey.currentState?.refreshCalendar();
           }
@@ -140,9 +145,9 @@ class _MyHomePageState extends State<MyHomePage> {
           valueExpens: valueExpense,
         );
       case 1:
-        dashboardKey.currentState?.inicializeDashboard();
+        dashboardTab.currentState?.inicializeDashboard();
         return DashboardScreen(
-          key: dashboardKey,
+          key: dashboardTab,
           isActive: true,
         );
       case 2:

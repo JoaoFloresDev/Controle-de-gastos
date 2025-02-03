@@ -274,11 +274,11 @@ class TotalSpentCarouselWithTitlesState
     ];
   }
 
-  @override
-  Widget build(BuildContext context) {
-    
-    print("${widget.currentDate.toLocal()}");
-    return FutureBuilder<List<Map<String, dynamic>>>(
+@override
+Widget build(BuildContext context) {
+  return MediaQuery(
+    data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+    child: FutureBuilder<List<Map<String, dynamic>>>(
       future: buildGroupedPhrases(widget.currentDate),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -328,7 +328,7 @@ class TotalSpentCarouselWithTitlesState
                           title,
                           style: const TextStyle(
                             color: AppColors.label,
-                            fontSize: 16,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -341,21 +341,18 @@ class TotalSpentCarouselWithTitlesState
                                 children: phrases[i].map((phrase) {
                                   final parts = phrase.split(':');
                                   final label = parts[0].trim();
-                                  final value =
-                                      parts.sublist(1).join(':').trim();
-
+                                  final value = parts.sublist(1).join(':').trim();
                                   return Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 4),
+                                    padding: const EdgeInsets.symmetric(vertical: 4),
                                     child: Row(
                                       children: [
                                         Expanded(
-                                          flex: 2,
+                                          flex: 3,
                                           child: Text(
                                             label,
                                             style: const TextStyle(
                                               color: AppColors.label,
-                                              fontSize: 14,
+                                              fontSize: 16,
                                             ),
                                           ),
                                         ),
@@ -380,12 +377,11 @@ class TotalSpentCarouselWithTitlesState
                                   );
                                 }).toList(),
                               ),
-                              // Adiciona divisor entre grupos de frases, exceto após o último
                               if (i < phrases.length - 1)
                                 const Divider(
                                   color: Colors.grey,
                                   thickness: 0.5,
-                                  height: 0,
+                                  height: 10,
                                 ),
                             ],
                           ],
@@ -400,8 +396,10 @@ class TotalSpentCarouselWithTitlesState
           );
         }
       },
-    );
-  }
+    ),
+  );
+}
+
 
   List<TextSpan> _styleValue(String value, TextStyle defaultStyle) {
     final RegExp regex =

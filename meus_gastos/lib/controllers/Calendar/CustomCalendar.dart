@@ -142,10 +142,13 @@ class CustomCalendarState extends State<CustomCalendar> {
     return Scaffold(
       backgroundColor: AppColors.background1,
       appBar: CupertinoNavigationBar(
-          middle: Text(
-            AppLocalizations.of(context)!.calendar,
-            style: const TextStyle(color: AppColors.label, fontSize: 16),
-          ),
+                  middle: MediaQuery(
+  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+  child: Text(
+    AppLocalizations.of(context)!.calendar,
+    style: const TextStyle(color: AppColors.label, fontSize: 20),
+  ),
+),
           backgroundColor: AppColors.background1),
       body: SafeArea(
         child: Column(

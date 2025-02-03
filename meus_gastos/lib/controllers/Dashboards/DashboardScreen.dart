@@ -1,3 +1,27 @@
+import 'dart:io';
+import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
+import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
+import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/gastos_fixos/ListCard.dart';
+import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
+import '../../../models/CardModel.dart';
+import 'package:meus_gastos/services/CardService.dart' as service;
+import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
+import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
+import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarouselWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,9 +57,25 @@ import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgress
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';
 import 'package:flutter/material.dart';
 
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/services/DashbordService.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/MonthSelector.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgressIndicatorSection.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
-
   const DashboardScreen({Key? key, this.isActive = false}) : super(key: key);
 
   @override
@@ -45,16 +85,12 @@ class DashboardScreen extends StatefulWidget {
 class DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
   bool _isPro = false;
+  final GlobalKey<TotalSpentCarouselWithTitlesState> insights = GlobalKey<TotalSpentCarouselWithTitlesState>();
 
-  final GlobalKey<TotalSpentCarouselWithTitlesState> insights =
-      GlobalKey<TotalSpentCarouselWithTitlesState>();
-
-  //mark - propriedades
   List<ProgressIndicatorModel> progressIndicators = [];
   List<PieChartDataItem> pieChartDataItems = [];
   List<double> totalOfMonths = [];
-  Map<int, Map<String, Map<String, dynamic>>> totalExpansivesMonths_category =
-      {};
+  Map<int, Map<String, Map<String, dynamic>>> totalExpansivesMonths_category = {};
   List<WeekInterval> Last5WeeksIntervals = [];
   List<List<ProgressIndicatorModel>> Last5WeeksProgressIndicators = [];
   List<List<List<ProgressIndicatorModel>>> weeklyData = [];
@@ -65,11 +101,11 @@ class DashboardScreenState extends State<DashboardScreen>
       category: CategoryModel(
         id: "1",
         name: "Alimentação",
-        color: const Color.fromARGB(255, 41, 40, 40), // Cor para a categoria
-        icon: CupertinoIcons.cart, // Ícone fictício
-        frequency: 5, // Frequência de ocorrência
+        color: Color.fromARGB(255, 41, 40, 40),
+        icon: CupertinoIcons.cart,
+        frequency: 5,
       ),
-      color: const Color.fromARGB(255, 41, 40, 40), // Cor do indicador
+      color: Color.fromARGB(255, 41, 40, 40),
     ),
     ProgressIndicatorModel(
       title: "Transporte",
@@ -77,11 +113,11 @@ class DashboardScreenState extends State<DashboardScreen>
       category: CategoryModel(
         id: "2",
         name: "Transporte",
-        color: const Color.fromARGB(255, 41, 40, 40), // Cor para a categoria
-        icon: CupertinoIcons.car, // Ícone fictício
-        frequency: 3, // Frequência de ocorrência
+        color: Color.fromARGB(255, 41, 40, 40),
+        icon: CupertinoIcons.car,
+        frequency: 3,
       ),
-      color: const Color.fromARGB(255, 41, 40, 40), // Cor do indicador
+      color: Color.fromARGB(255, 41, 40, 40),
     ),
     ProgressIndicatorModel(
       title: "Lazer",
@@ -89,11 +125,11 @@ class DashboardScreenState extends State<DashboardScreen>
       category: CategoryModel(
         id: "3",
         name: "Lazer",
-        color: const Color.fromARGB(255, 41, 40, 40), // Cor para a categoria
-        icon: CupertinoIcons.smiley, // Ícone fictício
-        frequency: 2, // Frequência de ocorrência
+        color: Color.fromARGB(255, 41, 40, 40),
+        icon: CupertinoIcons.smiley,
+        frequency: 2,
       ),
-      color: const Color.fromARGB(255, 41, 40, 40), // Cor do indicador
+      color: Color.fromARGB(255, 41, 40, 40),
     ),
   ];
 
@@ -159,37 +195,30 @@ class DashboardScreenState extends State<DashboardScreen>
     setState(() {
       isLoading = true;
     });
-
-    progressIndicators =
-        await CardService.getProgressIndicatorsByMonth(currentDate);
-    pieChartDataItems = progressIndicators
-        .map((indicator) => indicator.toPieChartDataItem())
-        .toList();
-
-    totalGasto = progressIndicators.fold(
-        0.0, (sum, indicator) => sum + indicator.progress);
-
+    progressIndicators = await CardService.getProgressIndicatorsByMonth(currentDate);
+    pieChartDataItems = progressIndicators.map((indicator) => indicator.toPieChartDataItem()).toList();
+    totalGasto = progressIndicators.fold(0.0, (sum, indicator) => sum + indicator.progress);
     Last5WeeksIntervals = Dashbordservice.getLast5WeeksIntervals(currentDate);
-    Last5WeeksProgressIndicators =
-        await Dashbordservice.getLast5WeeksProgressIndicators(currentDate);
-    weeklyData = await Dashbordservice.getProgressIndicatorsOfDaysForLast5Weeks(
-        currentDate);
-
+    Last5WeeksProgressIndicators = await Dashbordservice.getLast5WeeksProgressIndicators(currentDate);
+    weeklyData = await Dashbordservice.getProgressIndicatorsOfDaysForLast5Weeks(currentDate);
     setState(() {
       isLoading = false;
     });
   }
 
+  void refreshData() {
+    _onScreenDisplayed();
+    _loadInitialData();
+  }
+
   Widget _buildBannerAd() {
-    if (_isPro) {
-      return const SizedBox.shrink();
-    }
+    if (_isPro || Platform.isMacOS) return const SizedBox.shrink();
     return Container(
-        height: 60,
-        width: double.infinity, // Largura total da tela
-        alignment: Alignment.center, // Centraliza no eixo X
-        child: BannerAdconstruct(),
-        );
+      height: 60,
+      width: double.infinity,
+      alignment: Alignment.center,
+      child: BannerAdconstruct(),
+    );
   }
 
   Widget _buildMonthSelector() {
@@ -206,41 +235,79 @@ class DashboardScreenState extends State<DashboardScreen>
     int calculateLines(List<String> labels) {
       int lines = 0;
       int i = 0;
-
       while (i < labels.length) {
         String current = labels[i];
-        if (i + 1 < labels.length &&
-            (current.length + labels[i + 1].length) <= 20) {
+        if (i + 1 < labels.length && (current.length + labels[i + 1].length) <= 20) {
           i += 2;
         } else {
           i += 1;
         }
         lines++;
       }
-
       return lines;
     }
-
     int totalLines = calculateLines(labels);
     double additionalHeight = totalLines * heightPerLine;
     double minHeight = 380;
     double maxHeight = MediaQuery.of(context).size.height - 100;
     double pageHeight = baseHeight + additionalHeight;
     pageHeight = pageHeight.clamp(minHeight, maxHeight);
-
     return pageHeight;
   }
 
   Widget _buildTotalSpentCarousel() {
-    return Totalspentcarouselwidget(
-      currentDate: currentDate,
-      totalGasto: totalGasto,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12),
+      child: SizedBox(
+        height: 500,
+        child: totalGasto == 0 
+            ? Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  color: AppColors.card,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      offset: const Offset(0, 4),
+                      blurRadius: 8,
+                      spreadRadius: 2,
+                    ),
+                  ],
+                ),
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.monthlyInsights, 
+                      style: const TextStyle(
+                        color: AppColors.label,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      AppLocalizations.of(context)!.youWillBeAbleToUnderstandYourExpensesHere,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.label,
+                        fontSize: 14,
+                      ),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ) 
+            : TotalSpentCarouselWithTitles(currentDate: currentDate),
+      ),
     );
   }
 
   Widget _buildPageView() {
     double pageHeight = _calculatePageHeight();
-
     return SizedBox(
       height: pageHeight,
       child: PageView(
@@ -248,23 +315,20 @@ class DashboardScreenState extends State<DashboardScreen>
         onPageChanged: _onPageChanged,
         children: <Widget>[
           Padding(
-            padding:
-                const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
             child: DashboardCard(
               items: pieChartDataItems,
             ),
           ),
           Padding(
-            padding:
-                const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
             child: WeeklyStackedBarChart(
               weekIntervals: Last5WeeksIntervals,
               weeklyData: Last5WeeksProgressIndicators,
             ),
           ),
           Padding(
-            padding:
-                const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
+            padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
             child: DailyStackedBarChart(
               last5weewdailyData: weeklyData,
               last5WeeksIntervals: Last5WeeksIntervals,
@@ -285,9 +349,7 @@ class DashboardScreenState extends State<DashboardScreen>
           height: 12.0,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: _currentIndex == index
-                ? AppColors.button
-                : AppColors.buttonSelected,
+            color: _currentIndex == index ? AppColors.button : AppColors.buttonSelected,
           ),
         );
       }),
@@ -295,11 +357,9 @@ class DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget _buildProgressIndicators(BuildContext context) {
-    print(progressIndicators.isEmpty);
     if (progressIndicators.isEmpty) {
       return Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.center, // Centraliza os itens horizontalmente
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             AppLocalizations.of(context)!.topExpensesOfTheMonth,
@@ -308,7 +368,7 @@ class DashboardScreenState extends State<DashboardScreen>
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
-            textAlign: TextAlign.center, // Centraliza o texto dentro do widget
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
           Text(
@@ -318,13 +378,12 @@ class DashboardScreenState extends State<DashboardScreen>
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
-            textAlign: TextAlign.center, // Centraliza o texto dentro do widget
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 30),
         ],
       );
     }
-
     return Column(
       children: [
         Text(
@@ -342,8 +401,7 @@ class DashboardScreenState extends State<DashboardScreen>
               model: progressIndicator,
               totalAmount: progressIndicators.fold(
                   0,
-                  (maxValue, item) =>
-                      maxValue > item.progress ? maxValue : item.progress),
+                  (maxValue, item) => maxValue > item.progress ? maxValue : item.progress),
             ),
           ),
       ],
@@ -355,14 +413,14 @@ class DashboardScreenState extends State<DashboardScreen>
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height - 150,
+          height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
             ),
           ),
-          child: Extractbycategory(category: model.category.name),
+          child: ExtractByCategory(category: model.category.name),
         );
       },
     );
@@ -383,47 +441,48 @@ class DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-  //MARK: construção da tela
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
       backgroundColor: AppColors.background1,
       appBar: CupertinoNavigationBar(
-        middle: Text(
-          AppLocalizations.of(context)!.myControl,
-          style: const TextStyle(color: AppColors.label, fontSize: 16),
-        ),
+        middle: MediaQuery(
+  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+  child: Text(
+    AppLocalizations.of(context)!.myControl,
+    style: const TextStyle(color: AppColors.label, fontSize: 20),
+  ),
+),
         backgroundColor: AppColors.background1,
         trailing: GestureDetector(
-            onTap: () {
-              showCupertinoModalPopup(
-                context: context,
-                builder: (BuildContext context) {
-                  return Container(
-                    height: SizeOf(context).modal.halfModal(),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
+          onTap: () {
+            showCupertinoModalPopup(
+              context: context,
+              builder: (BuildContext context) {
+                return Container(
+                  height: SizeOf(context).modal.halfModal(),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
                     ),
-                    child: Exportexcelscreen(),
-                  );
-                },
-              );
-            },
-            child: const Icon(
-              CupertinoIcons.share,
-              size: 24.0,
-              color: Colors.white,
-            )),
+                  ),
+                  child: Exportexcelscreen(),
+                );
+              },
+            );
+          },
+          child: const Icon(
+            CupertinoIcons.share,
+            size: 24.0,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: SafeArea(
         child: isLoading
-            ? Center(
-                child: _buildLoadingIndicator(),
-              )
+            ? Center(child: _buildLoadingIndicator())
             : Column(
                 children: [
                   Expanded(
@@ -439,9 +498,6 @@ class DashboardScreenState extends State<DashboardScreen>
                           _buildPageView(),
                           _buildPageIndicators(),
                           const SizedBox(height: 12),
-                          // MonthInsights(
-                          //   currentDate: currentDate,
-                          // ),
                           _buildTotalSpentCarousel(),
                           const SizedBox(height: 8),
                           if (isLoading)
