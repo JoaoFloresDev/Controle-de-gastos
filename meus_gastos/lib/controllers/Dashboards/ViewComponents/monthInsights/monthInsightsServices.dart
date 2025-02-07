@@ -316,17 +316,6 @@ class Monthinsightsservices {
     return [firstTenDays, secontTendays, tirthTenDays];
   }
 
-  // Projection for the month
-
-  // static double projectionGeneralForTheMonth(DateTime currenteDate) {
-  //   // pega a media de gastos gerais e multiplica pela quantidade de dias do mês
-  //   double gastosDoMes = await monthExpenses(currenteDate);
-  //   double media_diaria = dailyAverage();
-  //   return 0.0;
-  // }
-
-  // current month / previous month
-
   static DateTime diminuirUmMes(DateTime data) {
     int novoAno = data.year;
     int novoMes = data.month - 1;

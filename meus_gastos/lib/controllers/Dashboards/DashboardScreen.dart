@@ -93,44 +93,6 @@ class DashboardScreenState extends State<DashboardScreen>
   List<WeekInterval> Last5WeeksIntervals = [];
   List<List<ProgressIndicatorModel>> Last5WeeksProgressIndicators = [];
   List<List<List<ProgressIndicatorModel>>> weeklyData = [];
-  List<ProgressIndicatorModel> progressIndicators2 = [
-    ProgressIndicatorModel(
-      title: "Alimentação",
-      progress: 400,
-      category: CategoryModel(
-        id: "1",
-        name: "Alimentação",
-        color: Color.fromARGB(255, 41, 40, 40),
-        icon: CupertinoIcons.cart,
-        frequency: 5,
-      ),
-      color: Color.fromARGB(255, 41, 40, 40),
-    ),
-    ProgressIndicatorModel(
-      title: "Transporte",
-      progress: 200,
-      category: CategoryModel(
-        id: "2",
-        name: "Transporte",
-        color: Color.fromARGB(255, 41, 40, 40),
-        icon: CupertinoIcons.car,
-        frequency: 3,
-      ),
-      color: Color.fromARGB(255, 41, 40, 40),
-    ),
-    ProgressIndicatorModel(
-      title: "Lazer",
-      progress: 300,
-      category: CategoryModel(
-        id: "3",
-        name: "Lazer",
-        color: Color.fromARGB(255, 41, 40, 40),
-        icon: CupertinoIcons.smiley,
-        frequency: 2,
-      ),
-      color: Color.fromARGB(255, 41, 40, 40),
-    ),
-  ];
 
   double totalexpens = 0.0;
   bool isLoading = true;
@@ -138,7 +100,6 @@ class DashboardScreenState extends State<DashboardScreen>
   double totalGasto = 0.0;
 
   final PageController _pageController = PageController();
-  int _currentIndex = 0;
 
   @override
   bool get wantKeepAlive => true;
@@ -178,9 +139,7 @@ class DashboardScreenState extends State<DashboardScreen>
   }
 
   void _onPageChanged(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
+      _currentIndexNotifier.value = index;
   }
 
   Future<void> _loadProgressIndicators(DateTime currentDate) async {
@@ -252,48 +211,63 @@ class DashboardScreenState extends State<DashboardScreen>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12),
       child: SizedBox(
-        height: 500,
+        height: 520,
         child: totalGasto == 0 
             ? Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  color: AppColors.card,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      offset: const Offset(0, 4),
-                      blurRadius: 8,
-                      spreadRadius: 2,
-                    ),
-                  ],
-                ),
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context)!.monthlyInsights, 
-                      style: const TextStyle(
-                        color: AppColors.label,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      AppLocalizations.of(context)!.youWillBeAbleToUnderstandYourExpensesHere,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.label,
-                        fontSize: 14,
-                      ),
-                      textAlign: TextAlign.center,
-                    )
-                  ],
-                ),
-              ) 
+              
+  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+  padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [AppColors.card, AppColors.background1],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            offset: const Offset(0, 4),
+            blurRadius: 8,
+            spreadRadius: 2,
+          ),
+        ],
+      ),
+  alignment: Alignment.center,
+  child: Column(
+    mainAxisSize: MainAxisSize.min,
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Icon(
+        Icons.insights,
+        color: AppColors.label,
+        size: 48,
+      ),
+      const SizedBox(height: 16),
+      Text(
+        AppLocalizations.of(context)!.monthlyInsights,
+        style: const TextStyle(
+          color: AppColors.label,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+        textAlign: TextAlign.center,
+      ),
+      const SizedBox(height: 12),
+      Text(
+        AppLocalizations.of(context)!.youWillBeAbleToUnderstandYourExpensesHere,
+        style: const TextStyle(
+          fontWeight: FontWeight.w600,
+          color: AppColors.label,
+          fontSize: 16,
+        ),
+        textAlign: TextAlign.center,
+      )
+    ],
+  ),
+)
+
             : TotalSpentCarouselWithTitles(currentDate: currentDate),
       ),
     );
@@ -331,23 +305,28 @@ class DashboardScreenState extends State<DashboardScreen>
       ),
     );
   }
-
-  Widget _buildPageIndicators() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List<Widget>.generate(3, (index) {
-        return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 4.0),
-          width: 12.0,
-          height: 12.0,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: _currentIndex == index ? AppColors.button : AppColors.buttonSelected,
-          ),
-        );
-      }),
-    );
-  }
+final ValueNotifier<int> _currentIndexNotifier = ValueNotifier<int>(0);
+Widget _buildPageIndicators() {
+  return ValueListenableBuilder<int>(
+    valueListenable: _currentIndexNotifier,
+    builder: (context, currentIndex, _) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List<Widget>.generate(3, (index) {
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 4.0),
+            width: 12.0,
+            height: 12.0,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: currentIndex == index ? AppColors.button : AppColors.buttonSelected,
+            ),
+          );
+        }),
+      );
+    },
+  );
+}
 
   Widget _buildProgressIndicators(BuildContext context) {
     if (progressIndicators.isEmpty) {
@@ -387,6 +366,7 @@ class DashboardScreenState extends State<DashboardScreen>
             fontWeight: FontWeight.bold,
           ),
         ),
+        const SizedBox(height: 8),
         for (var progressIndicator in progressIndicators)
           GestureDetector(
             onTap: () => _showExpenseDetails(context, progressIndicator),
@@ -497,6 +477,7 @@ class DashboardScreenState extends State<DashboardScreen>
                             _buildLoadingIndicator()
                           else
                             _buildProgressIndicators(context),
+                            const SizedBox(height: 40),
                         ],
                       ),
                     ),

@@ -105,10 +105,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     }
   }
 
-  void _deliverProduct(PurchaseDetails purchase) {
-    purchasedProductIds.add(purchase.productID);
-  }
-
   // MARK: - Load Cards
   Future<void> loadCards() async {
     var cards = await service.CardService.retrieveCards();
@@ -307,8 +303,6 @@ middle: MediaQuery(
                           child: ListCardRecorrent(
                             onTap: (card) {
                               widget.onAddClicked();
-                              // _showCupertinoModalBottomSheet_Fixed(
-                              //     context, card);
                             },
                             card: mergeCardList[cardList.length - index - 1],
                             onAddClicked: loadCards(),
@@ -317,35 +311,47 @@ middle: MediaQuery(
                       }),
                 ),
               if (cardList.isEmpty && fixedCards.isEmpty)
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0, right: 16.0, bottom: 16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 20),
-                        const Icon(
-                          Icons.inbox,
-                          color: AppColors.card,
-                          size: 60,
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          AppLocalizations.of(context)!.addNewTransactions,
-                          style: const TextStyle(
-                              color: AppColors.label, fontSize: 16),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                )
+Expanded(
+  child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Icon(
+          Icons.inbox,
+          color: AppColors.card,
+          size: 60, // Ícone levemente maior para maior impacto visual
+        ),
+        Text(
+          AppLocalizations.of(context)!.addNewTransactions,
+          style: const TextStyle(
+            color: AppColors.label,
+            fontSize: 18, // Levemente maior para melhor leitura
+            fontWeight: FontWeight.w500,
+            height: 1.8,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        const Spacer(), 
+        Text(
+          AppLocalizations.of(context)!.addNewCallToAction,
+          style: const TextStyle(
+            color: AppColors.label,
+            fontSize: 16, // Destaque maior para a explicação final
+            fontWeight: FontWeight.w500,
+            height: 1.4,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+  ),
+)
             ],
           ),
         ),
-        backgroundColor: Colors.black.withOpacity(0.9),
+        backgroundColor: AppColors.background1,
       ),
     );
   }
@@ -372,40 +378,6 @@ middle: MediaQuery(
               });
             },
           ),
-        );
-      },
-    );
-  }
-
-  _showCupertinoModalBottomSheet_Fixed(BuildContext context, CardModel card) {
-    FocusScope.of(context).unfocus();
-    showCupertinoModalPopup(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: MediaQuery.of(context).size.height - 70,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: DetailScreenFixedExpenses(
-              card: fixedCards
-                  .firstWhere((fcard) => fcard.id == card.idFixoControl),
-              onAddClicked: () {
-                setState(() {
-                  loadCards();
-                });
-              },
-              onDeleteClicked: (FixedExpense cardFix) async {
-                // adicionar gasto falso
-                await fakeExpens(cardFix);
-
-                setState(() {
-                  loadCards();
-                });
-              }),
         );
       },
     );

@@ -16,7 +16,6 @@ class TotalSpentCarouselWithTitles extends StatefulWidget {
   });
 
 
-
   @override
   TotalSpentCarouselWithTitlesState createState() =>
       TotalSpentCarouselWithTitlesState();
@@ -304,18 +303,22 @@ Widget build(BuildContext context) {
                 margin: const EdgeInsets.symmetric(horizontal: 8),
                 padding: const EdgeInsets.only(
                     left: 20, right: 20, top: 16, bottom: 0),
-                decoration: BoxDecoration(
-                  color: AppColors.card,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      offset: const Offset(0, 4),
-                      blurRadius: 8,
-                      spreadRadius: 2,
-                    ),
-                  ],
-                ),
+              decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [const Color.fromARGB(255, 32, 32, 32), AppColors.card2],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            offset: const Offset(0, 4),
+            blurRadius: 8,
+            spreadRadius: 2,
+          ),
+        ],
+      ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: sections.map<Widget>((section) {
@@ -435,77 +438,7 @@ Widget build(BuildContext context) {
 
     return [TextSpan(text: value, style: defaultStyle)];
   }
-
-  List<Widget> _buildGroupedRows(
-    List<List<String>> phrases,
-    TextStyle tableHeaderStyle,
-    TextStyle tableCellStyle,
-  ) {
-    List<Widget> rows = [];
-    for (int groupIndex = 0; groupIndex < phrases.length; groupIndex++) {
-      final group = phrases[groupIndex];
-
-      for (int phraseIndex = 0; phraseIndex < group.length; phraseIndex++) {
-        final phrase = group[phraseIndex];
-        final parts = phrase.split(':');
-        final label = parts[0];
-        final value = parts.sublist(1).join(':').trim();
-
-        rows.add(
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Text(
-                    label,
-                    style: tableHeaderStyle,
-                    textAlign: TextAlign.left, // Alinha o texto à esquerda
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: RichText(
-                    textAlign: TextAlign.right,
-                    text: TextSpan(
-                      children: _styleValue(value, tableCellStyle),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      }
-
-      if (groupIndex < phrases.length - 1) {
-        rows.add(const Divider(
-          color: Colors.grey,
-          thickness: 0.5,
-        ));
-      }
-    }
-    return rows;
-  }
-
-  TextStyle _getParenthesesStyle(String value) {
-    if (value.startsWith('+')) {
-      return TextStyle(
-          color: Colors.red, fontSize: 14, fontWeight: FontWeight.w600);
-    } else if (value.startsWith('-')) {
-      return TextStyle(
-          color: Colors.green, fontSize: 14, fontWeight: FontWeight.w600);
-    } else {
-      return TextStyle(
-          color: Color(0xFFB0BEC5), fontSize: 14, fontWeight: FontWeight.w400);
-    }
-  }
-
-  String _getStyledValue(String value) {
-    return value; // Apenas retorna o valor sem os parênteses
-  }
-
+  
   String getFormatResume(int day) {
     final DateFormat formatter =
         DateFormat(AppLocalizations.of(context)!.resumeDateFormat);

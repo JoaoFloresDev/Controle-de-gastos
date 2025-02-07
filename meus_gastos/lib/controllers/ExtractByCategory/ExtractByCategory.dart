@@ -68,7 +68,7 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
                     Translateservice.getTranslatedCategoryName(context, widget.category),
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 22,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

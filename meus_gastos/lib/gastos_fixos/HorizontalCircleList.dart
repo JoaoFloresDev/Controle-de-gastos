@@ -57,11 +57,12 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                   decoration: BoxDecoration(
                     color: selectedIndex == index
                         ? AppColors.buttonSelected
-                        : AppColors.buttonDeselected,
+                        : Colors.transparent,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     widget.icons_list_recorrent[index].icon,
+                    color: widget.icons_list_recorrent[index].color,
                   ),
                 ),
                 const SizedBox(height: 4),

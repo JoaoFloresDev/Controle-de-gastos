@@ -37,16 +37,8 @@ class ListCardRecorrent extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
-          color: AppColors.background1,
+          color: const Color.fromARGB(104, 44, 44, 44),
           borderRadius: BorderRadius.circular(20),
-          boxShadow: const [
-            BoxShadow(
-              color: AppColors.cardShadow,
-              spreadRadius: 1,
-              blurRadius: 3,
-              offset: Offset(0, 1),
-            ),
-          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,6 +49,8 @@ class ListCardRecorrent extends StatelessWidget {
               child: Text("${AppLocalizations.of(context)!.recurringExpenses}",
                   style: TextStyle(
                     color: AppColors.label,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
                   )),
             ),
             Row(
@@ -73,20 +67,19 @@ class ListCardRecorrent extends StatelessWidget {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
-                      width: 24,
-                      height: 24,
-                      margin: const EdgeInsets.symmetric(horizontal: 16),
-                      decoration: const BoxDecoration(
-                        color: AppColors.card,
-                        shape: BoxShape.circle,
+                      Container(
+                        width: 20,
+                        height: 20,
+                        decoration: const BoxDecoration(
+                          // color: AppColors.card,
+                          // shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          card.category.icon,
+                          size: 20,
+                          color: card.category.color,
+                        ),
                       ),
-                      child: Icon(
-                        card.category.icon,
-                        size: 18,
-                        color: AppColors.label,
-                      ),
-                    ),
                     Text(
                       Translateservice.getTranslatedCategoryUsingModel(
                           context, card.category),
@@ -101,37 +94,17 @@ class ListCardRecorrent extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    card.description,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: AppColors.label,
-                    ),
-                  ),
-                ),
-                Text(
-                  DateFormat(AppLocalizations.of(context)!.dateFormat)
-                      .format(card.date),
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: AppColors.label,
-                  ),
-                ),
-              ],
-            ),
+                                      Divider(
+                color: AppColors.cardShadow.withOpacity(0.3),
+                thickness: 1,
+              ),
+              const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () async {
-                      // Ação do botão excluir
-                      print('Excluir pressionado');
-                  
                       fakeExpens(card);
                       onAddClicked;
                     },
@@ -150,8 +123,6 @@ class ListCardRecorrent extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      // Ação do botão adicionar
-                      print('Adicionar pressionado');
                       adicionar();
                       onAddClicked;
                     },

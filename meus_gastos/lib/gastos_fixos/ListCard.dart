@@ -59,7 +59,7 @@ class ListCardFixeds extends StatelessWidget {
                       child: Icon(
                         card.category.icon,
                         size: 18,
-                        color: AppColors.label,
+                        color: card.category.color,
                       ),
                     ),
                     Text(

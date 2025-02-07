@@ -215,19 +215,23 @@ const Padding(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const SizedBox(height: 80),
-                          const Icon(
-                            Icons.inbox,
-                            color: AppColors.card,
-                            size: 60,
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            AppLocalizations.of(context)!.addNewTransactions,
-                            style: const TextStyle(
-                                color: AppColors.label, fontSize: 16),
-                            textAlign: TextAlign.center,
-                          ),
+                          const SizedBox(height: 40),
+        const Icon(
+          Icons.inbox,
+          color: AppColors.card,
+          size: 60, // Ícone levemente maior para maior impacto visual
+        ),
+        Text(
+          AppLocalizations.of(context)!.addNewTransactions,
+          style: const TextStyle(
+            color: AppColors.label,
+            fontSize: 18, // Levemente maior para melhor leitura
+            fontWeight: FontWeight.w500,
+            height: 1.8,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        const Spacer(),
                         ],
                       ),
                     ),

@@ -1,3 +1,5 @@
+import 'package:meus_gastos/services/TranslateService.dart';
+import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +9,7 @@ import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/AddCategoryHorizontalCircleList.dart';
 
 class Categorycreater extends StatefulWidget {
   final VoidCallback onCategoryAdded;
@@ -19,45 +22,17 @@ class Categorycreater extends StatefulWidget {
 
 class _CategorycreaterState extends State<Categorycreater> {
   late TextEditingController categoriaController;
-  late Color _currentColor = Colors.lightGreen;
-  int selectedIndex = 0;
+  late Color _currentColor = Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
+  late Future<List<CategoryModel>> _futureCategories = Future.value([]);
 
-  final List<IconData> accountIcons = [
-    Icons.account_balance,
-    Icons.account_balance_wallet,
-    Icons.account_box,
-    Icons.account_circle,
-    Icons.add_shopping_cart,
-    Icons.attach_money,
-    Icons.bar_chart,
-    Icons.calculate,
-    Icons.calendar_today,
-    Icons.card_giftcard,
-    Icons.card_membership,
-    Icons.card_travel,
-    Icons.check,
-    Icons.check_box,
-    Icons.check_circle,
-    Icons.credit_card,
-    Icons.dashboard,
-    Icons.date_range,
-    Icons.description,
-    Icons.euro_symbol,
-    Icons.monetization_on,
-    Icons.money,
-    Icons.payment,
-    Icons.pie_chart,
-    Icons.receipt,
-    Icons.savings,
-    Icons.show_chart,
-    Icons.wallet,
-  ];
+  int selectedIndex = 0;
 
   // MARK: - Lifecycle Methods
   @override
   void initState() {
     super.initState();
     categoriaController = TextEditingController();
+    _futureCategories = CategoryService().getAllPositiveCategories();
   }
 
   @override
@@ -106,7 +81,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                         enableAlpha: false,
                         paletteType: PaletteType.hsv,
                         pickerAreaBorderRadius:
-                            const BorderRadius.all(Radius.circular(8)),
+                            const BorderRadius.all(Radius.circular(0)),
                       ),
                       SizedBox(
                         width: 160,
@@ -180,8 +155,9 @@ class _CategorycreaterState extends State<Categorycreater> {
 
     await CategoryService().addCategory(category);
     widget.onCategoryAdded();
-
-    Navigator.of(context).popUntil((route) => route.isFirst);
+    setState(() {
+                          _futureCategories = CategoryService().getAllPositiveCategories();
+                        });
   }
 
   // MARK: - Build Method
@@ -214,6 +190,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                 child: Form(
                   child: Column(
                     children: [
+                      const SizedBox(height: 12),
                       AddCategoryHorizontalCircleList(
                         onItemSelected: (index) {
                           setState(() {
@@ -224,12 +201,12 @@ class _CategorycreaterState extends State<Categorycreater> {
                       const SizedBox(height: 12),
                       CupertinoTextField(
                         style: const TextStyle(
-                          color: AppColors.line,
+                          color: Color.fromARGB(255, 252, 252, 254),
                         ),
                         decoration: const BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
-                              color: AppColors.line,
+                              color: Color.fromARGB(255, 255, 255, 255),
                             ),
                           ),
                         ),
@@ -268,22 +245,125 @@ class _CategorycreaterState extends State<Categorycreater> {
                         ],
                       ),
                       const SizedBox(height: 32),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: CupertinoButton(
-                          color: AppColors.button,
-                          onPressed: () {
-                            if (categoriaController.text.isNotEmpty) {
-                              adicionar();
-                              Navigator.pop(context);
-                            }
-                          },
-                          child: Text(
-                            AppLocalizations.of(context)!.addCategory,
-                            style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.label),
-                          ),
-                        ),
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 16),
+  child: SizedBox(
+    width: double.infinity,
+    child: CupertinoButton(
+      color: AppColors.button,
+      onPressed: () {
+        if (categoriaController.text.isNotEmpty) {
+          adicionar();
+          // Navigator.pop(context);
+        }
+      },
+      child: Text(
+        AppLocalizations.of(context)!.addCategory,
+        style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.label),
+      ),
+    ),
+  ),
+),
+const SizedBox(height: 40),
+Stack(
+  children: [
+    SizedBox(
+      height: MediaQuery.of(context).size.height - 550,
+      child: FutureBuilder<List<CategoryModel>>(
+        future: _futureCategories,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text("Error", style: TextStyle(color: Colors.white)));
+          } else if (snapshot.hasData) {
+            final categories = snapshot.data!;
+            if (categories.isEmpty) {
+              return Center(child: Text("No categories found", style: TextStyle(color: Colors.white)));
+            }
+            return ListView.separated(
+              padding: EdgeInsets.zero,
+              itemCount: categories.length - 1,
+              separatorBuilder: (context, index) => const SizedBox(height: 8),
+              itemBuilder: (context, index) {
+                final category = categories[index];
+                return Container(
+                  margin: EdgeInsets.only(left: 16, right: 16, top: index == 0 ? 30 : 8, bottom: index == categories.length - 2 ? 40 : 8),
+                  decoration: BoxDecoration(
+                    color: AppColors.card,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
                       ),
+                    ],
+                  ),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    leading: Icon(category.icon, color: category.color, size: 30),
+                    title: Text(Translateservice.getTranslatedCategoryUsingModel(context, category), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.redAccent),
+                      onPressed: () {
+                        CategoryService().deleteCategory(category.id);
+                        setState(() {
+                          widget.onCategoryAdded();
+                          _futureCategories = CategoryService().getAllPositiveCategories();
+                        });
+                      },
+                    ),
+                  ),
+                );
+              },
+            );
+          } else {
+            return const SizedBox();
+          }
+        },
+      ),
+    ),
+    Positioned(
+      top: 0,
+      left: 0,
+      right: 0,
+      child: Container(
+        height: 40,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              AppColors.background1,
+              AppColors.background1.withOpacity(0),
+            ],
+          ),
+        ),
+      ),
+    ),
+    Positioned(
+      bottom: 0,
+      left: 0,
+      right: 0,
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [
+              AppColors.background1,
+              AppColors.background1.withOpacity(0),
+            ],
+          ),
+        ),
+      ),
+    ),
+  ],
+)
+
+
                     ],
                   ),
                 ),
@@ -291,96 +371,6 @@ class _CategorycreaterState extends State<Categorycreater> {
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class AddCategoryHorizontalCircleList extends StatefulWidget {
-  final Function(int) onItemSelected;
-
-  const AddCategoryHorizontalCircleList({
-    super.key,
-    required this.onItemSelected,
-  });
-
-  @override
-  _AddCategoryHorizontalCircleListState createState() =>
-      _AddCategoryHorizontalCircleListState();
-}
-
-class _AddCategoryHorizontalCircleListState
-    extends State<AddCategoryHorizontalCircleList> {
-  int selectedIndex = 0;
-
-final List<IconData> accountIcons = [
-  Icons.restaurant, // Alimentação
-  Icons.local_grocery_store, // Supermercado
-  Icons.directions_car, // Transporte
-  Icons.home, // Moradia
-  Icons.electrical_services, // Utilidades
-  Icons.healing, // Saúde
-  Icons.shopping_cart, // Compras
-  Icons.local_dining, // Restaurantes
-  Icons.movie, // Entretenimento
-  Icons.school, // Educação
-  Icons.fitness_center, // Atividades físicas
-  Icons.local_bar, // Bebidas / Lazer
-  Icons.pets, // Pets
-  Icons.flight, // Viagens
-  Icons.credit_card, // Finanças / Cartão
-  Icons.monetization_on, // Investimentos
-  Icons.savings, // Poupança
-  Icons.attach_money, // Outras despesas financeiras
-  Icons.account_balance_wallet, // Gestão de contas
-  Icons.card_travel, // Transporte de longa distância
-  // Ícones adicionais:
-  Icons.local_florist, // Hobbies / Presentes
-  Icons.fastfood, // Lanches rápidos
-  Icons.free_breakfast, // Café / Desjejum
-  Icons.bike_scooter, // Mobilidade alternativa
-  Icons.wifi, // Internet / Telecomunicações
-  Icons.phone_android, // Telefonia
-  Icons.build, // Manutenção / Reparos
-  Icons.local_offer, // Promoções / Ofertas
-  Icons.pie_chart, // Distribuição de gastos (Categoria Geral)
-];
-
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 60,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: accountIcons.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedIndex = index;
-              });
-              widget.onItemSelected(index);
-            },
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                    color: selectedIndex == index
-                        ? AppColors.buttonSelected
-                        : AppColors.buttonDeselected,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(accountIcons[index]),
-                ),
-              ],
-            ),
-          );
-        },
       ),
     );
   }

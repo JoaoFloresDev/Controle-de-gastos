@@ -25,132 +25,33 @@ class DashboardCard extends StatelessWidget {
       color: AppColors.card,
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
+      child: 
+      Container(
+              decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [AppColors.card, AppColors.card2],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            offset: const Offset(0, 4),
+            blurRadius: 8,
+            spreadRadius: 2,
+          ),
+        ],
+      ),
+        child: 
+        
+        Padding(
+        padding: const EdgeInsets.all(0),
+        child: items.isEmpty ? _buildPieChartPlaceholder(context) : 
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (items.isEmpty)
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 300, // Aumentado para incluir gráfico e legendas
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Gráfico de exemplo em tons de cinza
-                        SizedBox(
-                          width: double.infinity,
-                          height: 200,
-                          child: PieChart(
-                            PieChartData(
-                              sectionsSpace: 4,
-                              centerSpaceRadius: 50,
-                              sections: [
-                                PieChartSectionData(
-                                  color: Colors.grey[900],
-                                  value: 40,
-                                  title: '40%',
-                                  radius: 30,
-                                  titleStyle: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 58, 58, 58)),
-                                  titlePositionPercentageOffset: 1.8,
-                                ),
-                                PieChartSectionData(
-                                  color: Colors.grey[800],
-                                  value: 30,
-                                  title: '30%',
-                                  radius: 30,
-                                  titleStyle: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 58, 58, 58)),
-                                  titlePositionPercentageOffset: 1.8,
-                                ),
-                                PieChartSectionData(
-                                  color: Colors.grey[700],
-                                  value: 20,
-                                  title: '20%',
-                                  radius: 30,
-                                  titleStyle: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 58, 58, 58)),
-                                  titlePositionPercentageOffset: 1.8,
-                                ),
-                                PieChartSectionData(
-                                  color: Colors.grey[700],
-                                  value: 10,
-                                  title: '10%',
-                                  radius: 30,
-                                  titleStyle: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 58, 58, 58)),
-                                  titlePositionPercentageOffset: 1.8,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        // Legendas de exemplo
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: Wrap(
-                            spacing: 8,
-                            runSpacing: 4,
-                            alignment: WrapAlignment.center,
-                            children: _buildExampleLegend(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Aplica o efeito de blur tanto no gráfico quanto nas legendas
-                  ClipRect(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                      child: Container(
-                        width: double.infinity,
-                        height: 300, // Mesma altura do gráfico e das legendas
-                        color: Colors.black.withOpacity(0),
-                      ),
-                    ),
-                  ),
-                  // Texto por cima do gráfico e legendas
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!
-                            .pieGraphPlaceholder, // Texto secundário
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.label,
-                          fontSize: 18,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 24),
-                      Text(
-                        AppLocalizations.of(context)!
-                            .addNewTransactions, // Texto principal
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.label,
-                          fontSize: 12,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ],
-              )
-            else
+            
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -197,9 +98,61 @@ class DashboardCard extends StatelessWidget {
               ),
           ],
         ),
-      ),
+      ),)
     );
   }
+
+Widget _buildPieChartPlaceholder(BuildContext context) {
+  return SizedBox.expand(
+    child: Container(
+      // padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [AppColors.card, AppColors.background1],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            offset: const Offset(0, 4),
+            blurRadius: 8,
+            spreadRadius: 2,
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.pie_chart, size: 60, color: AppColors.label),
+          const SizedBox(height: 16),
+          Text(
+            "Gráfico de Pizza",
+            style: const TextStyle(
+              color: AppColors.label,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 12),
+          Text(
+            "Veja a porcentagem de gastos por categoria",
+            style: const TextStyle(
+              color: AppColors.label,
+              fontSize: 16,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 40),
+        ],
+      ),
+    ),
+  );
+}
+
+
 
   Widget _buildLegendItem(Color color, String percent, String label) {
     return Row(

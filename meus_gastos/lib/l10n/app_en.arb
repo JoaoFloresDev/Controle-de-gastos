@@ -19,6 +19,7 @@
     "expensesOfTheMonth": "Expenses of the Month by Category",
     "topExpensesOfTheMonth": "Top Expenses of the Month",
     "addNewTransactions": "Enter the amount, select the category, and tap 'Add' to record your transaction",
+    "addNewCallToAction": "We will structure your expenses so you can take control",
     "youWillBeAbleToUnderstandYourExpensesHere": "You will be able to understand\n your expenses here",
     "dailyExpensesByCategory": "Daily Expenses by Category",
     "monday": "Mon",
