@@ -391,7 +391,7 @@ void _launchURL(String url) async {
           const SizedBox(width: 8),
           Icon(
             icon,
-            color: AppColors.button,
+            color: AppColors.label,
             size: 30,
           ),
           const SizedBox(width: 8),
