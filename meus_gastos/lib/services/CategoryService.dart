@@ -51,100 +51,101 @@ Future<List<CategoryModel>> getAllPositiveCategories() async {
   return aux;
 }
 
-//mark - Constants
 final List<CategoryModel> defaultCategories = [
   CategoryModel(
     id: 'Unknown',
-    color: Colors.blue.shade400,
+    color: Colors.blueAccent.withOpacity(0.8),
     icon: Icons.question_mark_rounded,
     name: 'Unknown',
     frequency: 0,
   ),
   CategoryModel(
     id: 'Shopping',
-    color: Colors.green.shade400,
+    color: Colors.greenAccent.withOpacity(0.8),
     icon: Icons.shopping_cart,
     name: 'Shopping',
     frequency: 0,
   ),
   CategoryModel(
     id: 'Restaurant',
-    color: Colors.red.shade400,
+    color: Colors.indigo.withOpacity(0.8),
     icon: Icons.restaurant,
     name: 'Restaurant',
     frequency: 0,
   ),
   CategoryModel(
     id: 'GasStation',
-    color: Colors.amber.shade400,
+    color: Colors.amberAccent.withOpacity(0.8),
     icon: Icons.local_gas_station,
     name: 'GasStation',
     frequency: 0,
   ),
   CategoryModel(
     id: 'Home',
-    color: Colors.orange.shade400,
+    color: Colors.teal.withOpacity(0.8),
     icon: Icons.home,
     name: 'Home',
     frequency: 0,
   ),
   CategoryModel(
     id: 'ShoppingBasket',
-    color: Colors.pink.shade400,
+    color: Colors.pinkAccent.withOpacity(0.8),
     icon: Icons.shopping_basket,
     name: 'ShoppingBasket',
     frequency: 0,
   ),
   CategoryModel(
     id: 'Hospital',
-    color: Colors.purple.shade400,
+    color: Colors.tealAccent.withOpacity(0.8),
     icon: Icons.local_hospital,
     name: 'Hospital',
     frequency: 0,
   ),
   CategoryModel(
     id: 'Movie',
-    color: Colors.deepPurple.shade400,
+    color: Colors.deepPurpleAccent.withOpacity(0.8),
     icon: Icons.movie,
     name: 'Movie',
     frequency: 0,
   ),
   CategoryModel(
     id: 'VideoGame',
-    color: Colors.indigo.shade400,
+    color: Colors.brown.withOpacity(0.8),
     icon: Icons.videogame_asset,
     name: 'VideoGame',
     frequency: 0,
   ),
   CategoryModel(
     id: 'Drink',
-    color: Colors.cyan.shade400,
+    color: Colors.cyanAccent.withOpacity(0.8),
     icon: Icons.local_drink_outlined,
     name: 'Drink',
     frequency: 0,
   ),
   CategoryModel(
     id: 'CreditCard',
-    color: Colors.lime.shade400,
+    color: Colors.limeAccent.withOpacity(0.8),
     icon: Icons.credit_card,
     name: 'CreditCard',
     frequency: 0,
   ),
   CategoryModel(
     id: 'Phone',
-    color: Colors.deepOrange.shade400,
+    color: Colors.deepOrangeAccent.withOpacity(0.8),
     icon: Icons.phone,
     name: 'Phone',
     frequency: 0,
   ),
   CategoryModel(
     id: 'AddCategory',
-    color: AppColors.button,
+    color: AppColors.button.withOpacity(0.8),
     icon: Icons.add,
     name: 'AddCategory',
     frequency: -10,
   ),
 ];
+
+
 
 
 
