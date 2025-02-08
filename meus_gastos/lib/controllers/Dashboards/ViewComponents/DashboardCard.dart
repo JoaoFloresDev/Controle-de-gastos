@@ -105,7 +105,7 @@ class DashboardCard extends StatelessWidget {
 Widget _buildPieChartPlaceholder(BuildContext context) {
   return SizedBox.expand(
     child: Container(
-      // padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [AppColors.card, AppColors.background1],
@@ -128,7 +128,7 @@ Widget _buildPieChartPlaceholder(BuildContext context) {
           Icon(Icons.pie_chart, size: 60, color: AppColors.label),
           const SizedBox(height: 16),
           Text(
-            "Gráfico de Pizza",
+            AppLocalizations.of(context)!.pieGraphPlaceholder,
             style: const TextStyle(
               color: AppColors.label,
               fontSize: 22,
@@ -136,9 +136,9 @@ Widget _buildPieChartPlaceholder(BuildContext context) {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 24),
           Text(
-            "Veja a porcentagem de gastos por categoria",
+            AppLocalizations.of(context)!.pietutorial,
             style: const TextStyle(
               color: AppColors.label,
               fontSize: 16,
