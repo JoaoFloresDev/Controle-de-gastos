@@ -100,7 +100,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                 child: Center(
                     child: Text(
                         AppLocalizations.of(context)!.noExpensesThisWeek,
-                        style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500)))),
+                        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500)))),
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0, left: 16, right: 16),
             child: SelectCategories(

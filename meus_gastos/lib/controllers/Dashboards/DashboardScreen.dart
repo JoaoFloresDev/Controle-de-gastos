@@ -94,6 +94,7 @@ class DashboardScreenState extends State<DashboardScreen>
   List<List<ProgressIndicatorModel>> Last5WeeksProgressIndicators = [];
   List<List<List<ProgressIndicatorModel>>> weeklyData = [];
 
+
   double totalexpens = 0.0;
   bool isLoading = true;
   DateTime currentDate = DateTime.now();
@@ -306,22 +307,36 @@ class DashboardScreenState extends State<DashboardScreen>
     );
   }
 final ValueNotifier<int> _currentIndexNotifier = ValueNotifier<int>(0);
+//mark - view: PageView indicators
 Widget _buildPageIndicators() {
+  bool isMac = Platform.isMacOS;
   return ValueListenableBuilder<int>(
     valueListenable: _currentIndexNotifier,
     builder: (context, currentIndex, _) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List<Widget>.generate(3, (index) {
-          return Container(
+          Widget indicator = Container(
             margin: const EdgeInsets.symmetric(horizontal: 4.0),
-            width: 12.0,
-            height: 12.0,
+            width: isMac ? 16.0 : 12.0,
+            height: isMac ? 16.0 : 12.0,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: currentIndex == index ? AppColors.button : AppColors.buttonSelected,
             ),
           );
+          return isMac
+              ? GestureDetector(
+                  onTap: () {
+                    _pageController.animateToPage(
+                      index,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  },
+                  child: indicator,
+                )
+              : indicator;
         }),
       );
     },

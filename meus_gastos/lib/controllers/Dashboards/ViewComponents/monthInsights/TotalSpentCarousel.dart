@@ -5,6 +5,7 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/monthInsightsServices.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'dart:io';
 
 class TotalSpentCarouselWithTitles extends StatefulWidget {
   final DateTime currentDate;
@@ -23,6 +24,14 @@ class TotalSpentCarouselWithTitles extends StatefulWidget {
 
 class TotalSpentCarouselWithTitlesState
     extends State<TotalSpentCarouselWithTitles> {
+      final PageController _pageController = PageController(viewportFraction: 0.9);
+
+@override
+void dispose() {
+  _pageController.dispose();
+  super.dispose();
+}
+
   double avaregeDaily = 0.0;
   double monthExpenses = 0.0;
   double monthFixedExpenses = 0.0;
@@ -293,115 +302,158 @@ Widget build(BuildContext context) {
           );
         } else {
           final groupedPhrases = snapshot.data ?? [];
-          return PageView.builder(
-            itemCount: groupedPhrases.length,
-            controller: PageController(viewportFraction: 0.9),
-            itemBuilder: (context, index) {
-              final group = groupedPhrases[index];
-              final sections = group['sections'] as List<Map<String, dynamic>>;
-              return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-                padding: const EdgeInsets.only(
-                    left: 20, right: 20, top: 16, bottom: 0),
-              decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [const Color.fromARGB(255, 32, 32, 32), AppColors.card2],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            offset: const Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: 2,
-          ),
-        ],
-      ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: sections.map<Widget>((section) {
-                    final title = section['title'] as String;
-                    final phrases = section['phrases'] as List<List<String>>;
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          title,
-                          style: const TextStyle(
-                            color: AppColors.label,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+          return Stack(
+            children: [
+              PageView.builder(
+                itemCount: groupedPhrases.length,
+                controller: _pageController,
+                itemBuilder: (context, index) {
+                  final group = groupedPhrases[index];
+                  final sections = group['sections'] as List<Map<String, dynamic>>;
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    padding: const EdgeInsets.only(left: 20, right: 20, top: 16, bottom: 0),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [const Color.fromARGB(255, 32, 32, 32), AppColors.card2],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(18),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          offset: const Offset(0, 4),
+                          blurRadius: 8,
+                          spreadRadius: 2,
                         ),
-                        const SizedBox(height: 2),
-                        Column(
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: sections.map<Widget>((section) {
+                        final title = section['title'] as String;
+                        final phrases = section['phrases'] as List<List<String>>;
+                        return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            for (int i = 0; i < phrases.length; i++) ...[
-                              Column(
-                                children: phrases[i].map((phrase) {
-                                  final parts = phrase.split(':');
-                                  final label = parts[0].trim();
-                                  final value = parts.sublist(1).join(':').trim();
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 4),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 3,
-                                          child: Text(
-                                            label,
-                                            style: const TextStyle(
-                                              color: AppColors.label,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 3,
-                                          child: Align(
-                                            alignment: Alignment.centerRight,
-                                            child: RichText(
-                                              text: TextSpan(
-                                                children: _styleValue(
-                                                    value,
-                                                    const TextStyle(
-                                                      color: AppColors.label,
-                                                      fontSize: 14,
-                                                    )),
+                            Text(
+                              title,
+                              style: const TextStyle(
+                                color: AppColors.label,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                for (int i = 0; i < phrases.length; i++) ...[
+                                  Column(
+                                    children: phrases[i].map((phrase) {
+                                      final parts = phrase.split(':');
+                                      final label = parts[0].trim();
+                                      final value = parts.sublist(1).join(':').trim();
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 4),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 3,
+                                              child: Text(
+                                                label,
+                                                style: const TextStyle(
+                                                  color: AppColors.label,
+                                                  fontSize: 16,
+                                                ),
                                               ),
                                             ),
-                                          ),
+                                            Expanded(
+                                              flex: 3,
+                                              child: Align(
+                                                alignment: Alignment.centerRight,
+                                                child: RichText(
+                                                  text: TextSpan(
+                                                    children: _styleValue(
+                                                      value,
+                                                      const TextStyle(
+                                                        color: AppColors.label,
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      );
+                                    }).toList(),
+                                  ),
+                                  if (i < phrases.length - 1)
+                                    const Divider(
+                                      color: Colors.grey,
+                                      thickness: 0.5,
+                                      height: 10,
                                     ),
-                                  );
-                                }).toList(),
-                              ),
-                              if (i < phrases.length - 1)
-                                const Divider(
-                                  color: Colors.grey,
-                                  thickness: 0.5,
-                                  height: 10,
-                                ),
-                            ],
+                                ],
+                              ],
+                            ),
+                            const SizedBox(height: 8),
                           ],
-                        ),
-                        const SizedBox(height: 8),
-                      ],
-                    );
-                  }).toList(),
+                        );
+                      }).toList(),
+                    ),
+                  );
+                },
+              ),
+              if (Platform.isMacOS) ...[
+                Positioned(
+                  left: 10,
+                  top: 0,
+                  bottom: 0,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back_ios, color: AppColors.button),
+                    onPressed: () {
+                      final prevPage = ((_pageController.page?.round() ?? 0) - 1);
+                      if (prevPage >= 0) {
+                        _pageController.animateToPage(
+                          prevPage,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      }
+                    },
+                  ),
                 ),
-              );
-            },
+                Positioned(
+                  right: 10,
+                  top: 0,
+                  bottom: 0,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_forward_ios, color: AppColors.button),
+                    onPressed: () {
+                      final nextPage = ((_pageController.page?.round() ?? 0) + 1);
+                      if (nextPage < groupedPhrases.length) {
+                        _pageController.animateToPage(
+                          nextPage,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ],
           );
         }
       },
     ),
   );
 }
+
 
 
   List<TextSpan> _styleValue(String value, TextStyle defaultStyle) {

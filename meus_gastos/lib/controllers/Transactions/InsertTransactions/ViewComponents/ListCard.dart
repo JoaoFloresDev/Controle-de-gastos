@@ -46,7 +46,7 @@ class ListCard extends StatelessWidget {
                   Text(
                     Translateservice.formatCurrency(card.amount, context),
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: AppColors.label,
                     ),
@@ -55,15 +55,15 @@ class ListCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                        width: 20,
-                        height: 20,
+                        width: 16,
+                        height: 16,
                         decoration: const BoxDecoration(
                           color: AppColors.card,
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
                           card.category.icon,
-                          size: 20,
+                          size: 16,
                           color: card.category.color,
                         ),
                       ),
@@ -90,7 +90,7 @@ class ListCard extends StatelessWidget {
                     child: Text(
                       card.description,
                       style: const TextStyle(
-                        fontSize: 16,
+                        fontSize: 12,
                         color: AppColors.label,
                       ),
                     ),
@@ -98,7 +98,7 @@ class ListCard extends StatelessWidget {
                   Text(
                     DateFormat(dateFormatString).format(card.date),
                     style: const TextStyle(
-                      fontSize: 14,
+                      fontSize: 10,
                       color: AppColors.label,
                     ),
                   ),

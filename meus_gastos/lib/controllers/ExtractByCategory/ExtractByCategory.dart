@@ -102,7 +102,7 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
               child: Container(
                 decoration: const BoxDecoration(
                   color: Colors.black,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(0)),
                 ),
                 child: filtered.isEmpty
                     ? Center(
