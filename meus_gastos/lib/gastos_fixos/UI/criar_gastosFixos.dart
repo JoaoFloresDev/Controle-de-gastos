@@ -7,7 +7,7 @@ import 'package:meus_gastos/designSystem/Components/CustomHeader.dart';
 import 'package:meus_gastos/gastos_fixos/HorizontalCircleList.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import '../CardDetails/DetailScreen.dart';
-import '../ListCard.dart';
+import '../ListCardFixeds.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ValorTextField.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
@@ -59,7 +59,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
   }
 
   Future<void> loadCategories() async {
-    var categorieList = await CategoryService().getAllCategories();
+    var categorieList = await CategoryService().getAllPositiveCategories();
     setState(() {
       icons_list_recorrent = categorieList.sublist(0, categorieList.length - 1);
     });

@@ -217,6 +217,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(15),
                         ],
+                        textCapitalization: TextCapitalization.sentences,
                       ),
                       const SizedBox(height: 32),
                       Row(
@@ -254,6 +255,7 @@ Padding(
       onPressed: () {
         if (categoriaController.text.isNotEmpty) {
           adicionar();
+          FocusScope.of(context).unfocus();
           // Navigator.pop(context);
         }
       },
@@ -307,6 +309,7 @@ Stack(
                     trailing: IconButton(
                       icon: const Icon(Icons.delete, color: Colors.redAccent),
                       onPressed: () {
+                        FocusScope.of(context).unfocus();
                         CategoryService().deleteCategory(category.id);
                         setState(() {
                           widget.onCategoryAdded();

@@ -6,7 +6,7 @@ import 'package:meus_gastos/designSystem/Components/CustomHeader.dart';
 import 'package:meus_gastos/gastos_fixos/HorizontalCircleList.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import '../CardDetails/DetailScreen.dart';
-import '../ListCard.dart';
+import '../ListCardFixeds.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ValorTextField.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
@@ -79,6 +79,7 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
             break;
         }
   }
+
 
   void _showRepetitionOptions(BuildContext context) {
     final DateFormat dayFormat = DateFormat('d');

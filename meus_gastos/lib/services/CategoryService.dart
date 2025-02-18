@@ -138,7 +138,7 @@ final List<CategoryModel> defaultCategories = [
   ),
   CategoryModel(
     id: 'AddCategory',
-    color: AppColors.button.withOpacity(0.8),
+    color: AppColors.button,
     icon: Icons.add,
     name: 'AddCategory',
     frequency: -10,

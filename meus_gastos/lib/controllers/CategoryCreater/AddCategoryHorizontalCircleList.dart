@@ -23,8 +23,6 @@ class AddCategoryHorizontalCircleList extends StatefulWidget {
 }
 
 final List<IconData> accountIcons = [
-  Icons.restaurant, // Alimentação
-  Icons.local_grocery_store, // Supermercado
   Icons.directions_car, // Transporte
   Icons.home, // Moradia
   Icons.electrical_services, // Utilidades
@@ -53,6 +51,8 @@ final List<IconData> accountIcons = [
   Icons.build, // Manutenção / Reparos
   Icons.local_offer, // Promoções / Ofertas
   Icons.pie_chart, // Distribuição de gastos (Categoria Geral)
+  Icons.restaurant, // Alimentação
+  Icons.local_grocery_store, // Supermercado
 ];
 
 class _AddCategoryHorizontalCircleListState

@@ -107,7 +107,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.arrow_forward_ios, color: AppColors.button),
+              icon: const Icon(Icons.arrow_forward_ios, color: AppColors.label),
               onPressed: () {
                 _scrollController.animateTo(
                   _scrollController.offset + 100,
@@ -159,7 +159,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                     child: Text(
                       Translateservice.getTranslatedCategoryUsingModel(
                           context, widget.icons_list_recorrent[index]),
-                      style: const TextStyle(fontSize: 9, color: AppColors.button),
+                      style: const TextStyle(fontSize: 12, color: AppColors.label),
                       textAlign: TextAlign.center,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

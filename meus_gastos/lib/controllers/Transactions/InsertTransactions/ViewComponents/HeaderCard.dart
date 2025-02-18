@@ -155,6 +155,7 @@ class HeaderCardState extends State<HeaderCard> {
                   TextStyle(color: CupertinoColors.white.withOpacity(0.5)),
               style: const TextStyle(color: CupertinoColors.white),
               controller: descricaoController,
+              textCapitalization: TextCapitalization.sentences,
             ),
             const SizedBox(height: 12),
             Container(

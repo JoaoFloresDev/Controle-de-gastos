@@ -230,7 +230,13 @@ class _ProModalState extends State<ProModal> {
                   color: AppColors.labelSecondary,
                 ),
               ),
-              const SizedBox(height: 30),
+              Divider(
+                color: AppColors.labelSecondary,
+                thickness: 0.5,
+                indent: 40,
+                endIndent: 20,
+                height: 30,
+              ),
               _buildFeatureRow(
                 icon: Icons.file_present_rounded,
                 label: AppLocalizations.of(context)!.exportToExcelOrPdf,
@@ -277,6 +283,17 @@ class _ProModalState extends State<ProModal> {
                 ],
               ),
             ],
+          ),
+          Positioned(
+            right: 0,
+            child: IconButton(
+              icon: const Icon(
+                Icons.info_outline_rounded,
+                color: AppColors.label,
+                size: 28,
+              ),
+              onPressed: () => _showMenuOptions(context),
+            ),
           ),
           Positioned(
             left: 0,

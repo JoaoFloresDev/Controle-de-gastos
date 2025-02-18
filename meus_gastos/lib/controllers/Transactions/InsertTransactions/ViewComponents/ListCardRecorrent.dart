@@ -22,7 +22,7 @@ class ListCardRecorrent extends StatelessWidget {
     final newCard = CardModel(
       amount: card.amount,
       description: card.description,
-      date: card.date,
+      date: DateTime.now(),
       category: card.category,
       id: CardService.generateUniqueId(),
       idFixoControl: card.idFixoControl,
@@ -59,7 +59,7 @@ class ListCardRecorrent extends StatelessWidget {
                 Text(
                   Translateservice.formatCurrency(card.amount, context),
                   style: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: AppColors.label,
                   ),
@@ -67,19 +67,20 @@ class ListCardRecorrent extends StatelessWidget {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                      Container(
-                        width: 20,
-                        height: 20,
-                        decoration: const BoxDecoration(
-                          // color: AppColors.card,
-                          // shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          card.category.icon,
-                          size: 20,
-                          color: card.category.color,
-                        ),
+                    Container(
+                      width: 24,
+                      height: 24,
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
+                      decoration: const BoxDecoration(
+                        color: AppColors.card,
+                        shape: BoxShape.circle,
                       ),
+                      child: Icon(
+                        card.category.icon,
+                        size: 18,
+                        color: card.category.color,
+                      ),
+                    ),
                     Text(
                       Translateservice.getTranslatedCategoryUsingModel(
                           context, card.category),
@@ -93,12 +94,12 @@ class ListCardRecorrent extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 2),
                                       Divider(
                 color: AppColors.cardShadow.withOpacity(0.3),
                 thickness: 1,
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 2),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

@@ -11,13 +11,32 @@ class ListCardFixeds extends StatelessWidget {
 
   const ListCardFixeds({super.key, required this.card, required this.onTap});
 
+  // MARK - Private helper methods
+  String _getRepetitionText(BuildContext context, String repetition, DateTime referenceDate) {
+    final DateFormat dayFormat = DateFormat('d');
+    final String dayOfMonth = dayFormat.format(referenceDate);
+    switch (repetition) {
+      case 'mensal':
+        return "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth";
+      case 'semanal':
+        return "${AppLocalizations.of(context)!.weeklyEvery} ${DateFormat.EEEE('pt_BR').format(referenceDate)}";
+      case 'anual':
+        return "${AppLocalizations.of(context)!.yearlyEveryDay} ${DateFormat('d MMMM', 'pt_BR').format(referenceDate)}";
+      case 'seg_sex':
+        return "${AppLocalizations.of(context)!.weekdaysMondayToFriday}";
+      case 'diario':
+        return "${AppLocalizations.of(context)!.daily}";
+      default:
+        return "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // print("${card.date.day}");
     return GestureDetector(
       onTap: () => onTap(card),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
         decoration: BoxDecoration(
           color: AppColors.card,
           borderRadius: BorderRadius.circular(20),
@@ -49,8 +68,8 @@ class ListCardFixeds extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                      width: 24,
-                      height: 24,
+                      width: 16,
+                      height: 16,
                       margin: const EdgeInsets.symmetric(horizontal: 16),
                       decoration: const BoxDecoration(
                         color: AppColors.card,
@@ -58,13 +77,12 @@ class ListCardFixeds extends StatelessWidget {
                       ),
                       child: Icon(
                         card.category.icon,
-                        size: 18,
+                        size: 16,
                         color: card.category.color,
                       ),
                     ),
                     Text(
-                      Translateservice.getTranslatedCategoryUsingModel(
-                          context, card.category),
+                      Translateservice.getTranslatedCategoryUsingModel(context, card.category),
                       style: const TextStyle(
                         fontSize: 11,
                         color: AppColors.label,
@@ -75,7 +93,10 @@ class ListCardFixeds extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 4),
+            Divider(
+              color: AppColors.cardShadow.withOpacity(0.5),
+                thickness: 1,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -83,17 +104,15 @@ class ListCardFixeds extends StatelessWidget {
                   child: Text(
                     card.description,
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       color: AppColors.label,
                     ),
                   ),
                 ),
                 Text(
-                  DateFormat(AppLocalizations.of(context)!.dateFormat).format(
-                      DateTime(DateTime.now().year, DateTime.now().month,
-                          card.date.day)),
+                  _getRepetitionText(context, card.tipoRepeticao, card.date), // Alteração nesta linha
                   style: const TextStyle(
-                    fontSize: 12,
+                    fontSize: 14,
                     color: AppColors.label,
                   ),
                 ),

@@ -35,9 +35,15 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
   bool _isLoadingSaveLocally = false;
   
   //mark - Loading Indicator
-  Widget _buildLoadingIndicator() {
-    return const CircularProgressIndicator(color: AppColors.label);
-  }
+// MARK - Loading Indicator
+Widget _buildLoadingIndicator() {
+  return const SizedBox(
+    width: 24,
+    height: 24,
+    child: CircularProgressIndicator(color: AppColors.label),
+  );
+}
+
   
   //mark - Build
   @override
@@ -84,15 +90,15 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
             CupertinoSegmentedControl<String>(
               children: {
                 'Excel': Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 32),
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                   child: const Text('Excel', style: TextStyle(fontSize: 16)),
                 ),
                 'PDF': Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 32),
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                   child: const Text('PDF', style: TextStyle(fontSize: 16)),
                 ),
                 'Texto': Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 32),
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                   child: const Text('Texto', style: TextStyle(fontSize: 16)),
                 ),
               },
@@ -121,7 +127,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                       ),
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       child: _isLoadingSaveLocally
-                          ? _buildLoadingIndicator()
+                          ? Center(child: _buildLoadingIndicator())
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -146,7 +152,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                       ),
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       child: _isLoadingShare
-                          ? _buildLoadingIndicator()
+                          ? Center(child: _buildLoadingIndicator())
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

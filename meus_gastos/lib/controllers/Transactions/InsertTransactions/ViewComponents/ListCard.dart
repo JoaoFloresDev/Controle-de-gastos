@@ -23,7 +23,7 @@ class ListCard extends StatelessWidget {
         onTap: () => onTap(card),
         borderRadius: BorderRadius.circular(20),
         child: Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
           decoration: BoxDecoration(
             color: background,
             borderRadius: BorderRadius.circular(20),
@@ -46,7 +46,7 @@ class ListCard extends StatelessWidget {
                   Text(
                     Translateservice.formatCurrency(card.amount, context),
                     style: const TextStyle(
-                      fontSize: 14,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: AppColors.label,
                     ),
@@ -71,7 +71,7 @@ class ListCard extends StatelessWidget {
                       Text(
                         Translateservice.getTranslatedCategoryUsingModel(context, card.category),
                         style: const TextStyle(
-                          fontSize: 12,
+                          fontSize: 11,
                           color: AppColors.label
                         ),
                         textAlign: TextAlign.center,
@@ -81,20 +81,23 @@ class ListCard extends StatelessWidget {
                 ],
               ),
               Divider(
-                color: AppColors.cardShadow.withOpacity(0.3),
+                color: AppColors.cardShadow.withOpacity(0.5),
                 thickness: 1,
               ),
               Row(
                 children: [
+                  if (card.description.isNotEmpty)
                   Expanded(
                     child: Text(
                       card.description,
                       style: const TextStyle(
-                        fontSize: 12,
+                        fontSize: 14,
                         color: AppColors.label,
                       ),
                     ),
-                  ),
+                  )
+                  else 
+                  Spacer(),
                   Text(
                     DateFormat(dateFormatString).format(card.date),
                     style: const TextStyle(

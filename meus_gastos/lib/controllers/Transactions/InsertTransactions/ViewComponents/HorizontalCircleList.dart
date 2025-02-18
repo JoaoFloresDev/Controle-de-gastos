@@ -40,7 +40,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
   }
   // MARK: - Load Categories
   Future<void> loadCategories() async {
-    categorieList = await CategoryService().getAllCategories();
+    categorieList = await CategoryService().getAllPositiveCategories();
     setState(() {
       categorieList = categorieList;
 
@@ -91,10 +91,10 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                 ),
                 const SizedBox(height: 4),
 Container(
-  width: 80,
+  width: 90,
   child: Text(
     Translateservice.getTranslatedCategoryUsingModel(context, categorieList[index]),
-    style: const TextStyle(fontSize: 9, color: Colors.white),
+    style: const TextStyle(fontSize: 10, color: Colors.white),
     textAlign: TextAlign.center,
     maxLines: 2,
     overflow: TextOverflow.ellipsis,
@@ -166,7 +166,7 @@ Container(
                         width: 80,
                         child: Text(
                           Translateservice.getTranslatedCategoryUsingModel(context, categorieList[index]),
-                          style: const TextStyle(fontSize: 9, color: Colors.white),
+                          style: const TextStyle(fontSize: 12, color: Colors.white),
                           textAlign: TextAlign.center,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
