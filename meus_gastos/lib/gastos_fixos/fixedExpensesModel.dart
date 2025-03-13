@@ -23,7 +23,7 @@ class FixedExpense {
       'description': description,
       'price': price,
       'date': date.toIso8601String(),
-      'category': category,
+      'category': category.toJson(),
       'id': id,
       'tipoRepeticao': tipoRepeticao,
     };
@@ -33,7 +33,7 @@ class FixedExpense {
   factory FixedExpense.fromJson(Map<String, dynamic> json) {
     return FixedExpense(
       description: json['description'],
-      price: json['price'],
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
       date: DateTime.parse(json['date']),
       category: CategoryModel.fromJson(json['category']),
       id: json['id'],

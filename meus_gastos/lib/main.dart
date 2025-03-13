@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -10,17 +11,35 @@ import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:onepref/onepref.dart';
 import 'package:meus_gastos/controllers/Calendar/CustomCalendar.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+
+import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
+import 'package:firebase_core/firebase_core.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // inapp
   InAppPurchase.instance.isAvailable();
+  // Ads
   MobileAds.instance.initialize();
+  // onepref
   await OnePref.init();
+  // inicializa firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // Habilitar cache offline para Firestore
+  firestore.FirebaseFirestore.instance.settings = const firestore.Settings(
+    persistenceEnabled: true, // Ativa o cache offline
+  );
+  FirebaseDatabase.instance.setPersistenceEnabled(true);
+  FirebaseDatabase.instance.setPersistenceCacheSizeBytes(10000000);
+
+  // Define persistência da sessão do usuário
+  // await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
   runApp(const MyApp());
 }
 
@@ -68,7 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final exportButton = GlobalKey();
   final cardsExpense = GlobalKey();
   //mark - variables
-final GlobalKey<DashboardScreenState> dashboardTab = GlobalKey<DashboardScreenState>();
+  final GlobalKey<DashboardScreenState> dashboardTab =
+      GlobalKey<DashboardScreenState>();
 
   final valueExpense = GlobalKey();
   final date = GlobalKey();
@@ -105,10 +125,10 @@ final GlobalKey<DashboardScreenState> dashboardTab = GlobalKey<DashboardScreenSt
             selectedTab = index;
           });
 
-if (index == 1) {
-    dashboardTab.currentState?.refreshData();
-  }
-  
+          if (index == 1) {
+            dashboardTab.currentState?.refreshData();
+          }
+
           if (index == 2) {
             calendarKey.currentState?.refreshCalendar();
           }

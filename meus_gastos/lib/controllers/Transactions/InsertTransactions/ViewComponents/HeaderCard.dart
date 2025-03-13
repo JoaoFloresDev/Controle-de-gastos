@@ -55,7 +55,9 @@ class HeaderCardState extends State<HeaderCard> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    user = FirebaseAuth.instance.currentUser;
+    setState(() {
+      user = FirebaseAuth.instance.currentUser;
+    });
     // update date format based in atuality configs
     final locale = Localizations.localeOf(context);
     final currencySymbol = Translateservice.getCurrencySymbol(context);
@@ -83,7 +85,9 @@ class HeaderCardState extends State<HeaderCard> {
   @override
   void initState() {
     super.initState();
-    user = FirebaseAuth.instance.currentUser;
+    setState(() {
+      user = FirebaseAuth.instance.currentUser;
+    });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _horizontalCircleListKey.currentState?.loadCategories();
     });
@@ -104,9 +108,11 @@ class HeaderCardState extends State<HeaderCard> {
           [])[lastIndexSelected],
       id: CardService.generateUniqueId(),
     );
-    if (user != null)
-      SaveExpensOnCloud().addNewDate(newCard);
-    else
+    print("object");
+    if (user != null) {
+      print("usuario logado");
+      if (!(newCard.amount == 0)) SaveExpensOnCloud().addNewDate(newCard);
+    } else
       print("Sem usuário");
 
     if (!(newCard.amount == 0)) CardService.addCard(newCard);
@@ -191,29 +197,31 @@ class HeaderCardState extends State<HeaderCard> {
               ),
             ),
             const SizedBox(height: 6),
-Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 8),
-  child: SizedBox(
-    width: double.infinity, // Define a largura para ocupar toda a área disponível
-    child: CupertinoButton(
-      key: widget.addButon,
-      color: CupertinoColors.systemBlue,
-      onPressed: () {
-        adicionar();
-      },
-        
-      child: Text(
-        AppLocalizations.of(context)!.add,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          color: CupertinoColors.white, // Cor do texto definida como branca
-        ),
-      ),
-    ),
-  ),
-),
-
-
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: SizedBox(
+                width: double
+                    .infinity, // Define a largura para ocupar toda a área disponível
+                child: CupertinoButton(
+                  key: widget.addButon,
+                  color: CupertinoColors.systemBlue,
+                  onPressed: () {
+                    setState(() {
+                      user = FirebaseAuth.instance.currentUser;
+                    });
+                    adicionar();
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)!.add,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: CupertinoColors
+                          .white, // Cor do texto definida como branca
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

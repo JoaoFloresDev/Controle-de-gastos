@@ -119,11 +119,10 @@ class _singInScreen extends State<singInScreen> {
                             final user = await _authService.signInWithGoogle();
                             if (user != null) {
                               print('Usuário logado: ${user.displayName}');
-                              widget.updateUser;
-                              Navigator.of(context).pop();
                             } else {
                               print('Login cancelado ou falhou.');
                             }
+                            widget.updateUser();
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

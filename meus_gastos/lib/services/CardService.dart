@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:meus_gastos/services/saveExpensOnCloud.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -80,8 +81,24 @@ class CardService {
     final String? cardsString = prefs.getString(_storageKey);
     if (cardsString != null) {
       final List<dynamic> jsonList = json.decode(cardsString);
-      return jsonList.map((jsonItem) => CardModel.fromJson(jsonItem)).toList()
+      List<CardModel> cardList = await SaveExpensOnCloud().fetchCards()
         ..sort((a, b) => a.date.compareTo(b.date));
+      // print("1");
+      // for (CardModel card in cardList) {
+      //   print("${card.category.name}: ${card.amount}");
+      // }
+      // cardList = jsonList
+      //     .map((jsonItem) => CardModel.fromJson(jsonItem))
+      //     .toList()
+      //   ..sort((a, b) => a.date.compareTo(b.date));
+      // print("-----------------");
+      // print("2");
+      // for (CardModel card in cardList) {
+      //   print("${card.category.name}: ${card.amount}");
+      // }
+      return cardList;
+      // return jsonList.map((jsonItem) => CardModel.fromJson(jsonItem)).toList()
+      //   ..sort((a, b) => a.date.compareTo(b.date));
     }
     return [];
   }
@@ -103,6 +120,7 @@ class CardService {
       cards.add(cardModel);
       return cards;
     });
+    SaveExpensOnCloud().addNewDate(cardModel);
   }
 
   static Future<void> deleteCard(String id) async {
@@ -110,13 +128,17 @@ class CardService {
       cards.removeWhere((card) => card.id == id);
       return cards;
     });
+    List<CardModel> cards = await retrieveCards();
+    SaveExpensOnCloud().deleteDate(cards.firstWhere((card) => card.id == id));
   }
 
   static Future<void> updateCard(String id, CardModel newCard) async {
     await modifyCards((cards) {
       final int index = cards.indexWhere((card) => card.id == id);
       if (index != -1) {
+        SaveExpensOnCloud().deleteDate(cards[index]);
         cards[index] = newCard;
+        SaveExpensOnCloud().addNewDate(newCard);
       }
       return cards;
     });

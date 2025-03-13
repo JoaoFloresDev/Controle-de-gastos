@@ -5,6 +5,7 @@ import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComp
 import 'package:meus_gastos/controllers/cadastro_login/logout.dart';
 import 'package:meus_gastos/controllers/cadastro_login/login.dart';
 import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
+import 'package:meus_gastos/services/saveExpensOnCloud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +81,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
   // Conjunto para armazenar os IDs dos produtos comprados
   Set<String> purchasedProductIds = {};
-
+  bool? isLogin;
   User? user;
 
   // MARK: - InitState
@@ -88,33 +89,34 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   void initState() {
     super.initState();
     loadCards();
-
     // _initInAppPurchase();
     user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       // O usuário está logado
       print("Usuário logado: ${user?.email}");
+      isLogin = true;
     } else {
       // O usuário não está logado
       print("Usuário deslogado.");
+      isLogin = false;
     }
     _checkUserProStatus();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    setState(() {
-      user = FirebaseAuth.instance.currentUser;
-    });
-    if (user != null) {
-      // O usuário está logado
-      print("Usuário logado: ${user?.email}");
-    } else {
-      // O usuário não está logado
-      print("Usuário deslogado.");
-    }
-  }
+  // @override
+  // void didChangeDependencies() async {
+  //   super.didChangeDependencies();
+  //   setState(() async {
+  //     user = await FirebaseAuth.instance.currentUser;
+  //   });
+  //   if (user != null) {
+  //     // O usuário está logado
+  //     print("Usuário logado: ${user?.email}");
+  //   } else {
+  //     // O usuário não está logado
+  //     print("Usuário deslogado.");
+  //   }
+  // }
 
   Future<void> _checkUserProStatus() async {
     final prefs = await SharedPreferences.getInstance();
@@ -209,14 +211,13 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             },
             child: const Icon(Icons.repeat, size: 24, color: AppColors.label),
           ),
-middle: MediaQuery(
-  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-  child: Text(
-    widget.title,
-    style: const TextStyle(color: AppColors.label, fontSize: 20),
-  ),
-),
-
+          middle: MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: Text(
+              widget.title,
+              style: const TextStyle(color: AppColors.label, fontSize: 20),
+            ),
+          ),
           backgroundColor: AppColors.background1,
           trailing: Row(
             mainAxisSize: MainAxisSize
@@ -224,7 +225,7 @@ middle: MediaQuery(
             children: [
               GestureDetector(
                 onTap: () {
-                  if (user != null)
+                  if (isLogin!)
                     _singOutScreen();
                   else
                     _singInScreen();
@@ -234,9 +235,9 @@ middle: MediaQuery(
                   padding: EdgeInsets.only(
                       right: 8.0), // Espaçamento entre os textos
                   child: Text(
-                    "${user != null ? "Logout" : "Login"}",
+                    "${isLogin! ? "Logout" : "Login"}",
                     style: TextStyle(
-                      color: user != null
+                      color: isLogin!
                           ? AppColors.deletionButton
                           : AppColors.button,
                       fontSize: 16,
@@ -354,7 +355,7 @@ middle: MediaQuery(
                                 widget.onAddClicked();
                                 _showCupertinoModalBottomSheet(context, card);
                               },
-                              card: mergeCardList[cardList.length - index - 1],
+                              card: mergeCardList[mergeCardList.length - index - 1],
                               background: AppColors.card,
                             ),
                           );
@@ -368,7 +369,7 @@ middle: MediaQuery(
                               // _showCupertinoModalBottomSheet_Fixed(
                               //     context, card);
                             },
-                            card: mergeCardList[cardList.length - index - 1],
+                            card: mergeCardList[mergeCardList.length - index - 1],
                             onAddClicked: loadCards(),
                           ),
                         );
@@ -473,6 +474,7 @@ middle: MediaQuery(
     cardFix.price = 0;
     var car = Fixedexpensesservice.Fixed_to_NormalCard(cardFix);
     await service.CardService.addCard(car);
+    SaveExpensOnCloud().addNewDate(car);
   }
 
   void _showCupertinoModalBottomFixedExpenses(BuildContext context) {
@@ -500,12 +502,6 @@ middle: MediaQuery(
     );
   }
 
-  void _updateUser() {
-    setState(() {
-      user = FirebaseAuth.instance.currentUser;
-    });
-  }
-
   void _singInScreen() {
     FocusScope.of(context).unfocus();
     showCupertinoModalPopup(
@@ -520,9 +516,11 @@ middle: MediaQuery(
               ),
             ),
             child: singInScreen(updateUser: () {
+              Navigator.of(context).pop();
               setState(() {
-                user = FirebaseAuth.instance.currentUser;
+                isLogin = true;
               });
+              print(isLogin);
             }));
       },
     );
@@ -542,9 +540,11 @@ middle: MediaQuery(
               ),
             ),
             child: Logout(updateUser: () {
+              Navigator.of(context).pop();
               setState(() {
-                user = FirebaseAuth.instance.currentUser;
+                isLogin = false;
               });
+              print(isLogin);
             }));
       },
     );

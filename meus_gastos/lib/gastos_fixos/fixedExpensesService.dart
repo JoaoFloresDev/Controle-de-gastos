@@ -1,5 +1,6 @@
 import 'package:meus_gastos/gastos_fixos/intervalsControl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/services/saveExpensOnCloud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
@@ -11,10 +12,12 @@ class Fixedexpensesservice {
     final String? cardsString = prefs.getString('fixed_expenses');
     if (cardsString != null) {
       final List<dynamic> jsonList = json.decode(cardsString);
-      return jsonList
-          .map((jsonItem) => FixedExpense.fromJson(jsonItem))
-          .toList()
-        ..sort((a, b) => a.date.compareTo(b.date));
+      List<FixedExpense> fixedCardList =
+          await SaveExpensOnCloud().fetchCardsFixedCards();
+      return fixedCardList; // return jsonList
+      //     .map((jsonItem) => FixedExpense.fromJson(jsonItem))
+      //     .toList()
+      //   ..sort((a, b) => a.date.compareTo(b.date));
     }
     return [];
   }
@@ -35,14 +38,19 @@ class Fixedexpensesservice {
   static Future<List<FixedExpense>> getSortedFixedExpenses() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString('fixed_expenses');
+    List<FixedExpense> fc = [];
     if (cardsString != null) {
       final List<dynamic> jsonList = json.decode(cardsString);
-      return jsonList
-          .map((jsonItem) => FixedExpense.fromJson(jsonItem))
-          .toList()
+      fc = jsonList.map((jsonItem) => FixedExpense.fromJson(jsonItem)).toList()
         ..sort((a, b) => a.date.compareTo(b.date));
     }
-    return [];
+    List<FixedExpense> fixedCardList =
+        await SaveExpensOnCloud().fetchCardsFixedCards()
+          ..sort((a, b) => a.date.compareTo(b.date));
+    // print("metodo antigo:${fc.length} firebase${fixedCardList.length}");
+    return fixedCardList;
+    // }
+    // return [];
   }
 
   static Future<List<String>> getFixedExpenseIds() async {
@@ -71,9 +79,12 @@ class Fixedexpensesservice {
   // MARK: - Add, Delete, and Update Cards
   static Future<void> addCard(FixedExpense FixedExpense) async {
     await modifyCards((cards) {
-      if (!(FixedExpense.price == 0)) cards.add(FixedExpense);
+      if (!(FixedExpense.price == 0)) {
+        cards.add(FixedExpense);
+      }
       return cards;
     });
+    SaveExpensOnCloud().addNewDateFixedCards(FixedExpense);
   }
 
   static Future<void> deleteCard(String id) async {
@@ -81,13 +92,18 @@ class Fixedexpensesservice {
       cards.removeWhere((card) => card.id == id);
       return cards;
     });
+    List<FixedExpense> cardsf = await getSortedFixedExpenses();
+    SaveExpensOnCloud()
+        .deleteDateFixedCards(cardsf.firstWhere((card) => card.id == id));
   }
 
   static Future<void> updateCard(String id, FixedExpense newCard) async {
     await modifyCards((cards) {
       final int index = cards.indexWhere((card) => card.id == id);
       if (index != -1) {
+        SaveExpensOnCloud().deleteDateFixedCards(cards[index]);
         cards[index] = newCard;
+        SaveExpensOnCloud().addNewDateFixedCards(newCard);
       }
       return cards;
     });
@@ -112,7 +128,8 @@ class Fixedexpensesservice {
     int day = fixedCard.date.day;
     if (fixedCard.tipoRepeticao == 'semanal')
       day = getCurrentWeekdayDate(fixedCard.date).day;
-    if ((fixedCard.tipoRepeticao == 'seg_sex') || fixedCard.tipoRepeticao == 'diario') day = DateTime.now().day;
+    if ((fixedCard.tipoRepeticao == 'seg_sex') ||
+        fixedCard.tipoRepeticao == 'diario') day = DateTime.now().day;
 
     return CardModel(
         id: CardService.generateUniqueId(),
@@ -136,17 +153,16 @@ class Fixedexpensesservice {
     return normalCards..sort((a, b) => a.date.compareTo(b.date));
   }
 
-  
   static Future<void> printCardsInfo() async {
     List<FixedExpense> cards = await Fixedexpensesservice.retrieveCards();
-  for (var card in cards) {
-    print('ID: ${card.id}');
-    print('Description: ${card.description}');
-    print('Price: \$${card.price.toStringAsFixed(2)}');
-    print('Date: ${card.date.toLocal()}');
-    print('Category: ${card.category}');
-    print('Tipo de Repetição: ${card.tipoRepeticao}');
-    print('---------------------------');
+    for (var card in cards) {
+      print('ID: ${card.id}');
+      print('Description: ${card.description}');
+      print('Price: \$${card.price.toStringAsFixed(2)}');
+      print('Date: ${card.date.toLocal()}');
+      print('Category: ${card.category}');
+      print('Tipo de Repetição: ${card.tipoRepeticao}');
+      print('---------------------------');
+    }
   }
-}
 }

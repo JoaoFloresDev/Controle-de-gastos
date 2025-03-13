@@ -114,7 +114,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       id: CardService.generateUniqueId(),
     );
     CardService.updateCard(widget.card.id, newCard);
-
+    
     Future.delayed(const Duration(milliseconds: 300), () {
       widget.onAddClicked();
     });

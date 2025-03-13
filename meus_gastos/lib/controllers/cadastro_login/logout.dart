@@ -106,8 +106,7 @@ class _Logout extends State<Logout> {
                         // user?.reload();
                       });
                       print('Usuário deslogado.');
-                      widget.updateUser;
-                      Navigator.of(context).pop();
+                      widget.updateUser();
                     },
                     child: Text("Logout",
                         style: TextStyle(

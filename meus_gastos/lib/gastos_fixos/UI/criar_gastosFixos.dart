@@ -184,6 +184,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                             widget.onAddPressedBack();
                             _loadFixedExpenses();
                           });
+                          FocusManager.instance.primaryFocus?.unfocus();
                         },
                         child: Text(
                           AppLocalizations.of(context)!.add,
