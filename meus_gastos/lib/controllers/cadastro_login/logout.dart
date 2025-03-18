@@ -5,6 +5,7 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:meus_gastos/services/authentication.dart';
+import 'package:meus_gastos/services/syncService.dart';
 
 class Logout extends StatefulWidget {
   final VoidCallback updateUser;
@@ -95,6 +96,31 @@ class _Logout extends State<Logout> {
                         ))
                       ],
                     ),
+                  ),
+                  SizedBox(
+                    height: 32,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      SyncService().syncData(user!.uid);
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text("Sincronização concluída!"),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("OK"),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Text("Sincronizar"),
                   ),
                   SizedBox(
                     height: 32,

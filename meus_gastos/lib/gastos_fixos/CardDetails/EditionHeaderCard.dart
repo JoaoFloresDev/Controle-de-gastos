@@ -218,7 +218,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                 onPressed: () {
                   adicionar();
                   widget.onAddClicked;
-                  Fixedexpensesservice.printCardsInfo();
+                  // Fixedexpensesservice.printCardsInfo();
                 },
                 child: Text(
                   widget.adicionarButtonTitle,

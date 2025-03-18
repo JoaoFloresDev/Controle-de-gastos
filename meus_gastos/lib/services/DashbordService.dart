@@ -48,20 +48,20 @@ class Dashbordservice {
     if (cards.isEmpty) return [];
     final Map<String, double> totals = {};
     DateTime begin = DateTime(start.year, start.month, start.day);
-    print("${begin} == ${cards.last.date} == ${end}");
-    print("${cards.length}+++++++++++++++++++");
+    // print("${begin} == ${cards.last.date} == ${end}");
+    // print("${cards.length}+++++++++++++++++++");
     final List<CardModel> filteredCards = cards
         .where((card) =>
             card.date.isAfter(begin.subtract(Duration(seconds: 1))) &&
             card.date.isBefore(end.add(const Duration(days: 1))))
         .toList();
-    for (var card in cards) {
-      print("${card.category.name} - ${card.date}");
-    }
-    print("${filteredCards.length}+++++++++++++++++++");
+    // for (var card in cards) {
+      // print("${card.category.name} - ${card.date}");
+    // }
+    // print("${filteredCards.length}+++++++++++++++++++");
 
     for (var card in filteredCards) {
-      print("${card.category.id}+++++++++++++++++++");
+      // print("${card.category.id}+++++++++++++++++++");
       totals[card.category.id] = (totals[card.category.id] ?? 0) + card.amount;
     }
 

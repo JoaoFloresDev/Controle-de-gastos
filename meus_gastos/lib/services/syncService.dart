@@ -14,43 +14,63 @@ class SyncService {
     final prefs = await SharedPreferences.getInstance();
 
     // 🔹 1. Carrega os dados locais
-    List<FixedExpense> localFixedExpenses = await
-        Fixedexpensesservice.getSortedFixedExpenses();
+    List<FixedExpense> localFixedExpenses =
+        await Fixedexpensesservice.getSortedFixedExpenses();
     List<CardModel> localNormalExpenses = await CardService.retrieveCards();
 
     // 🔹 2. Baixa os dados do Firebase
-    List<FixedExpense> remoteFixedExpenses = await SaveExpensOnCloud().fetchCardsFixedCards();
-    List<CardModel> remoteNormalExpenses = await SaveExpensOnCloud().fetchCards();
+    List<FixedExpense> remoteFixedExpenses =
+        await SaveExpensOnCloud().fetchCardsFixedCards();
+    List<CardModel> remoteNormalExpenses =
+        await SaveExpensOnCloud().fetchCards();
+    if (localNormalExpenses != remoteNormalExpenses) 
+      print("É DIFERENTE");
+    else
+      print("É IGUAL");
 
     // RESOLVER ESSA PARTE
     // 🔹 3. Processa sincronização
 
-    // List<FixedExpense> updatedFixedExpenses =
-    //     _mergeData(localFixedExpenses, remoteFixedExpenses);
-    // List<CardModel> updatedNormalExpenses =
-    //     _mergeData(localNormalExpenses, remoteNormalExpenses);
-
+    List<FixedExpense> updatedFixedExpenses =
+        _mergeFixedData(localFixedExpenses, remoteFixedExpenses);
+    List<CardModel> updatedNormalExpenses =
+        _mergeData(localNormalExpenses, remoteNormalExpenses);
+    if (updatedNormalExpenses != remoteNormalExpenses) print("Deu certo");
 
     // // 🔹 4. Salva as mudanças localmente
-    // await _saveExpensesToLocal(prefs, updatedFixedExpenses, 'fixed_expenses');
-    // await _saveExpensesToLocal(prefs, updatedNormalExpenses, 'normal_expenses');
+    await _saveExpensesToLocal(prefs, updatedFixedExpenses, 'fixed_expenses');
+    await _saveExpensesToLocal(prefs, updatedNormalExpenses, 'normal_expenses');
 
     // // 🔹 5. Envia para o Firebase os dados locais que ainda não estão lá
-    // await _syncToFirebase(userId, updatedFixedExpenses, 'fixedCards');
-    // await _syncToFirebase(userId, updatedNormalExpenses, 'NormalCards');
+    await _syncToFirebaseFixed(userId, updatedFixedExpenses, 'fixedCards');
+    await _syncToFirebase(userId, updatedNormalExpenses, 'NormalCards');
   }
 
-
   // 🔹 Compara e mergeia os dados
-  List<T> _mergeData<T>(List<T> local, List<T> remote) {
-    Map<String, T> merged = {
-      for (var e in remote) (e as dynamic).id: e
-    }; // Firebase tem prioridade
+  List<CardModel> _mergeData(List<CardModel> local, List<CardModel> remote) {
+    Map<String, CardModel> merged = {
+      for (var e in remote) e.id: e, // Firebase tem prioridade
+    };
+
     for (var e in local) {
-      if (!merged.containsKey((e as dynamic).id)) {
-        merged[(e as dynamic).id] = e;
-      }
+      merged.putIfAbsent(
+          e.id, () => e); // Adiciona apenas se não existir no Firebase
     }
+
+    return merged.values.toList();
+  }
+
+  List<FixedExpense> _mergeFixedData(
+      List<FixedExpense> local, List<FixedExpense> remote) {
+    Map<String, FixedExpense> merged = {
+      for (var e in remote) e.id: e, // Firebase tem prioridade
+    };
+
+    for (var e in local) {
+      merged.putIfAbsent(
+          e.id, () => e); // Adiciona apenas se não existir no Firebase
+    }
+
     return merged.values.toList();
   }
 
@@ -63,7 +83,7 @@ class SyncService {
 
   // 🔹 Envia os dados locais para o Firebase
   Future<void> _syncToFirebase(
-      String userId, List<dynamic> expenses, String collection) async {
+      String userId, List<CardModel> expenses, String collection) async {
     for (var expense in expenses) {
       await _firestore
           .collection(userId)
@@ -71,7 +91,21 @@ class SyncService {
           .collection("cardList")
           .doc((expense as dynamic).id)
           .set(expense.toJson());
+      print("${expense.amount}");
+    }
+  }
+
+  // 🔹 Envia os dados locais para o Firebase
+  Future<void> _syncToFirebaseFixed(
+      String userId, List<FixedExpense> expenses, String collection) async {
+    for (var expense in expenses) {
+      await _firestore
+          .collection(userId)
+          .doc(collection)
+          .collection("cardList")
+          .doc((expense as dynamic).id)
+          .set(expense.toJson());
+      print("${expense.price}");
     }
   }
 }
-

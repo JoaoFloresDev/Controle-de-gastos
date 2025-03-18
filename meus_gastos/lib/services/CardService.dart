@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/saveExpensOnCloud.dart';
@@ -79,26 +80,26 @@ class CardService {
   static Future<List<CardModel>> retrieveCards() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString(_storageKey);
+    User? user = FirebaseAuth.instance.currentUser;
     if (cardsString != null) {
       final List<dynamic> jsonList = json.decode(cardsString);
-      List<CardModel> cardList = await SaveExpensOnCloud().fetchCards()
-        ..sort((a, b) => a.date.compareTo(b.date));
+      if (user != null) {
+        List<CardModel> cardList = await SaveExpensOnCloud().fetchCards()
+          ..sort((a, b) => a.date.compareTo(b.date));
+        return cardList;
+      } else {
+        return jsonList.map((jsonItem) => CardModel.fromJson(jsonItem)).toList()
+          ..sort((a, b) => a.date.compareTo(b.date));
+      }
       // print("1");
       // for (CardModel card in cardList) {
       //   print("${card.category.name}: ${card.amount}");
       // }
-      // cardList = jsonList
-      //     .map((jsonItem) => CardModel.fromJson(jsonItem))
-      //     .toList()
-      //   ..sort((a, b) => a.date.compareTo(b.date));
       // print("-----------------");
       // print("2");
       // for (CardModel card in cardList) {
       //   print("${card.category.name}: ${card.amount}");
       // }
-      return cardList;
-      // return jsonList.map((jsonItem) => CardModel.fromJson(jsonItem)).toList()
-      //   ..sort((a, b) => a.date.compareTo(b.date));
     }
     return [];
   }
