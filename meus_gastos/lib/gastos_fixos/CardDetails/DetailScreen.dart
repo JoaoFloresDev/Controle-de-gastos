@@ -39,9 +39,8 @@ class _DetailScreen extends State<DetailScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment
-              .stretch, // Faz o cabeçalho ocupar a largura total
+              .stretch,
           children: <Widget>[
-            // CustomHeader colado nos cantos da superview
             CustomHeader(
               title: AppLocalizations.of(context)!.transactionDetails,
               onCancelPressed: () {

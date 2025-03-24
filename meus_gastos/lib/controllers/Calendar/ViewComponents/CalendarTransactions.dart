@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/gastos_fixos/ListCard.dart';
+import 'package:meus_gastos/gastos_fixos/ListCardFixeds.dart';
 import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
@@ -81,7 +81,7 @@ class TransactionList extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height - 150,
+          height: MediaQuery.of(context).size.height - 70,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),

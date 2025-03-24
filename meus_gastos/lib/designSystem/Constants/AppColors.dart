@@ -8,6 +8,7 @@ class AppColors {
 
   //mark - Card
   static const Color card = Color(0xFF2C2C2C);
+  static const Color card2 = Color.fromARGB(255, 26, 26, 26);
   static const Color cardShadow = Color.fromRGBO(0, 0, 0, 0.5);
 
   //mark - Buttons

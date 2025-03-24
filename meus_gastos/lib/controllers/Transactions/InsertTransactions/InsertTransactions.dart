@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/gastos_fixos/ListCard.dart';
+import 'package:meus_gastos/gastos_fixos/ListCardFixeds.dart';
 import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
@@ -135,10 +135,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     }
   }
 
-  void _deliverProduct(PurchaseDetails purchase) {
-    purchasedProductIds.add(purchase.productID);
-  }
-
   // MARK: - Load Cards
   Future<void> loadCards() async {
     var cards = await service.CardService.retrieveCards();
@@ -165,7 +161,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
   // Exibe o ProModal
   void _showProModal(BuildContext context) async {
-    if (Platform.isIOS) {
+    if (Platform.isIOS || Platform.isMacOS) {
       showCupertinoModalPopup(
         context: context,
         builder: (BuildContext context) {
@@ -211,13 +207,14 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             },
             child: const Icon(Icons.repeat, size: 24, color: AppColors.label),
           ),
-          middle: MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-            child: Text(
-              widget.title,
-              style: const TextStyle(color: AppColors.label, fontSize: 20),
-            ),
-          ),
+middle: MediaQuery(
+  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+  child: Text(
+    widget.title,
+    style: const TextStyle(color: AppColors.label, fontSize: 20),
+  ),
+),
+
           backgroundColor: AppColors.background1,
           trailing: Row(
             mainAxisSize: MainAxisSize
@@ -294,7 +291,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                         context: context,
                         builder: (BuildContext context) {
                           return Container(
-                            height: MediaQuery.of(context).size.height / 1.1,
+                            height: MediaQuery.of(context).size.height - 70,
                             decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20),
@@ -366,8 +363,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                           child: ListCardRecorrent(
                             onTap: (card) {
                               widget.onAddClicked();
-                              // _showCupertinoModalBottomSheet_Fixed(
-                              //     context, card);
                             },
                             card: mergeCardList[mergeCardList.length - index - 1],
                             onAddClicked: loadCards(),
@@ -376,35 +371,47 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                       }),
                 ),
               if (cardList.isEmpty && fixedCards.isEmpty)
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 16.0, right: 16.0, bottom: 16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 20),
-                        const Icon(
-                          Icons.inbox,
-                          color: AppColors.card,
-                          size: 60,
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          AppLocalizations.of(context)!.addNewTransactions,
-                          style: const TextStyle(
-                              color: AppColors.label, fontSize: 16),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                )
+Expanded(
+  child: Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Icon(
+          Icons.inbox,
+          color: AppColors.card,
+          size: 40, // Ícone levemente maior para maior impacto visual
+        ),
+        Text(
+          AppLocalizations.of(context)!.addNewTransactions,
+          style: const TextStyle(
+            color: AppColors.label,
+            fontSize: 12, // Levemente maior para melhor leitura
+            fontWeight: FontWeight.w500,
+            height: 1.8,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        const Spacer(), 
+        Text(
+          AppLocalizations.of(context)!.addNewCallToAction,
+          style: const TextStyle(
+            color: AppColors.label,
+            fontSize: 12, // Destaque maior para a explicação final
+            fontWeight: FontWeight.w500,
+            height: 1.4,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+  ),
+)
             ],
           ),
         ),
-        backgroundColor: Colors.black.withOpacity(0.9),
+        backgroundColor: AppColors.background1,
       ),
     );
   }
@@ -416,7 +423,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height - 150,
+          height: MediaQuery.of(context).size.height - 70,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),
@@ -436,40 +443,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     );
   }
 
-  _showCupertinoModalBottomSheet_Fixed(BuildContext context, CardModel card) {
-    FocusScope.of(context).unfocus();
-    showCupertinoModalPopup(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: MediaQuery.of(context).size.height / 1.05,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: DetailScreenFixedExpenses(
-              card: fixedCards
-                  .firstWhere((fcard) => fcard.id == card.idFixoControl),
-              onAddClicked: () {
-                setState(() {
-                  loadCards();
-                });
-              },
-              onDeleteClicked: (FixedExpense cardFix) async {
-                // adicionar gasto falso
-                await fakeExpens(cardFix);
-
-                setState(() {
-                  loadCards();
-                });
-              }),
-        );
-      },
-    );
-  }
-
   Future<void> fakeExpens(FixedExpense cardFix) async {
     cardFix.price = 0;
     var car = Fixedexpensesservice.Fixed_to_NormalCard(cardFix);
@@ -483,7 +456,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: MediaQuery.of(context).size.height / 1.05,
+          height: MediaQuery.of(context).size.height - 70,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20),

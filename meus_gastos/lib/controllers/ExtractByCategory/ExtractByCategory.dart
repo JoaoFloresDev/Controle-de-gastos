@@ -12,9 +12,12 @@ class ExtractByCategory extends StatefulWidget {
   final String category;
   const ExtractByCategory({Key? key, required this.category}) : super(key: key);
 
+
   @override
   _ExtractByCategoryState createState() => _ExtractByCategoryState();
+
 }
+
 
 class _ExtractByCategoryState extends State<ExtractByCategory> {
   late List<CardModel> cards = [];
@@ -35,6 +38,7 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
   List<CardModel> selectByCategory(List<CardModel> cardList, DateTime currentDate) {
     return cardList
         .where((card) => card.category.name == widget.category)
+        .where((c) => (c.date.month == currentDate.month && c.amount > 0))
         .where((c) => (c.date.month == currentDate.month && c.amount > 0))
         .toList();
   }
@@ -102,7 +106,7 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
               child: Container(
                 decoration: const BoxDecoration(
                   color: Colors.black,
-                  // borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(0)),
                 ),
                 child: filtered.isEmpty
                     ? Center(

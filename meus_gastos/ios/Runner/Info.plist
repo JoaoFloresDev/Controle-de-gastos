@@ -15,13 +15,17 @@
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
-	<string>20.0</string>
+	<string>28.0</string>
 	<key>CFBundleName</key>
 	<string>meus_gastos</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
+<<<<<<< HEAD
 	<string>21.0.0</string>
+=======
+	<string>28.0</string>
+>>>>>>> 14b723d7b429930610adf970fa8cf76672f95923
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>

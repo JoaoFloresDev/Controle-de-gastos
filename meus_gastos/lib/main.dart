@@ -1,4 +1,36 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
+import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
+import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
+import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/gastos_fixos/ListCardFixeds.dart';
+import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
+import '../../../models/CardModel.dart';
+import 'package:meus_gastos/services/CardService.dart' as service;
+import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
+import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
+import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:ui';
+import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:meus_gastos/controllers/exportExcel/exportExcelScreen.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -17,6 +49,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:firebase_core/firebase_core.dart';
 
+import 'package:window_size/window_size.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +57,11 @@ void main() async {
   InAppPurchase.instance.isAvailable();
   // Ads
   MobileAds.instance.initialize();
-  // onepref
+
+  if (Platform.isMacOS) {
+    setWindowMinSize(const Size(800, 800));
+  }
+    // onepref
   await OnePref.init();
   // inicializa firebase
   await Firebase.initializeApp(
@@ -87,8 +124,10 @@ class _MyHomePageState extends State<MyHomePage> {
   final exportButton = GlobalKey();
   final cardsExpense = GlobalKey();
   //mark - variables
-  final GlobalKey<DashboardScreenState> dashboardTab =
+  //mark - variables
+final  GlobalKey<DashboardScreenState> dashboardTab =
       GlobalKey<DashboardScreenState>();
+
 
   final valueExpense = GlobalKey();
   final date = GlobalKey();
@@ -100,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
-        backgroundColor: Colors.black38,
+        backgroundColor: Colors.black,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: const Icon(CupertinoIcons.home, size: 20),
@@ -129,6 +168,10 @@ class _MyHomePageState extends State<MyHomePage> {
             dashboardTab.currentState?.refreshData();
           }
 
+if (index == 1) {
+    dashboardTab.currentState?.refreshData();
+  }
+  
           if (index == 2) {
             calendarKey.currentState?.refreshCalendar();
           }

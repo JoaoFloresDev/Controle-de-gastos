@@ -35,6 +35,7 @@ dependencies:
   file_picker: ^8.1.4
   table_calendar: ^3.0.7
   app_tracking_transparency: ^2.0.4
+  window_size: ^0.1.0
   firebase_core: ^3.10.0
   firebase_auth: ^5.4.0
   cloud_firestore: ^5.6.1

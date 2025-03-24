@@ -152,7 +152,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             focusNode: descricaoFocusNode,
             style: const TextStyle(color: AppColors.label),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           Container(
             margin: EdgeInsets.zero,
             child: HorizontalCircleList(
@@ -164,17 +164,25 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
               defaultdIndexCategory: lastIndexSelected,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: CupertinoButton(
-              color: AppColors.button,
-              onPressed: adicionar,
-              child: Text(
-                widget.adicionarButtonTitle,
-                style: const TextStyle(fontWeight: FontWeight.bold, color: CupertinoColors.white),
-              ),
-            ),
-          ),
+          const SizedBox(height: 16),
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 16),
+  child: SizedBox(
+    width: double.infinity,
+    child: CupertinoButton(
+      color: AppColors.button,
+      onPressed: adicionar,
+      child: Text(
+        widget.adicionarButtonTitle,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold, 
+          color: CupertinoColors.white,
+        ),
+      ),
+    ),
+  ),
+),
+
         ],
       ),
     );

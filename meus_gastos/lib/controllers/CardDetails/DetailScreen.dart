@@ -58,7 +58,7 @@ class _DetailScreen extends State<DetailScreen> {
               },
               showDeleteButton: true,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: EditionHeaderCard(

@@ -173,6 +173,7 @@ class HeaderCardState extends State<HeaderCard> {
                   TextStyle(color: CupertinoColors.white.withOpacity(0.5)),
               style: const TextStyle(color: CupertinoColors.white),
               controller: descricaoController,
+              textCapitalization: TextCapitalization.sentences,
             ),
             const SizedBox(height: 12),
             Container(
@@ -197,7 +198,8 @@ class HeaderCardState extends State<HeaderCard> {
               ),
             ),
             const SizedBox(height: 6),
-            Padding(
+                        const SizedBox(height: 6),
+Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: SizedBox(
                 width: double
