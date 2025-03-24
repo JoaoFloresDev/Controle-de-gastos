@@ -9,7 +9,8 @@ import 'package:meus_gastos/services/syncService.dart';
 
 class Logout extends StatefulWidget {
   final VoidCallback updateUser;
-  const Logout({required this.updateUser});
+  final VoidCallback loadcards;
+  const Logout({required this.updateUser, required this.loadcards});
   @override
   _Logout createState() => _Logout();
 }
@@ -103,6 +104,7 @@ class _Logout extends State<Logout> {
                   ElevatedButton(
                     onPressed: () {
                       SyncService().syncData(user!.uid);
+                      widget.loadcards;
                       showDialog(
                         context: context,
                         builder: (context) {

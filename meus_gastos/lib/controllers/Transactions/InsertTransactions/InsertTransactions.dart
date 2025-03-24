@@ -235,10 +235,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                   padding: EdgeInsets.only(
                       right: 8.0), // Espaçamento entre os textos
                   child: Text(
-                    "${isLogin! ? "Logout" : "Login"}",
+                    "${isLogin! ? "Perfil" : "Login"}",
                     style: TextStyle(
                       color: isLogin!
-                          ? AppColors.deletionButton
+                          ? AppColors.labelPlaceholder
                           : AppColors.button,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -544,8 +544,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
               setState(() {
                 isLogin = false;
               });
+
               print(isLogin);
-            }));
+            },
+            loadcards: loadCards,));
       },
     );
   }

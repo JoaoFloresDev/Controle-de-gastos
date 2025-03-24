@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meus_gastos/gastos_fixos/intervalsControl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/saveExpensOnCloud.dart';
@@ -39,18 +40,36 @@ class Fixedexpensesservice {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString('fixed_expenses');
     List<FixedExpense> fc = [];
+    User? user = FirebaseAuth.instance.currentUser;
     if (cardsString != null) {
-      final List<dynamic> jsonList = json.decode(cardsString);
-      fc = jsonList.map((jsonItem) => FixedExpense.fromJson(jsonItem)).toList()
-        ..sort((a, b) => a.date.compareTo(b.date));
-    }
-    List<FixedExpense> fixedCardList =
-        await SaveExpensOnCloud().fetchCardsFixedCards()
+      if (user == null) {
+        final List<dynamic> jsonList = json.decode(cardsString);
+        fc = jsonList
+            .map((jsonItem) => FixedExpense.fromJson(jsonItem))
+            .toList()
           ..sort((a, b) => a.date.compareTo(b.date));
+      } else {
+        fc = await SaveExpensOnCloud().fetchCardsFixedCards()
+          ..sort((a, b) => a.date.compareTo(b.date));
+      }
+    }
     // print("metodo antigo:${fc.length} firebase${fixedCardList.length}");
-    return fixedCardList;
+    return fc;
     // }
     // return [];
+  }
+  static Future<List<FixedExpense>> getSortedFixedExpensesToSync() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? cardsString = prefs.getString('fixed_expenses');
+    List<FixedExpense> fc = [];
+    if (cardsString != null) {
+        final List<dynamic> jsonList = json.decode(cardsString);
+        fc = jsonList
+            .map((jsonItem) => FixedExpense.fromJson(jsonItem))
+            .toList()
+          ..sort((a, b) => a.date.compareTo(b.date));
+    }
+    return fc;
   }
 
   static Future<List<String>> getFixedExpenseIds() async {
@@ -78,6 +97,8 @@ class Fixedexpensesservice {
 
   // MARK: - Add, Delete, and Update Cards
   static Future<void> addCard(FixedExpense FixedExpense) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    print("$user");
     await modifyCards((cards) {
       if (!(FixedExpense.price == 0)) {
         cards.add(FixedExpense);

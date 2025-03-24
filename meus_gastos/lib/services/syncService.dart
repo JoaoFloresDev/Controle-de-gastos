@@ -15,28 +15,37 @@ class SyncService {
 
     // 🔹 1. Carrega os dados locais
     List<FixedExpense> localFixedExpenses =
-        await Fixedexpensesservice.getSortedFixedExpenses();
-    List<CardModel> localNormalExpenses = await CardService.retrieveCards();
+        await Fixedexpensesservice.getSortedFixedExpensesToSync();
+    List<CardModel> localNormalExpenses =
+        await CardService.retrieveCardsToSync();
 
     // 🔹 2. Baixa os dados do Firebase
     List<FixedExpense> remoteFixedExpenses =
         await SaveExpensOnCloud().fetchCardsFixedCards();
     List<CardModel> remoteNormalExpenses =
         await SaveExpensOnCloud().fetchCards();
-    if (localNormalExpenses != remoteNormalExpenses) 
+    if (localNormalExpenses != remoteNormalExpenses)
       print("É DIFERENTE");
     else
       print("É IGUAL");
 
     // RESOLVER ESSA PARTE
     // 🔹 3. Processa sincronização
+    print(localFixedExpenses.length);
+    for (FixedExpense card in remoteFixedExpenses) {
+      print("Fixeds ${card.category.name} ${card.price}");
+    }
+    for (FixedExpense card in localFixedExpenses) {
+      print("Normals ${card.category.name} ${card.price}");
+    }
 
     List<FixedExpense> updatedFixedExpenses =
         _mergeFixedData(localFixedExpenses, remoteFixedExpenses);
+
     List<CardModel> updatedNormalExpenses =
         _mergeData(localNormalExpenses, remoteNormalExpenses);
     if (updatedNormalExpenses != remoteNormalExpenses) print("Deu certo");
-
+    print("object");
     // // 🔹 4. Salva as mudanças localmente
     await _saveExpensesToLocal(prefs, updatedFixedExpenses, 'fixed_expenses');
     await _saveExpensesToLocal(prefs, updatedNormalExpenses, 'normal_expenses');

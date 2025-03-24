@@ -104,6 +104,18 @@ class CardService {
     return [];
   }
 
+  static Future<List<CardModel>> retrieveCardsToSync() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? cardsString = prefs.getString(_storageKey);
+    if (cardsString != null) {
+      final List<dynamic> jsonList = json.decode(cardsString);
+      return jsonList.map((jsonItem) => CardModel.fromJson(jsonItem)).toList()
+        ..sort((a, b) => a.date.compareTo(b.date));
+    }
+    return [];
+    
+  }
+
   // MARK: - Modify Cards
   static Future<void> modifyCards(
       List<CardModel> Function(List<CardModel> cards) modification) async {
