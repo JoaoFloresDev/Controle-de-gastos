@@ -41,18 +41,19 @@ class Fixedexpensesservice {
     final String? cardsString = prefs.getString('fixed_expenses');
     List<FixedExpense> fc = [];
     User? user = FirebaseAuth.instance.currentUser;
-    if (cardsString != null) {
+    
       if (user == null) {
-        final List<dynamic> jsonList = json.decode(cardsString);
-        fc = jsonList
-            .map((jsonItem) => FixedExpense.fromJson(jsonItem))
-            .toList()
-          ..sort((a, b) => a.date.compareTo(b.date));
+        if (cardsString != null) {
+          final List<dynamic> jsonList = json.decode(cardsString);
+          fc = jsonList
+              .map((jsonItem) => FixedExpense.fromJson(jsonItem))
+              .toList()
+            ..sort((a, b) => a.date.compareTo(b.date));
+        }
       } else {
         fc = await SaveExpensOnCloud().fetchCardsFixedCards()
           ..sort((a, b) => a.date.compareTo(b.date));
       }
-    }
     // print("metodo antigo:${fc.length} firebase${fixedCardList.length}");
     return fc;
     // }
@@ -116,6 +117,11 @@ class Fixedexpensesservice {
     List<FixedExpense> cardsf = await getSortedFixedExpenses();
     SaveExpensOnCloud()
         .deleteDateFixedCards(cardsf.firstWhere((card) => card.id == id));
+  }
+
+  static Future<void> deleteAllCards() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove("fixed_expenses");
   }
 
   static Future<void> updateCard(String id, FixedExpense newCard) async {

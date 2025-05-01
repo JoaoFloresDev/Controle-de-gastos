@@ -117,7 +117,7 @@ class HeaderCardState extends State<HeaderCard> {
 
     if (!(newCard.amount == 0)) CardService.addCard(newCard);
 
-    await CategoryService.incrementCategoryFrequency(
+    await CategoryService().incrementCategoryFrequency(
         (_horizontalCircleListKey.currentState?.categorieList ??
                 [])[lastIndexSelected]
             .id);
@@ -127,6 +127,7 @@ class HeaderCardState extends State<HeaderCard> {
       _horizontalCircleListKey.currentState?.selectedIndex = 0;
       valorController.updateValue(0.0);
       descricaoController.clear();
+      lastIndexSelected = 0;
     });
     FocusManager.instance.primaryFocus?.unfocus();
     Future.delayed(const Duration(milliseconds: 300), () {
@@ -198,8 +199,8 @@ class HeaderCardState extends State<HeaderCard> {
               ),
             ),
             const SizedBox(height: 6),
-                        const SizedBox(height: 6),
-Padding(
+            const SizedBox(height: 6),
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: SizedBox(
                 width: double

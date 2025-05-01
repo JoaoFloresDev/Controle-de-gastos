@@ -65,7 +65,7 @@ class SyncService {
       merged.putIfAbsent(
           e.id, () => e); // Adiciona apenas se não existir no Firebase
     }
-
+    merged.values.toList().forEach((card) => print("${card.id}"));
     return merged.values.toList();
   }
 

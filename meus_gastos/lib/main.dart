@@ -34,7 +34,6 @@ import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:meus_gastos/controllers/settings/settings.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -154,10 +153,10 @@ final  GlobalKey<DashboardScreenState> dashboardTab =
             icon: const Icon(CupertinoIcons.calendar, size: 20),
             label: AppLocalizations.of(context)!.calendar,
           ),
-          BottomNavigationBarItem(
-            icon: const Icon(CupertinoIcons.ellipsis, size: 20),
-            label: AppLocalizations.of(context)!.other,
-          ),
+          // BottomNavigationBarItem(
+          //   icon: const Icon(CupertinoIcons.ellipsis, size: 20),
+          //   label: AppLocalizations.of(context)!.other,
+          // ),
         ],
         onTap: (int index) {
           setState(() {
@@ -220,8 +219,6 @@ if (index == 1) {
             calendarKey.currentState?.refreshCalendar();
           },
         );
-      case 3:
-        return Settings();
       default:
         // dashboardTab.currentState?.inicializeDashboard();
         return DashboardScreen(

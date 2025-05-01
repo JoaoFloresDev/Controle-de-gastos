@@ -72,7 +72,7 @@ class ListCardRecorrent extends StatelessWidget {
                       height: 24,
                       margin: const EdgeInsets.symmetric(horizontal: 16),
                       decoration: const BoxDecoration(
-                        color: AppColors.card,
+                        color: Color.fromARGB(0, 44, 44, 44),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(

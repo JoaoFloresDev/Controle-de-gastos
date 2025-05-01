@@ -10,7 +10,9 @@ import 'package:meus_gastos/services/syncService.dart';
 class Logout extends StatefulWidget {
   final VoidCallback updateUser;
   final VoidCallback loadcards;
-  const Logout({required this.updateUser, required this.loadcards});
+  final bool isPro;
+  final void Function(BuildContext context) showProModal;
+  const Logout({required this.updateUser, required this.loadcards, required this.isPro, required this.showProModal});
   @override
   _Logout createState() => _Logout();
 }
@@ -169,6 +171,11 @@ class _Logout extends State<Logout> {
                 user = FirebaseAuth.instance.currentUser;
               });
             },
+            loadcards: widget.loadcards,
+            isPro: widget.isPro, 
+              showProModal: (context) {
+                widget.showProModal(context);
+              },
           ), // Aqui chamamos a função que retorna o widget
         );
       },

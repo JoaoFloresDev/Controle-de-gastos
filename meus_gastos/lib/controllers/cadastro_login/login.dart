@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/controllers/cadastro_login/logout.dart';
@@ -10,7 +11,14 @@ import 'package:meus_gastos/services/authentication.dart';
 
 class singInScreen extends StatefulWidget {
   final VoidCallback updateUser;
-  singInScreen({required this.updateUser});
+  final VoidCallback loadcards;
+  final bool isPro;
+  final void Function(BuildContext context) showProModal;
+  singInScreen(
+      {required this.updateUser,
+      required this.isPro,
+      required this.showProModal,
+      required this.loadcards});
   @override
   _singInScreen createState() => _singInScreen();
 }
@@ -22,9 +30,18 @@ class _singInScreen extends State<singInScreen> {
 
   bool _isObscured = true;
   String? errorMenssage;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    if (!widget.isPro) {
+      Future.delayed(const Duration(seconds: 2), () {
+        Navigator.of(context).pop();
+        if (mounted) {
+          widget.showProModal(context);
+        }
+      });
+    }
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
@@ -47,136 +64,62 @@ class _singInScreen extends State<singInScreen> {
               onDeletePressed: () {},
               showDeleteButton: false,
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-              child: Column(
+            // Área com blur (envolta em Stack)
+            Expanded(
+              child: Stack(
                 children: [
-                  SizedBox(
-                    height: 8,
-                  ),
-                  // CupertinoTextField(
-                  //   decoration: const BoxDecoration(
-                  //     border: Border(
-                  //       bottom: BorderSide(
-                  //         color: AppColors.label,
-                  //       ),
-                  //     ),
-                  //   ),
-                  //   placeholder: "Email",
-                  //   placeholderStyle:
-                  //       TextStyle(color: AppColors.labelPlaceholder),
-                  //   style: const TextStyle(color: AppColors.label),
-                  //   controller: emailController,
-                  // ),
-                  // SizedBox(
-                  //   height: 8,
-                  // ),
-                  // CupertinoTextField(
-                  //   obscureText: _isObscured,
-                  //   decoration: const BoxDecoration(
-                  //     border: Border(
-                  //       bottom: BorderSide(
-                  //         color: AppColors.label,
-                  //       ),
-                  //     ),
-                  //   ),
-                  //   placeholder: AppLocalizations.of(context)!.password,
-                  //   placeholderStyle:
-                  //       TextStyle(color: AppColors.labelPlaceholder),
-                  //   suffix: GestureDetector(
-                  //     onTap: () {
-                  //       setState(() {
-                  //         _isObscured = !_isObscured;
-                  //       });
-                  //     },
-                  //     child: Icon(
-                  //       _isObscured
-                  //           ? CupertinoIcons.eye
-                  //           : CupertinoIcons.eye_slash,
-                  //       color: AppColors.labelPlaceholder,
-                  //     ),
-                  //   ),
-                  //   style: TextStyle(color: AppColors.label),
-                  //   controller: passwordController,
-                  // ),
-                  // SizedBox(
-                  //   height: 32,
-                  // ),
-                  // if (errorMenssage != null) ...[
-                  //   Text(
-                  //     errorMenssage!,
-                  //     style: const TextStyle(color: Colors.red, fontSize: 14),
-                  //     textAlign: TextAlign.center,
-                  //   ),
-                  //   const SizedBox(height: 16),
-                  // ],
-                  Center(
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 16, left: 16, right: 16),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ElevatedButton(
-                          onPressed: () async {
-                            final user = await _authService.signInWithGoogle();
-                            if (user != null) {
-                              print('Usuário logado: ${user.displayName}');
-                            } else {
-                              print('Login cancelado ou falhou.');
-                            }
-                            widget.updateUser();
-                          },
-                          child: Row(
+                        const SizedBox(height: 8),
+                        Center(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.g_mobiledata),
-                              Text("Login com Google"),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  final user =
+                                      await _authService.signInWithGoogle();
+                                  if (user != null) {
+                                    print(
+                                        'Usuário logado: ${user.displayName}');
+                                  } else {
+                                    print('Login cancelado ou falhou.');
+                                  }
+                                  setState(() {
+                                    print("A");
+                                    if (user != null) {
+                                      print("B");
+                                      widget.updateUser();
+                                      widget.loadcards();
+                                    }
+                                  });
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(Icons.g_mobiledata),
+                                    const Text("Login com Google"),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                        // ElevatedButton(
-                        //   onPressed: () async {
-                        //     await _authService.signOut();
-
-                        //     print('Usuário deslogado.');
-                        //   },
-                        //   child: Text("Logout", style: TextStyle(color: AppColors.deletionButton,)),
-                        // ),
                       ],
                     ),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(horizontal: 8),
-                  //   child: SizedBox(
-                  //     width: double.infinity,
-                  //     child: CupertinoButton(
-                  //       color: AppColors.button,
-                  //       onPressed: () {
-                  //         signipAuthentication();
-                  //       },
-                  //       child: Text(
-                  //         AppLocalizations.of(context)!.signin,
-                  //         style: const TextStyle(
-                  //             fontWeight: FontWeight.bold,
-                  //             color: AppColors.label),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 32,
-                  // ),
-                  // GestureDetector(
-                  //     onTap: () {
-                  //       FocusManager.instance.primaryFocus?.unfocus();
-                  //       Navigator.of(context).pop();
-                  //       _singUpScreen();
-                  //     },
-                  //     child: Text(
-                  //       AppLocalizations.of(context)!.dontHaveAccount,
-                  //       style: TextStyle(
-                  //         decoration: TextDecoration.underline,
-                  //         color: AppColors.label,
-                  //       ),
-                  //     )),
+                  if (!widget.isPro) // Blur apenas nesta seção
+                    Positioned.fill(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                        child: Container(
+                          color: Colors.black.withOpacity(0.3),
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -185,24 +128,6 @@ class _singInScreen extends State<singInScreen> {
       ),
     );
   }
-
-  // void _singUpScreen() {
-  //   FocusScope.of(context).unfocus();
-  //   showCupertinoModalPopup(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return Container(
-  //           height: MediaQuery.of(context).size.height / 1.05,
-  //           decoration: const BoxDecoration(
-  //             borderRadius: BorderRadius.only(
-  //               topLeft: Radius.circular(20),
-  //               topRight: Radius.circular(20),
-  //             ),
-  //           ),
-  //           child: singUpScreen());
-  //     },
-  //   );
-  // }
 
   void signipAuthentication() {
     String email = emailController.text;

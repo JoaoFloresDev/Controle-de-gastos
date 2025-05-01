@@ -6,6 +6,7 @@ import 'package:meus_gastos/controllers/cadastro_login/logout.dart';
 import 'package:meus_gastos/controllers/cadastro_login/login.dart';
 import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
 import 'package:meus_gastos/services/saveExpensOnCloud.dart';
+import 'package:meus_gastos/services/syncService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -142,6 +143,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     _loadFixedExpenseIds();
     cardList = cards;
     fixedCards = fcard;
+    // cardList.forEach((card) => print("${card.id}: ${card.amount}"));
     mergeCardList =
         await Fixedexpensesservice.MergeFixedWithNormal(fixedCards, cardList);
     setState(() {});
@@ -207,14 +209,13 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             },
             child: const Icon(Icons.repeat, size: 24, color: AppColors.label),
           ),
-middle: MediaQuery(
-  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-  child: Text(
-    widget.title,
-    style: const TextStyle(color: AppColors.label, fontSize: 20),
-  ),
-),
-
+          middle: MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: Text(
+              widget.title,
+              style: const TextStyle(color: AppColors.label, fontSize: 20),
+            ),
+          ),
           backgroundColor: AppColors.background1,
           trailing: Row(
             mainAxisSize: MainAxisSize
@@ -231,16 +232,20 @@ middle: MediaQuery(
                 child: Padding(
                   padding: EdgeInsets.only(
                       right: 8.0), // Espaçamento entre os textos
-                  child: Text(
-                    "${isLogin! ? "Perfil" : "Login"}",
-                    style: TextStyle(
-                      color: isLogin!
-                          ? AppColors.labelPlaceholder
-                          : AppColors.button,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  child: isLogin!
+                      ? Icon(
+                          Icons.cloud,
+                          color: AppColors.labelPlaceholder,
+                          size: 20,
+                        )
+                      : Text(
+                          "Login",
+                          style: TextStyle(
+                            color: AppColors.button,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                 ),
               ),
               GestureDetector(
@@ -352,7 +357,8 @@ middle: MediaQuery(
                                 widget.onAddClicked();
                                 _showCupertinoModalBottomSheet(context, card);
                               },
-                              card: mergeCardList[mergeCardList.length - index - 1],
+                              card: mergeCardList[
+                                  mergeCardList.length - index - 1],
                               background: AppColors.card,
                             ),
                           );
@@ -364,50 +370,54 @@ middle: MediaQuery(
                             onTap: (card) {
                               widget.onAddClicked();
                             },
-                            card: mergeCardList[mergeCardList.length - index - 1],
+                            card:
+                                mergeCardList[mergeCardList.length - index - 1],
                             onAddClicked: loadCards(),
                           ),
                         );
                       }),
                 ),
               if (cardList.isEmpty && fixedCards.isEmpty)
-Expanded(
-  child: Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Icon(
-          Icons.inbox,
-          color: AppColors.card,
-          size: 40, // Ícone levemente maior para maior impacto visual
-        ),
-        Text(
-          AppLocalizations.of(context)!.addNewTransactions,
-          style: const TextStyle(
-            color: AppColors.label,
-            fontSize: 12, // Levemente maior para melhor leitura
-            fontWeight: FontWeight.w500,
-            height: 1.8,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        const Spacer(), 
-        Text(
-          AppLocalizations.of(context)!.addNewCallToAction,
-          style: const TextStyle(
-            color: AppColors.label,
-            fontSize: 12, // Destaque maior para a explicação final
-            fontWeight: FontWeight.w500,
-            height: 1.4,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    ),
-  ),
-)
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24.0, vertical: 24),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.inbox,
+                          color: AppColors.card,
+                          size:
+                              40, // Ícone levemente maior para maior impacto visual
+                        ),
+                        Text(
+                          AppLocalizations.of(context)!.addNewTransactions,
+                          style: const TextStyle(
+                            color: AppColors.label,
+                            fontSize: 12, // Levemente maior para melhor leitura
+                            fontWeight: FontWeight.w500,
+                            height: 1.8,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const Spacer(),
+                        Text(
+                          AppLocalizations.of(context)!.addNewCallToAction,
+                          style: const TextStyle(
+                            color: AppColors.label,
+                            fontSize:
+                                12, // Destaque maior para a explicação final
+                            fontWeight: FontWeight.w500,
+                            height: 1.4,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                )
             ],
           ),
         ),
@@ -488,13 +498,27 @@ Expanded(
                 topRight: Radius.circular(20),
               ),
             ),
-            child: singInScreen(updateUser: () {
-              Navigator.of(context).pop();
-              setState(() {
-                isLogin = true;
-              });
-              print(isLogin);
-            }));
+            child: singInScreen(
+              updateUser: () async {
+                setState(() {
+                  isLogin = true;
+                });
+                print(isLogin);
+                Navigator.of(context).pop();
+                await sincroniza_primeiro_acesso();
+
+                // SyncService().syncData(user!.uid);
+
+                setState(() {
+                  loadCards();
+                });
+              },
+              loadcards: loadCards,
+              isPro: _isPro,
+              showProModal: (context) {
+                _showProModal(context);
+              },
+            ));
       },
     );
   }
@@ -512,16 +536,63 @@ Expanded(
                 topRight: Radius.circular(20),
               ),
             ),
-            child: Logout(updateUser: () {
-              Navigator.of(context).pop();
-              setState(() {
-                isLogin = false;
-              });
-
-              print(isLogin);
-            },
-            loadcards: loadCards,));
+            child: Logout(
+              updateUser: () async {
+                setState(() {
+                  isLogin = false;
+                });
+                await service.CardService.deleteAllCards();
+                await Fixedexpensesservice.deleteAllCards();
+                print("APAGOU");
+                print(isLogin);
+                setState(() {
+                  loadCards();
+                });
+                Navigator.of(context).pop();
+              },
+              loadcards: loadCards,
+              isPro: _isPro,
+              showProModal: (context) {
+                _showProModal(context);
+              },
+            ));
       },
     );
+  }
+
+  Future<bool> isFirstLogin(String userId) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('synced_$userId') != true;
+  }
+
+  Future<void> sincroniza_primeiro_acesso() async {
+    bool prim = await isFirstLogin(user!.uid);
+    print("${prim} esse é o taldo");
+    if (prim) {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text("Sincronizar dados"),
+          content: Text("Deseja sincronizar os dados locais com a nuvem?"),
+          actions: [
+            TextButton(
+              child: Text("Agora não"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              child: Text("Sincronizar"),
+              onPressed: () async {
+                await SyncService().syncData(user!.uid);
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.setBool('synced_${user!.uid}', true);
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      );
+    }
   }
 }

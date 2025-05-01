@@ -81,25 +81,16 @@ class CardService {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString(_storageKey);
     User? user = FirebaseAuth.instance.currentUser;
-    if (cardsString != null) {
-      final List<dynamic> jsonList = json.decode(cardsString);
-      if (user != null) {
-        List<CardModel> cardList = await SaveExpensOnCloud().fetchCards()
-          ..sort((a, b) => a.date.compareTo(b.date));
-        return cardList;
-      } else {
+    if (user != null) {
+      List<CardModel> cardList = await SaveExpensOnCloud().fetchCards()
+        ..sort((a, b) => a.date.compareTo(b.date));
+      return cardList;
+    } else {
+      if (cardsString != null) {
+        final List<dynamic> jsonList = json.decode(cardsString);
         return jsonList.map((jsonItem) => CardModel.fromJson(jsonItem)).toList()
           ..sort((a, b) => a.date.compareTo(b.date));
       }
-      // print("1");
-      // for (CardModel card in cardList) {
-      //   print("${card.category.name}: ${card.amount}");
-      // }
-      // print("-----------------");
-      // print("2");
-      // for (CardModel card in cardList) {
-      //   print("${card.category.name}: ${card.amount}");
-      // }
     }
     return [];
   }
@@ -113,7 +104,6 @@ class CardService {
         ..sort((a, b) => a.date.compareTo(b.date));
     }
     return [];
-    
   }
 
   // MARK: - Modify Cards
@@ -160,7 +150,8 @@ class CardService {
   // MARK: - Delete All Cards
   static Future<void> deleteAllCards() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_storageKey);
+    bool result = await prefs.remove(_storageKey);
+    print("Delet result = $result");
   }
 
   // MARK: - Progress Indicators

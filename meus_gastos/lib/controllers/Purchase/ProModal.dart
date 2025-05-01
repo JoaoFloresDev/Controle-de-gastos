@@ -75,7 +75,34 @@ class _ProModalState extends State<ProModal> {
         }
         if (purchaseDetails.productID == monthlyProId) {
           saveIsPremiummonthly();
+          showDialog(
+            context: context,
+            barrierDismissible: false, // impede que o usuário feche o modal tocando fora
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Sincronizar dados'),
+                content: Text('Você deseja entrar no seu perfil para sincronizar seus dados?'),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text('Agora não'),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Fecha o modal
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Fazer Login'),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Fecha o modal
+                      // Navegue para a tela de login
+                      Navigator.pushNamed(context, '/login'); // Altere para sua rota real
+                    },
+                  ),
+                ],
+              );
+            },
+          );
         }
+        
       } else if (purchaseDetails.status == PurchaseStatus.error) {
         // Trate erros de compra aqui, se necessário
       }
@@ -95,6 +122,7 @@ class _ProModalState extends State<ProModal> {
   Future<void> saveIsPremiummonthly() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('monthly.pro', true);
+
     setState(() {
       isMonthlyPro = true;
     });

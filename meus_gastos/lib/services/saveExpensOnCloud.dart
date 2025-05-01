@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 
 class SaveExpensOnCloud {
@@ -122,6 +123,55 @@ class SaveExpensOnCloud {
       return [];
     }
   }
+
+  // categories
+
+  Future<void> addNewCategory(CategoryModel category) async {
+  try {
+    await _firestore
+        .collection(userId!)
+        .doc('Categories')
+        .collection('categoryList')
+        .doc(category.id)
+        .set(category.toJson());
+
+    print("Categoria adicionada com sucesso: ${category.id}");
+  } catch (e) {
+    print("Erro ao adicionar categoria: $e");
+  }
+}
+
+Future<void> deleteCategory(CategoryModel category) async {
+  try {
+    await _firestore
+        .collection(userId!)
+        .doc('Categories')
+        .collection('categoryList')
+        .doc(category.id)
+        .delete();
+
+    print("Categoria com ID ${category.id} deletada com sucesso.");
+  } catch (e) {
+    print("Erro ao deletar categoria: $e");
+  }
+}
+
+Future<List<CategoryModel>> fetchCategories() async {
+  try {
+    QuerySnapshot snapshot = await _firestore
+        .collection(userId!)
+        .doc('Categories')
+        .collection('categoryList')
+        .get();
+
+    return snapshot.docs
+        .map((doc) => CategoryModel.fromJson(doc.data() as Map<String, dynamic>))
+        .toList();
+  } catch (e) {
+    print("Erro ao buscar categorias: $e");
+    return [];
+  }
+}
 
 }
 
