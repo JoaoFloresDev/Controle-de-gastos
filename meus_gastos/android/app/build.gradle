@@ -33,7 +33,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "meus_gastos.my_expenses"
-    compileSdk 34
+    compileSdk 35
     ndkVersion "25.1.8937393"
 
     compileOptions {
@@ -56,8 +56,8 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 23
         targetSdkVersion 34
-        compileSdkVersion 34
-        versionCode 45
+        compileSdkVersion 35
+        versionCode 65
         versionName flutterVersionName
         multiDexEnabled true
     }

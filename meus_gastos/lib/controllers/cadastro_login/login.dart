@@ -6,7 +6,8 @@ import 'package:meus_gastos/controllers/cadastro_login/logout.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/main.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+
 import 'package:meus_gastos/services/authentication.dart';
 
 class singInScreen extends StatefulWidget {
@@ -73,7 +74,7 @@ class _singInScreen extends State<singInScreen> {
                         const EdgeInsets.only(top: 16, left: 16, right: 16),
                     child: Column(
                       children: [
-                        const SizedBox(height: 8),
+                        Expanded(child: SizedBox(),),
                         Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -101,13 +102,14 @@ class _singInScreen extends State<singInScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Icon(Icons.g_mobiledata),
-                                    const Text("Login com Google"),
+                                    Text("${AppLocalizations.of(context)!.loginWithGoogle}"),
                                   ],
                                 ),
                               ),
                             ],
                           ),
                         ),
+                        Expanded(child: SizedBox(),),
                       ],
                     ),
                   ),

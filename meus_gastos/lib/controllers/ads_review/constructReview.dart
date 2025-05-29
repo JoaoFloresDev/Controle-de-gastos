@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
@@ -11,8 +12,8 @@ import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ReviewService {
-
-  static Future<void> checkAndRequestReview(BuildContext context, bool isPro) async {
+  static Future<void> checkAndRequestReview(
+      BuildContext context, bool isPro) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int sessionCount = prefs.getInt('session_count') ?? 0;
     bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
@@ -30,7 +31,6 @@ class ReviewService {
     } else if (sessionCount == 8 ||
         ((sessionCount % 3 == 0 && !(sessionCount % 5 == 0)) &&
             sessionCount > 10)) {
-
       if (!isPro) {
         _showProModal(context);
       }

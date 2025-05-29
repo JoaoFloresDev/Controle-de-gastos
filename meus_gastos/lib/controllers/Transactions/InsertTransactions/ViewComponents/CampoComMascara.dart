@@ -2,7 +2,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class CampoComMascara extends StatefulWidget {
   final DateTime currentDate;
@@ -83,7 +83,7 @@ class _CampoComMascaraState extends State<CampoComMascara> {
   // MARK: - Format DateTime para exibição (de acordo com o AppLocalizations)
   String _formatDateTime(DateTime dateTime) {
     if (_dateFormatPattern == null) {
-      return ''; 
+      return '';
     }
     final DateFormat dateFormat = DateFormat(
         _dateFormatPattern!, Localizations.localeOf(context).toString());

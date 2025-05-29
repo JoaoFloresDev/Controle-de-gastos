@@ -1,7 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 
@@ -22,137 +23,133 @@ class DashboardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.card,
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-      child: 
-      Container(
-              decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [AppColors.card, AppColors.card2],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            offset: const Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: 2,
-          ),
-        ],
-      ),
-        child: 
-        
-        Padding(
-        padding: const EdgeInsets.all(0),
-        child: items.isEmpty ? _buildPieChartPlaceholder(context) : 
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 200,
-                    child: PieChart(
-                      PieChartData(
-                        sectionsSpace: 4,
-                        centerSpaceRadius: 50,
-                        sections: items
-                            .map((item) => PieChartSectionData(
-                                  color: item.color,
-                                  value: item.value,
-                                  title:
-                                      '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
-                                  radius: 30,
-                                  titleStyle: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.label),
-                                  titlePositionPercentageOffset: 1.8,
-                                ))
-                            .toList(),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Wrap(
-                      spacing: 8,
-                      runSpacing: 4,
-                      alignment: WrapAlignment.center,
-                      children: items
-                          .map((item) => _buildLegendItem(
-                              item.color,
-                              '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
-                              Translateservice.getTranslatedCategoryName(
-                                  context, item.label)))
-                          .toList(),
-                    ),
-                  ),
-                ],
+        color: AppColors.card,
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [AppColors.card, AppColors.card2],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(18),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                offset: const Offset(0, 4),
+                blurRadius: 8,
+                spreadRadius: 2,
               ),
-          ],
-        ),
-      ),)
-    );
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(0),
+            child: items.isEmpty
+                ? _buildPieChartPlaceholder(context)
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            height: 200,
+                            child: PieChart(
+                              PieChartData(
+                                sectionsSpace: 4,
+                                centerSpaceRadius: 50,
+                                sections: items
+                                    .map((item) => PieChartSectionData(
+                                          color: item.color,
+                                          value: item.value,
+                                          title:
+                                              '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
+                                          radius: 30,
+                                          titleStyle: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.label),
+                                          titlePositionPercentageOffset: 1.8,
+                                        ))
+                                    .toList(),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Wrap(
+                              spacing: 8,
+                              runSpacing: 4,
+                              alignment: WrapAlignment.center,
+                              children: items
+                                  .map((item) => _buildLegendItem(
+                                      item.color,
+                                      '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
+                                      Translateservice
+                                          .getTranslatedCategoryName(
+                                              context, item.label)))
+                                  .toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+          ),
+        ));
   }
 
-Widget _buildPieChartPlaceholder(BuildContext context) {
-  return SizedBox.expand(
-    child: Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [AppColors.card, AppColors.background1],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+  Widget _buildPieChartPlaceholder(BuildContext context) {
+    return SizedBox.expand(
+      child: Container(
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [AppColors.card, AppColors.background1],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              offset: const Offset(0, 4),
+              blurRadius: 8,
+              spreadRadius: 2,
+            ),
+          ],
         ),
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            offset: const Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: 2,
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.pie_chart, size: 60, color: AppColors.label),
-          const SizedBox(height: 16),
-          Text(
-            AppLocalizations.of(context)!.pieGraphPlaceholder,
-            style: const TextStyle(
-              color: AppColors.label,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.pie_chart, size: 60, color: AppColors.label),
+            const SizedBox(height: 16),
+            Text(
+              AppLocalizations.of(context)!.pieGraphPlaceholder,
+              style: const TextStyle(
+                color: AppColors.label,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
-          Text(
-            AppLocalizations.of(context)!.pietutorial,
-            style: const TextStyle(
-              color: AppColors.label,
-              fontSize: 16,
+            const SizedBox(height: 24),
+            Text(
+              AppLocalizations.of(context)!.pietutorial,
+              style: const TextStyle(
+                color: AppColors.label,
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 40),
-        ],
+            const SizedBox(height: 40),
+          ],
+        ),
       ),
-    ),
-  );
-}
-
-
+    );
+  }
 
   Widget _buildLegendItem(Color color, String percent, String label) {
     return Row(

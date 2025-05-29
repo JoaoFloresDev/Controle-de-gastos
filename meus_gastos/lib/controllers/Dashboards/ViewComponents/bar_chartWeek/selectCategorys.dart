@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+
 import 'package:meus_gastos/services/TranslateService.dart';
 
 class SelectCategories extends StatefulWidget {
@@ -74,7 +75,8 @@ class _SelectCategoriesState extends State<SelectCategories> {
             isSelected ? AppColors.buttonSelected : AppColors.buttonDeselected,
         shape: BoxShape.circle,
       ),
-      child: Icon(widget.categoryList[index].icon, color: widget.categoryList[index].color),
+      child: Icon(widget.categoryList[index].icon,
+          color: widget.categoryList[index].color),
     );
   }
 

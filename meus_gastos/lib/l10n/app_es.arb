@@ -126,6 +126,11 @@
   "alreadyHaveAccount": "¿Ya tienes una cuenta? Iniciar sesión",
   "dontHaveAccount" : "¿Aún no tienes una cuenta? Regístrate",
   "other" : "Otro",
-  "contactus": "Contáctanos"
+  "contactus": "Contáctanos",
+  "loginWithGoogle" : "Iniciar sesión con Google",
+  "sync": "Sincronizar",
+  "notNow": "Ahora no",
+  "syncData": "Sincronizar datos",
+  "syncQuestion": "¿Deseas sincronizar los datos locales con la nube?"
 
 }

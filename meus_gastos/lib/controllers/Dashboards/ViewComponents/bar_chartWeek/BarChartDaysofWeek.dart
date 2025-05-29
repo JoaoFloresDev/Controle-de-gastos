@@ -7,13 +7,16 @@ import 'package:meus_gastos/services/DashbordService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/selectCategorys.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+
 import 'package:uuid/uuid.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 
@@ -21,7 +24,8 @@ class DailyStackedBarChart extends StatefulWidget {
   final List<List<List<ProgressIndicatorModel>>> last5weewdailyData;
   final List<WeekInterval> last5WeeksIntervals;
 
-  const DailyStackedBarChart({super.key, 
+  const DailyStackedBarChart({
+    super.key,
     required this.last5weewdailyData,
     required this.last5WeeksIntervals,
   });
@@ -64,119 +68,121 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                 .reduce((a, b) => a + b)) // Soma os progressos de cada dia
             .reduce((a, b) => a > b ? a : b)
         : 0;
-    return 
-    Card(
+    return Card(
       color: AppColors.card,
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-      child: 
-            Container(
-              decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [AppColors.card, AppColors.card2],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            offset: const Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: 2,
-          ),
-        ],
-      ),
-        child: 
-        Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: _buildWeekButtons(),
-          ),
-          if (maxY > 0) Expanded(child: _buildChart(maxY, maxDailySum)),
-          if (maxY == 0)
-            Expanded(
-                child: Center(
-                    child: Text(
-                        AppLocalizations.of(context)!.noExpensesThisWeek,
-                        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500)))),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0, left: 16, right: 16),
-            child: SelectCategories(
-              categoryList: Dashbordservice.extractCategories(
-                  widget.last5weewdailyData[selectedWeek]),
-              onSelectionChanged: (selectedIndices) {
-                setState(() {
-                  selectedCategories = selectedIndices
-                      .map((index) => Dashbordservice.extractCategories(
-                          widget.last5weewdailyData[selectedWeek])[index])
-                      .toList();
-                });
-              },
-              key: selectCategoryKey,
+      child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [AppColors.card, AppColors.card2],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
+            borderRadius: BorderRadius.circular(18),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                offset: const Offset(0, 4),
+                blurRadius: 8,
+                spreadRadius: 2,
+              ),
+            ],
           ),
-        ],
-      )),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _buildWeekButtons(),
+              ),
+              if (maxY > 0) Expanded(child: _buildChart(maxY, maxDailySum)),
+              if (maxY == 0)
+                Expanded(
+                    child: Center(
+                        child: Text(
+                            AppLocalizations.of(context)!.noExpensesThisWeek,
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500)))),
+              Padding(
+                padding:
+                    const EdgeInsets.only(bottom: 8.0, left: 16, right: 16),
+                child: SelectCategories(
+                  categoryList: Dashbordservice.extractCategories(
+                      widget.last5weewdailyData[selectedWeek]),
+                  onSelectionChanged: (selectedIndices) {
+                    setState(() {
+                      selectedCategories = selectedIndices
+                          .map((index) => Dashbordservice.extractCategories(
+                              widget.last5weewdailyData[selectedWeek])[index])
+                          .toList();
+                    });
+                  },
+                  key: selectCategoryKey,
+                ),
+              ),
+            ],
+          )),
     );
   }
 
-Widget _buildEmptyState(BuildContext context) {
-  return Center(
-    child: Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [AppColors.card, AppColors.background1],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+  Widget _buildEmptyState(BuildContext context) {
+    return Center(
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [AppColors.card, AppColors.background1],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              offset: const Offset(0, 4),
+              blurRadius: 8,
+              spreadRadius: 2,
+            ),
+          ],
         ),
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            offset: const Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: 2,
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.bar_chart, size: 60, color: AppColors.label),
-          const SizedBox(height: 16),
-          Text(
-            AppLocalizations.of(context)!.dailyGraphPlaceholder,
-            style: const TextStyle(
-              color: AppColors.label,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.bar_chart, size: 60, color: AppColors.label),
+            const SizedBox(height: 16),
+            Text(
+              AppLocalizations.of(context)!.dailyGraphPlaceholder,
+              style: const TextStyle(
+                color: AppColors.label,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            AppLocalizations.of(context)!.noExpensesThisWeek,
-            style: const TextStyle(
-              color: AppColors.label,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+            const SizedBox(height: 12),
+            Text(
+              AppLocalizations.of(context)!.noExpensesThisWeek,
+              style: const TextStyle(
+                color: AppColors.label,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 40),
-        ],
+            const SizedBox(height: 40),
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   Widget _buildChart(double maxY, double maxDailySum) {
     return SfCartesianChart(
-      primaryXAxis: const CategoryAxis(majorGridLines: MajorGridLines(width: 0)),
+      primaryXAxis:
+          const CategoryAxis(majorGridLines: MajorGridLines(width: 0)),
       primaryYAxis: NumericAxis(
         isVisible: false,
         maximum: maxY,
@@ -212,14 +218,17 @@ Widget _buildEmptyState(BuildContext context) {
                     setState(() {
                       if (selectedWeek != index) {
                         selectedWeek = index;
-                        // selectedCategories = 
+                        // selectedCategories =
                         selectedCategories = [];
-                        Set<int> selectedIndices = Set<int>.from(Iterable<int>.generate(Dashbordservice.extractCategories(
-                  widget.last5weewdailyData[selectedWeek]).length));
+                        Set<int> selectedIndices = Set<int>.from(
+                            Iterable<int>.generate(
+                                Dashbordservice.extractCategories(
+                                        widget.last5weewdailyData[selectedWeek])
+                                    .length));
                         selectedCategories = selectedIndices
-                      .map((index) => Dashbordservice.extractCategories(
-                          widget.last5weewdailyData[selectedWeek])[index])
-                      .toList();
+                            .map((index) => Dashbordservice.extractCategories(
+                                widget.last5weewdailyData[selectedWeek])[index])
+                            .toList();
                         selectCategoryKey = UniqueKey();
                       }
                     });
@@ -292,7 +301,7 @@ Widget _buildEmptyState(BuildContext context) {
         borderColor: AppColors.card,
       );
     }).toList());
-    
+
     seriesList.add(StackedColumnSeries<ProgressIndicatorModel, String>(
       dataSource: List.generate(days.length, (index) {
         return ProgressIndicatorModel(
@@ -319,8 +328,8 @@ Widget _buildEmptyState(BuildContext context) {
       dataLabelSettings: DataLabelSettings(
         isVisible: true,
         labelAlignment: ChartDataLabelAlignment.top,
-        textStyle:
-            const TextStyle(color: AppColors.label, fontWeight: FontWeight.bold),
+        textStyle: const TextStyle(
+            color: AppColors.label, fontWeight: FontWeight.bold),
         builder: (data, point, series, pointIndex, seriesIndex) {
           return Text(
             data.progress > 0
@@ -340,7 +349,8 @@ Widget _buildEmptyState(BuildContext context) {
 
   List<List<ProgressIndicatorModel>> _getFilteredData() {
     if (selectedCategories.isEmpty) {
-      return List.generate(widget.last5weewdailyData[selectedWeek].length, (_) => []);
+      return List.generate(
+          widget.last5weewdailyData[selectedWeek].length, (_) => []);
     }
 
     return widget.last5weewdailyData[selectedWeek].map((day) {

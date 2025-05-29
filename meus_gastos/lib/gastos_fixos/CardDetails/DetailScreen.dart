@@ -4,7 +4,8 @@ import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'EditionHeaderCard.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,8 @@ class DetailScreen extends StatefulWidget {
   final FixedExpense card;
   final VoidCallback onAddClicked;
 
-  const DetailScreen({super.key, 
+  const DetailScreen({
+    super.key,
     required this.card,
     required this.onAddClicked,
   });
@@ -38,8 +40,7 @@ class _DetailScreen extends State<DetailScreen> {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment
-              .stretch,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             CustomHeader(
               title: AppLocalizations.of(context)!.transactionDetails,

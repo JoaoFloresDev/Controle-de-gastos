@@ -126,6 +126,11 @@
     "alreadyHaveAccount": "Already have an account? Login",
     "dontHaveAccount" : "Don't have an account yet? Sign up",
     "other" : "Other",
-    "contactus" : "Contact us"
+    "contactus" : "Contact us",
+    "loginWithGoogle" : "Login with Google",
+    "sync": "Sync",
+    "notNow": "Not now",
+    "syncData": "Sync data",
+    "syncQuestion": "Do you want to sync local data with the cloud?"
 
 }

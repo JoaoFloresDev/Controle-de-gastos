@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "984231457254-tl4m5uvvj9m5jic3savadcnkb0qabo8t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "meus_gastos.my_expenses",
+            "certificate_hash": "592c4b0cda80b0ae9a8bc6a97d528ab74e1faca7"
+          }
+        },
+        {
           "client_id": "984231457254-r57k9lqpt8hennknahpuu12g2h8dgq57.apps.googleusercontent.com",
           "client_type": 3
         }

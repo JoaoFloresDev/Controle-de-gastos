@@ -1,15 +1,14 @@
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class Totalspentcarouselwidget extends StatefulWidget {
   final double totalGasto;
   final DateTime currentDate;
   Totalspentcarouselwidget(
-      { Key? key,
-        required this.currentDate, 
-        required this.totalGasto}) : super(key: key);
+      {Key? key, required this.currentDate, required this.totalGasto})
+      : super(key: key);
   TotalspentcarouselwidgetState createState() =>
       TotalspentcarouselwidgetState();
 }
@@ -67,6 +66,7 @@ class TotalspentcarouselwidgetState extends State<Totalspentcarouselwidget> {
                     ),
                   )
                 : TotalSpentCarouselWithTitles(
-                    key: ValueKey(widget.currentDate), currentDate: widget.currentDate)));
+                    key: ValueKey(widget.currentDate),
+                    currentDate: widget.currentDate)));
   }
 }

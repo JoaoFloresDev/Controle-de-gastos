@@ -25,7 +25,8 @@ import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
 import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import '../../Purchase/ProModal.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
@@ -491,7 +492,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-            height: MediaQuery.of(context).size.height / 1.5,
+            height: MediaQuery.of(context).size.height / 3.0,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),
@@ -505,12 +506,13 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                 });
                 print(isLogin);
                 Navigator.of(context).pop();
-                await sincroniza_primeiro_acesso();
 
                 // SyncService().syncData(user!.uid);
 
+                await sincroniza_primeiro_acesso();
                 setState(() {
                   loadCards();
+                  _headerCardKey.currentState?.loadCategories();
                 });
               },
               loadcards: loadCards,
@@ -529,7 +531,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-            height: MediaQuery.of(context).size.height / 1.5,
+            height: MediaQuery.of(context).size.height / 3.0,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),
@@ -547,6 +549,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                 print(isLogin);
                 setState(() {
                   loadCards();
+                  _headerCardKey.currentState?.loadCategories();
                 });
                 Navigator.of(context).pop();
               },
@@ -566,23 +569,26 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   }
 
   Future<void> sincroniza_primeiro_acesso() async {
+    if (user == null || user!.uid == null) {
+      // Trate o caso em que o user não está disponível
+      return;
+    }
     bool prim = await isFirstLogin(user!.uid);
-    print("${prim} esse é o taldo");
     if (prim) {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          title: Text("Sincronizar dados"),
-          content: Text("Deseja sincronizar os dados locais com a nuvem?"),
+          title: Text("${AppLocalizations.of(context)!.syncData}"),
+          content: Text("${AppLocalizations.of(context)!.syncQuestion}"),
           actions: [
             TextButton(
-              child: Text("Agora não"),
+              child: Text("${AppLocalizations.of(context)!.notNow}"),
               onPressed: () {
                 Navigator.pop(context);
               },
             ),
             TextButton(
-              child: Text("Sincronizar"),
+              child: Text("${AppLocalizations.of(context)!.sync}"),
               onPressed: () async {
                 await SyncService().syncData(user!.uid);
                 final prefs = await SharedPreferences.getInstance();

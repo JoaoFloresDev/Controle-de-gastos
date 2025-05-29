@@ -8,41 +8,49 @@ import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'dart:io';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class ExportToExcel {
   // Função para montar o arquivo Excel a partir dos dados, com filtro opcional de categoria
 // MARK - Build Excel From Cards
-static Future<Excel> buildExcelFromCards({String? category}) async {
-  List<CardModel> cards = await CardService.retrieveCards();
+  static Future<Excel> buildExcelFromCards({String? category}) async {
+    List<CardModel> cards = await CardService.retrieveCards();
 
-  if (category != null) {
-    cards = cards.where((card) => card.category.name == category).toList();
+    if (category != null) {
+      cards = cards.where((card) => card.category.name == category).toList();
+    }
+
+    cards.sort((a, b) => b.date.compareTo(a.date));
+
+    var excel = Excel.createExcel();
+    Sheet sheetObject = excel['Sheet1'];
+
+    sheetObject.cell(CellIndex.indexByString("A1")).value =
+        TextCellValue("Data");
+    sheetObject.cell(CellIndex.indexByString("B1")).value =
+        TextCellValue("Categoria");
+    sheetObject.cell(CellIndex.indexByString("C1")).value =
+        TextCellValue("Gasto");
+    sheetObject.cell(CellIndex.indexByString("D1")).value =
+        TextCellValue("Descrição");
+
+    int i = 2;
+    for (var card in cards) {
+      String formattedDate =
+          '${card.date.day}-${card.date.month.toString().padLeft(2, '0')}-${card.date.year.toString().padLeft(2, '0')}';
+      sheetObject.cell(CellIndex.indexByString("A$i")).value =
+          TextCellValue(formattedDate);
+      sheetObject.cell(CellIndex.indexByString("B$i")).value =
+          TextCellValue(card.category.name);
+      sheetObject.cell(CellIndex.indexByString("C$i")).value =
+          TextCellValue(card.amount.toString());
+      sheetObject.cell(CellIndex.indexByString("D$i")).value =
+          TextCellValue(card.description);
+      i++;
+    }
+
+    return excel;
   }
-
-  cards.sort((a, b) => b.date.compareTo(a.date));
-
-  var excel = Excel.createExcel();
-  Sheet sheetObject = excel['Sheet1'];
-
-  sheetObject.cell(CellIndex.indexByString("A1")).value = TextCellValue("Data");
-  sheetObject.cell(CellIndex.indexByString("B1")).value = TextCellValue("Categoria");
-  sheetObject.cell(CellIndex.indexByString("C1")).value = TextCellValue("Gasto");
-  sheetObject.cell(CellIndex.indexByString("D1")).value = TextCellValue("Descrição");
-
-  int i = 2;
-  for (var card in cards) {
-    String formattedDate = '${card.date.day}-${card.date.month.toString().padLeft(2, '0')}-${card.date.year.toString().padLeft(2, '0')}';
-    sheetObject.cell(CellIndex.indexByString("A$i")).value = TextCellValue(formattedDate);
-    sheetObject.cell(CellIndex.indexByString("B$i")).value = TextCellValue(card.category.name);
-    sheetObject.cell(CellIndex.indexByString("C$i")).value = TextCellValue(card.amount.toString());
-    sheetObject.cell(CellIndex.indexByString("D$i")).value = TextCellValue(card.description);
-    i++;
-  }
-
-  return excel;
-}
-
 
   // Função para salvar o arquivo Excel localmente e abrir
   static Future<void> saveExcelFileLocally(

@@ -7,7 +7,7 @@ import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class AddCategoryHorizontalCircleList extends StatefulWidget {
   final Function(int) onItemSelected;
@@ -58,7 +58,6 @@ final List<IconData> accountIcons = [
 class _AddCategoryHorizontalCircleListState
     extends State<AddCategoryHorizontalCircleList> {
   int selectedIndex = 0;
-
 
   @override
   Widget build(BuildContext context) {

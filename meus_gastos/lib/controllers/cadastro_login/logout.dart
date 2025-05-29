@@ -3,7 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/controllers/cadastro_login/login.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+
 import 'package:meus_gastos/services/authentication.dart';
 import 'package:meus_gastos/services/syncService.dart';
 
@@ -12,7 +13,11 @@ class Logout extends StatefulWidget {
   final VoidCallback loadcards;
   final bool isPro;
   final void Function(BuildContext context) showProModal;
-  const Logout({required this.updateUser, required this.loadcards, required this.isPro, required this.showProModal});
+  const Logout(
+      {required this.updateUser,
+      required this.loadcards,
+      required this.isPro,
+      required this.showProModal});
   @override
   _Logout createState() => _Logout();
 }
@@ -71,11 +76,12 @@ class _Logout extends State<Logout> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 48,
+                    height: 32,
                   ),
                   Container(
                     child: Row(
                       children: [
+                        Expanded(child: SizedBox()),
                         Container(
                           decoration: BoxDecoration(
                             color: AppColors.card,
@@ -85,6 +91,7 @@ class _Logout extends State<Logout> {
                           child: Icon(Icons.person,
                               size: 50, color: AppColors.label),
                         ),
+                        SizedBox(width: 8,),
                         Expanded(
                             child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,35 +103,10 @@ class _Logout extends State<Logout> {
                                 style: TextStyle(
                                     color: AppColors.label, fontSize: 14))
                           ],
-                        ))
+                        )),
+                        Expanded(child: SizedBox()),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: 32,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      SyncService().syncData(user!.uid);
-                      widget.loadcards;
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: Text("Sincronização concluída!"),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text("OK"),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    child: Text("Sincronizar"),
                   ),
                   SizedBox(
                     height: 32,
@@ -138,7 +120,7 @@ class _Logout extends State<Logout> {
                       print('Usuário deslogado.');
                       widget.updateUser();
                     },
-                    child: Text("Logout",
+                    child: Text("${AppLocalizations.of(context)!.signout}",
                         style: TextStyle(
                           color: AppColors.deletionButton,
                         )),
@@ -172,10 +154,10 @@ class _Logout extends State<Logout> {
               });
             },
             loadcards: widget.loadcards,
-            isPro: widget.isPro, 
-              showProModal: (context) {
-                widget.showProModal(context);
-              },
+            isPro: widget.isPro,
+            showProModal: (context) {
+              widget.showProModal(context);
+            },
           ), // Aqui chamamos a função que retorna o widget
         );
       },

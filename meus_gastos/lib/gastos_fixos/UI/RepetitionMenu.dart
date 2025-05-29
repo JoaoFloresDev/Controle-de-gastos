@@ -13,7 +13,8 @@ import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+
 import 'package:uuid/uuid.dart';
 
 class RepetitionMenu extends StatefulWidget {
@@ -25,8 +26,7 @@ class RepetitionMenu extends StatefulWidget {
       {super.key,
       required this.referenceDate,
       required this.onRepetitionSelected,
-      required this.defaultRepetition
-      });
+      required this.defaultRepetition});
 
   @override
   _RepetitionMenuState createState() => _RepetitionMenuState();
@@ -40,8 +40,8 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
     super.initState();
     // _updateRepetitionText();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-    _updateRepetitionText(context);
-  });
+      _updateRepetitionText(context);
+    });
   }
 
   @override
@@ -57,36 +57,40 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
     final DateFormat dayFormat = DateFormat('d');
     final String dayOfMonth = dayFormat.format(widget.referenceDate);
     print("${widget.defaultRepetition}");
-    switch (widget.defaultRepetition){
-          case ('mensal'):
-            _selectedRepetition = "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth";
-            break;
-          case ('semanal'):
-            _selectedRepetition = "${AppLocalizations.of(context)!.weeklyEvery} ${DateFormat.EEEE('pt_BR').format(widget.referenceDate)}";
-            break;
-          case ('anual'):
-            _selectedRepetition = "${AppLocalizations.of(context)!.yearlyEveryDay} ${DateFormat('d MMMM', 'pt_BR').format(widget.referenceDate)}";
-            break;
-          case ('seg_sex'):
-            _selectedRepetition =
-                      "${AppLocalizations.of(context)!.weekdaysMondayToFriday}";
-            break;
-          case ('diario'):
-            _selectedRepetition = "${AppLocalizations.of(context)!.daily}";
-            break;
-          default:
-            _selectedRepetition = "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth";
-            break;
-        }
+    switch (widget.defaultRepetition) {
+      case ('mensal'):
+        _selectedRepetition =
+            "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth";
+        break;
+      case ('semanal'):
+        _selectedRepetition =
+            "${AppLocalizations.of(context)!.weeklyEvery} ${DateFormat.EEEE('pt_BR').format(widget.referenceDate)}";
+        break;
+      case ('anual'):
+        _selectedRepetition =
+            "${AppLocalizations.of(context)!.yearlyEveryDay} ${DateFormat('d MMMM', 'pt_BR').format(widget.referenceDate)}";
+        break;
+      case ('seg_sex'):
+        _selectedRepetition =
+            "${AppLocalizations.of(context)!.weekdaysMondayToFriday}";
+        break;
+      case ('diario'):
+        _selectedRepetition = "${AppLocalizations.of(context)!.daily}";
+        break;
+      default:
+        _selectedRepetition =
+            "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth";
+        break;
+    }
   }
-
 
   void _showRepetitionOptions(BuildContext context) {
     final DateFormat dayFormat = DateFormat('d');
     Locale locale = Localizations.localeOf(context);
     String languageCode = locale.languageCode; // Exemplo: 'pt'
     String countryCode = locale.countryCode ?? ''; // Exemplo: 'BR'
-    String localeString = countryCode.isNotEmpty ? '$languageCode\_$countryCode' : languageCode;
+    String localeString =
+        countryCode.isNotEmpty ? '$languageCode\_$countryCode' : languageCode;
     final DateFormat monthDayFormat = DateFormat('d MMMM', localeString);
     final String dayOfWeek =
         DateFormat.EEEE(localeString).format(widget.referenceDate);
@@ -102,32 +106,38 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
             CupertinoActionSheetAction(
               onPressed: () {
                 setState(() {
-                  _selectedRepetition = "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth";
+                  _selectedRepetition =
+                      "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth";
                 });
                 widget.onRepetitionSelected('mensal');
                 Navigator.pop(context);
               },
-              child: Text("${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth"),
+              child: Text(
+                  "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth"),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
                 setState(() {
-                  _selectedRepetition = "${AppLocalizations.of(context)!.weeklyEvery} $dayOfWeek";
+                  _selectedRepetition =
+                      "${AppLocalizations.of(context)!.weeklyEvery} $dayOfWeek";
                 });
                 widget.onRepetitionSelected('semanal');
                 Navigator.pop(context);
               },
-              child: Text("${AppLocalizations.of(context)!.weeklyEvery} $dayOfWeek"),
+              child: Text(
+                  "${AppLocalizations.of(context)!.weeklyEvery} $dayOfWeek"),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
                 setState(() {
-                  _selectedRepetition = "${AppLocalizations.of(context)!.yearlyEveryDay} $monthDay";
+                  _selectedRepetition =
+                      "${AppLocalizations.of(context)!.yearlyEveryDay} $monthDay";
                 });
                 widget.onRepetitionSelected('anual');
                 Navigator.pop(context);
               },
-              child: Text("${AppLocalizations.of(context)!.yearlyEveryDay} $monthDay"),
+              child: Text(
+                  "${AppLocalizations.of(context)!.yearlyEveryDay} $monthDay"),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
@@ -139,17 +149,19 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
 
                 Navigator.pop(context);
               },
-              child: Text("${AppLocalizations.of(context)!.weekdaysMondayToFriday}"),
+              child: Text(
+                  "${AppLocalizations.of(context)!.weekdaysMondayToFriday}"),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
                 setState(() {
-                  _selectedRepetition = "${AppLocalizations.of(context)!.daily}";
+                  _selectedRepetition =
+                      "${AppLocalizations.of(context)!.daily}";
                 });
                 widget.onRepetitionSelected('diario');
                 Navigator.pop(context);
               },
-              child:  Text("${AppLocalizations.of(context)!.daily}"),
+              child: Text("${AppLocalizations.of(context)!.daily}"),
             ),
           ],
           cancelButton: CupertinoActionSheetAction(

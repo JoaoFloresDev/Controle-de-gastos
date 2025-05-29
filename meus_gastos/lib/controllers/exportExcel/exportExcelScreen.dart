@@ -6,14 +6,16 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+
 import 'dart:io';
 import 'package:excel/excel.dart';
 
 import 'package:excel/excel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
@@ -33,18 +35,17 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
   String _selectedFormat = 'Excel';
   bool _isLoadingShare = false;
   bool _isLoadingSaveLocally = false;
-  
+
   //mark - Loading Indicator
 // MARK - Loading Indicator
-Widget _buildLoadingIndicator() {
-  return const SizedBox(
-    width: 24,
-    height: 24,
-    child: CircularProgressIndicator(color: AppColors.label),
-  );
-}
+  Widget _buildLoadingIndicator() {
+    return const SizedBox(
+      width: 24,
+      height: 24,
+      child: CircularProgressIndicator(color: AppColors.label),
+    );
+  }
 
-  
   //mark - Build
   @override
   Widget build(BuildContext context) {
@@ -67,12 +68,16 @@ Widget _buildLoadingIndicator() {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                  icon: const Icon(CupertinoIcons.clear, color: AppColors.label),
+                  icon:
+                      const Icon(CupertinoIcons.clear, color: AppColors.label),
                   onPressed: () => Navigator.pop(context),
                 ),
                 Text(
                   AppLocalizations.of(context)!.export,
-                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.label),
+                  style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.label),
                 ),
                 const SizedBox(width: 44),
               ],
@@ -90,15 +95,18 @@ Widget _buildLoadingIndicator() {
             CupertinoSegmentedControl<String>(
               children: {
                 'Excel': Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                   child: const Text('Excel', style: TextStyle(fontSize: 16)),
                 ),
                 'PDF': Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                   child: const Text('PDF', style: TextStyle(fontSize: 16)),
                 ),
                 'Texto': Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                   child: const Text('Texto', style: TextStyle(fontSize: 16)),
                 ),
               },
@@ -118,7 +126,9 @@ Widget _buildLoadingIndicator() {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: _isLoadingSaveLocally ? null : () => _saveLocally(context),
+                    onTap: _isLoadingSaveLocally
+                        ? null
+                        : () => _saveLocally(context),
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
@@ -131,11 +141,15 @@ Widget _buildLoadingIndicator() {
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(CupertinoIcons.cloud_download, color: AppColors.label, size: 24),
+                                const Icon(CupertinoIcons.cloud_download,
+                                    color: AppColors.label, size: 24),
                                 const SizedBox(width: 10),
                                 Text(
                                   AppLocalizations.of(context)!.saveLocally,
-                                  style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.label, fontSize: 16),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.label,
+                                      fontSize: 16),
                                 ),
                               ],
                             ),
@@ -156,11 +170,15 @@ Widget _buildLoadingIndicator() {
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Icon(CupertinoIcons.share, color: AppColors.label, size: 24),
+                                const Icon(CupertinoIcons.share,
+                                    color: AppColors.label, size: 24),
                                 const SizedBox(width: 10),
                                 Text(
                                   AppLocalizations.of(context)!.share,
-                                  style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.label, fontSize: 16),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.label,
+                                      fontSize: 16),
                                 ),
                               ],
                             ),
@@ -175,17 +193,19 @@ Widget _buildLoadingIndicator() {
       ),
     );
   }
-  
+
   //mark - Save Locally
   Future<void> _saveLocally(BuildContext context) async {
     setState(() {
       _isLoadingSaveLocally = true;
     });
     if (_selectedFormat == 'Excel') {
-      Excel excel = await ExportToExcel.buildExcelFromCards(category: widget.category);
+      Excel excel =
+          await ExportToExcel.buildExcelFromCards(category: widget.category);
       await ExportToExcel.saveExcelFileLocally(excel, context);
     } else if (_selectedFormat == 'PDF') {
-      Excel excel = await ExportToExcel.buildExcelFromCards(category: widget.category);
+      Excel excel =
+          await ExportToExcel.buildExcelFromCards(category: widget.category);
       await ExportToExcel.convertExcelToPdf(excel, context);
     } else {
       await _shareAsText();
@@ -194,14 +214,15 @@ Widget _buildLoadingIndicator() {
       _isLoadingSaveLocally = false;
     });
   }
-  
+
   //mark - Share Data
   Future<void> _shareData() async {
     setState(() {
       _isLoadingShare = true;
     });
     if (_selectedFormat == 'Excel') {
-      Excel excel = await ExportToExcel.buildExcelFromCards(category: widget.category);
+      Excel excel =
+          await ExportToExcel.buildExcelFromCards(category: widget.category);
       Directory directory = await getApplicationDocumentsDirectory();
       String filePath = '${directory.path}/sheet_of_expens.xlsx';
       File(filePath)
@@ -212,7 +233,8 @@ Widget _buildLoadingIndicator() {
         text: AppLocalizations.of(context)!.shareMensage,
       );
     } else if (_selectedFormat == 'PDF') {
-      Excel excel = await ExportToExcel.buildExcelFromCards(category: widget.category);
+      Excel excel =
+          await ExportToExcel.buildExcelFromCards(category: widget.category);
       List<int> pdfBytes = await ExportToExcel.buildPdfFromExcel(excel);
       Directory directory = await getApplicationDocumentsDirectory();
       String filePath = '${directory.path}/sheet_of_expens.pdf';
@@ -228,19 +250,22 @@ Widget _buildLoadingIndicator() {
       _isLoadingShare = false;
     });
   }
-  
+
   //mark - Share as Text
   Future<void> _shareAsText() async {
     try {
       List<CardModel> cards = await CardService.retrieveCards();
       if (widget.category != null) {
-        cards = cards.where((card) => card.category.name == widget.category).toList();
+        cards = cards
+            .where((card) => card.category.name == widget.category)
+            .toList();
       }
       String message = '${AppLocalizations.of(context)!.shareMensage}\n\n';
       message += cards.map((card) {
         return '${card.date.toLocal().toString().split(' ')[0]}\t${card.category.name}\tR\$ ${card.amount.toStringAsFixed(2)}';
       }).join('\n');
-      await Share.share(message, subject: AppLocalizations.of(context)!.shareMensage);
+      await Share.share(message,
+          subject: AppLocalizations.of(context)!.shareMensage);
     } catch (e) {
       print('Error sharing text: $e');
     }

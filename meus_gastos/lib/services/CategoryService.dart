@@ -217,14 +217,14 @@ class CategoryService {
         for (var category in defaultCategories) {
           await SaveExpensOnCloud().addNewCategory(category);
         }
-        return defaultCategories..sort((a, b) => b.name.compareTo(a.name));
+        return defaultCategories..sort((a, b) => b.frequency.compareTo(a.frequency));
       } else {
         // Categorias já existem
         List<CategoryModel> cloudCategories = snapshot.docs
             .map((doc) =>
                 CategoryModel.fromJson(doc.data() as Map<String, dynamic>))
             .toList()
-          ..sort((a, b) => b.name.compareTo(a.name));
+          ..sort((a, b) => b.frequency.compareTo(a.frequency));
         cloudCategories =
             cloudCategories.where((cat) => cat.available).toList();
 
@@ -239,7 +239,7 @@ class CategoryService {
           await addCategory(
               category); // Supondo que essa função salva localmente
         }
-        return defaultCategories..sort((a, b) => b.name.compareTo(a.name));
+        return defaultCategories..sort((a, b) => b.frequency.compareTo(a.frequency));
       } else {
         List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
         List<CategoryModel> aux = categories.map((category) {
