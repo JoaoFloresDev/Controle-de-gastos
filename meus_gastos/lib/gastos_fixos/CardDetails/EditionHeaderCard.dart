@@ -12,7 +12,7 @@ import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComp
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ValorTextField.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/gastos_fixos/UI/RepetitionMenu.dart';
 

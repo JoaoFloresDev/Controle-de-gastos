@@ -6,7 +6,7 @@ import 'package:meus_gastos/services/CategoryService.dart';
 import 'CampoComMascara.dart';
 import 'HorizontalCircleList.dart';
 import 'ValorTextField.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 

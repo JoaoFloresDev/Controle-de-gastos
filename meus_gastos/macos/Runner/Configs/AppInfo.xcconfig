@@ -8,7 +8,7 @@
 PRODUCT_NAME = My expenses
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.gambit.meusgastos.meusGastos
+PRODUCT_BUNDLE_IDENTIFIER = meus_gastos.meusgastos.meusGastos
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2024 com.gambit.meus_gastos. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2024 meus_gastos.meus_gastos. All rights reserved.

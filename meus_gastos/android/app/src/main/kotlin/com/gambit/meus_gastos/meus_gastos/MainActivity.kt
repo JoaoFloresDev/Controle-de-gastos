@@ -1,4 +1,4 @@
-package com.gambit.meus_gastos.meus_gastos
+package meus_gastos.meus_gastos
 
 import io.flutter.embedding.android.FlutterActivity
 
