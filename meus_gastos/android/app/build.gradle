@@ -77,6 +77,8 @@ android {
             // so `flutter run --release` works.
             // signingConfig = signingConfigs.debug
             signingConfig = signingConfigs.release
+            minifyEnabled false  
+            shrinkResources false
         }
     }
 }
@@ -88,6 +90,7 @@ flutter {
 dependencies {
     implementation 'com.google.android.gms:play-services-ads:21.0.0'
     implementation 'com.google.android.material:material:1.10.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.9.0"
 }
 
 apply plugin: 'com.android.application'
