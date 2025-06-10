@@ -54,6 +54,8 @@ class TotalSpentCarouselWithTitlesState
   Map<String, double> listDiferencesExpenseByCategory = {};
   double projecaoFixed = 0.0;
 
+  bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
@@ -73,13 +75,20 @@ class TotalSpentCarouselWithTitlesState
     // Atualiza os textos quando a `referenceDate` for alterada
     print("${widget.currentDate}AAAAAAAAAAA");
     if (widget.currentDate != oldWidget.currentDate) {
-      setState(() {
-        getValues(widget.currentDate);
+      setState(() async {
+        await getValues(widget.currentDate);
       });
     }
   }
 
+  Widget _buildLoadingIndicator() {
+    return const CircularProgressIndicator(color: AppColors.background1);
+  }
+
   Future<void> getValues(DateTime currentDate) async {
+    setState(() {
+      isLoading = true;
+    });
     await CardService.retrieveCards();
     var mediaValues = await Monthinsightsservices.monthExpenses(currentDate);
     var gastosMensaisAteAgora =
@@ -142,6 +151,7 @@ class TotalSpentCarouselWithTitlesState
           listOfExpensesByCategoryOfCurrentMonth;
       listDiferencesExpenseByCategory = listDiferencesExpenseByCategory;
       projecaoFixed = projecaoFixed;
+      isLoading = false;
     });
     print(listOfExpensesByCategoryOfCurrentMonth[highestFrequency.keys.first]);
   }
@@ -286,8 +296,12 @@ class TotalSpentCarouselWithTitlesState
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return Center(child: _buildLoadingIndicator());
+    }
     return MediaQuery(
-      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+      data: MediaQuery.of(context)
+          .copyWith(textScaler: const TextScaler.linear(1.0)),
       child: FutureBuilder<List<Map<String, dynamic>>>(
         future: buildGroupedPhrases(widget.currentDate),
         builder: (context, snapshot) {
@@ -302,8 +316,13 @@ class TotalSpentCarouselWithTitlesState
                 style: const TextStyle(color: AppColors.label),
               ),
             );
+          } else if (!snapshot.hasData || snapshot.data == null) {
+            // Show loading while waiting for data to avoid showing zeroed values
+            return const Center(
+              child: CircularProgressIndicator(color: AppColors.label),
+            );
           } else {
-            final groupedPhrases = snapshot.data ?? [];
+            final groupedPhrases = snapshot.data!;
             return Stack(
               children: [
                 PageView.builder(
@@ -329,7 +348,7 @@ class TotalSpentCarouselWithTitlesState
                         borderRadius: BorderRadius.circular(18),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
+                            color: Colors.black.withAlpha((0.1 * 255).toInt()),
                             offset: const Offset(0, 4),
                             blurRadius: 8,
                             spreadRadius: 2,

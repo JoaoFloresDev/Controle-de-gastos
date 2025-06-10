@@ -158,21 +158,20 @@ final  GlobalKey<DashboardScreenState> dashboardTab =
           // ),
         ],
         onTap: (int index) {
-          setState(() {
-            selectedTab = index;
-          });
 
           if (index == 1) {
-            dashboardTab.currentState?.refreshData();
+            if (selectedTab != index) {
+              dashboardTab.currentState?.refreshData();
+            }
           }
 
-if (index == 1) {
-    dashboardTab.currentState?.refreshData();
-  }
-  
           if (index == 2) {
             calendarKey.currentState?.refreshCalendar();
           }
+          
+          setState(() {
+            selectedTab = index;
+          });
         },
       ),
       tabBuilder: (context, index) {
@@ -206,7 +205,7 @@ if (index == 1) {
           valueExpens: valueExpense,
         );
       case 1:
-        dashboardTab.currentState?.inicializeDashboard();
+        // dashboardTab.currentState?.inicializeDashboard();
         return DashboardScreen(
           key: dashboardTab,
           isActive: true,
@@ -221,7 +220,7 @@ if (index == 1) {
       default:
         // dashboardTab.currentState?.inicializeDashboard();
         return DashboardScreen(
-          key: ValueKey(index),
+          key: dashboardTab,
           isActive: selectedTab == 1,
         );
     }
