@@ -407,4 +407,24 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get syncQuestion =>
       '¿Deseas sincronizar los datos locales con la nube?';
+
+  @override
+  String get loginWithGoogleToSyncData =>
+      'Inicia sesión con tu cuenta de Google para sincronizar tus datos';
+
+  @override
+  String get secureCloudBackup => 'Copia de seguridad segura en la nube';
+
+  @override
+  String get accessAcrossDevices => 'Acceso en todos los dispositivos';
+
+  @override
+  String get upgradeToProToSync =>
+      'Actualiza a Pro para iniciar sesión\ny sincronizar tus datos';
+
+  @override
+  String get redirectingToUpgrade => 'Redirigiendo a la mejora...';
+
+  @override
+  String get proFeature => 'Función Pro';
 }

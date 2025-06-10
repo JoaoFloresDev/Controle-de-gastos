@@ -131,6 +131,14 @@
     "sync": "Sync",
     "notNow": "Not now",
     "syncData": "Sync data",
-    "syncQuestion": "Do you want to sync local data with the cloud?"
+    "syncQuestion": "Do you want to sync local data with the cloud?",
+    "loginWithGoogleToSyncData": "Sign in with your Google account to sync your data",
+    "secureCloudBackup": "Secure cloud backup",
+    "accessAcrossDevices": "Access on all devices",
+    "upgradeToProToSync": "Upgrade to Pro to sign in\nand sync your data",
+    "redirectingToUpgrade": "Redirecting to upgrade...",
+    "proFeature": "Pro Feature"
+
+
 
 }

@@ -873,6 +873,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Do you want to sync local data with the cloud?'**
   String get syncQuestion;
+
+  /// No description provided for @loginWithGoogleToSyncData.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with your Google account to sync your data'**
+  String get loginWithGoogleToSyncData;
+
+  /// No description provided for @secureCloudBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Secure cloud backup'**
+  String get secureCloudBackup;
+
+  /// No description provided for @accessAcrossDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'Access on all devices'**
+  String get accessAcrossDevices;
+
+  /// No description provided for @upgradeToProToSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to Pro to sign in\nand sync your data'**
+  String get upgradeToProToSync;
+
+  /// No description provided for @redirectingToUpgrade.
+  ///
+  /// In en, this message translates to:
+  /// **'Redirecting to upgrade...'**
+  String get redirectingToUpgrade;
+
+  /// No description provided for @proFeature.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro Feature'**
+  String get proFeature;
 }
 
 class _AppLocalizationsDelegate

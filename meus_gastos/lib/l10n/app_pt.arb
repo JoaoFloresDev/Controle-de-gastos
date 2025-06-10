@@ -132,5 +132,12 @@
     "sync": "Sincronizar",
     "notNow": "Agora não",
     "syncData": "Sincronizar dados",
-    "syncQuestion": "Deseja sincronizar os dados locais com a nuvem?"
+    "syncQuestion": "Deseja sincronizar os dados locais com a nuvem?",
+    "loginWithGoogleToSyncData": "Entre com sua conta Google para sincronizar seus dados",
+    "secureCloudBackup": "Backup seguro na nuvem",
+    "accessAcrossDevices": "Acesso em todos os dispositivos",
+    "upgradeToProToSync": "Upgrade para Pro para fazer login\ne sincronizar seus dados",
+    "redirectingToUpgrade": "Redirecionando para upgrade...",
+    "proFeature": "Recurso Pro"
+
 }
