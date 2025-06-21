@@ -4,12 +4,18 @@ import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'CampoComMascara.dart';
-import 'HorizontalCircleList.dart';
+// VerticalCircleList - Nova versão vertical
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
 import 'ValorTextField.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-
+import 'package:meus_gastos/controllers/AddTransaction/VerticalCircleList.dart';
 class HeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;
   final VoidCallback onAddCategory;
@@ -19,10 +25,8 @@ class HeaderCard extends StatefulWidget {
   final GlobalKey description;
   final GlobalKey categories;
   final GlobalKey addButon;
-  // final String adicionarButtonTitle;
 
   const HeaderCard({
-    // required this.adicionarButtonTitle,
     required this.onAddClicked,
     required this.onAddCategory,
     required super.key,
@@ -44,8 +48,8 @@ class HeaderCardState extends State<HeaderCard> {
   DateTime lastDateSelected = DateTime.now();
   int lastIndexSelected = 0;
 
-  final GlobalKey<HorizontalCircleListState> _horizontalCircleListKey =
-      GlobalKey<HorizontalCircleListState>();
+  final GlobalKey<VerticalCircleListState> _verticalCircleListKey =
+      GlobalKey<VerticalCircleListState>(); // Alterado para VerticalCircleListState
 
   @override
   void didChangeDependencies() {
@@ -79,13 +83,13 @@ class HeaderCardState extends State<HeaderCard> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _horizontalCircleListKey.currentState?.loadCategories();
+      _verticalCircleListKey.currentState?.loadCategories();
     });
   }
 
   // MARK: - Load Categories
   Future<void> loadCategories() async {
-    _horizontalCircleListKey.currentState?.loadCategories();
+    _verticalCircleListKey.currentState?.loadCategories();
   }
 
   // MARK: - Adicionar
@@ -94,19 +98,19 @@ class HeaderCardState extends State<HeaderCard> {
       amount: valorController.numberValue,
       description: descricaoController.text,
       date: lastDateSelected,
-      category: (_horizontalCircleListKey.currentState?.categorieList ??
+      category: (_verticalCircleListKey.currentState?.categorieList ??
           [])[lastIndexSelected],
       id: CardService.generateUniqueId(),
     );
     if (!(newCard.amount == 0)) CardService.addCard(newCard);
 
     await CategoryService.incrementCategoryFrequency(
-        (_horizontalCircleListKey.currentState?.categorieList ??
+        (_verticalCircleListKey.currentState?.categorieList ??
                 [])[lastIndexSelected]
             .id);
     CategoryService().printAllCategories();
     setState(() {
-      _horizontalCircleListKey.currentState?.loadCategories();
+      _verticalCircleListKey.currentState?.loadCategories();
       valorController.updateValue(0.0);
       descricaoController.clear();
     });
@@ -161,15 +165,16 @@ class HeaderCardState extends State<HeaderCard> {
             Container(
               key: widget.categories,
               margin: EdgeInsets.zero,
-              child: HorizontalCircleList(
-                key: _horizontalCircleListKey,
+              height: 350, // Altura definida para a lista vertical
+              child: VerticalCircleList( // Alterado para VerticalCircleList
+                key: _verticalCircleListKey,
                 onItemSelected: (index) {
                   final categorieList =
-                      _horizontalCircleListKey.currentState?.categorieList ??
+                      _verticalCircleListKey.currentState?.categorieList ??
                           [];
                   if (categorieList[index].id == 'AddCategory') {
                     widget.onAddCategory();
-                    _horizontalCircleListKey.currentState?.loadCategories();
+                    _verticalCircleListKey.currentState?.loadCategories();
                   } else {
                     setState(() {
                       lastIndexSelected = index;
@@ -180,29 +185,26 @@ class HeaderCardState extends State<HeaderCard> {
               ),
             ),
             const SizedBox(height: 6),
-Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 8),
-  child: SizedBox(
-    width: double.infinity, // Define a largura para ocupar toda a área disponível
-    child: CupertinoButton(
-      key: widget.addButon,
-      color: CupertinoColors.systemBlue,
-      onPressed: () {
-        adicionar();
-      },
-        
-      child: Text(
-        AppLocalizations.of(context)!.add,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          color: CupertinoColors.white, // Cor do texto definida como branca
-        ),
-      ),
-    ),
-  ),
-),
-
-
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: SizedBox(
+                width: double.infinity,
+                child: CupertinoButton(
+                  key: widget.addButon,
+                  color: CupertinoColors.systemBlue,
+                  onPressed: () {
+                    adicionar();
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)!.add,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: CupertinoColors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

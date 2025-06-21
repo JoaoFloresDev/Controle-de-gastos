@@ -1,46 +1,17 @@
+// Arquivo completo do widget InsertTransactions com UI moderna e refinada, atualizado com nova tab AddTransaction
+
 import 'dart:io';
-import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
-import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
-import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/gastos_fixos/ListCardFixeds.dart';
-import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
-import '../../../models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart' as service;
-import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
-import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
-import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
-import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
-import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:ui';
-import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:meus_gastos/controllers/exportExcel/exportExcelScreen.dart';
-import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/InsertTransactions.dart';
-import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:onepref/onepref.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:meus_gastos/controllers/AddTransaction/AddTransactionController.dart';
 import 'package:meus_gastos/controllers/Calendar/CustomCalendar.dart';
+import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
+import 'package:meus_gastos/controllers/Transactions/InsertTransactions/InsertTransactions.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+import 'package:onepref/onepref.dart';
 import 'package:window_size/window_size.dart';
 
 void main() async {
@@ -51,7 +22,7 @@ void main() async {
   if (Platform.isMacOS) {
     setWindowMinSize(const Size(800, 800));
   }
-  
+
   await OnePref.init();
   runApp(const MyApp());
 }
@@ -92,22 +63,17 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int selectedTab = 0;
 
-  final GlobalKey<CustomCalendarState> calendarKey =
-      GlobalKey<CustomCalendarState>();
-  final GlobalKey<CustomCalendarState> calendarKey2 =
-      GlobalKey<CustomCalendarState>();
+  final GlobalKey<CustomCalendarState> calendarKey = GlobalKey<CustomCalendarState>();
+  final GlobalKey<DashboardScreenState> dashboardTab = GlobalKey<DashboardScreenState>();
 
-  final exportButton = GlobalKey();
-  final cardsExpense = GlobalKey();
-  //mark - variables
-final GlobalKey<DashboardScreenState> dashboardTab = GlobalKey<DashboardScreenState>();
+  final exportButton = GlobalKey(debugLabel: "exportButton");
+  final cardsExpense = GlobalKey(debugLabel: "cardsExpense");
+  final valueExpense = GlobalKey(debugLabel: "valueExpense");
+  final date = GlobalKey(debugLabel: "date");
+  final description = GlobalKey(debugLabel: "description");
+  final categories = GlobalKey(debugLabel: "categories");
+  final addButton = GlobalKey(debugLabel: "addButton");
 
-  final valueExpense = GlobalKey();
-  final date = GlobalKey();
-  final description = GlobalKey();
-  final categories = GlobalKey();
-  final addButton = GlobalKey();
-  
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
@@ -115,11 +81,14 @@ final GlobalKey<DashboardScreenState> dashboardTab = GlobalKey<DashboardScreenSt
         backgroundColor: Colors.black,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            icon: const Icon(CupertinoIcons.add_circled, size: 20),
+            label: AppLocalizations.of(context)!.add,
+          ),
+          BottomNavigationBarItem(
             icon: const Icon(CupertinoIcons.home, size: 20),
             label: AppLocalizations.of(context)!.transactions,
           ),
           BottomNavigationBarItem(
-            // key: dashboardTab,
             icon: const Icon(CupertinoIcons.chart_bar, size: 20),
             label: AppLocalizations.of(context)!.dashboards,
           ),
@@ -133,11 +102,10 @@ final GlobalKey<DashboardScreenState> dashboardTab = GlobalKey<DashboardScreenSt
             selectedTab = index;
           });
 
-if (index == 1) {
-    dashboardTab.currentState?.refreshData();
-  }
-  
           if (index == 2) {
+            dashboardTab.currentState?.refreshData();
+          }
+          if (index == 3) {
             calendarKey.currentState?.refreshCalendar();
           }
         },
@@ -161,6 +129,18 @@ if (index == 1) {
   Widget _buildTabContent(int index) {
     switch (index) {
       case 0:
+        return AddTransactionController(
+          title: AppLocalizations.of(context)!.myExpenses,
+          onAddClicked: () {},
+          cardsExpens: GlobalKey(debugLabel: "cardsExpenseAT"),
+          exportButon: GlobalKey(debugLabel: "exportButtonAT"),
+          addButon: GlobalKey(debugLabel: "addButtonAT"),
+          categories: GlobalKey(debugLabel: "categoriesAT"),
+          date: GlobalKey(debugLabel: "dateAT"),
+          description: GlobalKey(debugLabel: "descriptionAT"),
+          valueExpens: GlobalKey(debugLabel: "valueExpenseAT"),
+        );
+      case 1:
         return InsertTransactions(
           title: AppLocalizations.of(context)!.myExpenses,
           onAddClicked: () {},
@@ -172,12 +152,12 @@ if (index == 1) {
           description: description,
           valueExpens: valueExpense,
         );
-      case 1:
+      case 2:
         return DashboardScreen(
           key: dashboardTab,
           isActive: true,
         );
-      case 2:
+      case 3:
         return CustomCalendar(
           key: calendarKey,
           onCalendarRefresh: () {
@@ -185,10 +165,7 @@ if (index == 1) {
           },
         );
       default:
-        return DashboardScreen(
-          key: ValueKey(index),
-          isActive: selectedTab == 1,
-        );
+        return Container();
     }
   }
 }
