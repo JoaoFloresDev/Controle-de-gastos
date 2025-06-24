@@ -211,47 +211,6 @@ middle: MediaQuery(
                   alignment: Alignment.center, // Centraliza no eixo X
                   child: const BannerAdconstruct(),
                 ),
-              if (_showHeaderCard) ...[
-                Padding(
-                  padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-                  child: HeaderCard(
-                    addButon: widget.addButon,
-                    categories: widget.categories,
-                    date: widget.date,
-                    description: widget.description,
-                    valueExpens: widget.valueExpens,
-                    key: _headerCardKey,
-                    onAddClicked: () async {
-                      widget.onAddClicked();
-                      await loadCards();
-                      setState(() {});
-                    },
-                    onAddCategory: () {
-                      showCupertinoModalPopup(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Container(
-                            height: MediaQuery.of(context).size.height - 70,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20),
-                              ),
-                            ),
-                            child: Categorycreater(
-                              onCategoryAdded: () {
-                                setState(() {
-                                  _headerCardKey.currentState?.loadCategories();
-                                });
-                              },
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ],
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

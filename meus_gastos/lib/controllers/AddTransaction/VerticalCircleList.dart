@@ -143,48 +143,50 @@ class VerticalCircleListState extends State<VerticalCircleList> {
     );
   }
 
-Widget _mobileBuild() {
-  return Container(
-    color: AppColors.background1,
-    height: 240,
-    child: Stack(
-      children: [
-        GridView.builder(
-          controller: _scrollController,
-          padding: const EdgeInsets.only(top: 12, left: 16, right: 16),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            childAspectRatio: 1.3,
+  Widget _mobileBuild() {
+    return Container(
+      color: AppColors.background1,
+      // MUDANÇA: A altura fixa 'height: 300' foi removida.
+      // Agora o widget pode se expandir para preencher o espaço dado pelo Expanded.
+      child: Stack(
+        children: [
+          GridView.builder(
+            controller: _scrollController,
+            padding: const EdgeInsets.only(top: 12, left: 16, right: 16, bottom: 60), // Adiciona padding no final
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 8,
+              mainAxisSpacing: 8,
+              childAspectRatio: 1.3,
+            ),
+            itemCount: categorieList.length,
+            itemBuilder: _buildGridItem,
           ),
-          itemCount: categorieList.length,
-          itemBuilder: _buildGridItem,
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: 100,
-          child: IgnorePointer(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [
-                    AppColors.background1,
-                    Colors.transparent,
-                  ],
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: 60,
+            child: IgnorePointer(
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                      AppColors.background1,
+                      Colors.transparent,
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
-    ),
-  );
-}
+        ],
+      ),
+    );
+  }
+  
 
 
   Widget _macBuild() {

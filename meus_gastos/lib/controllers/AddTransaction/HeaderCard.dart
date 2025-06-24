@@ -10,7 +10,7 @@ import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
-import '../Transactions/InsertTransactions/ViewComponents/ValorTextField.dart';
+import 'ValorTextField.dart';
 import '../Transactions/InsertTransactions/ViewComponents/CampoComMascara.dart';
 import '../Transactions/InsertTransactions/ViewComponents/CustomButton.dart';
 import 'VerticalCircleList.dart';
@@ -83,7 +83,7 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
     final currencySymbol = Translateservice.getCurrencySymbol(context);
 
     valorController = MoneyMaskedTextController(
-      leftSymbol: currencySymbol,
+      leftSymbol: '$currencySymbol ',
       decimalSeparator: locale.languageCode == 'pt' ? ',' : '.',
       initialValue: 0.0,
     );
@@ -132,46 +132,24 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return FadeTransition(
       opacity: _fadeAnimation,
-      child: Container(
-        margin: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF1A1A1A),
-              Color(0xFF2D2D2D),
-            ],
-          ),
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: CupertinoColors.black.withOpacity(0.3),
-              blurRadius: 15,
-              offset: const Offset(0, 5),
-            ),
-          ],
-        ),
-        child: Column(
+      child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             _buildHeader(),
             _buildCompactForm(),
-            _buildActionButton(),
           ],
         ),
-      ),
     );
   }
 
   Widget _buildHeader() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      padding: const EdgeInsets.only(left: 24, right: 20, bottom: 8, top: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text(
-            'Novo Gasto',
+            'Registrar Gasto',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
@@ -188,7 +166,7 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
     return GestureDetector(
       onTap: _showDatePicker,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: CupertinoColors.activeBlue.withOpacity(0.15),
           borderRadius: BorderRadius.circular(12),
@@ -200,18 +178,12 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              DateFormat('dd/MM HH:mm').format(lastDateSelected),
+              DateFormat('HH:mm  dd/MM').format(lastDateSelected),
               style: const TextStyle(
                 color: CupertinoColors.white,
                 fontSize: 13,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
               ),
-            ),
-            const SizedBox(width: 6),
-            const Icon(
-              CupertinoIcons.calendar,
-              color: CupertinoColors.activeBlue,
-              size: 16,
             ),
           ],
         ),
@@ -226,80 +198,142 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
         children: [
           // Campo de Valor com Botões Rápidos
           _buildValueFieldWithQuickButtons(),
-          const SizedBox(height: 12),
-          // Campo de Descrição
-          _buildDescriptionField(),
-          const SizedBox(height: 12),
-          // Categorias
-          _buildCategoriesSection(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildValueFieldWithQuickButtons() {
-    final quickValues = [5, 10, 20, 50];
-    
-    return Container(
-      key: widget.valueExpens,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: CupertinoColors.black.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: CupertinoColors.white.withOpacity(0.1),
-        ),
-      ),
-      child: Column(
-        children: [
-          // Campo de valor
-          ValorTextField(controller: valorController),
           const SizedBox(height: 8),
-          // Botões de valores rápidos
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: quickValues.map((value) {
-              return _buildQuickValueButton(value);
-            }).toList(),
-          ),
+          _buildDescriptionField(),
+          const SizedBox(height: 12)
         ],
       ),
     );
   }
 
-  Widget _buildQuickValueButton(int value) {
-    return GestureDetector(
-      onTap: () {
-        valorController.updateValue(value.toDouble());
-        if (Platform.isIOS) {
-          HapticFeedback.lightImpact();
-        }
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        decoration: BoxDecoration(
-          color: CupertinoColors.systemGreen.withOpacity(0.15),
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: CupertinoColors.systemGreen.withOpacity(0.3),
-          ),
+Widget _buildValueFieldWithQuickButtons() {
+  final positiveValues = [5, 10, 20, 50, 100, 200];
+  final negativeValues = [-5, -10, -20, -50, -100, -200];
+  
+  return Container(
+    key: widget.valueExpens,
+    // padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: CupertinoColors.black.withOpacity(0.3),
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(
+        color: CupertinoColors.white.withOpacity(0.1),
+      ),
+    ),
+    child: Column(
+      children: [
+        // Campo de valor
+        Container(
+          child: ValorTextField(controller: valorController),
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 0),
         ),
-        child: Text(
-          '+$value',
-          style: const TextStyle(
-            color: CupertinoColors.systemGreen,
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-          ),
+        const SizedBox(height: 16),
+        
+        // Botões de valores positivos
+        _buildQuickButtonsRow(
+          title: 'Adicionar',
+          values: positiveValues,
+          isPositive: true,
+        ),
+        const SizedBox(height: 12),
+      ],
+    ),
+  );
+}
+
+Widget _buildQuickButtonsRow({
+  required String title,
+  required List<int> values,
+  required bool isPositive,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      SizedBox(
+        height: 55,
+        child: ListView.separated(
+          // MUDANÇA: Adiciona um padding horizontal de 8px.
+          // Isso cria o espaço no início e no fim da lista.
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          scrollDirection: Axis.horizontal,
+          itemCount: values.length,
+          separatorBuilder: (context, index) => const SizedBox(width: 8),
+          itemBuilder: (context, index) {
+            final value = values[index];
+            return _buildQuickValueButton(value, isPositive);
+          },
         ),
       ),
-    );
-  }
+    ],
+  );
+}
+
+Widget _buildQuickValueButton(int value, bool isPositive) {
+  final absValue = value.abs();
+  final currentValue = valorController.numberValue;
+  
+  return GestureDetector(
+    onTap: () {
+      if (isPositive) {
+        valorController.updateValue(currentValue + absValue);
+      } else {
+        final newValue = (currentValue - absValue).clamp(0.0, double.infinity);
+        valorController.updateValue(newValue);
+      }
+      
+      if (Platform.isIOS) {
+        HapticFeedback.lightImpact();
+      }
+    },
+    child: Container(
+      width: 66,
+      height: 44,
+      decoration: BoxDecoration(
+        color: isPositive 
+          ? CupertinoColors.systemGreen.withOpacity(0.15)
+          : CupertinoColors.systemRed.withOpacity(0.15),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: isPositive
+            ? CupertinoColors.systemGreen.withOpacity(0.3)
+            : CupertinoColors.systemRed.withOpacity(0.3),
+          width: 1.5,
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            isPositive ? '+' : '-',
+            style: TextStyle(
+              color: isPositive 
+                ? CupertinoColors.systemGreen
+                : CupertinoColors.systemRed,
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Text(
+            '$absValue',
+            style: TextStyle(
+              color: isPositive 
+                ? CupertinoColors.systemGreen
+                : CupertinoColors.systemRed,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
 
   Widget _buildDescriptionField() {
     return Container(
       key: widget.description,
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
         color: CupertinoColors.black.withOpacity(0.3),
         borderRadius: BorderRadius.circular(14),
@@ -321,62 +355,6 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
         controller: descricaoController,
         textCapitalization: TextCapitalization.sentences,
         maxLines: 1,
-      ),
-    );
-  }
-
-  Widget _buildCategoriesSection() {
-    return Container(
-      key: widget.categories,
-      height: 80,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 4, bottom: 8),
-            child: Text(
-              'Categoria',
-              style: TextStyle(
-                color: CupertinoColors.white.withOpacity(0.8),
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildActionButton() {
-    return Container(
-      margin: const EdgeInsets.all(16),
-      width: double.infinity,
-      child: CupertinoButton(
-        key: widget.addButon,
-        padding: const EdgeInsets.symmetric(vertical: 14),
-        color: CupertinoColors.activeBlue,
-        borderRadius: BorderRadius.circular(14),
-        onPressed: adicionar,
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              CupertinoIcons.add_circled_solid,
-              color: CupertinoColors.white,
-              size: 18,
-            ),
-            SizedBox(width: 8),
-            Text(
-              'Adicionar',
-              style: TextStyle(
-                color: CupertinoColors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
