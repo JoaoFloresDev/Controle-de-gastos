@@ -12,7 +12,7 @@ import 'package:meus_gastos/gastos_fixos/ListCardFixeds.dart';
 import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
-import 'ViewComponents/HeaderCard.dart';
+import '../../AddTransaction/HeaderCard.dart';
 import 'ViewComponents/ListCard.dart';
 import '../../../models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart' as service;

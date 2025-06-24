@@ -60,17 +60,21 @@ class _ValorTextFieldState extends State<ValorTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoTextField(
-      focusNode: _focusNode,
-      decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: AppColors.label)),
-      ),
-      style: const TextStyle(color: AppColors.label),
-      placeholder: AppLocalizations.of(context)!.enterAmount, // Placeholder
-      placeholderStyle: const TextStyle(color: AppColors.labelPlaceholder),
-      keyboardType: TextInputType.number,
-      controller: widget.controller,
-    );
+return Container(
+  height: 40, // ou maior, dependendo do layout
+  child: CupertinoTextField(
+    focusNode: _focusNode,
+    decoration: const BoxDecoration(
+      border: Border(bottom: BorderSide(color: AppColors.label)),
+    ),
+    style: const TextStyle(color: AppColors.label),
+    placeholder: AppLocalizations.of(context)!.enterAmount,
+    placeholderStyle: const TextStyle(color: AppColors.labelPlaceholder),
+    keyboardType: TextInputType.number,
+    controller: widget.controller,
+  ),
+);
+
   }
 
   @override

@@ -143,23 +143,49 @@ class VerticalCircleListState extends State<VerticalCircleList> {
     );
   }
 
-  Widget _mobileBuild() {
-    return SizedBox(
-      height: 240,
-      child: GridView.builder(
-        controller: _scrollController,
-        padding: const EdgeInsets.all(0),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
-          childAspectRatio: 1.3,
+Widget _mobileBuild() {
+  return Container(
+    color: AppColors.background1,
+    height: 240,
+    child: Stack(
+      children: [
+        GridView.builder(
+          controller: _scrollController,
+          padding: const EdgeInsets.only(top: 12, left: 16, right: 16),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8,
+            childAspectRatio: 1.3,
+          ),
+          itemCount: categorieList.length,
+          itemBuilder: _buildGridItem,
         ),
-        itemCount: categorieList.length,
-        itemBuilder: _buildGridItem,
-      ),
-    );
-  }
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: 100,
+          child: IgnorePointer(
+            child: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    AppColors.background1,
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 
   Widget _macBuild() {
     return Column(

@@ -10,8 +10,8 @@ import 'package:meus_gastos/controllers/AddTransaction/AddTransactionController.
 import 'package:meus_gastos/controllers/Calendar/CustomCalendar.dart';
 import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/InsertTransactions.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:onepref/onepref.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:window_size/window_size.dart';
 
 void main() async {
