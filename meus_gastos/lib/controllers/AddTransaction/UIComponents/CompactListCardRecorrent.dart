@@ -3,21 +3,38 @@ import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:meus_gastos/models/CategoryModel.dart';
 
-class HorizontalCompactCardList extends StatelessWidget {
+class HorizontalCompactCardList extends StatefulWidget {
   final List<CardModel> cards;
   final Function(CardModel) onTap;
   final Future<void> onAddClicked;
+  final void Function(CardModel card, String action)? onAction;
 
   const HorizontalCompactCardList({
     Key? key,
     required this.cards,
     required this.onTap,
     required this.onAddClicked,
+    this.onAction,
   }) : super(key: key);
+
+  @override
+  State<HorizontalCompactCardList> createState() => _HorizontalCompactCardListState();
+}
+
+class _HorizontalCompactCardListState extends State<HorizontalCompactCardList> {
+  late List<CardModel> _cards;
+
+  @override
+  void initState() {
+    super.initState();
+    _cards = List<CardModel>.from(widget.cards);
+  }
+
+  void _removeCard(CardModel card) {
+    setState(() => _cards.remove(card));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +42,21 @@ class HorizontalCompactCardList extends StatelessWidget {
       height: 100,
       child: PageView.builder(
         controller: PageController(viewportFraction: 0.9),
-        itemCount: cards.length,
+        itemCount: _cards.length,
         itemBuilder: (context, index) {
+          final card = _cards[index];
           return Container(
-      padding: EdgeInsets.only(left: 0, right: 8, bottom: 12, top: 12),
-      child: CompactListCardRecorrent(
-        onTap: (card) => onTap,
-        card: CardModel(id: 'mock_id_1', amount: 123.45, description: 'Test purchase', date: DateTime.now(), category: CategoryModel(name: 'Food')),
-        onAddClicked: onAddClicked,
-      ),
-    );
+            padding: const EdgeInsets.only(left: 0, right: 8, bottom: 12, top: 12),
+            child: CompactListCardRecorrent(
+              card: card,
+              onTap: widget.onTap,
+              onAddClicked: widget.onAddClicked,
+              onAction: (CardModel c, String action) {
+                if (widget.onAction != null) widget.onAction!(c, action);
+                _removeCard(c);
+              },
+            ),
+          );
         },
       ),
     );
@@ -45,15 +67,16 @@ class CompactListCardRecorrent extends StatelessWidget {
   final CardModel card;
   final Function(CardModel) onTap;
   final Future<void> onAddClicked;
+  final void Function(CardModel card, String action)? onAction;
 
   const CompactListCardRecorrent({
     super.key,
     required this.card,
     required this.onTap,
     required this.onAddClicked,
+    this.onAction,
   });
 
-  // Ação para lançar o gasto no mês atual
   void adicionar() async {
     final newCard = CardModel(
       amount: card.amount,
@@ -65,13 +88,14 @@ class CompactListCardRecorrent extends StatelessWidget {
     );
     await CardService.addCard(newCard);
     await onAddClicked;
+    if (onAction != null) onAction!(card, 'add');
   }
 
-  // Ação para "pular" o gasto deste mês
   Future<void> fakeExpens() async {
     card.amount = 0;
     await CardService.addCard(card);
     await onAddClicked;
+    if (onAction != null) onAction!(card, 'skip');
   }
 
   @override
@@ -81,20 +105,13 @@ class CompactListCardRecorrent extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
         decoration: BoxDecoration(
-          // REFINAMENTO: Gradiente sutil para dar profundidade
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              const Color(0xFF333333), // Um pouco mais claro no topo
-              const Color(0xFF282828), // Cor original na base
-            ],
+            colors: [const Color(0xFF333333), const Color(0xFF282828)],
           ),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: Colors.white.withOpacity(0.1),
-            width: 1,
-          ),
+          border: Border.all(color: Colors.white.withOpacity(0.1), width: 1),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -133,10 +150,6 @@ class CompactListCardRecorrent extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 0, 92, 198),
                       borderRadius: BorderRadius.circular(6),
-                      // border: Border.all(
-                      //   color: const Color(0xFF1A1A1A),
-                      //   width: 1,
-                      // ),
                     ),
                     child: const Icon(
                       CupertinoIcons.arrow_2_circlepath,
@@ -148,8 +161,7 @@ class CompactListCardRecorrent extends StatelessWidget {
               ],
             ),
             const SizedBox(width: 12),
-
-            // Informações do Gasto (Descrição e Valor)
+            // Informações do Gasto
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,7 +173,7 @@ class CompactListCardRecorrent extends StatelessWidget {
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                       color: AppColors.label,
-                      letterSpacing: 0.2, // REFINAMENTO: Leve espaçamento para legibilidade
+                      letterSpacing: 0.2,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -171,7 +183,7 @@ class CompactListCardRecorrent extends StatelessWidget {
                     Translateservice.formatCurrency(card.amount, context),
                     style: TextStyle(
                       fontSize: 13,
-                      fontWeight: FontWeight.w500, // REFINAMENTO: Peso um pouco maior para o valor
+                      fontWeight: FontWeight.w500,
                       color: AppColors.label.withOpacity(0.7),
                     ),
                   ),
@@ -179,30 +191,24 @@ class CompactListCardRecorrent extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-
-            // Botões de Ação (com Ícones)
+            // Botões de Ação
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Botão "Pular"
                 IconButton(
-                  // REFINAMENTO: Ícone preenchido para maior peso visual
-                  icon: const Icon(CupertinoIcons.xmark_circle_fill, color: Color.fromARGB(255, 255, 140, 140), size: 24),
+                  icon: const Icon(CupertinoIcons.xmark_circle_fill, color: Color.fromARGB(255, 255, 140, 140), size: 36),
                   onPressed: fakeExpens,
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
                   tooltip: "skip",
                 ),
                 const SizedBox(width: 8),
-                
-                // Botão "Lançar/Adicionar"
                 IconButton(
-                  // REFINAMENTO: Ícone preenchido para maior peso visual e clareza
-                  icon: const Icon(CupertinoIcons.check_mark_circled_solid, color: CupertinoColors.systemGreen, size: 24),
+                  icon: const Icon(CupertinoIcons.check_mark_circled_solid, color: CupertinoColors.systemGreen, size: 36),
                   onPressed: adicionar,
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
-                  tooltip: AppLocalizations.of(context)!.add,
+                  tooltip: "add",
                 ),
               ],
             ),

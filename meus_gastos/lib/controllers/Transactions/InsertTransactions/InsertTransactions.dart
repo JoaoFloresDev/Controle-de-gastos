@@ -1,30 +1,23 @@
 import 'dart:io';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
-import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/gastos_fixos/ListCardFixeds.dart';
 import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
-import '../../AddTransaction/Header/HeaderCard.dart';
+import '../../AddTransaction/UIComponents/Header/HeaderCard.dart';
 import 'ViewComponents/ListCard.dart';
 import '../../../models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart' as service;
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
-import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
-import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import '../../Purchase/ProModal.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 
 class InsertTransactions extends StatefulWidget {
   const InsertTransactions({

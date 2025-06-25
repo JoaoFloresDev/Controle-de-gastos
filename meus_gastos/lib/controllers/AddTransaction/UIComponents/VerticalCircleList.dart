@@ -88,7 +88,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
                     )
                   : Border.all(
                       color: AppColors.label.withOpacity(0.12),
-                      width: 1,
+                      width: 1.5,
                       strokeAlign: BorderSide.strokeAlignInside,
                     ),
           boxShadow: isSelected
@@ -124,7 +124,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
                 child: Text(
                   Translateservice.getTranslatedCategoryUsingModel(context, category),
                   style: TextStyle(
-                    fontSize: 11,
+                    fontSize: 10.5,
                     color: isSelected
                         ? AppColors.label
                         : AppColors.label.withOpacity(0.75),
@@ -164,7 +164,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
             bottom: 0,
             left: 0,
             right: 0,
-            height: 60,
+            height: 40,
             child: IgnorePointer(
               child: Container(
                 decoration: const BoxDecoration(

@@ -59,6 +59,7 @@ class _ValorTextFieldState extends State<ValorTextField> {
         placeholder: AppLocalizations.of(context)!.enterAmount,
         placeholderStyle: const TextStyle(color: AppColors.labelPlaceholder),
         keyboardType: TextInputType.number,
+        keyboardAppearance: Brightness.dark,
         controller: widget.controller,
         suffix: _showClearButton
             ? CupertinoButton(

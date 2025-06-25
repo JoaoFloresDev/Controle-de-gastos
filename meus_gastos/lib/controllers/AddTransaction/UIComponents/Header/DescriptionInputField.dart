@@ -9,7 +9,6 @@ import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'ValorTextField.dart';
-import '../VerticalCircleList.dart';
 import 'HeaderBar.dart';
 import 'ValueInputSection.dart';
 
@@ -49,6 +48,8 @@ class DescriptionInputField extends StatelessWidget {
         controller: controller,
         textCapitalization: TextCapitalization.sentences,
         maxLines: 1,
+        keyboardAppearance: Brightness.dark,
+        textInputAction: TextInputAction.newline
       ),
     );
   }

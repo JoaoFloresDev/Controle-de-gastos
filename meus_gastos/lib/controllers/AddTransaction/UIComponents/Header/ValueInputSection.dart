@@ -41,9 +41,9 @@ class ValueInputSection extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 0),
             child: ValorTextField(controller: controller),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
           SizedBox(
-            height: 55,
+            height: 60,
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               scrollDirection: Axis.horizontal,

@@ -9,7 +9,6 @@ import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'ValorTextField.dart';
-import '../VerticalCircleList.dart';
 
 class HeaderBar extends StatelessWidget {
   final DateTime selectedDate;

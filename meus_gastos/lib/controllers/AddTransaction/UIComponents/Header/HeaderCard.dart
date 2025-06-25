@@ -36,16 +36,16 @@ class HeaderCard extends StatefulWidget {
 }
 
 class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
+  //mark - variables
   late final MoneyMaskedTextController valorController;
   final descricaoController = TextEditingController();
   final GlobalKey<VerticalCircleListState> _verticalCircleListKey = GlobalKey();
-  
   DateTime lastDateSelected = DateTime.now();
   int lastIndexSelected = 0;
-  
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
 
+  //mark - lifecycle
   @override
   void initState() {
     super.initState();
@@ -75,7 +75,6 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
     super.didChangeDependencies();
     final locale = Localizations.localeOf(context);
     final currencySymbol = Translateservice.getCurrencySymbol(context);
-
     valorController = MoneyMaskedTextController(
       leftSymbol: '$currencySymbol ',
       decimalSeparator: locale.languageCode == 'pt' ? ',' : '.',
@@ -83,16 +82,15 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
     );
   }
 
+  //mark - actions
   Future<void> loadCategories() async {
     _verticalCircleListKey.currentState?.loadCategories();
   }
 
   void adicionar() async {
     if (Platform.isIOS) HapticFeedback.mediumImpact();
-    
     final categories = _verticalCircleListKey.currentState?.categorieList ?? [];
     if (categories.isEmpty) return;
-    
     final selectedCategory = categories[lastIndexSelected];
     final newCard = CardModel(
       amount: valorController.numberValue,
@@ -101,21 +99,99 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
       category: selectedCategory,
       id: CardService.generateUniqueId(),
     );
-
     if (newCard.amount > 0) {
       CardService.addCard(newCard);
       await CategoryService.incrementCategoryFrequency(selectedCategory.id);
     }
-
     setState(() {
       valorController.updateValue(0.0);
       descricaoController.clear();
       _verticalCircleListKey.currentState?.loadCategories();
     });
-
     Future.delayed(const Duration(milliseconds: 200), widget.onAddClicked);
   }
 
+  Future<void> _showDatePicker() async {
+    if (Platform.isIOS) HapticFeedback.lightImpact();
+    await showCupertinoModalPopup<DateTime>(
+      context: context,
+      builder: (ctx) => Container(
+        height: 280,
+        decoration: const BoxDecoration(
+          color: CupertinoColors.black,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: CupertinoColors.systemGrey.withOpacity(0.4),
+                  ),
+                ),
+              ),
+              child: Row(
+                children: [
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () => Navigator.of(ctx).pop(),
+                    child: const Text(
+                      'Cancelar',
+                      style: TextStyle(color: CupertinoColors.systemGrey),
+                    ),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: const Text(
+                        'Data e Hora',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: CupertinoColors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () => Navigator.of(ctx).pop(),
+                    child: const Text(
+                      '     OK',
+                      style: TextStyle(color: CupertinoColors.activeBlue),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+Expanded(
+  child: CupertinoTheme(
+    data: const CupertinoThemeData(
+      brightness: Brightness.dark,
+      textTheme: CupertinoTextThemeData(
+        dateTimePickerTextStyle: TextStyle(color: CupertinoColors.white),
+      ),
+    ),
+    child: CupertinoDatePicker(
+      backgroundColor: CupertinoColors.black,
+      initialDateTime: lastDateSelected,
+      onDateTimeChanged: (newDate) {
+        setState(() => lastDateSelected = newDate);
+      },
+      mode: CupertinoDatePickerMode.dateAndTime,
+      use24hFormat: true,
+    ),
+  ),
+),
+
+          ],
+        ),
+      ),
+    );
+  }
+
+  //mark - build
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
@@ -144,68 +220,6 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Future<void> _showDatePicker() async {
-    // A lógica para mostrar o DatePicker permanece aqui, pois ela
-    // precisa do `context` e modifica o estado `lastDateSelected`.
-    if (Platform.isIOS) HapticFeedback.lightImpact();
-    
-    await showCupertinoModalPopup<DateTime>(
-      context: context,
-      builder: (ctx) => Container(
-        height: 250,
-        decoration: const BoxDecoration(
-          color: CupertinoColors.systemBackground,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        child: Column(
-          children: [
-            // ... (o código do seu DatePicker permanece o mesmo)
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: CupertinoColors.separator.withOpacity(0.3),
-                  ),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CupertinoButton(
-                    onPressed: () => Navigator.of(ctx).pop(),
-                    child: const Text('Cancelar'),
-                  ),
-                  const Text(
-                    'Data e Hora',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  CupertinoButton(
-                    onPressed: () => Navigator.of(ctx).pop(),
-                    child: const Text('      OK'),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: CupertinoDatePicker(
-                initialDateTime: lastDateSelected,
-                onDateTimeChanged: (newDate) {
-                  setState(() => lastDateSelected = newDate);
-                },
-                mode: CupertinoDatePickerMode.dateAndTime,
-                use24hFormat: true,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
