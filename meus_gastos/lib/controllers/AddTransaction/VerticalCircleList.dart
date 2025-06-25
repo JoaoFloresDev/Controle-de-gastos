@@ -64,9 +64,9 @@ class VerticalCircleListState extends State<VerticalCircleList> {
         widget.onItemSelected(index);
       },
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 100),
         curve: Curves.easeInOut,
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
         decoration: BoxDecoration(
           color: isAddCategory
               ? Colors.transparent
@@ -87,14 +87,14 @@ class VerticalCircleListState extends State<VerticalCircleList> {
                       strokeAlign: BorderSide.strokeAlignInside,
                     )
                   : Border.all(
-                      color: AppColors.label.withOpacity(0.08),
+                      color: AppColors.label.withOpacity(0.12),
                       width: 1,
                       strokeAlign: BorderSide.strokeAlignInside,
                     ),
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: AppColors.button.withOpacity(0.2),
+                    color: AppColors.button.withOpacity(0.1),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -103,10 +103,10 @@ class VerticalCircleListState extends State<VerticalCircleList> {
         ),
         child: Column(
           children: [
-            const SizedBox(height: 6),
+            const SizedBox(height: 8),
             Container(
               width: 32,
-              height: 32,
+              height: 24,
               child: Icon(
                 category.icon,
                 color: isAddCategory
@@ -117,19 +117,19 @@ class VerticalCircleListState extends State<VerticalCircleList> {
                 size: 24,
               ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 2),
             SizedBox(
-              height: 28,
+              height: 36,
               child: Center(
                 child: Text(
                   Translateservice.getTranslatedCategoryUsingModel(context, category),
                   style: TextStyle(
-                    fontSize: 10,
+                    fontSize: 11,
                     color: isSelected
                         ? AppColors.label
                         : AppColors.label.withOpacity(0.75),
                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                    height: 1.3,
+                    height: 1.2,
                   ),
                   textAlign: TextAlign.center,
                   maxLines: 2,
@@ -146,18 +146,16 @@ class VerticalCircleListState extends State<VerticalCircleList> {
   Widget _mobileBuild() {
     return Container(
       color: AppColors.background1,
-      // MUDANÇA: A altura fixa 'height: 300' foi removida.
-      // Agora o widget pode se expandir para preencher o espaço dado pelo Expanded.
       child: Stack(
         children: [
           GridView.builder(
             controller: _scrollController,
-            padding: const EdgeInsets.only(top: 12, left: 16, right: 16, bottom: 60), // Adiciona padding no final
+            padding: const EdgeInsets.only(top: 12, left: 16, right: 16, bottom: 70), // Adiciona padding no final
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               crossAxisSpacing: 8,
               mainAxisSpacing: 8,
-              childAspectRatio: 1.3,
+              childAspectRatio: 1.4,
             ),
             itemCount: categorieList.length,
             itemBuilder: _buildGridItem,

@@ -530,8 +530,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5;
-				PRODUCT_BUNDLE_IDENTIFIER = meus_gastos.meusgastos;
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "meus-gastos.meusgastos";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gambit.meusgastos222;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -726,8 +725,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5;
-				PRODUCT_BUNDLE_IDENTIFIER = meus_gastos.meusgastos;
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "meus-gastos.meusgastos";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gambit.meusgastos222;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -760,8 +758,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 5;
-				PRODUCT_BUNDLE_IDENTIFIER = meus_gastos.meusgastos;
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = "meus-gastos.meusgastos";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gambit.meusgastos222;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";

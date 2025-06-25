@@ -5,6 +5,41 @@ import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
+
+class HorizontalCompactCardList extends StatelessWidget {
+  final List<CardModel> cards;
+  final Function(CardModel) onTap;
+  final Future<void> onAddClicked;
+
+  const HorizontalCompactCardList({
+    Key? key,
+    required this.cards,
+    required this.onTap,
+    required this.onAddClicked,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 100,
+      child: PageView.builder(
+        controller: PageController(viewportFraction: 0.9),
+        itemCount: cards.length,
+        itemBuilder: (context, index) {
+          return Container(
+      padding: EdgeInsets.only(left: 0, right: 8, bottom: 12, top: 12),
+      child: CompactListCardRecorrent(
+        onTap: (card) => onTap,
+        card: CardModel(id: 'mock_id_1', amount: 123.45, description: 'Test purchase', date: DateTime.now(), category: CategoryModel(name: 'Food')),
+        onAddClicked: onAddClicked,
+      ),
+    );
+        },
+      ),
+    );
+  }
+}
 
 class CompactListCardRecorrent extends StatelessWidget {
   final CardModel card;

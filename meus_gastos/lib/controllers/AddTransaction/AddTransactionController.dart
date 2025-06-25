@@ -1,20 +1,10 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
-import 'package:meus_gastos/services/CardService.dart' as service;
-import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
-import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
-import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
-import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
-import 'HeaderCard.dart';
+import 'Header/HeaderCard.dart';
 import 'VerticalCircleList.dart';
 import 'CompactListCardRecorrent.dart';
 
@@ -52,11 +42,6 @@ class _AddTransactionControllerState extends State<AddTransactionController> wit
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final GlobalKey<VerticalCircleListState> _verticalCircleListKey = GlobalKey();
 
-  List<CardModel> _cardList = [];
-  List<FixedExpense> _fixedCards = [];
-  List<CardModel> _mergedList = [];
-
-  bool _isPro = false;
   bool _keyboardVisible = false;
 
   // MARK - Lifecycle
@@ -64,8 +49,6 @@ class _AddTransactionControllerState extends State<AddTransactionController> wit
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _loadCards();
-    _checkProStatus();
   }
 
   @override
@@ -77,33 +60,14 @@ class _AddTransactionControllerState extends State<AddTransactionController> wit
   // MARK - Observers
   @override
   void didChangeMetrics() {
+    // Sua lógica existente para detectar o teclado. Perfeito!
     final bottomInset = WidgetsBinding.instance.window.viewInsets.bottom;
-    final visible = bottomInset > 120.0;
+    final visible = bottomInset > 140.0;
     if (visible != _keyboardVisible) {
       setState(() => _keyboardVisible = visible);
     }
   }
 
-  // MARK - Data Loading
-  Future<void> _loadCards() async {
-    _cardList = await service.CardService.retrieveCards();
-    _fixedCards = await Fixedexpensesservice.getSortedFixedExpenses();
-    _mergedList = await Fixedexpensesservice.MergeFixedWithNormal(_fixedCards, _cardList);
-    setState(() {});
-  }
-
-  Future<void> _checkProStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    final yearly = prefs.getBool('yearly.pro') ?? false;
-    final monthly = prefs.getBool('monthly.pro') ?? false;
-    setState(() => _isPro = yearly || monthly);
-    int count = prefs.getInt('usage_count') ?? 0;
-    count++;
-    await prefs.setInt('usage_count', count);
-    if (!_isPro && count > 40 && count % 4 == 0) {
-      // _showProModal();
-    }
-  }
 
   // MARK - Build
   @override
@@ -120,9 +84,25 @@ class _AddTransactionControllerState extends State<AddTransactionController> wit
           children: [
             _buildHeader(),
             Expanded(child: _buildCategoryList()),
-            if (!_keyboardVisible) _buildInsertButton(),
-            if (!_keyboardVisible) _buildSeparator(),
-            if (!_keyboardVisible) _buildRecurringCard(),
+            
+            // Lógica de exibição modificada
+            if (!_keyboardVisible) ...[
+              _buildInsertButton(),
+              _buildSeparator(),
+              // _buildRecurringCard(),
+                 HorizontalCompactCardList(
+     cards: [
+      CardModel(id: 'mock_id_1', amount: 123.45, description: 'Test purchase', date: DateTime.now(), category: CategoryModel(name: 'Food')),
+      CardModel(id: 'mock_id_1', amount: 123.45, description: 'Test purchase', date: DateTime.now(), category: CategoryModel(name: 'Food')),
+      CardModel(id: 'mock_id_1', amount: 123.45, description: 'Test purchase', date: DateTime.now(), category: CategoryModel(name: 'Food'))
+     ],
+     onTap: (card) => widget.onAddClicked(),
+     onAddClicked: _loadCards(),
+),
+            ] else ...[
+              // ADICIONADO: Mostra a toolbar quando o teclado está visível
+              _buildKeyboardToolbar(),
+            ]
           ],
         ),
       ),
@@ -134,7 +114,7 @@ class _AddTransactionControllerState extends State<AddTransactionController> wit
     return Stack(
       children: [
         Container(
-          height: 280,
+          height: 315,
           decoration: BoxDecoration(
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
@@ -157,18 +137,8 @@ class _AddTransactionControllerState extends State<AddTransactionController> wit
             valueExpens: widget.valueExpensKey,
             onAddClicked: () async {
               widget.onAddClicked();
-              await _loadCards();
             },
-            onAddCategory: () {
-              showCupertinoModalPopup(
-                context: context,
-                builder: (_) => Container(
-                  height: MediaQuery.of(context).size.height - 70,
-                  decoration: const BoxDecoration(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-                  child: Categorycreater(onCategoryAdded: () => _headerCardKey.currentState?.loadCategories()),
-                ),
-              );
-            },
+            onAddCategory: () {},
           ),
         ),
       ],
@@ -189,35 +159,111 @@ class _AddTransactionControllerState extends State<AddTransactionController> wit
     );
   }
 
+  // ADICIONADO: Widget que constrói a toolbar do teclado
+  Widget _buildKeyboardToolbar() {
+    return Container(
+      height: 54.0,
+      width: double.infinity,
+      decoration: const BoxDecoration(
+        color: AppColors.background1, // Cor que combina com seu app
+        border: Border(
+          top: BorderSide(color: Colors.white24, width: 0.3),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          CupertinoButton(
+            padding: const EdgeInsets.only(right: 24.0),
+            onPressed: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: const Text(
+              'Confirmar',
+              style: TextStyle(
+                color: AppColors.label,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildInsertButton() {
     return Padding(
-      padding: EdgeInsets.only(left: 24, right: 24, bottom: 12),
+      padding: const EdgeInsets.only(left: 24, right: 24, top: 0, bottom: 12),
       child: SizedBox(
         height: 56,
+        width: double.infinity,
         child: ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: AppColors.button, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-          onPressed: () => _headerCardKey.currentState?.adicionar(),
-          child: Text('Insert Expense', style: TextStyle(color: AppColors.label, fontSize: 16, fontWeight: FontWeight.bold)),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.button,
+            foregroundColor: AppColors.label,
+            elevation: 8,
+            shadowColor: AppColors.button.withOpacity(0.3),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ).copyWith(
+            overlayColor: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.pressed)) {
+                  return Colors.white.withOpacity(0.1);
+                }
+                return null;
+              },
+            ),
+          ),
+          onPressed: () {
+            HapticFeedback.mediumImpact();
+            _headerCardKey.currentState?.adicionar();
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Insert Expense',
+                style: TextStyle(
+                  color: AppColors.label,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildSeparator() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24),
-      child: Divider(thickness: 1),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 24),
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              height: 1,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.grey.withOpacity(0.1),
+                    Colors.grey.withOpacity(0.5),
+                    Colors.grey.withOpacity(0.1),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildRecurringCard() {
-    return Container(
-      padding: EdgeInsets.only(left: 24, right: 24, bottom: 16, top: 12),
-      child: CompactListCardRecorrent(
-        onTap: (card) => widget.onAddClicked(),
-        card: CardModel(id: 'mock_id_1', amount: 123.45, description: 'Test purchase', date: DateTime.now(), category: CategoryModel(name: 'Food')),
-        onAddClicked: _loadCards(),
-      ),
-    );
+  Future<void> _loadCards() async {
+    setState(() {});
   }
 }

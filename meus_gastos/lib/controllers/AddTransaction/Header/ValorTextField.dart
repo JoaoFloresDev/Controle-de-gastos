@@ -5,8 +5,13 @@ import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class ValorTextField extends StatefulWidget {
   final MoneyMaskedTextController controller;
+  final FocusNode? focusNode; // Adicione esta linha
 
-  const ValorTextField({super.key, required this.controller});
+  const ValorTextField({
+    super.key,
+    required this.controller,
+    this.focusNode, // Adicione esta linha
+  });
 
   @override
   State<ValorTextField> createState() => _ValorTextFieldState();
@@ -18,7 +23,6 @@ class _ValorTextFieldState extends State<ValorTextField> {
   @override
   void initState() {
     super.initState();
-    // Monitora mudanças no controller para mostrar/esconder o botão clear
     widget.controller.addListener(_onTextChanged);
     _showClearButton = widget.controller.text.isNotEmpty;
   }
@@ -47,6 +51,7 @@ class _ValorTextFieldState extends State<ValorTextField> {
     return Container(
       height: 40,
       child: CupertinoTextField(
+        focusNode: widget.focusNode, // Use o focusNode aqui
         decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(color: AppColors.label)),
         ),
@@ -58,13 +63,13 @@ class _ValorTextFieldState extends State<ValorTextField> {
         suffix: _showClearButton
             ? CupertinoButton(
                 padding: const EdgeInsets.all(0),
-                minSize: 20,
+                minSize: 30,
                 onPressed: _clearText,
                 child: Container(
                   padding: const EdgeInsets.all(4),
-                  child: Icon(
+                  child: const Icon(
                     CupertinoIcons.clear_circled_solid,
-                    color: const Color.fromARGB(143, 142, 142, 147),
+                    color: Color.fromARGB(143, 142, 142, 147),
                     size: 24,
                   ),
                 ),
