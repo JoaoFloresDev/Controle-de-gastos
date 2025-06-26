@@ -142,7 +142,10 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
     return Material(
       color: Colors.transparent,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(
+          vertical: 12,
+          horizontal: 24,
+        ),
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 26, 26, 35),
           borderRadius: BorderRadius.circular(12),
@@ -177,22 +180,22 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                 GestureDetector(
                   onTap: _closeToast,
                   child: Container(
-                    width: 24,
-                    height: 24,
+                    width: 26,
+                    height: 26,
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(14),
                     ),
                     child: const Icon(
                       CupertinoIcons.xmark,
                       color: Colors.white60,
-                      size: 14,
+                      size: 18,
                     ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             // Content
             Row(
               children: [
@@ -200,8 +203,8 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                 Column(
                   children: [
                     Container(
-                      width: 40,
-                      height: 40,
+                      width: 28,
+                      height: 28,
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(20),
@@ -212,12 +215,12 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                         size: 12,
                       ),
                     ),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: 4),
                     Text(
                       widget.category,
                       style: const TextStyle(
                         color: Colors.white60,
-                        fontSize: 10,
+                        fontSize: 12,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -233,11 +236,12 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                         'R\$ ${widget.amount.toStringAsFixed(2)}',
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       const SizedBox(height: 4),
+                      if (widget.description.isNotEmpty)
                       Text(
                         widget.description.isNotEmpty
                             ? widget.description

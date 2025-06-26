@@ -18,7 +18,7 @@ class CustomSeparator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(24, 1, 24, 1),
+      margin: const EdgeInsets.fromLTRB(24, 1, 24, 8),
       height: 1,
       decoration: BoxDecoration(
         gradient: LinearGradient(

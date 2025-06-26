@@ -83,7 +83,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
               : isSelected
                   ? Border.all(
                       color: AppColors.button.withOpacity(0.8),
-                      width: 2,
+                      width: 2.5,
                       strokeAlign: BorderSide.strokeAlignInside,
                     )
                   : Border.all(
@@ -94,7 +94,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: AppColors.button.withOpacity(0.1),
+                    color: AppColors.button.withOpacity(0.2),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
