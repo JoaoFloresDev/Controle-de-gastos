@@ -216,6 +216,7 @@ Expanded(
                   descriptionKey: widget.description,
                   controller: descricaoController,
                 ),
+                const SizedBox(height: 12),
               ],
             ),
           ),

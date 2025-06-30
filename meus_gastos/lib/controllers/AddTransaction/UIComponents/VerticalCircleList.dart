@@ -49,12 +49,14 @@ class VerticalCircleListState extends State<VerticalCircleList> {
     return Platform.isMacOS ? _macBuild() : _mobileBuild();
   }
 
-  Widget _buildGridItem(BuildContext context, int index) {
-    final category = categorieList[index];
-    final bool isAddCategory = category.id == 'AddCategory';
-    final bool isSelected = selectedIndex == index;
+Widget _buildGridItem(BuildContext context, int index) {
+  final category = categorieList[index];
+  final bool isAddCategory = category.id == 'AddCategory';
+  final bool isSelected = selectedIndex == index;
 
-    return GestureDetector(
+  return SizedBox(
+    height: 55,
+    child: GestureDetector(
       onTap: () {
         if (!isAddCategory) {
           setState(() {
@@ -66,13 +68,13 @@ class VerticalCircleListState extends State<VerticalCircleList> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 100),
         curve: Curves.easeInOut,
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
         decoration: BoxDecoration(
           color: isAddCategory
               ? Colors.transparent
               : isSelected
                   ? AppColors.buttonSelected.withOpacity(0.15)
-                  : AppColors.card.withOpacity(0.05),
+                  : CupertinoColors.black.withOpacity(0.3),
           borderRadius: BorderRadius.circular(12),
           border: isAddCategory
               ? Border.all(
@@ -102,11 +104,11 @@ class VerticalCircleListState extends State<VerticalCircleList> {
               : null,
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 8),
             Container(
               width: 32,
-              height: 24,
+              height: 20,
               child: Icon(
                 category.icon,
                 color: isAddCategory
@@ -117,31 +119,40 @@ class VerticalCircleListState extends State<VerticalCircleList> {
                 size: 24,
               ),
             ),
-            const SizedBox(height: 2),
-            SizedBox(
-              height: 36,
-              child: Center(
-                child: Text(
-                  Translateservice.getTranslatedCategoryUsingModel(context, category),
-                  style: TextStyle(
-                    fontSize: 10.5,
-                    color: isSelected
-                        ? AppColors.label
-                        : AppColors.label.withOpacity(0.75),
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                    height: 1.2,
-                  ),
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ),
+            const SizedBox(height: 8),
+SizedBox(
+  height: 33,
+  child: Center(
+    child: LayoutBuilder(
+      builder: (context, constraints) {
+        // Calcula o fontSize baseado no width disponível
+        double fontSize = (constraints.maxWidth * 0.12).clamp(8.0, 13.0);
+
+        return Text(
+          Translateservice.getTranslatedCategoryUsingModel(context, category),
+          style: TextStyle(
+            fontSize: fontSize,
+            color: isSelected
+                ? AppColors.label
+                : AppColors.label.withOpacity(0.75),
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+            height: 1.15,
+          ),
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        );
+      },
+    ),
+  ),
+),
+
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _mobileBuild() {
     return Container(

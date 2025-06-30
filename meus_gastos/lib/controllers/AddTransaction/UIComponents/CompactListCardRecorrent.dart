@@ -12,6 +12,7 @@ class HorizontalCompactCardList extends StatefulWidget {
   final Function(CardModel) onTap;
   final Future<void> onAddClicked;
   final void Function(CardModel card, String action)? onAction;
+  final VoidCallback? onCardsEmpty;
 
   const HorizontalCompactCardList({
     Key? key,
@@ -19,6 +20,7 @@ class HorizontalCompactCardList extends StatefulWidget {
     required this.onTap,
     required this.onAddClicked,
     this.onAction,
+    this.onCardsEmpty
   }) : super(key: key);
 
   @override
@@ -52,11 +54,19 @@ class _HorizontalCompactCardListState extends State<HorizontalCompactCardList>
           setState(() {
             _cards.remove(_dismissingCard);
             _dismissingCard = null;
+            if (_cards.isEmpty) {
+              widget.onCardsEmpty?.call();
+            }
           });
         }
         _animationController.reset();
       }
     });
+        if (_cards.isEmpty) {
+       WidgetsBinding.instance.addPostFrameCallback((_) {
+        widget.onCardsEmpty?.call();
+      });
+    }
   }
 
   @override
@@ -290,7 +300,7 @@ class CompactListCardRecorrent extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
-                    icon: const Icon(CupertinoIcons.xmark_circle_fill, color: Color.fromARGB(255, 255, 140, 140), size: 36),
+                    icon: const Icon(CupertinoIcons.xmark_circle_fill, color: AppColors.labelPlaceholder, size: 36),
                     onPressed: fakeExpens,
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
@@ -298,7 +308,7 @@ class CompactListCardRecorrent extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   IconButton(
-                    icon: const Icon(CupertinoIcons.check_mark_circled_solid, color: CupertinoColors.systemGreen, size: 36),
+                    icon: const Icon(CupertinoIcons.check_mark_circled_solid, color: AppColors.button, size: 36),
                     onPressed: adicionar,
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
