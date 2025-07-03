@@ -31,6 +31,7 @@ class InsertTransactions extends StatefulWidget {
     required this.categories,
     required this.description,
     required this.valueExpens,
+    required this.isActive,
   });
 
   final VoidCallback onAddClicked;
@@ -42,6 +43,7 @@ class InsertTransactions extends StatefulWidget {
   final GlobalKey description;
   final GlobalKey categories;
   final GlobalKey addButon;
+  final bool isActive;
 
   @override
   State<InsertTransactions> createState() => _InsertTransactionsState();
@@ -56,7 +58,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
   bool _showHeaderCard = true;
 
-  // Variáveis para In-App Purchase
   final String yearlyProId = 'yearly.pro';
   final String monthlyProId = 'monthly.pro';
   final bool _isLoading = false;
@@ -65,20 +66,21 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   List<String> normalExpenseIds = [];
   List<String> IdsFixosControlList = [];
 
-  late InAppPurchase _inAppPurchase;
-  late Stream<List<PurchaseDetails>> _subscription;
-
-  // Conjunto para armazenar os IDs dos produtos comprados
   Set<String> purchasedProductIds = {};
 
-  // MARK: - InitState
   @override
   void initState() {
     super.initState();
     loadCards();
-
-    // _initInAppPurchase();
     _checkUserProStatus();
+  }
+
+  @override
+  void didUpdateWidget(covariant InsertTransactions oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isActive && !oldWidget.isActive) {
+      loadCards();
+    }
   }
 
   Future<void> _checkUserProStatus() async {
@@ -98,11 +100,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     }
   }
 
-  // MARK: - Load Cards
   Future<void> loadCards() async {
     var cards = await service.CardService.retrieveCards();
     var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
-    _loadFixedExpenseIds();
+    await _loadFixedExpenseIds();
     cardList = cards;
     fixedCards = fcard;
     mergeCardList =
@@ -122,7 +123,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     });
   }
 
-  // Exibe o ProModal
   void _showProModal(BuildContext context) async {
     if (Platform.isIOS || Platform.isMacOS) {
       showCupertinoModalPopup(
@@ -156,7 +156,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     }
   }
 
-  // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -170,18 +169,17 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             },
             child: const Icon(Icons.repeat, size: 24, color: AppColors.label),
           ),
-middle: MediaQuery(
-  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-  child: Text(
-    widget.title,
-    style: const TextStyle(color: AppColors.label, fontSize: 20),
-  ),
-),
-
+          middle: MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: Text(
+              widget.title,
+              style: const TextStyle(color: AppColors.label, fontSize: 20),
+            ),
+          ),
           backgroundColor: AppColors.background1,
           trailing: GestureDetector(
             onTap: () {
-              _showProModal(context); // Chamando o modal de assinatura
+              _showProModal(context);
             },
             child: const Text(
               "PRO",
@@ -196,36 +194,14 @@ middle: MediaQuery(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Column(
             children: [
-              if (!_isPro &&
-                  !Platform.isMacOS) // Se o usuário não é PRO, mostra o banner
+              if (!_isPro && !Platform.isMacOS)
                 Container(
                   height: 60,
-                  width: double.infinity, // Largura total da tela
-                  alignment: Alignment.center, // Centraliza no eixo X
+                  width: double.infinity,
+                  alignment: Alignment.center,
                   child: const BannerAdconstruct(),
                 ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 1,
-                    width: MediaQuery.of(context).size.width - 100,
-                    color: Colors.white.withOpacity(0.4),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _showHeaderCard = !_showHeaderCard;
-                      });
-                    },
-                    icon: Icon(
-                      _showHeaderCard
-                          ? Icons.arrow_drop_up
-                          : Icons.arrow_drop_down,
-                    ),
-                  ),
-                ],
-              ),
+              SizedBox(height: 8),
               if (mergeCardList.isNotEmpty)
                 Expanded(
                   key: widget.cardsExpens,
@@ -263,43 +239,44 @@ middle: MediaQuery(
                       }),
                 ),
               if (cardList.isEmpty && fixedCards.isEmpty)
-Expanded(
-  child: Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Icon(
-          Icons.inbox,
-          color: AppColors.card,
-          size: 40, // Ícone levemente maior para maior impacto visual
-        ),
-        Text(
-          AppLocalizations.of(context)!.addNewTransactions,
-          style: const TextStyle(
-            color: AppColors.label,
-            fontSize: 12, // Levemente maior para melhor leitura
-            fontWeight: FontWeight.w500,
-            height: 1.8,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        const Spacer(), 
-        Text(
-          AppLocalizations.of(context)!.addNewCallToAction,
-          style: const TextStyle(
-            color: AppColors.label,
-            fontSize: 12, // Destaque maior para a explicação final
-            fontWeight: FontWeight.w500,
-            height: 1.4,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    ),
-  ),
-)
+                Expanded(
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.inbox,
+                          color: AppColors.card,
+                          size: 40,
+                        ),
+                        Text(
+                          AppLocalizations.of(context)!.addNewTransactions,
+                          style: const TextStyle(
+                            color: AppColors.label,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            height: 1.8,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const Spacer(),
+                        Text(
+                          AppLocalizations.of(context)!.addNewCallToAction,
+                          style: const TextStyle(
+                            color: AppColors.label,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            height: 1.4,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                )
             ],
           ),
         ),
@@ -308,7 +285,6 @@ Expanded(
     );
   }
 
-  // MARK: - Show Cupertino Modal Bottom Sheet
   void _showCupertinoModalBottomSheet(BuildContext context, CardModel card) {
     FocusScope.of(context).unfocus();
     showCupertinoModalPopup(

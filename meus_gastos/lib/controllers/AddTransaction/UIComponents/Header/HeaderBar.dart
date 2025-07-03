@@ -1,15 +1,10 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
-import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
-import 'ValorTextField.dart';
 
+//mark - HeaderBar
 class HeaderBar extends StatelessWidget {
   final DateTime selectedDate;
   final VoidCallback onDateTap;
@@ -28,20 +23,20 @@ class HeaderBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text(
-            'Registrar Gasto',
+            'Registrar Despesa',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
               color: CupertinoColors.white,
             ),
           ),
-          _buildDateSelector(),
+          _buildDateSelector(context),
         ],
       ),
     );
   }
 
-    Widget _buildDateSelector() {
+  Widget _buildDateSelector(BuildContext context) {
     return GestureDetector(
       onTap: onDateTap,
       child: Container(
@@ -53,13 +48,6 @@ class HeaderBar extends StatelessWidget {
             color: ModernColors.border.withOpacity(0.6),
             width: 1,
           ),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: const Color.fromARGB(35, 0, 0, 0),
-          //     blurRadius: 1,
-          //     offset: const Offset(0, 2),
-          //   ),
-          // ],
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -80,50 +68,106 @@ class HeaderBar extends StatelessWidget {
   }
 }
 
-
+//mark - ModernColors
 class ModernColors {
-  // Cores principais - tons de cinza ultra escuros com sutis acentos azul-metálico
   static const primary = Color(0xFF1F2937);
   static const primaryDark = Color(0xFF111827);
   static const primaryLight = Color(0xFF374151);
-  
-  // Cor de destaque minimalista - azul acinzentado sério
+
   static const accent = Color(0xFF6B7280);
   static const accentDark = Color(0xFF4B5563);
   static const accentLight = Color(0xFF9CA3AF);
-  
-  // Background ultra escuro
+
   static const backgroundDark = Color(0xFF030712);
   static const backgroundMedium = Color(0xFF0F1419);
   static const surface = Color(0xFF1C2025);
   static const surfaceLight = Color(0xFF24282F);
-  
-  // Cores funcionais discretas e sérias
+
   static const success = Color(0xFF059669);
   static const successLight = Color(0xFF10B981);
   static const successDark = Color(0xFF047857);
-  
+
   static const error = Color(0xFFDC2626);
   static const errorLight = Color(0xFFEF4444);
   static const errorDark = Color(0xFFB91C1C);
-  
+
   static const warning = Color(0xFFD97706);
   static const warningLight = Color(0xFFF59E0B);
-  
-  // Texto com contraste otimizado para fundos escuros
+
   static const textPrimary = Color(0xFFF9FAFB);
   static const textSecondary = Color(0xFFD1D5DB);
   static const textTertiary = Color(0xFF9CA3AF);
   static const textQuaternary = Color(0xFF6B7280);
-  
-  // Borders sutis e discretas
+
   static const border = Color(0xFF374151);
   static const borderLight = Color(0xFF4B5563);
   static const borderDark = Color(0xFF1F2937);
-  
-  // Overlays e sombras mais profundas
+
   static const overlay = Color(0x60000000);
   static const shadowLight = Color(0x30000000);
   static const shadowMedium = Color(0x40000000);
   static const shadowDark = Color(0x70000000);
+}
+
+//mark - HeaderBarContainer
+class HeaderBarContainer extends StatefulWidget {
+  final VoidCallback onDateTap;
+  const HeaderBarContainer({super.key, required this.onDateTap});
+
+  @override
+  State<HeaderBarContainer> createState() => _HeaderBarContainerState();
+}
+
+class _HeaderBarContainerState extends State<HeaderBarContainer> with WidgetsBindingObserver {
+  late DateTime selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedDate = DateTime.now();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      setState(() {
+        selectedDate = DateTime.now();
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return HeaderBar(
+      selectedDate: selectedDate,
+      onDateTap: () {
+        showDatePicker(
+          context: context,
+          initialDate: selectedDate,
+          firstDate: DateTime(2020),
+          lastDate: DateTime(2100),
+        ).then((date) {
+          if (date != null) {
+            setState(() {
+              selectedDate = DateTime(
+                date.year,
+                date.month,
+                date.day,
+                selectedDate.hour,
+                selectedDate.minute,
+              );
+            });
+          }
+        });
+        widget.onDateTap();
+      },
+    );
+  }
 }

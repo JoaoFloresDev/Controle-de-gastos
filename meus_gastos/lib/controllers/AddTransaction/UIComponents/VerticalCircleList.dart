@@ -125,7 +125,6 @@ SizedBox(
   child: Center(
     child: LayoutBuilder(
       builder: (context, constraints) {
-        // Calcula o fontSize baseado no width disponível
         double fontSize = (constraints.maxWidth * 0.12).clamp(8.0, 13.0);
 
         return Text(

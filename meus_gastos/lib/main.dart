@@ -119,6 +119,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             addButtonKey: addButtonAT,
           ),
           InsertTransactions(
+            isActive: selectedTab == 1,
             title: AppLocalizations.of(context)!.myExpenses,
             onAddClicked: () {},
             exportButon: exportButton,

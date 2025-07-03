@@ -6,13 +6,13 @@ import 'package:flutter/services.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
-import 'UIComponents/Header/HeaderCard.dart';
-import 'UIComponents/VerticalCircleList.dart';
-import 'UIComponents/CompactListCardRecorrent.dart';
-import 'UIComponents/KeyboardDoneToolbar.dart';
-import 'UIComponents/CustomSeparator.dart';
-import 'UIComponents/InsertExpenseButton.dart';
-import 'UIComponents/AddedExpenseToast.dart';
+import 'Header/HeaderCard.dart';
+import 'VerticalCircleList.dart';
+import 'CompactListCardRecorrent.dart';
+import 'KeyboardDoneToolbar.dart';
+import 'CustomSeparator.dart';
+import 'InsertExpenseButton.dart';
+import 'AddedExpenseToast.dart';
 
 class HeaderWithGradientBackground extends StatefulWidget {
   final Widget Function(GlobalKey headerKey) headerBuilder;

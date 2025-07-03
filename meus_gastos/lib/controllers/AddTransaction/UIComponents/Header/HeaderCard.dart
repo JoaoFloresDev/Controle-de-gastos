@@ -1,4 +1,30 @@
 import 'dart:io';
+import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
+import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
+import 'package:meus_gastos/services/CardService.dart' as service;
+import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
+import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -88,21 +114,31 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
   }
 
   void adicionar() async {
+    print("aaaa");
     if (Platform.isIOS) HapticFeedback.mediumImpact();
+    print(lastIndexSelected);
     final categories = _verticalCircleListKey.currentState?.categorieList ?? [];
-    if (categories.isEmpty) return;
-    final selectedCategory = categories[lastIndexSelected];
+    print(categories);
+    // if (categories.isEmpty) return;
+    // final selectedCategory = categories[lastIndexSelected]; 
     final newCard = CardModel(
       amount: valorController.numberValue,
       description: descricaoController.text,
       date: lastDateSelected,
-      category: selectedCategory,
+      category: CategoryModel(
+    id: 'Unknown',
+    color: Colors.blueAccent.withOpacity(0.8),
+    icon: Icons.question_mark_rounded,
+    name: 'Unknown',
+    frequency: 0,
+  ),
       id: CardService.generateUniqueId(),
     );
-    if (newCard.amount > 0) {
+    // if (newCard.amount > 0) {
+      print("bbb");
       CardService.addCard(newCard);
-      await CategoryService.incrementCategoryFrequency(selectedCategory.id);
-    }
+      await CategoryService.incrementCategoryFrequency('Unknown');
+    // }
     setState(() {
       valorController.updateValue(0.0);
       descricaoController.clear();

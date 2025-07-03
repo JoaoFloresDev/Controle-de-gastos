@@ -1,4 +1,24 @@
 import 'dart:io';
+import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
+import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
+import '../../../models/CardModel.dart';
+import 'package:meus_gastos/services/CardService.dart' as service;
+import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
+import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,28 +33,7 @@ import 'UIComponents/KeyboardDoneToolbar.dart';
 import 'UIComponents/CustomSeparator.dart';
 import 'UIComponents/InsertExpenseButton.dart';
 import 'UIComponents/AddedExpenseToast.dart';
-import 'HeaderWithGradientBackground.dart';
-//mark - controller
-import 'dart:io';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-// Mocks e imports do seu projeto. 
-// Adapte para as suas importações reais.
-import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/models/CategoryModel.dart';
-import 'UIComponents/Header/HeaderCard.dart';
-import 'UIComponents/VerticalCircleList.dart';
-import 'UIComponents/KeyboardDoneToolbar.dart';
-import 'UIComponents/CustomSeparator.dart';
-import 'UIComponents/InsertExpenseButton.dart';
-import 'UIComponents/AddedExpenseToast.dart';
-
-
-//mark - controller
 class AddTransactionController extends StatefulWidget {
   const AddTransactionController({
     required this.onAddClicked,
@@ -87,6 +86,17 @@ class _AddTransactionControllerState extends State<AddTransactionController>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _updateHeaderHeight();
     });
+    
+  }
+
+  List<CardModel> mockCards = [];
+  Future<void> _loadFixedCards() async {
+    var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
+    final fixedCards = fcard.map((item) => Fixedexpensesservice.Fixed_to_NormalCard(item)).toList();
+
+    setState(() {
+      mockCards = fixedCards;
+    });
   }
 
   void _updateHeaderHeight() {
@@ -114,20 +124,6 @@ class _AddTransactionControllerState extends State<AddTransactionController>
     }
   }
 
-  //mark - helpers
-  // A função _printCurrentSelection não foi alterada
-  void _printCurrentSelection() {
-    final header = _headerCardKey.currentState;
-    if (header == null) return;
-    debugPrint('Amount: ${header.valorController.numberValue}');
-    debugPrint('Description: ${header.descricaoController.text}');
-    final list = _verticalCircleListKey.currentState?.categorieList;
-    final catName =
-        (list != null && list.isNotEmpty) ? list[header.lastIndexSelected].name : '—';
-    debugPrint('Category: $catName');
-  }
-
-  // A função _showAddedAnimation não foi alterada
   void _showAddedAnimation() {
     final header = _headerCardKey.currentState;
     if (header == null) return;
@@ -336,13 +332,6 @@ class _AddTransactionControllerState extends State<AddTransactionController>
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-    // Lista mock para o exemplo ser executável
-    final mockCards = _showRecurrentCards ? [
-      CardModel(id: 'mock1', amount: 123.45, description: 'Test purchase', date: DateTime.now(), category: CategoryModel(name: 'Food', color: Colors.orange, icon: Icons.fastfood)),
-      CardModel(id: 'mock2', amount: 99.99, description: 'Another test', date: DateTime.now(), category: CategoryModel(name: 'Transport', color: Colors.blue, icon: Icons.directions_bus)),
-      CardModel(id: 'mock3', amount: 42.00, description: 'More tests', date: DateTime.now(), category: CategoryModel(name: 'Health', color: Colors.red, icon: Icons.favorite)),
-    ] : <CardModel>[];
-
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -359,24 +348,34 @@ class _AddTransactionControllerState extends State<AddTransactionController>
               InsertExpenseButton(
                 onPressed: () {
                   final header = _headerCardKey.currentState;
+                  print("aaaa");
                   if (header != null) {
                     final list = _verticalCircleListKey.currentState?.categorieList;
-                    final catName = (list != null && list.isNotEmpty)
-                        ? list[header.lastIndexSelected].name
-                        : '—';
+                    final selectedCat = (list != null && list.isNotEmpty)
+                        ? list[header.lastIndexSelected]
+                        : CategoryModel(
+    id: 'Unknown',
+    color: Colors.blueAccent.withOpacity(0.8),
+    icon: Icons.question_mark_rounded,
+    name: 'Unknown',
+    frequency: 0,
+  );
                     AddedExpenseToast.show(
                       context: context,
                       amount: header.valorController.numberValue,
                       description: header.descricaoController.text,
-                      category: catName,
+                      categoryIconColor: selectedCat.color,
+                      categoryIcon: selectedCat.icon,
+                      category: Translateservice.getTranslatedCategoryUsingModel(context, selectedCat),
                     );
                     header.adicionar();
                     widget.onAddClicked();
+                    header.valorController.updateValue(0);
+                    header.descricaoController.clear();
                   }
                 },
               ),
-              
-              // <<-- 2. SEÇÃO DA LISTA ENVOLVIDA COM WIDGETS DE ANIMAÇÃO
+              _showRecurrentCards ? SizedBox(height: 0) : SizedBox(height: 16),
               AnimatedOpacity(
                 opacity: _showRecurrentCards ? 1.0 : 0.0,
                 duration: const Duration(milliseconds: 300),
@@ -423,21 +422,20 @@ class _AddTransactionControllerState extends State<AddTransactionController>
     );
   }
 
-  //mark - widgets
-  Widget _buildHeader() {
-    return HeaderWithGradientBackground(
-      headerBuilder: (headerKey) => HeaderCard(
-        key: headerKey,
-        addButon: widget.addButtonKey,
-        categories: widget.categoriesKey,
-        date: widget.dateKey,
-        description: widget.descriptionKey,
-        valueExpens: widget.valueExpensKey,
-        onAddClicked: widget.onAddClicked,
-        onAddCategory: () {},
-      ),
-    );
-  }
+Widget _buildHeader() {
+  return HeaderWithGradientBackground(
+    headerBuilder: (_) => HeaderCard(
+      key: _headerCardKey,
+      addButon: widget.addButtonKey,
+      categories: widget.categoriesKey,
+      date: widget.dateKey,
+      description: widget.descriptionKey,
+      valueExpens: widget.valueExpensKey,
+      onAddClicked: widget.onAddClicked,
+      onAddCategory: () {},
+    ),
+  );
+}
 
   Widget _buildCategoryList() {
     return VerticalCircleList(
