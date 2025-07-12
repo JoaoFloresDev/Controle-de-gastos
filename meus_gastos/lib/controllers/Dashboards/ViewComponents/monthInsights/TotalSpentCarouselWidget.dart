@@ -53,7 +53,7 @@ class TotalspentcarouselwidgetState extends State<Totalspentcarouselwidget> {
                           height: 16,
                         ),
                         Text(
-                          AppLocalizations.of(context)!
+                          AppLocalizations.of(context)! 
                               .youWillBeAbleToUnderstandYourExpensesHere,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,

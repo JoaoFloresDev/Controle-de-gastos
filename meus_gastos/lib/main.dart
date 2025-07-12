@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
+import 'package:meus_gastos/controllers/orcamentos/goalsScrean.dart';
 import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -59,7 +60,7 @@ void main() async {
   if (Platform.isMacOS) {
     setWindowMinSize(const Size(800, 800));
   }
-    // onepref
+  // onepref
   await OnePref.init();
   // inicializa firebase
   await Firebase.initializeApp(
@@ -123,16 +124,15 @@ class _MyHomePageState extends State<MyHomePage> {
   final cardsExpense = GlobalKey();
   //mark - variables
   //mark - variables
-final  GlobalKey<DashboardScreenState> dashboardTab =
+  final GlobalKey<DashboardScreenState> dashboardTab =
       GlobalKey<DashboardScreenState>();
-
 
   final valueExpense = GlobalKey();
   final date = GlobalKey();
   final description = GlobalKey();
   final categories = GlobalKey();
   final addButton = GlobalKey();
-
+  final goalKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
@@ -152,13 +152,12 @@ final  GlobalKey<DashboardScreenState> dashboardTab =
             icon: const Icon(CupertinoIcons.calendar, size: 20),
             label: AppLocalizations.of(context)!.calendar,
           ),
-          // BottomNavigationBarItem(
-          //   icon: const Icon(CupertinoIcons.ellipsis, size: 20),
-          //   label: AppLocalizations.of(context)!.other,
-          // ),
+          BottomNavigationBarItem(
+            icon: const Icon(CupertinoIcons.graph_circle, size: 20),
+            label: AppLocalizations.of(context)!.budget,
+          ),
         ],
         onTap: (int index) {
-
           if (index == 1) {
             if (selectedTab != index) {
               dashboardTab.currentState?.refreshData();
@@ -168,7 +167,7 @@ final  GlobalKey<DashboardScreenState> dashboardTab =
           if (index == 2) {
             calendarKey.currentState?.refreshCalendar();
           }
-          
+
           setState(() {
             selectedTab = index;
           });
@@ -217,6 +216,9 @@ final  GlobalKey<DashboardScreenState> dashboardTab =
             calendarKey.currentState?.refreshCalendar();
           },
         );
+      case 3:
+        return Goalsscrean(
+            title: AppLocalizations.of(context)!.budget, goalKey: goalKey);
       default:
         // dashboardTab.currentState?.inicializeDashboard();
         return DashboardScreen(

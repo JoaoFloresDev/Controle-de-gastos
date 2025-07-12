@@ -498,7 +498,7 @@ class DashboardScreenState extends State<DashboardScreen>
               topRight: Radius.circular(20),
             ),
           ),
-          child: ExtractByCategory(category: model.category.name),
+          child: ExtractByCategory(category: model.category.name, currentMonth: currentDate),
         );
       },
     );

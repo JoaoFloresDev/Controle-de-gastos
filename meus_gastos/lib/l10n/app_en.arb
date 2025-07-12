@@ -137,8 +137,9 @@
     "accessAcrossDevices": "Access on all devices",
     "upgradeToProToSync": "Upgrade to Pro to sign in\nand sync your data",
     "redirectingToUpgrade": "Redirecting to upgrade...",
-    "proFeature": "Pro Feature"
-
+    "proFeature": "Pro Feature",
+    "budget": "Budget",
+    "set": "Set"
 
 
 }

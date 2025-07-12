@@ -1,8 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/monthInsightsServices.dart';
+import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 
@@ -51,8 +54,10 @@ class TotalSpentCarouselWithTitlesState
   Map<String, double> highestDrop = {};
   Map<String, int> highestFrequency = {};
   Map<String, double> listOfExpensesByCategoryOfCurrentMonth = {};
+  Map<String, double> listOfExpenseByCategoryOfPreviousMonth = {};
   Map<String, double> listDiferencesExpenseByCategory = {};
   double projecaoFixed = 0.0;
+  late List<CategoryModel> categories = [];
 
   bool isLoading = true;
 
@@ -90,6 +95,8 @@ class TotalSpentCarouselWithTitlesState
       isLoading = true;
     });
     await CardService.retrieveCards();
+    categories = await CategoryService().getAllCategories();
+
     var mediaValues = await Monthinsightsservices.monthExpenses(currentDate);
     var gastosMensaisAteAgora =
         await Monthinsightsservices.monthExpenses(currentDate);
@@ -119,8 +126,16 @@ class TotalSpentCarouselWithTitlesState
     listOfExpensesByCategoryOfCurrentMonth =
         await Monthinsightsservices.expenseByCategoryOfCurrentMonth(
             currentDate);
+    listOfExpenseByCategoryOfPreviousMonth =
+        await Monthinsightsservices.expenseByCategoryOfPreviousMonth(
+            currentDate);
     projecaoFixed =
         await Monthinsightsservices.projectionFixedForTheMonth(currentDate);
+    highestIncrease = await Monthinsightsservices.highestIncreaseCategory(
+        listDiferencesExpenseByCategory);
+    highestDrop = await Monthinsightsservices.highestDropCategory(
+        listDiferencesExpenseByCategory);
+
     setState(() {
       avaregeDaily =
           Monthinsightsservices.dailyAverage(currentDate, mediaValues);
@@ -142,10 +157,8 @@ class TotalSpentCarouselWithTitlesState
       tenDaysExpenses = auxDezenasDaysExpenses;
       resumeCurrentMonth = resumeCurrentMonth;
       resumePreviousMonth = resumePreviousMonth;
-      highestIncrease = Monthinsightsservices.highestIncreaseCategory(
-          listDiferencesExpenseByCategory);
-      highestDrop = Monthinsightsservices.highestDropCategory(
-          listDiferencesExpenseByCategory);
+      highestIncrease = highestIncrease;
+      highestDrop = highestDrop;
       highestFrequency = highestFrequency;
       listOfExpensesByCategoryOfCurrentMonth =
           listOfExpensesByCategoryOfCurrentMonth;
@@ -281,11 +294,33 @@ class TotalSpentCarouselWithTitlesState
             "phrases": [
               [
                 "${AppLocalizations.of(context)!.highestIncrease}: "
-                    "${Translateservice.getTranslatedCategoryName(context, highestIncrease.isNotEmpty ? highestIncrease.keys.first : '')}(+${highestIncrease.isNotEmpty && (listOfExpensesByCategoryOfCurrentMonth[highestIncrease.keys.first] ?? 0) > 0 ? ((highestIncrease.values.first / (listOfExpensesByCategoryOfCurrentMonth[highestIncrease.keys.first] ?? 0)) * 100).round() : 0}%)",
+                    "${Translateservice.getTranslatedCategoryName(context, categories.firstWhere(
+                          (cat) =>
+                              cat.id ==
+                              (highestIncrease.isNotEmpty
+                                  ? highestIncrease.keys.first
+                                  : ''),
+                          orElse: () => CategoryModel(id: '', name: ''),
+                        ).name)} (+${highestIncrease.isNotEmpty && (listOfExpensesByCategoryOfCurrentMonth[highestIncrease.keys.first] ?? 0) > 0 ? ((highestIncrease.values.first / (listOfExpenseByCategoryOfPreviousMonth[highestIncrease.keys.first] ?? 1))).round() : 0}%)",
                 "${AppLocalizations.of(context)!.highestDrop}: "
-                    "${Translateservice.getTranslatedCategoryName(context, highestIncrease.isNotEmpty ? highestDrop.keys.first : "")} "
-                    "(${(listOfExpensesByCategoryOfCurrentMonth[highestDrop.isNotEmpty ? highestDrop.keys.first : ''] ?? 0) > 0 ? ((highestDrop.values.first / (listOfExpensesByCategoryOfCurrentMonth[highestDrop.isNotEmpty ? highestDrop.keys.first : ''] ?? 0)) * 100).round() : '0'}%)",
-                "${AppLocalizations.of(context)!.mostUsed}: ${Translateservice.getTranslatedCategoryName(context, highestFrequency.isNotEmpty ? highestFrequency.keys.first : '')} (${(highestFrequency.isNotEmpty ? highestFrequency.values.first : 0)}%)"
+                    "${Translateservice.getTranslatedCategoryName(context, categories.firstWhere(
+                          (cat) =>
+                              cat.id ==
+                              (highestDrop.isNotEmpty
+                                  ? highestDrop.keys.first
+                                  : ''),
+                          orElse: () => CategoryModel(id: '', name: ''),
+                        ).name)} "
+                    "(${(listOfExpensesByCategoryOfCurrentMonth[highestDrop.isNotEmpty ? highestDrop.keys.first : ''] ?? 0) > 0 ? ((highestDrop.values.first / (listOfExpensesByCategoryOfCurrentMonth[highestDrop.keys.first] ?? 1)) * 100).round() : 0}%)",
+                "${AppLocalizations.of(context)!.mostUsed}: "
+                    "${Translateservice.getTranslatedCategoryName(context, categories.firstWhere(
+                          (cat) =>
+                              cat.id ==
+                              (highestFrequency.isNotEmpty
+                                  ? highestFrequency.keys.first
+                                  : ''),
+                          orElse: () => CategoryModel(id: '', name: ''),
+                        ).name)} (${highestFrequency.isNotEmpty ? highestFrequency.values.first : 0}%)"
               ]
             ],
           },

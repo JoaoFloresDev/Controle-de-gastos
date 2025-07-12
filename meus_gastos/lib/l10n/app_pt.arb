@@ -138,6 +138,8 @@
     "accessAcrossDevices": "Acesso em todos os dispositivos",
     "upgradeToProToSync": "Upgrade para Pro para fazer login\ne sincronizar seus dados",
     "redirectingToUpgrade": "Redirecionando para upgrade...",
-    "proFeature": "Recurso Pro"
+    "proFeature": "Recurso Pro",
+    "budget": "Orçamento",
+    "set": "Definir"
 
 }

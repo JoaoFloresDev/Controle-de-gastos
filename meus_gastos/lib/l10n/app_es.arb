@@ -137,7 +137,8 @@
   "accessAcrossDevices": "Acceso en todos los dispositivos",
   "upgradeToProToSync": "Actualiza a Pro para iniciar sesión\ny sincronizar tus datos",
   "redirectingToUpgrade": "Redirigiendo a la mejora...",
-  "proFeature": "Función Pro"
-  
+  "proFeature": "Función Pro",
+  "budget": "Presupuesto",
+  "set": "Definir"
 
 }

@@ -427,4 +427,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get proFeature => 'Función Pro';
+
+  @override
+  String get budget => 'Presupuesto';
+
+  @override
+  String get set => 'Definir';
 }

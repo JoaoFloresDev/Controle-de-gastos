@@ -909,6 +909,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pro Feature'**
   String get proFeature;
+
+  /// No description provided for @budget.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget'**
+  String get budget;
+
+  /// No description provided for @set.
+  ///
+  /// In en, this message translates to:
+  /// **'Set'**
+  String get set;
 }
 
 class _AppLocalizationsDelegate

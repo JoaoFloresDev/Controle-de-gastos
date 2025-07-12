@@ -10,14 +10,12 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 
 class ExtractByCategory extends StatefulWidget {
   final String category;
-  const ExtractByCategory({Key? key, required this.category}) : super(key: key);
-
+  final DateTime currentMonth;
+  const ExtractByCategory({Key? key, required this.category, required this.currentMonth}) : super(key: key);
 
   @override
   _ExtractByCategoryState createState() => _ExtractByCategoryState();
-
 }
-
 
 class _ExtractByCategoryState extends State<ExtractByCategory> {
   late List<CardModel> cards = [];
@@ -35,7 +33,8 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
     });
   }
 
-  List<CardModel> selectByCategory(List<CardModel> cardList, DateTime currentDate) {
+  List<CardModel> selectByCategory(
+      List<CardModel> cardList, DateTime currentDate) {
     return cardList
         .where((card) => card.category.name == widget.category)
         .where((c) => (c.date.month == currentDate.month && c.amount > 0))
@@ -45,7 +44,7 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
 
   @override
   Widget build(BuildContext context) {
-    List<CardModel> filtered = selectByCategory(cards, DateTime.now());
+    List<CardModel> filtered = selectByCategory(cards, widget.currentMonth);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
@@ -62,14 +61,16 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
                 children: [
                   CupertinoButton(
                     padding: EdgeInsets.zero,
-                    child: const Icon(CupertinoIcons.clear, color: Colors.white, size: 28),
+                    child: const Icon(CupertinoIcons.clear,
+                        color: Colors.white, size: 28),
                     onPressed: () {
                       print("Close button pressed");
                       Navigator.pop(context);
                     },
                   ),
                   Text(
-                    Translateservice.getTranslatedCategoryName(context, widget.category),
+                    Translateservice.getTranslatedCategoryName(
+                        context, widget.category),
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 22,
@@ -78,7 +79,8 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
                   ),
                   CupertinoButton(
                     padding: EdgeInsets.zero,
-                    child: const Icon(CupertinoIcons.share, color: Colors.white, size: 28),
+                    child: const Icon(CupertinoIcons.share,
+                        color: Colors.white, size: 28),
                     onPressed: () {
                       showCupertinoModalPopup(
                         context: context,
@@ -87,7 +89,8 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
                             height: SizeOf(context).modal.halfModal(),
                             decoration: const BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20)),
                             ),
                             child: Exportexcelscreen(category: widget.category),
                           );
@@ -119,7 +122,8 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
                         padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
                         itemCount: filtered.length,
                         itemBuilder: (context, index) {
-                          CardModel card = filtered[filtered.length - index - 1];
+                          CardModel card =
+                              filtered[filtered.length - index - 1];
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5),
                             child: ListCard(
@@ -129,10 +133,13 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return Container(
-                                      height: MediaQuery.of(context).size.height - 70,
+                                      height:
+                                          MediaQuery.of(context).size.height -
+                                              70,
                                       decoration: const BoxDecoration(
                                         color: AppColors.background1,
-                                        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                                        borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(20)),
                                       ),
                                       child: DetailScreen(
                                         card: card,

@@ -141,7 +141,8 @@ class Monthinsightsservices {
       DateTime dataAtual = DateTime(ano, mes, dia);
 
       // Verifica se é um dia útil (não sábado, domingo ou feriado)
-      if (dia <= data.day && dataAtual.weekday != DateTime.saturday &&
+      if (dia <= data.day &&
+          dataAtual.weekday != DateTime.saturday &&
           dataAtual.weekday != DateTime.sunday) {
         diasUteis++;
       }
@@ -404,6 +405,22 @@ class Monthinsightsservices {
     return totalsOfCurrentMonths;
   }
 
+  static Future<Map<String, double>> expenseByCategoryOfPreviousMonth(
+      DateTime currentDate) async {
+    final List<CardModel> cards = await CardService.retrieveCards();
+    final List<CardModel> currentMonthCards = cards.where((card) {
+      return card.date.year == currentDate.year &&
+          card.date.month == (currentDate.month - 1);
+    }).toList();
+    final Map<String, double> totalsOfCurrentMonths = {};
+    for (var card in currentMonthCards) {
+      totalsOfCurrentMonths[card.category.id] =
+          (totalsOfCurrentMonths[card.category.id] ?? 0) + card.amount;
+    }
+    return totalsOfCurrentMonths;
+  }
+
+
   static Future<Map<String, double>> diferencesExpenseByCategory(
       DateTime currentDate) async {
     final List<CardModel> cards = await CardService.retrieveCards();
@@ -446,6 +463,7 @@ class Monthinsightsservices {
 
       // Calculando a diferença entre o mês atual e o mês anterior
       final double difference = currentMonthTotal - previousMonthTotal;
+      print(difference);
 
       // Armazenando a diferença no mapa
       differencesByCategory[categoryId] = difference;
@@ -455,10 +473,13 @@ class Monthinsightsservices {
     return differencesByCategory;
   }
 
-  static Map<String, double> highestIncreaseCategory(
-      Map<String, double> differencesByCategory) {
+  static Future<Map<String, double>> highestIncreaseCategory(
+      Map<String, double> differencesByCategory) async {
     String categoryHighestIncrease = '';
     double expenseHighestIncrease = 0.0;
+
+    final List<CardModel> cards = await CardService.retrieveCards();
+
     var expense;
     for (var entry in differencesByCategory.entries) {
       if (entry.value > expenseHighestIncrease) {
@@ -466,23 +487,37 @@ class Monthinsightsservices {
         expenseHighestIncrease = entry.value;
       }
     }
+
+    // categoryHighestIncrease = cards
+    //     .where((current) => current.category.id == categoryHighestIncrease)
+    //     .first
+    //     .category
+    //     .name;
+
     return {categoryHighestIncrease: expenseHighestIncrease};
   }
 
-  static Map<String, double> highestDropCategory(
-      Map<String, double> differencesByCategory) {
-    String categoryHighestIncrease = '-';
-    double expenseHighestIncrease = 0.0;
+  static Future<Map<String, double>> highestDropCategory(
+      Map<String, double> differencesByCategory) async {
+    String categoryHighestDrop = '-';
+    double expenseHighestDrop = 0.0;
+
+    final List<CardModel> cards = await CardService.retrieveCards();
 
     var expense;
     for (var entry in differencesByCategory.entries) {
       print("!!!!!!!!!!!$entry.value");
-      if (entry.value < expenseHighestIncrease) {
-        categoryHighestIncrease = entry.key;
-        expenseHighestIncrease = entry.value;
+      if (entry.value < expenseHighestDrop) {
+        categoryHighestDrop = entry.key;
+        expenseHighestDrop = entry.value;
       }
     }
-    return {categoryHighestIncrease: expenseHighestIncrease};
+    // categoryHighestDrop = cards
+    //     .where((current) => current.category.id == categoryHighestDrop)
+    //     .first
+    //     .category
+    //     .name;
+    return {categoryHighestDrop: expenseHighestDrop};
   }
 
   static Future<Map<String, int>> mostFrequentCategoryByMonth(
@@ -513,6 +548,11 @@ class Monthinsightsservices {
       }
       count_general = count_general + count;
     });
+    // categoriaMaisFrequente = currentMonthCards
+    //     .where((current) => current.category.id == categoriaMaisFrequente)
+    //     .first
+    //     .category
+    //     .name;
 
     return {
       categoriaMaisFrequente:
@@ -568,7 +608,9 @@ class Monthinsightsservices {
           break;
         case ('seg_sex'):
           totalExpenseFixed = totalExpenseFixed +
-              card.price * (calcularDiasUteisNoMes(currentDate)-calcularDiasUteisNoMesAteAgora(currentDate));
+              card.price *
+                  (calcularDiasUteisNoMes(currentDate) -
+                      calcularDiasUteisNoMesAteAgora(currentDate));
           break;
         case ('diario'):
           totalExpenseFixed = totalExpenseFixed +

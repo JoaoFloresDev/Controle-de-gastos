@@ -429,4 +429,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get proFeature => 'Pro Feature';
+
+  @override
+  String get budget => 'Budget';
+
+  @override
+  String get set => 'Set';
 }

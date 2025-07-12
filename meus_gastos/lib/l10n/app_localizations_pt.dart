@@ -431,4 +431,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get proFeature => 'Recurso Pro';
+
+  @override
+  String get budget => 'Orçamento';
+
+  @override
+  String get set => 'Definir';
 }
