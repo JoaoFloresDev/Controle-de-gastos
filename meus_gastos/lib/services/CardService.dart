@@ -82,6 +82,7 @@ class CardService {
     final String? cardsString = prefs.getString(_storageKey);
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
+      print(user.displayName);
       List<CardModel> cardList = await SaveExpensOnCloud().fetchCards()
         ..sort((a, b) => a.date.compareTo(b.date));
       return cardList;

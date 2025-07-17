@@ -433,4 +433,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get set => 'Definir';
+
+  @override
+  String get totalBudgetForMonth => 'Presupuesto total para un mes';
 }

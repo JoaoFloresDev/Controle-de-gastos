@@ -159,31 +159,39 @@ class CustomCalendarState extends State<CustomCalendar> {
                 alignment: Alignment.center, // Centraliza no eixo X
                 child: BannerAdconstruct(),
               ),
-            CalendarTable(
-              focusedDay: _focusedDay,
-              selectedDay: _selectedDay,
-              dailyExpenses: _dailyExpenses,
-              onDaySelected: (selectedDay, focusedDay) {
-                setState(() {
-                  _selectedDay = selectedDay;
-                  _focusedDay = focusedDay;
-                });
-                _loadTransactionsForDay(selectedDay);
-              },
-            ),
-            CalendarHeader(
-              selectedDay: _selectedDay,
-              focusedDay: _focusedDay,
-              dailyExpenses: _dailyExpenses,
-            ),
             Expanded(
-              child: TransactionList(
-                transactions: _transactions,
-                onRefresh: () {
-                  _loadTransactionsForDay(_selectedDay ?? DateTime.now());
-                },
-              ),
-            ),
+              child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height,
+                ),
+                child: Column(children: [
+                  CalendarTable(
+                    focusedDay: _focusedDay,
+                    selectedDay: _selectedDay,
+                    dailyExpenses: _dailyExpenses,
+                    onDaySelected: (selectedDay, focusedDay) {
+                      setState(() {
+                        _selectedDay = selectedDay;
+                        _focusedDay = focusedDay;
+                      });
+                      _loadTransactionsForDay(selectedDay);
+                    },
+                  ),
+                  CalendarHeader(
+                    selectedDay: _selectedDay,
+                    focusedDay: _focusedDay,
+                    dailyExpenses: _dailyExpenses,
+                  ),
+                  TransactionList(
+                    transactions: _transactions,
+                    onRefresh: () {
+                      _loadTransactionsForDay(_selectedDay ?? DateTime.now());
+                    },
+                  ),
+                ]),
+              )),
+            )
           ],
         ),
       ),

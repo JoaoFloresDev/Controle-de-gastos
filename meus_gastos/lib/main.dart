@@ -81,7 +81,6 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return const CupertinoApp(
@@ -114,11 +113,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int selectedTab = 0;
-
+  final bool seeGoalScrean = true;
   final GlobalKey<CustomCalendarState> calendarKey =
       GlobalKey<CustomCalendarState>();
   final GlobalKey<CustomCalendarState> calendarKey2 =
       GlobalKey<CustomCalendarState>();
+  
+  final GlobalKey<GoalsscreanState> goalKey = GlobalKey<GoalsscreanState>();
 
   final exportButton = GlobalKey();
   final cardsExpense = GlobalKey();
@@ -132,7 +133,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final description = GlobalKey();
   final categories = GlobalKey();
   final addButton = GlobalKey();
-  final goalKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
@@ -152,10 +152,11 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: const Icon(CupertinoIcons.calendar, size: 20),
             label: AppLocalizations.of(context)!.calendar,
           ),
-          BottomNavigationBarItem(
-            icon: const Icon(CupertinoIcons.graph_circle, size: 20),
-            label: AppLocalizations.of(context)!.budget,
-          ),
+          if (seeGoalScrean)
+            BottomNavigationBarItem(
+              icon: const Icon(CupertinoIcons.graph_circle, size: 20),
+              label: AppLocalizations.of(context)!.budget,
+            ),
         ],
         onTap: (int index) {
           if (index == 1) {
@@ -166,6 +167,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
           if (index == 2) {
             calendarKey.currentState?.refreshCalendar();
+          }
+
+          if (index == 3) {
+            goalKey.currentState?.refreshBudgets();
           }
 
           setState(() {
@@ -217,8 +222,18 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         );
       case 3:
-        return Goalsscrean(
-            title: AppLocalizations.of(context)!.budget, goalKey: goalKey);
+        if (seeGoalScrean) {
+          return Goalsscrean(
+              key: goalKey,
+              title: AppLocalizations.of(context)!.budget,
+              onChangeMeta: () {
+                goalKey.currentState?.refreshBudgets();
+              }
+              );
+              
+        } else {
+          return Container();
+        }
       default:
         // dashboardTab.currentState?.inicializeDashboard();
         return DashboardScreen(

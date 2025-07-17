@@ -139,6 +139,8 @@
   "redirectingToUpgrade": "Redirigiendo a la mejora...",
   "proFeature": "Función Pro",
   "budget": "Presupuesto",
-  "set": "Definir"
+  "set": "Definir",
+  "totalBudgetForMonth": "Presupuesto total para un mes"
+
 
 }

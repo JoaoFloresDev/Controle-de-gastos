@@ -44,13 +44,17 @@ class TransactionList extends StatelessWidget {
       return Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
-          child: Text(
-            AppLocalizations.of(context)!.emptyDay,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: AppColors.labelPlaceholder,
-              fontSize: 18,
-            ),
+          child: Column(
+            children: [
+              SizedBox(height: 40,),
+              Text(
+              AppLocalizations.of(context)!.emptyDay,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: AppColors.labelPlaceholder,
+                fontSize: 18,
+              ),
+            ),]
           ),
         ),
       );
@@ -58,6 +62,8 @@ class TransactionList extends StatelessWidget {
 
     final reversedTransactions = transactions.reversed.toList();
     return ListView.builder(
+      shrinkWrap: true, // resolve o erro de altura infinita
+      physics: NeverScrollableScrollPhysics(), // evita conflito de scrolls
       itemCount: reversedTransactions.length,
       itemBuilder: (context, index) {
         final transaction = reversedTransactions[index];

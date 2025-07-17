@@ -921,6 +921,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Set'**
   String get set;
+
+  /// No description provided for @totalBudgetForMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Total budget for a month'**
+  String get totalBudgetForMonth;
 }
 
 class _AppLocalizationsDelegate

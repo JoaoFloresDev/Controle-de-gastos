@@ -140,6 +140,8 @@
     "redirectingToUpgrade": "Redirecionando para upgrade...",
     "proFeature": "Recurso Pro",
     "budget": "Orçamento",
-    "set": "Definir"
+    "set": "Definir",
+    "totalBudgetForMonth": "Orçamento total para um mês"
+
 
 }

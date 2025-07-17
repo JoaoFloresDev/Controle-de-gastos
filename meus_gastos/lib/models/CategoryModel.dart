@@ -7,7 +7,6 @@ class CategoryModel {
   final String name;
   int frequency;
   bool available;
-  double meta; 
 
   //mark - Constructor
   CategoryModel({
@@ -16,8 +15,7 @@ class CategoryModel {
     this.icon = Icons.category,
     required this.name,
     this.frequency = 0,
-    this.available = true,
-    this.meta = 0
+    this.available = true
   });
 
   //mark - From JSON
@@ -34,7 +32,7 @@ class CategoryModel {
       name: json['name'],
       frequency: json['frequency'] ?? 0,
       available: json['available'] ?? true,
-      meta: json['meta'] ?? 0
+      
     );
   }
 
@@ -48,7 +46,6 @@ class CategoryModel {
       'name': name,
       'frequency': frequency,
       'available': available,
-      'meta': meta ?? 0,
     };
   }
 }

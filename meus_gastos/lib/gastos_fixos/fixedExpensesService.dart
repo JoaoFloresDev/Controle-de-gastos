@@ -41,34 +41,33 @@ class Fixedexpensesservice {
     final String? cardsString = prefs.getString('fixed_expenses');
     List<FixedExpense> fc = [];
     User? user = FirebaseAuth.instance.currentUser;
-    
-      if (user == null) {
-        if (cardsString != null) {
-          final List<dynamic> jsonList = json.decode(cardsString);
-          fc = jsonList
-              .map((jsonItem) => FixedExpense.fromJson(jsonItem))
-              .toList()
-            ..sort((a, b) => a.date.compareTo(b.date));
-        }
-      } else {
-        fc = await SaveExpensOnCloud().fetchCardsFixedCards()
-          ..sort((a, b) => a.date.compareTo(b.date));
-      }
-    // print("metodo antigo:${fc.length} firebase${fixedCardList.length}");
-    return fc;
-    // }
-    // return [];
-  }
-  static Future<List<FixedExpense>> getSortedFixedExpensesToSync() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? cardsString = prefs.getString('fixed_expenses');
-    List<FixedExpense> fc = [];
-    if (cardsString != null) {
+
+    if (user == null) {
+      if (cardsString != null) {
         final List<dynamic> jsonList = json.decode(cardsString);
         fc = jsonList
             .map((jsonItem) => FixedExpense.fromJson(jsonItem))
             .toList()
           ..sort((a, b) => a.date.compareTo(b.date));
+      }
+    } else {
+      fc = await SaveExpensOnCloud().fetchCardsFixedCards()
+        ..sort((a, b) => a.date.compareTo(b.date));
+    }
+    // print("metodo antigo:${fc.length} firebase${fixedCardList.length}");
+    return fc;
+    // }
+    // return [];
+  }
+
+  static Future<List<FixedExpense>> getSortedFixedExpensesToSync() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? cardsString = prefs.getString('fixed_expenses');
+    List<FixedExpense> fc = [];
+    if (cardsString != null) {
+      final List<dynamic> jsonList = json.decode(cardsString);
+      fc = jsonList.map((jsonItem) => FixedExpense.fromJson(jsonItem)).toList()
+        ..sort((a, b) => a.date.compareTo(b.date));
     }
     return fc;
   }
@@ -153,6 +152,8 @@ class Fixedexpensesservice {
 
   static CardModel Fixed_to_NormalCard(FixedExpense fixedCard) {
     int day = fixedCard.date.day;
+    int hour = fixedCard.date.hour;
+    int min = fixedCard.date.minute;
     if (fixedCard.tipoRepeticao == 'semanal')
       day = getCurrentWeekdayDate(fixedCard.date).day;
     if ((fixedCard.tipoRepeticao == 'seg_sex') ||
@@ -162,7 +163,13 @@ class Fixedexpensesservice {
         id: CardService.generateUniqueId(),
         amount: fixedCard.price,
         description: fixedCard.description,
-        date: DateTime(DateTime.now().year, DateTime.now().month, day),
+        date: DateTime(
+          DateTime.now().year,
+          DateTime.now().month,
+          day,
+          hour,
+          min
+        ),
         category: fixedCard.category,
         idFixoControl: fixedCard.id);
   }
