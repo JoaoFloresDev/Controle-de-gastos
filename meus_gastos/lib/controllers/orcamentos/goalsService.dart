@@ -2,23 +2,29 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meus_gastos/controllers/orcamentos/budgetModel.dart';
+import 'package:meus_gastos/controllers/orcamentos/saveOrcamentosNaNuvem.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Goalsservice {
-  String _budgetKey = "budgets";
+  final String _budgetKey =
+      "budgets"; // chave para pegar as metas no sheredPreferences
+
+  // MARK: Pega todas as metas do usuario
   Future<List<Budgetmodel>> retrive() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     String? budgetsString = pref.getString(_budgetKey);
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      // pegar os dados do firebase
+      print("${user.displayName}");
+      return Saveorcamentosnanuvem().getAllBudgets();
     } else {
       if (budgetsString != null) {
         List<dynamic> jsonList = jsonDecode(budgetsString);
-        return jsonList.map((jsonItem) => Budgetmodel.fromJson(jsonItem)).toList();
-
+        return jsonList
+            .map((jsonItem) => Budgetmodel.fromJson(jsonItem))
+            .toList();
       }
     }
     return [];
@@ -32,10 +38,16 @@ class Goalsservice {
     };
 
     List<Budgetmodel> budgets = await retrive();
+
+    List<String> categoriesId = categories.map((cat) => cat.id).toList();
+
     print(budgets.isNotEmpty);
     if (budgets.isNotEmpty) {
       budgets.forEach((budg) {
-        metas_por_cat[budg.categoryId] = budg.value;
+        if (categoriesId.contains(budg.categoryId))
+          metas_por_cat[budg.categoryId] = budg.value;
+        else
+          Goalsservice().deleteMeta(budg.categoryId);
       });
     }
     return metas_por_cat;
@@ -64,17 +76,21 @@ class Goalsservice {
 
   Future<void> addMeta(String categoryId, double meta) async {
     List<Budgetmodel> budgets = await retrive();
-    Budgetmodel removido = budgets.firstWhere(
-      (bud) => bud.categoryId == categoryId,
-      orElse: () => Budgetmodel(categoryId: '', value: 0),
-    );
-    if (removido != null) {
-      deleteMeta(removido.categoryId);
+    int index = budgets.indexWhere((bud) => bud.categoryId == categoryId);
+    if (index != -1) {
+      modifyMetas((metas) {
+        metas[index] = Budgetmodel(categoryId: categoryId, value: meta);
+        return metas;
+      });
+    } else {
+      modifyMetas((metas) {
+        metas.add(Budgetmodel(categoryId: categoryId, value: meta));
+        return metas;
+      });
     }
-    modifyMetas((metas) {
-      metas.add(Budgetmodel(categoryId: categoryId, value: meta));
-      return metas;
-    });
+    // Adicionar na nuvem
+    Saveorcamentosnanuvem()
+        .addBudgetInClound(Budgetmodel(categoryId: categoryId, value: meta));
   }
 
   Future<void> deleteMeta(String categoryId) async {
@@ -82,5 +98,7 @@ class Goalsservice {
       metas.removeWhere((meta) => meta.categoryId == categoryId);
       return metas;
     });
+    // Deleta na nuvem
+    Saveorcamentosnanuvem().deleteBudgetInClound(categoryId);
   }
 }

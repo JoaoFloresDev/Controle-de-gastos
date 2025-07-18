@@ -118,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
       GlobalKey<CustomCalendarState>();
   final GlobalKey<CustomCalendarState> calendarKey2 =
       GlobalKey<CustomCalendarState>();
-  
+
   final GlobalKey<GoalsscreanState> goalKey = GlobalKey<GoalsscreanState>();
 
   final exportButton = GlobalKey();
@@ -171,6 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
           if (index == 3) {
             goalKey.currentState?.refreshBudgets();
+            goalKey.currentState?.loadCategories();
           }
 
           setState(() {
@@ -227,10 +228,10 @@ class _MyHomePageState extends State<MyHomePage> {
               key: goalKey,
               title: AppLocalizations.of(context)!.budget,
               onChangeMeta: () {
-                goalKey.currentState?.refreshBudgets();
-              }
-              );
-              
+                setState(() {
+                  goalKey.currentState?.refreshBudgets();
+                });
+              });
         } else {
           return Container();
         }

@@ -43,53 +43,44 @@ class GoalsscreanState extends State<Goalsscrean> {
     super.initState();
     // TODO: implement initState
     _checkUserProStatus();
-    loadCategories();
+    loadCategoriesGoals();
   }
 
-  //MARK: loadCategories
   Future<void> loadCategories() async {
+    categories = await CategoryService().getAllCategories();
+    progressIndicators =
+        await CardService.getProgressIndicatorsByMonth(currentDate);
+  }
+
+  //MARK: loadCategoriesGoals
+  Future<void> loadCategoriesGoals() async {
     setState(() {
       is_loading = true;
     });
-    categories = await CategoryService().getAllCategories();
     // gasto por categoria
-    progressIndicators =
-        await CardService.getProgressIndicatorsByMonth(currentDate);
-    var _gastosPorCategoria = {
+    gastosPorCategoria = {
       for (var item in progressIndicators) item.category.id: item.progress
     };
-    var _totalGasto = progressIndicators.fold(
+    totalGasto = progressIndicators.fold(
         0.0, (sum, indicator) => sum + indicator.progress);
-    var _orcamentoTotal = await Goalsservice().getTotalBudget();
+    orcamentoTotal = await Goalsservice().getTotalBudget();
     // metas por categoria
-    var _metas_por_categoria = await Goalsservice().getBudgets();
-    // metas_por_categoria.forEach((met, value) {
-    //   print("${met} : ${value}");
+    metas_por_categoria = await Goalsservice().getBudgets();
+
+    // categories.forEach((category) {
+    //   final meta = metas_por_categoria[category.id];
+    //   print('Meta da categoria ${category.name}: ${meta ?? "sem meta"}');
     // });
-    categories.forEach((category) {
-      final meta = metas_por_categoria[category.id];
-      print('Meta da categoria ${category.name}: ${meta ?? "sem meta"}');
-    });
-    print("++++++++${orcamentoTotal}");
+    // print("++++++++${orcamentoTotal}");
     setState(() {
-      gastosPorCategoria = _gastosPorCategoria;
-      orcamentoTotal = _orcamentoTotal;
-      metas_por_categoria = _metas_por_categoria;
-      totalGasto = _totalGasto;
       is_loading = false;
     });
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Chama sempre que voltar para a tela
-    loadCategories();
-  }
-
   Future<void> refreshBudgets() async {
-    await loadCategories();
-    setState(() {});
+    setState(() {
+      loadCategoriesGoals();
+    });
   }
 
   Future<void> _checkUserProStatus() async {
@@ -99,14 +90,6 @@ class GoalsscreanState extends State<Goalsscrean> {
     setState(() {
       _isPro = isYearlyPro || isMonthlyPro;
     });
-
-    // int usageCount = prefs.getInt('usage_count') ?? 0;
-    // usageCount += 1;
-    // await prefs.setInt('usage_count', usageCount);
-
-    // if (!_isPro && usageCount > 40 && usageCount % 4 == 0) {
-    // _showProModal(context);
-    // }
   }
 
   Widget _buildLoadingIndicator() {
@@ -165,7 +148,7 @@ class GoalsscreanState extends State<Goalsscrean> {
                         child: SizedBox(),
                       ),
                       Text(
-                          "${orcamentoTotal == 0 ? 0 : (totalGasto / orcamentoTotal * 100).round()}% gasto",
+                          "${orcamentoTotal == 0 ? '-' : (totalGasto / orcamentoTotal * 100).round()}% gasto",
                           style: TextStyle(
                             fontSize: 20,
                             color: AppColors.labelPlaceholder,
@@ -181,7 +164,9 @@ class GoalsscreanState extends State<Goalsscrean> {
                     lineHeight: 10.0,
                     animationDuration: 1000,
                     percent: orcamentoTotal == 0
-                        ? 0
+                        ? totalGasto > 0
+                            ? 1
+                            : 0
                         : (totalGasto / orcamentoTotal) > 1
                             ? 1
                             : (totalGasto / orcamentoTotal),
@@ -240,16 +225,17 @@ class GoalsscreanState extends State<Goalsscrean> {
                               ),
                               height: MediaQuery.of(context).size.height * 0.9,
                               child: Setbudget(
-                                  category: categories[index],
-                                  initialValue: (metas_por_categoria[
-                                          categories[index].id] ??
-                                      0),
-                                  loadCategories: () async {
-                                    await loadCategories();
-                                    setState(() {});
-                                  }, 
-                                  onChangeMeta: widget.onChangeMeta,),
-                                  
+                                category: categories[index],
+                                initialValue: (metas_por_categoria[
+                                        categories[index].id] ??
+                                    0),
+                                loadCategories: () {
+                                  setState(() {
+                                    loadCategoriesGoals();
+                                  });
+                                },
+                                onChangeMeta: widget.onChangeMeta,
+                              ),
                             );
                           });
                     },

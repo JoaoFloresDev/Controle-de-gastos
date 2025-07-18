@@ -109,9 +109,9 @@ class SetbudgetState extends State<Setbudget> {
                             color: CupertinoColors.systemBlue,
                             onPressed: () {
                               adicionar();
-                              widget.loadCategories;
-                              widget.onChangeMeta;
-                              FocusScope.of(context).unfocus();
+                              widget.loadCategories();
+                              widget.onChangeMeta();
+                              // FocusScope.of(context).unfocus();
                               Navigator.of(context).pop();
                             },
                             child: Text(

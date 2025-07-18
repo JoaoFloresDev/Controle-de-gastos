@@ -5,23 +5,21 @@ import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/services/saveOnClound.dart';
 
-class SaveExpensOnCloud {
-  String? userId;
-  SaveExpensOnCloud() : userId = FirebaseAuth.instance.currentUser?.uid;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+class SaveExpensOnCloud extends Saveonclound {
 
   Future<void> addDatesOfOfflineState() async {
     List<CardModel> cards = await CardService.retrieveCards();
     for (var card in cards) {
-      await _firestore.collection(userId!).doc(card.id).set(card.toJson());
-      // await _firestore.collection(userId).doc(card.id)
+      await firestore.collection(userId!).doc(card.id).set(card.toJson());
+      // await firestore.collection(userId).doc(card.id)
     }
   }
 
   Future<void> addNewDate(CardModel card) async {
     print("**************************************************** ${userId!}");
-    await _firestore
+    await firestore
         .collection(userId!)
         .doc('NormalCards')
         .collection("cardList")
@@ -31,7 +29,7 @@ class SaveExpensOnCloud {
 
   Future<void> deleteDate(CardModel card) async {
     try {
-      await _firestore
+      await firestore
         .collection(userId!)
         .doc('NormalCards')
         .collection("cardList")
@@ -46,7 +44,7 @@ class SaveExpensOnCloud {
   
   Future<List<CardModel>> fetchCards() async {
     try {
-      QuerySnapshot snapshot = await _firestore
+      QuerySnapshot snapshot = await firestore
           .collection(userId!)
           .doc('NormalCards')
           .collection('cardList')
@@ -66,8 +64,8 @@ class SaveExpensOnCloud {
   Future<void> addDatesOfOfflineStateFixedCards() async {
     List<FixedExpense> cards = await Fixedexpensesservice.retrieveCards();
     for (var card in cards) {
-      await _firestore.collection(userId!).doc(card.id).set(card.toJson());
-      // await _firestore.collection(userId).doc(card.id)
+      await firestore.collection(userId!).doc(card.id).set(card.toJson());
+      // await firestore.collection(userId).doc(card.id)
     }
   }
 
@@ -78,7 +76,7 @@ class SaveExpensOnCloud {
     }
     print("**************************************************** ${userId!}");
     try {
-      await _firestore
+      await firestore
         .collection(userId!)
         .doc('fixedCards')
         .collection("cardList")
@@ -94,7 +92,7 @@ class SaveExpensOnCloud {
 
   Future<void> deleteDateFixedCards(FixedExpense card) async {
     try {
-      await _firestore
+      await firestore
         .collection(userId!)
         .doc('fixedCards')
         .collection("cardList")
@@ -109,7 +107,7 @@ class SaveExpensOnCloud {
   
   Future<List<FixedExpense>> fetchCardsFixedCards() async {
     try {
-      QuerySnapshot snapshot = await _firestore
+      QuerySnapshot snapshot = await firestore
           .collection(userId!)
           .doc('fixedCards')
           .collection('cardList')
@@ -128,7 +126,7 @@ class SaveExpensOnCloud {
 
   Future<void> addNewCategory(CategoryModel category) async {
   try {
-    await _firestore
+    await firestore
         .collection(userId!)
         .doc('Categories')
         .collection('categoryList')
@@ -143,7 +141,7 @@ class SaveExpensOnCloud {
 
 Future<void> deleteCategory(CategoryModel category) async {
   try {
-    await _firestore
+    await firestore
         .collection(userId!)
         .doc('Categories')
         .collection('categoryList')
@@ -158,7 +156,7 @@ Future<void> deleteCategory(CategoryModel category) async {
 
 Future<List<CategoryModel>> fetchCategories() async {
   try {
-    QuerySnapshot snapshot = await _firestore
+    QuerySnapshot snapshot = await firestore
         .collection(userId!)
         .doc('Categories')
         .collection('categoryList')

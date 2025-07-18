@@ -35,7 +35,7 @@ class Fixedexpensesservice {
   //   // Salvar de volta no SharedPreferences
   //   await prefs.setStringList('fixed_expenses', expensesList);
   // }
-
+  // MARK: getSortedFixedExpenses
   static Future<List<FixedExpense>> getSortedFixedExpenses() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString('fixed_expenses');
@@ -184,7 +184,7 @@ class Fixedexpensesservice {
         }
       }
     }
-    return normalCards..sort((a, b) => a.date.compareTo(b.date));
+    return normalCards;
   }
 
   static Future<void> printCardsInfo() async {

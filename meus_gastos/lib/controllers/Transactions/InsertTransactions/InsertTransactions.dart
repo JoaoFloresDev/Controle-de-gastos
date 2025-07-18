@@ -544,6 +544,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                   isLogin = false;
                 });
                 await service.CardService.deleteAllCards();
+                
                 await Fixedexpensesservice.deleteAllCards();
                 print("APAGOU");
                 print(isLogin);
