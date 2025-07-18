@@ -46,17 +46,14 @@ class GoalsscreanState extends State<Goalsscrean> {
     loadCategoriesGoals();
   }
 
-  Future<void> loadCategories() async {
-    categories = await CategoryService().getAllCategories();
-    progressIndicators =
-        await CardService.getProgressIndicatorsByMonth(currentDate);
-  }
-
   //MARK: loadCategoriesGoals
   Future<void> loadCategoriesGoals() async {
     setState(() {
       is_loading = true;
     });
+    categories = await CategoryService().getAllCategories();
+    progressIndicators =
+        await CardService.getProgressIndicatorsByMonth(currentDate);
     // gasto por categoria
     gastosPorCategoria = {
       for (var item in progressIndicators) item.category.id: item.progress

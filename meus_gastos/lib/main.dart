@@ -171,7 +171,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
           if (index == 3) {
             goalKey.currentState?.refreshBudgets();
-            goalKey.currentState?.loadCategories();
           }
 
           setState(() {
