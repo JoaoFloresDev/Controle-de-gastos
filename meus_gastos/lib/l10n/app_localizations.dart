@@ -927,6 +927,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Total budget for a month'**
   String get totalBudgetForMonth;
+
+  /// No description provided for @currentBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Budget'**
+  String get currentBudget;
+
+  /// No description provided for @setBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Budget'**
+  String get setBudget;
 }
 
 class _AppLocalizationsDelegate

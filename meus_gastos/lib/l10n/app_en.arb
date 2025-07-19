@@ -140,7 +140,9 @@
     "proFeature": "Pro Feature",
     "budget": "Budget",
     "set": "Set",
-    "totalBudgetForMonth": "Total budget for a month"
+    "totalBudgetForMonth": "Total budget for a month",
+    "currentBudget" : "Current Budget",
+    "setBudget" : "Set Budget"
 
 
 }

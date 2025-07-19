@@ -7,6 +7,7 @@ import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgress
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/controllers/orcamentos/goalsService.dart';
 import 'package:meus_gastos/controllers/orcamentos/setBudget.dart';
+import 'package:meus_gastos/controllers/orcamentos/teste.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
@@ -221,7 +222,7 @@ class GoalsscreanState extends State<Goalsscrean> {
                                 ),
                               ),
                               height: MediaQuery.of(context).size.height * 0.9,
-                              child: Setbudget(
+                              child: SetbudgetTeste(
                                 category: categories[index],
                                 initialValue: (metas_por_categoria[
                                         categories[index].id] ??
@@ -270,8 +271,12 @@ class GoalsscreanState extends State<Goalsscrean> {
                                             categories[index].id] ??
                                         1),
                             center: Container(
-                              width: 40,
-                              height: 40,
+                              width: 45,
+                              height: 45,
+                              decoration: BoxDecoration(
+                                color: categories[index].color.withOpacity(0.1),
+                                shape: BoxShape.circle,
+                              ),
                               child: Center(
                                 child: Icon(
                                   categories[index].icon,
