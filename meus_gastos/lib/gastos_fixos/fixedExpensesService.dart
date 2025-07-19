@@ -48,11 +48,11 @@ class Fixedexpensesservice {
         fc = jsonList
             .map((jsonItem) => FixedExpense.fromJson(jsonItem))
             .toList()
-          ..sort((a, b) => a.date.compareTo(b.date));
+          ..sort((a, b) => b.date.compareTo(a.date));
       }
     } else {
       fc = await SaveExpensOnCloud().fetchCardsFixedCards()
-        ..sort((a, b) => a.date.compareTo(b.date));
+        ..sort((a, b) => b.date.compareTo(a.date));
     }
     // print("metodo antigo:${fc.length} firebase${fixedCardList.length}");
     return fc;
@@ -98,7 +98,7 @@ class Fixedexpensesservice {
   // MARK: - Add, Delete, and Update Cards
   static Future<void> addCard(FixedExpense FixedExpense) async {
     User? user = FirebaseAuth.instance.currentUser;
-    print("$user");
+    // print("$user");
     await modifyCards((cards) {
       if (!(FixedExpense.price == 0)) {
         cards.add(FixedExpense);
@@ -163,13 +163,8 @@ class Fixedexpensesservice {
         id: CardService.generateUniqueId(),
         amount: fixedCard.price,
         description: fixedCard.description,
-        date: DateTime(
-          DateTime.now().year,
-          DateTime.now().month,
-          day,
-          hour,
-          min
-        ),
+        date:
+            DateTime(DateTime.now().year, DateTime.now().month, day, hour, min),
         category: fixedCard.category,
         idFixoControl: fixedCard.id);
   }
@@ -179,7 +174,8 @@ class Fixedexpensesservice {
     List<String> normalIds = await CardService.getNormalExpenseIds();
     for (var fcard in fixedCards) {
       if (!normalIds.contains(fcard.id)) {
-        if (Intervalscontrol().IsapresentetionNecessary(fcard, normalCards)) {
+        if (Intervalscontrol().IsapresentetionNecessary(fcard, normalCards) &&
+            DateTime.now().isAfter(fcard.date)) {
           normalCards.add(Fixed_to_NormalCard(fcard));
         }
       }

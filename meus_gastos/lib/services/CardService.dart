@@ -80,9 +80,8 @@ class CardService {
   static Future<List<CardModel>> retrieveCards() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString(_storageKey);
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      print(user.displayName);
+    if (SaveExpensOnCloud().userId != null) {
+      // print(user.displayName);
       List<CardModel> cardList = await SaveExpensOnCloud().fetchCards()
         ..sort((a, b) => a.date.compareTo(b.date));
       return cardList;
@@ -124,7 +123,8 @@ class CardService {
       cards.add(cardModel);
       return cards;
     });
-    SaveExpensOnCloud().addNewDate(cardModel);
+    if(SaveExpensOnCloud().userId != null)
+      SaveExpensOnCloud().addNewDate(cardModel);
   }
 
   static Future<void> deleteCard(String id) async {
@@ -133,16 +133,19 @@ class CardService {
       return cards;
     });
     List<CardModel> cards = await retrieveCards();
-    SaveExpensOnCloud().deleteDate(cards.firstWhere((card) => card.id == id));
+    if(SaveExpensOnCloud().userId != null)
+      SaveExpensOnCloud().deleteDate(cards.firstWhere((card) => card.id == id));
   }
 
   static Future<void> updateCard(String id, CardModel newCard) async {
     await modifyCards((cards) {
       final int index = cards.indexWhere((card) => card.id == id);
       if (index != -1) {
-        SaveExpensOnCloud().deleteDate(cards[index]);
         cards[index] = newCard;
-        SaveExpensOnCloud().addNewDate(newCard);
+      }
+      if(SaveExpensOnCloud().userId != null){
+          SaveExpensOnCloud().deleteDate(cards[index]);
+          SaveExpensOnCloud().addNewDate(newCard);
       }
       return cards;
     });

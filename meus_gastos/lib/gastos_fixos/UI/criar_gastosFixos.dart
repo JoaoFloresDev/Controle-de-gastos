@@ -275,25 +275,31 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
   void _showCupertinoModalBottomSheet(BuildContext context, FixedExpense card) {
     print(card.tipoRepeticao);
     FocusScope.of(context).unfocus();
+
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          height: MediaQuery.of(context).size.height - 70,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+        return GestureDetector(
+          onTap: (){
+            FocusScope.of(context).unfocus();
+          },
+          child: Container(
+            height: MediaQuery.of(context).size.height - 70,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
             ),
-          ),
-          child: DetailScreen(
-            card: card,
-            onAddClicked: () {
-              _loadFixedExpenses();
-              setState(() {
-                widget.onAddPressedBack();
-              });
-            },
+            child: DetailScreen(
+              card: card,
+              onAddClicked: () {
+                _loadFixedExpenses();
+                setState(() {
+                  widget.onAddPressedBack();
+                });
+              },
+            ),
           ),
         );
       },

@@ -80,8 +80,8 @@ class TotalSpentCarouselWithTitlesState
     // Atualiza os textos quando a `referenceDate` for alterada
     print("${widget.currentDate}AAAAAAAAAAA");
     if (widget.currentDate != oldWidget.currentDate) {
-      setState(() async {
-        await getValues(widget.currentDate);
+        getValues(widget.currentDate);
+      setState(() {
       });
     }
   }
@@ -311,7 +311,7 @@ class TotalSpentCarouselWithTitlesState
                                   : ''),
                           orElse: () => CategoryModel(id: '', name: ''),
                         ).name)} "
-                    "(${(listOfExpensesByCategoryOfCurrentMonth[highestDrop.isNotEmpty ? highestDrop.keys.first : ''] ?? 0) > 0 ? ((highestDrop.values.first / (listOfExpensesByCategoryOfCurrentMonth[highestDrop.keys.first] ?? 1)) * 100).round() : 0}%)",
+                    "(${_calculateDropPercentage(highestDrop, listOfExpenseByCategoryOfPreviousMonth, listOfExpensesByCategoryOfCurrentMonth)}%)",
                 "${AppLocalizations.of(context)!.mostUsed}: "
                     "${Translateservice.getTranslatedCategoryName(context, categories.firstWhere(
                           (cat) =>
@@ -327,6 +327,20 @@ class TotalSpentCarouselWithTitlesState
         ],
       }
     ];
+  }
+
+  int _calculateDropPercentage(
+      Map<String, double> highestDrop,
+      Map<String, double> listOfExpenseByCategoryOfPreviousMonth,
+      Map<String, double> listOfExpensesByCategoryOfCurrentMonth) {
+    if (highestDrop.isEmpty) return 0;
+    final key = highestDrop.keys.first;
+    final previous = listOfExpenseByCategoryOfPreviousMonth[key] ?? 0;
+    final current = listOfExpensesByCategoryOfCurrentMonth[key] ?? 0;
+
+    if (previous == 0) return 0;
+    final drop = ((current - previous) / previous) * 100;
+    return drop.roundToDouble().round();
   }
 
   @override

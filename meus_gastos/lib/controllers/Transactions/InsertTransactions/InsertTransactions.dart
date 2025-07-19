@@ -544,7 +544,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                   isLogin = false;
                 });
                 await service.CardService.deleteAllCards();
-                
+
                 await Fixedexpensesservice.deleteAllCards();
                 print("APAGOU");
                 print(isLogin);
@@ -677,7 +677,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                                 const SizedBox(width: 12),
                                 Expanded(
                                   child: Text(
-                                    AppLocalizations.of(context)!.secureCloudBackup,
+                                    AppLocalizations.of(context)!
+                                        .secureCloudBackup,
                                     style: TextStyle(
                                       color: AppColors.label.withOpacity(0.7),
                                       fontSize: 14,
@@ -697,7 +698,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                                 const SizedBox(width: 12),
                                 Expanded(
                                   child: Text(
-                                    AppLocalizations.of(context)!.accessAcrossDevices,
+                                    AppLocalizations.of(context)!
+                                        .accessAcrossDevices,
                                     style: TextStyle(
                                       color: AppColors.label.withOpacity(0.7),
                                       fontSize: 14,
@@ -720,10 +722,9 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                             child: TextButton(
                               onPressed: () async {
                                 final prefs =
-                                                await SharedPreferences
-                                                    .getInstance();
+                                    await SharedPreferences.getInstance();
                                 await prefs.setBool(
-                                                'synced_${user!.uid}', true);
+                                    'synced_${user!.uid}', true);
                                 Navigator.pop(context);
                               },
                               style: TextButton.styleFrom(

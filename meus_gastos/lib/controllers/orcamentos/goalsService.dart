@@ -15,9 +15,7 @@ class Goalsservice {
   Future<List<Budgetmodel>> retrive() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     String? budgetsString = pref.getString(_budgetKey);
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      print("${user.displayName}");
+    if(Saveorcamentosnanuvem().userId != null){
       return Saveorcamentosnanuvem().getAllBudgets();
     } else {
       if (budgetsString != null) {
@@ -89,7 +87,8 @@ class Goalsservice {
       });
     }
     // Adicionar na nuvem
-    Saveorcamentosnanuvem()
+    if(Saveorcamentosnanuvem().userId != null)
+      Saveorcamentosnanuvem()
         .addBudgetInClound(Budgetmodel(categoryId: categoryId, value: meta));
   }
 
@@ -99,6 +98,7 @@ class Goalsservice {
       return metas;
     });
     // Deleta na nuvem
-    Saveorcamentosnanuvem().deleteBudgetInClound(categoryId);
+    if(Saveorcamentosnanuvem().userId != null)
+      Saveorcamentosnanuvem().deleteBudgetInClound(categoryId);
   }
 }

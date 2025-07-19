@@ -46,66 +46,64 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
   Widget build(BuildContext context) {
     List<CardModel> filtered = selectByCategory(cards, widget.currentMonth);
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.transparent,
       body: Column(
         children: [
-          SafeArea(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: const BoxDecoration(
-                color: AppColors.card,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    child: const Icon(CupertinoIcons.clear,
-                        color: Colors.white, size: 28),
-                    onPressed: () {
-                      print("Close button pressed");
-                      Navigator.pop(context);
-                    },
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: const BoxDecoration(
+              color: AppColors.card,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  child: const Icon(CupertinoIcons.clear,
+                      color: Colors.white, size: 28),
+                  onPressed: () {
+                    print("Close button pressed");
+                    Navigator.pop(context);
+                  },
+                ),
+                Text(
+                  Translateservice.getTranslatedCategoryName(
+                      context, widget.category),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Text(
-                    Translateservice.getTranslatedCategoryName(
-                        context, widget.category),
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    child: const Icon(CupertinoIcons.share,
-                        color: Colors.white, size: 28),
-                    onPressed: () {
-                      showCupertinoModalPopup(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Container(
-                            height: SizeOf(context).modal.halfModal(),
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(20)),
-                            ),
-                            child: Exportexcelscreen(category: widget.category),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
+                ),
+                CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  child: const Icon(CupertinoIcons.share,
+                      color: Colors.white, size: 28),
+                  onPressed: () {
+                    showCupertinoModalPopup(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          height: SizeOf(context).modal.halfModal(),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20)),
+                          ),
+                          child: Exportexcelscreen(category: widget.category),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
             ),
           ),
           // Lista de transações sem espaço extra entre o header e o conteúdo
           Expanded(
             child: Transform.translate(
-              offset: const Offset(0, -4), // desloca 4 pixels para cima
+              offset: const Offset(0, 0), // desloca 4 pixels para cima
               child: Container(
                 decoration: const BoxDecoration(
                   color: Colors.black,
