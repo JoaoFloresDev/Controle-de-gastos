@@ -17,18 +17,11 @@ import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/models/CategoryModel.dart';import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
@@ -40,6 +33,7 @@ import 'DescriptionInputField.dart';
 class HeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;
   final VoidCallback onAddCategory;
+  final Function(List<CategoryModel>) onCategoriesLoaded;
   final GlobalKey valueExpens;
   final GlobalKey date;
   final GlobalKey description;
@@ -49,6 +43,7 @@ class HeaderCard extends StatefulWidget {
   const HeaderCard({
     required this.onAddClicked,
     required this.onAddCategory,
+    required this.onCategoriesLoaded,
     required super.key,
     required this.valueExpens,
     required this.date,
@@ -65,11 +60,14 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
   //mark - variables
   late final MoneyMaskedTextController valorController;
   final descricaoController = TextEditingController();
-  final GlobalKey<VerticalCircleListState> _verticalCircleListKey = GlobalKey();
   DateTime lastDateSelected = DateTime.now();
   int lastIndexSelected = 0;
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
+
+  // State for holding categories, populated by the child widget
+  bool _isCategoriesLoaded = false;
+  List<CategoryModel> _categories = [];
 
   //mark - lifecycle
   @override
@@ -83,9 +81,6 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
       CurvedAnimation(parent: _fadeController, curve: Curves.easeOut),
     );
     _fadeController.forward();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _verticalCircleListKey.currentState?.loadCategories();
-    });
   }
 
   @override
@@ -109,41 +104,56 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
   }
 
   //mark - actions
-  Future<void> loadCategories() async {
-    _verticalCircleListKey.currentState?.loadCategories();
+
+  /// This method is passed to the VerticalCircleList widget to receive the loaded categories.
+  void onCategoriesLoaded(List<CategoryModel> loadedCategories) {
+    setState(() {
+      _categories = loadedCategories;
+      _isCategoriesLoaded = true;
+    });
+    // Pass the data up to the parent screen if needed
+    widget.onCategoriesLoaded(loadedCategories);
+  }
+
+  /// Sets the selected category index from the child list.
+  void onCategorySelected(int index) {
+    setState(() {
+        lastIndexSelected = index;
+    });
   }
 
   void adicionar() async {
-    print("aaaa");
+    if (!_isCategoriesLoaded) {
+      // Show a toast or just ignore the click if categories aren't ready
+      return;
+    }
+
     if (Platform.isIOS) HapticFeedback.mediumImpact();
-    print(lastIndexSelected);
-    final categories = _verticalCircleListKey.currentState?.categorieList ?? [];
-    print(categories);
-    // if (categories.isEmpty) return;
-    // final selectedCategory = categories[lastIndexSelected]; 
+    
+    // Check for out of bounds error
+    if (lastIndexSelected >= _categories.length) {
+        print("Error: Selected index is out of bounds.");
+        return;
+    }
+
+    final selectedCategory = _categories[lastIndexSelected];
+
     final newCard = CardModel(
       amount: valorController.numberValue,
       description: descricaoController.text,
       date: lastDateSelected,
-      category: CategoryModel(
-    id: 'Unknown',
-    color: Colors.blueAccent.withOpacity(0.8),
-    icon: Icons.question_mark_rounded,
-    name: 'Unknown',
-    frequency: 0,
-  ),
+      category: selectedCategory, // Use the actual selected category
       id: CardService.generateUniqueId(),
     );
-    // if (newCard.amount > 0) {
-      print("bbb");
-      CardService.addCard(newCard);
-      await CategoryService.incrementCategoryFrequency('Unknown');
-    // }
+
+    CardService.addCard(newCard);
+    await CategoryService.incrementCategoryFrequency(selectedCategory.id);
+
     setState(() {
       valorController.updateValue(0.0);
       descricaoController.clear();
-      _verticalCircleListKey.currentState?.loadCategories();
     });
+
     Future.delayed(const Duration(milliseconds: 200), widget.onAddClicked);
   }
 
@@ -178,9 +188,9 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
                       style: TextStyle(color: CupertinoColors.systemGrey),
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Center(
-                      child: const Text(
+                      child: Text(
                         'Data e Hora',
                         style: TextStyle(
                           fontSize: 16,
@@ -201,26 +211,25 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
                 ],
               ),
             ),
-Expanded(
-  child: CupertinoTheme(
-    data: const CupertinoThemeData(
-      brightness: Brightness.dark,
-      textTheme: CupertinoTextThemeData(
-        dateTimePickerTextStyle: TextStyle(color: CupertinoColors.white),
-      ),
-    ),
-    child: CupertinoDatePicker(
-      backgroundColor: CupertinoColors.black,
-      initialDateTime: lastDateSelected,
-      onDateTimeChanged: (newDate) {
-        setState(() => lastDateSelected = newDate);
-      },
-      mode: CupertinoDatePickerMode.dateAndTime,
-      use24hFormat: true,
-    ),
-  ),
-),
-
+            Expanded(
+              child: CupertinoTheme(
+                data: const CupertinoThemeData(
+                  brightness: Brightness.dark,
+                  textTheme: CupertinoTextThemeData(
+                    dateTimePickerTextStyle: TextStyle(color: CupertinoColors.white),
+                  ),
+                ),
+                child: CupertinoDatePicker(
+                  backgroundColor: CupertinoColors.black,
+                  initialDateTime: lastDateSelected,
+                  onDateTimeChanged: (newDate) {
+                    setState(() => lastDateSelected = newDate);
+                  },
+                  mode: CupertinoDatePickerMode.dateAndTime,
+                  use24hFormat: true,
+                ),
+              ),
+            ),
           ],
         ),
       ),

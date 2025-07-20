@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// Mocks para o código ser executável.
-// No seu projeto, remova-os e use suas importações reais.
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
@@ -10,7 +8,7 @@ import 'package:meus_gastos/services/TranslateService.dart';
 class HorizontalCompactCardList extends StatefulWidget {
   final List<CardModel> cards;
   final Function(CardModel) onTap;
-  final Future<void> onAddClicked;
+  final Future<void> Function() onAddClicked;
   final void Function(CardModel card, String action)? onAction;
   final VoidCallback? onCardsEmpty;
 
@@ -20,84 +18,81 @@ class HorizontalCompactCardList extends StatefulWidget {
     required this.onTap,
     required this.onAddClicked,
     this.onAction,
-    this.onCardsEmpty
+    this.onCardsEmpty,
   }) : super(key: key);
 
   @override
-  State<HorizontalCompactCardList> createState() =>
-      _HorizontalCompactCardListState();
+  State<HorizontalCompactCardList> createState() => _HorizontalCompactCardListState();
 }
 
 class _HorizontalCompactCardListState extends State<HorizontalCompactCardList>
     with SingleTickerProviderStateMixin {
   late List<CardModel> _cards;
   late AnimationController _animationController;
-
-  // Guarda o estado da animação de saída
   CardModel? _dismissingCard;
   Animation<Offset>? _slideAnimation;
-  // A animação de rotação foi removida
 
   @override
   void initState() {
     super.initState();
-    // Invertemos a lista para que o primeiro item fique no topo da pilha visual
     _cards = List<CardModel>.from(widget.cards.reversed);
-
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 350),
       vsync: this,
     )..addStatusListener((status) {
-      // Quando a animação de saída termina, remove o card da lista
-      if (status == AnimationStatus.completed) {
-        if (_dismissingCard != null) {
-          setState(() {
-            _cards.remove(_dismissingCard);
-            _dismissingCard = null;
-            if (_cards.isEmpty) {
-              widget.onCardsEmpty?.call();
-            }
-          });
+        if (status == AnimationStatus.completed) {
+          if (_dismissingCard != null) {
+            setState(() {
+              _cards.remove(_dismissingCard);
+              _dismissingCard = null;
+              if (_cards.isEmpty) {
+                widget.onCardsEmpty?.call();
+              }
+            });
+          }
+          _animationController.reset();
         }
-        _animationController.reset();
-      }
-    });
-        if (_cards.isEmpty) {
-       WidgetsBinding.instance.addPostFrameCallback((_) {
+      });
+    if (_cards.isEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         widget.onCardsEmpty?.call();
       });
     }
   }
 
   @override
+  void didUpdateWidget(covariant HorizontalCompactCardList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.cards != oldWidget.cards) {
+      setState(() {
+        _cards = List<CardModel>.from(widget.cards.reversed);
+      });
+    }
+  }
+  
+  @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
   }
 
-  // Inicia a animação de dispensa do card
   void _dismissCard(CardModel card, String action) {
     if (_animationController.isAnimating || _dismissingCard != null) return;
-    
-    // Define a direção da animação com base na ação
     final slideDirection = action == 'add' ? 1.0 : -1.0;
-
     setState(() {
       _dismissingCard = card;
-      // Animação de deslize apenas na horizontal
       _slideAnimation = Tween<Offset>(
         begin: Offset.zero,
-        end: Offset(slideDirection * 1.5, 0.0), // Movimento puramente horizontal
+        end: Offset(slideDirection * 1.5, 0.0),
       ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeIn));
     });
-    
     _animationController.forward();
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 84, // Altura ajustada para ser mais compacta
+      height: 84,
       child: Stack(
         alignment: Alignment.topCenter,
         children: _buildCardStack(),
@@ -106,32 +101,21 @@ class _HorizontalCompactCardListState extends State<HorizontalCompactCardList>
   }
 
   List<Widget> _buildCardStack() {
-    // Renderiza a pilha de cards, com o último da lista no topo
     return List.generate(_cards.length, (index) {
       final card = _cards[index];
       final isTopCard = index == _cards.length - 1;
-
-      // O card sendo dispensado é tratado de forma especial
       if (card == _dismissingCard && _slideAnimation != null) {
-        // A RotationTransition foi removida
         return SlideTransition(
           position: _slideAnimation!,
           child: _buildCardUI(card, isInteractive: true),
         );
       }
-
-      // Calcula a posição do card na pilha (0 = topo)
       final stackIndex = (_cards.length - 1) - index;
-      
-      // Apenas os 3 cards do topo são visíveis
       if (stackIndex > 2) {
         return const SizedBox.shrink();
       }
-      
-      // Anima as propriedades para criar o efeito de pilha
       final scale = 1.0 - (stackIndex * 0.05);
-      final topOffset = stackIndex * 8.0; // Deslocamento reduzido
-
+      final topOffset = stackIndex * 8.0;
       return AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeOut,
@@ -139,9 +123,9 @@ class _HorizontalCompactCardListState extends State<HorizontalCompactCardList>
           ..translate(0.0, topOffset)
           ..scale(scale),
         child: AnimatedOpacity(
-            duration: const Duration(milliseconds: 250),
-            opacity: isTopCard ? 1.0 : 1.0 - (stackIndex * 0.3),
-            child: _buildCardUI(card, isInteractive: isTopCard),
+          duration: const Duration(milliseconds: 250),
+          opacity: isTopCard ? 1.0 : 1.0 - (stackIndex * 0.3),
+          child: _buildCardUI(card, isInteractive: isTopCard),
         ),
       );
     }).toList();
@@ -149,7 +133,6 @@ class _HorizontalCompactCardListState extends State<HorizontalCompactCardList>
 
   Widget _buildCardUI(CardModel card, {required bool isInteractive}) {
     return SizedBox(
-      // A altura do card é definida pelo seu conteúdo interno
       width: MediaQuery.of(context).size.width * 0.9,
       child: CompactListCardRecorrent(
         card: card,
@@ -168,11 +151,10 @@ class _HorizontalCompactCardListState extends State<HorizontalCompactCardList>
   }
 }
 
-// Widget do card para o código ser executável. Use o seu original no projeto.
 class CompactListCardRecorrent extends StatelessWidget {
   final CardModel card;
   final Function(CardModel) onTap;
-  final Future<void> onAddClicked;
+  final Future<void> Function() onAddClicked;
   final void Function(CardModel card, String action)? onAction;
 
   const CompactListCardRecorrent({
@@ -193,14 +175,14 @@ class CompactListCardRecorrent extends StatelessWidget {
       idFixoControl: card.idFixoControl,
     );
     await CardService.addCard(newCard);
-    await onAddClicked;
+    await onAddClicked();
     if (onAction != null) onAction!(card, 'add');
   }
 
   Future<void> fakeExpens() async {
     card.amount = 0;
     await CardService.addCard(card);
-    await onAddClicked;
+    await onAddClicked();
     if (onAction != null) onAction!(card, 'skip');
   }
 
@@ -209,7 +191,7 @@ class CompactListCardRecorrent extends StatelessWidget {
     return GestureDetector(
       onTap: onAction == null ? null : () => onTap(card),
       child: Container(
-        height: 70, // Altura fixa para o card interno
+        height: 70,
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -252,10 +234,6 @@ class CompactListCardRecorrent extends StatelessWidget {
                   right: -8,
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                    // decoration: BoxDecoration(
-                    //   color: const Color.fromARGB(42, 0, 0, 0),
-                    //   borderRadius: BorderRadius.circular(18),
-                    // ),
                     child: const Icon(
                       CupertinoIcons.arrow_2_circlepath,
                       size: 18,

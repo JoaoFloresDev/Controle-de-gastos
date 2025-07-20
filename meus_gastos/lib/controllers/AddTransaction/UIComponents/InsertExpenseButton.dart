@@ -19,7 +19,7 @@ class InsertExpenseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 0, 24, 12),
+      padding: const EdgeInsets.fromLTRB(24, 0, 24, 6),
       child: SizedBox(
         height: 60,
         width: double.infinity,
