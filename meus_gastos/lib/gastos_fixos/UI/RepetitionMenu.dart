@@ -7,14 +7,13 @@ import 'package:meus_gastos/gastos_fixos/HorizontalCircleList.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import '../CardDetails/DetailScreen.dart';
 import '../ListCardFixeds.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ValorTextField.dart';
+import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-
 import 'package:uuid/uuid.dart';
 
 class RepetitionMenu extends StatefulWidget {

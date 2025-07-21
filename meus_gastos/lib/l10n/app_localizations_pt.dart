@@ -111,7 +111,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get clear => 'Limpar';
 
   @override
-  String get unknown => 'Desconhecido';
+  String get unknown => 'Sem categoria';
 
   @override
   String get shopping => 'Compras';

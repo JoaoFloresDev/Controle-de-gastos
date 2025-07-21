@@ -10,7 +10,6 @@ import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-
 import 'package:meus_gastos/controllers/CategoryCreater/AddCategoryHorizontalCircleList.dart';
 
 class Categorycreater extends StatefulWidget {

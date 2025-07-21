@@ -2,6 +2,7 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:intl/intl.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'fixedExpensesModel.dart';
 

@@ -8,7 +8,6 @@ import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-
 import 'dart:io';
 
 class TotalSpentCarouselWithTitles extends StatefulWidget {

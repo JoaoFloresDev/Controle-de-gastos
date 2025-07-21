@@ -8,7 +8,6 @@ import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/selectCategorys.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';

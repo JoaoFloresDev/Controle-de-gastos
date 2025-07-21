@@ -7,11 +7,10 @@ import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import '../Transactions/InsertTransactions/ViewComponents/CampoComMascara.dart';
 import '../Transactions/InsertTransactions/ViewComponents/HorizontalCircleList.dart';
-import '../Transactions/InsertTransactions/ViewComponents/ValorTextField.dart';
+import '../AddTransaction/UIComponents/Header/ValorTextField.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-
 import 'package:meus_gastos/services/TranslateService.dart';
 
 class EditionHeaderCard extends StatefulWidget {

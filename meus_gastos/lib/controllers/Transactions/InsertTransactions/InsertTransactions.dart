@@ -5,6 +5,7 @@ import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComp
 import 'package:meus_gastos/controllers/cadastro_login/logout.dart';
 import 'package:meus_gastos/controllers/cadastro_login/login.dart';
 import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
+import 'package:meus_gastos/gastos_fixos/HorizontalCircleList.dart';
 import 'package:meus_gastos/services/saveExpensOnCloud.dart';
 import 'package:meus_gastos/services/syncService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,24 +14,17 @@ import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/gastos_fixos/ListCardFixeds.dart';
 import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
-import 'ViewComponents/HeaderCard.dart';
+import '../../AddTransaction/UIComponents/Header/HeaderCard.dart';
 import 'ViewComponents/ListCard.dart';
 import '../../../models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart' as service;
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
-import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
-import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import '../../Purchase/ProModal.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 
 class InsertTransactions extends StatefulWidget {
   const InsertTransactions({
@@ -44,6 +38,7 @@ class InsertTransactions extends StatefulWidget {
     required this.categories,
     required this.description,
     required this.valueExpens,
+    required this.isActive,
   });
 
   final VoidCallback onAddClicked;
@@ -55,6 +50,7 @@ class InsertTransactions extends StatefulWidget {
   final GlobalKey description;
   final GlobalKey categories;
   final GlobalKey addButon;
+  final bool isActive;
 
   @override
   State<InsertTransactions> createState() => _InsertTransactionsState();
@@ -65,11 +61,12 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   List<FixedExpense> fixedCards = [];
   List<CardModel> mergeCardList = [];
   final GlobalKey<HeaderCardState> _headerCardKey = GlobalKey();
+  final GlobalKey<HorizontalCircleListState> _horizontalCircleListKey =
+      GlobalKey<HorizontalCircleListState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool _showHeaderCard = true;
 
-  // Variáveis para In-App Purchase
   final String yearlyProId = 'yearly.pro';
   final String monthlyProId = 'monthly.pro';
   final bool _isLoading = false;
@@ -78,15 +75,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   List<String> normalExpenseIds = [];
   List<String> IdsFixosControlList = [];
 
-  late InAppPurchase _inAppPurchase;
-  late Stream<List<PurchaseDetails>> _subscription;
-
-  // Conjunto para armazenar os IDs dos produtos comprados
   Set<String> purchasedProductIds = {};
   bool? isLogin;
   User? user;
 
-  // MARK: - InitState
   @override
   void initState() {
     super.initState();
@@ -105,20 +97,14 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     _checkUserProStatus();
   }
 
-  // @override
-  // void didChangeDependencies() async {
-  //   super.didChangeDependencies();
-  //   setState(() async {
-  //     user = await FirebaseAuth.instance.currentUser;
-  //   });
-  //   if (user != null) {
-  //     // O usuário está logado
-  //     print("Usuário logado: ${user?.email}");
-  //   } else {
-  //     // O usuário não está logado
-  //     print("Usuário deslogado.");
-  //   }
-  // }
+
+  @override
+  void didUpdateWidget(covariant InsertTransactions oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isActive && !oldWidget.isActive) {
+      loadCards();
+    }
+  }
 
   Future<void> _checkUserProStatus() async {
     final prefs = await SharedPreferences.getInstance();
@@ -137,11 +123,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     }
   }
 
-  // MARK: - Load Cards
   Future<void> loadCards() async {
     var cards = await service.CardService.retrieveCards();
     var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
-    _loadFixedExpenseIds();
+    await _loadFixedExpenseIds();
     cardList = cards;
     fixedCards = fcard;
     // cardList.forEach((card) => print("${card.id}: ${card.amount}"));
@@ -162,7 +147,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     });
   }
 
-  // Exibe o ProModal
   void _showProModal(BuildContext context) async {
     if (Platform.isIOS || Platform.isMacOS) {
       showCupertinoModalPopup(
@@ -196,7 +180,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     }
   }
 
-  // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -269,77 +252,14 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Column(
             children: [
-              if (!_isPro &&
-                  !Platform.isMacOS) // Se o usuário não é PRO, mostra o banner
+              if (!_isPro && !Platform.isMacOS)
                 Container(
                   height: 60,
-                  width: double.infinity, // Largura total da tela
-                  alignment: Alignment.center, // Centraliza no eixo X
+                  width: double.infinity,
+                  alignment: Alignment.center,
                   child: const BannerAdconstruct(),
                 ),
-              if (_showHeaderCard) ...[
-                Padding(
-                  padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-                  child: HeaderCard(
-                    addButon: widget.addButon,
-                    categories: widget.categories,
-                    date: widget.date,
-                    description: widget.description,
-                    valueExpens: widget.valueExpens,
-                    key: _headerCardKey,
-                    onAddClicked: () async {
-                      widget.onAddClicked();
-                      await loadCards();
-                      setState(() {});
-                    },
-                    onAddCategory: () {
-                      showCupertinoModalPopup(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Container(
-                            height: MediaQuery.of(context).size.height - 70,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20),
-                              ),
-                            ),
-                            child: Categorycreater(
-                              onCategoryAdded: () {
-                                setState(() {
-                                  _headerCardKey.currentState?.loadCategories();
-                                });
-                              },
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ],
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 1,
-                    width: MediaQuery.of(context).size.width - 100,
-                    color: Colors.white.withOpacity(0.4),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _showHeaderCard = !_showHeaderCard;
-                      });
-                    },
-                    icon: Icon(
-                      _showHeaderCard
-                          ? Icons.arrow_drop_up
-                          : Icons.arrow_drop_down,
-                    ),
-                  ),
-                ],
-              ),
+              SizedBox(height: 8),
               if (mergeCardList.isNotEmpty)
                 Expanded(
                   key: widget.cardsExpens,
@@ -381,8 +301,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
               if (cardList.isEmpty && fixedCards.isEmpty)
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24.0, vertical: 24),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -390,14 +310,13 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                         const Icon(
                           Icons.inbox,
                           color: AppColors.card,
-                          size:
-                              40, // Ícone levemente maior para maior impacto visual
+                          size: 40,
                         ),
                         Text(
                           AppLocalizations.of(context)!.addNewTransactions,
                           style: const TextStyle(
                             color: AppColors.label,
-                            fontSize: 12, // Levemente maior para melhor leitura
+                            fontSize: 12,
                             fontWeight: FontWeight.w500,
                             height: 1.8,
                           ),
@@ -408,8 +327,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                           AppLocalizations.of(context)!.addNewCallToAction,
                           style: const TextStyle(
                             color: AppColors.label,
-                            fontSize:
-                                12, // Destaque maior para a explicação final
+                            fontSize: 12,
                             fontWeight: FontWeight.w500,
                             height: 1.4,
                           ),
@@ -427,7 +345,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     );
   }
 
-  // MARK: - Show Cupertino Modal Bottom Sheet
   void _showCupertinoModalBottomSheet(BuildContext context, CardModel card) {
     FocusScope.of(context).unfocus();
     showCupertinoModalPopup(
@@ -512,7 +429,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                 await sincroniza_primeiro_acesso();
                 setState(() {
                   loadCards();
-                  _headerCardKey.currentState?.loadCategories();
+                  // _horizontalCircleListKey.currentState?.loadCategories();
                 });
               },
               loadcards: loadCards,
@@ -550,7 +467,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                 print(isLogin);
                 setState(() {
                   loadCards();
-                  _headerCardKey.currentState?.loadCategories();
+                  // _horizontalCircleListKey.currentState?.loadCategories();
                 });
                 Navigator.of(context).pop();
               },

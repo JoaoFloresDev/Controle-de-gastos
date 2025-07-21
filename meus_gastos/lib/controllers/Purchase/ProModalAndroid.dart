@@ -7,7 +7,6 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-
 import 'package:onepref/onepref.dart';
 
 class ProModalAndroid extends StatefulWidget {
