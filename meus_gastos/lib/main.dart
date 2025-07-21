@@ -263,7 +263,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                for (var i = 0; i < 4; i++)
+                for (var i = 0; i < 5; i++)
                   Expanded(
                     child: _buildTabItem(
                       icon: [

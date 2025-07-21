@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:meus_gastos/controllers/AddTransaction/UIComponents/VerticalCircleList.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
 import 'package:meus_gastos/controllers/cadastro_login/logout.dart';
@@ -61,8 +62,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   List<FixedExpense> fixedCards = [];
   List<CardModel> mergeCardList = [];
   final GlobalKey<HeaderCardState> _headerCardKey = GlobalKey();
-  final GlobalKey<HorizontalCircleListState> _horizontalCircleListKey =
-      GlobalKey<HorizontalCircleListState>();
+  final GlobalKey<VerticalCircleListState> _verticalCircleListKey =
+      GlobalKey<VerticalCircleListState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool _showHeaderCard = true;
@@ -96,7 +97,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     }
     _checkUserProStatus();
   }
-
 
   @override
   void didUpdateWidget(covariant InsertTransactions oldWidget) {
@@ -301,8 +301,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
               if (cardList.isEmpty && fixedCards.isEmpty)
                 Expanded(
                   child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24.0, vertical: 24),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -429,7 +429,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                 await sincroniza_primeiro_acesso();
                 setState(() {
                   loadCards();
-                  // _horizontalCircleListKey.currentState?.loadCategories();
+                  _verticalCircleListKey.currentState?.loadCategories();
                 });
               },
               loadcards: loadCards,
@@ -467,7 +467,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                 print(isLogin);
                 setState(() {
                   loadCards();
-                  // _horizontalCircleListKey.currentState?.loadCategories();
+                  _verticalCircleListKey.currentState?.loadCategories();
                 });
                 Navigator.of(context).pop();
               },
