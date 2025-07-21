@@ -134,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final categories = GlobalKey();
   final addButton = GlobalKey();
   @override
-  Widget build(BuildContext context) {
+  Wi  dget build(BuildContext context) {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
         backgroundColor: Colors.black,
