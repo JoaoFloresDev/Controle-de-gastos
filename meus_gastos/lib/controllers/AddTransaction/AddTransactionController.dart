@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -67,9 +68,10 @@ class _AddTransactionControllerState extends State<AddTransactionController>
   //mark - refs
   final GlobalKey<HeaderCardState> _headerCardKey = GlobalKey();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  final GlobalKey<VerticalCircleListState> _verticalCircleListKey = GlobalKey();
+  final GlobalKey<VerticalCircleListState> _verticalCircleListKey =
+      GlobalKey<VerticalCircleListState>();
   final GlobalKey _headerGradientKey = GlobalKey();
-  
+
   //mark - variables
   bool _keyboardVisible = false;
   double _headerHeight = 315; // valor inicial de fallback
@@ -84,21 +86,22 @@ class _AddTransactionControllerState extends State<AddTransactionController>
     WidgetsBinding.instance.addObserver(this);
     //mark - lifecycle
 
-  super.initState();
-      _loadFixedCards();
-  
-  WidgetsBinding.instance.addObserver(this);
-  // Aguarda renderizar para medir a altura real do HeaderCard
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    _updateHeaderHeight();
-  });
-    
+    super.initState();
+    _loadFixedCards();
+
+    WidgetsBinding.instance.addObserver(this);
+    // Aguarda renderizar para medir a altura real do HeaderCard
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _updateHeaderHeight();
+    });
   }
 
   List<CardModel> mockCards = [];
   Future<void> _loadFixedCards() async {
     var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
-    final fixedCards = fcard.map((item) => Fixedexpensesservice.Fixed_to_NormalCard(item)).toList();
+    final fixedCards = fcard
+        .map((item) => Fixedexpensesservice.Fixed_to_NormalCard(item))
+        .toList();
     setState(() {
       mockCards = fixedCards;
     });
@@ -133,8 +136,9 @@ class _AddTransactionControllerState extends State<AddTransactionController>
     final header = _headerCardKey.currentState;
     if (header == null) return;
     final list = _verticalCircleListKey.currentState?.categorieList;
-    final catName =
-        (list != null && list.isNotEmpty) ? list[header.lastIndexSelected].name : '—';
+    final catName = (list != null && list.isNotEmpty)
+        ? list[header.lastIndexSelected].name
+        : '—';
     final overlay = Overlay.of(context);
     if (overlay == null) return;
     late OverlayEntry entry;
@@ -356,23 +360,26 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                   final header = _headerCardKey.currentState;
                   print("aaaa");
                   if (header != null) {
-                    final list = _verticalCircleListKey.currentState?.categorieList;
+                    final list =
+                        _verticalCircleListKey.currentState?.categorieList;
                     final selectedCat = (list != null && list.isNotEmpty)
                         ? list[header.lastIndexSelected]
                         : CategoryModel(
-    id: 'Unknown',
-    color: Colors.blueAccent.withOpacity(0.8),
-    icon: Icons.question_mark_rounded,
-    name: 'Unknown',
-    frequency: 0,
-  );
+                            id: 'Unknown',
+                            color: Colors.blueAccent.withOpacity(0.8),
+                            icon: Icons.question_mark_rounded,
+                            name: 'Unknown',
+                            frequency: 0,
+                          );
                     AddedExpenseToast.show(
                       context: context,
                       amount: header.valorController.numberValue,
                       description: header.descricaoController.text,
                       categoryIconColor: selectedCat.color,
                       categoryIcon: selectedCat.icon,
-                      category: Translateservice.getTranslatedCategoryUsingModel(context, selectedCat),
+                      category:
+                          Translateservice.getTranslatedCategoryUsingModel(
+                              context, selectedCat),
                     );
                     header.adicionar();
                     widget.onAddClicked();
@@ -381,7 +388,9 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                   }
                 },
               ),
-              mockCards.isNotEmpty && showRecorrentCard ? SizedBox(height: 0) : SizedBox(height: 16),
+              mockCards.isNotEmpty && showRecorrentCard
+                  ? SizedBox(height: 0)
+                  : SizedBox(height: 16),
               AnimatedOpacity(
                 opacity: mockCards.isNotEmpty && showRecorrentCard ? 1.0 : 0.0,
                 duration: const Duration(milliseconds: 300),
@@ -389,7 +398,9 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeOut,
-                  height: mockCards.isNotEmpty && showRecorrentCard ? 104.0 : 0.0, // Altura estimada (Separador + Lista)
+                  height: mockCards.isNotEmpty && showRecorrentCard
+                      ? 104.0
+                      : 0.0, // Altura estimada (Separador + Lista)
                   child: SingleChildScrollView(
                     physics: const NeverScrollableScrollPhysics(),
                     child: Column(
@@ -427,43 +438,69 @@ class _AddTransactionControllerState extends State<AddTransactionController>
       ),
     );
   }
-Widget _buildHeader() {
-  return HeaderWithGradientBackground(
-    headerBuilder: (_) => HeaderCard(
-      key: _headerCardKey,
-      addButon: widget.addButtonKey,
-      categories: widget.categoriesKey,
-      date: widget.dateKey,
-      description: widget.descriptionKey,
-      valueExpens: widget.valueExpensKey,
-      onAddClicked: widget.onAddClicked,
-      onAddCategory: () {},
-      // Add the required callback here
-      onCategoriesLoaded: (loadedCategories) {
-        // You can now use the 'loadedCategories' list in this parent widget's state if needed.
-        // For example: setState(() => _myListOfCategories = loadedCategories));
-        print('Categories have been loaded in the parent widget!');
-      },
-    ),
-  );
-}
 
-Widget _buildCategoryList() {
-  return VerticalCircleList(
-    key: _verticalCircleListKey,
-    defaultdIndexCategory: 0,
-    
-    // Connect the VerticalCircleList's output to the HeaderCard's input method.
-    onCategoriesLoaded: (categories) {
-      _headerCardKey.currentState?.onCategoriesLoaded(categories);
-    },
-    
-    // Connect the item selection event to the HeaderCard's handler method.
-    onItemSelected: (index) {
-      _headerCardKey.currentState?.onCategorySelected(index);
-    },
-  );
-}
+  Widget _buildHeader() {
+    return HeaderWithGradientBackground(
+      headerBuilder: (_) => HeaderCard(
+        key: _headerCardKey,
+        addButon: widget.addButtonKey,
+        categories: widget.categoriesKey,
+        date: widget.dateKey,
+        description: widget.descriptionKey,
+        valueExpens: widget.valueExpensKey,
+        onAddClicked: widget.onAddClicked,
+        onAddCategory: () {},
+        // Add the required callback here
+        onCategoriesLoaded: (loadedCategories) {
+          // You can now use the 'loadedCategories' list in this parent widget's state if needed.
+          // For example: setState(() => _myListOfCategories = loadedCategories));
+          print('Categories have been loaded in the parent widget!');
+        },
+      ),
+    );
+  }
+
+  Widget _buildCategoryList() {
+    return VerticalCircleList(
+      key: _verticalCircleListKey,
+      defaultdIndexCategory: 0,
+
+      // Connect the VerticalCircleList's output to the HeaderCard's input method.
+      onCategoriesLoaded: (categories) {
+        _headerCardKey.currentState?.onCategoriesLoaded(categories);
+      },
+
+      // Connect the item selection event to the HeaderCard's handler method.
+      onItemSelected: (index) {
+        _headerCardKey.currentState?.onCategorySelected(index);
+      },
+
+      onAddCategorySelected: () {
+        print("AHHHHH");
+        showCupertinoModalPopup(
+          context: context,
+          builder: (BuildContext context) {
+            return Container(
+              height: MediaQuery.of(context).size.height - 70,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: Categorycreater(
+                onCategoryAdded: () {
+                  setState(() {
+                    _verticalCircleListKey.currentState?.loadCategories();
+                  });
+                },
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 }
 
 // <<-- WIDGET AUXILIAR QUE ESTAVA NO SEU CÓDIGO ORIGINAL
@@ -483,7 +520,6 @@ class _HeaderWithGradientBackgroundState
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => _updateHeight());
-    
   }
 
   @override

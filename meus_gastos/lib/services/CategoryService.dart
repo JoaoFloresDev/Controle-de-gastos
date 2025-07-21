@@ -261,24 +261,24 @@ class CategoryService {
     }
   }
 
-  Future<List<CategoryModel>> getAllPositiveCategories() async {
-      final prefs = await SharedPreferences.getInstance();
-    bool isFirstAccess = prefs.getBool(_isFirstAccessKey) ?? true;
-    if (isFirstAccess) {
-      await prefs.setBool(_isFirstAccessKey, false);
-      for (var category in defaultCategories) {
-        await addCategory(category);
-      }
-    }
-    List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
-  List<CategoryModel> aux = categories.map((category) {
-    final Map<String, dynamic> categoryMap = jsonDecode(category);
-    return CategoryModel.fromJson(categoryMap);
-  }).toList();
-  aux = aux.where((cat) => cat.available).toList();
-  aux.sort((a, b) => b.frequency.compareTo(a.frequency));
-  return aux;
-}
+//   Future<List<CategoryModel>> getAllPositiveCategories() async {
+//       final prefs = await SharedPreferences.getInstance();
+//     bool isFirstAccess = prefs.getBool(_isFirstAccessKey) ?? true;
+//     if (isFirstAccess) {
+//       await prefs.setBool(_isFirstAccessKey, false);
+//       for (var category in defaultCategories) {
+//         await addCategory(category);
+//       }
+//     }
+//     List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
+//   List<CategoryModel> aux = categories.map((category) {
+//     final Map<String, dynamic> categoryMap = jsonDecode(category);
+//     return CategoryModel.fromJson(categoryMap);
+//   }).toList();
+//   aux = aux.where((cat) => cat.available).toList();
+//   aux.sort((a, b) => b.frequency.compareTo(a.frequency));
+//   return aux;
+// }
 
 
   Future<void> incrementCategoryFrequency(String categoryId) async {
