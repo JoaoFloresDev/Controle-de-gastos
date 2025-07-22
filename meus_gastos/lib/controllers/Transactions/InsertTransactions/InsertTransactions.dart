@@ -1,18 +1,11 @@
 import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meus_gastos/controllers/AddTransaction/UIComponents/VerticalCircleList.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
 import 'package:meus_gastos/controllers/cadastro_login/logout.dart';
 import 'package:meus_gastos/controllers/cadastro_login/login.dart';
-// import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
-// import 'package:meus_gastos/gastos_fixos/HorizontalCircleList.dart';
-import 'package:meus_gastos/services/saveExpensOnCloud.dart';
-import 'package:meus_gastos/services/syncService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
@@ -26,6 +19,9 @@ import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+
+import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
+import 'package:meus_gastos/services/firebase/syncService.dart';
 
 class InsertTransactions extends StatefulWidget {
   const InsertTransactions({
@@ -78,17 +74,17 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
   Set<String> purchasedProductIds = {};
   bool? isLogin;
-  User? user;
+  String? userId;
 
   @override
   void initState() {
     super.initState();
     loadCards();
     // _initInAppPurchase();
-    user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
+    userId = SaveExpensOnCloud().userId;
+    if (userId != null) {
       // O usuário está logado
-      print("Usuário logado: ${user?.email}");
+      print("Usuário logado: ${userId}");
       isLogin = true;
     } else {
       // O usuário não está logado
@@ -488,11 +484,11 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   }
 
   Future<void> sincroniza_primeiro_acesso() async {
-    if (user == null || user!.uid == null) {
+    if (userId == null) {
       // Trate o caso em que o user não está disponível
       return;
     }
-    bool prim = await isFirstLogin(user!.uid);
+    bool prim = await isFirstLogin(userId!);
     if (prim) {
       showDialog(
         context: context,
@@ -642,7 +638,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                                 final prefs =
                                     await SharedPreferences.getInstance();
                                 await prefs.setBool(
-                                    'synced_${user!.uid}', true);
+                                    'synced_${userId}', true);
                                 Navigator.pop(context);
                               },
                               style: TextButton.styleFrom(
@@ -681,12 +677,12 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
                                           try {
                                             await SyncService()
-                                                .syncData(user!.uid);
+                                                .syncData(userId!);
                                             final prefs =
                                                 await SharedPreferences
                                                     .getInstance();
                                             await prefs.setBool(
-                                                'synced_${user!.uid}', true);
+                                                'synced_${userId}', true);
                                             Navigator.pop(context);
 
                                             // Mostrar feedback de sucesso

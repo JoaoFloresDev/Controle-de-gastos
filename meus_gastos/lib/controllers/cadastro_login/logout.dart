@@ -5,8 +5,8 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 
-import 'package:meus_gastos/services/authentication.dart';
-import 'package:meus_gastos/services/syncService.dart';
+import 'package:meus_gastos/services/firebase/authentication.dart';
+import 'package:meus_gastos/services/firebase/syncService.dart';
 
 class Logout extends StatefulWidget {
   final VoidCallback updateUser;

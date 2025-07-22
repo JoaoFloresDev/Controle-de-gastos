@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meus_gastos/gastos_fixos/intervalsControl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/saveExpensOnCloud.dart';
+import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';

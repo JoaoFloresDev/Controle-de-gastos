@@ -1,11 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io';
-import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
 import 'package:meus_gastos/controllers/orcamentos/goalsScrean.dart';
-import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,20 +9,11 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/InsertTransactions.dart';
 import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:meus_gastos/services/firebase/firebaseService.dart';
 import 'package:onepref/onepref.dart';
 import 'package:window_size/window_size.dart';
 import 'package:meus_gastos/controllers/AddTransaction/AddTransactionController.dart';
 import 'package:meus_gastos/controllers/Calendar/CustomCalendar.dart';
-import 'firebase_options.dart';
-
-import 'package:firebase_database/firebase_database.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
-import 'package:firebase_core/firebase_core.dart';
-
-import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/InsertTransactions.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,20 +26,9 @@ void main() async {
     setWindowMinSize(const Size(800, 800));
   }
   await OnePref.init();
-  // inicializa firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 
-  // Habilitar cache offline para Firestore
-  firestore.FirebaseFirestore.instance.settings = const firestore.Settings(
-    persistenceEnabled: true, // Ativa o cache offline
-  );
-  FirebaseDatabase.instance.setPersistenceEnabled(true);
-  FirebaseDatabase.instance.setPersistenceCacheSizeBytes(10000000);
-
-  // Define persistência da sessão do usuário
-  // await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
+  // inicializa firebase 
+  FirebaseService().init(); // PARA DESABILITAR BASTA COMENTAR
   runApp(const MyApp());
 }
 
@@ -206,32 +181,8 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             const Color.fromARGB(255, 35, 35, 37),
             const Color(0xFF1C1C1E),
           ],
-          // onTap: (int index) {
-          //   if (index == 1) {
-          //     if (selectedTab != index) {
-          //       dashboardTab.currentState?.refreshData();
-          //     }
-          //   }
-
-          //   if (index == 2) {
-          //     calendarKey.currentState?.refreshCalendar();
-          //   }
-
-          //   if (index == 3) {
-          //     goalKey.currentState?.refreshBudgets();
-          //   }
-
-          //   setState(() {
-          //     selectedTab = index;
-          //   });
-          // },
           stops: const [0.0, 0.5, 1.0],
         ),
-        // tabBuilder: (context, index) {
-        //   return LayoutBuilder(
-        //     builder: (context, constraints) {
-        //       return Column(
-        //         children: [
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(25),
           topRight: Radius.circular(25),
@@ -272,7 +223,6 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         CupertinoIcons.chart_bar_fill,
                         CupertinoIcons.calendar,
                         CupertinoIcons.graph_circle,
-
                       ][i],
                       label: [
                         AppLocalizations.of(context)!.add,
