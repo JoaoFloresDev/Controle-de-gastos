@@ -196,167 +196,193 @@ class GoalsscreanState extends State<Goalsscrean> {
             if (is_loading) ...[
               _buildLoadingIndicator(),
             ] else ...[
-              GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
-                  childAspectRatio: 0.8,
-                ),
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: categories.length - 1,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      print(index);
-                      showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          builder: (BuildContext context) {
-                            return Container(
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  topRight: Radius.circular(20),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                    childAspectRatio: 0.7,
+                  ),
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: categories.length - 1,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        print(index);
+                        showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (BuildContext context) {
+                              return Container(
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
+                                  ),
                                 ),
-                              ),
-                              height: MediaQuery.of(context).size.height * 0.9,
-                              child: SetbudgetTeste(
-                                category: categories[index],
-                                initialValue: (metas_por_categoria[
-                                        categories[index].id] ??
-                                    0),
-                                loadCategories: () {
-                                  setState(() {
-                                    loadCategoriesGoals();
-                                  });
-                                },
-                                onChangeMeta: widget.onChangeMeta,
-                              ),
-                            );
-                          });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            Translateservice.getTranslatedCategoryName(
-                              context,
-                              categories[index].name,
-                            ),
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.labelPlaceholder,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
+                                height: MediaQuery.of(context).size.height * 0.9,
+                                child: SetbudgetTeste(
+                                  category: categories[index],
+                                  initialValue: (metas_por_categoria[
+                                          categories[index].id] ??
+                                      0),
+                                  loadCategories: () {
+                                    setState(() {
+                                      loadCategoriesGoals();
+                                    });
+                                  },
+                                  onChangeMeta: widget.onChangeMeta,
+                                ),
+                              );
+                            });
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 100),
+                        curve: Curves.easeInOut,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 2, horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: CupertinoColors.black.withOpacity(0.3),
+                          // color: AppColors.background1,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color:(gastosPorCategoria[categories[index].id] ??
+                                                0) >
+                                            (metas_por_categoria[
+                                                    categories[index].id] ??
+                                                1)
+                                        ? AppColors.deletionButton.withOpacity(0.12)
+                                        : AppColors.label.withOpacity(0.12),
+                            width: 1.5,
+                            strokeAlign: BorderSide.strokeAlignInside,
                           ),
-                          CircularPercentIndicator(
-                            radius: 40.0,
-                            lineWidth: 5.0,
-                            animation: true,
-                            percent: (gastosPorCategoria[
-                                            categories[index].id] ??
-                                        0) >
-                                    (metas_por_categoria[
-                                            categories[index].id] ??
-                                        1)
-                                ? 1
-                                : (gastosPorCategoria[categories[index].id] ??
-                                        0) /
-                                    (metas_por_categoria[
-                                            categories[index].id] ??
-                                        1),
-                            center: Container(
-                              width: 45,
-                              height: 45,
-                              decoration: BoxDecoration(
-                                color: categories[index].color.withOpacity(0.1),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  categories[index].icon,
-                                  color: categories[index].color,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                Translateservice.getTranslatedCategoryName(
+                                  context,
+                                  categories[index].name,
                                 ),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: AppColors.labelPlaceholder,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
                               ),
-                            ),
-                            circularStrokeCap: CircularStrokeCap.round,
-                            progressColor:
-                                (gastosPorCategoria[categories[index].id] ??
+                              CircularPercentIndicator(
+                                radius: 40.0,
+                                lineWidth: 5.0,
+                                animation: true,
+                                percent: (gastosPorCategoria[
+                                                categories[index].id] ??
                                             0) >
                                         (metas_por_categoria[
                                                 categories[index].id] ??
                                             1)
-                                    ? AppColors.deletionButton
-                                    : categories[index].color,
-                            backgroundColor: AppColors.card,
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          if (((metas_por_categoria[categories[index].id] ??
-                                      0) ==
-                                  0) &&
-                              ((gastosPorCategoria[categories[index].id] ??
-                                      0) ==
-                                  0)) ...[
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
-                                  color: AppColors.modalBackground),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 4.0, right: 4),
-                                child: Text(
-                                  AppLocalizations.of(context)!.set,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.button,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ] else ...[
-                            Column(
-                              children: [
-                                Text(
-                                  Translateservice.formatCurrency(
-                                      (gastosPorCategoria[
-                                              categories[index].id] ??
-                                          0),
-                                      context),
-                                  style: TextStyle(
-                                      color: (gastosPorCategoria[
-                                                      categories[index].id] ??
-                                                  0) >
-                                              (metas_por_categoria[
-                                                      categories[index].id] ??
-                                                  0)
-                                          ? AppColors.deletionButton
-                                          : AppColors.button,
-                                      fontSize: 12),
-                                ),
-                                Text(
-                                    Translateservice.formatCurrency(
+                                    ? 1
+                                    : (gastosPorCategoria[categories[index].id] ??
+                                            0) /
                                         (metas_por_categoria[
                                                 categories[index].id] ??
-                                            0),
-                                        context),
-                                    style: const TextStyle(
-                                        color: AppColors.label, fontSize: 12))
-                              ],
-                            )
-                          ]
-                        ],
+                                            1),
+                                center: Container(
+                                  width: 45,
+                                  height: 45,
+                                  decoration: BoxDecoration(
+                                    // color:
+                                    //     categories[index].color.withOpacity(0.1),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Center(
+                                    child: Icon(
+                                      categories[index].icon,
+                                      color: categories[index].color,
+                                    ),
+                                  ),
+                                ),
+                                circularStrokeCap: CircularStrokeCap.round,
+                                progressColor:
+                                    (gastosPorCategoria[categories[index].id] ??
+                                                0) >
+                                            (metas_por_categoria[
+                                                    categories[index].id] ??
+                                                1)
+                                        ? AppColors.deletionButton.withOpacity(0.9)
+                                        : categories[index].color.withOpacity(0.9),
+                                backgroundColor: AppColors.card,
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              if (((metas_por_categoria[categories[index].id] ??
+                                          0) ==
+                                      0) &&
+                                  ((gastosPorCategoria[categories[index].id] ??
+                                          0) ==
+                                      0)) ...[
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5)),
+                                      color: AppColors.modalBackground),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 4.0, right: 4),
+                                    child: Text(
+                                      AppLocalizations.of(context)!.set,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: AppColors.button,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ] else ...[
+                                Column(
+                                  children: [
+                                    Text(
+                                      Translateservice.formatCurrency(
+                                          (gastosPorCategoria[
+                                                  categories[index].id] ??
+                                              0),
+                                          context),
+                                      style: TextStyle(
+                                          color: (gastosPorCategoria[
+                                                          categories[index].id] ??
+                                                      0) >
+                                                  (metas_por_categoria[
+                                                          categories[index].id] ??
+                                                      0)
+                                              ? AppColors.deletionButton
+                                              : AppColors.button,
+                                          fontSize: 12),
+                                    ),
+                                    Text(
+                                        Translateservice.formatCurrency(
+                                            (metas_por_categoria[
+                                                    categories[index].id] ??
+                                                0),
+                                            context),
+                                        style: const TextStyle(
+                                            color: AppColors.label, fontSize: 12))
+                                  ],
+                                )
+                              ]
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               )
             ]
           ],

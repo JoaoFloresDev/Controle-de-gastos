@@ -260,6 +260,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                   child: const BannerAdconstruct(),
                 ),
               SizedBox(height: 8),
+              // Aqui eu vou colocar o date_select para filtrar os cards
               if (mergeCardList.isNotEmpty)
                 Expanded(
                   key: widget.cardsExpens,
