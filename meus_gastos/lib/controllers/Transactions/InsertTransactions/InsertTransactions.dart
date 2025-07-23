@@ -81,7 +81,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     super.initState();
     loadCards();
     // _initInAppPurchase();
-    userId = SaveExpensOnCloud().userId;
+    userId = SaveExpensOnCloud().userId ?? null;
     if (userId != null) {
       // O usuário está logado
       print("Usuário logado: ${userId}");

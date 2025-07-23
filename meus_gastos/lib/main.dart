@@ -27,8 +27,8 @@ void main() async {
   }
   await OnePref.init();
 
-  // inicializa firebase 
-  FirebaseService().init(); // PARA DESABILITAR BASTA COMENTAR
+  // inicializa firebase
+  await FirebaseService().init(); // PARA DESABILITAR BASTA COMENTAR
   runApp(const MyApp());
 }
 
@@ -70,6 +70,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   final calendarKey = GlobalKey<CustomCalendarState>();
   final dashboardKey = GlobalKey<DashboardScreenState>();
+  final goalKey = GlobalKey<GoalsscreanState>();
 
   final exportButtonAT = GlobalKey(debugLabel: 'exportButtonAT');
   final cardsExpenseAT = GlobalKey(debugLabel: 'cardsExpenseAT');
@@ -107,12 +108,8 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  final GlobalKey<GoalsscreanState> goalKey = GlobalKey<GoalsscreanState>();
-
   //mark - variables
   //mark - variables
-  final GlobalKey<DashboardScreenState> dashboardTab =
-      GlobalKey<DashboardScreenState>();
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +132,9 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           InsertTransactions(
             isActive: selectedTab == 1,
             title: AppLocalizations.of(context)!.myExpenses,
-            onAddClicked: () {},
+            onAddClicked: () {
+              goalKey.currentState?.refreshBudgets();
+            },
             exportButon: exportButton,
             cardsExpens: cardsExpense,
             valueExpens: valueExpense,
@@ -151,11 +150,12 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 calendarKey.currentState?.refreshCalendar(),
           ),
 
-          if (seeGoalScrean)
-            Goalsscrean(
-              title: AppLocalizations.of(context)!.budget,
-              onChangeMeta: () => goalKey.currentState?.refreshBudgets(),
-            ),
+          // if (seeGoalScrean)
+          Goalsscrean(
+            key: goalKey,
+            title: AppLocalizations.of(context)!.budget,
+            onChangeMeta: () => goalKey.currentState?.refreshBudgets(),
+          ),
           // BottomNavigationBarItem(
           //   icon: const Icon(CupertinoIcons.graph_circle, size: 20),
           //   label: AppLocalizations.of(context)!.budget,
@@ -254,10 +254,10 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       behavior:
           HitTestBehavior.opaque, // <- ESSENCIAL: toda área vira "clicável"
       onTap: () {
-        setState(() => selectedTab = index);
         if (index == 2) dashboardKey.currentState?.refreshData();
         if (index == 3) calendarKey.currentState?.refreshCalendar();
         if (index == 4) goalKey.currentState?.refreshBudgets();
+        setState(() => selectedTab = index);
         HapticFeedback.lightImpact();
       },
       child: Column(

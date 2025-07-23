@@ -53,6 +53,7 @@ class GoalsscreanState extends State<Goalsscrean> {
       is_loading = true;
     });
     categories = await CategoryService().getAllCategories();
+    print(categories.length);
     progressIndicators =
         await CardService.getProgressIndicatorsByMonth(currentDate);
     // gasto por categoria
@@ -64,7 +65,6 @@ class GoalsscreanState extends State<Goalsscrean> {
     orcamentoTotal = await Goalsservice().getTotalBudget();
     // metas por categoria
     metas_por_categoria = await Goalsservice().getBudgets();
-
     // categories.forEach((category) {
     //   final meta = metas_por_categoria[category.id];
     //   print('Meta da categoria ${category.name}: ${meta ?? "sem meta"}');
@@ -76,6 +76,7 @@ class GoalsscreanState extends State<Goalsscrean> {
   }
 
   Future<void> refreshBudgets() async {
+    print("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHh");
     setState(() {
       loadCategoriesGoals();
     });
@@ -193,7 +194,7 @@ class GoalsscreanState extends State<Goalsscrean> {
                 ],
               ),
             ),
-            if (is_loading) ...[
+            if (is_loading || !(categories.length - 1 > 0)) ...[
               _buildLoadingIndicator(),
             ] else ...[
               Padding(
@@ -223,7 +224,8 @@ class GoalsscreanState extends State<Goalsscrean> {
                                     topRight: Radius.circular(20),
                                   ),
                                 ),
-                                height: MediaQuery.of(context).size.height * 0.9,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.9,
                                 child: SetbudgetTeste(
                                   category: categories[index],
                                   initialValue: (metas_por_categoria[
@@ -249,13 +251,13 @@ class GoalsscreanState extends State<Goalsscrean> {
                           // color: AppColors.background1,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color:(gastosPorCategoria[categories[index].id] ??
-                                                0) >
-                                            (metas_por_categoria[
-                                                    categories[index].id] ??
-                                                1)
-                                        ? AppColors.deletionButton.withOpacity(0.12)
-                                        : AppColors.label.withOpacity(0.12),
+                            color: (gastosPorCategoria[categories[index].id] ??
+                                        0) >
+                                    (metas_por_categoria[
+                                            categories[index].id] ??
+                                        1)
+                                ? AppColors.deletionButton.withOpacity(0.12)
+                                : AppColors.label.withOpacity(0.12),
                             width: 1.5,
                             strokeAlign: BorderSide.strokeAlignInside,
                           ),
@@ -281,18 +283,19 @@ class GoalsscreanState extends State<Goalsscrean> {
                                 radius: 40.0,
                                 lineWidth: 5.0,
                                 animation: true,
-                                percent: (gastosPorCategoria[
-                                                categories[index].id] ??
-                                            0) >
-                                        (metas_por_categoria[
-                                                categories[index].id] ??
-                                            1)
-                                    ? 1
-                                    : (gastosPorCategoria[categories[index].id] ??
-                                            0) /
-                                        (metas_por_categoria[
-                                                categories[index].id] ??
-                                            1),
+                                percent:
+                                    (gastosPorCategoria[categories[index].id] ??
+                                                0) >
+                                            (metas_por_categoria[
+                                                    categories[index].id] ??
+                                                1)
+                                        ? 1
+                                        : (gastosPorCategoria[
+                                                    categories[index].id] ??
+                                                0) /
+                                            (metas_por_categoria[
+                                                    categories[index].id] ??
+                                                1),
                                 center: Container(
                                   width: 45,
                                   height: 45,
@@ -309,14 +312,14 @@ class GoalsscreanState extends State<Goalsscrean> {
                                   ),
                                 ),
                                 circularStrokeCap: CircularStrokeCap.round,
-                                progressColor:
-                                    (gastosPorCategoria[categories[index].id] ??
-                                                0) >
-                                            (metas_por_categoria[
-                                                    categories[index].id] ??
-                                                1)
-                                        ? AppColors.deletionButton.withOpacity(0.9)
-                                        : categories[index].color.withOpacity(0.9),
+                                progressColor: (gastosPorCategoria[
+                                                categories[index].id] ??
+                                            0) >
+                                        (metas_por_categoria[
+                                                categories[index].id] ??
+                                            1)
+                                    ? AppColors.deletionButton.withOpacity(0.9)
+                                    : categories[index].color.withOpacity(0.9),
                                 backgroundColor: AppColors.card,
                               ),
                               SizedBox(
@@ -356,10 +359,12 @@ class GoalsscreanState extends State<Goalsscrean> {
                                           context),
                                       style: TextStyle(
                                           color: (gastosPorCategoria[
-                                                          categories[index].id] ??
+                                                          categories[index]
+                                                              .id] ??
                                                       0) >
                                                   (metas_por_categoria[
-                                                          categories[index].id] ??
+                                                          categories[index]
+                                                              .id] ??
                                                       0)
                                               ? AppColors.deletionButton
                                               : AppColors.button,
@@ -372,7 +377,8 @@ class GoalsscreanState extends State<Goalsscrean> {
                                                 0),
                                             context),
                                         style: const TextStyle(
-                                            color: AppColors.label, fontSize: 12))
+                                            color: AppColors.label,
+                                            fontSize: 12))
                                   ],
                                 )
                               ]

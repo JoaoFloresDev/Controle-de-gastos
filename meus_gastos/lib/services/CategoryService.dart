@@ -233,6 +233,7 @@ class CategoryService {
     } else {
       // Usuário não logado - usamos SharedPreferences
       bool isFirstAccess = prefs.getBool(_isFirstAccessKey) ?? true;
+      print(isFirstAccess);
       if (isFirstAccess) {
         await prefs.setBool(_isFirstAccessKey, false);
         for (var category in defaultCategories) {
