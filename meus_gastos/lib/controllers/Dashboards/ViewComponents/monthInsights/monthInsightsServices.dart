@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
@@ -420,7 +420,6 @@ class Monthinsightsservices {
     return totalsOfCurrentMonths;
   }
 
-
   static Future<Map<String, double>> diferencesExpenseByCategory(
       DateTime currentDate) async {
     final List<CardModel> cards = await CardService.retrieveCards();
@@ -582,7 +581,8 @@ class Monthinsightsservices {
   }
 
   static Future<double> projectionFixedForTheMonth(DateTime currentDate) async {
-    List<FixedExpense> fixedCards = await Fixedexpensesservice.retrieveCards();
+    List<FixedExpense> fixedCards =
+        await Fixedexpensesservice.getSortedFixedExpenses();
     double totalExpenseFixed = 0.0;
     if ((currentDate.month < DateTime.now().month &&
             currentDate.year == DateTime.now().year) ||

@@ -1,28 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meus_gastos/gastos_fixos/intervalsControl.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/intervalsControl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 
 class Fixedexpensesservice {
-  static Future<List<FixedExpense>> retrieveCards() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? cardsString = prefs.getString('fixed_expenses');
-    if (cardsString != null) {
-      final List<dynamic> jsonList = json.decode(cardsString);
-      List<FixedExpense> fixedCardList =
-          await SaveExpensOnCloud().fetchCardsFixedCards();
-      return fixedCardList; // return jsonList
-      //     .map((jsonItem) => FixedExpense.fromJson(jsonItem))
-      //     .toList()
-      //   ..sort((a, b) => a.date.compareTo(b.date));
-    }
-    return [];
-  }
-
+  
   // static Future<void> saveFixedExpense(FixedExpense expense) async {
   //   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -174,8 +160,11 @@ class Fixedexpensesservice {
     List<String> normalIds = await CardService.getNormalExpenseIds();
     for (var fcard in fixedCards) {
       if (!normalIds.contains(fcard.id)) {
+        // Verification of hour and minutes to show the FixedExpense card only after the defined time
         if (Intervalscontrol().IsapresentetionNecessary(fcard, normalCards) &&
-            DateTime.now().isAfter(fcard.date)) {
+            DateTime.now().isAfter(fcard.date) &&
+            ((DateTime.now().hour >= fcard.date.hour) &&
+                (DateTime.now().minute >= fcard.date.minute))) {
           normalCards.add(Fixed_to_NormalCard(fcard));
         }
       }
@@ -184,7 +173,8 @@ class Fixedexpensesservice {
   }
 
   static Future<void> printCardsInfo() async {
-    List<FixedExpense> cards = await Fixedexpensesservice.retrieveCards();
+    List<FixedExpense> cards =
+        await Fixedexpensesservice.getSortedFixedExpenses();
     for (var card in cards) {
       print('ID: ${card.id}');
       print('Description: ${card.description}');

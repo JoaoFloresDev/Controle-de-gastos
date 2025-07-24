@@ -5,7 +5,7 @@
 */
 
 //Mensal
-import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 
@@ -138,7 +138,7 @@ class Intervalscontrol {
     List<CardModel> filteredCard = filterByToday(cards, gastoFixo.date);
     List<String> IdsFixosControlList =
         CardService().getIdFixoControlList(filteredCard);
-    if (!(IdsFixosControlList.contains(gastoFixo.id))) {
+    if (!(IdsFixosControlList.contains(gastoFixo.id)) ) {
       return true;
     }
     return false;

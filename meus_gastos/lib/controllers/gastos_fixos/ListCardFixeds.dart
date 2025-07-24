@@ -13,7 +13,8 @@ class ListCardFixeds extends StatelessWidget {
   const ListCardFixeds({super.key, required this.card, required this.onTap});
 
   // MARK - Private helper methods
-  String _getRepetitionText(BuildContext context, String repetition, DateTime referenceDate) {
+  String _getRepetitionText(
+      BuildContext context, String repetition, DateTime referenceDate) {
     final DateFormat dayFormat = DateFormat('d');
     final String dayOfMonth = dayFormat.format(referenceDate);
     switch (repetition) {
@@ -37,7 +38,8 @@ class ListCardFixeds extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTap(card),
       child: Container(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
+        padding:
+            const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
         decoration: BoxDecoration(
           color: AppColors.card,
           borderRadius: BorderRadius.circular(20),
@@ -82,8 +84,10 @@ class ListCardFixeds extends StatelessWidget {
                         color: card.category.color,
                       ),
                     ),
+                    const SizedBox(height: 4),
                     Text(
-                      Translateservice.getTranslatedCategoryUsingModel(context, card.category),
+                      Translateservice.getTranslatedCategoryUsingModel(
+                          context, card.category),
                       style: const TextStyle(
                         fontSize: 11,
                         color: AppColors.label,
@@ -96,7 +100,7 @@ class ListCardFixeds extends StatelessWidget {
             ),
             Divider(
               color: AppColors.cardShadow.withOpacity(0.5),
-                thickness: 1,
+              thickness: 1,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -111,7 +115,8 @@ class ListCardFixeds extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  _getRepetitionText(context, card.tipoRepeticao, card.date), // Alteração nesta linha
+                  _getRepetitionText(context, card.tipoRepeticao,
+                      card.date), // Alteração nesta linha
                   style: const TextStyle(
                     fontSize: 14,
                     color: AppColors.label,

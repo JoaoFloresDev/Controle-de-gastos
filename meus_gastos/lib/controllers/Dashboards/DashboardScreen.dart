@@ -188,6 +188,7 @@ class DashboardScreenState extends State<DashboardScreen>
     bool isYearlyPro = prefs.getBool('yearly.pro') ?? false;
     bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
     setState(() {
+      print("ALLLLL $_isPro");
       _isPro = isYearlyPro || isMonthlyPro;
     });
   }
@@ -497,7 +498,8 @@ class DashboardScreenState extends State<DashboardScreen>
               topRight: Radius.circular(20),
             ),
           ),
-          child: ExtractByCategory(category: model.category.name, currentMonth: currentDate),
+          child: ExtractByCategory(
+              category: model.category.name, currentMonth: currentDate),
         );
       },
     );
@@ -562,11 +564,11 @@ class DashboardScreenState extends State<DashboardScreen>
             ? Center(child: _buildLoadingIndicator())
             : Column(
                 children: [
+                  _buildBannerAd(),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          _buildBannerAd(),
                           const SizedBox(height: 16),
                           _buildMonthSelector(),
                           const SizedBox(height: 16),

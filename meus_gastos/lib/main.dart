@@ -143,23 +143,17 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             categories: categories,
             addButon: addButton,
           ),
+          Goalsscrean(
+            key: goalKey,
+            title: AppLocalizations.of(context)!.budget,
+            onChangeMeta: () => goalKey.currentState?.refreshBudgets(),
+          ),
           DashboardScreen(key: dashboardKey, isActive: true),
           CustomCalendar(
             key: calendarKey,
             onCalendarRefresh: () =>
                 calendarKey.currentState?.refreshCalendar(),
           ),
-
-          // if (seeGoalScrean)
-          Goalsscrean(
-            key: goalKey,
-            title: AppLocalizations.of(context)!.budget,
-            onChangeMeta: () => goalKey.currentState?.refreshBudgets(),
-          ),
-          // BottomNavigationBarItem(
-          //   icon: const Icon(CupertinoIcons.graph_circle, size: 20),
-          //   label: AppLocalizations.of(context)!.budget,
-          // ),
         ],
       ),
       bottomNavigationBar: _buildElegantTabBar(),
@@ -220,16 +214,16 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       icon: [
                         CupertinoIcons.add_circled_solid,
                         CupertinoIcons.list_bullet,
+                        CupertinoIcons.graph_circle,
                         CupertinoIcons.chart_bar_fill,
                         CupertinoIcons.calendar,
-                        CupertinoIcons.graph_circle,
                       ][i],
                       label: [
                         AppLocalizations.of(context)!.add,
                         AppLocalizations.of(context)!.transactions,
+                        AppLocalizations.of(context)!.budget,
                         AppLocalizations.of(context)!.dashboards,
                         AppLocalizations.of(context)!.calendar,
-                        AppLocalizations.of(context)!.budget,
                       ][i],
                       index: i,
                     ),
@@ -254,9 +248,12 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       behavior:
           HitTestBehavior.opaque, // <- ESSENCIAL: toda área vira "clicável"
       onTap: () {
-        if (index == 2) dashboardKey.currentState?.refreshData();
-        if (index == 3) calendarKey.currentState?.refreshCalendar();
-        if (index == 4) goalKey.currentState?.refreshBudgets();
+        if (index == 2) goalKey.currentState?.refreshBudgets();
+        if (index == 3) {
+          if (selectedTab != 3)
+            dashboardKey.currentState?.refreshData();
+          }
+        if (index == 4) calendarKey.currentState?.refreshCalendar();
         setState(() => selectedTab = index);
         HapticFeedback.lightImpact();
       },
