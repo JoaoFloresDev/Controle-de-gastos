@@ -123,7 +123,7 @@ class CardService {
       cards.add(cardModel);
       return cards;
     });
-    if(SaveExpensOnCloud().userId != null)
+    if (SaveExpensOnCloud().userId != null)
       SaveExpensOnCloud().addNewDate(cardModel);
   }
 
@@ -133,7 +133,7 @@ class CardService {
       return cards;
     });
     List<CardModel> cards = await retrieveCards();
-    if(SaveExpensOnCloud().userId != null)
+    if (SaveExpensOnCloud().userId != null)
       SaveExpensOnCloud().deleteDate(cards.firstWhere((card) => card.id == id));
   }
 
@@ -143,9 +143,9 @@ class CardService {
       if (index != -1) {
         cards[index] = newCard;
       }
-      if(SaveExpensOnCloud().userId != null){
-          SaveExpensOnCloud().deleteDate(cards[index]);
-          SaveExpensOnCloud().addNewDate(newCard);
+      if (SaveExpensOnCloud().userId != null) {
+        SaveExpensOnCloud().deleteDate(cards[index]);
+        SaveExpensOnCloud().addNewDate(newCard);
       }
       return cards;
     });
@@ -299,5 +299,26 @@ class CardService {
 
   List<String> getIdFixoControlList(List<CardModel> cards) {
     return cards.map((card) => card.idFixoControl).toList();
+  }
+
+  Future<void> changeAllToUnknow(CategoryModel category) async {
+    List<CardModel> cards = await retrieveCards();
+    for (var card in cards) {
+      if (card.category.id == category.id) {
+        CardModel cardAux = card;
+        await deleteCard(card.id);
+        await addCard(CardModel(
+            id: cardAux.id,
+            amount: cardAux.amount,
+            description: cardAux.description,
+            date: cardAux.date,
+            category: CategoryModel(
+              id: 'Unknown',
+              color: Colors.blueAccent.withOpacity(0.8),
+              icon: Icons.question_mark_rounded,
+              name: 'Unknown',
+            )));
+      }
+    }
   }
 }

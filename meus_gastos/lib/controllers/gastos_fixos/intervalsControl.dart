@@ -106,7 +106,7 @@ class Intervalscontrol {
   }
 
   bool semanalInterval(FixedExpense gastoFixo, List<CardModel> cards) {
-    List<CardModel> filteredCard = filterByToday(cards, gastoFixo.date);
+    List<CardModel> filteredCard = filterByToday(cards, gastoFixo.date, DateTime.now());
     List<String> IdsFixosControlList =
         CardService().getIdFixoControlList(filteredCard);
     if (!(IdsFixosControlList.contains(gastoFixo.id)) && (isWeekday())) {
@@ -115,9 +115,9 @@ class Intervalscontrol {
     return false;
   }
 
-  List<CardModel> filterByToday(List<CardModel> cards, DateTime fixDate) {
+  List<CardModel> filterByToday(List<CardModel> cards, DateTime fixDate, DateTime currentDate) {
     // Obtém a data de hoje (apenas ano, mês e dia)
-    DateTime today = DateTime.now();
+    DateTime today = currentDate;
     DateTime todayStart = DateTime(
         today.year, today.month, today.day, fixDate.hour, fixDate.minute);
     DateTime todayEnd = todayStart.add(Duration(days: 1));
@@ -134,8 +134,8 @@ class Intervalscontrol {
     return filteredCards;
   }
 
-  bool diaryInterval(FixedExpense gastoFixo, List<CardModel> cards) {
-    List<CardModel> filteredCard = filterByToday(cards, gastoFixo.date);
+  bool diaryInterval(FixedExpense gastoFixo, List<CardModel> cards, DateTime currentDate) {
+    List<CardModel> filteredCard = filterByToday(cards, gastoFixo.date, currentDate);
     List<String> IdsFixosControlList =
         CardService().getIdFixoControlList(filteredCard);
     if (!(IdsFixosControlList.contains(gastoFixo.id)) ) {
@@ -144,7 +144,7 @@ class Intervalscontrol {
     return false;
   }
 
-  bool IsapresentetionNecessary(FixedExpense gastoFixo, List<CardModel> cards) {
+  bool IsapresentetionNecessary(FixedExpense gastoFixo, List<CardModel> cards, DateTime currentDate) {
     switch (gastoFixo.tipoRepeticao) {
       case 'mensal':
         // verifica se o dia do mês é maior que o gastoFixo.date.day e se não existe o gasto ainda
@@ -160,7 +160,7 @@ class Intervalscontrol {
         return semanalInterval(gastoFixo, cards);
       case 'diario':
         // verifica se no dia atual não tem o gasto fixo.
-        return diaryInterval(gastoFixo, cards);
+        return diaryInterval(gastoFixo, cards, currentDate);
       default:
         // mensal
         return mensalInterval(gastoFixo, cards);

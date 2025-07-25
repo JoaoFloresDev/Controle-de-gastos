@@ -41,7 +41,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
 
   Future<void> loadCategories() async {
     // Await the categories from the service
-    categorieList = await CategoryService().getAllCategories();
+    categorieList = await CategoryService().getAllCategoriesAvaliable();
 
     // Update the UI
     setState(() {});

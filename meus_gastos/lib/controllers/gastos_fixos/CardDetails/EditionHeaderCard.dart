@@ -9,7 +9,7 @@ import 'package:meus_gastos/services/CardService.dart';
 import 'package:uuid/uuid.dart';
 import '../fixedExpensesService.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/CampoComMascara.dart';
-import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
+import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ValorTextField.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
@@ -49,18 +49,17 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   String tipoRepeticao = "";
 
   Future<void> loadCategories() async {
-    var categorieList = await CategoryService().getAllCategories();
+    var categorieList = await CategoryService().getAllCategoriesAvaliable();
     if (categorieList.isNotEmpty) {
+      icons_list_recorrent = categorieList.sublist(0, categorieList.length - 1);
+      lastIndexSelected_category = icons_list_recorrent
+          .indexWhere((category) => category.id == widget.card.category.id);
+      if (lastIndexSelected_category == -1) {
+        lastIndexSelected_category = 0; // ou qualquer valor de fallback
+      }
       setState(() {
-        icons_list_recorrent =
-            categorieList.sublist(0, categorieList.length - 1);
-        lastIndexSelected_category = icons_list_recorrent
-            .indexWhere((category) => category.id == widget.card.category.id);
-
+        lastIndexSelected_category = lastIndexSelected_category;
         // Define um valor padrão se o item não for encontrado
-        if (lastIndexSelected_category == -1) {
-          lastIndexSelected_category = 0; // ou qualquer valor de fallback
-        }
       });
     }
     print(lastIndexSelected_category);

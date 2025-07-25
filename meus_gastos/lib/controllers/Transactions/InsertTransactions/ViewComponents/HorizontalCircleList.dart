@@ -41,7 +41,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
 
   // MARK: - Load Categories
   Future<void> loadCategories() async {
-    categorieList = await CategoryService().getAllCategories();
+    categorieList = await CategoryService().getAllCategoriesAvaliable();
     print(categorieList.removeLast().name);
     setState(() {
       categorieList = categorieList;

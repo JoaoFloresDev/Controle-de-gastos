@@ -34,7 +34,7 @@ class _CategorycreaterState extends State<Categorycreater> {
   void initState() {
     super.initState();
     categoriaController = TextEditingController();
-    _futureCategories = CategoryService().getAllCategories();
+    _futureCategories = CategoryService().getAllCategoriesAvaliable();
   }
 
   @override
@@ -159,7 +159,7 @@ class _CategorycreaterState extends State<Categorycreater> {
     await CategoryService().addCategory(category);
     widget.onCategoryAdded();
     setState(() {
-      _futureCategories = CategoryService().getAllCategories();
+      _futureCategories = CategoryService().getAllCategoriesAvaliable();
     });
   }
 
@@ -345,10 +345,13 @@ class _CategorycreaterState extends State<Categorycreater> {
                                               FocusScope.of(context).unfocus();
                                               await CategoryService()
                                                   .deleteCategory(category.id);
+
+                                              // CardService().changeAllToUnknow(category);
+
                                               setState(() {
                                                 _futureCategories =
                                                     CategoryService()
-                                                        .getAllCategories();
+                                                        .getAllCategoriesAvaliable();
                                                 widget.onCategoryAdded();
                                               });
                                             },

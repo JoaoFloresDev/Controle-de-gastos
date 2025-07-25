@@ -7,7 +7,7 @@ import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import '../Transactions/InsertTransactions/ViewComponents/CampoComMascara.dart';
 import '../Transactions/InsertTransactions/ViewComponents/HorizontalCircleList.dart';
-import '../AddTransaction/UIComponents/Header/ValorTextField.dart';
+import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ValorTextField.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
@@ -94,7 +94,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
 
   // MARK: - Load Categories
   Future<void> loadCategories() async {
-    categorieList = await CategoryService().getAllCategories();
+    categorieList = await CategoryService().getAllCategoriesAvaliable();
     CategoryService().printAllCategories();
     lastIndexSelected = categorieList
         .indexWhere((category) => category.id == widget.card.category.id);

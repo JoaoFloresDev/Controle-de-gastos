@@ -135,72 +135,62 @@ class Fixedexpensesservice {
     return today.add(Duration(days: difference));
   }
 
-  static CardModel Fixed_to_NormalCard(
-      FixedExpense fixedCard, DateTime currentDate) {
-    int day = fixedCard.date.day;
-    int hour = currentDate.hour;
-    int min = fixedCard.date.minute;
-    if (fixedCard.tipoRepeticao == 'semanal')
-      day = getCurrentWeekdayDate(fixedCard.date).day;
-    if ((fixedCard.tipoRepeticao == 'seg_sex') ||
-        fixedCard.tipoRepeticao == 'diario') day = currentDate.day;
-
-    return CardModel(
-        id: CardService.generateUniqueId(),
-        amount: fixedCard.price,
-        description: fixedCard.description,
-        date:
-            DateTime(DateTime.now().year, DateTime.now().month, day, hour, min),
-        category: fixedCard.category,
-        idFixoControl: fixedCard.id);
-  }
-
   static Future<List<FixedExpense>> filteredFixedCardsShow(
       List<FixedExpense> fixedCards, DateTime currentDate) async {
-    // List<String> normalIds = await CardService.getNormalExpenseIds();
     List<CardModel> normalCards = await CardService.retrieveCards();
     currentDate = DateTime.now();
-
-    for (var fcard in fixedCards) {
-      if (fcard.tipoRepeticao == 'diario') {
-        // print("${fcard.tipoRepeticao} : $isCurrentBeforeCardTime");
-        // print("dia atual ${currentDate.day} | dia fcard ${fcard.date.day}");
-        // print(
-        //     "atual time: ${currentDate.hour} : ${DateTime.now().minute} | fcard time : ${fcard.date.hour} : ${fcard.date.minute}");
-        // Se o horário atual for antes do horário do card, altera a data do fcard para o dia anterior
-        final isCurrentBeforeCardTime = currentDate.hour < fcard.date.hour ||
-            (currentDate.hour == fcard.date.hour &&
-                currentDate.minute < fcard.date.minute);
-        if (isCurrentBeforeCardTime) {
-          fcard.date = currentDate.subtract(const Duration(days: 1));
-        }
-      }
-    }
 
     // printCardsInfo();
 
     return fixedCards.where((fcard) {
-      DateTime today = DateTime.now();
-      DateTime todayStart = DateTime(today.year, today.month, today.day,
-          fcard.date.hour, fcard.date.minute);
-      DateTime todayEnd = todayStart.add(Duration(days: 1));
-
-      final shouldShow =
-          Intervalscontrol().IsapresentetionNecessary(fcard, normalCards) &&
-              DateTime.now().isAfter(fcard.date) &&
-              (DateTime.now().isAfter(todayStart) &&
-                  DateTime.now().isBefore(todayEnd));
-      // (DateTime.now().hour >= fcard.date.hour &&
-      //         DateTime.now().minute >= fcard.date.minute);
-
-      // final shouldShow = Intervalscontrol().IsapresentetionNecessary(fcard, normalCards) &&
-      //     currentDate.isAfter(fcard.date) &&
-      //     ((currentDate.hour >= fcard.date.hour &&
-      //         currentDate.minute >= fcard.date.minute) ||
-      //         (currentDate.subtract(Duration(days: 1)).day == fcard.date.day && (currentDate.hour < fcard.date.hour ||
-      //       (currentDate.hour == fcard.date.hour &&
-      //           currentDate.minute < fcard.date.minute))));
-
+      DateTime verificationDate = currentDate;
+      bool isCurrentBeforeCardTime = false;
+      // Se for diário, ajusta a data do fcard conforme o horário atual
+      if (fcard.tipoRepeticao == 'diario') {
+        isCurrentBeforeCardTime = currentDate.hour < fcard.date.hour ||
+            (currentDate.hour == fcard.date.hour &&
+                currentDate.minute < fcard.date.minute);
+        // print("${fcard.tipoRepeticao} : $isCurrentBeforeCardTime ");
+        if (isCurrentBeforeCardTime) {
+          print("AJJ");
+          // Altera a data do fcard para ontem mantendo hora/minuto
+          final yesterday = currentDate.subtract(const Duration(days: 1));
+          fcard.date = DateTime(
+            yesterday.year,
+            yesterday.month,
+            yesterday.day,
+            fcard.date.hour,
+            fcard.date.minute,
+          );
+          verificationDate = yesterday;
+        } else {
+          fcard.date = DateTime(
+            currentDate.year,
+            currentDate.month,
+            currentDate.day,
+            fcard.date.hour,
+            fcard.date.minute,
+          );
+        }
+      } else {
+        fcard.date = DateTime(
+          currentDate.year,
+          currentDate.month,
+          currentDate.day,
+          fcard.date.hour,
+          fcard.date.minute,
+        );
+      }
+      print("$verificationDate e fcard.date: ${fcard.date}");
+      print(Intervalscontrol()
+          .IsapresentetionNecessary(fcard, normalCards, verificationDate));
+      final shouldShow = Intervalscontrol()
+              .IsapresentetionNecessary(fcard, normalCards, verificationDate) &&
+          currentDate.isAfter(fcard.date);
+      // && (verificationDate.hour > fcard.date.hour ||
+      //     (verificationDate.hour == fcard.date.hour &&
+      //         verificationDate.minute >= fcard.date.minute));
+      // print(shouldShow);
       return shouldShow;
     }).toList();
   }
@@ -217,6 +207,34 @@ class Fixedexpensesservice {
     }
 
     return normalCards;
+  }
+
+  static CardModel Fixed_to_NormalCard(
+      FixedExpense fixedCard, DateTime currentDate) {
+    int day = fixedCard.date.day;
+    int hour = fixedCard.date.hour;
+    int min = fixedCard.date.minute;
+
+    // Apenas semanal precisa de ajuste específico
+    if (fixedCard.tipoRepeticao == 'semanal') {
+      day = getCurrentWeekdayDate(fixedCard.date).day;
+    }
+
+    // Para diário ou seg_sex, usa o dia já contido em fixedCard.date
+    return CardModel(
+      id: CardService.generateUniqueId(),
+      amount: fixedCard.price,
+      description: fixedCard.description,
+      date: DateTime(
+        DateTime.now().year,
+        DateTime.now().month,
+        day,
+        hour,
+        min,
+      ),
+      category: fixedCard.category,
+      idFixoControl: fixedCard.id,
+    );
   }
 
   static Future<void> printCardsInfo() async {

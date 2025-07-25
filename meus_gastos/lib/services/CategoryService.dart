@@ -13,24 +13,24 @@ class CategoryService {
   static const String _isFirstAccessKey = 'isFirstAccess';
 
   Future<void> addCategory(CategoryModel category) async {
-  User? user = FirebaseAuth.instance.currentUser;
+    User? user = FirebaseAuth.instance.currentUser;
 
-  if (user != null) {
-    // Usuário logado: adiciona ao Firestore
-    await FirebaseFirestore.instance
-        .collection(user.uid)
-        .doc('Categories')
-        .collection('categoryList')
-        .doc(category.id)
-        .set(category.toJson());
-  } else {
-    // Usuário offline: adiciona ao SharedPreferences
-    final prefs = await SharedPreferences.getInstance();
-    List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
-    categories.add(jsonEncode(category.toJson()));
-    await prefs.setStringList(_categoriesKey, categories);
+    if (user != null) {
+      // Usuário logado: adiciona ao Firestore
+      await FirebaseFirestore.instance
+          .collection(user.uid)
+          .doc('Categories')
+          .collection('categoryList')
+          .doc(category.id)
+          .set(category.toJson());
+    } else {
+      // Usuário offline: adiciona ao SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
+      categories.add(jsonEncode(category.toJson()));
+      await prefs.setStringList(_categoriesKey, categories);
+    }
   }
-}
 
 //MARK: - Delete Category
   Future<void> deleteCategory(String id) async {
@@ -217,7 +217,8 @@ class CategoryService {
         for (var category in defaultCategories) {
           await SaveExpensOnCloud().addNewCategory(category);
         }
-        return defaultCategories..sort((a, b) => b.frequency.compareTo(a.frequency));
+        return defaultCategories
+          ..sort((a, b) => b.frequency.compareTo(a.frequency));
       } else {
         // Categorias já existem
         List<CategoryModel> cloudCategories = snapshot.docs
@@ -240,18 +241,25 @@ class CategoryService {
           await addCategory(
               category); // Supondo que essa função salva localmente
         }
-        return defaultCategories..sort((a, b) => b.frequency.compareTo(a.frequency));
+        return defaultCategories
+          ..sort((a, b) => b.frequency.compareTo(a.frequency));
       } else {
         List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
         List<CategoryModel> aux = categories.map((category) {
           final Map<String, dynamic> categoryMap = jsonDecode(category);
           return CategoryModel.fromJson(categoryMap);
         }).toList();
-        aux = aux.where((cat) => cat.available).toList();
+        // aux = aux.where((cat) => cat.available).toList();
         aux.sort((a, b) => b.frequency.compareTo(a.frequency));
         return aux;
       }
     }
+  }
+
+  Future<List<CategoryModel>> getAllCategoriesAvaliable() async {
+    List<CategoryModel> categories = await getAllCategories();
+    categories = categories.where((cat) => cat.available).toList();
+    return categories;
   }
 
   Future<void> printAllCategories() async {
@@ -280,7 +288,6 @@ class CategoryService {
 //   aux.sort((a, b) => b.frequency.compareTo(a.frequency));
 //   return aux;
 // }
-
 
   Future<void> incrementCategoryFrequency(String categoryId) async {
     User? user = FirebaseAuth.instance.currentUser;
