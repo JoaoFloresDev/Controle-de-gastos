@@ -342,8 +342,10 @@ class _ProModalState extends State<ProModal> {
   }
 
   void _showMenuOptions(BuildContext context) {
-    showCupertinoModalPopup(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return CupertinoActionSheet(
           actions: <Widget>[

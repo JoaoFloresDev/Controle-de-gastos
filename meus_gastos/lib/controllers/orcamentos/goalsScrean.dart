@@ -3,11 +3,9 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgressIndicatorSection.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/controllers/orcamentos/goalsService.dart';
 import 'package:meus_gastos/controllers/orcamentos/setBudget.dart';
-import 'package:meus_gastos/controllers/orcamentos/teste.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
@@ -232,7 +230,7 @@ class GoalsscreanState extends State<Goalsscrean> {
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.9,
-                                      child: SetbudgetTeste(
+                                      child: Setbudget(
                                         category: categories[index],
                                         initialValue: (metas_por_categoria[
                                                 categories[index].id] ??

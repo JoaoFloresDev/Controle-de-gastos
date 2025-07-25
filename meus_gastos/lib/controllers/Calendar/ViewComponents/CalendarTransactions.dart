@@ -43,18 +43,19 @@ class TransactionList extends StatelessWidget {
       return Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
-          child: Column(
-            children: [
-              SizedBox(height: 40,),
-              Text(
+          child: Column(children: [
+            SizedBox(
+              height: 40,
+            ),
+            Text(
               AppLocalizations.of(context)!.emptyDay,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: AppColors.labelPlaceholder,
                 fontSize: 18,
               ),
-            ),]
-          ),
+            ),
+          ]),
         ),
       );
     }
@@ -83,8 +84,10 @@ class TransactionList extends StatelessWidget {
 
   void _showCupertinoModalBottomSheet(BuildContext context, CardModel card) {
     FocusScope.of(context).unfocus();
-    showCupertinoModalPopup(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return Container(
           height: MediaQuery.of(context).size.height - 70,

@@ -77,27 +77,23 @@ class ReviewService {
   }
 
   static void _showProModal(BuildContext context) async {
-    if (Platform.isIOS) {
-      showCupertinoModalPopup(
-        context: context,
-        builder: (BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        if (Platform.isIOS || Platform.isMacOS) {
           return ProModal(
             isLoading: false,
             onSubscriptionPurchased: () {},
           );
-        },
-      );
-    }
-    if (Platform.isAndroid) {
-      showCupertinoModalPopup(
-        context: context,
-        builder: (BuildContext context) {
+        } else {
           return ProModalAndroid(
             isLoading: true,
             onSubscriptionPurchased: () {},
           );
-        },
-      );
-    }
+        }
+      },
+    );
   }
 }

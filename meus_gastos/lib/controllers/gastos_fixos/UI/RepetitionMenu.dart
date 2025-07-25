@@ -96,8 +96,10 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
     final String dayOfMonth = dayFormat.format(widget.referenceDate);
     final String monthDay = monthDayFormat.format(widget.referenceDate);
 
-    showCupertinoModalPopup(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return CupertinoActionSheet(
           title: Text(AppLocalizations.of(context)!.selectAnOption),

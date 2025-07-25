@@ -11,7 +11,9 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 class ExtractByCategory extends StatefulWidget {
   final String category;
   final DateTime currentMonth;
-  const ExtractByCategory({Key? key, required this.category, required this.currentMonth}) : super(key: key);
+  const ExtractByCategory(
+      {Key? key, required this.category, required this.currentMonth})
+      : super(key: key);
 
   @override
   _ExtractByCategoryState createState() => _ExtractByCategoryState();
@@ -47,118 +49,140 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
     List<CardModel> filtered = selectByCategory(cards, widget.currentMonth);
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: const BoxDecoration(
-              color: AppColors.card,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Container(
+          decoration: const BoxDecoration(
+            color: AppColors.card,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CupertinoButton(
-                  padding: EdgeInsets.zero,
-                  child: const Icon(CupertinoIcons.clear,
-                      color: Colors.white, size: 28),
-                  onPressed: () {
-                    print("Close button pressed");
-                    Navigator.pop(context);
-                  },
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              // Header do modal
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: const BoxDecoration(
+                  color: AppColors.card,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                 ),
-                Text(
-                  Translateservice.getTranslatedCategoryName(
-                      context, widget.category),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                CupertinoButton(
-                  padding: EdgeInsets.zero,
-                  child: const Icon(CupertinoIcons.share,
-                      color: Colors.white, size: 28),
-                  onPressed: () {
-                    showCupertinoModalPopup(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: SizeOf(context).modal.halfModal(),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(20)),
-                          ),
-                          child: Exportexcelscreen(category: widget.category),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      child: const Icon(CupertinoIcons.clear,
+                          color: Colors.white, size: 28),
+                      onPressed: () {
+                        print("Close button pressed");
+                        Navigator.pop(context);
+                      },
+                    ),
+                    Text(
+                      Translateservice.getTranslatedCategoryName(
+                          context, widget.category),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      child: const Icon(CupertinoIcons.share,
+                          color: Colors.white, size: 28),
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          builder: (BuildContext context) {
+                            return Container(
+                              height: SizeOf(context).modal.halfModal(),
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(20)),
+                              ),
+                              child:
+                                  Exportexcelscreen(category: widget.category),
+                            );
+                          },
                         );
                       },
-                    );
-                  },
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          // Lista de transações sem espaço extra entre o header e o conteúdo
-          Expanded(
-            child: Transform.translate(
-              offset: const Offset(0, 0), // desloca 4 pixels para cima
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(0)),
-                ),
-                child: filtered.isEmpty
-                    ? Center(
-                        child: Text(
-                          "No transactions found",
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
-                      )
-                    : ListView.builder(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                        itemCount: filtered.length,
-                        itemBuilder: (context, index) {
-                          CardModel card =
-                              filtered[filtered.length - index - 1];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: ListCard(
-                              onTap: (card) {
-                                FocusScope.of(context).unfocus();
-                                showCupertinoModalPopup(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return Container(
-                                      height:
-                                          MediaQuery.of(context).size.height -
-                                              70,
-                                      decoration: const BoxDecoration(
-                                        color: AppColors.background1,
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(20)),
-                                      ),
-                                      child: DetailScreen(
-                                        card: card,
-                                        onAddClicked: () {
-                                          loadCards();
-                                        },
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              card: card,
-                              background: AppColors.card,
-                            ),
-                          );
-                        },
-                      ),
               ),
-            ),
+
+              // Lista de transações
+              Expanded(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.black,
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(0)),
+                  ),
+                  child: filtered.isEmpty
+                      ? const Center(
+                          child: Text(
+                            "No transactions found",
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                        )
+                      : ListView.builder(
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                          itemCount: filtered.length,
+                          itemBuilder: (context, index) {
+                            CardModel card =
+                                filtered[filtered.length - index - 1];
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: ListCard(
+                                onTap: (card) {
+                                  FocusScope.of(context).unfocus();
+                                  showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        height:
+                                            MediaQuery.of(context).size.height -
+                                                70,
+                                        decoration: const BoxDecoration(
+                                          color: AppColors.background1,
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(20)),
+                                        ),
+                                        child: DetailScreen(
+                                          card: card,
+                                          onAddClicked: () {
+                                            loadCards();
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                card: card,
+                                background: AppColors.card,
+                              ),
+                            );
+                          },
+                        ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

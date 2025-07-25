@@ -99,14 +99,13 @@ class _AddTransactionControllerState extends State<AddTransactionController>
     });
   }
 
-    @override
+  @override
   void didUpdateWidget(covariant AddTransactionController oldWidget) {
-      super.didUpdateWidget(oldWidget);
-      if (widget.isActive && !oldWidget.isActive) {
-        _loadFixedCards();
-      }
+    super.didUpdateWidget(oldWidget);
+    if (widget.isActive && !oldWidget.isActive) {
+      _loadFixedCards();
     }
-
+  }
 
   List<CardModel> mockCards = [];
   Future<void> _loadFixedCards() async {
@@ -496,8 +495,10 @@ class _AddTransactionControllerState extends State<AddTransactionController>
 
       onAddCategorySelected: () {
         print("AHHHHH");
-        showCupertinoModalPopup(
+        showModalBottomSheet(
           context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
           builder: (BuildContext context) {
             return Container(
               height: MediaQuery.of(context).size.height - 70,

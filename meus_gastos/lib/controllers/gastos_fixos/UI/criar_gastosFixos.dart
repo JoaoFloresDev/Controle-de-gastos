@@ -276,11 +276,13 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
     print(card.tipoRepeticao);
     FocusScope.of(context).unfocus();
 
-    showCupertinoModalPopup(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return GestureDetector(
-          onTap: (){
+          onTap: () {
             FocusScope.of(context).unfocus();
           },
           child: Container(

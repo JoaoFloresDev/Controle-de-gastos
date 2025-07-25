@@ -59,8 +59,10 @@ class _CampoComMascaraState extends State<CampoComMascara> {
   // MARK: - Handle Tap
   void _handleTap() {
     _focusNode.unfocus();
-    showCupertinoModalPopup(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return Container(
           height: 300,

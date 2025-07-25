@@ -487,8 +487,10 @@ class DashboardScreenState extends State<DashboardScreen>
   }
 
   void _showExpenseDetails(BuildContext context, ProgressIndicatorModel model) {
-    showCupertinoModalPopup(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return Container(
           height: MediaQuery.of(context).size.height - 70,
@@ -499,10 +501,26 @@ class DashboardScreenState extends State<DashboardScreen>
             ),
           ),
           child: ExtractByCategory(
-              category: model.category.name, currentMonth: currentDate),
-        );
+                category: model.category.name, currentMonth: currentDate),
+        ); // O widget com o código acima
       },
     );
+    // showCupertinoModalPopup(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return Container(
+    //       height: MediaQuery.of(context).size.height - 70,
+    //       decoration: const BoxDecoration(
+    //         borderRadius: BorderRadius.only(
+    //           topLeft: Radius.circular(20),
+    //           topRight: Radius.circular(20),
+    //         ),
+    //       ),
+    //       child: ExtractByCategory(
+    //           category: model.category.name, currentMonth: currentDate),
+    //     );
+    //   },
+    // );
   }
 
   Widget _buildLoadingIndicator() {
@@ -536,19 +554,12 @@ class DashboardScreenState extends State<DashboardScreen>
         backgroundColor: AppColors.background1,
         trailing: GestureDetector(
           onTap: () {
-            showCupertinoModalPopup(
+            showModalBottomSheet(
               context: context,
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
               builder: (BuildContext context) {
-                return Container(
-                  height: SizeOf(context).modal.halfModal(),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                  ),
-                  child: Exportexcelscreen(),
-                );
+                return Exportexcelscreen(); // O widget com o código acima
               },
             );
           },

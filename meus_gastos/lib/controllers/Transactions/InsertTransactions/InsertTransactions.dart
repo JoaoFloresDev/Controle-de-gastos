@@ -144,10 +144,12 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   }
 
   void _showProModal(BuildContext context) async {
-    if (Platform.isIOS || Platform.isMacOS) {
-      showCupertinoModalPopup(
-        context: context,
-        builder: (BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        if (Platform.isIOS || Platform.isMacOS) {
           return ProModal(
             isLoading: _isLoading,
             onSubscriptionPurchased: () {
@@ -156,13 +158,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
               });
             },
           );
-        },
-      );
-    }
-    if (Platform.isAndroid) {
-      showCupertinoModalPopup(
-        context: context,
-        builder: (BuildContext context) {
+        } else {
           return ProModalAndroid(
             isLoading: _isLoading,
             onSubscriptionPurchased: () {
@@ -171,9 +167,9 @@ class _InsertTransactionsState extends State<InsertTransactions> {
               });
             },
           );
-        },
-      );
-    }
+        }
+      },
+    );
   }
 
   @override
@@ -344,8 +340,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
   void _showCupertinoModalBottomSheet(BuildContext context, CardModel card) {
     FocusScope.of(context).unfocus();
-    showCupertinoModalPopup(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return Container(
           height: MediaQuery.of(context).size.height - 70,
@@ -377,8 +375,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
   void _showCupertinoModalBottomFixedExpenses(BuildContext context) {
     FocusScope.of(context).unfocus();
-    showCupertinoModalPopup(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return Container(
           height: MediaQuery.of(context).size.height - 70,
@@ -402,8 +402,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
   void _singInScreen() {
     FocusScope.of(context).unfocus();
-    showCupertinoModalPopup(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return Container(
             height: MediaQuery.of(context).size.height / 2.0,
@@ -441,8 +443,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
   void _singOutScreen() {
     FocusScope.of(context).unfocus();
-    showCupertinoModalPopup(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return Container(
             height: MediaQuery.of(context).size.height / 2.0,
@@ -637,8 +641,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                               onPressed: () async {
                                 final prefs =
                                     await SharedPreferences.getInstance();
-                                await prefs.setBool(
-                                    'synced_${userId}', true);
+                                await prefs.setBool('synced_${userId}', true);
                                 Navigator.pop(context);
                               },
                               style: TextButton.styleFrom(
