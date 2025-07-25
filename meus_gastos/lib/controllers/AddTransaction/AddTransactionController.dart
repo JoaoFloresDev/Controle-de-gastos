@@ -46,6 +46,7 @@ class AddTransactionController extends StatefulWidget {
     required this.categoriesKey,
     required this.descriptionKey,
     required this.valueExpensKey,
+    required this.isActive,
     super.key,
   });
   final VoidCallback onAddClicked;
@@ -57,6 +58,8 @@ class AddTransactionController extends StatefulWidget {
   final GlobalKey categoriesKey;
   final GlobalKey descriptionKey;
   final GlobalKey valueExpensKey;
+  final bool isActive;
+
   @override
   State<AddTransactionController> createState() =>
       _AddTransactionControllerState();
@@ -96,12 +99,24 @@ class _AddTransactionControllerState extends State<AddTransactionController>
     });
   }
 
+    @override
+  void didUpdateWidget(covariant AddTransactionController oldWidget) {
+      super.didUpdateWidget(oldWidget);
+      if (widget.isActive && !oldWidget.isActive) {
+        _loadFixedCards();
+      }
+    }
+
+
   List<CardModel> mockCards = [];
   Future<void> _loadFixedCards() async {
-    var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
-    final fixedCards = fcard
+    List<FixedExpense> fcard =
+        await Fixedexpensesservice.getSortedFixedExpenses();
+    fcard = await Fixedexpensesservice.filteredFixedCardsShow(fcard);
+    List<CardModel> fixedCards = fcard
         .map((item) => Fixedexpensesservice.Fixed_to_NormalCard(item))
         .toList();
+    print("${fixedCards.length} OPAAA");
     setState(() {
       mockCards = fixedCards;
     });
@@ -410,9 +425,13 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                         HorizontalCompactCardList(
                           cards: mockCards,
                           onTap: (card) => widget.onAddClicked(),
-                          onAddClicked: _loadCards,
+                          onAddClicked: () async {
+                            _loadCards();
+                            _loadFixedCards();
+                          },
                           onCardsEmpty: () {
                             print("aqui! recore");
+                            _loadFixedCards();
                             setState(() {
                               // if (mockCards.isEmpty) {
                               //     showRecorrentCard = false;

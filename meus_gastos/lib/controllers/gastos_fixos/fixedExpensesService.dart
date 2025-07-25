@@ -8,7 +8,6 @@ import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 
 class Fixedexpensesservice {
-  
   // static Future<void> saveFixedExpense(FixedExpense expense) async {
   //   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -153,6 +152,27 @@ class Fixedexpensesservice {
             DateTime(DateTime.now().year, DateTime.now().month, day, hour, min),
         category: fixedCard.category,
         idFixoControl: fixedCard.id);
+  }
+
+  static Future<List<FixedExpense>> filteredFixedCardsShow(
+      List<FixedExpense> fixedCards) async {
+    List<String> normalIds = await CardService.getNormalExpenseIds();
+    List<CardModel> normalCards = await CardService.retrieveCards();
+    List<FixedExpense> fCards = [];
+    print("${fixedCards.length} OPAAA");
+
+    for (var fcard in fixedCards) {
+      if (!normalIds.contains(fcard.id)) {
+        // Verification of hour and minutes to show the FixedExpense card only after the defined time
+        if (Intervalscontrol().IsapresentetionNecessary(fcard, normalCards) &&
+            DateTime.now().isAfter(fcard.date) &&
+            ((DateTime.now().hour >= fcard.date.hour) &&
+                (DateTime.now().minute >= fcard.date.minute))) {
+          fCards.add(fcard);
+        }
+      }
+    }
+    return fCards;
   }
 
   static Future<List<CardModel>> MergeFixedWithNormal(

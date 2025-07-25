@@ -108,6 +108,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
+
   //mark - variables
   //mark - variables
 
@@ -119,6 +120,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         index: selectedTab,
         children: [
           AddTransactionController(
+            isActive: selectedTab == 0,
             title: AppLocalizations.of(context)!.myExpenses,
             onAddClicked: () {},
             exportButton: exportButtonAT,
@@ -132,9 +134,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           InsertTransactions(
             isActive: selectedTab == 1,
             title: AppLocalizations.of(context)!.myExpenses,
-            onAddClicked: () {
-              goalKey.currentState?.refreshBudgets();
-            },
+            onAddClicked: () {},
             exportButon: exportButton,
             cardsExpens: cardsExpense,
             valueExpens: valueExpense,
@@ -250,9 +250,8 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       onTap: () {
         if (index == 2) goalKey.currentState?.refreshBudgets();
         if (index == 3) {
-          if (selectedTab != 3)
-            dashboardKey.currentState?.refreshData();
-          }
+          if (selectedTab != 3) dashboardKey.currentState?.refreshData();
+        }
         if (index == 4) calendarKey.currentState?.refreshCalendar();
         setState(() => selectedTab = index);
         HapticFeedback.lightImpact();
