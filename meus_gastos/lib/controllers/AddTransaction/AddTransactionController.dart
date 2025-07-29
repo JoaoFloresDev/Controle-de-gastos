@@ -111,9 +111,9 @@ class _AddTransactionControllerState extends State<AddTransactionController>
   Future<void> _loadFixedCards() async {
     List<FixedExpense> fcard =
         await Fixedexpensesservice.getSortedFixedExpenses();
-    fcard = await Fixedexpensesservice.filteredFixedCardsShow(fcard);
+    fcard = await Fixedexpensesservice.filteredFixedCardsShow(fcard, DateTime.now());
     List<CardModel> fixedCards = fcard
-        .map((item) => Fixedexpensesservice.Fixed_to_NormalCard(item))
+        .map((item) => Fixedexpensesservice.Fixed_to_NormalCard(item, DateTime.now()))
         .toList();
     print("${fixedCards.length} OPAAA");
     setState(() {

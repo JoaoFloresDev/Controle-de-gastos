@@ -61,6 +61,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   final GlobalKey<VerticalCircleListState> _verticalCircleListKey =
       GlobalKey<VerticalCircleListState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late DateTime currentDate;
 
   bool _showHeaderCard = true;
 
@@ -79,6 +80,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   @override
   void initState() {
     super.initState();
+    currentDate = DateTime.now();
     loadCards();
     // _initInAppPurchase();
     userId = SaveExpensOnCloud().userId ?? null;
@@ -127,7 +129,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     fixedCards = fcard;
     // cardList.forEach((card) => print("${card.id}: ${card.amount}"));
     mergeCardList =
-        await Fixedexpensesservice.MergeFixedWithNormal(fixedCards, cardList);
+        await Fixedexpensesservice.mergeFixedWithNormal(fixedCards, cardList, currentDate);
     setState(() {});
   }
 
@@ -368,7 +370,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
 
   Future<void> fakeExpens(FixedExpense cardFix) async {
     cardFix.price = 0;
-    var car = Fixedexpensesservice.Fixed_to_NormalCard(cardFix);
+    var car = Fixedexpensesservice.Fixed_to_NormalCard(cardFix, currentDate);
     await service.CardService.addCard(car);
     SaveExpensOnCloud().addNewDate(car);
   }

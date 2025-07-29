@@ -135,14 +135,15 @@ class Fixedexpensesservice {
     return today.add(Duration(days: difference));
   }
 
-  static CardModel Fixed_to_NormalCard(FixedExpense fixedCard) {
+  static CardModel Fixed_to_NormalCard(
+      FixedExpense fixedCard, DateTime currentDate) {
     int day = fixedCard.date.day;
-    int hour = fixedCard.date.hour;
+    int hour = currentDate.hour;
     int min = fixedCard.date.minute;
     if (fixedCard.tipoRepeticao == 'semanal')
       day = getCurrentWeekdayDate(fixedCard.date).day;
     if ((fixedCard.tipoRepeticao == 'seg_sex') ||
-        fixedCard.tipoRepeticao == 'diario') day = DateTime.now().day;
+        fixedCard.tipoRepeticao == 'diario') day = currentDate.day;
 
     return CardModel(
         id: CardService.generateUniqueId(),
@@ -155,40 +156,66 @@ class Fixedexpensesservice {
   }
 
   static Future<List<FixedExpense>> filteredFixedCardsShow(
-      List<FixedExpense> fixedCards) async {
-    List<String> normalIds = await CardService.getNormalExpenseIds();
+      List<FixedExpense> fixedCards, DateTime currentDate) async {
+    // List<String> normalIds = await CardService.getNormalExpenseIds();
     List<CardModel> normalCards = await CardService.retrieveCards();
-    List<FixedExpense> fCards = [];
-    print("${fixedCards.length} OPAAA");
+    currentDate = DateTime.now();
 
     for (var fcard in fixedCards) {
-      if (!normalIds.contains(fcard.id)) {
-        // Verification of hour and minutes to show the FixedExpense card only after the defined time
-        if (Intervalscontrol().IsapresentetionNecessary(fcard, normalCards) &&
-            DateTime.now().isAfter(fcard.date) &&
-            ((DateTime.now().hour >= fcard.date.hour) &&
-                (DateTime.now().minute >= fcard.date.minute))) {
-          fCards.add(fcard);
+      if (fcard.tipoRepeticao == 'diario') {
+        // print("${fcard.tipoRepeticao} : $isCurrentBeforeCardTime");
+        // print("dia atual ${currentDate.day} | dia fcard ${fcard.date.day}");
+        // print(
+        //     "atual time: ${currentDate.hour} : ${DateTime.now().minute} | fcard time : ${fcard.date.hour} : ${fcard.date.minute}");
+        // Se o horário atual for antes do horário do card, altera a data do fcard para o dia anterior
+        final isCurrentBeforeCardTime = currentDate.hour < fcard.date.hour ||
+            (currentDate.hour == fcard.date.hour &&
+                currentDate.minute < fcard.date.minute);
+        if (isCurrentBeforeCardTime) {
+          fcard.date = currentDate.subtract(const Duration(days: 1));
         }
       }
     }
-    return fCards;
+
+    // printCardsInfo();
+
+    return fixedCards.where((fcard) {
+      DateTime today = DateTime.now();
+      DateTime todayStart = DateTime(today.year, today.month, today.day,
+          fcard.date.hour, fcard.date.minute);
+      DateTime todayEnd = todayStart.add(Duration(days: 1));
+
+      final shouldShow =
+          Intervalscontrol().IsapresentetionNecessary(fcard, normalCards) &&
+              DateTime.now().isAfter(fcard.date) &&
+              (DateTime.now().isAfter(todayStart) &&
+                  DateTime.now().isBefore(todayEnd));
+      // (DateTime.now().hour >= fcard.date.hour &&
+      //         DateTime.now().minute >= fcard.date.minute);
+
+      // final shouldShow = Intervalscontrol().IsapresentetionNecessary(fcard, normalCards) &&
+      //     currentDate.isAfter(fcard.date) &&
+      //     ((currentDate.hour >= fcard.date.hour &&
+      //         currentDate.minute >= fcard.date.minute) ||
+      //         (currentDate.subtract(Duration(days: 1)).day == fcard.date.day && (currentDate.hour < fcard.date.hour ||
+      //       (currentDate.hour == fcard.date.hour &&
+      //           currentDate.minute < fcard.date.minute))));
+
+      return shouldShow;
+    }).toList();
   }
 
-  static Future<List<CardModel>> MergeFixedWithNormal(
-      List<FixedExpense> fixedCards, List<CardModel> normalCards) async {
-    List<String> normalIds = await CardService.getNormalExpenseIds();
-    for (var fcard in fixedCards) {
-      if (!normalIds.contains(fcard.id)) {
-        // Verification of hour and minutes to show the FixedExpense card only after the defined time
-        if (Intervalscontrol().IsapresentetionNecessary(fcard, normalCards) &&
-            DateTime.now().isAfter(fcard.date) &&
-            ((DateTime.now().hour >= fcard.date.hour) &&
-                (DateTime.now().minute >= fcard.date.minute))) {
-          normalCards.add(Fixed_to_NormalCard(fcard));
-        }
-      }
+  static Future<List<CardModel>> mergeFixedWithNormal(
+      List<FixedExpense> fixedCards,
+      List<CardModel> normalCards,
+      DateTime currentDate) async {
+    final filteredFixedCards =
+        await filteredFixedCardsShow(fixedCards, currentDate);
+
+    for (var fcard in filteredFixedCards) {
+      normalCards.add(Fixed_to_NormalCard(fcard, currentDate));
     }
+
     return normalCards;
   }
 
