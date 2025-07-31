@@ -22,7 +22,7 @@ class ListCardRecorrent extends StatelessWidget {
     final newCard = CardModel(
       amount: card.amount,
       description: card.description,
-      date: card.date,
+      date: DateTime(card.date.year, card.date.month, card.date.day, DateTime.now().hour, DateTime.now().minute) ,
       category: card.category,
       id: CardService.generateUniqueId(),
       idFixoControl: card.idFixoControl,

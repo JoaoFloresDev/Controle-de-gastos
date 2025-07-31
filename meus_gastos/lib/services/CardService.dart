@@ -128,13 +128,16 @@ class CardService {
   }
 
   static Future<void> deleteCard(String id) async {
+    if (SaveExpensOnCloud().userId != null){
+      List<CardModel> cards = await retrieveCards();
+      SaveExpensOnCloud().deleteDate(cards.firstWhere((card) => card.id == id));
+    } else {
     await modifyCards((cards) {
       cards.removeWhere((card) => card.id == id);
       return cards;
     });
-    List<CardModel> cards = await retrieveCards();
-    if (SaveExpensOnCloud().userId != null)
-      SaveExpensOnCloud().deleteDate(cards.firstWhere((card) => card.id == id));
+    
+    }
   }
 
   static Future<void> updateCard(String id, CardModel newCard) async {
@@ -301,24 +304,24 @@ class CardService {
     return cards.map((card) => card.idFixoControl).toList();
   }
 
-  Future<void> changeAllToUnknow(CategoryModel category) async {
-    List<CardModel> cards = await retrieveCards();
-    for (var card in cards) {
-      if (card.category.id == category.id) {
-        CardModel cardAux = card;
-        await deleteCard(card.id);
-        await addCard(CardModel(
-            id: cardAux.id,
-            amount: cardAux.amount,
-            description: cardAux.description,
-            date: cardAux.date,
-            category: CategoryModel(
-              id: 'Unknown',
-              color: Colors.blueAccent.withOpacity(0.8),
-              icon: Icons.question_mark_rounded,
-              name: 'Unknown',
-            )));
-      }
-    }
-  }
+  // Future<void> changeAllToUnknow(CategoryModel category) async {
+  //   List<CardModel> cards = await retrieveCards();
+  //   for (var card in cards) {
+  //     if (card.category.id == category.id) {
+  //       CardModel cardAux = card;
+  //       await deleteCard(card.id);
+  //       await addCard(CardModel(
+  //           id: cardAux.id,
+  //           amount: cardAux.amount,
+  //           description: cardAux.description,
+  //           date: cardAux.date,
+  //           category: CategoryModel(
+  //             id: 'Unknown',
+  //             color: Colors.blueAccent.withOpacity(0.8),
+  //             icon: Icons.question_mark_rounded,
+  //             name: 'Unknown',
+  //           )));
+  //     }
+  //   }
+  // }
 }

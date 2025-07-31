@@ -54,15 +54,36 @@ class GoalsscreanState extends State<Goalsscrean> {
     print(categories.length);
     progressIndicators =
         await CardService.getProgressIndicatorsByMonth(currentDate);
+
+    // filtra as categorias que são visiveis (não deletadas) ou tem algum gasto.
+    categories = categories.where((ct) {
+      // Possível erro
+      bool expenseBiggerThenZero = false;
+      try {
+        ProgressIndicatorModel pg_of_categorie =
+            progressIndicators.firstWhere((pg) => pg.category.id == ct.id);
+        if (pg_of_categorie != null) {
+          expenseBiggerThenZero = (pg_of_categorie.progress > 0);
+        }
+      } catch (e) {
+        print("Erro $e");
+      }
+
+      return ct.available || expenseBiggerThenZero;
+    }).toList();
+
     // gasto por categoria
     gastosPorCategoria = {
       for (var item in progressIndicators) item.category.id: item.progress
     };
+
     totalGasto = progressIndicators.fold(
         0.0, (sum, indicator) => sum + indicator.progress);
+
+    metas_por_categoria = await Goalsservice().getBudgets(categories);
+
     orcamentoTotal = await Goalsservice().getTotalBudget();
     // metas por categoria
-    metas_por_categoria = await Goalsservice().getBudgets();
     // categories.forEach((category) {
     //   final meta = metas_por_categoria[category.id];
     //   print('Meta da categoria ${category.name}: ${meta ?? "sem meta"}');
@@ -74,7 +95,6 @@ class GoalsscreanState extends State<Goalsscrean> {
   }
 
   Future<void> refreshBudgets() async {
-    print("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHh");
     setState(() {
       loadCategoriesGoals();
     });

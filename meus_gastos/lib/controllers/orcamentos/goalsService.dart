@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:meus_gastos/controllers/orcamentos/budgetModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
+import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,7 +17,7 @@ class Goalsservice {
   Future<List<Budgetmodel>> retrive() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     String? budgetsString = pref.getString(_budgetKey);
-    if(Saveorcamentosnanuvem().userId != null){
+    if (Saveorcamentosnanuvem().userId != null) {
       return Saveorcamentosnanuvem().getAllBudgets();
     } else {
       if (budgetsString != null) {
@@ -28,8 +30,7 @@ class Goalsservice {
     return [];
   }
 
-  Future<Map<String, double>> getBudgets() async {
-    List<CategoryModel> categories = await CategoryService().getAllCategories();
+  Future<Map<String, double>> getBudgets(List<CategoryModel> categories) async {
     // gera um mapa com todas metas zeradas
     Map<String, double> metas_por_cat = {
       for (var cat in categories) cat.id: 0.0,
@@ -87,9 +88,9 @@ class Goalsservice {
       });
     }
     // Adicionar na nuvem
-    if(Saveorcamentosnanuvem().userId != null)
+    if (Saveorcamentosnanuvem().userId != null)
       Saveorcamentosnanuvem()
-        .addBudgetInClound(Budgetmodel(categoryId: categoryId, value: meta));
+          .addBudgetInClound(Budgetmodel(categoryId: categoryId, value: meta));
   }
 
   Future<void> deleteMeta(String categoryId) async {
@@ -98,7 +99,34 @@ class Goalsservice {
       return metas;
     });
     // Deleta na nuvem
-    if(Saveorcamentosnanuvem().userId != null)
+    if (Saveorcamentosnanuvem().userId != null)
       Saveorcamentosnanuvem().deleteBudgetInClound(categoryId);
+  }
+
+  Future<void> deleteAllBudgetsOfaCategory(CategoryModel category) async {
+    // deleta todas as metas com gasto zero no mes e categoria não avaliavel
+    //
+    List<Budgetmodel> budgets = await retrive();
+    List<ProgressIndicatorModel> progress =
+        await CardService.getProgressIndicatorsByMonth(DateTime.now());
+
+    bool haveExpens = false;
+
+    try {
+      haveExpens = (progress
+              .where((pg) => pg.category.id == category.id)
+              .first
+              .progress >
+          0);
+    } catch (e) {
+      print("ERRO $e");
+    }
+
+    for (var budg in budgets) {
+      if (budg.categoryId == category.id) {
+        if (!haveExpens) deleteMeta(budg.categoryId);
+        break;
+      }
+    }
   }
 }

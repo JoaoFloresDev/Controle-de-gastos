@@ -108,7 +108,6 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-
   //mark - variables
   //mark - variables
 
@@ -250,6 +249,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       onTap: () {
         if (index == 2) goalKey.currentState?.refreshBudgets();
         if (index == 3) {
+          print(selectedTab != 3);
           if (selectedTab != 3) dashboardKey.currentState?.refreshData();
         }
         if (index == 4) calendarKey.currentState?.refreshCalendar();

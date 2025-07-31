@@ -111,9 +111,11 @@ class _AddTransactionControllerState extends State<AddTransactionController>
   Future<void> _loadFixedCards() async {
     List<FixedExpense> fcard =
         await Fixedexpensesservice.getSortedFixedExpenses();
-    fcard = await Fixedexpensesservice.filteredFixedCardsShow(fcard, DateTime.now());
+    fcard = await Fixedexpensesservice.filteredFixedCardsShow(
+        fcard, DateTime.now());
     List<CardModel> fixedCards = fcard
-        .map((item) => Fixedexpensesservice.Fixed_to_NormalCard(item, DateTime.now()))
+        .map((item) =>
+            Fixedexpensesservice.Fixed_to_NormalCard(item, DateTime.now()))
         .toList();
     print("${fixedCards.length} OPAAA");
     setState(() {
@@ -472,6 +474,7 @@ class _AddTransactionControllerState extends State<AddTransactionController>
         onCategoriesLoaded: (loadedCategories) {
           // You can now use the 'loadedCategories' list in this parent widget's state if needed.
           // For example: setState(() => _myListOfCategories = loadedCategories));
+          _loadFixedCards();
           print('Categories have been loaded in the parent widget!');
         },
       ),

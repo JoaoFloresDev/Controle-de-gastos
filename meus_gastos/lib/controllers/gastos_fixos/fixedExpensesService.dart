@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/intervalsControl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -84,23 +85,28 @@ class Fixedexpensesservice {
   static Future<void> addCard(FixedExpense FixedExpense) async {
     User? user = FirebaseAuth.instance.currentUser;
     // print("$user");
-    await modifyCards((cards) {
-      if (!(FixedExpense.price == 0)) {
-        cards.add(FixedExpense);
-      }
-      return cards;
-    });
-    SaveExpensOnCloud().addNewDateFixedCards(FixedExpense);
+    if(SaveExpensOnCloud().userId != null)
+      SaveExpensOnCloud().addNewDateFixedCards(FixedExpense);
+    else
+      await modifyCards((cards) {
+        if (!(FixedExpense.price == 0)) {
+          cards.add(FixedExpense);
+        }
+        return cards;
+      });
   }
 
   static Future<void> deleteCard(String id) async {
-    await modifyCards((cards) {
-      cards.removeWhere((card) => card.id == id);
-      return cards;
-    });
-    List<FixedExpense> cardsf = await getSortedFixedExpenses();
-    SaveExpensOnCloud()
-        .deleteDateFixedCards(cardsf.firstWhere((card) => card.id == id));
+    if (SaveExpensOnCloud().userId != null) {
+      List<FixedExpense> cardsf = await getSortedFixedExpenses();
+      SaveExpensOnCloud()
+          .deleteDateFixedCards(cardsf.firstWhere((card) => card.id == id));
+    } else {
+      await modifyCards((cards) {
+        cards.removeWhere((card) => card.id == id);
+        return cards;
+      });
+    }
   }
 
   static Future<void> deleteAllCards() async {
@@ -112,9 +118,12 @@ class Fixedexpensesservice {
     await modifyCards((cards) {
       final int index = cards.indexWhere((card) => card.id == id);
       if (index != -1) {
-        SaveExpensOnCloud().deleteDateFixedCards(cards[index]);
-        cards[index] = newCard;
-        SaveExpensOnCloud().addNewDateFixedCards(newCard);
+        if (SaveExpensOnCloud().userId != null) {
+          SaveExpensOnCloud().deleteDateFixedCards(cards[index]);
+          SaveExpensOnCloud().addNewDateFixedCards(newCard);
+        } else {
+          cards[index] = newCard;
+        }
       }
       return cards;
     });
@@ -152,7 +161,7 @@ class Fixedexpensesservice {
                 currentDate.minute < fcard.date.minute);
         // print("${fcard.tipoRepeticao} : $isCurrentBeforeCardTime ");
         if (isCurrentBeforeCardTime) {
-          print("AJJ");
+          // print("AJJ");
           // Altera a data do fcard para ontem mantendo hora/minuto
           final yesterday = currentDate.subtract(const Duration(days: 1));
           fcard.date = DateTime(
@@ -174,16 +183,13 @@ class Fixedexpensesservice {
         }
       } else {
         fcard.date = DateTime(
-          currentDate.year,
-          currentDate.month,
-          currentDate.day,
+          fcard.date.year,
+          fcard.date.month,
+          fcard.date.day,
           fcard.date.hour,
           fcard.date.minute,
         );
       }
-      print("$verificationDate e fcard.date: ${fcard.date}");
-      print(Intervalscontrol()
-          .IsapresentetionNecessary(fcard, normalCards, verificationDate));
       final shouldShow = Intervalscontrol()
               .IsapresentetionNecessary(fcard, normalCards, verificationDate) &&
           currentDate.isAfter(fcard.date);
@@ -248,6 +254,18 @@ class Fixedexpensesservice {
       print('Category: ${card.category}');
       print('Tipo de Repetição: ${card.tipoRepeticao}');
       print('---------------------------');
+    }
+  }
+
+  static Future<void> deleteAllCardsFixedsWithThisCategory(
+      CategoryModel category) async {
+    List<FixedExpense> fcards = await getSortedFixedExpenses();
+    for (var fc in fcards) {
+      if (fc.category.id == category.id) {
+        print("AJHHH");
+        await deleteCard(fc.id);
+        break;
+      }
     }
   }
 }

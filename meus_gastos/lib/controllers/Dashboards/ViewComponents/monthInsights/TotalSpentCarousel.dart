@@ -58,7 +58,7 @@ class TotalSpentCarouselWithTitlesState
   double projecaoFixed = 0.0;
   late List<CategoryModel> categories = [];
 
-  bool isLoading = true;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -67,23 +67,23 @@ class TotalSpentCarouselWithTitlesState
   }
 
   //didChanges...
-  @override
-  Future<void> didChangeDependencies() async {
-    super.didChangeDependencies();
-    await buildGroupedPhrases(widget.currentDate);
-  }
+  // @override
+  // Future<void> didChangeDependencies() async {
+  //   super.didChangeDependencies();
+  //   await buildGroupedPhrases(widget.currentDate);
+  // }
 
-  @override
-  void didUpdateWidget(TotalSpentCarouselWithTitles oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    // Atualiza os textos quando a `referenceDate` for alterada
-    print("${widget.currentDate}AAAAAAAAAAA");
-    if (widget.currentDate != oldWidget.currentDate) {
-        getValues(widget.currentDate);
-      setState(() {
-      });
-    }
-  }
+  // @override
+  // void didUpdateWidget(TotalSpentCarouselWithTitles oldWidget) {
+  //   super.didUpdateWidget(oldWidget);
+  //   // Atualiza os textos quando a `referenceDate` for alterada
+  //   print("${widget.currentDate}AAAAAAAAAAA");
+  //   if (widget.currentDate != oldWidget.currentDate) {
+  //       getValues(widget.currentDate);
+  //     setState(() {
+  //     });
+  //   }
+  // }
 
   Widget _buildLoadingIndicator() {
     return const CircularProgressIndicator(color: AppColors.background1);
@@ -345,6 +345,7 @@ class TotalSpentCarouselWithTitlesState
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
+      print("TACARREGANDOOOOO");
       return Center(child: _buildLoadingIndicator());
     }
     return MediaQuery(
