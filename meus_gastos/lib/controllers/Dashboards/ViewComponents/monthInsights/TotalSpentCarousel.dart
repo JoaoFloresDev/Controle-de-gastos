@@ -174,36 +174,36 @@ class TotalSpentCarouselWithTitlesState
       {
         "sections": [
           {
-            "title": "${AppLocalizations.of(context)!.mediaDiaria}",
+            "title": AppLocalizations.of(context)!.mediaDiaria,
             "phrases": [
               [
                 "${AppLocalizations.of(context)!.geral}: ${Translateservice.formatCurrency(avaregeDaily, context)}",
               ],
               [
-                "${AppLocalizations.of(context)!.custoFixo}: ${Translateservice.formatCurrency(monthFixedExpenses, context)} (${(monthFixedExpenses / (avaregeDaily == 0 ? 1 : avaregeDaily) * 100).round()}%)",
-                "${AppLocalizations.of(context)!.custoVariavel}: ${Translateservice.formatCurrency((avaregeDaily - monthFixedExpenses), context)} (${((avaregeDaily - monthFixedExpenses) / (avaregeDaily == 0 ? 1 : avaregeDaily) * 100).round()}%)"
+                "${AppLocalizations.of(context)!.custoFixo}: ${Translateservice.formatCurrency(monthFixedExpenses, context)} (${_safePercent(monthFixedExpenses, avaregeDaily)}%)",
+                "${AppLocalizations.of(context)!.custoVariavel}: ${Translateservice.formatCurrency((avaregeDaily - monthFixedExpenses), context)} (${_safePercent(avaregeDaily - monthFixedExpenses, avaregeDaily)}%)"
               ],
               [
-                "${AppLocalizations.of(context)!.diasUteis}: ${Translateservice.formatCurrency(avaregeBusinessDailys, context)} (${(businessExpensives / (monthExpenses == 0 ? 1 : monthExpenses) * 100).round()}%)",
-                "${AppLocalizations.of(context)!.finaisDeSemana}: ${Translateservice.formatCurrency(avaregeWeekendExpensives, context)} (${(avaregeWeekendExpensives / (monthExpenses == 0 ? 1 : monthExpenses) * 100).round()}%)",
+                "${AppLocalizations.of(context)!.diasUteis}: ${Translateservice.formatCurrency(avaregeBusinessDailys, context)} (${_safePercent(businessExpensives, monthExpenses)}%)",
+                "${AppLocalizations.of(context)!.finaisDeSemana}: ${Translateservice.formatCurrency(avaregeWeekendExpensives, context)} (${_safePercent(avaregeWeekendExpensives, monthExpenses)}%)",
               ],
             ],
           },
           {
-            "title": "${AppLocalizations.of(context)!.diasMaiorCustoVariavel}",
+            "title": AppLocalizations.of(context)!.diasMaiorCustoVariavel,
             "phrases": [
               [
                 daysWithMostVariavelExepenses.length >= 2
-                    ? "1. ${daysWithMostVariavelExepenses[0].key}: ${Translateservice.formatCurrency(daysWithMostVariavelExepenses[0].value, context)} (${(daysWithMostVariavelExepenses[0].value / (monthExpenses == 0 ? 1 : monthExpenses) * 100).round()}%)"
+                    ? "1. ${daysWithMostVariavelExepenses[0].key}: ${Translateservice.formatCurrency(daysWithMostVariavelExepenses[0].value, context)} (${_safePercent(daysWithMostVariavelExepenses[0].value, monthExpenses)}%)"
                     : "",
                 daysWithMostVariavelExepenses.length >= 2
-                    ? "2. ${daysWithMostVariavelExepenses[1].key}: ${Translateservice.formatCurrency(daysWithMostVariavelExepenses[1].value, context)} (${(daysWithMostVariavelExepenses[1].value / (monthExpenses == 0 ? 1 : monthExpenses) * 100).round()}%)"
+                    ? "2. ${daysWithMostVariavelExepenses[1].key}: ${Translateservice.formatCurrency(daysWithMostVariavelExepenses[1].value, context)} (${_safePercent(daysWithMostVariavelExepenses[1].value, monthExpenses)}%)"
                     : ""
               ],
             ],
           },
           {
-            "title": "${AppLocalizations.of(context)!.projecaoMes}",
+            "title": AppLocalizations.of(context)!.projecaoMes,
             "phrases": [
               [
                 "${AppLocalizations.of(context)!.geral}: ${Translateservice.formatCurrency(((currentDate.month == DateTime.now().month && currentDate.year == DateTime.now().year)) ? ((avaregeDaily - monthFixedExpenses) * Monthinsightsservices.daysInCurrentMonth(currentDate) + projecaoFixed) : monthExpenses + (((currentDate.month > DateTime.now().month && currentDate.year == DateTime.now().year) || (currentDate.year > DateTime.now().year)) ? projecaoFixed : 0), context)}",
@@ -220,18 +220,18 @@ class TotalSpentCarouselWithTitlesState
       {
         "sections": [
           {
-            "title": "${AppLocalizations.of(context)!.myMonthNow}",
+            "title": AppLocalizations.of(context)!.myMonthNow,
             "phrases": [
               [
                 "${AppLocalizations.of(context)!.geral}: ${Translateservice.formatCurrency(monthExpenses, context)}"
               ],
               [
-                "${AppLocalizations.of(context)!.custoFixo}: ${Translateservice.formatCurrency(monthFixedExpensesTotals, context)} (${(monthFixedExpensesTotals / (monthExpenses == 0 ? 1 : monthExpenses) * 100).truncate()}%)",
-                "${AppLocalizations.of(context)!.custoVariavel}: ${Translateservice.formatCurrency(monthExpenses - monthFixedExpensesTotals, context)} (${((monthExpenses - monthFixedExpensesTotals) / (monthExpenses == 0 ? 1 : monthExpenses) * 100).truncate()}%)"
+                "${AppLocalizations.of(context)!.custoFixo}: ${Translateservice.formatCurrency(monthFixedExpensesTotals, context)} (${_safePercent(monthFixedExpensesTotals, monthExpenses)}%)",
+                "${AppLocalizations.of(context)!.custoVariavel}: ${Translateservice.formatCurrency(monthExpenses - monthFixedExpensesTotals, context)} (${_safePercent(monthExpenses - monthFixedExpensesTotals, monthExpenses)}%)"
               ],
               [
                 "${AppLocalizations.of(context)!.averageCostPerPurchase}: ${Translateservice.formatCurrency(averageCostPerPurchase > 0 ? averageCostPerPurchase : 0, context)}",
-                "${AppLocalizations.of(context)!.dailyTransactions}: ${transectionsDaily}"
+                "${AppLocalizations.of(context)!.dailyTransactions}: $transectionsDaily"
               ],
               [
                 "${AppLocalizations.of(context)!.mostExpensiveDay}: ${dayWithHigerExpense.isNotEmpty ? getFormatResume(dayWithHigerExpense.keys.first) : '-'} - ${Translateservice.formatCurrency(dayWithHigerExpense.isNotEmpty ? dayWithHigerExpense.values.first : 0, context)}"
@@ -239,12 +239,12 @@ class TotalSpentCarouselWithTitlesState
             ],
           },
           {
-            "title": "${AppLocalizations.of(context)!.distribution}",
+            "title": AppLocalizations.of(context)!.distribution,
             "phrases": [
               [
-                "${AppLocalizations.of(context)!.firstTenDays}: ${Translateservice.formatCurrency(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[0] : 0, context)} (${((tenDaysExpenses.isNotEmpty ? tenDaysExpenses[0] : 0) / (monthExpenses == 0 ? 1 : monthExpenses) * 100).round()}%)",
-                "${AppLocalizations.of(context)!.secondTenDays}: ${Translateservice.formatCurrency(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[1] : 0, context)} (${((tenDaysExpenses.isNotEmpty ? tenDaysExpenses[1] : 0) / (monthExpenses == 0 ? 1 : monthExpenses) * 100).round()}%)",
-                "${AppLocalizations.of(context)!.thirdTenDays}: ${Translateservice.formatCurrency(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[2] : 0, context)} (${((tenDaysExpenses.isNotEmpty ? tenDaysExpenses[2] : 0) / (monthExpenses == 0 ? 1 : monthExpenses) * 100).round()}%)"
+                "${AppLocalizations.of(context)!.firstTenDays}: ${Translateservice.formatCurrency(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[0] : 0, context)} (${_safePercent(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[0] : 0, monthExpenses)}%)",
+                "${AppLocalizations.of(context)!.secondTenDays}: ${Translateservice.formatCurrency(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[1] : 0, context)} (${_safePercent(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[1] : 0, monthExpenses)}%)",
+                "${AppLocalizations.of(context)!.thirdTenDays}: ${Translateservice.formatCurrency(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[2] : 0, context)} (${_safePercent(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[2] : 0, monthExpenses)}%)"
               ],
             ],
           },
@@ -253,7 +253,7 @@ class TotalSpentCarouselWithTitlesState
       {
         "sections": [
           {
-            "title": "${AppLocalizations.of(context)!.currentMonthVsPrevious}",
+            "title": AppLocalizations.of(context)!.currentMonthVsPrevious,
             "phrases": [
               [
                 "${AppLocalizations.of(context)!.geral}:"
@@ -289,7 +289,7 @@ class TotalSpentCarouselWithTitlesState
             ],
           },
           {
-            "title": "${AppLocalizations.of(context)!.category}",
+            "title": AppLocalizations.of(context)!.category,
             "phrases": [
               [
                 "${AppLocalizations.of(context)!.highestIncrease}: "
@@ -339,7 +339,15 @@ class TotalSpentCarouselWithTitlesState
 
     if (previous == 0) return 0;
     final drop = ((current - previous) / previous) * 100;
-    return drop.roundToDouble().round();
+    if (drop.isNaN || drop.isInfinite) return 0;
+    return drop.round();
+  }
+
+  int _safePercent(double value, double total) {
+    if (total == 0) return 0;
+    final percent = (value / total) * 100;
+    if (percent.isNaN || percent.isInfinite) return 0;
+    return percent.round();
   }
 
   @override

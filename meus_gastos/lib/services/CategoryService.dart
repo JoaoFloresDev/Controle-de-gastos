@@ -226,8 +226,8 @@ class CategoryService {
                 CategoryModel.fromJson(doc.data() as Map<String, dynamic>))
             .toList()
           ..sort((a, b) => b.frequency.compareTo(a.frequency));
-        cloudCategories =
-            cloudCategories.where((cat) => cat.available).toList();
+        // cloudCategories =
+        //     cloudCategories.where((cat) => cat.available).toList();
 
         return cloudCategories;
       }
