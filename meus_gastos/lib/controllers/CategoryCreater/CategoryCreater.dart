@@ -1,6 +1,6 @@
 // import 'package:meus_gastos/controllers/CategoryCreater/AddCategoryHorizontalCircleList.dart';
+import 'package:meus_gastos/controllers/Goals/GoalsService.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
-import 'package:meus_gastos/controllers/orcamentos/goalsService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'dart:math';
 import 'package:flutter/services.dart';
@@ -8,7 +8,6 @@ import 'package:uuid/uuid.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
-import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
@@ -349,7 +348,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                                               await Fixedexpensesservice
                                                   .deleteAllCardsFixedsWithThisCategory(category);
                                               // APAGAR TODAS METAS SEM GASTO DESSA CATEGORIA
-                                              await Goalsservice()
+                                              await GoalsService()
                                                   .deleteAllBudgetsOfaCategory(
                                                       category);
                                               await CategoryService()

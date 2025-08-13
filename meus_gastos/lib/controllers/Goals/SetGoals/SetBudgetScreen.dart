@@ -1,29 +1,29 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ValorTextField.dart'
     show ValorTextField;
-import 'package:meus_gastos/controllers/orcamentos/goalsService.dart';
+import 'package:meus_gastos/controllers/Goals/GoalsService.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 
-class Setbudget extends StatefulWidget {
+class SetGoalsScreen extends StatefulWidget {
   final CategoryModel category;
   final double initialValue;
   final VoidCallback loadCategories;
   final VoidCallback onChangeMeta;
-  Setbudget(
-      {required this.category,
+  const SetGoalsScreen(
+      {super.key,
+      required this.category,
       required this.initialValue,
       required this.loadCategories,
       required this.onChangeMeta});
 
-  SetbudgetState createState() => SetbudgetState();
+  @override
+  SetSetGoalsState createState() => SetSetGoalsState();
 }
 
-class SetbudgetState extends State<Setbudget> {
+class SetSetGoalsState extends State<SetGoalsScreen> {
   late MoneyMaskedTextController valorController;
 
   bool _controllerInitialized = false;
@@ -32,7 +32,6 @@ class SetbudgetState extends State<Setbudget> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    // Só inicializa o controller uma vez
     if (!_controllerInitialized) {
       final locale = Localizations.localeOf(context);
       final currencySymbol = Translateservice.getCurrencySymbol(context);
@@ -54,7 +53,7 @@ class SetbudgetState extends State<Setbudget> {
   }
 
   void adicionar() {
-    Goalsservice().addMeta(widget.category.id, valorController.numberValue);
+    GoalsService().addMeta(widget.category.id, valorController.numberValue);
   }
 
   @override
@@ -91,22 +90,17 @@ class SetbudgetState extends State<Setbudget> {
                   children: [
                     const SizedBox(height: 40),
 
-                    // Category Icon with animation
                     _buildCategoryIcon(),
 
                     const SizedBox(height: 32),
 
-                    // Current budget info (if exists)
                     if (widget.initialValue > 0) _buildCurrentBudgetInfo(),
 
                     const SizedBox(height: 24),
 
-                    // Input section
                     _buildInputSection(context),
 
                     const SizedBox(height: 40),
-
-                    // Action buttons
                     _buildActionButtons(context),
 
                     const SizedBox(height: 24),
