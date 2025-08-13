@@ -420,7 +420,6 @@ class Monthinsightsservices {
     return totalsOfCurrentMonths;
   }
 
-
   static Future<Map<String, double>> diferencesExpenseByCategory(
       DateTime currentDate) async {
     final List<CardModel> cards = await CardService.retrieveCards();

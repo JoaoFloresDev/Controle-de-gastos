@@ -1,5 +1,6 @@
 import 'dart:io';
-import 'package:meus_gastos/controllers/orcamentos/goalsScrean.dart';
+import 'package:flutter/foundation.dart';
+import 'package:meus_gastos/controllers/Goals/GoalsScreen.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -144,22 +145,16 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             addButon: addButton,
           ),
           DashboardScreen(key: dashboardKey, isActive: true),
-          CustomCalendar(
-            key: calendarKey,
-            onCalendarRefresh: () =>
-                calendarKey.currentState?.refreshCalendar(),
-          ),
-
-          // if (seeGoalScrean)
           Goalsscrean(
             key: goalKey,
             title: AppLocalizations.of(context)!.budget,
             onChangeMeta: () => goalKey.currentState?.refreshBudgets(),
           ),
-          // BottomNavigationBarItem(
-          //   icon: const Icon(CupertinoIcons.graph_circle, size: 20),
-          //   label: AppLocalizations.of(context)!.budget,
-          // ),
+          CustomCalendar(
+            key: calendarKey,
+            onCalendarRefresh: () =>
+                calendarKey.currentState?.refreshCalendar(),
+          )
         ],
       ),
       bottomNavigationBar: _buildElegantTabBar(),
@@ -221,15 +216,15 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         CupertinoIcons.add_circled_solid,
                         CupertinoIcons.list_bullet,
                         CupertinoIcons.chart_bar_fill,
+                        CupertinoIcons.chart_pie_fill,
                         CupertinoIcons.calendar,
-                        CupertinoIcons.graph_circle,
                       ][i],
                       label: [
                         AppLocalizations.of(context)!.add,
                         AppLocalizations.of(context)!.transactions,
                         AppLocalizations.of(context)!.dashboards,
-                        AppLocalizations.of(context)!.calendar,
                         AppLocalizations.of(context)!.budget,
+                        AppLocalizations.of(context)!.calendar,
                       ][i],
                       index: i,
                     ),
