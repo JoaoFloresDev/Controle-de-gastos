@@ -1,86 +1,87 @@
 import 'dart:convert';
-import 'package:meus_gastos/controllers/Goals/BudgetModel.dart';
+import 'package:meus_gastos/controllers/Goals/GoalsModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/services/firebase/SaveGoalsToClould.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GoalsService {
   final String _budgetKey = "budgets";
 
-  Future<List<BudgetModel>> retrive() async {
+  Future<List<GoalModel>> retrive() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     String? budgetsString = pref.getString(_budgetKey);
-    if(SaveGoalsToClould().userId != null) {
-      return SaveGoalsToClould().getAllBudgets();
+    if (SaveGoalsToClould().userId != null) {
+      return SaveGoalsToClould().getAllGoals();
     } else {
       if (budgetsString != null) {
         List<dynamic> jsonList = jsonDecode(budgetsString);
         return jsonList
-            .map((jsonItem) => BudgetModel.fromJson(jsonItem))
+            .map((jsonItem) => GoalModel.fromJson(jsonItem))
             .toList();
       }
     }
     return [];
   }
 
-  Future<Map<String, double>> getBudgets() async {
-    List<CategoryModel> categories = await CategoryService().getAllCategories();
+  
 
-    Map<String, double> metas_por_cat = {
+  Future<Map<String, double>> getGoals(List<CategoryModel> categories) async {
+    Map<String, double> budgetsByCat = {
       for (var cat in categories) cat.id: 0.0,
     };
 
-    List<BudgetModel> budgets = await retrive();
-
+    List<GoalModel> budgets = await retrive();
     List<String> categoriesId = categories.map((cat) => cat.id).toList();
+
+    
+
     if (budgets.isNotEmpty) {
       budgets.forEach((budg) {
         if (categoriesId.contains(budg.categoryId))
-          metas_por_cat[budg.categoryId] = budg.value;
+          budgetsByCat[budg.categoryId] = budg.value;
         else
           GoalsService().deleteMeta(budg.categoryId);
       });
     }
-    return metas_por_cat;
+    return budgetsByCat;
   }
 
-  Future<double> getTotalBudget() async {
-    List<BudgetModel> budgets = await retrive();
-    double totalBudget = budgets.fold(0.0, (sum, meta) => sum + meta.value);
-    return totalBudget;
+  Future<double> getTotalGoal() async {
+    List<GoalModel> budgets = await retrive();
+    double totalGoal = budgets.fold(0.0, (sum, meta) => sum + meta.value);
+    return totalGoal;
   }
 
   Future<void> modifyMetas(
-      List<BudgetModel> Function(List<BudgetModel> cards) modification) async {
-    final List<BudgetModel> metas = await retrive();
-    final List<BudgetModel> modifiedCards = modification(metas);
+      List<GoalModel> Function(List<GoalModel> cards) modification) async {
+    final List<GoalModel> metas = await retrive();
+    final List<GoalModel> modifiedCards = modification(metas);
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String encodedData =
         json.encode(modifiedCards.map((meta) => meta.toJson()).toList());
-    bool result = await prefs.setString(_budgetKey, encodedData);
+    await prefs.setString(_budgetKey, encodedData);
   }
 
   Future<void> addMeta(String categoryId, double meta) async {
-    List<BudgetModel> budgets = await retrive();
+    List<GoalModel> budgets = await retrive();
     int index = budgets.indexWhere((bud) => bud.categoryId == categoryId);
     if (index != -1) {
       modifyMetas((metas) {
-        metas[index] = BudgetModel(categoryId: categoryId, value: meta);
+        metas[index] = GoalModel(categoryId: categoryId, value: meta);
         return metas;
       });
     } else {
       modifyMetas((metas) {
-        metas.add(BudgetModel(categoryId: categoryId, value: meta));
+        metas.add(GoalModel(categoryId: categoryId, value: meta));
         return metas;
       });
     }
-    if(SaveGoalsToClould().userId != null)
+    if (SaveGoalsToClould().userId != null)
       SaveGoalsToClould()
-        .addBudgetInClound(BudgetModel(categoryId: categoryId, value: meta));
+          .addGoalInClound(GoalModel(categoryId: categoryId, value: meta));
   }
 
   Future<void> deleteMeta(String categoryId) async {
@@ -88,16 +89,16 @@ class GoalsService {
       metas.removeWhere((meta) => meta.categoryId == categoryId);
       return metas;
     });
-    if(SaveGoalsToClould().userId != null)
-      SaveGoalsToClould().deleteBudgetInClound(categoryId);
+    if (SaveGoalsToClould().userId != null)
+      SaveGoalsToClould().deleteGoalInClound(categoryId);
   }
 
-  Future<void> deleteAllBudgetsOfaCategory(CategoryModel category) async {
+  Future<void> deleteAllGoalsOfaCategory(CategoryModel category) async {
     // deleta todas as metas com gasto zero no mes e categoria não avaliavel
     //
-    List<BudgetModel> budgets = await retrive();
+    List<GoalModel> budgets = await retrive();
     List<ProgressIndicatorModel> progress =
-        await CardService.getProgressIndicatorsByMonth(DateTime.now());
+        await CardService().getProgressIndicatorsByMonth(DateTime.now());
 
     bool haveExpens = false;
 

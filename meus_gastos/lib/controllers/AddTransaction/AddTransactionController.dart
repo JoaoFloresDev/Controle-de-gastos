@@ -1,31 +1,13 @@
 import 'dart:io';
 import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
-import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/UI/criar_gastosFixos.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import '../../../models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart' as service;
-import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
-import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'UIComponents/Header/HeaderCard.dart';
 import 'UIComponents/VerticalCircleList.dart';
@@ -569,7 +551,6 @@ class _HeaderWithGradientBackgroundState
     final MediaQueryData mediaQuery = MediaQuery.of(context);
     final double topPadding = mediaQuery.padding.top;
 
-    // Altura total = SafeArea top + altura do header
     final double totalHeight = topPadding + _headerHeight;
     return Stack(
       children: [
@@ -577,7 +558,7 @@ class _HeaderWithGradientBackgroundState
           top: 0,
           left: 0,
           right: 0,
-          height: totalHeight, // Usa a altura total calculada
+          height: totalHeight,
           child: Container(
             decoration: BoxDecoration(
               gradient: const LinearGradient(

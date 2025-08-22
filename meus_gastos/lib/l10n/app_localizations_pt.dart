@@ -439,11 +439,11 @@ class AppLocalizationsPt extends AppLocalizations {
   String get set => 'Definir';
 
   @override
-  String get totalBudgetForMonth => 'Orçamento total para um mês';
+  String get totalGoalForMonth => 'Orçamento total para um mês';
 
   @override
-  String get currentBudget => 'Orçamento Atual';
+  String get currentGoal => 'Orçamento Atual';
 
   @override
-  String get setBudget => 'Definir Orçamento';
+  String get setGoal => 'Definir Orçamento';
 }

@@ -27,7 +27,7 @@ class ListCardRecorrent extends StatelessWidget {
       id: CardService.generateUniqueId(),
       idFixoControl: card.idFixoControl,
     );
-    await CardService.addCard(newCard);
+    await CardService().addCard(newCard);
   }
 
   @override
@@ -148,6 +148,6 @@ class ListCardRecorrent extends StatelessWidget {
 
   Future<void> fakeExpens(CardModel cardFix) async {
     cardFix.amount = 0;
-    await CardService.addCard(cardFix);
+    await CardService().addCard(cardFix);
   }
 }

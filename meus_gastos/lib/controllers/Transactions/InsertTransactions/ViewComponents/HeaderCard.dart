@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
-import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
@@ -116,7 +114,7 @@ class HeaderCardState extends State<HeaderCard> {
     } else
       print("Sem usuário");
 
-    if (!(newCard.amount == 0)) CardService.addCard(newCard);
+    if (!(newCard.amount == 0)) CardService().addCard(newCard);
 
     await CategoryService().incrementCategoryFrequency(
         (_horizontalCircleListKey.currentState?.categorieList ??

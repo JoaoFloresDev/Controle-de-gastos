@@ -138,11 +138,11 @@
     "upgradeToProToSync": "Upgrade to Pro to sign in\nand sync your data",
     "redirectingToUpgrade": "Redirecting to upgrade...",
     "proFeature": "Pro Feature",
-    "budget": "Budget",
+    "budget": "Goal",
     "set": "Set",
-    "totalBudgetForMonth": "Total budget for a month",
-    "currentBudget" : "Current Budget",
-    "setBudget" : "Set Budget"
+    "totalGoalForMonth": "Total budget for a month",
+    "currentGoal" : "Current Goal",
+    "setGoal" : "Set Goal"
 
 
 }

@@ -140,9 +140,9 @@
   "proFeature": "Función Pro",
   "budget": "Presupuesto",
   "set": "Definir",
-  "totalBudgetForMonth": "Presupuesto total para un mes",
-  "currentBudget" : "Presupuesto actual",
-  "setBudget" : "Definir Presupuesto"
+  "totalGoalForMonth": "Presupuesto total para un mes",
+  "currentGoal" : "Presupuesto actual",
+  "setGoal" : "Definir Presupuesto"
 
 
 }

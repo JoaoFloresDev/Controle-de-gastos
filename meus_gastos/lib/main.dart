@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsScreen.dart';
+import 'package:meus_gastos/controllers/Goals/GoalsViewModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +16,8 @@ import 'package:window_size/window_size.dart';
 import 'package:meus_gastos/controllers/AddTransaction/AddTransactionController.dart';
 import 'package:meus_gastos/controllers/Calendar/CustomCalendar.dart';
 
+import 'package:provider/provider.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
@@ -30,23 +32,33 @@ void main() async {
 
   // inicializa firebase
   await FirebaseService().init(); // PARA DESABILITAR BASTA COMENTAR
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<GoalsViewModel>(
+          // lazy: false,
+          create: (_) => GoalsViewModel()..init(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return const CupertinoApp(
+    return CupertinoApp(
       debugShowCheckedModeBanner: false,
-      theme: CupertinoThemeData(brightness: Brightness.dark),
-      localizationsDelegates: [
+      theme: const CupertinoThemeData(brightness: Brightness.dark),
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
+      supportedLocales: const [
         Locale('en', ''),
         Locale('es', ''),
         Locale('pt', ''),
@@ -143,12 +155,10 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             categories: categories,
             addButon: addButton,
           ),
-          
           DashboardScreen(key: dashboardKey, isActive: true),
           Goalsscrean(
             key: goalKey,
             title: AppLocalizations.of(context)!.budget,
-            onChangeMeta: () => goalKey.currentState?.refreshBudgets(),
           ),
           CustomCalendar(
             key: calendarKey,
@@ -168,15 +178,15 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     return Container(
       height: tabBarHeight,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            const Color(0xFF1C1C1E),
-            const Color.fromARGB(255, 35, 35, 37),
-            const Color(0xFF1C1C1E),
+            Color(0xFF1C1C1E),
+            Color.fromARGB(255, 35, 35, 37),
+            Color(0xFF1C1C1E),
           ],
-          stops: const [0.0, 0.5, 1.0],
+          stops: [0.0, 0.5, 1.0],
         ),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(25),
@@ -249,10 +259,11 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       behavior:
           HitTestBehavior.opaque, // <- ESSENCIAL: toda área vira "clicável"
       onTap: () {
-        if (index == 2) goalKey.currentState?.refreshBudgets();
+        if (index == 2) {
+          if (selectedTab != 2) dashboardKey.currentState?.refreshData();
+        }
         if (index == 3) {
-          print(selectedTab != 3);
-          if (selectedTab != 3) dashboardKey.currentState?.refreshData();
+          goalKey.currentState?.refreshGoals();
         }
         if (index == 4) calendarKey.currentState?.refreshCalendar();
         setState(() => selectedTab = index);

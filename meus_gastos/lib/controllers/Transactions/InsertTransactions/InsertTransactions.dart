@@ -371,7 +371,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   Future<void> fakeExpens(FixedExpense cardFix) async {
     cardFix.price = 0;
     var car = Fixedexpensesservice.Fixed_to_NormalCard(cardFix, currentDate);
-    await service.CardService.addCard(car);
+    await service.CardService().addCard(car);
     SaveExpensOnCloud().addNewDate(car);
   }
 
@@ -410,7 +410,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
       backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return Container(
-            height: MediaQuery.of(context).size.height / 2.0,
+            height: MediaQuery.of(context).size.height / 1.8,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),

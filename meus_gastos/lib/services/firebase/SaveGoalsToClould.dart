@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:meus_gastos/controllers/Goals/BudgetModel.dart';
+import 'package:meus_gastos/controllers/Goals/GoalsModel.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsService.dart';
 import 'package:meus_gastos/services/firebase/saveOnClound.dart';
 
 class SaveGoalsToClould extends Saveonclound {
-  Future<List<BudgetModel>> getAllBudgets() async {
+  Future<List<GoalModel>> getAllGoals() async {
     try {
       QuerySnapshot snapshot = await firestore
           .collection(userId!)
@@ -15,8 +15,7 @@ class SaveGoalsToClould extends Saveonclound {
           .get();
 
       return snapshot.docs
-          .map(
-              (doc) => BudgetModel.fromJson(doc.data() as Map<String, dynamic>))
+          .map((doc) => GoalModel.fromJson(doc.data() as Map<String, dynamic>))
           .toList();
     } catch (e) {
       return [];
@@ -24,7 +23,7 @@ class SaveGoalsToClould extends Saveonclound {
   }
 
   // save
-  Future<void> addBudgetInClound(BudgetModel budget) async {
+  Future<void> addGoalInClound(GoalModel budget) async {
     await firestore
         .collection(userId!)
         .doc('budgets')
@@ -34,7 +33,7 @@ class SaveGoalsToClould extends Saveonclound {
   }
 
   // delete
-  Future<void> deleteBudgetInClound(String budgetId) async {
+  Future<void> deleteGoalInClound(String budgetId) async {
     try {
       await firestore
           .collection(userId!)

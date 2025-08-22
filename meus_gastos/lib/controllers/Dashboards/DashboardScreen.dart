@@ -224,7 +224,7 @@ class DashboardScreenState extends State<DashboardScreen>
       isLoading = true;
     });
     progressIndicators =
-        await CardService.getProgressIndicatorsByMonth(currentDate);
+        await CardService().getProgressIndicatorsByMonth(currentDate);
     pieChartDataItems = progressIndicators
         .map((indicator) => indicator.toPieChartDataItem())
         .toList();

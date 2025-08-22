@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
@@ -107,7 +106,7 @@ class CardService {
   }
 
   // MARK: - Modify Cards
-  static Future<void> modifyCards(
+  Future<void> modifyCards(
       List<CardModel> Function(List<CardModel> cards) modification) async {
     final List<CardModel> cards = await retrieveCards();
     final List<CardModel> modifiedCards = modification(cards);
@@ -115,10 +114,11 @@ class CardService {
     final String encodedData =
         json.encode(modifiedCards.map((card) => card.toJson()).toList());
     await prefs.setString(_storageKey, encodedData);
+
   }
 
   // MARK: - Add, Delete, and Update Cards
-  static Future<void> addCard(CardModel cardModel) async {
+  Future<void> addCard(CardModel cardModel) async {
     await modifyCards((cards) {
       cards.add(cardModel);
       return cards;
@@ -127,20 +127,19 @@ class CardService {
       SaveExpensOnCloud().addNewDate(cardModel);
   }
 
-  static Future<void> deleteCard(String id) async {
-    if (SaveExpensOnCloud().userId != null){
+  Future<void> deleteCard(String id) async {
+    if (SaveExpensOnCloud().userId != null) {
       List<CardModel> cards = await retrieveCards();
       SaveExpensOnCloud().deleteDate(cards.firstWhere((card) => card.id == id));
     } else {
-    await modifyCards((cards) {
-      cards.removeWhere((card) => card.id == id);
-      return cards;
-    });
-    
+      await modifyCards((cards) {
+        cards.removeWhere((card) => card.id == id);
+        return cards;
+      });
     }
   }
 
-  static Future<void> updateCard(String id, CardModel newCard) async {
+  Future<void> updateCard(String id, CardModel newCard) async {
     await modifyCards((cards) {
       final int index = cards.indexWhere((card) => card.id == id);
       if (index != -1) {
@@ -195,7 +194,7 @@ class CardService {
     return progressIndicators;
   }
 
-  static Future<List<ProgressIndicatorModel>> getProgressIndicatorsByMonth(
+  Future<List<ProgressIndicatorModel>> getProgressIndicatorsByMonth(
       DateTime month) async {
     final List<CardModel> cards = await retrieveCards();
     if (cards.isEmpty) return [];
@@ -303,25 +302,4 @@ class CardService {
   List<String> getIdFixoControlList(List<CardModel> cards) {
     return cards.map((card) => card.idFixoControl).toList();
   }
-
-  // Future<void> changeAllToUnknow(CategoryModel category) async {
-  //   List<CardModel> cards = await retrieveCards();
-  //   for (var card in cards) {
-  //     if (card.category.id == category.id) {
-  //       CardModel cardAux = card;
-  //       await deleteCard(card.id);
-  //       await addCard(CardModel(
-  //           id: cardAux.id,
-  //           amount: cardAux.amount,
-  //           description: cardAux.description,
-  //           date: cardAux.date,
-  //           category: CategoryModel(
-  //             id: 'Unknown',
-  //             color: Colors.blueAccent.withOpacity(0.8),
-  //             icon: Icons.question_mark_rounded,
-  //             name: 'Unknown',
-  //           )));
-  //     }
-  //   }
-  // }
 }

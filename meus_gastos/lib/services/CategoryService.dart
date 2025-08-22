@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/CategoryModel.dart';
@@ -65,45 +63,6 @@ class CategoryService {
       await prefs.setStringList(_categoriesKey, updatedCategories);
     }
   }
-  // Future<List<CategoryModel>> getAllCategories() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   bool isFirstAccess = prefs.getBool(_isFirstAccessKey) ?? true;
-  //   if (isFirstAccess) {
-  //     await prefs.setBool(_isFirstAccessKey, false);
-  //     for (var category in defaultCategories) {
-  //       await addCategory(category);
-  //     }
-  //   }
-
-  //   List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
-  //   List<CategoryModel> aux = categories.map((category) {
-  //     final Map<String, dynamic> categoryMap = jsonDecode(category);
-  //     return CategoryModel.fromJson(categoryMap);
-  //   }).toList();
-  //   aux.sort((a, b) => b.frequency.compareTo(a.frequency));
-  //   return aux;
-  // }
-
-//mark - Get All Positive Categories
-  // Future<List<CategoryModel>> getAllCategories() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   bool isFirstAccess = prefs.getBool(_isFirstAccessKey) ?? true;
-  //   if (isFirstAccess) {
-  //     await prefs.setBool(_isFirstAccessKey, false);
-  //     for (var category in defaultCategories) {
-  //       await addCategory(category);
-  //     }
-  //   }
-
-  //   List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
-  //   List<CategoryModel> aux = categories.map((category) {
-  //     final Map<String, dynamic> categoryMap = jsonDecode(category);
-  //     return CategoryModel.fromJson(categoryMap);
-  //   }).toList();
-  //   aux = aux.where((cat) => cat.available).toList();
-  //   aux.sort((a, b) => b.frequency.compareTo(a.frequency));
-  //   return aux;
-  // }
 
   final List<CategoryModel> defaultCategories = [
     CategoryModel(
@@ -202,7 +161,6 @@ class CategoryService {
   Future<List<CategoryModel>> getAllCategories() async {
     final prefs = await SharedPreferences.getInstance();
     User? user = FirebaseAuth.instance.currentUser;
-    print("AQUIIIIII");
     if (user != null) {
       // Usuário está logado - verificamos o Firestore
       final firestore = FirebaseFirestore.instance;
@@ -211,7 +169,6 @@ class CategoryService {
           .doc('Categories')
           .collection('categoryList')
           .get();
-      print("AQUIIIIII");
       if (snapshot.docs.isEmpty) {
         // Primeiro acesso na nuvem
         for (var category in defaultCategories) {

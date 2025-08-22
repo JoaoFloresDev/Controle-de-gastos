@@ -141,9 +141,9 @@
     "proFeature": "Recurso Pro",
     "budget": "Orçamento",
     "set": "Definir",
-    "totalBudgetForMonth": "Orçamento total para um mês",
-    "currentBudget" : "Orçamento Atual",
-    "setBudget" : "Definir Orçamento"
+    "totalGoalForMonth": "Orçamento total para um mês",
+    "currentGoal" : "Orçamento Atual",
+    "setGoal" : "Definir Orçamento"
 
 
 }

@@ -913,7 +913,7 @@ abstract class AppLocalizations {
   /// No description provided for @budget.
   ///
   /// In en, this message translates to:
-  /// **'Budget'**
+  /// **'Goal'**
   String get budget;
 
   /// No description provided for @set.
@@ -922,23 +922,23 @@ abstract class AppLocalizations {
   /// **'Set'**
   String get set;
 
-  /// No description provided for @totalBudgetForMonth.
+  /// No description provided for @totalGoalForMonth.
   ///
   /// In en, this message translates to:
   /// **'Total budget for a month'**
-  String get totalBudgetForMonth;
+  String get totalGoalForMonth;
 
-  /// No description provided for @currentBudget.
+  /// No description provided for @currentGoal.
   ///
   /// In en, this message translates to:
-  /// **'Current Budget'**
-  String get currentBudget;
+  /// **'Current Goal'**
+  String get currentGoal;
 
-  /// No description provided for @setBudget.
+  /// No description provided for @setGoal.
   ///
   /// In en, this message translates to:
-  /// **'Set Budget'**
-  String get setBudget;
+  /// **'Set Goal'**
+  String get setGoal;
 }
 
 class _AppLocalizationsDelegate

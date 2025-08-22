@@ -49,7 +49,7 @@ class _DetailScreen extends State<DetailScreen> {
                 // Navigator.of(context).pop();
               },
               onDeletePressed: () {
-                CardService.deleteCard(widget.card.id);
+                CardService().deleteCard(widget.card.id);
                 SaveExpensOnCloud().deleteDate(widget.card);
                 Future.delayed(const Duration(milliseconds: 300), () {
                   widget.onAddClicked();

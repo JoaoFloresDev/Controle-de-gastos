@@ -346,10 +346,11 @@ class _CategorycreaterState extends State<Categorycreater> {
                                               FocusScope.of(context).unfocus();
                                               // APAGAR TODOS CARDS FIXOS COM ESSA CATEGORIA
                                               await Fixedexpensesservice
-                                                  .deleteAllCardsFixedsWithThisCategory(category);
+                                                  .deleteAllCardsFixedsWithThisCategory(
+                                                      category);
                                               // APAGAR TODAS METAS SEM GASTO DESSA CATEGORIA
                                               await GoalsService()
-                                                  .deleteAllBudgetsOfaCategory(
+                                                  .deleteAllGoalsOfaCategory(
                                                       category);
                                               await CategoryService()
                                                   .deleteCategory(category.id);

@@ -118,7 +118,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       category: categorieList[lastIndexSelected!],
       id: CardService.generateUniqueId(),
     );
-    CardService.updateCard(widget.card.id, newCard);
+    CardService().updateCard(widget.card.id, newCard);
 
     Future.delayed(const Duration(milliseconds: 300), () {
       widget.onAddClicked();

@@ -2,16 +2,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
-import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
 import 'ValorTextField.dart';
-import '../VerticalCircleList.dart';
-import 'HeaderBar.dart';
 import 'QuickValueButton.dart';
+
 class ValueInputSection extends StatelessWidget {
   final GlobalKey valueKey;
   final MoneyMaskedTextController controller;

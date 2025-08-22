@@ -431,17 +431,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get proFeature => 'Pro Feature';
 
   @override
-  String get budget => 'Budget';
+  String get budget => 'Goal';
 
   @override
   String get set => 'Set';
 
   @override
-  String get totalBudgetForMonth => 'Total budget for a month';
+  String get totalGoalForMonth => 'Total budget for a month';
 
   @override
-  String get currentBudget => 'Current Budget';
+  String get currentGoal => 'Current Goal';
 
   @override
-  String get setBudget => 'Set Budget';
+  String get setGoal => 'Set Goal';
 }
