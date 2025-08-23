@@ -129,7 +129,6 @@
     "contactus" : "Contact us",
     "loginWithGoogle" : "Login with Google",
     "sync": "Sync",
-    "notNow": "Not now",
     "syncData": "Sync data",
     "syncQuestion": "Do you want to sync local data with the cloud?",
     "loginWithGoogleToSyncData": "Sign in with your Google account to sync your data",
@@ -142,7 +141,19 @@
     "set": "Set",
     "totalGoalForMonth": "Total budget for a month",
     "currentGoal" : "Current Goal",
-    "setGoal" : "Set Goal"
+    "setGoal" : "Set Goal",
 
+"confirm" : "Confirm",
+"transactionPlaceholderTitle" : "Start by adding your first transaction\nto have full control of your expenses",
+"transactionPlaceholderSubtitle" : "Your transactions will appear here",
+"transactionPlaceholderRow1Title" : "Add transaction",
+"transactionPlaceholderRow1Subtitle" : "Tap the add tab to get started",
+"transactionPlaceholderRow2Title" : "Fixed expenses",
+"transactionPlaceholderRow3Subtitle" : "Set up recurring expenses",
+"addTransactionTitle" : "Add Expense",
+"dateAndHour" : "Date and Time",
+"insertExpend" : "Insert Expense",
+"addTransactionPopupTitle" : "Add Expense",
+"addTransactionPopupSubtitle" : "Amount spent"
 
 }

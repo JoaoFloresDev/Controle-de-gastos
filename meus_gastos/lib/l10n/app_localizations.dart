@@ -583,7 +583,7 @@ abstract class AppLocalizations {
   /// No description provided for @notNow.
   ///
   /// In en, this message translates to:
-  /// **'Not now'**
+  /// **'Not Now'**
   String get notNow;
 
   /// No description provided for @reviewButton.
@@ -939,6 +939,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Set Goal'**
   String get setGoal;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @transactionPlaceholderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start by adding your first transaction\nto have full control of your expenses'**
+  String get transactionPlaceholderTitle;
+
+  /// No description provided for @transactionPlaceholderSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your transactions will appear here'**
+  String get transactionPlaceholderSubtitle;
+
+  /// No description provided for @transactionPlaceholderRow1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add transaction'**
+  String get transactionPlaceholderRow1Title;
+
+  /// No description provided for @transactionPlaceholderRow1Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the add tab to get started'**
+  String get transactionPlaceholderRow1Subtitle;
+
+  /// No description provided for @transactionPlaceholderRow2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed expenses'**
+  String get transactionPlaceholderRow2Title;
+
+  /// No description provided for @transactionPlaceholderRow3Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up recurring expenses'**
+  String get transactionPlaceholderRow3Subtitle;
+
+  /// No description provided for @addTransactionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Expense'**
+  String get addTransactionTitle;
+
+  /// No description provided for @dateAndHour.
+  ///
+  /// In en, this message translates to:
+  /// **'Date and Time'**
+  String get dateAndHour;
+
+  /// No description provided for @insertExpend.
+  ///
+  /// In en, this message translates to:
+  /// **'Insert Expense'**
+  String get insertExpend;
+
+  /// No description provided for @addTransactionPopupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Expense'**
+  String get addTransactionPopupTitle;
+
+  /// No description provided for @addTransactionPopupSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount spent'**
+  String get addTransactionPopupSubtitle;
 }
 
 class _AppLocalizationsDelegate

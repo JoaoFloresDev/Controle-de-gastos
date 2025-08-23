@@ -235,9 +235,9 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
                 widget.addGoal(widget.category.id, valorController.numberValue);
                 Navigator.of(context).pop();
               },
-              child: const Center(
+              child: Center(
                 child: Text(
-                  "Atualizar",
+                  AppLocalizations.of(context)!.update,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,

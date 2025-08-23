@@ -19,7 +19,6 @@ import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-
 import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
 import 'package:meus_gastos/services/firebase/syncService.dart';
 
@@ -117,7 +116,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     await prefs.setInt('usage_count', usageCount);
 
     if (!_isPro && usageCount > 40 && usageCount % 4 == 0) {
-      _showProModal(context);
+      // _showProModal(context);
     }
   }
 
@@ -174,171 +173,283 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: CupertinoNavigationBar(
-          leading: GestureDetector(
-            onTap: () {
-              _showCupertinoModalBottomFixedExpenses(context);
-            },
-            child: const Icon(Icons.repeat, size: 24, color: AppColors.label),
-          ),
-          middle: MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-            child: Text(
-              widget.title,
-              style: const TextStyle(color: AppColors.label, fontSize: 20),
-            ),
-          ),
-          backgroundColor: AppColors.background1,
-          trailing: Row(
-            mainAxisSize: MainAxisSize
-                .min, // Garante que o Row ocupe apenas o espaço necessário
-            children: [
-              GestureDetector(
-                onTap: () {
-                  if (isLogin!)
-                    _singOutScreen();
-                  else
-                    _singInScreen();
-                  print("Entrou");
-                },
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      right: 8.0), // Espaçamento entre os textos
-                  child: isLogin!
-                      ? Icon(
-                          Icons.cloud,
-                          color: AppColors.labelPlaceholder,
-                          size: 20,
-                        )
-                      : Text(
-                          "Login",
-                          style: TextStyle(
-                            color: AppColors.button,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  _showProModal(context); // Chamando o modal de assinatura
-                },
-                child: const Text(
-                  "PRO",
-                  style: TextStyle(
-                    color: AppColors.label,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
+@override
+Widget build(BuildContext context) {
+  return GestureDetector(
+    onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+    child: Scaffold(
+      key: _scaffoldKey,
+      appBar: CupertinoNavigationBar(
+        leading: GestureDetector(
+          onTap: () {
+            _showCupertinoModalBottomFixedExpenses(context);
+          },
+          child: const Icon(Icons.repeat, size: 24, color: AppColors.label),
         ),
-        body: GestureDetector(
-          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-          child: Column(
-            children: [
-              if (!_isPro && !Platform.isMacOS)
-                Container(
-                  height: 60,
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  child: const BannerAdconstruct(),
-                ),
-              SizedBox(height: 8),
-              // Aqui eu vou colocar o date_select para filtrar os cards
-              if (mergeCardList.isNotEmpty)
-                Expanded(
-                  key: widget.cardsExpens,
-                  child: ListView.builder(
-                      itemCount: mergeCardList.length,
-                      itemBuilder: (context, index) {
-                        final card =
-                            mergeCardList[mergeCardList.length - index - 1];
-                        if (card.amount == 0) return SizedBox();
-                        if (normalExpenseIds.contains(card.id)) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
-                            child: ListCard(
-                              onTap: (card) {
-                                widget.onAddClicked();
-                                _showCupertinoModalBottomSheet(context, card);
-                              },
-                              card: mergeCardList[
-                                  mergeCardList.length - index - 1],
-                              background: AppColors.card,
-                            ),
-                          );
-                        }
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          child: ListCardRecorrent(
-                            onTap: (card) {
-                              widget.onAddClicked();
-                            },
-                            card:
-                                mergeCardList[mergeCardList.length - index - 1],
-                            onAddClicked: loadCards(),
-                          ),
-                        );
-                      }),
-                ),
-              if (cardList.isEmpty && fixedCards.isEmpty)
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24.0, vertical: 24),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.inbox,
-                          color: AppColors.card,
-                          size: 40,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!.addNewTransactions,
-                          style: const TextStyle(
-                            color: AppColors.label,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            height: 1.8,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const Spacer(),
-                        Text(
-                          AppLocalizations.of(context)!.addNewCallToAction,
-                          style: const TextStyle(
-                            color: AppColors.label,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            height: 1.4,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-            ],
+        middle: MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          child: Text(
+            widget.title,
+            style: const TextStyle(color: AppColors.label, fontSize: 20),
           ),
         ),
         backgroundColor: AppColors.background1,
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GestureDetector(
+              onTap: () {
+                _showProModal(context);
+              },
+              child: const Text(
+                "PRO",
+                style: TextStyle(
+                  color: AppColors.label,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
-    );
-  }
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Column(
+          children: [
+            if (!_isPro && !Platform.isMacOS)
+              Container(
+                height: 60,
+                width: double.infinity,
+                alignment: Alignment.center,
+                child: const BannerAdconstruct(),
+              ),
+            const SizedBox(height: 8),
+            // Lista de cards
+            if (mergeCardList.isNotEmpty)
+              Expanded(
+                key: widget.cardsExpens,
+                child: ListView.builder(
+                    itemCount: mergeCardList.length,
+                    itemBuilder: (context, index) {
+                      final card =
+                          mergeCardList[mergeCardList.length - index - 1];
+                      if (card.amount == 0) return const SizedBox();
+                      if (normalExpenseIds.contains(card.id)) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          child: ListCard(
+                            onTap: (card) {
+                              widget.onAddClicked();
+                              _showCupertinoModalBottomSheet(context, card);
+                            },
+                            card: mergeCardList[
+                                mergeCardList.length - index - 1],
+                            background: AppColors.card,
+                          ),
+                        );
+                      }
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        child: ListCardRecorrent(
+                          onTap: (card) {
+                            widget.onAddClicked();
+                          },
+                          card:
+                              mergeCardList[mergeCardList.length - index - 1],
+                          onAddClicked: loadCards(),
+                        ),
+                      );
+                    }),
+              ),
+            // Estado vazio melhorado
+            if (cardList.isEmpty && fixedCards.isEmpty)
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                AppColors.button.withOpacity(0.1),
+                                AppColors.button.withOpacity(0.05),
+                              ],
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.button.withOpacity(0.08),
+                                blurRadius: 20,
+                                offset: const Offset(0, 8),
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.receipt_long_outlined,
+                            color: AppColors.button,
+                            size: 38,
+                          ),
+                        ),
+                        
+                        const SizedBox(height: 18),
+                        
+                        // Título principal
+                        Text(
+                          AppLocalizations.of(context)!.transactionPlaceholderSubtitle,
+                          style: const TextStyle(
+                            color: AppColors.label,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                            height: 1.2,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        
+                        const SizedBox(height: 12),
+                        
+                        // Subtítulo explicativo
+                        Text(
+                          // AppLocalizations.of(context)!.emptyStateSubtitle ?? 
+                          AppLocalizations.of(context)!.transactionPlaceholderTitle,
+                          style: TextStyle(
+                            color: AppColors.label.withOpacity(0.7),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            height: 1.5,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        
+                        const SizedBox(height: 30),
+                        
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: AppColors.card,
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.04),
+                                blurRadius: 8,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 32,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.button.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: const Icon(
+                                      Icons.add_circle_outline,
+                                      color: AppColors.button,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          AppLocalizations.of(context)!.transactionPlaceholderRow1Title,
+                                          style: const TextStyle(
+                                            color: AppColors.label,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        Text(
+                                          AppLocalizations.of(context)!.transactionPlaceholderRow1Subtitle,
+                                          style: TextStyle(
+                                            color: AppColors.label.withOpacity(0.6),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 32,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.button.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: const Icon(
+                                      Icons.repeat,
+                                      color: AppColors.button,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          AppLocalizations.of(context)!.transactionPlaceholderRow2Title,
+                                          style: const TextStyle(
+                                            color: AppColors.label,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        Text(
+                                          AppLocalizations.of(context)!.transactionPlaceholderRow3Subtitle,
+                                          style: TextStyle(
+                                            color: AppColors.label.withOpacity(0.6),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        
+                        const SizedBox(height: 20),
+                        
+                      ],
+                    ),
+                  ),
+                ),
+              )
+          ],
+        ),
+      ),
+      backgroundColor: AppColors.background1,
+    ),
+  );
+}
 
   void _showCupertinoModalBottomSheet(BuildContext context, CardModel card) {
     FocusScope.of(context).unfocus();

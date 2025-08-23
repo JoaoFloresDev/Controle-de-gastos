@@ -442,4 +442,44 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get setGoal => 'Definir Presupuesto';
+
+  @override
+  String get confirm => 'Confirmar';
+
+  @override
+  String get transactionPlaceholderTitle =>
+      'Empieza agregando tu primera transacción\npara tener control total de tus gastos';
+
+  @override
+  String get transactionPlaceholderSubtitle =>
+      'Tus transacciones aparecerán aquí';
+
+  @override
+  String get transactionPlaceholderRow1Title => 'Agregar transacción';
+
+  @override
+  String get transactionPlaceholderRow1Subtitle =>
+      'Toca la pestaña agregar para comenzar';
+
+  @override
+  String get transactionPlaceholderRow2Title => 'Gastos fijos';
+
+  @override
+  String get transactionPlaceholderRow3Subtitle =>
+      'Configura gastos recurrentes';
+
+  @override
+  String get addTransactionTitle => 'Registrar gasto';
+
+  @override
+  String get dateAndHour => 'Fecha y hora';
+
+  @override
+  String get insertExpend => 'Insertar gasto';
+
+  @override
+  String get addTransactionPopupTitle => 'Registrar gasto';
+
+  @override
+  String get addTransactionPopupSubtitle => 'Monto gastado';
 }

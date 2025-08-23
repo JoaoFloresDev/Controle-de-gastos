@@ -1,3 +1,4 @@
+import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'dart:io';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
@@ -183,16 +184,16 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
                   CupertinoButton(
                     padding: EdgeInsets.zero,
                     onPressed: () => Navigator.of(ctx).pop(),
-                    child: const Text(
-                      'Cancelar',
+                    child: Text(
+                      AppLocalizations.of(context)!.cancel,
                       style: TextStyle(color: CupertinoColors.systemGrey),
                     ),
                   ),
-                  const Expanded(
+                  Expanded(
                     child: Center(
                       child: Text(
-                        'Data e Hora',
-                        style: TextStyle(
+                        AppLocalizations.of(context)!.dateAndHour,
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: CupertinoColors.white,

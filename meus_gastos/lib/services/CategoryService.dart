@@ -139,7 +139,7 @@ class CategoryService {
       id: 'CreditCard',
       color: Colors.limeAccent.withOpacity(0.8),
       icon: Icons.credit_card,
-      name: 'CreditCard',
+      name: 'Credit Card',
       frequency: 0,
     ),
     CategoryModel(

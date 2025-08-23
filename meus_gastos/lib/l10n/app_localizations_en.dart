@@ -263,7 +263,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Rate our app on the App Store to help more people discover it!';
 
   @override
-  String get notNow => 'Not now';
+  String get notNow => 'Not Now';
 
   @override
   String get reviewButton => 'Rate';
@@ -444,4 +444,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get setGoal => 'Set Goal';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get transactionPlaceholderTitle =>
+      'Start by adding your first transaction\nto have full control of your expenses';
+
+  @override
+  String get transactionPlaceholderSubtitle =>
+      'Your transactions will appear here';
+
+  @override
+  String get transactionPlaceholderRow1Title => 'Add transaction';
+
+  @override
+  String get transactionPlaceholderRow1Subtitle =>
+      'Tap the add tab to get started';
+
+  @override
+  String get transactionPlaceholderRow2Title => 'Fixed expenses';
+
+  @override
+  String get transactionPlaceholderRow3Subtitle => 'Set up recurring expenses';
+
+  @override
+  String get addTransactionTitle => 'Add Expense';
+
+  @override
+  String get dateAndHour => 'Date and Time';
+
+  @override
+  String get insertExpend => 'Insert Expense';
+
+  @override
+  String get addTransactionPopupTitle => 'Add Expense';
+
+  @override
+  String get addTransactionPopupSubtitle => 'Amount spent';
 }

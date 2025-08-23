@@ -142,7 +142,18 @@
   "set": "Definir",
   "totalGoalForMonth": "Presupuesto total para un mes",
   "currentGoal" : "Presupuesto actual",
-  "setGoal" : "Definir Presupuesto"
+  "setGoal" : "Definir Presupuesto",
 
-
+"confirm" : "Confirmar",
+"transactionPlaceholderTitle" : "Empieza agregando tu primera transacción\npara tener control total de tus gastos",
+"transactionPlaceholderSubtitle" : "Tus transacciones aparecerán aquí",
+"transactionPlaceholderRow1Title" : "Agregar transacción",
+"transactionPlaceholderRow1Subtitle" : "Toca la pestaña agregar para comenzar",
+"transactionPlaceholderRow2Title" : "Gastos fijos",
+"transactionPlaceholderRow3Subtitle" : "Configura gastos recurrentes",
+"addTransactionTitle" : "Registrar gasto",
+"dateAndHour" : "Fecha y hora",
+"insertExpend" : "Insertar gasto",
+"addTransactionPopupTitle" : "Registrar gasto",
+"addTransactionPopupSubtitle" : "Monto gastado"
 }

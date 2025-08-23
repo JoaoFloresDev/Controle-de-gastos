@@ -431,7 +431,7 @@ class _AddTransactionControllerState extends State<AddTransactionController>
               KeyboardDoneToolbar(
                 onDone: () {
                   FocusManager.instance.primaryFocus?.unfocus();
-                  _headerCardKey.currentState?.adicionar();
+                  // _headerCardKey.currentState?.adicionar();
                 },
               ),
             ],
