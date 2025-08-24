@@ -11,12 +11,14 @@ class VerticalCircleList extends StatefulWidget {
   final Function(int) onItemSelected;
   final int defaultdIndexCategory;
   final Function(List<CategoryModel>) onCategoriesLoaded;
+  final VoidCallback onAddCategorySelected;
 
   const VerticalCircleList({
     super.key,
     required this.onItemSelected,
     required this.defaultdIndexCategory,
     required this.onCategoriesLoaded,
+    required this.onAddCategorySelected,
   });
 
   @override
@@ -39,11 +41,11 @@ class VerticalCircleListState extends State<VerticalCircleList> {
 
   Future<void> loadCategories() async {
     // Await the categories from the service
-    categorieList = await CategoryService().getAllPositiveCategories();
-    
+    categorieList = await CategoryService().getAllCategoriesAvaliable();
+
     // Update the UI
     setState(() {});
-    
+
     // Send the loaded list back to the parent widget via the callback
     widget.onCategoriesLoaded(categorieList);
   }
@@ -72,6 +74,11 @@ class VerticalCircleListState extends State<VerticalCircleList> {
             setState(() {
               selectedIndex = index;
             });
+          }
+          // print(isAddCategory);
+          if (isAddCategory) {
+            print(isAddCategory);
+            widget.onAddCategorySelected();
           }
           widget.onItemSelected(index);
         },
@@ -172,8 +179,8 @@ class VerticalCircleListState extends State<VerticalCircleList> {
         children: [
           GridView.builder(
             controller: _scrollController,
-            padding: const EdgeInsets.only(
-                top: 12, left: 16, right: 16, bottom: 70),
+            padding:
+                const EdgeInsets.only(top: 12, left: 16, right: 16, bottom: 70),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               crossAxisSpacing: 8,
@@ -187,9 +194,9 @@ class VerticalCircleListState extends State<VerticalCircleList> {
             bottom: 0,
             left: 0,
             right: 0,
-            height: 40,
             child: IgnorePointer(
               child: Container(
+              height: 40,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.bottomCenter,

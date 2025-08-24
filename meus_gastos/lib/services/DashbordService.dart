@@ -47,14 +47,21 @@ class Dashbordservice {
     final List<CardModel> cards = await CardService.retrieveCards();
     if (cards.isEmpty) return [];
     final Map<String, double> totals = {};
-
+    DateTime begin = DateTime(start.year, start.month, start.day);
+    // print("${begin} == ${cards.last.date} == ${end}");
+    // print("${cards.length}+++++++++++++++++++");
     final List<CardModel> filteredCards = cards
         .where((card) =>
-            card.date.isAfter(start) &&
+            card.date.isAfter(begin.subtract(Duration(seconds: 1))) &&
             card.date.isBefore(end.add(const Duration(days: 1))))
         .toList();
+    // for (var card in cards) {
+      // print("${card.category.name} - ${card.date}");
+    // }
+    // print("${filteredCards.length}+++++++++++++++++++");
 
     for (var card in filteredCards) {
+      // print("${card.category.id}+++++++++++++++++++");
       totals[card.category.id] = (totals[card.category.id] ?? 0) + card.amount;
     }
 
@@ -96,20 +103,20 @@ class Dashbordservice {
   }
 
   static List<CategoryModel> extractCategories(
-    List<List<ProgressIndicatorModel>> progressIndicatorsList) {
-  Map<String, CategoryModel> uniqueCategories = {};
+      List<List<ProgressIndicatorModel>> progressIndicatorsList) {
+    Map<String, CategoryModel> uniqueCategories = {};
 
-  for (var progressIndicators in progressIndicatorsList) {
-    for (var progressIndicator in progressIndicators) {
-      if (progressIndicator.progress != 0) { 
-        uniqueCategories[progressIndicator.category.id] = 
-            progressIndicator.category;
+    for (var progressIndicators in progressIndicatorsList) {
+      for (var progressIndicator in progressIndicators) {
+        if (progressIndicator.progress != 0) {
+          uniqueCategories[progressIndicator.category.id] =
+              progressIndicator.category;
+        }
       }
     }
-  }
 
-  return uniqueCategories.values.toList();
-}
+    return uniqueCategories.values.toList();
+  }
 
   static Future<List<List<ProgressIndicatorModel>>>
       getDailyProgressIndicatorsByWeek(DateTime start, DateTime end) async {
@@ -117,7 +124,7 @@ class Dashbordservice {
     if (cards.isEmpty) return [];
 
     final List<CardModel> filteredCards = cards.where((card) {
-      return card.date.isAfter(start) &&
+      return card.date.isAfter(start.subtract(Duration(seconds: 1))) &&
           card.date.isBefore(end.add(const Duration(days: 1)));
     }).toList();
 

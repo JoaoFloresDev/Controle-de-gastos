@@ -59,7 +59,6 @@ class _AddCategoryHorizontalCircleListState
     extends State<AddCategoryHorizontalCircleList> {
   int selectedIndex = 0;
 
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(

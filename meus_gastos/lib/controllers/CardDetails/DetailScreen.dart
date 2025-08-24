@@ -2,6 +2,7 @@ import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
+// import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
 import 'EditionHeaderCard.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
@@ -12,7 +13,8 @@ class DetailScreen extends StatefulWidget {
   final CardModel card;
   final VoidCallback onAddClicked;
 
-  const DetailScreen({super.key, 
+  const DetailScreen({
+    super.key,
     required this.card,
     required this.onAddClicked,
   });
@@ -20,6 +22,7 @@ class DetailScreen extends StatefulWidget {
   @override
   _DetailScreen createState() => _DetailScreen();
 }
+
 class _DetailScreen extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
@@ -37,8 +40,7 @@ class _DetailScreen extends State<DetailScreen> {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment
-              .stretch,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             CustomHeader(
               title: AppLocalizations.of(context)!.transactionDetails,
@@ -47,7 +49,8 @@ class _DetailScreen extends State<DetailScreen> {
                 // Navigator.of(context).pop();
               },
               onDeletePressed: () {
-                CardService.deleteCard(widget.card.id);
+                CardService().deleteCard(widget.card.id);
+                // SaveExpensOnCloud().deleteDate(widget.card);
                 Future.delayed(const Duration(milliseconds: 300), () {
                   widget.onAddClicked();
                   Navigator.of(context).pop();

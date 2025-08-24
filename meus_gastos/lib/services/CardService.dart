@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
+// import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -78,6 +79,24 @@ class CardService {
   static Future<List<CardModel>> retrieveCards() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString(_storageKey);
+    // if (SaveExpensOnCloud().userId != null) {
+    //   // print(user.displayName);
+    //   List<CardModel> cardList = await SaveExpensOnCloud().fetchCards()
+    //     ..sort((a, b) => a.date.compareTo(b.date));
+    //   return cardList;
+    // } else {
+      if (cardsString != null) {
+        final List<dynamic> jsonList = json.decode(cardsString);
+        return jsonList.map((jsonItem) => CardModel.fromJson(jsonItem)).toList()
+          ..sort((a, b) => a.date.compareTo(b.date));
+      }
+    // }
+    return [];
+  }
+
+  static Future<List<CardModel>> retrieveCardsToSync() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? cardsString = prefs.getString(_storageKey);
     if (cardsString != null) {
       final List<dynamic> jsonList = json.decode(cardsString);
       return jsonList.map((jsonItem) => CardModel.fromJson(jsonItem)).toList()
@@ -87,7 +106,7 @@ class CardService {
   }
 
   // MARK: - Modify Cards
-  static Future<void> modifyCards(
+  Future<void> modifyCards(
       List<CardModel> Function(List<CardModel> cards) modification) async {
     final List<CardModel> cards = await retrieveCards();
     final List<CardModel> modifiedCards = modification(cards);
@@ -95,29 +114,41 @@ class CardService {
     final String encodedData =
         json.encode(modifiedCards.map((card) => card.toJson()).toList());
     await prefs.setString(_storageKey, encodedData);
+
   }
 
   // MARK: - Add, Delete, and Update Cards
-  static Future<void> addCard(CardModel cardModel) async {
+  Future<void> addCard(CardModel cardModel) async {
     await modifyCards((cards) {
       cards.add(cardModel);
       return cards;
     });
+    // if (SaveExpensOnCloud().userId != null)
+    //   SaveExpensOnCloud().addNewDate(cardModel);
   }
 
-  static Future<void> deleteCard(String id) async {
-    await modifyCards((cards) {
-      cards.removeWhere((card) => card.id == id);
-      return cards;
-    });
+  Future<void> deleteCard(String id) async {
+    // if (SaveExpensOnCloud().userId != null) {
+    //   List<CardModel> cards = await retrieveCards();
+    //   SaveExpensOnCloud().deleteDate(cards.firstWhere((card) => card.id == id));
+    // } else {
+      await modifyCards((cards) {
+        cards.removeWhere((card) => card.id == id);
+        return cards;
+      });
+    // }
   }
 
-  static Future<void> updateCard(String id, CardModel newCard) async {
+  Future<void> updateCard(String id, CardModel newCard) async {
     await modifyCards((cards) {
       final int index = cards.indexWhere((card) => card.id == id);
       if (index != -1) {
         cards[index] = newCard;
       }
+      // if (SaveExpensOnCloud().userId != null) {
+      //   SaveExpensOnCloud().deleteDate(cards[index]);
+      //   SaveExpensOnCloud().addNewDate(newCard);
+      // }
       return cards;
     });
   }
@@ -125,7 +156,8 @@ class CardService {
   // MARK: - Delete All Cards
   static Future<void> deleteAllCards() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_storageKey);
+    bool result = await prefs.remove(_storageKey);
+    print("Delet result = $result");
   }
 
   // MARK: - Progress Indicators
@@ -162,7 +194,7 @@ class CardService {
     return progressIndicators;
   }
 
-  static Future<List<ProgressIndicatorModel>> getProgressIndicatorsByMonth(
+  Future<List<ProgressIndicatorModel>> getProgressIndicatorsByMonth(
       DateTime month) async {
     final List<CardModel> cards = await retrieveCards();
     if (cards.isEmpty) return [];

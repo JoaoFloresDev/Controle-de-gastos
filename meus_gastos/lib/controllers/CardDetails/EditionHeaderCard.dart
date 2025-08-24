@@ -1,3 +1,4 @@
+import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -6,7 +7,7 @@ import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import '../Transactions/InsertTransactions/ViewComponents/CampoComMascara.dart';
 import '../Transactions/InsertTransactions/ViewComponents/HorizontalCircleList.dart';
-import '../AddTransaction/UIComponents/Header/ValorTextField.dart';
+import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ValorTextField.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
@@ -17,7 +18,8 @@ class EditionHeaderCard extends StatefulWidget {
   final String adicionarButtonTitle;
   final CardModel card;
 
-  const EditionHeaderCard({super.key, 
+  const EditionHeaderCard({
+    super.key,
     required this.onAddClicked,
     required this.adicionarButtonTitle,
     required this.card,
@@ -35,9 +37,10 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
 
   late DateTime lastDateSelected = widget.card.date;
   List<CategoryModel> categorieList = [];
-  late int lastIndexSelected;
+  late int? lastIndexSelected;
   final DateTime dataInicial = DateTime.now();
   final double valorInicial = 0.0;
+  bool isLoading = true;
 
   // MARK: - InitState
   @override
@@ -84,23 +87,25 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     descricaoFocusNode.dispose();
     super.dispose();
   }
-  Future<void> _loadCategories() async{
+
+  Future<void> _loadCategories() async {
     await loadCategories();
   }
 
   // MARK: - Load Categories
   Future<void> loadCategories() async {
-    categorieList = await CategoryService().getAllCategories();
+    categorieList = await CategoryService().getAllCategoriesAvaliable();
     CategoryService().printAllCategories();
-    lastIndexSelected = categorieList.indexWhere(
-          (category) => category.id == widget.card.category.id);
-      if (lastIndexSelected == -1) {
-        lastIndexSelected = 0; 
-      }
+    lastIndexSelected = categorieList
+        .indexWhere((category) => category.id == widget.card.category.id);
+    if (lastIndexSelected == -1) {
+      lastIndexSelected = 0;
+    }
     setState(() {
-      lastIndexSelected = categorieList.indexWhere(
-          (category) => category.id == widget.card.category.id);
-          print(lastIndexSelected);
+      lastIndexSelected = categorieList
+          .indexWhere((category) => category.id == widget.card.category.id);
+      print(lastIndexSelected);
+      isLoading = false;
     });
   }
 
@@ -110,10 +115,10 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       amount: valorController.numberValue,
       description: descricaoController.text,
       date: lastDateSelected,
-      category: categorieList[lastIndexSelected],
+      category: categorieList[lastIndexSelected!],
       id: CardService.generateUniqueId(),
     );
-    CardService.updateCard(widget.card.id, newCard);
+    CardService().updateCard(widget.card.id, newCard);
 
     Future.delayed(const Duration(milliseconds: 300), () {
       widget.onAddClicked();
@@ -153,36 +158,39 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             style: const TextStyle(color: AppColors.label),
           ),
           const SizedBox(height: 24),
-          Container(
-            margin: EdgeInsets.zero,
-            child: HorizontalCircleList(
-              onItemSelected: (index) {
-                setState(() {
-                  lastIndexSelected = index;
-                });
-              },
-              defaultdIndexCategory: lastIndexSelected,
+          if (isLoading) ...[
+            LoadingContainer(),
+          ] else ...[
+            Container(
+              margin: EdgeInsets.zero,
+              child: HorizontalCircleList(
+                onItemSelected: (index) {
+                  setState(() {
+                    lastIndexSelected = index;
+                  });
+                },
+                defaultdIndexCategory: lastIndexSelected! ?? 0,
+              ),
+            ),
+          ],
+          const SizedBox(height: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: SizedBox(
+              width: double.infinity,
+              child: CupertinoButton(
+                color: AppColors.button,
+                onPressed: adicionar,
+                child: Text(
+                  widget.adicionarButtonTitle,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: CupertinoColors.white,
+                  ),
+                ),
+              ),
             ),
           ),
-          const SizedBox(height: 16),
-Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 16),
-  child: SizedBox(
-    width: double.infinity,
-    child: CupertinoButton(
-      color: AppColors.button,
-      onPressed: adicionar,
-      child: Text(
-        widget.adicionarButtonTitle,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold, 
-          color: CupertinoColors.white,
-        ),
-      ),
-    ),
-  ),
-),
-
         ],
       ),
     );

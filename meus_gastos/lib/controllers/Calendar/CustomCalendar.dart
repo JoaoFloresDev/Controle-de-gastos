@@ -2,17 +2,17 @@ import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'dart:io';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
-import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/gastos_fixos/ListCardFixeds.dart';
-import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/ListCardFixeds.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/UI/criar_gastosFixos.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import '../../../models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart' as service;
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
@@ -56,9 +56,8 @@ class CustomCalendarState extends State<CustomCalendar> {
   DateTime? _selectedDay;
   List<CardModel> _transactions = [];
   Map<DateTime, double> _dailyExpenses = {};
-  
-  final InterstitialAdManager _adManager = InterstitialAdManager();
 
+  final InterstitialAdManager _adManager = InterstitialAdManager();
 
   @override
   void initState() {
@@ -78,9 +77,8 @@ class CustomCalendarState extends State<CustomCalendar> {
     ReviewService.checkAndRequestReview(context, _isPro);
     final prefs = await SharedPreferences.getInstance();
     int sessionCount = prefs.getInt('session_count') ?? 0;
-    if ((sessionCount == 6) || (sessionCount % 5 == 0 && sessionCount > 10)){
-      if (!_isPro)
-      _adManager.showAd(context);
+    if ((sessionCount == 6) || (sessionCount % 5 == 0 && sessionCount > 10)) {
+      if (!_isPro) _adManager.showAd(context);
     }
   }
 
@@ -142,13 +140,13 @@ class CustomCalendarState extends State<CustomCalendar> {
     return Scaffold(
       backgroundColor: AppColors.background1,
       appBar: CupertinoNavigationBar(
-                  middle: MediaQuery(
-  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-  child: Text(
-    AppLocalizations.of(context)!.calendar,
-    style: const TextStyle(color: AppColors.label, fontSize: 20),
-  ),
-),
+          middle: MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: Text(
+              AppLocalizations.of(context)!.calendar,
+              style: const TextStyle(color: AppColors.label, fontSize: 20),
+            ),
+          ),
           backgroundColor: AppColors.background1),
       body: SafeArea(
         child: Column(
@@ -160,31 +158,39 @@ class CustomCalendarState extends State<CustomCalendar> {
                 alignment: Alignment.center, // Centraliza no eixo X
                 child: BannerAdconstruct(),
               ),
-            CalendarTable(
-              focusedDay: _focusedDay,
-              selectedDay: _selectedDay,
-              dailyExpenses: _dailyExpenses,
-              onDaySelected: (selectedDay, focusedDay) {
-                setState(() {
-                  _selectedDay = selectedDay;
-                  _focusedDay = focusedDay;
-                });
-                _loadTransactionsForDay(selectedDay);
-              },
-            ),
-            CalendarHeader(
-              selectedDay: _selectedDay,
-              focusedDay: _focusedDay,
-              dailyExpenses: _dailyExpenses,
-            ),
             Expanded(
-              child: TransactionList(
-                transactions: _transactions,
-                onRefresh: () {
-                  _loadTransactionsForDay(_selectedDay ?? DateTime.now());
-                },
-              ),
-            ),
+              child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height,
+                ),
+                child: Column(children: [
+                  CalendarTable(
+                    focusedDay: _focusedDay,
+                    selectedDay: _selectedDay,
+                    dailyExpenses: _dailyExpenses,
+                    onDaySelected: (selectedDay, focusedDay) {
+                      setState(() {
+                        _selectedDay = selectedDay;
+                        _focusedDay = focusedDay;
+                      });
+                      _loadTransactionsForDay(selectedDay);
+                    },
+                  ),
+                  CalendarHeader(
+                    selectedDay: _selectedDay,
+                    focusedDay: _focusedDay,
+                    dailyExpenses: _dailyExpenses,
+                  ),
+                  TransactionList(
+                    transactions: _transactions,
+                    onRefresh: () {
+                      _loadTransactionsForDay(_selectedDay ?? DateTime.now());
+                    },
+                  ),
+                ]),
+              )),
+            )
           ],
         ),
       ),

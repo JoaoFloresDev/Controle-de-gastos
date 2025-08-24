@@ -1,8 +1,6 @@
-import 'dart:io';
-import 'package:flutter/foundation.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 
 class KeyboardDoneToolbar extends StatelessWidget {
@@ -26,9 +24,9 @@ class KeyboardDoneToolbar extends StatelessWidget {
           CupertinoButton(
             padding: const EdgeInsets.only(right: 24),
             onPressed: onDone,
-            child: const Text(
-              'Confirmar',
-              style: TextStyle(
+            child: Text(
+              AppLocalizations.of(context)!.confirm,
+              style: const TextStyle(
                 color: AppColors.label,
                 fontWeight: FontWeight.bold,
               ),

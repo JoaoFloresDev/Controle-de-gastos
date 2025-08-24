@@ -795,6 +795,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add your expenses so that we can organize them for you.'**
   String get pietutorial;
+
+  /// No description provided for @signup.
+  ///
+  /// In en, this message translates to:
+  /// **'Sing Up'**
+  String get signup;
+
+  /// No description provided for @signin.
+  ///
+  /// In en, this message translates to:
+  /// **'Sing In'**
+  String get signin;
+
+  /// No description provided for @signout.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get signout;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? Login'**
+  String get alreadyHaveAccount;
+
+  /// No description provided for @dontHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account yet? Sign up'**
+  String get dontHaveAccount;
+
+  /// No description provided for @other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get other;
+
+  /// No description provided for @contactus.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact us'**
+  String get contactus;
+
+  /// No description provided for @loginWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Login with Google'**
+  String get loginWithGoogle;
+
+  /// No description provided for @sync.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync'**
+  String get sync;
+
+  /// No description provided for @syncData.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync data'**
+  String get syncData;
+
+  /// No description provided for @syncQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to sync local data with the cloud?'**
+  String get syncQuestion;
+
+  /// No description provided for @loginWithGoogleToSyncData.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with your Google account to sync your data'**
+  String get loginWithGoogleToSyncData;
+
+  /// No description provided for @secureCloudBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Secure cloud backup'**
+  String get secureCloudBackup;
+
+  /// No description provided for @accessAcrossDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'Access on all devices'**
+  String get accessAcrossDevices;
+
+  /// No description provided for @upgradeToProToSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to Pro to sign in\nand sync your data'**
+  String get upgradeToProToSync;
+
+  /// No description provided for @redirectingToUpgrade.
+  ///
+  /// In en, this message translates to:
+  /// **'Redirecting to upgrade...'**
+  String get redirectingToUpgrade;
+
+  /// No description provided for @proFeature.
+  ///
+  /// In en, this message translates to:
+  /// **'Pro Feature'**
+  String get proFeature;
+
+  /// No description provided for @budget.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal'**
+  String get budget;
+
+  /// No description provided for @set.
+  ///
+  /// In en, this message translates to:
+  /// **'Set'**
+  String get set;
+
+  /// No description provided for @totalGoalForMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Total budget for a month'**
+  String get totalGoalForMonth;
+
+  /// No description provided for @currentGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Goal'**
+  String get currentGoal;
+
+  /// No description provided for @setGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Goal'**
+  String get setGoal;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @transactionPlaceholderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start by adding your first transaction\nto have full control of your expenses'**
+  String get transactionPlaceholderTitle;
+
+  /// No description provided for @transactionPlaceholderSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your transactions will appear here'**
+  String get transactionPlaceholderSubtitle;
+
+  /// No description provided for @transactionPlaceholderRow1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add transaction'**
+  String get transactionPlaceholderRow1Title;
+
+  /// No description provided for @transactionPlaceholderRow1Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the add tab to get started'**
+  String get transactionPlaceholderRow1Subtitle;
+
+  /// No description provided for @transactionPlaceholderRow2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed expenses'**
+  String get transactionPlaceholderRow2Title;
+
+  /// No description provided for @transactionPlaceholderRow3Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up recurring expenses'**
+  String get transactionPlaceholderRow3Subtitle;
+
+  /// No description provided for @addTransactionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Expense'**
+  String get addTransactionTitle;
+
+  /// No description provided for @dateAndHour.
+  ///
+  /// In en, this message translates to:
+  /// **'Date and Time'**
+  String get dateAndHour;
+
+  /// No description provided for @insertExpend.
+  ///
+  /// In en, this message translates to:
+  /// **'Insert Expense'**
+  String get insertExpend;
+
+  /// No description provided for @addTransactionPopupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Expense'**
+  String get addTransactionPopupTitle;
+
+  /// No description provided for @addTransactionPopupSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount spent'**
+  String get addTransactionPopupSubtitle;
 }
 
 class _AppLocalizationsDelegate

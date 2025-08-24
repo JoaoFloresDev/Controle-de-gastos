@@ -75,6 +75,35 @@ class _ProModalState extends State<ProModal> {
         }
         if (purchaseDetails.productID == monthlyProId) {
           saveIsPremiummonthly();
+          showDialog(
+            context: context,
+            barrierDismissible:
+                false, // impede que o usuário feche o modal tocando fora
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Sincronizar dados'),
+                content: Text(
+                    'Você deseja entrar no seu perfil para sincronizar seus dados?'),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text('Agora não'),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Fecha o modal
+                    },
+                  ),
+                  ElevatedButton(
+                    child: Text('Fazer Login'),
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Fecha o modal
+                      // Navegue para a tela de login
+                      Navigator.pushNamed(
+                          context, '/login'); // Altere para sua rota real
+                    },
+                  ),
+                ],
+              );
+            },
+          );
         }
       } else if (purchaseDetails.status == PurchaseStatus.error) {
         // Trate erros de compra aqui, se necessário
@@ -95,6 +124,7 @@ class _ProModalState extends State<ProModal> {
   Future<void> saveIsPremiummonthly() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('monthly.pro', true);
+
     setState(() {
       isMonthlyPro = true;
     });
@@ -310,45 +340,50 @@ class _ProModalState extends State<ProModal> {
       ),
     );
   }
-  void _showMenuOptions(BuildContext context) {
-  showCupertinoModalPopup(
-    context: context,
-    builder: (BuildContext context) {
-      return CupertinoActionSheet(
-        actions: <Widget>[
-          CupertinoActionSheetAction(
-            onPressed: () {
-              Navigator.of(context).pop();
-              _launchURL('https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
-            },
-            child: const Text('Terms of Use'),
-          ),
-          CupertinoActionSheetAction(
-            onPressed: () {
-              Navigator.of(context).pop();
-              _launchURL('https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing');
-            },
-            child: const Text('Privacy Policy'),
-          ),
-        ],
-        cancelButton: CupertinoActionSheetAction(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Cancel'),
-        ),
-      );
-    },
-  );
-}
 
-void _launchURL(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
+  void _showMenuOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          actions: <Widget>[
+            CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _launchURL(
+                    'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
+              },
+              child: const Text('Terms of Use'),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _launchURL(
+                    'https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing');
+              },
+              child: const Text('Privacy Policy'),
+            ),
+          ],
+          cancelButton: CupertinoActionSheetAction(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+        );
+      },
+    );
   }
-}
+
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   Widget _buildSubscriptionButton({
     required String label,
@@ -415,7 +450,7 @@ void _launchURL(String url) async {
           Text(
             label,
             style: const TextStyle(
-              fontSize: 16,
+              fontSize: 13,
               fontWeight: FontWeight.w500,
               color: AppColors.label,
             ),

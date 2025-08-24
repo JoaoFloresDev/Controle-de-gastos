@@ -100,13 +100,13 @@ class Translateservice {
       case 'Water':
         return AppLocalizations.of(context)!.water;
       case 'Light':
-          return AppLocalizations.of(context)!.light;
+        return AppLocalizations.of(context)!.light;
       case 'Wifi':
-          return AppLocalizations.of(context)!.wifi;
+        return AppLocalizations.of(context)!.wifi;
       case 'Phone':
-          return AppLocalizations.of(context)!.phone;
+        return AppLocalizations.of(context)!.phone;
       case 'Credit Card':
-          return AppLocalizations.of(context)!.creditCard;
+        return AppLocalizations.of(context)!.creditCard;
       case 'AddCategory':
         return AppLocalizations.of(context)!.addCategory;
       default:

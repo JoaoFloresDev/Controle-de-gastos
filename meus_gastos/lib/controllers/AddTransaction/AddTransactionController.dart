@@ -1,30 +1,13 @@
 import 'dart:io';
-import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import '../../../models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart' as service;
-import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
-import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'UIComponents/Header/HeaderCard.dart';
 import 'UIComponents/VerticalCircleList.dart';
@@ -45,6 +28,7 @@ class AddTransactionController extends StatefulWidget {
     required this.categoriesKey,
     required this.descriptionKey,
     required this.valueExpensKey,
+    required this.isActive,
     super.key,
   });
   final VoidCallback onAddClicked;
@@ -56,6 +40,8 @@ class AddTransactionController extends StatefulWidget {
   final GlobalKey categoriesKey;
   final GlobalKey descriptionKey;
   final GlobalKey valueExpensKey;
+  final bool isActive;
+
   @override
   State<AddTransactionController> createState() =>
       _AddTransactionControllerState();
@@ -67,9 +53,10 @@ class _AddTransactionControllerState extends State<AddTransactionController>
   //mark - refs
   final GlobalKey<HeaderCardState> _headerCardKey = GlobalKey();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  final GlobalKey<VerticalCircleListState> _verticalCircleListKey = GlobalKey();
+  final GlobalKey<VerticalCircleListState> _verticalCircleListKey =
+      GlobalKey<VerticalCircleListState>();
   final GlobalKey _headerGradientKey = GlobalKey();
-  
+
   //mark - variables
   bool _keyboardVisible = false;
   double _headerHeight = 315; // valor inicial de fallback
@@ -84,21 +71,35 @@ class _AddTransactionControllerState extends State<AddTransactionController>
     WidgetsBinding.instance.addObserver(this);
     //mark - lifecycle
 
-  super.initState();
+    super.initState();
+    _loadFixedCards();
+
+    WidgetsBinding.instance.addObserver(this);
+    // Aguarda renderizar para medir a altura real do HeaderCard
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _updateHeaderHeight();
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant AddTransactionController oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isActive && !oldWidget.isActive) {
       _loadFixedCards();
-  
-  WidgetsBinding.instance.addObserver(this);
-  // Aguarda renderizar para medir a altura real do HeaderCard
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    _updateHeaderHeight();
-  });
-    
+    }
   }
 
   List<CardModel> mockCards = [];
   Future<void> _loadFixedCards() async {
-    var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
-    final fixedCards = fcard.map((item) => Fixedexpensesservice.Fixed_to_NormalCard(item)).toList();
+    List<FixedExpense> fcard =
+        await Fixedexpensesservice.getSortedFixedExpenses();
+    fcard = await Fixedexpensesservice.filteredFixedCardsShow(
+        fcard, DateTime.now());
+    List<CardModel> fixedCards = fcard
+        .map((item) =>
+            Fixedexpensesservice.Fixed_to_NormalCard(item, DateTime.now()))
+        .toList();
+    print("${fixedCards.length} OPAAA");
     setState(() {
       mockCards = fixedCards;
     });
@@ -133,8 +134,9 @@ class _AddTransactionControllerState extends State<AddTransactionController>
     final header = _headerCardKey.currentState;
     if (header == null) return;
     final list = _verticalCircleListKey.currentState?.categorieList;
-    final catName =
-        (list != null && list.isNotEmpty) ? list[header.lastIndexSelected].name : '—';
+    final catName = (list != null && list.isNotEmpty)
+        ? list[header.lastIndexSelected].name
+        : '—';
     final overlay = Overlay.of(context);
     if (overlay == null) return;
     late OverlayEntry entry;
@@ -356,23 +358,26 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                   final header = _headerCardKey.currentState;
                   print("aaaa");
                   if (header != null) {
-                    final list = _verticalCircleListKey.currentState?.categorieList;
+                    final list =
+                        _verticalCircleListKey.currentState?.categorieList;
                     final selectedCat = (list != null && list.isNotEmpty)
                         ? list[header.lastIndexSelected]
                         : CategoryModel(
-    id: 'Unknown',
-    color: Colors.blueAccent.withOpacity(0.8),
-    icon: Icons.question_mark_rounded,
-    name: 'Unknown',
-    frequency: 0,
-  );
+                            id: 'Unknown',
+                            color: Colors.blueAccent.withOpacity(0.8),
+                            icon: Icons.question_mark_rounded,
+                            name: 'Unknown',
+                            frequency: 0,
+                          );
                     AddedExpenseToast.show(
                       context: context,
                       amount: header.valorController.numberValue,
                       description: header.descricaoController.text,
                       categoryIconColor: selectedCat.color,
                       categoryIcon: selectedCat.icon,
-                      category: Translateservice.getTranslatedCategoryUsingModel(context, selectedCat),
+                      category:
+                          Translateservice.getTranslatedCategoryUsingModel(
+                              context, selectedCat),
                     );
                     header.adicionar();
                     widget.onAddClicked();
@@ -381,7 +386,9 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                   }
                 },
               ),
-              mockCards.isNotEmpty && showRecorrentCard ? SizedBox(height: 0) : SizedBox(height: 16),
+              mockCards.isNotEmpty && showRecorrentCard
+                  ? SizedBox(height: 0)
+                  : SizedBox(height: 16),
               AnimatedOpacity(
                 opacity: mockCards.isNotEmpty && showRecorrentCard ? 1.0 : 0.0,
                 duration: const Duration(milliseconds: 300),
@@ -389,7 +396,9 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeOut,
-                  height: mockCards.isNotEmpty && showRecorrentCard ? 104.0 : 0.0, // Altura estimada (Separador + Lista)
+                  height: mockCards.isNotEmpty && showRecorrentCard
+                      ? 104.0
+                      : 0.0, // Altura estimada (Separador + Lista)
                   child: SingleChildScrollView(
                     physics: const NeverScrollableScrollPhysics(),
                     child: Column(
@@ -399,9 +408,13 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                         HorizontalCompactCardList(
                           cards: mockCards,
                           onTap: (card) => widget.onAddClicked(),
-                          onAddClicked: _loadCards,
+                          onAddClicked: () async {
+                            _loadCards();
+                            _loadFixedCards();
+                          },
                           onCardsEmpty: () {
                             print("aqui! recore");
+                            _loadFixedCards();
                             setState(() {
                               // if (mockCards.isEmpty) {
                               //     showRecorrentCard = false;
@@ -418,7 +431,7 @@ class _AddTransactionControllerState extends State<AddTransactionController>
               KeyboardDoneToolbar(
                 onDone: () {
                   FocusManager.instance.primaryFocus?.unfocus();
-                  _headerCardKey.currentState?.adicionar();
+                  // _headerCardKey.currentState?.adicionar();
                 },
               ),
             ],
@@ -427,43 +440,72 @@ class _AddTransactionControllerState extends State<AddTransactionController>
       ),
     );
   }
-Widget _buildHeader() {
-  return HeaderWithGradientBackground(
-    headerBuilder: (_) => HeaderCard(
-      key: _headerCardKey,
-      addButon: widget.addButtonKey,
-      categories: widget.categoriesKey,
-      date: widget.dateKey,
-      description: widget.descriptionKey,
-      valueExpens: widget.valueExpensKey,
-      onAddClicked: widget.onAddClicked,
-      onAddCategory: () {},
-      // Add the required callback here
-      onCategoriesLoaded: (loadedCategories) {
-        // You can now use the 'loadedCategories' list in this parent widget's state if needed.
-        // For example: setState(() => _myListOfCategories = loadedCategories));
-        print('Categories have been loaded in the parent widget!');
-      },
-    ),
-  );
-}
 
-Widget _buildCategoryList() {
-  return VerticalCircleList(
-    key: _verticalCircleListKey,
-    defaultdIndexCategory: 0,
-    
-    // Connect the VerticalCircleList's output to the HeaderCard's input method.
-    onCategoriesLoaded: (categories) {
-      _headerCardKey.currentState?.onCategoriesLoaded(categories);
-    },
-    
-    // Connect the item selection event to the HeaderCard's handler method.
-    onItemSelected: (index) {
-      _headerCardKey.currentState?.onCategorySelected(index);
-    },
-  );
-}
+  Widget _buildHeader() {
+    return HeaderWithGradientBackground(
+      headerBuilder: (_) => HeaderCard(
+        key: _headerCardKey,
+        addButon: widget.addButtonKey,
+        categories: widget.categoriesKey,
+        date: widget.dateKey,
+        description: widget.descriptionKey,
+        valueExpens: widget.valueExpensKey,
+        onAddClicked: widget.onAddClicked,
+        onAddCategory: () {},
+        // Add the required callback here
+        onCategoriesLoaded: (loadedCategories) {
+          // You can now use the 'loadedCategories' list in this parent widget's state if needed.
+          // For example: setState(() => _myListOfCategories = loadedCategories));
+          _loadFixedCards();
+          print('Categories have been loaded in the parent widget!');
+        },
+      ),
+    );
+  }
+
+  Widget _buildCategoryList() {
+    return VerticalCircleList(
+      key: _verticalCircleListKey,
+      defaultdIndexCategory: 0,
+
+      // Connect the VerticalCircleList's output to the HeaderCard's input method.
+      onCategoriesLoaded: (categories) {
+        _headerCardKey.currentState?.onCategoriesLoaded(categories);
+      },
+
+      // Connect the item selection event to the HeaderCard's handler method.
+      onItemSelected: (index) {
+        _headerCardKey.currentState?.onCategorySelected(index);
+      },
+
+      onAddCategorySelected: () {
+        print("AHHHHH");
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          builder: (BuildContext context) {
+            return Container(
+              height: MediaQuery.of(context).size.height - 70,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: Categorycreater(
+                onCategoryAdded: () {
+                  setState(() {
+                    _verticalCircleListKey.currentState?.loadCategories();
+                  });
+                },
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 }
 
 // <<-- WIDGET AUXILIAR QUE ESTAVA NO SEU CÓDIGO ORIGINAL
@@ -483,7 +525,6 @@ class _HeaderWithGradientBackgroundState
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => _updateHeight());
-    
   }
 
   @override
@@ -510,7 +551,6 @@ class _HeaderWithGradientBackgroundState
     final MediaQueryData mediaQuery = MediaQuery.of(context);
     final double topPadding = mediaQuery.padding.top;
 
-    // Altura total = SafeArea top + altura do header
     final double totalHeight = topPadding + _headerHeight;
     return Stack(
       children: [
@@ -518,7 +558,7 @@ class _HeaderWithGradientBackgroundState
           top: 0,
           left: 0,
           right: 0,
-          height: totalHeight, // Usa a altura total calculada
+          height: totalHeight,
           child: Container(
             decoration: BoxDecoration(
               gradient: const LinearGradient(

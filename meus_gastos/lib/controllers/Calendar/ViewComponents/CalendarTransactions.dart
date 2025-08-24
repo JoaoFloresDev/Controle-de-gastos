@@ -1,16 +1,16 @@
 import 'dart:io';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
-import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/gastos_fixos/ListCardFixeds.dart';
-import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/ListCardFixeds.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/UI/criar_gastosFixos.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import '../../../models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart' as service;
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
@@ -43,20 +43,27 @@ class TransactionList extends StatelessWidget {
       return Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
-          child: Text(
-            AppLocalizations.of(context)!.emptyDay,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: AppColors.labelPlaceholder,
-              fontSize: 18,
+          child: Column(children: [
+            SizedBox(
+              height: 40,
             ),
-          ),
+            Text(
+              AppLocalizations.of(context)!.emptyDay,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: AppColors.labelPlaceholder,
+                fontSize: 18,
+              ),
+            ),
+          ]),
         ),
       );
     }
 
     final reversedTransactions = transactions.reversed.toList();
     return ListView.builder(
+      shrinkWrap: true, // resolve o erro de altura infinita
+      physics: NeverScrollableScrollPhysics(), // evita conflito de scrolls
       itemCount: reversedTransactions.length,
       itemBuilder: (context, index) {
         final transaction = reversedTransactions[index];
@@ -77,8 +84,10 @@ class TransactionList extends StatelessWidget {
 
   void _showCupertinoModalBottomSheet(BuildContext context, CardModel card) {
     FocusScope.of(context).unfocus();
-    showCupertinoModalPopup(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return Container(
           height: MediaQuery.of(context).size.height - 70,

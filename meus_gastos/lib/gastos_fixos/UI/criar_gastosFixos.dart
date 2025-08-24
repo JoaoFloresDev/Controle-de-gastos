@@ -59,10 +59,10 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
   }
 
   Future<void> loadCategories() async {
-    var categorieList = await CategoryService().getAllPositiveCategories();
-    setState(() {
-      icons_list_recorrent = categorieList.sublist(0, categorieList.length - 1);
-    });
+    // var categorieList = await CategoryService().getAllPositiveCategories();
+    // setState(() {
+    //   icons_list_recorrent = categorieList.sublist(0, categorieList.length - 1);
+    // });
   }
 
   @override

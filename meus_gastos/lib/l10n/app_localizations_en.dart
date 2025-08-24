@@ -370,4 +370,117 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get pietutorial =>
       'Add your expenses so that we can organize them for you.';
+
+  @override
+  String get signup => 'Sing Up';
+
+  @override
+  String get signin => 'Sing In';
+
+  @override
+  String get signout => 'Sign Out';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account? Login';
+
+  @override
+  String get dontHaveAccount => 'Don\'t have an account yet? Sign up';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get contactus => 'Contact us';
+
+  @override
+  String get loginWithGoogle => 'Login with Google';
+
+  @override
+  String get sync => 'Sync';
+
+  @override
+  String get syncData => 'Sync data';
+
+  @override
+  String get syncQuestion => 'Do you want to sync local data with the cloud?';
+
+  @override
+  String get loginWithGoogleToSyncData =>
+      'Sign in with your Google account to sync your data';
+
+  @override
+  String get secureCloudBackup => 'Secure cloud backup';
+
+  @override
+  String get accessAcrossDevices => 'Access on all devices';
+
+  @override
+  String get upgradeToProToSync =>
+      'Upgrade to Pro to sign in\nand sync your data';
+
+  @override
+  String get redirectingToUpgrade => 'Redirecting to upgrade...';
+
+  @override
+  String get proFeature => 'Pro Feature';
+
+  @override
+  String get budget => 'Goal';
+
+  @override
+  String get set => 'Set';
+
+  @override
+  String get totalGoalForMonth => 'Total budget for a month';
+
+  @override
+  String get currentGoal => 'Current Goal';
+
+  @override
+  String get setGoal => 'Set Goal';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get transactionPlaceholderTitle =>
+      'Start by adding your first transaction\nto have full control of your expenses';
+
+  @override
+  String get transactionPlaceholderSubtitle =>
+      'Your transactions will appear here';
+
+  @override
+  String get transactionPlaceholderRow1Title => 'Add transaction';
+
+  @override
+  String get transactionPlaceholderRow1Subtitle =>
+      'Tap the add tab to get started';
+
+  @override
+  String get transactionPlaceholderRow2Title => 'Fixed expenses';
+
+  @override
+  String get transactionPlaceholderRow3Subtitle => 'Set up recurring expenses';
+
+  @override
+  String get addTransactionTitle => 'Add Expense';
+
+  @override
+  String get dateAndHour => 'Date and Time';
+
+  @override
+  String get insertExpend => 'Insert Expense';
+
+  @override
+  String get addTransactionPopupTitle => 'Add Expense';
+
+  @override
+  String get addTransactionPopupSubtitle => 'Amount spent';
 }

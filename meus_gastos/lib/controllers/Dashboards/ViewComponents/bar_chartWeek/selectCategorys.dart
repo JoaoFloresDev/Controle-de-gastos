@@ -74,7 +74,8 @@ class _SelectCategoriesState extends State<SelectCategories> {
             isSelected ? AppColors.buttonSelected : AppColors.buttonDeselected,
         shape: BoxShape.circle,
       ),
-      child: Icon(widget.categoryList[index].icon, color: widget.categoryList[index].color),
+      child: Icon(widget.categoryList[index].icon,
+          color: widget.categoryList[index].color),
     );
   }
 

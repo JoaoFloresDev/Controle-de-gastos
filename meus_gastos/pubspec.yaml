@@ -7,6 +7,7 @@ version: 2.0.0+28
 environment:
   sdk: '>=3.3.2 <4.0.0'
 
+
 dependencies:
   flutter:
     sdk: flutter
@@ -36,6 +37,7 @@ dependencies:
   table_calendar: ^3.0.7
   app_tracking_transparency: ^2.0.4
   window_size: ^0.1.0
+  provider: ^6.1.5
   
 
 dev_dependencies:

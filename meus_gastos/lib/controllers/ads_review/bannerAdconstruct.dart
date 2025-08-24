@@ -2,11 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-
-import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BannerAdconstruct extends StatefulWidget {
   const BannerAdconstruct({super.key});
@@ -16,8 +12,10 @@ class BannerAdconstruct extends StatefulWidget {
 }
 
 class _BannerAdconstructState extends State<BannerAdconstruct> {
+  //MARK: variables
   BannerAd? _bannerAd;
   bool _isAdLoaded = false;
+  bool _isPro = false;
 
   String getBannerAdUnitId() {
     if (Platform.isAndroid) {
@@ -34,6 +32,7 @@ class _BannerAdconstructState extends State<BannerAdconstruct> {
   void initState() {
     super.initState();
     _loadBannerAd();
+    _checkUserProStatus();
   }
 
   void _loadBannerAd() {
@@ -43,6 +42,7 @@ class _BannerAdconstructState extends State<BannerAdconstruct> {
       request: const AdRequest(),
       listener: BannerAdListener(
         onAdLoaded: (_) {
+          print("$_isAdLoaded");
           setState(() {
             _isAdLoaded = true;
           });
@@ -63,26 +63,43 @@ class _BannerAdconstructState extends State<BannerAdconstruct> {
     super.dispose();
   }
 
+  Future<void> _checkUserProStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool isYearlyPro = prefs.getBool('yearly.pro') ?? false;
+    bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
+    setState(() {
+      _isPro = isYearlyPro || isMonthlyPro;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Exibe o container de loading enquanto o anúncio não é carregado
-    return Stack(
-      children: [
-        if (!_isAdLoaded)
-          const Center(
-            child: LoadingContainer(),
-          ),
-        if (_isAdLoaded)
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 60, // Altura padrão do banner
-              child: AdWidget(ad: _bannerAd!),
-            ),
-          ),
-      ],
-    );
+    if (!_isPro && !Platform.isMacOS){
+      return Container(
+        height: 60,
+        width: double.infinity,
+        alignment: Alignment.center,
+        child: Stack(
+          children: [
+            if (!_isAdLoaded)
+              const Center(
+                child: LoadingContainer(),
+              ),
+            if (_isAdLoaded)
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: 60, // Altura padrão do banner
+                  child: AdWidget(ad: _bannerAd!),
+                ),
+              ),
+          ],
+        ),
+      );
+    }else{
+      return const SizedBox();
+      }
   }
 }
 

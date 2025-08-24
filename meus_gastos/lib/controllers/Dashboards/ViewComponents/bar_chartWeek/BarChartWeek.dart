@@ -52,87 +52,83 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         ? 0
         : 120;
 
-return Card(
-  elevation: 4,
-  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-  child: Container(
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [AppColors.card, AppColors.card2],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-      borderRadius: BorderRadius.circular(18),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.1),
-          offset: const Offset(0, 4),
-          blurRadius: 8,
-          spreadRadius: 2,
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [AppColors.card, AppColors.card2],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              offset: const Offset(0, 4),
+              blurRadius: 8,
+              spreadRadius: 2,
+            ),
+          ],
         ),
-      ],
-    ),
-    child: Column(
-      children: [
-        Expanded(child: _buildChart(maxY)),
-        _buildCategorySelector(),
-      ],
-    ),
-  ),
-);
-
+        child: Column(
+          children: [
+            Expanded(child: _buildChart(maxY)),
+            _buildCategorySelector(),
+          ],
+        ),
+      ),
+    );
   }
 
-Widget _buildEmptyState(BuildContext context) {
-  return Center(
-    child: Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [AppColors.card, AppColors.background1],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+  Widget _buildEmptyState(BuildContext context) {
+    return Center(
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [AppColors.card, AppColors.background1],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              offset: const Offset(0, 4),
+              blurRadius: 8,
+              spreadRadius: 2,
+            ),
+          ],
         ),
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            offset: const Offset(0, 4),
-            blurRadius: 8,
-            spreadRadius: 2,
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.bar_chart, size: 60, color: AppColors.label),
-          const SizedBox(height: 16),
-          Text(
-            AppLocalizations.of(context)!.weaklyGraphPlaceholder,
-            style: const TextStyle(
-              color: AppColors.label,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.bar_chart, size: 60, color: AppColors.label),
+            const SizedBox(height: 16),
+            Text(
+              AppLocalizations.of(context)!.weaklyGraphPlaceholder,
+              style: const TextStyle(
+                color: AppColors.label,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            AppLocalizations.of(context)!.noExpensesThisWeek,
-            style: const TextStyle(
-              color: AppColors.label,
-              fontSize: 16
+            const SizedBox(height: 12),
+            Text(
+              AppLocalizations.of(context)!.noExpensesThisWeek,
+              style: const TextStyle(color: AppColors.label, fontSize: 16),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 40),
-        ],
+            const SizedBox(height: 40),
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   Widget _buildChart(double maxY) {
     // Construção do gráfico real quando houver dados
@@ -171,9 +167,9 @@ Widget _buildEmptyState(BuildContext context) {
     );
   }
 
-  List<String> getListIdsOfSelectedCategories(){
+  List<String> getListIdsOfSelectedCategories() {
     List<String> ids = [];
-    for(var cat in selectedCategories){
+    for (var cat in selectedCategories) {
       ids.add(cat.id);
     }
     return ids;
@@ -183,13 +179,11 @@ Widget _buildEmptyState(BuildContext context) {
     if (selectedCategories.isEmpty) {
       return List.generate(widget.weeklyData.length, (_) => []);
     }
-    for (var cat in selectedCategories){
-    }
+    for (var cat in selectedCategories) {}
     return widget.weeklyData.map((week) {
       return week.where((data) {
         return getListIdsOfSelectedCategories().contains(data.category.id);
-      }
-      ).toList();
+      }).toList();
     }).toList();
   }
 
@@ -205,26 +199,28 @@ Widget _buildEmptyState(BuildContext context) {
         .toSet()
         .toList();
 
-    List<double> weeklyTotalsControl = widget.weekIntervals.asMap().entries.map((entry) {
+    List<double> weeklyTotalsControl =
+        widget.weekIntervals.asMap().entries.map((entry) {
       int index = entry.key; // Índice atual
       var filteredData = _getFilteredData()[index];
       return _getFilteredData()[index]
           .fold(0.0, (sum, item) => sum + item.progress);
     }).toList();
 
-    for( var dia in weeklyTotalsControl){
+    for (var dia in weeklyTotalsControl) {
       print('$dia!!!');
     }
 
     List<double> weeklyTotals = widget.weekIntervals.map((weekInterval) {
       int index = widget.weekIntervals.indexOf(weekInterval);
-      return _getAllData()[index]
-          .fold(0.0, (sum, item) => sum + item.progress);
+      return _getAllData()[index].fold(0.0, (sum, item) => sum + item.progress);
     }).toList();
     double maxWeeklyTotal = weeklyTotals.reduce((a, b) => a > b ? a : b);
 
-    List<StackedColumnSeries<
-          MapEntry<WeekInterval, List<ProgressIndicatorModel>>, String>> seriesList = [];
+    List<
+        StackedColumnSeries<
+            MapEntry<WeekInterval, List<ProgressIndicatorModel>>,
+            String>> seriesList = [];
 
     seriesList.addAll(categories.map((category) {
       return StackedColumnSeries<
@@ -277,27 +273,28 @@ Widget _buildEmptyState(BuildContext context) {
         borderColor: AppColors.card,
       );
     }).toList());
-      seriesList.add(StackedColumnSeries<
-              MapEntry<WeekInterval, List<ProgressIndicatorModel>>, String>(
-          dataSource: widget.weekIntervals.asMap().entries.map((entry) {
-            return MapEntry(entry.value, widget.weeklyData[entry.key]);
-          }).toList(),
-          xValueMapper: (entry, _) => _getWeekLabel(entry.key),
-          yValueMapper: (entry, index) => 20,
-          dataLabelMapper: (entry, index) => weeklyTotalsControl[index] > 0
-              ? Translateservice.formatCurrency(weeklyTotalsControl[index], context)
-              : "",
-          pointColorMapper: (entry, _) => Colors.transparent,
-          width: 0.5,
-          name: AppLocalizations.of(context)!.total,
-          animationDuration: 800,
-          dataLabelSettings: const DataLabelSettings(
-            isVisible: true,
-            labelAlignment: ChartDataLabelAlignment.top,
-            textStyle:
-                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          )));
-      return seriesList;
+    seriesList.add(StackedColumnSeries<
+            MapEntry<WeekInterval, List<ProgressIndicatorModel>>, String>(
+        dataSource: widget.weekIntervals.asMap().entries.map((entry) {
+          return MapEntry(entry.value, widget.weeklyData[entry.key]);
+        }).toList(),
+        xValueMapper: (entry, _) => _getWeekLabel(entry.key),
+        yValueMapper: (entry, index) => 20,
+        dataLabelMapper: (entry, index) => weeklyTotalsControl[index] > 0
+            ? Translateservice.formatCurrency(
+                weeklyTotalsControl[index], context)
+            : "",
+        pointColorMapper: (entry, _) => Colors.transparent,
+        width: 0.5,
+        name: AppLocalizations.of(context)!.total,
+        animationDuration: 800,
+        dataLabelSettings: const DataLabelSettings(
+          isVisible: true,
+          labelAlignment: ChartDataLabelAlignment.top,
+          textStyle:
+              TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        )));
+    return seriesList;
   }
 
   String _getWeekLabel(WeekInterval week) {

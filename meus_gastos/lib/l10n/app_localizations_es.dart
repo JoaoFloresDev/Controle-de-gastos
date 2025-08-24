@@ -367,4 +367,119 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get pietutorial =>
       'Agrega tus gastos para que podamos organizarlos para ti';
+
+  @override
+  String get signup => 'Registrarse';
+
+  @override
+  String get signin => 'iniciar sesión';
+
+  @override
+  String get signout => 'Cerrar Sesión';
+
+  @override
+  String get name => 'Nombre';
+
+  @override
+  String get password => 'Contraseña';
+
+  @override
+  String get alreadyHaveAccount => '¿Ya tienes una cuenta? Iniciar sesión';
+
+  @override
+  String get dontHaveAccount => '¿Aún no tienes una cuenta? Regístrate';
+
+  @override
+  String get other => 'Otro';
+
+  @override
+  String get contactus => 'Contáctanos';
+
+  @override
+  String get loginWithGoogle => 'Iniciar sesión con Google';
+
+  @override
+  String get sync => 'Sincronizar';
+
+  @override
+  String get syncData => 'Sincronizar datos';
+
+  @override
+  String get syncQuestion =>
+      '¿Deseas sincronizar los datos locales con la nube?';
+
+  @override
+  String get loginWithGoogleToSyncData =>
+      'Inicia sesión con tu cuenta de Google para sincronizar tus datos';
+
+  @override
+  String get secureCloudBackup => 'Copia de seguridad segura en la nube';
+
+  @override
+  String get accessAcrossDevices => 'Acceso en todos los dispositivos';
+
+  @override
+  String get upgradeToProToSync =>
+      'Actualiza a Pro para iniciar sesión\ny sincronizar tus datos';
+
+  @override
+  String get redirectingToUpgrade => 'Redirigiendo a la mejora...';
+
+  @override
+  String get proFeature => 'Función Pro';
+
+  @override
+  String get budget => 'Presupuesto';
+
+  @override
+  String get set => 'Definir';
+
+  @override
+  String get totalGoalForMonth => 'Presupuesto total para un mes';
+
+  @override
+  String get currentGoal => 'Presupuesto actual';
+
+  @override
+  String get setGoal => 'Definir Presupuesto';
+
+  @override
+  String get confirm => 'Confirmar';
+
+  @override
+  String get transactionPlaceholderTitle =>
+      'Empieza agregando tu primera transacción\npara tener control total de tus gastos';
+
+  @override
+  String get transactionPlaceholderSubtitle =>
+      'Tus transacciones aparecerán aquí';
+
+  @override
+  String get transactionPlaceholderRow1Title => 'Agregar transacción';
+
+  @override
+  String get transactionPlaceholderRow1Subtitle =>
+      'Toca la pestaña agregar para comenzar';
+
+  @override
+  String get transactionPlaceholderRow2Title => 'Gastos fijos';
+
+  @override
+  String get transactionPlaceholderRow3Subtitle =>
+      'Configura gastos recurrentes';
+
+  @override
+  String get addTransactionTitle => 'Registrar gasto';
+
+  @override
+  String get dateAndHour => 'Fecha y hora';
+
+  @override
+  String get insertExpend => 'Insertar gasto';
+
+  @override
+  String get addTransactionPopupTitle => 'Registrar gasto';
+
+  @override
+  String get addTransactionPopupSubtitle => 'Monto gastado';
 }

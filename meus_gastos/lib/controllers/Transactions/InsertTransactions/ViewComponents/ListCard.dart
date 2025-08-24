@@ -10,7 +10,12 @@ class ListCard extends StatelessWidget {
   final Function(CardModel) onTap;
   final Color background;
 
-  const ListCard({Key? key, required this.card, required this.onTap, required this.background}) : super(key: key);
+  const ListCard(
+      {Key? key,
+      required this.card,
+      required this.onTap,
+      required this.background})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,8 @@ class ListCard extends StatelessWidget {
         onTap: () => onTap(card),
         borderRadius: BorderRadius.circular(20),
         child: Container(
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
+          padding:
+              const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
           decoration: BoxDecoration(
             color: background,
             borderRadius: BorderRadius.circular(20),
@@ -69,11 +75,10 @@ class ListCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        Translateservice.getTranslatedCategoryUsingModel(context, card.category),
+                        Translateservice.getTranslatedCategoryUsingModel(
+                            context, card.category),
                         style: const TextStyle(
-                          fontSize: 11,
-                          color: AppColors.label
-                        ),
+                            fontSize: 11, color: AppColors.label),
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -87,17 +92,17 @@ class ListCard extends StatelessWidget {
               Row(
                 children: [
                   if (card.description.isNotEmpty)
-                  Expanded(
-                    child: Text(
-                      card.description,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: AppColors.label,
+                    Expanded(
+                      child: Text(
+                        card.description,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: AppColors.label,
+                        ),
                       ),
-                    ),
-                  )
-                  else 
-                  Spacer(),
+                    )
+                  else
+                    Spacer(),
                   Text(
                     DateFormat(dateFormatString).format(card.date),
                     style: const TextStyle(

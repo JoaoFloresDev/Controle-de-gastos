@@ -372,4 +372,118 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get pietutorial =>
       'Adicione seus gastos para podermos organizá-los para você';
+
+  @override
+  String get signup => 'Cadastrar';
+
+  @override
+  String get signin => 'Entrar';
+
+  @override
+  String get signout => 'Sair';
+
+  @override
+  String get name => 'Nome';
+
+  @override
+  String get password => 'Senha';
+
+  @override
+  String get alreadyHaveAccount => 'Já possui uma conta? Login';
+
+  @override
+  String get dontHaveAccount => 'Ainda não tem uma conta? Cadastre-se';
+
+  @override
+  String get other => 'Outro';
+
+  @override
+  String get contactus => 'Entre em contato conosco';
+
+  @override
+  String get loginWithGoogle => 'Entrar com Google';
+
+  @override
+  String get sync => 'Sincronizar';
+
+  @override
+  String get syncData => 'Sincronizar dados';
+
+  @override
+  String get syncQuestion => 'Deseja sincronizar os dados locais com a nuvem?';
+
+  @override
+  String get loginWithGoogleToSyncData =>
+      'Entre com sua conta Google para sincronizar seus dados';
+
+  @override
+  String get secureCloudBackup => 'Backup seguro na nuvem';
+
+  @override
+  String get accessAcrossDevices => 'Acesso em todos os dispositivos';
+
+  @override
+  String get upgradeToProToSync =>
+      'Upgrade para Pro para fazer login\ne sincronizar seus dados';
+
+  @override
+  String get redirectingToUpgrade => 'Redirecionando para upgrade...';
+
+  @override
+  String get proFeature => 'Recurso Pro';
+
+  @override
+  String get budget => 'Orçamento';
+
+  @override
+  String get set => 'Definir';
+
+  @override
+  String get totalGoalForMonth => 'Orçamento total para um mês';
+
+  @override
+  String get currentGoal => 'Orçamento Atual';
+
+  @override
+  String get setGoal => 'Definir Orçamento';
+
+  @override
+  String get confirm => 'Confirmar';
+
+  @override
+  String get transactionPlaceholderTitle =>
+      'Comece adicionando sua primeira transação\npara ter controle total dos seus gastos';
+
+  @override
+  String get transactionPlaceholderSubtitle =>
+      'Suas transações aparecerão aqui';
+
+  @override
+  String get transactionPlaceholderRow1Title => 'Adicionar transação';
+
+  @override
+  String get transactionPlaceholderRow1Subtitle =>
+      'Toque na aba adicionar para começar';
+
+  @override
+  String get transactionPlaceholderRow2Title => 'Gastos fixos';
+
+  @override
+  String get transactionPlaceholderRow3Subtitle =>
+      'Configure gastos recorrentes';
+
+  @override
+  String get addTransactionTitle => 'Registrar Despesa';
+
+  @override
+  String get dateAndHour => 'Data e Hora';
+
+  @override
+  String get insertExpend => 'Inserir Despesa';
+
+  @override
+  String get addTransactionPopupTitle => 'Registrar Despesa';
+
+  @override
+  String get addTransactionPopupSubtitle => 'Valor gasto';
 }

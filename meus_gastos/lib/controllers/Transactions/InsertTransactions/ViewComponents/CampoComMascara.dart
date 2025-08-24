@@ -59,21 +59,71 @@ class _CampoComMascaraState extends State<CampoComMascara> {
   // MARK: - Handle Tap
   void _handleTap() {
     _focusNode.unfocus();
-    showCupertinoModalPopup(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return Container(
           height: 300,
-          color: AppColors.label,
-          child: CupertinoDatePicker(
-            mode: CupertinoDatePickerMode.dateAndTime,
-            initialDateTime: widget.currentDate,
-            onDateTimeChanged: (DateTime newDateTime) {
-              setState(() {
-                _dateController.text = _formatDateTime(newDateTime);
-                widget.onCompletion(newDateTime);
-              });
-            },
+          color: AppColors.background1,
+          child: Column(
+            children: [
+              Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: CupertinoColors.systemGrey.withOpacity(0.4),
+                  ),
+                ),
+              ),
+              child: Row(
+                children: [
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text(
+                      'Cancelar',
+                      style: TextStyle(color: CupertinoColors.systemGrey),
+                    ),
+                  ),
+                  const Expanded(
+                    child: Center(
+                      child: Text(
+                        'Data e Hora',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: CupertinoColors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text(
+                      '     OK',
+                      style: TextStyle(color: CupertinoColors.activeBlue),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+              Expanded(
+                child: CupertinoDatePicker(
+                  mode: CupertinoDatePickerMode.dateAndTime,
+                  initialDateTime: widget.currentDate,
+                  onDateTimeChanged: (DateTime newDateTime) {
+                    setState(() {
+                      _dateController.text = _formatDateTime(newDateTime);
+                      widget.onCompletion(newDateTime);
+                    });
+                  },
+                ),
+              ),
+            ],
           ),
         );
       },
@@ -83,7 +133,7 @@ class _CampoComMascaraState extends State<CampoComMascara> {
   // MARK: - Format DateTime para exibição (de acordo com o AppLocalizations)
   String _formatDateTime(DateTime dateTime) {
     if (_dateFormatPattern == null) {
-      return ''; 
+      return '';
     }
     final DateFormat dateFormat = DateFormat(
         _dateFormatPattern!, Localizations.localeOf(context).toString());

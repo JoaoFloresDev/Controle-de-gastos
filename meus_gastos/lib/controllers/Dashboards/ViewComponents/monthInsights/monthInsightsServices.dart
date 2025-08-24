@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
@@ -45,7 +45,8 @@ class Monthinsightsservices {
       DateTime currentDate, double totalAmountThisMonth) {
     print("AAAAAAAAA${totalAmountThisMonth}");
     int manyDays = 30;
-    if (currentDate.month == DateTime.now().month && currentDate.year == DateTime.now().year) {
+    if (currentDate.month == DateTime.now().month &&
+        currentDate.year == DateTime.now().year) {
       manyDays = DateTime.now().day;
     } else {
       manyDays = daysInCurrentMonth(currentDate);
@@ -102,6 +103,46 @@ class Monthinsightsservices {
 
       // Verifica se é um dia útil (não sábado, domingo ou feriado)
       if (dataAtual.weekday != DateTime.saturday &&
+          dataAtual.weekday != DateTime.sunday) {
+        diasUteis++;
+      }
+    }
+
+    // Se for o mês atual, conta apenas os dias úteis que já passaram até hoje
+    DateTime hoje = DateTime.now();
+    if (ano == hoje.year && mes == hoje.month) {
+      int diasUteisPassados = 0;
+      for (int dia = 1; dia <= hoje.day; dia++) {
+        DateTime dataAtual = DateTime(ano, mes, dia);
+        if (dataAtual.weekday != DateTime.saturday &&
+            dataAtual.weekday != DateTime.sunday) {
+          diasUteisPassados++;
+        }
+      }
+      return diasUteisPassados;
+    }
+
+    return diasUteis;
+  }
+
+  static int calcularDiasUteisNoMesAteAgora(DateTime data) {
+    // Lista de feriados ou inicializa vazia caso não fornecida
+
+    int ano = data.year;
+    int mes = data.month;
+
+    // Total de dias no mês
+    int totalDiasNoMes = DateUtils.getDaysInMonth(ano, mes);
+
+    // Variável para contar os dias úteis
+    int diasUteis = 0;
+
+    for (int dia = 1; dia <= totalDiasNoMes; dia++) {
+      DateTime dataAtual = DateTime(ano, mes, dia);
+
+      // Verifica se é um dia útil (não sábado, domingo ou feriado)
+      if (dia <= data.day &&
+          dataAtual.weekday != DateTime.saturday &&
           dataAtual.weekday != DateTime.sunday) {
         diasUteis++;
       }
@@ -349,7 +390,7 @@ class Monthinsightsservices {
     };
   }
 
-   static Future<Map<String, double>> expenseByCategoryOfCurrentMonth(
+  static Future<Map<String, double>> expenseByCategoryOfCurrentMonth(
       DateTime currentDate) async {
     final List<CardModel> cards = await CardService.retrieveCards();
     final List<CardModel> currentMonthCards = cards.where((card) {
@@ -358,7 +399,23 @@ class Monthinsightsservices {
     }).toList();
     final Map<String, double> totalsOfCurrentMonths = {};
     for (var card in currentMonthCards) {
-      totalsOfCurrentMonths[card.category.id] = (totalsOfCurrentMonths[card.category.id] ?? 0) + card.amount;
+      totalsOfCurrentMonths[card.category.id] =
+          (totalsOfCurrentMonths[card.category.id] ?? 0) + card.amount;
+    }
+    return totalsOfCurrentMonths;
+  }
+
+  static Future<Map<String, double>> expenseByCategoryOfPreviousMonth(
+      DateTime currentDate) async {
+    final List<CardModel> cards = await CardService.retrieveCards();
+    final List<CardModel> currentMonthCards = cards.where((card) {
+      return card.date.year == currentDate.year &&
+          card.date.month == (currentDate.month - 1);
+    }).toList();
+    final Map<String, double> totalsOfCurrentMonths = {};
+    for (var card in currentMonthCards) {
+      totalsOfCurrentMonths[card.category.id] =
+          (totalsOfCurrentMonths[card.category.id] ?? 0) + card.amount;
     }
     return totalsOfCurrentMonths;
   }
@@ -372,7 +429,8 @@ class Monthinsightsservices {
     }).toList();
     final Map<String, double> totalsOfCurrentMonths = {};
     for (var card in currentMonthCards) {
-      totalsOfCurrentMonths[card.category.id] = (totalsOfCurrentMonths[card.category.id] ?? 0) + card.amount;
+      totalsOfCurrentMonths[card.category.id] =
+          (totalsOfCurrentMonths[card.category.id] ?? 0) + card.amount;
     }
 
     final List<CardModel> previousMonthCards = cards.where((card) {
@@ -381,67 +439,85 @@ class Monthinsightsservices {
     }).toList();
     final Map<String, double> totalsOfPreviousMonths = {};
     for (var card in previousMonthCards) {
-      totalsOfPreviousMonths[card.category.id] = (totalsOfPreviousMonths[card.category.id] ?? 0) + card.amount;
+      totalsOfPreviousMonths[card.category.id] =
+          (totalsOfPreviousMonths[card.category.id] ?? 0) + card.amount;
     }
 
     final Map<String, double> differencesByCategory = {};
 
-  // Comparando os totais de cada categoria entre os meses
-  for (var categoryId in totalsOfCurrentMonths.keys) {
-    final double currentMonthTotal = totalsOfCurrentMonths[categoryId] ?? 0;
-    final double previousMonthTotal = totalsOfPreviousMonths[categoryId] ?? 0;
+    // Comparando os totais de cada categoria entre os meses
+    for (var categoryId in totalsOfCurrentMonths.keys) {
+      final double currentMonthTotal = totalsOfCurrentMonths[categoryId] ?? 0;
+      final double previousMonthTotal = totalsOfPreviousMonths[categoryId] ?? 0;
 
-    // Calculando a diferença entre o mês atual e o mês anterior
-    final double difference = currentMonthTotal - previousMonthTotal;
+      // Calculando a diferença entre o mês atual e o mês anterior
+      final double difference = currentMonthTotal - previousMonthTotal;
 
-    // Armazenando a diferença no mapa
-    differencesByCategory[categoryId] = difference;
+      // Armazenando a diferença no mapa
+      differencesByCategory[categoryId] = difference;
+    }
+    for (var categoryId in totalsOfPreviousMonths.keys) {
+      final double currentMonthTotal = totalsOfCurrentMonths[categoryId] ?? 0;
+      final double previousMonthTotal = totalsOfPreviousMonths[categoryId] ?? 0;
+
+      // Calculando a diferença entre o mês atual e o mês anterior
+      final double difference = currentMonthTotal - previousMonthTotal;
+      print(difference);
+
+      // Armazenando a diferença no mapa
+      differencesByCategory[categoryId] = difference;
+    }
+
+    // Retornando o mapa com as diferenças de gastos por categoria
+    return differencesByCategory;
   }
-  for (var categoryId in totalsOfPreviousMonths.keys) {
-    final double currentMonthTotal = totalsOfCurrentMonths[categoryId] ?? 0;
-    final double previousMonthTotal = totalsOfPreviousMonths[categoryId] ?? 0;
 
-    // Calculando a diferença entre o mês atual e o mês anterior
-    final double difference = currentMonthTotal - previousMonthTotal;
-
-    // Armazenando a diferença no mapa
-    differencesByCategory[categoryId] = difference;
-  }
-
-  // Retornando o mapa com as diferenças de gastos por categoria
-  return differencesByCategory;
-
-  }
-
-  static Map<String, double> highestIncreaseCategory(Map<String, double> differencesByCategory){
+  static Future<Map<String, double>> highestIncreaseCategory(
+      Map<String, double> differencesByCategory) async {
     String categoryHighestIncrease = '';
     double expenseHighestIncrease = 0.0;
-    var expense;
-    for (var entry in differencesByCategory.entries) {
-    if (entry.value > expenseHighestIncrease) {
-      categoryHighestIncrease = entry.key;
-      expenseHighestIncrease = entry.value;
-    }
-  }
-    return {categoryHighestIncrease : expenseHighestIncrease};
-  }
 
-  static Map<String, double> highestDropCategory(Map<String, double> differencesByCategory){
-    String categoryHighestIncrease = '-';
-    double expenseHighestIncrease = 0.0;
-    
+    final List<CardModel> cards = await CardService.retrieveCards();
+
     var expense;
     for (var entry in differencesByCategory.entries) {
-      print("!!!!!!!!!!!$entry.value");
-      if (entry.value < expenseHighestIncrease) {
+      if (entry.value > expenseHighestIncrease) {
         categoryHighestIncrease = entry.key;
         expenseHighestIncrease = entry.value;
       }
     }
-    return {categoryHighestIncrease : expenseHighestIncrease};
+
+    // categoryHighestIncrease = cards
+    //     .where((current) => current.category.id == categoryHighestIncrease)
+    //     .first
+    //     .category
+    //     .name;
+
+    return {categoryHighestIncrease: expenseHighestIncrease};
   }
 
+  static Future<Map<String, double>> highestDropCategory(
+      Map<String, double> differencesByCategory) async {
+    String categoryHighestDrop = '-';
+    double expenseHighestDrop = 0.0;
 
+    final List<CardModel> cards = await CardService.retrieveCards();
+
+    var expense;
+    for (var entry in differencesByCategory.entries) {
+      print("!!!!!!!!!!!$entry.value");
+      if (entry.value < expenseHighestDrop) {
+        categoryHighestDrop = entry.key;
+        expenseHighestDrop = entry.value;
+      }
+    }
+    // categoryHighestDrop = cards
+    //     .where((current) => current.category.id == categoryHighestDrop)
+    //     .first
+    //     .category
+    //     .name;
+    return {categoryHighestDrop: expenseHighestDrop};
+  }
 
   static Future<Map<String, int>> mostFrequentCategoryByMonth(
       DateTime currentDate) async {
@@ -471,22 +547,32 @@ class Monthinsightsservices {
       }
       count_general = count_general + count;
     });
+    // categoriaMaisFrequente = currentMonthCards
+    //     .where((current) => current.category.id == categoriaMaisFrequente)
+    //     .first
+    //     .category
+    //     .name;
 
     return {
-      categoriaMaisFrequente: (((maiorFrequencia??0)/(count_general==0 ? 1 : count_general)) * 100).round(),
+      categoriaMaisFrequente:
+          (((maiorFrequencia ?? 0) / (count_general == 0 ? 1 : count_general)) *
+                  100)
+              .round(),
     };
   }
 
   static int countWeekDaysInMonth(DateTime date) {
-    final int targetWeekday = date.weekday; // Dia da semana da data fornecida (1 = segunda, 7 = domingo)
-    final int totalDaysInMonth = DateTime(date.year, date.month + 1, 0).day; // Último dia do mês
-    
+    final int targetWeekday = date
+        .weekday; // Dia da semana da data fornecida (1 = segunda, 7 = domingo)
+    final int totalDaysInMonth =
+        DateTime(date.year, date.month + 1, 0).day; // Último dia do mês
+
     int count = 0;
 
     // Itera sobre todos os dias do mês
     for (int day = 1; day <= totalDaysInMonth; day++) {
       final currentDay = DateTime(date.year, date.month, day);
-      if (currentDay.weekday == targetWeekday) {
+      if (currentDay.weekday == targetWeekday && date.day >= day) {
         count++;
       }
     }
@@ -495,35 +581,48 @@ class Monthinsightsservices {
   }
 
   static Future<double> projectionFixedForTheMonth(DateTime currentDate) async {
-      List<FixedExpense> fixedCards = await Fixedexpensesservice.retrieveCards();
-      double totalExpenseFixed = 0.0;
-      if ((currentDate.month < DateTime.now().month && currentDate.year == DateTime.now().year) || (currentDate.year < DateTime.now().year)){
-        return getFixedExpenses(currentDate);
-      }
-      for (var card in fixedCards){
-        switch (card.tipoRepeticao){
-          case ('mensal'):
+    List<FixedExpense> fixedCards =
+        await Fixedexpensesservice.getSortedFixedExpenses();
+    double totalExpenseFixed = 0.0;
+    if ((currentDate.month < DateTime.now().month &&
+            currentDate.year == DateTime.now().year) ||
+        (currentDate.year < DateTime.now().year)) {
+      return getFixedExpenses(currentDate);
+    }
+    totalExpenseFixed = await getFixedExpenses(currentDate);
+    for (var card in fixedCards) {
+      switch (card.tipoRepeticao) {
+        case ('mensal'):
+          if (currentDate.day >= card.date.day) {
             totalExpenseFixed = totalExpenseFixed + card.price;
-            break;
-          case ('semanal'):
-            totalExpenseFixed = totalExpenseFixed + card.price * countWeekDaysInMonth(currentDate);
-            break;
-          case ('anual'):
-            if (card.date.month == currentDate.month) {
-              totalExpenseFixed = totalExpenseFixed + card.price;
-            }
-            break;
-          case ('seg_sex'):
-            totalExpenseFixed = totalExpenseFixed + card.price * calcularDiasUteisNoMes(currentDate);
-            break;
-          case ('diario'):
-            totalExpenseFixed = totalExpenseFixed + card.price * daysInCurrentMonth(currentDate);
-            break;
-          default:
+          }
+          break;
+        case ('semanal'):
+          totalExpenseFixed = totalExpenseFixed +
+              card.price * countWeekDaysInMonth(currentDate);
+          break;
+        case ('anual'):
+          if (card.date.month == currentDate.month) {
             totalExpenseFixed = totalExpenseFixed + card.price;
-            break;
-        }
+          }
+          break;
+        case ('seg_sex'):
+          totalExpenseFixed = totalExpenseFixed +
+              card.price *
+                  (calcularDiasUteisNoMes(currentDate) -
+                      calcularDiasUteisNoMesAteAgora(currentDate));
+          break;
+        case ('diario'):
+          totalExpenseFixed = totalExpenseFixed +
+              card.price * (daysInCurrentMonth(currentDate) - currentDate.day);
+          break;
+        default:
+          if (currentDate.day >= card.date.day) {
+            totalExpenseFixed = totalExpenseFixed + card.price;
+          }
+          break;
       }
-      return totalExpenseFixed;
+    }
+    return totalExpenseFixed;
   }
 }

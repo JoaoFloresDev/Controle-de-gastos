@@ -1,3 +1,4 @@
+import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +23,8 @@ class HeaderBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            'Registrar Despesa',
+          Text(
+            AppLocalizations.of(context)!.addTransactionTitle,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,

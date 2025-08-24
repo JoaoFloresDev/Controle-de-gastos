@@ -15,7 +15,7 @@ class CategoryModel {
     this.icon = Icons.category,
     required this.name,
     this.frequency = 0,
-    this.available = true,
+    this.available = true
   });
 
   //mark - From JSON
@@ -32,6 +32,7 @@ class CategoryModel {
       name: json['name'],
       frequency: json['frequency'] ?? 0,
       available: json['available'] ?? true,
+      
     );
   }
 

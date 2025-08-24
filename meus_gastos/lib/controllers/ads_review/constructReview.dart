@@ -11,9 +11,12 @@ import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ReviewService {
-  static Future<void> checkAndRequestReview(BuildContext context, bool isPro) async {
+  static Future<void> checkAndRequestReview(
+      BuildContext context, bool isPro) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int sessionCount = prefs.getInt('session_count') ?? 0;
+    bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
+    bool isYearlyPro = prefs.getBool("yearly.pro") ?? false;
     sessionCount += 1;
     await prefs.setInt('session_count', sessionCount);
     print("$sessionCount");
@@ -74,27 +77,23 @@ class ReviewService {
   }
 
   static void _showProModal(BuildContext context) async {
-    if (Platform.isIOS) {
-      showCupertinoModalPopup(
-        context: context,
-        builder: (BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        if (Platform.isIOS || Platform.isMacOS) {
           return ProModal(
             isLoading: false,
             onSubscriptionPurchased: () {},
           );
-        },
-      );
-    }
-    if (Platform.isAndroid) {
-      showCupertinoModalPopup(
-        context: context,
-        builder: (BuildContext context) {
+        } else {
           return ProModalAndroid(
             isLoading: true,
             onSubscriptionPurchased: () {},
           );
-        },
-      );
-    }
+        }
+      },
+    );
   }
 }

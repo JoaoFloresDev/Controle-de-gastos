@@ -87,6 +87,25 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
     });
   }
 
+  // Future<void> listenPurchases(List<PurchaseDetails> list) async {
+  //   for (final purchase in list) {
+  //     if ((purchase.status == PurchaseStatus.restored) ||
+  //         (purchase.status == PurchaseStatus.purchased)) {
+  //       if (iApEngine
+  //           .getProductIdsOnly(storeProductIds)
+  //           .contains(purchase.productID)) {
+  //         final InAppPurchaseAndroidPlatformAddition androidAddition = iApEngine
+  //             .inAppPurchase
+  //             .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+  //       }
+  //       if (purchase.pendingCompletePurchase) {
+  //         await iApEngine.inAppPurchase.completePurchase(purchase);
+  //       }
+
+  //       // restore purchase of the usuary
+  //     }
+  //   }
+  // }
   Future<void> listenPurchases(List<PurchaseDetails> list) async {
     for (final purchase in list) {
       if ((purchase.status == PurchaseStatus.restored) ||
@@ -121,7 +140,6 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
         isYearlyPro = true;
       });
     }
-
     // Atualizar UI após restauração
     updateProStatus();
   }
