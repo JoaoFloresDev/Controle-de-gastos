@@ -93,7 +93,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                       Container(
                         width: 80,
                         child: Text(
-                          TranslateService.getTranslatedCategoryUsingModel(
+                          Translateservice.getTranslatedCategoryUsingModel(
                               context, categorieList[index]),
                           style: const TextStyle(
                               fontSize: 10, color: Colors.white),
@@ -167,8 +167,10 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                         width: 80,
                         child: Text(
                           TranslateService.getTranslatedCategoryUsingModel(
+                              
                               context, categorieList[index]),
                           style: const TextStyle(
+                              
                               fontSize: 12, color: Colors.white),
                           textAlign: TextAlign.center,
                           maxLines: 2,

@@ -70,6 +70,7 @@ class GoalsscreanState extends State<Goalsscrean>
     );
   }
 
+
 //MARK: - Components
   Widget _buildLoadingIndicator() {
     return Container(
@@ -177,10 +178,10 @@ class GoalsscreanState extends State<Goalsscrean>
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      TranslateService.formatCurrency(
+                      Translateservice.formatCurrency(
                           viewModel.totalExpenses, context),
                       style: const TextStyle(
-                        fontSize: 24,
+                        fontSize: 20,
                         color: AppColors.label,
                         fontWeight: FontWeight.w800,
                       ),
@@ -233,17 +234,17 @@ class GoalsscreanState extends State<Goalsscrean>
                     Text(
                       "${AppLocalizations.of(context)!.totalGoalForMonth}:",
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 10,
                         color: AppColors.labelPlaceholder,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      TranslateService.formatCurrency(
+                      Translateservice.formatCurrency(
                           viewModel.totalGoal, context),
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 12,
                         color: AppColors.label,
                         fontWeight: FontWeight.w600,
                       ),
@@ -362,7 +363,7 @@ class GoalsscreanState extends State<Goalsscrean>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            TranslateService.getTranslatedCategoryName(context, category.name),
+            Translateservice.getTranslatedCategoryName(context, category.name),
             style: const TextStyle(
               fontSize: 12,
               color: AppColors.label,
@@ -429,7 +430,7 @@ class GoalsscreanState extends State<Goalsscrean>
             Column(
               children: [
                 Text(
-                  TranslateService.formatCurrency(spent, context),
+                  Translateservice.formatCurrency(spent, context),
                   style: TextStyle(
                     color: isOverGoal
                         ? AppColors.deletionButton
@@ -440,7 +441,7 @@ class GoalsscreanState extends State<Goalsscrean>
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  TranslateService.formatCurrency(goal, context),
+                  Translateservice.formatCurrency(goal, context),
                   style: const TextStyle(
                     color: AppColors.labelPlaceholder,
                     fontSize: 11,

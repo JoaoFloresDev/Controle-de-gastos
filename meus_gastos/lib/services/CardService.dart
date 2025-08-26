@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
+// import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -79,18 +79,18 @@ class CardService {
   static Future<List<CardModel>> retrieveCards() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString(_storageKey);
-    if (SaveExpensOnCloud().userId != null) {
-      // print(user.displayName);
-      List<CardModel> cardList = await SaveExpensOnCloud().fetchCards()
-        ..sort((a, b) => a.date.compareTo(b.date));
-      return cardList;
-    } else {
+    // if (SaveExpensOnCloud().userId != null) {
+    //   // print(user.displayName);
+    //   List<CardModel> cardList = await SaveExpensOnCloud().fetchCards()
+    //     ..sort((a, b) => a.date.compareTo(b.date));
+    //   return cardList;
+    // } else {
       if (cardsString != null) {
         final List<dynamic> jsonList = json.decode(cardsString);
         return jsonList.map((jsonItem) => CardModel.fromJson(jsonItem)).toList()
           ..sort((a, b) => a.date.compareTo(b.date));
       }
-    }
+    // }
     return [];
   }
 
@@ -123,20 +123,20 @@ class CardService {
       cards.add(cardModel);
       return cards;
     });
-    if (SaveExpensOnCloud().userId != null)
-      SaveExpensOnCloud().addNewDate(cardModel);
+    // if (SaveExpensOnCloud().userId != null)
+    //   SaveExpensOnCloud().addNewDate(cardModel);
   }
 
   Future<void> deleteCard(String id) async {
-    if (SaveExpensOnCloud().userId != null) {
-      List<CardModel> cards = await retrieveCards();
-      SaveExpensOnCloud().deleteDate(cards.firstWhere((card) => card.id == id));
-    } else {
+    // if (SaveExpensOnCloud().userId != null) {
+    //   List<CardModel> cards = await retrieveCards();
+    //   SaveExpensOnCloud().deleteDate(cards.firstWhere((card) => card.id == id));
+    // } else {
       await modifyCards((cards) {
         cards.removeWhere((card) => card.id == id);
         return cards;
       });
-    }
+    // }
   }
 
   Future<void> updateCard(String id, CardModel newCard) async {
@@ -145,10 +145,10 @@ class CardService {
       if (index != -1) {
         cards[index] = newCard;
       }
-      if (SaveExpensOnCloud().userId != null) {
-        SaveExpensOnCloud().deleteDate(cards[index]);
-        SaveExpensOnCloud().addNewDate(newCard);
-      }
+      // if (SaveExpensOnCloud().userId != null) {
+      //   SaveExpensOnCloud().deleteDate(cards[index]);
+      //   SaveExpensOnCloud().addNewDate(newCard);
+      // }
       return cards;
     });
   }

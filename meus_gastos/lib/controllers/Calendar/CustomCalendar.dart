@@ -3,10 +3,8 @@ import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import '../../../models/CardModel.dart';
-import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
-
+import 'package:meus_gastos/controllers/gastos_fixos/ListCardFixeds.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/UI/criar_gastosFixos.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'ViewComponents/CalendarTable.dart';
 import 'ViewComponents/CalendarHeader.dart';

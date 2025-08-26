@@ -1,6 +1,9 @@
 // import 'package:meus_gastos/controllers/CategoryCreater/AddCategoryHorizontalCircleList.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsService.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
+// import 'package:meus_gastos/controllers/CategoryCreater/AddCategoryHorizontalCircleList.dart';
+import 'package:meus_gastos/controllers/Goals/GoalsService.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'dart:math';
 import 'package:flutter/services.dart';
@@ -250,168 +253,127 @@ class _CategorycreaterState extends State<Categorycreater> {
                         ],
                       ),
                       const SizedBox(height: 32),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: CupertinoButton(
-                            color: AppColors.button,
-                            onPressed: () {
-                              if (categoriaController.text.isNotEmpty) {
-                                adicionar();
-                                FocusScope.of(context).unfocus();
-                                // Navigator.pop(context);
-                              }
-                            },
-                            child: Text(
-                              AppLocalizations.of(context)!.addCategory,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.label),
-                            ),
-                          ),
-                        ),
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 16),
+  child: SizedBox(
+    width: double.infinity,
+    child: CupertinoButton(
+      color: AppColors.button,
+      onPressed: () {
+        if (categoriaController.text.isNotEmpty) {
+          adicionar();
+          FocusScope.of(context).unfocus();
+          // Navigator.pop(context);
+        }
+      },
+      child: Text(
+        AppLocalizations.of(context)!.addCategory,
+        style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.label),
+      ),
+    ),
+  ),
+),
+const SizedBox(height: 40),
+Stack(
+  children: [
+    SizedBox(
+      height: MediaQuery.of(context).size.height - 550,
+      child: FutureBuilder<List<CategoryModel>>(
+        future: _futureCategories,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text("Error", style: TextStyle(color: Colors.white)));
+          } else if (snapshot.hasData) {
+            final categories = snapshot.data!;
+            if (categories.isEmpty) {
+              return Center(child: Text("No categories found", style: TextStyle(color: Colors.white)));
+            }
+            return ListView.separated(
+              padding: EdgeInsets.zero,
+              itemCount: categories.length - 1,
+              separatorBuilder: (context, index) => const SizedBox(height: 8),
+              itemBuilder: (context, index) {
+                final category = categories[index];
+                return Container(
+                  margin: EdgeInsets.only(left: 16, right: 16, top: index == 0 ? 30 : 8, bottom: index == categories.length - 2 ? 40 : 8),
+                  decoration: BoxDecoration(
+                    color: AppColors.card,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
                       ),
-                      const SizedBox(height: 40),
-                      Stack(
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height - 550,
-                            child: FutureBuilder<List<CategoryModel>>(
-                              future: _futureCategories,
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Center(
-                                      child: CircularProgressIndicator());
-                                } else if (snapshot.hasError) {
-                                  return Center(
-                                      child: Text("Error",
-                                          style:
-                                              TextStyle(color: Colors.white)));
-                                } else if (snapshot.hasData) {
-                                  final categories = snapshot.data!;
-                                  if (categories.isEmpty) {
-                                    return Center(
-                                        child: Text("No categories found",
-                                            style: TextStyle(
-                                                color: Colors.white)));
-                                  }
-                                  return ListView.separated(
-                                    padding: EdgeInsets.zero,
-                                    itemCount: categories.length - 1,
-                                    separatorBuilder: (context, index) =>
-                                        const SizedBox(height: 8),
-                                    itemBuilder: (context, index) {
-                                      final category = categories[index];
-                                      return Container(
-                                        margin: EdgeInsets.only(
-                                            left: 16,
-                                            right: 16,
-                                            top: index == 0 ? 30 : 8,
-                                            bottom:
-                                                index == categories.length - 2
-                                                    ? 40
-                                                    : 8),
-                                        decoration: BoxDecoration(
-                                          color: AppColors.card,
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.1),
-                                              blurRadius: 4,
-                                              offset: const Offset(0, 2),
-                                            ),
-                                          ],
-                                        ),
-                                        child: ListTile(
-                                          contentPadding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 16, vertical: 8),
-                                          leading: Icon(category.icon,
-                                              color: category.color, size: 30),
-                                          title: Text(
-                                              TranslateService
-                                                  .getTranslatedCategoryUsingModel(
-                                                      context, category),
-                                              style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold)),
-                                          trailing: IconButton(
-                                            icon: const Icon(Icons.delete,
-                                                color: Colors.redAccent),
-                                            onPressed: () async {
-                                              FocusScope.of(context).unfocus();
-                                              // APAGAR TODOS CARDS FIXOS COM ESSA CATEGORIA
-                                              await Fixedexpensesservice
-                                                  .deleteAllCardsFixedsWithThisCategory(
-                                                      category);
-                                              // APAGAR TODAS METAS SEM GASTO DESSA CATEGORIA
-                                              await GoalsService()
-                                                  .deleteAllGoalsOfaCategory(
-                                                      category);
-                                              await CategoryService()
-                                                  .deleteCategory(category.id);
-                                              // CardService().changeAllToUnknow(category);
+                    ],
+                  ),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    leading: Icon(category.icon, color: category.color, size: 30),
+                    title: Text(Translateservice.getTranslatedCategoryUsingModel(context, category), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.redAccent),
+                      onPressed: () {
+                        FocusScope.of(context).unfocus();
+                        CategoryService().deleteCategory(category.id);
+                        setState(() {
+                          widget.onCategoryAdded();
+                          _futureCategories = CategoryService().getAllPositiveCategories();
+                        });
+                      },
+                    ),
+                  ),
+                );
+              },
+            );
+          } else {
+            return const SizedBox();
+          }
+        },
+      ),
+    ),
+    Positioned(
+      top: 0,
+      left: 0,
+      right: 0,
+      child: Container(
+        height: 40,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              AppColors.background1,
+              AppColors.background1.withOpacity(0),
+            ],
+          ),
+        ),
+      ),
+    ),
+    Positioned(
+      bottom: 0,
+      left: 0,
+      right: 0,
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [
+              AppColors.background1,
+              AppColors.background1.withOpacity(0),
+            ],
+          ),
+        ),
+      ),
+    ),
+  ],
+)
 
-                                              setState(() {
-                                                _futureCategories =
-                                                    CategoryService()
-                                                        .getAllCategoriesAvaliable();
-                                                widget.onCategoryAdded();
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  return const SizedBox();
-                                }
-                              },
-                            ),
-                          ),
-                          Positioned(
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            child: Container(
-                              height: 40,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    AppColors.background1,
-                                    AppColors.background1.withOpacity(0),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.bottomCenter,
-                                  end: Alignment.topCenter,
-                                  colors: [
-                                    AppColors.background1,
-                                    AppColors.background1.withOpacity(0),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
+
                     ],
                   ),
                 ),

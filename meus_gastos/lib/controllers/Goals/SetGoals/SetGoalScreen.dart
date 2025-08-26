@@ -33,7 +33,7 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
 
     if (!_controllerInitialized) {
       final locale = Localizations.localeOf(context);
-      final currencySymbol = TranslateService.getCurrencySymbol(context);
+      final currencySymbol = Translateservice.getCurrencySymbol(context);
 
       valorController = MoneyMaskedTextController(
         leftSymbol: currencySymbol,
@@ -70,31 +70,31 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             CustomHeader(
-              title: TranslateService.getTranslatedCategoryName(
+              title: Translateservice.getTranslatedCategoryName(
                   context, widget.category.name),
               onCancelPressed: () {},
             ),
             Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  _buildCategoryIcon(),
+                  const SizedBox(height: 16),
+                  if (widget.initialValue > 0) ...[
+                    _buildCurrentGoalInfo(),
                     const SizedBox(height: 20),
-                    _buildCategoryIcon(),
-                    const SizedBox(height: 16),
-                    if (widget.initialValue > 0) ...[
-                      _buildCurrentGoalInfo(),
-                      const SizedBox(height: 20),
-                    ] else
-                      const SizedBox(height: 8),
-                    _buildInputSection(),
-                    const SizedBox(height: 24),
-                    _buildActionButtons(context),
-                    const SizedBox(height: 20),
-                  ],
-                ),
+                  ] else
+                    const SizedBox(height: 8),
+                  _buildInputSection(),
+                  const SizedBox(height: 24),
+                  _buildActionButtons(context),
+                  const SizedBox(height: 20),
+                ],
               ),
             ),
+          ),
           ],
         ),
       ),
@@ -166,7 +166,7 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  TranslateService.formatCurrency(widget.initialValue, context),
+                  Translateservice.formatCurrency(widget.initialValue, context),
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.white,
@@ -235,9 +235,9 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
                 widget.addGoal(widget.category.id, valorController.numberValue);
                 Navigator.of(context).pop();
               },
-              child: const Center(
+              child: Center(
                 child: Text(
-                  "Atualizar",
+                  AppLocalizations.of(context)!.update,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,

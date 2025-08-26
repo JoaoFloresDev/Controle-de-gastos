@@ -65,11 +65,6 @@ class _BannerAdconstructState extends State<BannerAdconstruct> {
   Future<void> _checkUserProStatus() async {
     _isPro = await ProManeger().checkUserProStatus();
     setState(() {});
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (!_isPro && !Platform.isMacOS) {
       return Container(
         height: 60,
         width: double.infinity,
@@ -92,13 +87,9 @@ class _BannerAdconstructState extends State<BannerAdconstruct> {
           ],
         ),
       );
-    } else {
+    }else{
       return const SizedBox();
-    }
-  }
-}
-
-class LoadingContainer extends StatefulWidget {
+      }
   const LoadingContainer({super.key});
 
   @override

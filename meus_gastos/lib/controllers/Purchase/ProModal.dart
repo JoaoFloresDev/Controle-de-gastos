@@ -450,7 +450,7 @@ class _ProModalState extends State<ProModal> {
           Text(
             label,
             style: const TextStyle(
-              fontSize: 16,
+              fontSize: 13,
               fontWeight: FontWeight.w500,
               color: AppColors.label,
             ),

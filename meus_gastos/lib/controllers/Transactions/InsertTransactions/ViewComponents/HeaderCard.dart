@@ -3,7 +3,7 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
-import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
+// import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
 import 'CampoComMascara.dart';
 import 'HorizontalCircleList.dart';
 import 'ValorTextField.dart';
@@ -11,7 +11,7 @@ import 'package:meus_gastos/l10n/app_localizations.dart';
 
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 
 class HeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;
@@ -46,7 +46,7 @@ class HeaderCardState extends State<HeaderCard> {
   final descricaoController = TextEditingController();
   DateTime lastDateSelected = DateTime.now();
   int lastIndexSelected = 0;
-  User? user;
+  // User? user;
 
   final GlobalKey<HorizontalCircleListState> _horizontalCircleListKey =
       GlobalKey<HorizontalCircleListState>();
@@ -55,11 +55,11 @@ class HeaderCardState extends State<HeaderCard> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     setState(() {
-      user = FirebaseAuth.instance.currentUser;
+      // user = FirebaseAuth.instance.currentUser;
     });
     // update date format based in atuality configs
     final locale = Localizations.localeOf(context);
-    final currencySymbol = TranslateService.getCurrencySymbol(context);
+    final currencySymbol = Translateservice.getCurrencySymbol(context);
 
     valorController = MoneyMaskedTextController(
       leftSymbol: currencySymbol,
@@ -85,7 +85,7 @@ class HeaderCardState extends State<HeaderCard> {
   void initState() {
     super.initState();
     setState(() {
-      user = FirebaseAuth.instance.currentUser;
+      // user = FirebaseAuth.instance.currentUser;
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _horizontalCircleListKey.currentState?.loadCategories();
@@ -108,11 +108,11 @@ class HeaderCardState extends State<HeaderCard> {
       id: CardService.generateUniqueId(),
     );
     print("object");
-    if (user != null) {
-      print("usuario logado");
-      if (!(newCard.amount == 0)) SaveExpensOnCloud().addNewDate(newCard);
-    } else
-      print("Sem usuário");
+    // if (user != null) {
+    //   print("usuario logado");
+    //   if (!(newCard.amount == 0)) SaveExpensOnCloud().addNewDate(newCard);
+    // } else
+    //   print("Sem usuário");
 
     if (!(newCard.amount == 0)) CardService().addCard(newCard);
 
@@ -209,7 +209,7 @@ class HeaderCardState extends State<HeaderCard> {
                   color: CupertinoColors.systemBlue,
                   onPressed: () {
                     setState(() {
-                      user = FirebaseAuth.instance.currentUser;
+                      // user = FirebaseAuth.instance.currentUser;
                     });
                     adicionar();
                   },

@@ -12,6 +12,7 @@ class VerticalCircleList extends StatefulWidget {
   final int defaultdIndexCategory;
   final Function(List<CategoryModel>) onCategoriesLoaded;
   final VoidCallback onAddCategorySelected;
+  final VoidCallback onAddCategorySelected;
 
   const VerticalCircleList({
     super.key,
@@ -196,7 +197,6 @@ class VerticalCircleListState extends State<VerticalCircleList> {
             right: 0,
             child: IgnorePointer(
               child: Container(
-                height: 40,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.bottomCenter,

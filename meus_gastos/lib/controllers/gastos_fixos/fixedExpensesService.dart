@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/intervalsControl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
+// import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
@@ -26,9 +26,9 @@ class Fixedexpensesservice {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString('fixed_expenses');
     List<FixedExpense> fc = [];
-    User? user = FirebaseAuth.instance.currentUser;
+    // User? user = FirebaseAuth.instance.currentUser;
 
-    if (user == null) {
+    // if (user == null) {
       if (cardsString != null) {
         final List<dynamic> jsonList = json.decode(cardsString);
         fc = jsonList
@@ -36,10 +36,10 @@ class Fixedexpensesservice {
             .toList()
           ..sort((a, b) => b.date.compareTo(a.date));
       }
-    } else {
-      fc = await SaveExpensOnCloud().fetchCardsFixedCards()
-        ..sort((a, b) => b.date.compareTo(a.date));
-    }
+    // } else {
+      // fc = await SaveExpensOnCloud().fetchCardsFixedCards()
+      //   ..sort((a, b) => b.date.compareTo(a.date));
+    // }
     // print("metodo antigo:${fc.length} firebase${fixedCardList.length}");
     return fc;
     // }
@@ -83,11 +83,11 @@ class Fixedexpensesservice {
 
   // MARK: - Add, Delete, and Update Cards
   static Future<void> addCard(FixedExpense FixedExpense) async {
-    User? user = FirebaseAuth.instance.currentUser;
+    // User? user = FirebaseAuth.instance.currentUser;
     // print("$user");
-    if(SaveExpensOnCloud().userId != null)
-      SaveExpensOnCloud().addNewDateFixedCards(FixedExpense);
-    else
+    // if(SaveExpensOnCloud().userId != null)
+    //   SaveExpensOnCloud().addNewDateFixedCards(FixedExpense);
+    // else
       await modifyCards((cards) {
         if (!(FixedExpense.price == 0)) {
           cards.add(FixedExpense);
@@ -97,16 +97,16 @@ class Fixedexpensesservice {
   }
 
   static Future<void> deleteCard(String id) async {
-    if (SaveExpensOnCloud().userId != null) {
-      List<FixedExpense> cardsf = await getSortedFixedExpenses();
-      SaveExpensOnCloud()
-          .deleteDateFixedCards(cardsf.firstWhere((card) => card.id == id));
-    } else {
+    // if (SaveExpensOnCloud().userId != null) {
+    //   List<FixedExpense> cardsf = await getSortedFixedExpenses();
+    //   SaveExpensOnCloud()
+    //       .deleteDateFixedCards(cardsf.firstWhere((card) => card.id == id));
+    // } else {
       await modifyCards((cards) {
         cards.removeWhere((card) => card.id == id);
         return cards;
       });
-    }
+    // }
   }
 
   static Future<void> deleteAllCards() async {
@@ -118,12 +118,12 @@ class Fixedexpensesservice {
     await modifyCards((cards) {
       final int index = cards.indexWhere((card) => card.id == id);
       if (index != -1) {
-        if (SaveExpensOnCloud().userId != null) {
-          SaveExpensOnCloud().deleteDateFixedCards(cards[index]);
-          SaveExpensOnCloud().addNewDateFixedCards(newCard);
-        } else {
+        // if (SaveExpensOnCloud().userId != null) {
+        //   SaveExpensOnCloud().deleteDateFixedCards(cards[index]);
+        //   SaveExpensOnCloud().addNewDateFixedCards(newCard);
+        // } else {
           cards[index] = newCard;
-        }
+        // }
       }
       return cards;
     });

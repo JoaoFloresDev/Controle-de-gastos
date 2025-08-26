@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
+// import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/CategoryModel.dart';
 
@@ -11,43 +11,43 @@ class CategoryService {
   static const String _isFirstAccessKey = 'isFirstAccess';
 
   Future<void> addCategory(CategoryModel category) async {
-    User? user = FirebaseAuth.instance.currentUser;
+    // User? user = FirebaseAuth.instance.currentUser;
 
-    if (user != null) {
-      // Usuário logado: adiciona ao Firestore
-      await FirebaseFirestore.instance
-          .collection(user.uid)
-          .doc('Categories')
-          .collection('categoryList')
-          .doc(category.id)
-          .set(category.toJson());
-    } else {
+    // if (user != null) {
+    //   // Usuário logado: adiciona ao Firestore
+    //   await FirebaseFirestore.instance
+    //       .collection(user.uid)
+    //       .doc('Categories')
+    //       .collection('categoryList')
+    //       .doc(category.id)
+    //       .set(category.toJson());
+    // } else {
       // Usuário offline: adiciona ao SharedPreferences
       final prefs = await SharedPreferences.getInstance();
       List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
       categories.add(jsonEncode(category.toJson()));
       await prefs.setStringList(_categoriesKey, categories);
-    }
+    // }
   }
 
 //MARK: - Delete Category
   Future<void> deleteCategory(String id) async {
-    User? user = FirebaseAuth.instance.currentUser;
+    // User? user = FirebaseAuth.instance.currentUser;
 
-    if (user != null) {
-      // Usuário logado: atualiza a categoria no Firestore (marca como indisponível)
-      final docRef = FirebaseFirestore.instance
-          .collection(user.uid)
-          .doc('Categories')
-          .collection('categoryList')
-          .doc(id);
+    // if (user != null) {
+    //   // Usuário logado: atualiza a categoria no Firestore (marca como indisponível)
+    //   final docRef = FirebaseFirestore.instance
+    //       .collection(user.uid)
+    //       .doc('Categories')
+    //       .collection('categoryList')
+    //       .doc(id);
 
-      final docSnapshot = await docRef.get();
+    //   final docSnapshot = await docRef.get();
 
-      if (docSnapshot.exists) {
-        await docRef.update({'available': false});
-      }
-    } else {
+    //   if (docSnapshot.exists) {
+    //     await docRef.update({'available': false});
+    //   }
+    // } else {
       // Usuário offline: atualiza localmente via SharedPreferences
       final prefs = await SharedPreferences.getInstance();
       List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
@@ -61,7 +61,7 @@ class CategoryService {
       }).toList();
 
       await prefs.setStringList(_categoriesKey, updatedCategories);
-    }
+    // }
   }
 
   final List<CategoryModel> defaultCategories = [
@@ -139,7 +139,7 @@ class CategoryService {
       id: 'CreditCard',
       color: Colors.limeAccent.withOpacity(0.8),
       icon: Icons.credit_card,
-      name: 'CreditCard',
+      name: 'Credit Card',
       frequency: 0,
     ),
     CategoryModel(
@@ -160,35 +160,35 @@ class CategoryService {
 
   Future<List<CategoryModel>> getAllCategories() async {
     final prefs = await SharedPreferences.getInstance();
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      // Usuário está logado - verificamos o Firestore
-      final firestore = FirebaseFirestore.instance;
-      final snapshot = await firestore
-          .collection(user.uid)
-          .doc('Categories')
-          .collection('categoryList')
-          .get();
-      if (snapshot.docs.isEmpty) {
-        // Primeiro acesso na nuvem
-        for (var category in defaultCategories) {
-          await SaveExpensOnCloud().addNewCategory(category);
-        }
-        return defaultCategories
-          ..sort((a, b) => b.frequency.compareTo(a.frequency));
-      } else {
-        // Categorias já existem
-        List<CategoryModel> cloudCategories = snapshot.docs
-            .map((doc) =>
-                CategoryModel.fromJson(doc.data() as Map<String, dynamic>))
-            .toList()
-          ..sort((a, b) => b.frequency.compareTo(a.frequency));
-        // cloudCategories =
-        //     cloudCategories.where((cat) => cat.available).toList();
+    // User? user = FirebaseAuth.instance.currentUser;
+    // if (user != null) {
+    //   // Usuário está logado - verificamos o Firestore
+    //   final firestore = FirebaseFirestore.instance;
+    //   final snapshot = await firestore
+    //       .collection(user.uid)
+    //       .doc('Categories')
+    //       .collection('categoryList')
+    //       .get();
+    //   if (snapshot.docs.isEmpty) {
+    //     // Primeiro acesso na nuvem
+    //     for (var category in defaultCategories) {
+    //       await SaveExpensOnCloud().addNewCategory(category);
+    //     }
+    //     return defaultCategories
+    //       ..sort((a, b) => b.frequency.compareTo(a.frequency));
+    //   } else {
+    //     // Categorias já existem
+    //     List<CategoryModel> cloudCategories = snapshot.docs
+    //         .map((doc) =>
+    //             CategoryModel.fromJson(doc.data() as Map<String, dynamic>))
+    //         .toList()
+    //       ..sort((a, b) => b.frequency.compareTo(a.frequency));
+    //     // cloudCategories =
+    //     //     cloudCategories.where((cat) => cat.available).toList();
 
-        return cloudCategories;
-      }
-    } else {
+    //     return cloudCategories;
+    //   }
+    // } else {
       // Usuário não logado - usamos SharedPreferences
       bool isFirstAccess = prefs.getBool(_isFirstAccessKey) ?? true;
       print(isFirstAccess);
@@ -210,7 +210,7 @@ class CategoryService {
         aux.sort((a, b) => b.frequency.compareTo(a.frequency));
         return aux;
       }
-    }
+    // }
   }
 
   Future<List<CategoryModel>> getAllCategoriesAvaliable() async {
@@ -247,7 +247,7 @@ class CategoryService {
 // }
 
   Future<void> incrementCategoryFrequency(String categoryId) async {
-    User? user = FirebaseAuth.instance.currentUser;
+    // User? user = FirebaseAuth.instance.currentUser;
     List<CategoryModel> allCategories = await getAllCategories();
 
     final int index = allCategories.indexWhere((c) => c.id == categoryId);
@@ -264,15 +264,15 @@ class CategoryService {
         frequency: currentFreq + 1,
       );
 
-      if (user != null) {
-        // Usuário logado: atualiza no Firestore
-        await FirebaseFirestore.instance
-            .collection(user.uid)
-            .doc('Categories')
-            .collection('categoryList')
-            .doc(updatedCategory.id)
-            .set(updatedCategory.toJson());
-      } else {
+      // if (user != null) {
+      //   // Usuário logado: atualiza no Firestore
+      //   await FirebaseFirestore.instance
+      //       .collection(user.uid)
+      //       .doc('Categories')
+      //       .collection('categoryList')
+      //       .doc(updatedCategory.id)
+      //       .set(updatedCategory.toJson());
+      // } else {
         // Usuário offline: atualiza no SharedPreferences
         final prefs = await SharedPreferences.getInstance();
         allCategories[index] = updatedCategory;
@@ -281,28 +281,28 @@ class CategoryService {
             .map((category) => jsonEncode(category.toJson()))
             .toList();
         await prefs.setStringList(_categoriesKey, updatedList);
-      }
+      // }
     }
   }
 
   // MARK: - Category with Highest Frequency
   static Future<CategoryModel?> getCategoryWithHighestFrequency() async {
-    User? user = FirebaseAuth.instance.currentUser;
+    // User? user = FirebaseAuth.instance.currentUser;
 
     List<CategoryModel> categories = [];
 
-    if (user != null) {
-      // Busca do Firestore
-      final snapshot = await FirebaseFirestore.instance
-          .collection(user.uid)
-          .doc('Categories')
-          .collection('categoryList')
-          .get();
+    // if (user != null) {
+    //   // Busca do Firestore
+    //   final snapshot = await FirebaseFirestore.instance
+    //       .collection(user.uid)
+    //       .doc('Categories')
+    //       .collection('categoryList')
+    //       .get();
 
-      categories = snapshot.docs.map((doc) {
-        return CategoryModel.fromJson(doc.data());
-      }).toList();
-    } else {
+    //   categories = snapshot.docs.map((doc) {
+    //     return CategoryModel.fromJson(doc.data());
+    //   }).toList();
+    // } else {
       // Busca do SharedPreferences
       final prefs = await SharedPreferences.getInstance();
       final List<String> categoriesStringList =
@@ -311,7 +311,7 @@ class CategoryService {
       categories = categoriesStringList.map((categoryString) {
         return CategoryModel.fromJson(jsonDecode(categoryString));
       }).toList();
-    }
+    // }
 
     if (categories.isEmpty) return null;
 

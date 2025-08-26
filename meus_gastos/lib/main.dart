@@ -10,7 +10,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/InsertTransactions.dart';
 import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
-import 'package:meus_gastos/services/firebase/firebaseService.dart';
+// import 'package:meus_gastos/services/firebase/firebaseService.dart';
 import 'package:onepref/onepref.dart';
 import 'package:window_size/window_size.dart';
 import 'package:meus_gastos/controllers/AddTransaction/AddTransactionController.dart';
@@ -31,7 +31,7 @@ void main() async {
   await OnePref.init();
 
   // inicializa firebase
-  await FirebaseService().init(); // PARA DESABILITAR BASTA COMENTAR
+  // await FirebaseService().init(); // PARA DESABILITAR BASTA COMENTAR
   runApp(
     MultiProvider(
       providers: [
@@ -284,7 +284,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 200),
             style: TextStyle(
-              fontSize: isSelected ? 11 : 10,
+              fontSize: 9,
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
               color: isSelected ? Colors.white : const Color(0xFF8E8E93),
             ),

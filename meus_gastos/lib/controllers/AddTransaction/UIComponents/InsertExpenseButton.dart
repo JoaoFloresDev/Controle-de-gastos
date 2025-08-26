@@ -1,7 +1,16 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
-
+import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
+import 'Header/HeaderCard.dart';
+import 'VerticalCircleList.dart';
+import 'CompactListCardRecorrent.dart';
+import 'KeyboardDoneToolbar.dart';
+import 'CustomSeparator.dart';
 
 class InsertExpenseButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -29,9 +38,9 @@ class InsertExpenseButton extends StatelessWidget {
             ),
           ),
           onPressed: onPressed,
-          child: Text(
-            AppLocalizations.of(context)!.addExpense,
-            style: const TextStyle(
+          child: const Text(
+            'Inserir Despesa',
+            style: TextStyle(
               color: AppColors.label,
               fontSize: 16,
               fontWeight: FontWeight.w600,

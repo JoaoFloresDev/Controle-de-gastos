@@ -3,7 +3,7 @@ import 'package:meus_gastos/controllers/Goals/GoalsModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/services/firebase/SaveGoalsToClould.dart';
+// import 'package:meus_gastos/services/firebase/SaveGoalsToClould.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GoalsService {
@@ -12,16 +12,16 @@ class GoalsService {
   Future<List<GoalModel>> retrive() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     String? budgetsString = pref.getString(_budgetKey);
-    if (SaveGoalsToClould().userId != null) {
-      return SaveGoalsToClould().getAllGoals();
-    } else {
+    // if (SaveGoalsToClould().userId != null) {
+    //   return SaveGoalsToClould().getAllGoals();
+    // } else {
       if (budgetsString != null) {
         List<dynamic> jsonList = jsonDecode(budgetsString);
         return jsonList
             .map((jsonItem) => GoalModel.fromJson(jsonItem))
             .toList();
       }
-    }
+    // }
     return [];
   }
 
@@ -79,9 +79,9 @@ class GoalsService {
         return metas;
       });
     }
-    if (SaveGoalsToClould().userId != null)
-      SaveGoalsToClould()
-          .addGoalInClound(GoalModel(categoryId: categoryId, value: meta));
+    // if (SaveGoalsToClould().userId != null)
+    //   SaveGoalsToClould()
+    //       .addGoalInClound(GoalModel(categoryId: categoryId, value: meta));
   }
 
   Future<void> deleteMeta(String categoryId) async {
@@ -89,8 +89,8 @@ class GoalsService {
       metas.removeWhere((meta) => meta.categoryId == categoryId);
       return metas;
     });
-    if (SaveGoalsToClould().userId != null)
-      SaveGoalsToClould().deleteGoalInClound(categoryId);
+    // if (SaveGoalsToClould().userId != null)
+    //   SaveGoalsToClould().deleteGoalInClound(categoryId);
   }
 
   Future<void> deleteAllGoalsOfaCategory(CategoryModel category) async {

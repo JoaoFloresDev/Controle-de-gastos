@@ -376,7 +376,7 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                       categoryIconColor: selectedCat.color,
                       categoryIcon: selectedCat.icon,
                       category:
-                          TranslateService.getTranslatedCategoryUsingModel(
+                          Translateservice.getTranslatedCategoryUsingModel(
                               context, selectedCat),
                     );
                     header.adicionar();
@@ -431,7 +431,7 @@ class _AddTransactionControllerState extends State<AddTransactionController>
               KeyboardDoneToolbar(
                 onDone: () {
                   FocusManager.instance.primaryFocus?.unfocus();
-                  _headerCardKey.currentState?.adicionar();
+                  // _headerCardKey.currentState?.adicionar();
                 },
               ),
             ],

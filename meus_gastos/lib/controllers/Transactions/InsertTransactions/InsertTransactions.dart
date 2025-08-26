@@ -19,9 +19,8 @@ import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-
-import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
-import 'package:meus_gastos/services/firebase/syncService.dart';
+// import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
+// import 'package:meus_gastos/services/firebase/syncService.dart';
 
 class InsertTransactions extends StatefulWidget {
   const InsertTransactions({
@@ -83,16 +82,16 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     currentDate = DateTime.now();
     loadCards();
     // _initInAppPurchase();
-    userId = SaveExpensOnCloud().userId ?? null;
-    if (userId != null) {
-      // O usuário está logado
-      print("Usuário logado: ${userId}");
-      isLogin = true;
-    } else {
+    // userId = SaveExpensOnCloud().userId ?? null;
+    // if (userId != null) {
+    //   // O usuário está logado
+    //   print("Usuário logado: ${userId}");
+    //   isLogin = true;
+    // } else {
       // O usuário não está logado
       print("Usuário deslogado.");
       isLogin = false;
-    }
+    // }
     _checkUserProStatus();
   }
 
@@ -117,7 +116,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     await prefs.setInt('usage_count', usageCount);
 
     if (!_isPro && usageCount > 40 && usageCount % 4 == 0) {
-      _showProModal(context);
+      // _showProModal(context);
     }
   }
 
@@ -300,45 +299,183 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                         horizontal: 24.0, vertical: 24),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Icons.inbox,
-                          color: AppColors.card,
-                          size: 40,
+                        Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                AppColors.button.withOpacity(0.1),
+                                AppColors.button.withOpacity(0.05),
+                              ],
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.button.withOpacity(0.08),
+                                blurRadius: 20,
+                                offset: const Offset(0, 8),
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.receipt_long_outlined,
+                            color: AppColors.button,
+                            size: 38,
+                          ),
                         ),
+                        
+                        const SizedBox(height: 18),
+                        
+                        // Título principal
                         Text(
-                          AppLocalizations.of(context)!.addNewTransactions,
+                          AppLocalizations.of(context)!.transactionPlaceholderSubtitle,
                           style: const TextStyle(
                             color: AppColors.label,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            height: 1.8,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                            height: 1.2,
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        const Spacer(),
+                        
+                        const SizedBox(height: 12),
+                        
+                        // Subtítulo explicativo
                         Text(
-                          AppLocalizations.of(context)!.addNewCallToAction,
-                          style: const TextStyle(
-                            color: AppColors.label,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            height: 1.4,
+                          // AppLocalizations.of(context)!.emptyStateSubtitle ?? 
+                          AppLocalizations.of(context)!.transactionPlaceholderTitle,
+                          style: TextStyle(
+                            color: AppColors.label.withOpacity(0.7),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            height: 1.5,
                           ),
                           textAlign: TextAlign.center,
                         ),
+                        
+                        const SizedBox(height: 30),
+                        
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: AppColors.card,
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.04),
+                                blurRadius: 8,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 32,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.button.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: const Icon(
+                                      Icons.add_circle_outline,
+                                      color: AppColors.button,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          AppLocalizations.of(context)!.transactionPlaceholderRow1Title,
+                                          style: const TextStyle(
+                                            color: AppColors.label,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        Text(
+                                          AppLocalizations.of(context)!.transactionPlaceholderRow1Subtitle,
+                                          style: TextStyle(
+                                            color: AppColors.label.withOpacity(0.6),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 32,
+                                    height: 32,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.button.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: const Icon(
+                                      Icons.repeat,
+                                      color: AppColors.button,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          AppLocalizations.of(context)!.transactionPlaceholderRow2Title,
+                                          style: const TextStyle(
+                                            color: AppColors.label,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        Text(
+                                          AppLocalizations.of(context)!.transactionPlaceholderRow3Subtitle,
+                                          style: TextStyle(
+                                            color: AppColors.label.withOpacity(0.6),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        
+                        const SizedBox(height: 20),
+                        
                       ],
                     ),
                   ),
-                )
-            ],
-          ),
+                ),
+              )
+          ],
         ),
-        backgroundColor: AppColors.background1,
       ),
-    );
-  }
+      backgroundColor: AppColors.background1,
+    ),
+  );
+}
 
   void _showCupertinoModalBottomSheet(BuildContext context, CardModel card) {
     FocusScope.of(context).unfocus();
@@ -372,7 +509,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     cardFix.price = 0;
     var car = Fixedexpensesservice.Fixed_to_NormalCard(cardFix, currentDate);
     await service.CardService().addCard(car);
-    SaveExpensOnCloud().addNewDate(car);
+    // SaveExpensOnCloud().addNewDate(car);
   }
 
   void _showCupertinoModalBottomFixedExpenses(BuildContext context) {
@@ -403,85 +540,85 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   }
 
   void _singInScreen() {
-    FocusScope.of(context).unfocus();
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return Container(
-            height: MediaQuery.of(context).size.height / 1.8,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            child: singInScreen(
-              updateUser: () async {
-                setState(() {
-                  isLogin = true;
-                });
-                print(isLogin);
-                Navigator.of(context).pop();
+    // FocusScope.of(context).unfocus();
+    // showModalBottomSheet(
+    //   context: context,
+    //   isScrollControlled: true,
+    //   backgroundColor: Colors.transparent,
+    //   builder: (BuildContext context) {
+    //     return Container(
+    //         height: MediaQuery.of(context).size.height / 1.8,
+    //         decoration: const BoxDecoration(
+    //           borderRadius: BorderRadius.only(
+    //             topLeft: Radius.circular(20),
+    //             topRight: Radius.circular(20),
+    //           ),
+    //         ),
+    //         child: singInScreen(
+    //           updateUser: () async {
+    //             setState(() {
+    //               isLogin = true;
+    //             });
+    //             print(isLogin);
+    //             Navigator.of(context).pop();
 
-                // SyncService().syncData(user!.uid);
+    //             // SyncService().syncData(user!.uid);
 
-                await sincroniza_primeiro_acesso();
-                setState(() {
-                  loadCards();
-                  _verticalCircleListKey.currentState?.loadCategories();
-                });
-              },
-              loadcards: loadCards,
-              isPro: _isPro,
-              showProModal: (context) {
-                _showProModal(context);
-              },
-            ));
-      },
-    );
+    //             await sincroniza_primeiro_acesso();
+    //             setState(() {
+    //               loadCards();
+    //               _verticalCircleListKey.currentState?.loadCategories();
+    //             });
+    //           },
+    //           loadcards: loadCards,
+    //           isPro: _isPro,
+    //           showProModal: (context) {
+    //             _showProModal(context);
+    //           },
+    //         ));
+    //   },
+    // );
   }
 
   void _singOutScreen() {
-    FocusScope.of(context).unfocus();
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return Container(
-            height: MediaQuery.of(context).size.height / 2.0,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            child: Logout(
-              updateUser: () async {
-                setState(() {
-                  isLogin = false;
-                });
-                await service.CardService.deleteAllCards();
+    // FocusScope.of(context).unfocus();
+    // showModalBottomSheet(
+    //   context: context,
+    //   isScrollControlled: true,
+    //   backgroundColor: Colors.transparent,
+    //   builder: (BuildContext context) {
+    //     return Container(
+    //         height: MediaQuery.of(context).size.height / 2.0,
+    //         decoration: const BoxDecoration(
+    //           borderRadius: BorderRadius.only(
+    //             topLeft: Radius.circular(20),
+    //             topRight: Radius.circular(20),
+    //           ),
+    //         ),
+    //         child: Logout(
+    //           updateUser: () async {
+    //             setState(() {
+    //               isLogin = false;
+    //             });
+    //             await service.CardService.deleteAllCards();
 
-                await Fixedexpensesservice.deleteAllCards();
-                print("APAGOU");
-                print(isLogin);
-                setState(() {
-                  loadCards();
-                  _verticalCircleListKey.currentState?.loadCategories();
-                });
-                Navigator.of(context).pop();
-              },
-              loadcards: loadCards,
-              isPro: _isPro,
-              showProModal: (context) {
-                _showProModal(context);
-              },
-            ));
-      },
-    );
+    //             await Fixedexpensesservice.deleteAllCards();
+    //             print("APAGOU");
+    //             print(isLogin);
+    //             setState(() {
+    //               loadCards();
+    //               _verticalCircleListKey.currentState?.loadCategories();
+    //             });
+    //             Navigator.of(context).pop();
+    //           },
+    //           loadcards: loadCards,
+    //           isPro: _isPro,
+    //           showProModal: (context) {
+    //             _showProModal(context);
+    //           },
+    //         ));
+    //   },
+    // );
   }
 
   Future<bool> isFirstLogin(String userId) async {
@@ -681,8 +818,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
                                           });
 
                                           try {
-                                            await SyncService()
-                                                .syncData(userId!);
+                                            // await SyncService()
+                                            //     .syncData(userId!);
                                             final prefs =
                                                 await SharedPreferences
                                                     .getInstance();

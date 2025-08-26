@@ -86,7 +86,7 @@ class DashboardCard extends StatelessWidget {
                                   .map((item) => _buildLegendItem(
                                       item.color,
                                       '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
-                                      TranslateService
+                                      Translateservice
                                           .getTranslatedCategoryName(
                                               context, item.label)))
                                   .toList(),

@@ -501,7 +501,7 @@ class DashboardScreenState extends State<DashboardScreen>
             ),
           ),
           child: ExtractByCategory(
-              category: model.category.name, currentMonth: currentDate),
+                category: model.category.name, currentMonth: currentDate),
         ); // O widget com o código acima
       },
     );

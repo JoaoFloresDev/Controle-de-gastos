@@ -2,19 +2,19 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/HorizontalCircleList.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/gastos_fixos/HorizontalCircleList.dart';
+import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:uuid/uuid.dart';
 import '../fixedExpensesService.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/CampoComMascara.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ValorTextField.dart';
+import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/UI/RepetitionMenu.dart';
+import 'package:meus_gastos/gastos_fixos/UI/RepetitionMenu.dart';
 
 class EditionHeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;
@@ -49,17 +49,18 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   String tipoRepeticao = "";
 
   Future<void> loadCategories() async {
-    var categorieList = await CategoryService().getAllCategoriesAvaliable();
+    var categorieList = await CategoryService().getAllCategories();
     if (categorieList.isNotEmpty) {
-      icons_list_recorrent = categorieList.sublist(0, categorieList.length - 1);
-      lastIndexSelected_category = icons_list_recorrent
-          .indexWhere((category) => category.id == widget.card.category.id);
-      if (lastIndexSelected_category == -1) {
-        lastIndexSelected_category = 0; // ou qualquer valor de fallback
-      }
       setState(() {
-        lastIndexSelected_category = lastIndexSelected_category;
+        icons_list_recorrent =
+            categorieList.sublist(0, categorieList.length - 1);
+        lastIndexSelected_category = icons_list_recorrent
+            .indexWhere((category) => category.id == widget.card.category.id);
+
         // Define um valor padrão se o item não for encontrado
+        if (lastIndexSelected_category == -1) {
+          lastIndexSelected_category = 0; // ou qualquer valor de fallback
+        }
       });
     }
     print(lastIndexSelected_category);
@@ -88,7 +89,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     final locale = Localizations.localeOf(context);
 
     valorController = MoneyMaskedTextController(
-      leftSymbol: TranslateService.getCurrencySymbol(context),
+      leftSymbol: Translateservice.getCurrencySymbol(context),
       decimalSeparator: locale.languageCode == 'pt' ? ',' : '.',
       initialValue: widget.card.price,
     );
@@ -112,6 +113,9 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     });
   }
 
+
+  
+
   // MARK: - Dispose
   @override
   void dispose() {
@@ -126,7 +130,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   // MARK: - Adicionar
   void adicionar() {
     print(icons_list_recorrent[lastIndexSelected_category].name);
-
+    
     final newCard = FixedExpense(
       price: valorController.numberValue,
       description: descricaoController.text,
@@ -181,7 +185,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             style: const TextStyle(color: AppColors.label),
           ),
           const SizedBox(height: 12),
-          if (widget.botomPageIsVisible)
+          if(widget.botomPageIsVisible)
             RepetitionMenu(
               referenceDate: _selectedDate,
               onRepetitionSelected: (String selectedRepetition) {
@@ -214,12 +218,11 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                 onPressed: () {
                   adicionar();
                   widget.onAddClicked;
-                  // Fixedexpensesservice.printCardsInfo();
+                  Fixedexpensesservice.printCardsInfo();
                 },
                 child: Text(
                   widget.adicionarButtonTitle,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, color: AppColors.label),
+                  style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.label),
                 ),
               ),
             ),

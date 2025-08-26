@@ -1,3 +1,4 @@
+import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'dart:io';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
@@ -7,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/UI/criar_gastosFixos.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
+import 'package:meus_gastos/controllers/controllers/gastos_fixos/UI/criar_gastosFixos.dart';
+import 'package:meus_gastos/controllers/controllers/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/controllers/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/services/CardService.dart' as service;
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
@@ -192,7 +193,7 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
                   Expanded(
                     child: Center(
                       child: Text(
-                        AppLocalizations.of(context)!.dateHour,
+                        'Data e Hora',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,

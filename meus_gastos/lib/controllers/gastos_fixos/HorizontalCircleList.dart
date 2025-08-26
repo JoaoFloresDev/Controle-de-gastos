@@ -92,10 +92,9 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                         Container(
                           width: 80,
                           child: Text(
-                            TranslateService.getTranslatedCategoryUsingModel(
+                            Translateservice.getTranslatedCategoryUsingModel(
                                 context, widget.icons_list_recorrent[index]),
-                            style: const TextStyle(
-                                fontSize: 9, color: Colors.white),
+                            style: const TextStyle(fontSize: 9, color: Colors.white),
                             textAlign: TextAlign.center,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -158,10 +157,9 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                   Container(
                     width: 80,
                     child: Text(
-                      TranslateService.getTranslatedCategoryUsingModel(
+                      Translateservice.getTranslatedCategoryUsingModel(
                           context, widget.icons_list_recorrent[index]),
-                      style:
-                          const TextStyle(fontSize: 12, color: AppColors.label),
+                      style: const TextStyle(fontSize: 12, color: AppColors.label),
                       textAlign: TextAlign.center,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
