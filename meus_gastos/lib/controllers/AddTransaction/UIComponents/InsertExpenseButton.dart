@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 
 
 class InsertExpenseButton extends StatelessWidget {
@@ -28,9 +29,9 @@ class InsertExpenseButton extends StatelessWidget {
             ),
           ),
           onPressed: onPressed,
-          child: const Text(
-            'Inserir Despesa',
-            style: TextStyle(
+          child: Text(
+            AppLocalizations.of(context)!.addExpense,
+            style: const TextStyle(
               color: AppColors.label,
               fontSize: 16,
               fontWeight: FontWeight.w600,

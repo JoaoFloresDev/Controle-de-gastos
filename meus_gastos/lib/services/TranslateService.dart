@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 
-class Translateservice {
+class TranslateService {
   static String getCurrencySymbol(BuildContext context) {
     Locale locale = Localizations.localeOf(context);
 

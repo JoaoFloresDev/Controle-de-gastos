@@ -268,7 +268,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         width: 0.5,
         borderRadius:
             BorderRadius.circular(4), // Adiciona cantos arredondados às barras
-        name: Translateservice.getTranslatedCategoryName(context, category),
+        name: TranslateService.getTranslatedCategoryName(context, category),
         borderWidth: 0,
         borderColor: AppColors.card,
       );
@@ -281,7 +281,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         xValueMapper: (entry, _) => _getWeekLabel(entry.key),
         yValueMapper: (entry, index) => 20,
         dataLabelMapper: (entry, index) => weeklyTotalsControl[index] > 0
-            ? Translateservice.formatCurrency(
+            ? TranslateService.formatCurrency(
                 weeklyTotalsControl[index], context)
             : "",
         pointColorMapper: (entry, _) => Colors.transparent,

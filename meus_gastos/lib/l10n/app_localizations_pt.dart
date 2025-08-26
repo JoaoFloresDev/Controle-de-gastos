@@ -45,6 +45,15 @@ class AppLocalizationsPt extends AppLocalizations {
   String get addCategory => 'Adicionar Categoria';
 
   @override
+  String get addExpense => 'inserir Despesa';
+
+  @override
+  String get registerExpense => 'Registrar Despesa';
+
+  @override
+  String get dateHour => 'Data e Hora';
+
+  @override
   String get update => 'Atualizar';
 
   @override
@@ -446,4 +455,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get setGoal => 'Definir Orçamento';
+
+  @override
+  String get expenseAdded => 'Despesa Adicionada';
+
+  @override
+  String get amoutSpent => 'Valor Gasto';
 }

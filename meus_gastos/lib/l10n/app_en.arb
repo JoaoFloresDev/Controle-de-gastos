@@ -11,6 +11,9 @@
     "createCategory": "Create category",
     "category": "Category",
     "addCategory": "Add Category",
+    "addExpense": "Add Expense",
+    "registerExpense": "Register Expense",
+    "dateHour" : "Date and Time",
     "update": "Update",
     "transactionDetails": "Transaction Details",
     "myControl": "My Control",
@@ -142,7 +145,8 @@
     "set": "Set",
     "totalGoalForMonth": "Total budget for a month",
     "currentGoal" : "Current Goal",
-    "setGoal" : "Set Goal"
-
+    "setGoal" : "Set Goal",
+    "expenseAdded" : "Expense Added",
+    "amoutSpent" : "Amount spent"
 
 }

@@ -172,6 +172,24 @@ abstract class AppLocalizations {
   /// **'Add Category'**
   String get addCategory;
 
+  /// No description provided for @addExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Expense'**
+  String get addExpense;
+
+  /// No description provided for @registerExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Register Expense'**
+  String get registerExpense;
+
+  /// No description provided for @dateHour.
+  ///
+  /// In en, this message translates to:
+  /// **'Date and Time'**
+  String get dateHour;
+
   /// No description provided for @update.
   ///
   /// In en, this message translates to:
@@ -939,6 +957,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Set Goal'**
   String get setGoal;
+
+  /// No description provided for @expenseAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Expense Added'**
+  String get expenseAdded;
+
+  /// No description provided for @amoutSpent.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount spent'**
+  String get amoutSpent;
 }
 
 class _AppLocalizationsDelegate

@@ -293,7 +293,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         width: 0.5,
         animationDuration: 800,
         borderRadius: BorderRadius.circular(4),
-        name: Translateservice.getTranslatedCategoryName(context, category),
+        name: TranslateService.getTranslatedCategoryName(context, category),
         borderWidth: 0,
         borderColor: AppColors.card,
       );
@@ -315,7 +315,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
       xValueMapper: (data, index) => days[index],
       yValueMapper: (data, index) => 20,
       dataLabelMapper: (data, index) => data.progress > 0
-          ? Translateservice.formatCurrency(data.progress, context)
+          ? TranslateService.formatCurrency(data.progress, context)
           : '',
       pointColorMapper: (data, _) => Colors.transparent,
       width: 0.5,
@@ -330,7 +330,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
         builder: (data, point, series, pointIndex, seriesIndex) {
           return Text(
             data.progress > 0
-                ? Translateservice.formatCurrency(data.progress, context)
+                ? TranslateService.formatCurrency(data.progress, context)
                 : '',
             style: const TextStyle(
                 fontSize: 8,

@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
 
 class AddedExpenseToast extends StatefulWidget {
   final double amount;
@@ -291,10 +294,10 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                                 size: 20,
                               ),
                               const SizedBox(width: 8),
-                              const Text(
-                                'Despesa adicionada',
-                                style: TextStyle(
-                                  color: Colors.white,
+                              Text(
+                                AppLocalizations.of(context)!.expenseAdded,
+                                style: const TextStyle(
+                                  color: AppColors.label,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                   letterSpacing: -0.3,
@@ -385,7 +388,7 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                'R\$ ${widget.amount.toStringAsFixed(2)}',
+                                '${TranslateService.getCurrencySymbol(context)} ${widget.amount.toStringAsFixed(2)}',
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -395,7 +398,7 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                               ),
                               const SizedBox(height: 2),
                               Text(
-                                'Valor gasto',
+                                AppLocalizations.of(context)!.amoutSpent,
                                 style: TextStyle(
                                   color: Colors.white.withOpacity(0.5),
                                   fontSize: 11,

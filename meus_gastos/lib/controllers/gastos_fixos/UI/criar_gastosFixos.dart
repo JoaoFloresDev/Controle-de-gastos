@@ -50,7 +50,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
 
     // Atualiza o formato da data baseado nas configurações do usuário
     final locale = Localizations.localeOf(context);
-    final currencySymbol = Translateservice.getCurrencySymbol(context);
+    final currencySymbol = TranslateService.getCurrencySymbol(context);
 
     valorController = MoneyMaskedTextController(
       leftSymbol: currencySymbol,

@@ -22,7 +22,8 @@ class HorizontalCompactCardList extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<HorizontalCompactCardList> createState() => _HorizontalCompactCardListState();
+  State<HorizontalCompactCardList> createState() =>
+      _HorizontalCompactCardListState();
 }
 
 class _HorizontalCompactCardListState extends State<HorizontalCompactCardList>
@@ -69,7 +70,7 @@ class _HorizontalCompactCardListState extends State<HorizontalCompactCardList>
       });
     }
   }
-  
+
   @override
   void dispose() {
     _animationController.dispose();
@@ -84,7 +85,8 @@ class _HorizontalCompactCardListState extends State<HorizontalCompactCardList>
       _slideAnimation = Tween<Offset>(
         begin: Offset.zero,
         end: Offset(slideDirection * 1.5, 0.0),
-      ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeIn));
+      ).animate(
+          CurvedAnimation(parent: _animationController, curve: Curves.easeIn));
     });
     _animationController.forward();
   }
@@ -233,7 +235,8 @@ class CompactListCardRecorrent extends StatelessWidget {
                   top: -8,
                   right: -8,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     child: const Icon(
                       CupertinoIcons.arrow_2_circlepath,
                       size: 18,
@@ -262,7 +265,7 @@ class CompactListCardRecorrent extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    Translateservice.formatCurrency(card.amount, context),
+                    TranslateService.formatCurrency(card.amount, context),
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
@@ -278,7 +281,8 @@ class CompactListCardRecorrent extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
-                    icon: const Icon(CupertinoIcons.xmark_circle_fill, color: AppColors.labelPlaceholder, size: 36),
+                    icon: const Icon(CupertinoIcons.xmark_circle_fill,
+                        color: AppColors.labelPlaceholder, size: 36),
                     onPressed: fakeExpens,
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
@@ -286,7 +290,8 @@ class CompactListCardRecorrent extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   IconButton(
-                    icon: const Icon(CupertinoIcons.check_mark_circled_solid, color: AppColors.button, size: 36),
+                    icon: const Icon(CupertinoIcons.check_mark_circled_solid,
+                        color: AppColors.button, size: 36),
                     onPressed: adicionar,
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),

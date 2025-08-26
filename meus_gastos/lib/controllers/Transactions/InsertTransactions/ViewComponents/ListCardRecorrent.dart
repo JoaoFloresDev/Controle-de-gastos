@@ -22,7 +22,8 @@ class ListCardRecorrent extends StatelessWidget {
     final newCard = CardModel(
       amount: card.amount,
       description: card.description,
-      date: DateTime(card.date.year, card.date.month, card.date.day, DateTime.now().hour, DateTime.now().minute) ,
+      date: DateTime(card.date.year, card.date.month, card.date.day,
+          DateTime.now().hour, DateTime.now().minute),
       category: card.category,
       id: CardService.generateUniqueId(),
       idFixoControl: card.idFixoControl,
@@ -57,7 +58,7 @@ class ListCardRecorrent extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  Translateservice.formatCurrency(card.amount, context),
+                  TranslateService.formatCurrency(card.amount, context),
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -82,7 +83,7 @@ class ListCardRecorrent extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      Translateservice.getTranslatedCategoryUsingModel(
+                      TranslateService.getTranslatedCategoryUsingModel(
                           context, card.category),
                       style: const TextStyle(
                         fontSize: 11,

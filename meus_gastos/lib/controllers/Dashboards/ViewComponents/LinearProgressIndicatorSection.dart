@@ -21,7 +21,7 @@ class LinearProgressIndicatorSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(Translateservice.getTranslatedCategoryName(context, model.title),
+          Text(TranslateService.getTranslatedCategoryName(context, model.title),
               style: const TextStyle(
                   color: AppColors.label,
                   fontSize: 14,

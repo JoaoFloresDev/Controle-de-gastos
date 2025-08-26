@@ -333,7 +333,7 @@ class _CategorycreaterState extends State<Categorycreater> {
                                           leading: Icon(category.icon,
                                               color: category.color, size: 30),
                                           title: Text(
-                                              Translateservice
+                                              TranslateService
                                                   .getTranslatedCategoryUsingModel(
                                                       context, category),
                                               style: const TextStyle(

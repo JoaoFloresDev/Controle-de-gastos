@@ -1,8 +1,8 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 
 //mark - HeaderBar
 class HeaderBar extends StatelessWidget {
@@ -22,12 +22,12 @@ class HeaderBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            'Registrar Despesa',
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context)!.registerExpense,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
-              color: CupertinoColors.white,
+              color: AppColors.label,
             ),
           ),
           _buildDateSelector(context),

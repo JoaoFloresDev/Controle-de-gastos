@@ -50,7 +50,7 @@ class ListCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    Translateservice.formatCurrency(card.amount, context),
+                    TranslateService.formatCurrency(card.amount, context),
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -75,7 +75,7 @@ class ListCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        Translateservice.getTranslatedCategoryUsingModel(
+                        TranslateService.getTranslatedCategoryUsingModel(
                             context, card.category),
                         style: const TextStyle(
                             fontSize: 11, color: AppColors.label),

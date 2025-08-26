@@ -501,7 +501,7 @@ class DashboardScreenState extends State<DashboardScreen>
             ),
           ),
           child: ExtractByCategory(
-                category: model.category.name, currentMonth: currentDate),
+              category: model.category.name, currentMonth: currentDate),
         ); // O widget com o código acima
       },
     );
@@ -529,7 +529,7 @@ class DashboardScreenState extends State<DashboardScreen>
 
   Widget _buildTotalSpentText(BuildContext context) {
     return Text(
-      "${AppLocalizations.of(context)!.totalSpent}: ${Translateservice.formatCurrency(totalGasto, context)}",
+      "${AppLocalizations.of(context)!.totalSpent}: ${TranslateService.formatCurrency(totalGasto, context)}",
       style: const TextStyle(
         color: AppColors.label,
         fontSize: 18,

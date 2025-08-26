@@ -146,7 +146,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
                           (constraints.maxWidth * 0.12).clamp(8.0, 13.0);
 
                       return Text(
-                        Translateservice.getTranslatedCategoryUsingModel(
+                        TranslateService.getTranslatedCategoryUsingModel(
                             context, category),
                         style: TextStyle(
                           fontSize: fontSize,
@@ -196,7 +196,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
             right: 0,
             child: IgnorePointer(
               child: Container(
-              height: 40,
+                height: 40,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.bottomCenter,

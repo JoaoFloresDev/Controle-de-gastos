@@ -62,7 +62,7 @@ class CalendarTable extends StatelessWidget {
             );
             return Center(
               child: Text(
-                formattedDate ?? '',
+                formattedDate,
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

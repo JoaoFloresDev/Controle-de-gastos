@@ -376,7 +376,7 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                       categoryIconColor: selectedCat.color,
                       categoryIcon: selectedCat.icon,
                       category:
-                          Translateservice.getTranslatedCategoryUsingModel(
+                          TranslateService.getTranslatedCategoryUsingModel(
                               context, selectedCat),
                     );
                     header.adicionar();

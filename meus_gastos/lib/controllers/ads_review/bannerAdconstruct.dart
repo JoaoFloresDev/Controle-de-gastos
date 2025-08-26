@@ -1,8 +1,7 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:meus_gastos/controllers/ads_review/ProManeger.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BannerAdconstruct extends StatefulWidget {
   const BannerAdconstruct({super.key});
@@ -64,17 +63,13 @@ class _BannerAdconstructState extends State<BannerAdconstruct> {
   }
 
   Future<void> _checkUserProStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    bool isYearlyPro = prefs.getBool('yearly.pro') ?? false;
-    bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
-    setState(() {
-      _isPro = isYearlyPro || isMonthlyPro;
-    });
+    _isPro = await ProManeger().checkUserProStatus();
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!_isPro && !Platform.isMacOS){
+    if (!_isPro && !Platform.isMacOS) {
       return Container(
         height: 60,
         width: double.infinity,
@@ -90,16 +85,16 @@ class _BannerAdconstructState extends State<BannerAdconstruct> {
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  height: 60, // Altura padrão do banner
+                  height: 60, 
                   child: AdWidget(ad: _bannerAd!),
                 ),
               ),
           ],
         ),
       );
-    }else{
+    } else {
       return const SizedBox();
-      }
+    }
   }
 }
 
@@ -138,7 +133,6 @@ class _LoadingContainerState extends State<LoadingContainer>
 
   @override
   Widget build(BuildContext context) {
-    // Exibe uma animação enquanto o anúncio não é carregado
     return Center(
       child: AnimatedBuilder(
         animation: _animation,

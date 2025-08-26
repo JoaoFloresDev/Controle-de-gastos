@@ -81,7 +81,7 @@ class _SelectCategoriesState extends State<SelectCategories> {
 
   Widget _buildCategoryLabel(int index) {
     return Text(
-      Translateservice.getTranslatedCategoryUsingModel(
+      TranslateService.getTranslatedCategoryUsingModel(
           context, widget.categoryList[index]),
       style: const TextStyle(
         fontSize: 9,

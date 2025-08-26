@@ -95,7 +95,7 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final locale = Localizations.localeOf(context);
-    final currencySymbol = Translateservice.getCurrencySymbol(context);
+    final currencySymbol = TranslateService.getCurrencySymbol(context);
     valorController = MoneyMaskedTextController(
       leftSymbol: '$currencySymbol ',
       decimalSeparator: locale.languageCode == 'pt' ? ',' : '.',
@@ -118,7 +118,7 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
   /// Sets the selected category index from the child list.
   void onCategorySelected(int index) {
     setState(() {
-        lastIndexSelected = index;
+      lastIndexSelected = index;
     });
   }
 
@@ -129,11 +129,11 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
     }
 
     if (Platform.isIOS) HapticFeedback.mediumImpact();
-    
+
     // Check for out of bounds error
     if (lastIndexSelected >= _categories.length) {
-        print("Error: Selected index is out of bounds.");
-        return;
+      print("Error: Selected index is out of bounds.");
+      return;
     }
 
     final selectedCategory = _categories[lastIndexSelected];
@@ -159,7 +159,8 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
 
   Future<void> _showDatePicker() async {
     if (Platform.isIOS) HapticFeedback.lightImpact();
-    await showCupertinoModalPopup<DateTime>(
+    await showModalBottomSheet<DateTime>(
+      isScrollControlled: true,
       context: context,
       builder: (ctx) => Container(
         height: 280,
@@ -183,15 +184,15 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
                   CupertinoButton(
                     padding: EdgeInsets.zero,
                     onPressed: () => Navigator.of(ctx).pop(),
-                    child: const Text(
-                      'Cancelar',
+                    child: Text(
+                      AppLocalizations.of(context)!.cancel,
                       style: TextStyle(color: CupertinoColors.systemGrey),
                     ),
                   ),
-                  const Expanded(
+                  Expanded(
                     child: Center(
                       child: Text(
-                        'Data e Hora',
+                        AppLocalizations.of(context)!.dateHour,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -204,10 +205,10 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
                     padding: EdgeInsets.zero,
                     onPressed: () => Navigator.of(ctx).pop(),
                     child: const Text(
-                      '     OK',
+                      'OK',
                       style: TextStyle(color: CupertinoColors.activeBlue),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -216,7 +217,8 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
                 data: const CupertinoThemeData(
                   brightness: Brightness.dark,
                   textTheme: CupertinoTextThemeData(
-                    dateTimePickerTextStyle: TextStyle(color: CupertinoColors.white),
+                    dateTimePickerTextStyle:
+                        TextStyle(color: CupertinoColors.white),
                   ),
                 ),
                 child: CupertinoDatePicker(

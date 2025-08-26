@@ -88,7 +88,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     final locale = Localizations.localeOf(context);
 
     valorController = MoneyMaskedTextController(
-      leftSymbol: Translateservice.getCurrencySymbol(context),
+      leftSymbol: TranslateService.getCurrencySymbol(context),
       decimalSeparator: locale.languageCode == 'pt' ? ',' : '.',
       initialValue: widget.card.price,
     );

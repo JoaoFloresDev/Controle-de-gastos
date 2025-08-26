@@ -67,7 +67,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     DateFormat(AppLocalizations.of(context)!.dateFormat).format(date);
 
     valorController = MoneyMaskedTextController(
-      leftSymbol: Translateservice.getCurrencySymbol(context),
+      leftSymbol: TranslateService.getCurrencySymbol(context),
       decimalSeparator: locale.languageCode == 'pt' ? ',' : '.',
       initialValue: widget.card.amount,
     );

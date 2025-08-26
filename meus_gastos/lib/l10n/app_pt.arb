@@ -12,6 +12,9 @@
     "createCategory": "Criar Categoria",
     "category": "Categoria",
     "addCategory": "Adicionar Categoria",
+    "addExpense" : "inserir Despesa",
+    "registerExpense": "Registrar Despesa",
+    "dateHour" : "Data e Hora",
     "update": "Atualizar",
     "transactionDetails": "Detalhes da transação",
     "myControl": "Meu Controle",
@@ -143,7 +146,7 @@
     "set": "Definir",
     "totalGoalForMonth": "Orçamento total para um mês",
     "currentGoal" : "Orçamento Atual",
-    "setGoal" : "Definir Orçamento"
-
-
+    "setGoal" : "Definir Orçamento",
+    "expenseAdded" : "Despesa Adicionada",
+    "amoutSpent" : "Valor Gasto"
 }

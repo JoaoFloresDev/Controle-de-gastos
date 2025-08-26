@@ -1,28 +1,22 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
+import 'package:meus_gastos/controllers/ads_review/ProManeger.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/InsertTransactions.dart';
-import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ReviewService {
-  static Future<void> checkAndRequestReview(
-      BuildContext context, bool isPro) async {
+  static Future<void> checkAndRequestReview(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int sessionCount = prefs.getInt('session_count') ?? 0;
-    bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
-    bool isYearlyPro = prefs.getBool("yearly.pro") ?? false;
+    bool isPro = await ProManeger().checkUserProStatus();
     sessionCount += 1;
     await prefs.setInt('session_count', sessionCount);
-    print("$sessionCount");
 
     if (sessionCount == 4) {
-      print("aqui!");
       final InAppReview inAppReview = InAppReview.instance;
       if (await inAppReview.isAvailable()) {
         inAppReview.requestReview();
@@ -33,15 +27,14 @@ class ReviewService {
       if (!isPro) {
         _showProModal(context);
       }
-    } else if (sessionCount == 10) {
-      // await prefs.setInt('session_count', 0);
+    } else if (sessionCount == 10 || sessionCount % 11 == 0) {
       _showCustomReviewDialog(context);
     }
   }
 
   static void _showCustomReviewDialog(BuildContext context) {
     final localizations =
-        AppLocalizations.of(context)!; // Obtém localizações do contexto
+        AppLocalizations.of(context)!;
 
     showDialog(
       context: context,
@@ -52,13 +45,13 @@ class ReviewService {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(dialogContext).pop(); // Fecha o popup
+                Navigator.of(dialogContext).pop(); 
               },
               child: Text(localizations.notNow),
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(dialogContext).pop(); // Fecha o popup
+                Navigator.of(dialogContext).pop(); 
                 _redirectToAppStore();
               },
               child: Text(localizations.reviewButton),
