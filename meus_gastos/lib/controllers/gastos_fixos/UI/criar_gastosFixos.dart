@@ -4,19 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/designSystem/Components/CustomHeader.dart';
-import 'package:meus_gastos/gastos_fixos/HorizontalCircleList.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/HorizontalCircleList.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import '../CardDetails/DetailScreen.dart';
 import '../ListCardFixeds.dart';
 import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
-import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:uuid/uuid.dart';
 import 'RepetitionMenu.dart';
+import '../fixedExpensesModel.dart';
 
 class CriarGastosFixos extends StatefulWidget {
   const CriarGastosFixos({
@@ -49,7 +50,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
 
     // Atualiza o formato da data baseado nas configurações do usuário
     final locale = Localizations.localeOf(context);
-    final currencySymbol = Translateservice.getCurrencySymbol(context);
+    final currencySymbol = TranslateService.getCurrencySymbol(context);
 
     valorController = MoneyMaskedTextController(
       leftSymbol: currencySymbol,

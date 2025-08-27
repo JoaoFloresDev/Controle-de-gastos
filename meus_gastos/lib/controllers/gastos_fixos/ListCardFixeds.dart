@@ -57,7 +57,7 @@ class ListCardFixeds extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  Translateservice.formatCurrency(card.price, context),
+                  TranslateService.formatCurrency(card.price, context),
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -82,7 +82,7 @@ class ListCardFixeds extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      Translateservice.getTranslatedCategoryUsingModel(context, card.category),
+                      TranslateService.getTranslatedCategoryUsingModel(context, card.category),
                       style: const TextStyle(
                         fontSize: 11,
                         color: AppColors.label,

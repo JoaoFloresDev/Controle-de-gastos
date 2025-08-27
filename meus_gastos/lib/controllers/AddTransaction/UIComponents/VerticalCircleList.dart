@@ -12,7 +12,6 @@ class VerticalCircleList extends StatefulWidget {
   final int defaultdIndexCategory;
   final Function(List<CategoryModel>) onCategoriesLoaded;
   final VoidCallback onAddCategorySelected;
-  final VoidCallback onAddCategorySelected;
 
   const VerticalCircleList({
     super.key,

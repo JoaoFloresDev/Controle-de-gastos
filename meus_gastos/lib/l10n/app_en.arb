@@ -183,8 +183,5 @@
     "set": "Set",
     "totalGoalForMonth": "Total budget for a month",
     "currentGoal" : "Current Goal",
-    "setGoal" : "Set Goal",
-    "expenseAdded" : "Expense Added",
-    "amoutSpent" : "Amount spent"
-
+    "setGoal" : "Set Goal"
 }

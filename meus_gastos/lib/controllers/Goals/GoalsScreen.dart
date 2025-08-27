@@ -178,7 +178,7 @@ class GoalsscreanState extends State<Goalsscrean>
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      Translateservice.formatCurrency(
+                      TranslateService.formatCurrency(
                           viewModel.totalExpenses, context),
                       style: const TextStyle(
                         fontSize: 20,
@@ -241,7 +241,7 @@ class GoalsscreanState extends State<Goalsscrean>
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      Translateservice.formatCurrency(
+                      TranslateService.formatCurrency(
                           viewModel.totalGoal, context),
                       style: const TextStyle(
                         fontSize: 12,
@@ -263,7 +263,7 @@ class GoalsscreanState extends State<Goalsscrean>
     return AnimatedBuilder(
       animation: _animationController,
       builder: (context, child) {
-        if (viewModel.isLoading) return const LoadingContainer();
+        if (viewModel.isLoading) return LoadingContainer();
         return Transform.translate(
           offset: Offset(0, 30 * (1 - _animationController.value)),
           child: Opacity(
@@ -363,7 +363,7 @@ class GoalsscreanState extends State<Goalsscrean>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            Translateservice.getTranslatedCategoryName(context, category.name),
+            TranslateService.getTranslatedCategoryName(context, category.name),
             style: const TextStyle(
               fontSize: 12,
               color: AppColors.label,
@@ -430,7 +430,7 @@ class GoalsscreanState extends State<Goalsscrean>
             Column(
               children: [
                 Text(
-                  Translateservice.formatCurrency(spent, context),
+                  TranslateService.formatCurrency(spent, context),
                   style: TextStyle(
                     color: isOverGoal
                         ? AppColors.deletionButton
@@ -441,7 +441,7 @@ class GoalsscreanState extends State<Goalsscrean>
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  Translateservice.formatCurrency(goal, context),
+                  TranslateService.formatCurrency(goal, context),
                   style: const TextStyle(
                     color: AppColors.labelPlaceholder,
                     fontSize: 11,

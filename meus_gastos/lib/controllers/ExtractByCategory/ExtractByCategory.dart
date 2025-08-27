@@ -14,11 +14,7 @@ class ExtractByCategory extends StatefulWidget {
   const ExtractByCategory(
       {Key? key, required this.category, required this.currentMonth})
       : super(key: key);
-  final DateTime currentMonth;
-  const ExtractByCategory(
-      {Key? key, required this.category, required this.currentMonth})
-      : super(key: key);
-
+  
   @override
   _ExtractByCategoryState createState() => _ExtractByCategoryState();
 }
@@ -74,7 +70,7 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
                     },
                   ),
                   Text(
-                    Translateservice.getTranslatedCategoryName(context, widget.category),
+                    TranslateService.getTranslatedCategoryName(context, widget.category),
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -158,8 +154,8 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
               ),
             ),
           ),
+        ]
         ),
-      ),
     );
   }
 }

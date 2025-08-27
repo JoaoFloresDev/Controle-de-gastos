@@ -59,7 +59,7 @@ class HeaderCardState extends State<HeaderCard> {
     });
     // update date format based in atuality configs
     final locale = Localizations.localeOf(context);
-    final currencySymbol = Translateservice.getCurrencySymbol(context);
+    final currencySymbol = TranslateService.getCurrencySymbol(context);
 
     valorController = MoneyMaskedTextController(
       leftSymbol: currencySymbol,

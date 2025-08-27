@@ -473,34 +473,34 @@ class _Logout extends State<Logout> {
 
   void _singInScreen() {
     FocusScope.of(context).unfocus();
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return Container(
-          height: MediaQuery.of(context).size.height / 3.0,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: singInScreen(
-            updateUser: () {
-              setState(() {
-                user = FirebaseAuth.instance.currentUser;
-              });
-            },
-            loadcards: widget.loadcards,
-            isPro: widget.isPro,
-            showProModal: (context) {
-              widget.showProModal(context);
-            },
-          ), // Aqui chamamos a função que retorna o widget
-        );
-      },
-    );
+    // showModalBottomSheet(
+    //   context: context,
+    //   isScrollControlled: true,
+    //   backgroundColor: Colors.transparent,
+    //   builder: (BuildContext context) {
+    //     return Container(
+    //       height: MediaQuery.of(context).size.height / 3.0,
+    //       decoration: const BoxDecoration(
+    //         borderRadius: BorderRadius.only(
+    //           topLeft: Radius.circular(20),
+    //           topRight: Radius.circular(20),
+    //         ),
+    //       ),
+    //       child: singInScreen(
+    //         updateUser: () {
+    //           setState(() {
+    //             // user = FirebaseAuth.instance.currentUser;
+    //           });
+    //         },
+    //         loadcards: widget.loadcards,
+    //         isPro: widget.isPro,
+    //         showProModal: (context) {
+    //           widget.showProModal(context);
+    //         },
+    //       ), // Aqui chamamos a função que retorna o widget
+    //     );
+    //   },
+    // );
   }
 
   void signupAuthentication() {

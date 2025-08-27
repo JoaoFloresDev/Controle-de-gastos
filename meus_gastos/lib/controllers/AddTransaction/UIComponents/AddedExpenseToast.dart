@@ -295,7 +295,7 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                               ),
                               const SizedBox(width: 8),
                               Text(
-                                AppLocalizations.of(context)!.expenseAdded,
+                                AppLocalizations.of(context)!.insertExpend,
                                 style: const TextStyle(
                                   color: AppColors.label,
                                   fontSize: 16,
@@ -398,7 +398,7 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                               ),
                               const SizedBox(height: 2),
                               Text(
-                                AppLocalizations.of(context)!.amoutSpent,
+                                AppLocalizations.of(context)!.addTransactionPopupSubtitle,
                                 style: TextStyle(
                                   color: Colors.white.withOpacity(0.5),
                                   fontSize: 11,

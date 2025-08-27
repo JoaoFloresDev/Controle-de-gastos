@@ -1,14 +1,15 @@
+import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/ListCardFixeds.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/UI/criar_gastosFixos.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'ViewComponents/CalendarTable.dart';
 import 'ViewComponents/CalendarHeader.dart';
 import 'ViewComponents/CalendarTransactions.dart';
+import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class CustomCalendar extends StatefulWidget {
   final VoidCallback onCalendarRefresh;
@@ -37,7 +38,7 @@ class CustomCalendarState extends State<CustomCalendar> {
 
   @override
   void dispose() {
-    _adManager.dispose(); 
+    _adManager.dispose();
     super.dispose();
   }
 
@@ -108,7 +109,7 @@ class CustomCalendarState extends State<CustomCalendar> {
       body: SafeArea(
         child: Column(
           children: [
-            const BannerAdconstruct(),
+            BannerAdconstruct(),
             Expanded(
               child: SingleChildScrollView(
                   child: ConstrainedBox(

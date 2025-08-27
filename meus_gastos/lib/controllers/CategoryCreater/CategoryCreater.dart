@@ -312,7 +312,7 @@ Stack(
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     leading: Icon(category.icon, color: category.color, size: 30),
-                    title: Text(Translateservice.getTranslatedCategoryUsingModel(context, category), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    title: Text(TranslateService.getTranslatedCategoryUsingModel(context, category), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                     trailing: IconButton(
                       icon: const Icon(Icons.delete, color: Colors.redAccent),
                       onPressed: () {
@@ -320,7 +320,7 @@ Stack(
                         CategoryService().deleteCategory(category.id);
                         setState(() {
                           widget.onCategoryAdded();
-                          _futureCategories = CategoryService().getAllPositiveCategories();
+                          _futureCategories = CategoryService().getAllCategories();
                         });
                       },
                     ),

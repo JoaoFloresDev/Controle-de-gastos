@@ -30,18 +30,13 @@ class TotalSpentCarouselWithTitles extends StatefulWidget {
 class TotalSpentCarouselWithTitlesState
     extends State<TotalSpentCarouselWithTitles> {
   final PageController _pageController = PageController(viewportFraction: 0.9);
-  final PageController _pageController = PageController(viewportFraction: 0.9);
 
   @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
   }
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
+  
 
   double avaregeDaily = 0.0;
   double monthExpenses = 0.0;
@@ -63,14 +58,9 @@ class TotalSpentCarouselWithTitlesState
   Map<String, int> highestFrequency = {};
   Map<String, double> listOfExpensesByCategoryOfCurrentMonth = {};
   Map<String, double> listOfExpenseByCategoryOfPreviousMonth = {};
-  Map<String, double> listOfExpenseByCategoryOfPreviousMonth = {};
   Map<String, double> listDiferencesExpenseByCategory = {};
   double projecaoFixed = 0.0;
   late List<CategoryModel> categories = [];
-
-  bool isLoading = false;
-  late List<CategoryModel> categories = [];
-
   bool isLoading = false;
 
   @override
@@ -100,6 +90,7 @@ class TotalSpentCarouselWithTitlesState
 
   Widget _buildLoadingIndicator() {
     return const CircularProgressIndicator(color: AppColors.background1);
+  }
   // @override
   // Future<void> didChangeDependencies() async {
   //   super.didChangeDependencies();
@@ -118,10 +109,6 @@ class TotalSpentCarouselWithTitlesState
   //   }
   // }
 
-  Widget _buildLoadingIndicator() {
-    return const CircularProgressIndicator(color: AppColors.background1);
-  }
-
   Future<void> getValues(DateTime currentDate) async {
     setState(() {
       isLoading = true;
@@ -129,13 +116,13 @@ class TotalSpentCarouselWithTitlesState
     setState(() {
       isLoading = true;
     });
+
     await CardService.retrieveCards();
     categories = await CategoryService().getAllCategories();
 
     var mediaValues = await Monthinsightsservices.monthExpenses(currentDate);
     categories = await CategoryService().getAllCategories();
 
-    var mediaValues = await Monthinsightsservices.monthExpenses(currentDate);
     var gastosMensaisAteAgora =
         await Monthinsightsservices.monthExpenses(currentDate);
     var ValuesFixeds =
@@ -230,8 +217,7 @@ class TotalSpentCarouselWithTitlesState
     print(listOfExpensesByCategoryOfCurrentMonth[highestFrequency.keys.first]);
   }
 
-  Future<List<Map<String, dynamic>>> buildGroupedPhrases(
-      DateTime currentDate) async {
+  
   Future<List<Map<String, dynamic>>> buildGroupedPhrases(
       DateTime currentDate) async {
     return [
@@ -420,227 +406,10 @@ class TotalSpentCarouselWithTitlesState
     return percent.round();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    if (isLoading) {
-      print("TACARREGANDOOOOO");
-      return Center(child: _buildLoadingIndicator());
-    }
-    return MediaQuery(
-      data: MediaQuery.of(context)
-          .copyWith(textScaler: const TextScaler.linear(1.0)),
-      child: FutureBuilder<List<Map<String, dynamic>>>(
-        future: buildGroupedPhrases(widget.currentDate),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(color: AppColors.label),
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text(
-                'Error: ${snapshot.error}',
-                style: const TextStyle(color: AppColors.label),
-              ),
-            );
-          } else if (!snapshot.hasData || snapshot.data == null) {
-            // Show loading while waiting for data to avoid showing zeroed values
-            return const Center(
-              child: CircularProgressIndicator(color: AppColors.label),
-            );
-          } else {
-            final groupedPhrases = snapshot.data!;
-            return Stack(
-              children: [
-                PageView.builder(
-                  itemCount: groupedPhrases.length,
-                  controller: _pageController,
-                  itemBuilder: (context, index) {
-                    final group = groupedPhrases[index];
-                    final sections =
-                        group['sections'] as List<Map<String, dynamic>>;
-                    return Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 8),
-                      padding: const EdgeInsets.only(
-                          left: 20, right: 20, top: 16, bottom: 0),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            const Color.fromARGB(255, 32, 32, 32),
-                            AppColors.card2
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(18),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withAlpha((0.1 * 255).toInt()),
-                            offset: const Offset(0, 4),
-                            blurRadius: 8,
-                            spreadRadius: 2,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: sections.map<Widget>((section) {
-                          final title = section['title'] as String;
-                          final phrases =
-                              section['phrases'] as List<List<String>>;
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                title,
-                                style: const TextStyle(
-                                  color: AppColors.label,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 2),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  for (int i = 0; i < phrases.length; i++) ...[
-                                    Column(
-                                      children: phrases[i].map((phrase) {
-                                        final parts = phrase.split(':');
-                                        final label = parts[0].trim();
-                                        final value =
-                                            parts.sublist(1).join(':').trim();
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 4),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                flex: 3,
-                                                child: Text(
-                                                  label,
-                                                  style: const TextStyle(
-                                                    color: AppColors.label,
-                                                    fontSize: 16,
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 3,
-                                                child: Align(
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: RichText(
-                                                    text: TextSpan(
-                                                      children: _styleValue(
-                                                        value,
-                                                        const TextStyle(
-                                                          color:
-                                                              AppColors.label,
-                                                          fontSize: 14,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                    if (i < phrases.length - 1)
-                                      const Divider(
-                                        color: Colors.grey,
-                                        thickness: 0.5,
-                                        height: 10,
-                                      ),
-                                  ],
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                            ],
-                          );
-                        }).toList(),
-                      ),
-                    );
-                  },
-                ),
-                if (Platform.isMacOS) ...[
-                  Positioned(
-                    left: 10,
-                    top: 0,
-                    bottom: 0,
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back_ios,
-                          color: AppColors.button),
-                      onPressed: () {
-                        final prevPage =
-                            ((_pageController.page?.round() ?? 0) - 1);
-                        if (prevPage >= 0) {
-                          _pageController.animateToPage(
-                            prevPage,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeInOut,
-                          );
-                        }
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    right: 10,
-                    top: 0,
-                    bottom: 0,
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_forward_ios,
-                          color: AppColors.button),
-                      onPressed: () {
-                        final nextPage =
-                            ((_pageController.page?.round() ?? 0) + 1);
-                        if (nextPage < groupedPhrases.length) {
-                          _pageController.animateToPage(
-                            nextPage,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeInOut,
-                          );
-                        }
-                      },
-                    ),
-                  ),
-                ],
-              ],
-            );
-          }
-        },
-      ),
-    );
-  }
-  int _calculateDropPercentage(
-      Map<String, double> highestDrop,
-      Map<String, double> listOfExpenseByCategoryOfPreviousMonth,
-      Map<String, double> listOfExpensesByCategoryOfCurrentMonth) {
-    if (highestDrop.isEmpty) return 0;
-    final key = highestDrop.keys.first;
-    final previous = listOfExpenseByCategoryOfPreviousMonth[key] ?? 0;
-    final current = listOfExpensesByCategoryOfCurrentMonth[key] ?? 0;
-
-    if (previous == 0) return 0;
-    final drop = ((current - previous) / previous) * 100;
-    if (drop.isNaN || drop.isInfinite) return 0;
-    return drop.round();
-  }
-
-  int _safePercent(double value, double total) {
-    if (total == 0) return 0;
-    final percent = (value / total) * 100;
-    if (percent.isNaN || percent.isInfinite) return 0;
-    return percent.round();
-  }
 
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      print("TACARREGANDOOOOO");
       return Center(child: _buildLoadingIndicator());
     }
     return MediaQuery(
@@ -876,3 +645,4 @@ class TotalSpentCarouselWithTitlesState
     return '${formatter.format(DateTime(widget.currentDate.year, widget.currentDate.month, day))}';
   }
 }
+    

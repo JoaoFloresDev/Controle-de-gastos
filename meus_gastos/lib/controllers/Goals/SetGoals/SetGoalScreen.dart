@@ -33,7 +33,7 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
 
     if (!_controllerInitialized) {
       final locale = Localizations.localeOf(context);
-      final currencySymbol = Translateservice.getCurrencySymbol(context);
+      final currencySymbol = TranslateService.getCurrencySymbol(context);
 
       valorController = MoneyMaskedTextController(
         leftSymbol: currencySymbol,
@@ -70,7 +70,7 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             CustomHeader(
-              title: Translateservice.getTranslatedCategoryName(
+              title: TranslateService.getTranslatedCategoryName(
                   context, widget.category.name),
               onCancelPressed: () {},
             ),
@@ -166,7 +166,7 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  Translateservice.formatCurrency(widget.initialValue, context),
+                  TranslateService.formatCurrency(widget.initialValue, context),
                   style: const TextStyle(
                     fontSize: 18,
                     color: Colors.white,

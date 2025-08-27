@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:meus_gastos/controllers/ads_review/ProManeger.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BannerAdconstruct extends StatefulWidget {
   const BannerAdconstruct({super.key});
@@ -61,9 +62,20 @@ class _BannerAdconstructState extends State<BannerAdconstruct> {
     _bannerAd?.dispose();
     super.dispose();
   }
+ Future<void> _checkUserProStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool isYearlyPro = prefs.getBool('yearly.pro') ?? false;
+    bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
+    setState(() {
+      _isPro = isYearlyPro || isMonthlyPro;
+    });
+  }
 
-  Future<void> _checkUserProStatus() async {
-    _isPro = await ProManeger().checkUserProStatus();
+  @override
+  Widget build(BuildContext context) {
+    // if (!_isPro && !Platform.isMacOS){
+    // _isPro =  ProManeger().checkUserProStatus() as bool;
+    if(!_isPro) {
     setState(() {});
       return Container(
         height: 60,
@@ -72,7 +84,7 @@ class _BannerAdconstructState extends State<BannerAdconstruct> {
         child: Stack(
           children: [
             if (!_isAdLoaded)
-              const Center(
+              Center(
                 child: LoadingContainer(),
               ),
             if (_isAdLoaded)
@@ -89,8 +101,12 @@ class _BannerAdconstructState extends State<BannerAdconstruct> {
       );
     }else{
       return const SizedBox();
-      }
-  const LoadingContainer({super.key});
+    }
+  }
+}
+
+class LoadingContainer extends StatefulWidget {
+  LoadingContainer({super.key});
 
   @override
   _LoadingContainerState createState() => _LoadingContainerState();
