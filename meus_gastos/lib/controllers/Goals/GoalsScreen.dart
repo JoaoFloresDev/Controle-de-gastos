@@ -70,7 +70,6 @@ class GoalsscreanState extends State<Goalsscrean>
     );
   }
 
-
 //MARK: - Components
   Widget _buildLoadingIndicator() {
     return Container(
@@ -297,34 +296,39 @@ class GoalsscreanState extends State<Goalsscrean>
 
           return GestureDetector(
             onTap: () {
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-                builder: (BuildContext context) {
-                  return Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                    ),
-                    height: MediaQuery.of(context).size.height * 0.9,
-                    child: SetGoalsScreen(
-                      category: category,
-                      initialValue: goal,
-                      addGoal: (newGoalCategoryId, newGoalValue) {
-                        viewModel.addGoal(newGoalCategoryId, newGoalValue);
-                      },
-                    ),
-                  );
-                },
-              );
+              _buildSetGoalModel(category, spent, goal, isOverGoal, viewModel);
             },
             child: _buildCategoryCard(category, spent, goal, isOverGoal),
           );
         },
       ),
+    );
+  }
+
+  void _buildSetGoalModel(CategoryModel category, double spent, double goal,
+      bool isOverGoal, GoalsViewModel viewModel) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          height: MediaQuery.of(context).size.height * 0.9,
+          child: SetGoalsScreen(
+            category: category,
+            initialValue: goal,
+            addGoal: (newGoalCategoryId, newGoalValue) {
+              viewModel.addGoal(newGoalCategoryId, newGoalValue);
+            },
+          ),
+        );
+      },
     );
   }
 

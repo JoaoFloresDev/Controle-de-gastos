@@ -1,7 +1,5 @@
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValueInputSection.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ValorTextField.dart'
-    show ValorTextField;
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';

@@ -2,8 +2,6 @@ import 'dart:io';
 import 'package:meus_gastos/controllers/AddTransaction/UIComponents/VerticalCircleList.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
-import 'package:meus_gastos/controllers/cadastro_login/logout.dart';
-import 'package:meus_gastos/controllers/cadastro_login/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
