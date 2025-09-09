@@ -1,4 +1,4 @@
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/CampoComMascara.dart';
+import 'package:meus_gastos/controllers/CardDetails/ViewComponents/CampoComMascara.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -60,10 +60,10 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
   }
 
   Future<void> loadCategories() async {
-    // var categorieList = await CategoryService().getAllPositiveCategories();
-    // setState(() {
-    //   icons_list_recorrent = categorieList.sublist(0, categorieList.length - 1);
-    // });
+    var categorieList = await CategoryService().getAllCategoriesAvaliable();
+    setState(() {
+      icons_list_recorrent = categorieList.sublist(0, categorieList.length - 1);
+    });
   }
 
   @override
@@ -106,7 +106,8 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
               showDeleteButton: false,
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0, bottom: 0.0),
+              padding: const EdgeInsets.only(
+                  top: 16.0, left: 16.0, right: 16.0, bottom: 0.0),
               child: Column(
                 children: [
                   Row(
@@ -174,8 +175,8 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                             description: descricaoController.text,
                             price: valorController.numberValue,
                             date: _selectedDate,
-                            category:
-                                icons_list_recorrent[lastIndexSelected_category],
+                            category: icons_list_recorrent[
+                                lastIndexSelected_category],
                             id: const Uuid().v4(),
                             tipoRepeticao: tipoRepeticao,
                           ));
@@ -199,14 +200,13 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
             SizedBox(
               height: 16,
             ),
-const Padding(
-  padding: EdgeInsets.symmetric(horizontal: 16.0),
-  child: Divider(
-    color: Colors.grey,
-    thickness: 0.5,
-  ),
-),
-
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Divider(
+                color: Colors.grey,
+                thickness: 0.5,
+              ),
+            ),
             _fixedExpenses.isEmpty
                 ? Expanded(
                     child: Padding(
@@ -217,52 +217,54 @@ const Padding(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const SizedBox(height: 20),
-        const Icon(
-          Icons.inbox,
-          color: AppColors.card,
-          size: 40, // Ícone levemente maior para maior impacto visual
-        ),
-        Text(
-          AppLocalizations.of(context)!.addNewTransactions,
-          style: const TextStyle(
-            color: AppColors.label,
-            fontSize: 12, // Levemente maior para melhor leitura
-            fontWeight: FontWeight.w500,
-            height: 1.8,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        const Spacer(),
+                          const Icon(
+                            Icons.inbox,
+                            color: AppColors.card,
+                            size:
+                                40, // Ícone levemente maior para maior impacto visual
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.addNewTransactions,
+                            style: const TextStyle(
+                              color: AppColors.label,
+                              fontSize:
+                                  12, // Levemente maior para melhor leitura
+                              fontWeight: FontWeight.w500,
+                              height: 1.8,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const Spacer(),
                         ],
                       ),
                     ),
                   )
                 : Expanded(
-  child: ListView.builder(
-    padding: EdgeInsets.zero,
-    itemCount: _fixedExpenses.length,
-    itemBuilder: (context, index) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: ListCardFixeds(
-          onTap: (card) {
-            _showCupertinoModalBottomSheet(context, card);
-          },
-          card: FixedExpense(
-            id: _fixedExpenses[index].id,
-            price: _fixedExpenses[index].price,
-            description: _fixedExpenses[index].description,
-            date: _fixedExpenses[index].date,
-            category: _fixedExpenses[index].category,
-            tipoRepeticao: _fixedExpenses[index].tipoRepeticao,
-          ),
-        ),
-      );
-    },
-  ),
-)
-
-                  
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: _fixedExpenses.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          child: ListCardFixeds(
+                            onTap: (card) {
+                              _showCupertinoModalBottomSheet(context, card);
+                            },
+                            card: FixedExpense(
+                              id: _fixedExpenses[index].id,
+                              price: _fixedExpenses[index].price,
+                              description: _fixedExpenses[index].description,
+                              date: _fixedExpenses[index].date,
+                              category: _fixedExpenses[index].category,
+                              tipoRepeticao:
+                                  _fixedExpenses[index].tipoRepeticao,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  )
           ],
         ),
       ),

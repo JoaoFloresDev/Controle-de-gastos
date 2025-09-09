@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:meus_gastos/controllers/ads_review/ProManeger.dart';
+import 'package:meus_gastos/services/ProManeger.dart';
 
 class InterstitialAdManager {
   InterstitialAd? _interstitialAd;
@@ -28,6 +28,7 @@ class InterstitialAdManager {
 
   Future<void> showVideoAd(BuildContext context) async {
     bool isPro = await proMenager.checkUserProStatus();
+
     if (!isPro) {
       if (_interstitialAd != null) {
         _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(

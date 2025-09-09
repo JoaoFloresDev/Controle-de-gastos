@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:meus_gastos/controllers/ads_review/ProManeger.dart';
+import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
@@ -33,8 +33,7 @@ class ReviewService {
   }
 
   static void _showCustomReviewDialog(BuildContext context) {
-    final localizations =
-        AppLocalizations.of(context)!;
+    final localizations = AppLocalizations.of(context)!;
 
     showDialog(
       context: context,
@@ -45,13 +44,13 @@ class ReviewService {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(dialogContext).pop(); 
+                Navigator.of(dialogContext).pop();
               },
               child: Text(localizations.notNow),
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(dialogContext).pop(); 
+                Navigator.of(dialogContext).pop();
                 _redirectToAppStore();
               },
               child: Text(localizations.reviewButton),

@@ -1,8 +1,8 @@
 // import 'package:meus_gastos/controllers/CategoryCreater/AddCategoryHorizontalCircleList.dart';
-import 'package:meus_gastos/controllers/Goals/GoalsService.dart';
+import 'package:meus_gastos/controllers/Goals/Data/GoalsService.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 // import 'package:meus_gastos/controllers/CategoryCreater/AddCategoryHorizontalCircleList.dart';
-import 'package:meus_gastos/controllers/Goals/GoalsService.dart';
+import 'package:meus_gastos/controllers/Goals/Data/GoalsService.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'dart:math';
@@ -149,7 +149,7 @@ class _CategorycreaterState extends State<Categorycreater> {
   void adicionar() async {
     int frequency = 2;
     CategoryModel? categoryHighFrequency =
-        await CategoryService.getCategoryWithHighestFrequency();
+        await CategoryService().getCategoryWithHighestFrequency();
     if (categoryHighFrequency != null && categoryHighFrequency.id.isNotEmpty) {
       frequency = categoryHighFrequency.frequency + 1;
     }

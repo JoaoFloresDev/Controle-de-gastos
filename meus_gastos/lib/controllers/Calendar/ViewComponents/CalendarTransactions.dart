@@ -25,7 +25,7 @@ import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCard.dart';
+import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCard.dart';
 
 class TransactionList extends StatelessWidget {
   final List<CardModel> transactions;

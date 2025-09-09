@@ -8,8 +8,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions/InsertTransactions.dart';
+import 'package:meus_gastos/controllers/Transactions/InsertTransactions.dart';
 import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
+import 'package:meus_gastos/services/firebase/FirebaseService.dart';
 // import 'package:meus_gastos/services/firebase/firebaseService.dart';
 import 'package:onepref/onepref.dart';
 import 'package:window_size/window_size.dart';
@@ -31,7 +32,7 @@ void main() async {
   await OnePref.init();
 
   // inicializa firebase
-  // await FirebaseService().init(); // PARA DESABILITAR BASTA COMENTAR
+  await FirebaseService().init(); 
   runApp(
     MultiProvider(
       providers: [

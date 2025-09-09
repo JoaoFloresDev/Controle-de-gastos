@@ -236,10 +236,10 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
               child: Center(
                 child: Text(
                   AppLocalizations.of(context)!.update,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                    color: AppColors.label,
                   ),
                 ),
               ),
@@ -249,7 +249,6 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
 
         const SizedBox(height: 16),
 
-        // Secondary action button (Clear/Reset)
         if (widget.initialValue > 0)
           Container(
             width: double.infinity,

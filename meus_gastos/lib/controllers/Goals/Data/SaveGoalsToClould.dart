@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsModel.dart';
-import 'package:meus_gastos/controllers/Goals/GoalsService.dart';
-import 'package:meus_gastos/services/firebase/saveOnClound.dart';
+import 'package:meus_gastos/services/firebase/FirebaseService.dart';
 
-class SaveGoalsToClould extends Saveonclound {
+class SaveGoalsToClould extends FirebaseService {
+  
   Future<List<GoalModel>> getAllGoals() async {
     try {
       QuerySnapshot snapshot = await firestore

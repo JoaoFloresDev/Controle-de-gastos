@@ -1,10 +1,7 @@
-import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:onepref/onepref.dart';
@@ -54,12 +51,10 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
     // TODO: implement initState
     super.initState();
     updateProStatus();
-    print("Chegou aqui");
 
     iApEngine.inAppPurchase.purchaseStream.listen((list) {
       listenPurchases(list);
     });
-    print("Chegou aqui");
     getProducts();
     print(_products.length);
     _restorePurchases();
@@ -133,6 +128,7 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
       await prefs.setBool(monthlyProKey, true);
       setState(() {
         isMonthlyPro = true;
+        
       });
     } else if (storeProductIds[1].id == purchaseDetails.productID) {
       await prefs.setBool(YearlyProKey, true);

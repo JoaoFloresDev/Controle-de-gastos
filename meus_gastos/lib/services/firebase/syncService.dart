@@ -4,6 +4,7 @@ import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/services/firebase/SaveFixedExpenseOnClound.dart';
 import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,7 +14,7 @@ class SyncService {
   Future<void> syncData(String userId) async {
     final prefs = await SharedPreferences.getInstance();
 
-    // 🔹 1. Carrega os dados locais
+    //  1. Carrega os dados locais
     List<FixedExpense> localFixedExpenses =
         await Fixedexpensesservice.getSortedFixedExpensesToSync();
     List<CardModel> localNormalExpenses =
@@ -21,7 +22,7 @@ class SyncService {
 
     // 🔹 2. Baixa os dados do Firebase
     List<FixedExpense> remoteFixedExpenses =
-        await SaveExpensOnCloud().fetchCardsFixedCards();
+        await SaveFixedExpenseOnClound().fetchCardsFixedCards();
     List<CardModel> remoteNormalExpenses =
         await SaveExpensOnCloud().fetchCards();
     if (localNormalExpenses != remoteNormalExpenses)

@@ -11,56 +11,26 @@ class CategoryService {
   static const String _isFirstAccessKey = 'isFirstAccess';
 
   Future<void> addCategory(CategoryModel category) async {
-    // User? user = FirebaseAuth.instance.currentUser;
-
-    // if (user != null) {
-    //   // Usuário logado: adiciona ao Firestore
-    //   await FirebaseFirestore.instance
-    //       .collection(user.uid)
-    //       .doc('Categories')
-    //       .collection('categoryList')
-    //       .doc(category.id)
-    //       .set(category.toJson());
-    // } else {
-      // Usuário offline: adiciona ao SharedPreferences
-      final prefs = await SharedPreferences.getInstance();
-      List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
-      categories.add(jsonEncode(category.toJson()));
-      await prefs.setStringList(_categoriesKey, categories);
+    final prefs = await SharedPreferences.getInstance();
+    List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
+    categories.add(jsonEncode(category.toJson()));
+    await prefs.setStringList(_categoriesKey, categories);
     // }
   }
 
-//MARK: - Delete Category
   Future<void> deleteCategory(String id) async {
-    // User? user = FirebaseAuth.instance.currentUser;
+    final prefs = await SharedPreferences.getInstance();
+    List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
 
-    // if (user != null) {
-    //   // Usuário logado: atualiza a categoria no Firestore (marca como indisponível)
-    //   final docRef = FirebaseFirestore.instance
-    //       .collection(user.uid)
-    //       .doc('Categories')
-    //       .collection('categoryList')
-    //       .doc(id);
+    List<String> updatedCategories = categories.map((category) {
+      final Map<String, dynamic> categoryMap = jsonDecode(category);
+      if (categoryMap['id'] == id) {
+        categoryMap['available'] = false;
+      }
+      return jsonEncode(categoryMap);
+    }).toList();
 
-    //   final docSnapshot = await docRef.get();
-
-    //   if (docSnapshot.exists) {
-    //     await docRef.update({'available': false});
-    //   }
-    // } else {
-      // Usuário offline: atualiza localmente via SharedPreferences
-      final prefs = await SharedPreferences.getInstance();
-      List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
-
-      List<String> updatedCategories = categories.map((category) {
-        final Map<String, dynamic> categoryMap = jsonDecode(category);
-        if (categoryMap['id'] == id) {
-          categoryMap['available'] = false;
-        }
-        return jsonEncode(categoryMap);
-      }).toList();
-
-      await prefs.setStringList(_categoriesKey, updatedCategories);
+    await prefs.setStringList(_categoriesKey, updatedCategories);
     // }
   }
 
@@ -160,56 +130,24 @@ class CategoryService {
 
   Future<List<CategoryModel>> getAllCategories() async {
     final prefs = await SharedPreferences.getInstance();
-    // User? user = FirebaseAuth.instance.currentUser;
-    // if (user != null) {
-    //   // Usuário está logado - verificamos o Firestore
-    //   final firestore = FirebaseFirestore.instance;
-    //   final snapshot = await firestore
-    //       .collection(user.uid)
-    //       .doc('Categories')
-    //       .collection('categoryList')
-    //       .get();
-    //   if (snapshot.docs.isEmpty) {
-    //     // Primeiro acesso na nuvem
-    //     for (var category in defaultCategories) {
-    //       await SaveExpensOnCloud().addNewCategory(category);
-    //     }
-    //     return defaultCategories
-    //       ..sort((a, b) => b.frequency.compareTo(a.frequency));
-    //   } else {
-    //     // Categorias já existem
-    //     List<CategoryModel> cloudCategories = snapshot.docs
-    //         .map((doc) =>
-    //             CategoryModel.fromJson(doc.data() as Map<String, dynamic>))
-    //         .toList()
-    //       ..sort((a, b) => b.frequency.compareTo(a.frequency));
-    //     // cloudCategories =
-    //     //     cloudCategories.where((cat) => cat.available).toList();
 
-    //     return cloudCategories;
-    //   }
-    // } else {
-      // Usuário não logado - usamos SharedPreferences
-      bool isFirstAccess = prefs.getBool(_isFirstAccessKey) ?? true;
-      print(isFirstAccess);
-      if (isFirstAccess) {
-        await prefs.setBool(_isFirstAccessKey, false);
-        for (var category in defaultCategories) {
-          await addCategory(
-              category); // Supondo que essa função salva localmente
-        }
-        return defaultCategories
-          ..sort((a, b) => b.frequency.compareTo(a.frequency));
-      } else {
-        List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
-        List<CategoryModel> aux = categories.map((category) {
-          final Map<String, dynamic> categoryMap = jsonDecode(category);
-          return CategoryModel.fromJson(categoryMap);
-        }).toList();
-        // aux = aux.where((cat) => cat.available).toList();
-        aux.sort((a, b) => b.frequency.compareTo(a.frequency));
-        return aux;
+    bool isFirstAccess = prefs.getBool(_isFirstAccessKey) ?? true;
+    if (isFirstAccess) {
+      await prefs.setBool(_isFirstAccessKey, false);
+      for (var category in defaultCategories) {
+        await addCategory(category);
       }
+      return defaultCategories
+        ..sort((a, b) => b.frequency.compareTo(a.frequency));
+    } else {
+      List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
+      List<CategoryModel> aux = categories.map((category) {
+        final Map<String, dynamic> categoryMap = jsonDecode(category);
+        return CategoryModel.fromJson(categoryMap);
+      }).toList();
+      aux.sort((a, b) => b.frequency.compareTo(a.frequency));
+      return aux;
+    }
     // }
   }
 
@@ -227,27 +165,7 @@ class CategoryService {
     }
   }
 
-//   Future<List<CategoryModel>> getAllPositiveCategories() async {
-//       final prefs = await SharedPreferences.getInstance();
-//     bool isFirstAccess = prefs.getBool(_isFirstAccessKey) ?? true;
-//     if (isFirstAccess) {
-//       await prefs.setBool(_isFirstAccessKey, false);
-//       for (var category in defaultCategories) {
-//         await addCategory(category);
-//       }
-//     }
-//     List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
-//   List<CategoryModel> aux = categories.map((category) {
-//     final Map<String, dynamic> categoryMap = jsonDecode(category);
-//     return CategoryModel.fromJson(categoryMap);
-//   }).toList();
-//   aux = aux.where((cat) => cat.available).toList();
-//   aux.sort((a, b) => b.frequency.compareTo(a.frequency));
-//   return aux;
-// }
-
   Future<void> incrementCategoryFrequency(String categoryId) async {
-    // User? user = FirebaseAuth.instance.currentUser;
     List<CategoryModel> allCategories = await getAllCategories();
 
     final int index = allCategories.indexWhere((c) => c.id == categoryId);
@@ -263,59 +181,22 @@ class CategoryService {
         color: oldCategory.color,
         frequency: currentFreq + 1,
       );
+      final prefs = await SharedPreferences.getInstance();
+      allCategories[index] = updatedCategory;
 
-      // if (user != null) {
-      //   // Usuário logado: atualiza no Firestore
-      //   await FirebaseFirestore.instance
-      //       .collection(user.uid)
-      //       .doc('Categories')
-      //       .collection('categoryList')
-      //       .doc(updatedCategory.id)
-      //       .set(updatedCategory.toJson());
-      // } else {
-        // Usuário offline: atualiza no SharedPreferences
-        final prefs = await SharedPreferences.getInstance();
-        allCategories[index] = updatedCategory;
-
-        List<String> updatedList = allCategories
-            .map((category) => jsonEncode(category.toJson()))
-            .toList();
-        await prefs.setStringList(_categoriesKey, updatedList);
-      // }
+      List<String> updatedList = allCategories
+          .map((category) => jsonEncode(category.toJson()))
+          .toList();
+      await prefs.setStringList(_categoriesKey, updatedList);
     }
   }
 
-  // MARK: - Category with Highest Frequency
-  static Future<CategoryModel?> getCategoryWithHighestFrequency() async {
-    // User? user = FirebaseAuth.instance.currentUser;
+  Future<CategoryModel?> getCategoryWithHighestFrequency() async {
 
-    List<CategoryModel> categories = [];
-
-    // if (user != null) {
-    //   // Busca do Firestore
-    //   final snapshot = await FirebaseFirestore.instance
-    //       .collection(user.uid)
-    //       .doc('Categories')
-    //       .collection('categoryList')
-    //       .get();
-
-    //   categories = snapshot.docs.map((doc) {
-    //     return CategoryModel.fromJson(doc.data());
-    //   }).toList();
-    // } else {
-      // Busca do SharedPreferences
-      final prefs = await SharedPreferences.getInstance();
-      final List<String> categoriesStringList =
-          prefs.getStringList(_categoriesKey) ?? [];
-
-      categories = categoriesStringList.map((categoryString) {
-        return CategoryModel.fromJson(jsonDecode(categoryString));
-      }).toList();
-    // }
+    List<CategoryModel> categories = await getAllCategories();
 
     if (categories.isEmpty) return null;
 
-    // Encontra a categoria com maior frequência
     CategoryModel highestFrequencyCategory = categories.reduce((a, b) {
       final aFreq = a.frequency ?? 0;
       final bFreq = b.frequency ?? 0;
