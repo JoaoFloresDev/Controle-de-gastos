@@ -59,7 +59,7 @@ class GoalsViewModel extends ChangeNotifier {
   }
 
   Future<void> loadCategorys() async {
-    _categories = await categoryService.getAllCategories();
+    _categories = await categoryService.getAllCategoriesAvaliable();
     _removeAddCategory();
   }
 
@@ -71,6 +71,7 @@ class GoalsViewModel extends ChangeNotifier {
       print("AddTransactions already removed");
     }
   }
+
 
   Future<void> loadGoals({bool notify = true}) async {
     _isLoading = true;

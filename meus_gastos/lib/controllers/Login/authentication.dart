@@ -5,7 +5,9 @@ class Authentication {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  
+  String? _userId;
+  String? get userId => _userId;
+
   Future<User?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -27,6 +29,8 @@ class Authentication {
       final UserCredential userCredential =
           await _firebaseAuth.signInWithCredential(credential);
 
+      _userId = userCredential.user!.uid;
+
       return userCredential.user;
     } catch (e) {
       print('Erro durante login com Google: $e');
@@ -34,8 +38,8 @@ class Authentication {
     }
   }
 
-
   Future<void> signOut() async {
     await _googleSignIn.signOut();
+    _userId = null;
   }
 }

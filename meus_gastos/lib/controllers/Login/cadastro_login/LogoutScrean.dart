@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 
-import 'package:meus_gastos/controllers/Login/authentication.dart';
+import 'package:meus_gastos/controllers/Login/Authentication.dart';
 
 class LogoutScrean extends StatefulWidget {
   final VoidCallback updateUser;
@@ -232,6 +232,4 @@ class _LogoutScreanState extends State<LogoutScrean> {
   //     },
   //   );
   // }
-
-  
 }

@@ -5,7 +5,7 @@ import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/firebase/SaveFixedExpenseOnClound.dart';
-import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
+import 'package:meus_gastos/services/firebase/SaveExpensOnCloud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SyncService {

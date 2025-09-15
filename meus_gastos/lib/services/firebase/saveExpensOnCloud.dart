@@ -18,9 +18,8 @@ class SaveExpensOnCloud {
   }
 
   Future<void> addNewDate(CardModel card) async {
-
     if (FirebaseService().userId == null) return;
-    
+
     await FirebaseService()
         .firestore
         .collection(FirebaseService().userId!)
@@ -67,120 +66,4 @@ class SaveExpensOnCloud {
       return [];
     }
   }
-
-  // MARK: fixed cards
-
-  // Future<void> addDatesOfOfflineStateFixedCards() async {
-  //   List<FixedExpense> cards =
-  //       await Fixedexpensesservice.getSortedFixedExpenses();
-  //   for (var card in cards) {
-  //     await firestore.collection(userId!).doc(card.id).set(card.toJson());
-  //     // await firestore.collection(userId).doc(card.id)
-  //   }
-  // }
-
-  // Future<void> addNewDateFixedCards(FixedExpense card) async {
-  //   if (userId == null) {
-  //     print("Erro: userId é null!");
-  //     return;
-  //   }
-  //   print("**************************************************** ${userId!}");
-  //   try {
-  //     await firestore
-  //         .collection(userId!)
-  //         .doc('fixedCards')
-  //         .collection("cardList")
-  //         .doc(card.id)
-  //         .set(card.toJson());
-  //     print("Gasto salvo com sucesso!");
-  //   } catch (e) {
-  //     print("Erro ${e}");
-  //   }
-  // }
-
-  // Future<void> deleteDateFixedCards(FixedExpense card) async {
-  //   try {
-  //     await firestore
-  //         .collection(userId!)
-  //         .doc('fixedCards')
-  //         .collection("cardList")
-  //         .doc(card.id)
-  //         .delete();
-
-  //     print("Document with ID ${card.id} deleted successfully.");
-  //   } catch (e) {
-  //     print("Error deleting document: $e");
-  //   }
-  // }
-
-  // Future<List<FixedExpense>> fetchCardsFixedCards() async {
-  //   try {
-  //     QuerySnapshot snapshot = await firestore
-  //         .collection(userId!)
-  //         .doc('fixedCards')
-  //         .collection('cardList')
-  //         .get();
-
-  //     return snapshot.docs
-  //         .map((doc) =>
-  //             FixedExpense.fromJson(doc.data() as Map<String, dynamic>))
-  //         .toList();
-  //   } catch (e) {
-  //     print('Erro ao buscar cartões: $e');
-  //     return [];
-  //   }
-  // }
-
-  // categories
-
-  // Future<void> addNewCategory(CategoryModel category) async {
-  //   try {
-  //     await FirebaseService().firestore
-  //         .collection(FirebaseService().userId)
-  //         .doc('Categories')
-  //         .collection('categoryList')
-  //         .doc(category.id)
-  //         .set(category.toJson());
-
-  //     print("Categoria adicionada com sucesso: ${category.id}");
-  //   } catch (e) {
-  //     print("Erro ao adicionar categoria: $e");
-  //   }
-  // }
-
-  // Future<void> deleteCategory(CategoryModel category) async {
-  //   try {
-  //     await FirebaseService().firestore
-  //         .collection(FirebaseService().userId)
-  //         .doc('Categories')
-  //         .collection('categoryList')
-  //         .doc(category.id)
-  //         .delete();
-
-  //     print("Categoria com ID ${category.id} deletada com sucesso.");
-  //   } catch (e) {
-  //     print("Erro ao deletar categoria: $e");
-  //   }
-  // }
-
-  // Future<List<CategoryModel>> fetchCategories() async {
-  //   try {
-  //     QuerySnapshot snapshot = await FirebaseService().firestore
-  //         .collection(FirebaseService().userId)
-  //         .doc('Categories')
-  //         .collection('categoryList')
-  //         .get();
-
-  //     return snapshot.docs
-  //         .map((doc) =>
-  //             CategoryModel.fromJson(doc.data() as Map<String, dynamic>))
-  //         .toList();
-  //   } catch (e) {
-  //     print("Erro ao buscar categorias: $e");
-  //     return [];
-  //   }
-  // }
 }
-
-// colocar date antes do id no nome do arquivo para quando sincronizar pegar apenas os arquivos feitos depois da ultima sincronização
-//
