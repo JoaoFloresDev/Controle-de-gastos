@@ -102,6 +102,8 @@ class TransactionList extends StatelessWidget {
             onAddClicked: () {
               onRefresh();
             },
+            // mudar depois
+            onDelete: (card) {},
           ),
         );
       },

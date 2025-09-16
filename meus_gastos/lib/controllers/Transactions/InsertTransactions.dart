@@ -2,45 +2,29 @@ import 'dart:io';
 import 'package:meus_gastos/controllers/Login/LoginButtonScrean.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
+import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCardRecorrent.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/UI/criar_gastosFixos.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import 'ViewComponents/ListCard.dart';
 import '../../models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart' as service;
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class InsertTransactions extends StatefulWidget {
-  const InsertTransactions({
-    required this.onAddClicked,
-    super.key,
-    required this.title,
-    required this.exportButon,
-    required this.cardsExpens,
-    required this.addButon,
-    required this.date,
-    required this.categories,
-    required this.description,
-    required this.valueExpens,
-    required this.isActive,
-  });
+  const InsertTransactions(
+      {required this.onAddClicked,
+      super.key,
+      required this.title,
+      required this.isActive});
 
   final VoidCallback onAddClicked;
   final String title;
-  final GlobalKey exportButon;
-  final GlobalKey cardsExpens;
-  final GlobalKey valueExpens;
-  final GlobalKey date;
-  final GlobalKey description;
-  final GlobalKey categories;
-  final GlobalKey addButon;
+
   final bool isActive;
 
   @override
@@ -48,16 +32,10 @@ class InsertTransactions extends StatefulWidget {
 }
 
 class _InsertTransactionsState extends State<InsertTransactions> {
-  List<CardModel> cardList = [];
-  List<FixedExpense> fixedCards = [];
-  List<CardModel> mergeCardList = [];
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late DateTime currentDate;
 
   final bool _isLoading = false;
-  List<String> fixedExpenseIds = [];
-  List<String> normalExpenseIds = [];
-  List<String> idsFixosControlList = [];
 
   Set<String> purchasedProductIds = {};
   bool? isLogin;
@@ -67,7 +45,6 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   void initState() {
     super.initState();
     currentDate = DateTime.now();
-    loadCards();
     print("Usuário deslogado.");
     isLogin = false;
   }
@@ -76,32 +53,9 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   void didUpdateWidget(covariant InsertTransactions oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.isActive && !oldWidget.isActive) {
-      loadCards();
+      // viewModel.loadCards();
     }
   }
-
-  // Future<void> loadCards() async {
-  //   var cards = await service.CardService.retrieveCards();
-  //   var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
-  //   await _loadFixedExpenseIds();
-  //   cardList = cards;
-  //   fixedCards = fcard;
-  //   mergeCardList = await Fixedexpensesservice.mergeFixedWithNormal(
-  //       fixedCards, cardList, currentDate);
-  //   setState(() {});
-  // }
-
-  // Future<void> _loadFixedExpenseIds() async {
-  //   final Fixedids = await Fixedexpensesservice.getFixedExpenseIds();
-  //   final normalids = await service.CardService.getNormalExpenseIds();
-  //   final fixedsControlIds =
-  //       await service.CardService().getIdFixoControlList(cardList);
-  //   setState(() {
-  //     fixedExpenseIds = Fixedids;
-  //     normalExpenseIds = normalids;
-  //     idsFixosControlList = fixedsControlIds;
-  //   });
-  // }
 
   void _showProModal(BuildContext context) async {
     showModalBottomSheet(
@@ -128,47 +82,55 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     );
   }
 
-  Widget _cardListBuild() {
+  Widget _cardListBuild(TransactionsViewModel viewModel) {
+    // Combine fixedCards e cardList em uma única lista de widgets
+    final allCards = <Widget>[];
+
+    // Adiciona fixedCards
+    for (var fcard in viewModel.fixedCards.reversed) {
+      var card = viewModel.Fixed_to_NormalCard(fcard);
+      if (card.amount == 0) continue;
+
+      allCards.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: ListCardRecorrent(
+            onTap: (card) {
+              widget.onAddClicked();
+            },
+            card: card,
+            onAddClicked: viewModel.loadCards(),
+          ),
+        ),
+      );
+    }
+
+    // Adiciona normal cards
+    for (var card in viewModel.cardList.reversed) {
+      allCards.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: ListCard(
+            onTap: (card) {
+              widget.onAddClicked();
+              _showCupertinoModalBottomSheet(context, card, viewModel);
+            },
+            card: card,
+            background: AppColors.card,
+          ),
+        ),
+      );
+    }
+
+    // Retorna uma única ListView
     return Expanded(
-      key: widget.cardsExpens,
-      child:
-      
-       SingleChildScrollView(
-         child: Column(
-           children: [
-             ListView.builder(
-                itemCount: mergeCardList.length,
-                itemBuilder: (context, index) {
-                  final card = mergeCardList[mergeCardList.length - index - 1];
-                  if (card.amount == 0) return SizedBox();
-                  if (normalExpenseIds.contains(card.id)) {
-                    return Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      child: ListCard(
-                        onTap: (card) {
-                          widget.onAddClicked();
-                          _showCupertinoModalBottomSheet(context, card);
-                        },
-                        card: mergeCardList[mergeCardList.length - index - 1],
-                        background: AppColors.card,
-                      ),
-                    );
-                  }
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: ListCardRecorrent(
-                      onTap: (card) {
-                        widget.onAddClicked();
-                      },
-                      card: mergeCardList[mergeCardList.length - index - 1],
-                      onAddClicked: loadCards(),
-                    ),
-                  );
-                }),
-           ],
-         ),
-       ),
+      child: ListView.builder(
+        padding: const EdgeInsets.only(bottom: 70),
+        shrinkWrap: true, 
+        // physics: NeverScrollableScrollPhysics(),
+        itemCount: allCards.length,
+        itemBuilder:(context, index) => allCards[index],
+      ),
     );
   }
 
@@ -396,17 +358,22 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             ],
           ),
         ),
-        body: GestureDetector(
-          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-          child: Column(
-            children: [
-              const BannerAdconstruct(),
-              const SizedBox(height: 8),
-              // Aqui eu vou colocar o date_select para filtrar os cards
-              if (mergeCardList.isNotEmpty) _cardListBuild(),
-              if (cardList.isEmpty && fixedCards.isEmpty)
-                _empityListCardBuild(),
-            ],
+        body: Consumer<TransactionsViewModel>(
+          builder: (context, viewModel, child) => GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: Column(
+              children: [
+                const BannerAdconstruct(),
+                const SizedBox(height: 8),
+                // Aqui eu vou colocar o date_select para filtrar os cards
+                if ((viewModel.cardList.isNotEmpty) ||
+                    (viewModel.fixedCards.isNotEmpty)) ...[
+                  _cardListBuild(viewModel),
+                ] else ...[
+                  _empityListCardBuild(),
+                ]
+              ],
+            ),
           ),
         ),
         backgroundColor: AppColors.background1,
@@ -414,7 +381,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     );
   }
 
-  void _showCupertinoModalBottomSheet(BuildContext context, CardModel card) {
+  void _showCupertinoModalBottomSheet(BuildContext context, CardModel card, TransactionsViewModel viewModel) {
     FocusScope.of(context).unfocus();
     showModalBottomSheet(
       context: context,
@@ -433,16 +400,17 @@ class _InsertTransactionsState extends State<InsertTransactions> {
             card: card,
             onAddClicked: () {
               setState(() {
-                loadCards();
+                viewModel.loadCards();
               });
+            },
+            onDelete: (card) {
+              viewModel.deleteCard(card);
             },
           ),
         );
       },
     );
   }
-
-  
 
   void _showCupertinoModalBottomFixedExpenses(BuildContext context) {
     FocusScope.of(context).unfocus();
@@ -462,7 +430,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           child: CriarGastosFixos(
             onAddPressedBack: () {
               setState(() {
-                loadCards();
+                // viewModel.loadCards();
               });
             },
           ),

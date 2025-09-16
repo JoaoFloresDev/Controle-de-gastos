@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:meus_gastos/controllers/Goals/GoalsScreen.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsViewModel.dart';
+import 'package:meus_gastos/controllers/Transactions/TransactionsFactory.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -144,18 +145,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             categoriesKey: categoriesAT,
             addButtonKey: addButtonAT,
           ),
-          InsertTransactions(
-            isActive: selectedTab == 1,
-            title: AppLocalizations.of(context)!.myExpenses,
-            onAddClicked: () {},
-            exportButon: exportButton,
-            cardsExpens: cardsExpense,
-            valueExpens: valueExpense,
-            date: date,
-            description: description,
-            categories: categories,
-            addButon: addButton,
-          ),
+          TransactionsFactory(context: context).build(selectedTab == 1),
           DashboardScreen(key: dashboardKey, isActive: true),
           Goalsscrean(
             key: goalKey,

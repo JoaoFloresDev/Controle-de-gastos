@@ -140,6 +140,7 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
                                         onAddClicked: () {
                                           loadCards();
                                         },
+                                        onDelete: (card) {}
                                       ),
                                     );
                                   },

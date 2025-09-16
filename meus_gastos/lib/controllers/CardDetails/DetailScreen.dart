@@ -12,11 +12,12 @@ import 'package:flutter/material.dart';
 class DetailScreen extends StatefulWidget {
   final CardModel card;
   final VoidCallback onAddClicked;
-
+  final Function(CardModel) onDelete;
   const DetailScreen({
     super.key,
     required this.card,
     required this.onAddClicked,
+    required this.onDelete,
   });
 
   @override
@@ -49,7 +50,7 @@ class _DetailScreen extends State<DetailScreen> {
                 // Navigator.of(context).pop();
               },
               onDeletePressed: () {
-                CardService().deleteCard(widget.card);
+                widget.onDelete(widget.card);
                 // SaveExpensOnCloud().deleteDate(widget.card);
                 Future.delayed(const Duration(milliseconds: 300), () {
                   widget.onAddClicked();
