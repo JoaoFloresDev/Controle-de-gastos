@@ -282,7 +282,7 @@ class GoalsscreanState extends State<Goalsscrean>
           crossAxisCount: 3,
           crossAxisSpacing: 8,
           mainAxisSpacing: 8,
-          mainAxisExtent: 200,
+          mainAxisExtent: 190,
         ),
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -366,15 +366,22 @@ class GoalsscreanState extends State<Goalsscrean>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            TranslateService.getTranslatedCategoryName(context, category.name),
-            style: const TextStyle(
-              fontSize: 12,
-              color: AppColors.label,
-              fontWeight: FontWeight.w600,
+         SizedBox(
+            height: 32,
+            child: Center(
+              child: Text(
+                TranslateService.getTranslatedCategoryName(context, category.name),
+                style: const TextStyle(
+                  fontSize: 11,
+                  color: AppColors.label,
+                  fontWeight: FontWeight.w600,
+                  height: 1.2,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
             ),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
           ),
           const SizedBox(height: 8),
           CircularPercentIndicator(
