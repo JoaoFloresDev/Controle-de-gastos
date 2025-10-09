@@ -46,7 +46,8 @@ class AddedExpenseToast extends StatefulWidget {
     
     overlay.insert(entry);
     
-    Timer(const Duration(milliseconds: 2000), () {
+    // Reduzido de 2000ms para 1500ms
+    Timer(const Duration(milliseconds: 1000), () {
       if (entry.mounted) {
         entry.remove();
       }
@@ -74,7 +75,7 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
     
     _slideController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 0),
       reverseDuration: const Duration(milliseconds: 300),
     );
 
@@ -83,9 +84,10 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
       duration: const Duration(milliseconds: 200),
     );
 
+    // Reduzido de 1600ms para 1200ms
     _progressController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1600),
+      duration: const Duration(milliseconds: 600),
     );
 
     _slide = Tween(begin: const Offset(0, -1), end: Offset.zero).animate(
@@ -116,7 +118,8 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
       HapticFeedback.lightImpact();
     }
 
-    Timer(const Duration(milliseconds: 3200), () => _closeToast());
+    // Reduzido de 3200ms para 2200ms
+    Timer(const Duration(milliseconds: 1400), () => _closeToast());
   }
 
   void _closeToast() async {
@@ -227,12 +230,6 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
-            // BoxShadow(
-            //   color: Colors.black.withOpacity(0.15),
-            //   blurRadius: 24,
-            //   spreadRadius: 0,
-            //   offset: const Offset(0, 8),
-            // ),
             BoxShadow(
               color: Colors.black.withOpacity(1),
               blurRadius: 40,
@@ -260,25 +257,9 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
             ),
             child: Stack(
               children: [
-                // Gradient overlay
-                // Positioned.fill(
-                //   child: Container(
-                //     decoration: BoxDecoration(
-                //       gradient: LinearGradient(
-                //         begin: Alignment.topLeft,
-                //         end: Alignment.bottomRight,
-                //         colors: [
-                //           categoryColor.withOpacity(0.05),
-                //           Colors.transparent,
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                
-                // Content
+                // Content - padding reduzido de 20 para 14
                 Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(14),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -291,14 +272,14 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                               Icon(
                                 CupertinoIcons.checkmark_circle_fill,
                                 color: const Color(0xFF4CAF50),
-                                size: 20,
+                                size: 18, // reduzido de 20
                               ),
-                              const SizedBox(width: 8),
+                              const SizedBox(width: 6), // reduzido de 8
                               Text(
                                 AppLocalizations.of(context)!.insertExpend,
                                 style: const TextStyle(
                                   color: AppColors.label,
-                                  fontSize: 16,
+                                  fontSize: 14, // reduzido de 16
                                   fontWeight: FontWeight.w600,
                                   letterSpacing: -0.3,
                                 ),
@@ -308,34 +289,34 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                           GestureDetector(
                             onTap: _closeToast,
                             child: Container(
-                              width: 32,
-                              height: 32,
+                              width: 28, // reduzido de 32
+                              height: 28, // reduzido de 32
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.08),
-                                borderRadius: BorderRadius.circular(16),
+                                borderRadius: BorderRadius.circular(14),
                               ),
                               child: const Icon(
                                 CupertinoIcons.xmark,
                                 color: Colors.white60,
-                                size: 16,
+                                size: 14, // reduzido de 16
                               ),
                             ),
                           ),
                         ],
                       ),
                       
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 10), // reduzido de 16
                       
                       // Main content
                       Row(
                         children: [
                           // Category icon
                           Container(
-                            width: 56,
-                            height: 56,
+                            width: 44, // reduzido de 56
+                            height: 44, // reduzido de 56
                             decoration: BoxDecoration(
                               color: categoryColor.withOpacity(0.15),
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(12), // reduzido de 16
                               border: Border.all(
                                 color: categoryColor.withOpacity(0.3),
                                 width: 1,
@@ -344,11 +325,11 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                             child: Icon(
                               _getCategoryIcon(),
                               color: categoryColor,
-                              size: 28,
+                              size: 22, // reduzido de 28
                             ),
                           ),
                           
-                          const SizedBox(width: 16),
+                          const SizedBox(width: 12), // reduzido de 16
                           
                           // Details
                           Expanded(
@@ -359,18 +340,18 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                                   widget.category,
                                   style: TextStyle(
                                     color: categoryColor,
-                                    fontSize: 14,
+                                    fontSize: 13, // reduzido de 14
                                     fontWeight: FontWeight.w600,
                                     letterSpacing: -0.2,
                                   ),
                                 ),
-                                const SizedBox(height: 4),
+                                const SizedBox(height: 2), // reduzido de 4
                                 if (widget.description.isNotEmpty)
                                   Text(
                                     widget.description,
                                     style: const TextStyle(
                                       color: Colors.white70,
-                                      fontSize: 13,
+                                      fontSize: 12, // reduzido de 13
                                       fontWeight: FontWeight.w400,
                                       letterSpacing: -0.1,
                                     ),
@@ -381,7 +362,7 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                             ),
                           ),
                           
-                          const SizedBox(width: 16),
+                          const SizedBox(width: 12), // reduzido de 16
                           
                           // Amount
                           Column(
@@ -391,17 +372,17 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                                 '${TranslateService.getCurrencySymbol(context)} ${widget.amount.toStringAsFixed(2)}',
                                 style: const TextStyle(
                                   color: Colors.white,
-                                  fontSize: 18,
+                                  fontSize: 16, // reduzido de 18
                                   fontWeight: FontWeight.w700,
                                   letterSpacing: -0.5,
                                 ),
                               ),
-                              const SizedBox(height: 2),
+                              const SizedBox(height: 1), // reduzido de 2
                               Text(
                                 AppLocalizations.of(context)!.addTransactionPopupSubtitle,
                                 style: TextStyle(
                                   color: Colors.white.withOpacity(0.5),
-                                  fontSize: 11,
+                                  fontSize: 10, // reduzido de 11
                                   fontWeight: FontWeight.w500,
                                   letterSpacing: -0.1,
                                 ),
@@ -411,14 +392,14 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                         ],
                       ),
                       
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 10), // reduzido de 16
                       
                       // Progress bar
                       Container(
-                        height: 3,
+                        height: 2.5, // reduzido de 3
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(1.5),
+                          borderRadius: BorderRadius.circular(1.25),
                         ),
                         child: AnimatedBuilder(
                           animation: _progress,
@@ -429,7 +410,7 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: categoryColor.withOpacity(0.8),
-                                  borderRadius: BorderRadius.circular(1.5),
+                                  borderRadius: BorderRadius.circular(1.25),
                                 ),
                               ),
                             );
