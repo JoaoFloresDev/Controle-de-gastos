@@ -15,7 +15,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get dashboard => 'Gráficos';
 
   @override
-  String get myExpenses => 'Meus Gastos';
+  String get myExpenses => 'Minhas Despesas';
 
   @override
   String get add => 'Adicionar';
@@ -187,7 +187,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get saveLocally => 'Salvar localmente';
 
   @override
-  String get shareMensage => 'Obtido pelo app Meus Gastos';
+  String get shareMensage => 'Obtido pelo app Minhas Despesas';
 
   @override
   String get valueTutorial => 'Aqui você insere o valor do seu gasto.';

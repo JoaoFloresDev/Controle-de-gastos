@@ -46,7 +46,6 @@ class AddedExpenseToast extends StatefulWidget {
     
     overlay.insert(entry);
     
-    // Reduzido de 2000ms para 1500ms
     Timer(const Duration(milliseconds: 1000), () {
       if (entry.mounted) {
         entry.remove();
@@ -84,7 +83,6 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
       duration: const Duration(milliseconds: 200),
     );
 
-    // Reduzido de 1600ms para 1200ms
     _progressController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 600),
@@ -118,7 +116,6 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
       HapticFeedback.lightImpact();
     }
 
-    // Reduzido de 3200ms para 2200ms
     Timer(const Duration(milliseconds: 1400), () => _closeToast());
   }
 
@@ -228,18 +225,18 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
       color: Colors.transparent,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(14),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(1),
-              blurRadius: 40,
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 20,
               spreadRadius: 0,
-              offset: const Offset(0, 16),
+              offset: const Offset(0, 8),
             ),
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(14),
           child: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -255,172 +252,100 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                 width: 1,
               ),
             ),
-            child: Stack(
-              children: [
-                // Content - padding reduzido de 20 para 14
-                Padding(
-                  padding: const EdgeInsets.all(14),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // Header
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                CupertinoIcons.checkmark_circle_fill,
-                                color: const Color(0xFF4CAF50),
-                                size: 18, // reduzido de 20
-                              ),
-                              const SizedBox(width: 6), // reduzido de 8
-                              Text(
-                                AppLocalizations.of(context)!.insertExpend,
-                                style: const TextStyle(
-                                  color: AppColors.label,
-                                  fontSize: 14, // reduzido de 16
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: -0.3,
-                                ),
-                              ),
-                            ],
-                          ),
-                          GestureDetector(
-                            onTap: _closeToast,
-                            child: Container(
-                              width: 28, // reduzido de 32
-                              height: 28, // reduzido de 32
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.08),
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                              child: const Icon(
-                                CupertinoIcons.xmark,
-                                color: Colors.white60,
-                                size: 14, // reduzido de 16
-                              ),
-                            ),
-                          ),
-                        ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              child: Row(
+                children: [
+                  // Category icon compacto
+                  Container(
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      color: categoryColor.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: categoryColor.withOpacity(0.3),
+                        width: 1,
                       ),
-                      
-                      const SizedBox(height: 10), // reduzido de 16
-                      
-                      // Main content
-                      Row(
-                        children: [
-                          // Category icon
-                          Container(
-                            width: 44, // reduzido de 56
-                            height: 44, // reduzido de 56
-                            decoration: BoxDecoration(
-                              color: categoryColor.withOpacity(0.15),
-                              borderRadius: BorderRadius.circular(12), // reduzido de 16
-                              border: Border.all(
-                                color: categoryColor.withOpacity(0.3),
-                                width: 1,
-                              ),
-                            ),
-                            child: Icon(
-                              _getCategoryIcon(),
-                              color: categoryColor,
-                              size: 22, // reduzido de 28
-                            ),
-                          ),
-                          
-                          const SizedBox(width: 12), // reduzido de 16
-                          
-                          // Details
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.category,
-                                  style: TextStyle(
-                                    color: categoryColor,
-                                    fontSize: 13, // reduzido de 14
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: -0.2,
-                                  ),
-                                ),
-                                const SizedBox(height: 2), // reduzido de 4
-                                if (widget.description.isNotEmpty)
-                                  Text(
-                                    widget.description,
-                                    style: const TextStyle(
-                                      color: Colors.white70,
-                                      fontSize: 12, // reduzido de 13
-                                      fontWeight: FontWeight.w400,
-                                      letterSpacing: -0.1,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                              ],
-                            ),
-                          ),
-                          
-                          const SizedBox(width: 12), // reduzido de 16
-                          
-                          // Amount
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                '${TranslateService.getCurrencySymbol(context)} ${widget.amount.toStringAsFixed(2)}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16, // reduzido de 18
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: -0.5,
-                                ),
-                              ),
-                              const SizedBox(height: 1), // reduzido de 2
-                              Text(
-                                AppLocalizations.of(context)!.addTransactionPopupSubtitle,
-                                style: TextStyle(
-                                  color: Colors.white.withOpacity(0.5),
-                                  fontSize: 10, // reduzido de 11
-                                  fontWeight: FontWeight.w500,
-                                  letterSpacing: -0.1,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      
-                      const SizedBox(height: 10), // reduzido de 16
-                      
-                      // Progress bar
-                      Container(
-                        height: 2.5, // reduzido de 3
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(1.25),
-                        ),
-                        child: AnimatedBuilder(
-                          animation: _progress,
-                          builder: (context, child) {
-                            return FractionallySizedBox(
-                              alignment: Alignment.centerLeft,
-                              widthFactor: 1 - _progress.value,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: categoryColor.withOpacity(0.8),
-                                  borderRadius: BorderRadius.circular(1.25),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+                    ),
+                    child: Icon(
+                      _getCategoryIcon(),
+                      color: categoryColor,
+                      size: 18,
+                    ),
                   ),
-                ),
-              ],
+                  
+                  const SizedBox(width: 10),
+                  
+                  // Details (categoria + descrição)
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          widget.category,
+                          style: TextStyle(
+                            color: categoryColor,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: -0.2,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        if (widget.description.isNotEmpty) ...[
+                          const SizedBox(height: 1),
+                          Text(
+                            widget.description,
+                            style: const TextStyle(
+                              color: Colors.white60,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: -0.1,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                  
+                  const SizedBox(width: 10),
+                  
+                  // Amount
+                  Text(
+                    '${TranslateService.getCurrencySymbol(context)} ${widget.amount.toStringAsFixed(2)}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.3,
+                    ),
+                  ),
+                  
+                  const SizedBox(width: 8),
+                  
+                  // Close button compacto
+                  GestureDetector(
+                    onTap: _closeToast,
+                    child: Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.08),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Icon(
+                        CupertinoIcons.xmark,
+                        color: Colors.white60,
+                        size: 12,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -53,7 +53,11 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   void didUpdateWidget(covariant InsertTransactions oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.isActive && !oldWidget.isActive) {
-      // viewModel.loadCards();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        Provider.of<TransactionsViewModel>(context, listen: false).loadCards();
+      }
+    });
     }
   }
 
@@ -338,10 +342,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ChangeNotifierProvider<LoginViewModel>(
-                create: (_) => LoginViewModel()..init(),
-                child: LoginButtonScrean(),
-              ),
+              // ChangeNotifierProvider<LoginViewModel>(
+              //   create: (_) => LoginViewModel()..init(),
+              //   child: LoginButtonScrean(),
+              // ),
               GestureDetector(
                 onTap: () {
                   _showProModal(context);
