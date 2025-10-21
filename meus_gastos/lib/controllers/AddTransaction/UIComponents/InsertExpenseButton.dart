@@ -1,4 +1,14 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +29,7 @@ class InsertExpenseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 0, 24, 6),
+      padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
       child: SizedBox(
         height: 60,
         width: double.infinity,
@@ -38,11 +48,11 @@ class InsertExpenseButton extends StatelessWidget {
             ),
           ),
           onPressed: onPressed,
-          child: const Text(
-            'Inserir Despesa',
+          child: Text(
+            AppLocalizations.of(context)!.insertExpend,
             style: TextStyle(
               color: AppColors.label,
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.5,
             ),

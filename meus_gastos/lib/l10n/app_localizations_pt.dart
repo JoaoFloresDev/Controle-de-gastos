@@ -45,7 +45,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get addCategory => 'Adicionar Categoria';
 
   @override
-  String get addExpense => 'inserir Despesa';
+  String get addExpense => 'Inserir Despesa';
 
   @override
   String get registerExpense => 'Registrar Despesa';

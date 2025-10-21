@@ -108,15 +108,18 @@ class GoalsscreanState extends State<Goalsscrean>
     );
   }
 
-  PreferredSizeWidget _buildAppBar() {
-    return CupertinoNavigationBar(
-      backgroundColor: AppColors.background1,
-      middle: Text(
+PreferredSizeWidget _buildAppBar() {
+  return CupertinoNavigationBar(
+    backgroundColor: AppColors.background1,
+    middle: MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+      child: Text(
         widget.title,
         style: const TextStyle(color: AppColors.label, fontSize: 20),
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildAdBanner() {
     return const BannerAdconstruct();
