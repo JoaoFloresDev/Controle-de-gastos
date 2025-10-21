@@ -99,16 +99,17 @@ class _QuickValueButtonState extends State<QuickValueButton>
                     '+',
                     style: TextStyle(
                       color: CupertinoColors.lightBackgroundGray,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
+                  const SizedBox(width: 2),
                   Text(
                     '${widget.value}',
                     style: const TextStyle(
                       color: CupertinoColors.lightBackgroundGray,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],

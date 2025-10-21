@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Login/Authentication.dart';
-import 'package:meus_gastos/controllers/Login/LoginButtonScrean.dart';
-import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCardRecorrent.dart';
@@ -60,78 +58,12 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
   void didUpdateWidget(covariant TransactionsScrean oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.isActive && !oldWidget.isActive) {
-      // viewModel.loadCards();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        Provider.of<TransactionsViewModel>(context, listen: false).loadCards();
+      }
+    });
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<TransactionsViewModel>(
-      builder: (context, viewModel, child) => GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: Scaffold(
-          key: _scaffoldKey,
-          appBar: CupertinoNavigationBar(
-            leading: GestureDetector(
-              onTap: () {
-                _showCupertinoModalBottomFixedExpenses(context);
-              },
-              child: const Icon(Icons.repeat, size: 24, color: AppColors.label),
-            ),
-            middle: MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-              child: Text(
-                widget.title,
-                style: const TextStyle(color: AppColors.label, fontSize: 20),
-              ),
-            ),
-            backgroundColor: AppColors.background1,
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // LoginButtonScrean(
-                //   onLoginChange: () {
-                //     print("Recarregou");
-                //     viewModel.loadCards();
-                //   },
-                //   auth: widget.auth,
-                // ),
-                GestureDetector(
-                  onTap: () {
-                    _showProModal(context);
-                  },
-                  child: const Text(
-                    "PRO",
-                    style: TextStyle(
-                      color: AppColors.label,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          body: GestureDetector(
-            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-            child: Column(
-              children: [
-                BannerAdFactory().build(),
-                const SizedBox(height: 8),
-                // Aqui eu vou colocar o date_select para filtrar os cards
-                if ((viewModel.cardList.isNotEmpty) ||
-                    (viewModel.fixedCards.isNotEmpty)) ...[
-                  _cardListBuild(viewModel),
-                ] else ...[
-                  _empityListCardBuild(),
-                ]
-              ],
-            ),
-          ),
-          backgroundColor: AppColors.background1,
-        ),
-      ),
-    );
   }
 
   void _showProModal(BuildContext context) async {
@@ -397,8 +329,74 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     );
   }
 
-  void _cardDetails(
-      BuildContext context, CardModel card, TransactionsViewModel viewModel) {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        key: _scaffoldKey,
+        appBar: CupertinoNavigationBar(
+          leading: GestureDetector(
+            onTap: () {
+              _showCupertinoModalBottomFixedExpenses(context);
+            },
+            child: const Icon(Icons.repeat, size: 24, color: AppColors.label),
+          ),
+          middle: MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: Text(
+              widget.title,
+              style: const TextStyle(color: AppColors.label, fontSize: 20),
+            ),
+          ),
+          backgroundColor: AppColors.background1,
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // ChangeNotifierProvider<LoginViewModel>(
+              //   create: (_) => LoginViewModel()..init(),
+              //   child: LoginButtonScrean(),
+              // ),
+              GestureDetector(
+                onTap: () {
+                  _showProModal(context);
+                },
+                child: const Text(
+                  "PRO",
+                  style: TextStyle(
+                    color: AppColors.label,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: Consumer<TransactionsViewModel>(
+          builder: (context, viewModel, child) => GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: Column(
+              children: [
+                BannerAdFactory().build(),
+                const SizedBox(height: 8),
+                // Aqui eu vou colocar o date_select para filtrar os cards
+                if ((viewModel.cardList.isNotEmpty) ||
+                    (viewModel.fixedCards.isNotEmpty)) ...[
+                  _cardListBuild(viewModel),
+                ] else ...[
+                  _empityListCardBuild(),
+                ]
+              ],
+            ),
+          ),
+        ),
+        backgroundColor: AppColors.background1,
+      ),
+    );
+  }
+
+  void _cardDetails(BuildContext context, CardModel card, TransactionsViewModel viewModel) {
     FocusScope.of(context).unfocus();
     showModalBottomSheet(
       context: context,

@@ -75,9 +75,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
               selectedIndex = index;
             });
           }
-          // print(isAddCategory);
           if (isAddCategory) {
-            print(isAddCategory);
             widget.onAddCategorySelected();
           }
           widget.onItemSelected(index);
@@ -143,8 +141,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
                   child: LayoutBuilder(
                     builder: (context, constraints) {
                       double fontSize =
-                          (constraints.maxWidth * 0.12).clamp(8.0, 13.0);
-
+                          14;
                       return Text(
                         TranslateService.getTranslatedCategoryUsingModel(
                             context, category),
@@ -154,7 +151,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
                               ? AppColors.label
                               : AppColors.label.withOpacity(0.75),
                           fontWeight:
-                              isSelected ? FontWeight.w600 : FontWeight.w500,
+                              isSelected ? FontWeight.w400 : FontWeight.w300,
                           height: 1.15,
                         ),
                         textAlign: TextAlign.center,

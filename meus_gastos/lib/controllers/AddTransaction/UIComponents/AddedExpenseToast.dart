@@ -46,7 +46,7 @@ class AddedExpenseToast extends StatefulWidget {
     
     overlay.insert(entry);
     
-    Timer(const Duration(milliseconds: 2000), () {
+    Timer(const Duration(milliseconds: 1000), () {
       if (entry.mounted) {
         entry.remove();
       }
@@ -74,7 +74,7 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
     
     _slideController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 0),
       reverseDuration: const Duration(milliseconds: 300),
     );
 
@@ -85,7 +85,7 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
 
     _progressController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1600),
+      duration: const Duration(milliseconds: 600),
     );
 
     _slide = Tween(begin: const Offset(0, -1), end: Offset.zero).animate(
@@ -116,7 +116,7 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
       HapticFeedback.lightImpact();
     }
 
-    Timer(const Duration(milliseconds: 3200), () => _closeToast());
+    Timer(const Duration(milliseconds: 1400), () => _closeToast());
   }
 
   void _closeToast() async {
@@ -225,24 +225,18 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
       color: Colors.transparent,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(14),
           boxShadow: [
-            // BoxShadow(
-            //   color: Colors.black.withOpacity(0.15),
-            //   blurRadius: 24,
-            //   spreadRadius: 0,
-            //   offset: const Offset(0, 8),
-            // ),
             BoxShadow(
-              color: Colors.black.withOpacity(1),
-              blurRadius: 40,
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 20,
               spreadRadius: 0,
-              offset: const Offset(0, 16),
+              offset: const Offset(0, 8),
             ),
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(14),
           child: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -258,188 +252,100 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
                 width: 1,
               ),
             ),
-            child: Stack(
-              children: [
-                // Gradient overlay
-                // Positioned.fill(
-                //   child: Container(
-                //     decoration: BoxDecoration(
-                //       gradient: LinearGradient(
-                //         begin: Alignment.topLeft,
-                //         end: Alignment.bottomRight,
-                //         colors: [
-                //           categoryColor.withOpacity(0.05),
-                //           Colors.transparent,
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                
-                // Content
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // Header
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                CupertinoIcons.checkmark_circle_fill,
-                                color: const Color(0xFF4CAF50),
-                                size: 20,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                AppLocalizations.of(context)!.insertExpend,
-                                style: const TextStyle(
-                                  color: AppColors.label,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: -0.3,
-                                ),
-                              ),
-                            ],
-                          ),
-                          GestureDetector(
-                            onTap: _closeToast,
-                            child: Container(
-                              width: 32,
-                              height: 32,
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.08),
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: const Icon(
-                                CupertinoIcons.xmark,
-                                color: Colors.white60,
-                                size: 16,
-                              ),
-                            ),
-                          ),
-                        ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              child: Row(
+                children: [
+                  // Category icon compacto
+                  Container(
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      color: categoryColor.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: categoryColor.withOpacity(0.3),
+                        width: 1,
                       ),
-                      
-                      const SizedBox(height: 16),
-                      
-                      // Main content
-                      Row(
-                        children: [
-                          // Category icon
-                          Container(
-                            width: 56,
-                            height: 56,
-                            decoration: BoxDecoration(
-                              color: categoryColor.withOpacity(0.15),
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(
-                                color: categoryColor.withOpacity(0.3),
-                                width: 1,
-                              ),
-                            ),
-                            child: Icon(
-                              _getCategoryIcon(),
-                              color: categoryColor,
-                              size: 28,
-                            ),
-                          ),
-                          
-                          const SizedBox(width: 16),
-                          
-                          // Details
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.category,
-                                  style: TextStyle(
-                                    color: categoryColor,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: -0.2,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                if (widget.description.isNotEmpty)
-                                  Text(
-                                    widget.description,
-                                    style: const TextStyle(
-                                      color: Colors.white70,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w400,
-                                      letterSpacing: -0.1,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                              ],
-                            ),
-                          ),
-                          
-                          const SizedBox(width: 16),
-                          
-                          // Amount
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                '${TranslateService.getCurrencySymbol(context)} ${widget.amount.toStringAsFixed(2)}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: -0.5,
-                                ),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                AppLocalizations.of(context)!.addTransactionPopupSubtitle,
-                                style: TextStyle(
-                                  color: Colors.white.withOpacity(0.5),
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w500,
-                                  letterSpacing: -0.1,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      
-                      const SizedBox(height: 16),
-                      
-                      // Progress bar
-                      Container(
-                        height: 3,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(1.5),
-                        ),
-                        child: AnimatedBuilder(
-                          animation: _progress,
-                          builder: (context, child) {
-                            return FractionallySizedBox(
-                              alignment: Alignment.centerLeft,
-                              widthFactor: 1 - _progress.value,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: categoryColor.withOpacity(0.8),
-                                  borderRadius: BorderRadius.circular(1.5),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+                    ),
+                    child: Icon(
+                      _getCategoryIcon(),
+                      color: categoryColor,
+                      size: 18,
+                    ),
                   ),
-                ),
-              ],
+                  
+                  const SizedBox(width: 10),
+                  
+                  // Details (categoria + descrição)
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          widget.category,
+                          style: TextStyle(
+                            color: categoryColor,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: -0.2,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        if (widget.description.isNotEmpty) ...[
+                          const SizedBox(height: 1),
+                          Text(
+                            widget.description,
+                            style: const TextStyle(
+                              color: Colors.white60,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: -0.1,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                  
+                  const SizedBox(width: 10),
+                  
+                  // Amount
+                  Text(
+                    '${TranslateService.getCurrencySymbol(context)} ${widget.amount.toStringAsFixed(2)}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.3,
+                    ),
+                  ),
+                  
+                  const SizedBox(width: 8),
+                  
+                  // Close button compacto
+                  GestureDetector(
+                    onTap: _closeToast,
+                    child: Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.08),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Icon(
+                        CupertinoIcons.xmark,
+                        color: Colors.white60,
+                        size: 12,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
