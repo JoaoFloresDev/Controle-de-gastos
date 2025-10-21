@@ -1,4 +1,4 @@
-import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
 import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -109,7 +109,7 @@ class CustomCalendarState extends State<CustomCalendar> {
       body: SafeArea(
         child: Column(
           children: [
-            BannerAdconstruct(),
+            BannerAdFactory().build(),
             Expanded(
               child: SingleChildScrollView(
                   child: ConstrainedBox(

@@ -1,6 +1,5 @@
 import 'package:meus_gastos/controllers/exportExcel/exportExcelScreen.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';

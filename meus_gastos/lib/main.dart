@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsScreen.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsViewModel.dart';
+import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsFactory.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,8 +11,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:meus_gastos/controllers/Transactions/InsertTransactions.dart';
+import 'package:meus_gastos/controllers/Transactions/TransactionsScrean.dart';
 import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
+import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/services/firebase/FirebaseService.dart';
 // import 'package:meus_gastos/services/firebase/firebaseService.dart';
 import 'package:onepref/onepref.dart';
@@ -33,7 +36,7 @@ void main() async {
   await OnePref.init();
 
   // inicializa firebase
-  await FirebaseService().init(); 
+  await FirebaseService().init();
   runApp(
     MultiProvider(
       providers: [
@@ -103,6 +106,8 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   final categories = GlobalKey(debugLabel: 'categories');
   final addButton = GlobalKey(debugLabel: 'addButton');
 
+  final cardEvents = CardEvents();
+
   @override
   void initState() {
     super.initState();
@@ -128,37 +133,48 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0D1117),
-      body: IndexedStack(
-        index: selectedTab,
-        children: [
-          AddTransactionController(
-            isActive: selectedTab == 0,
-            title: AppLocalizations.of(context)!.myExpenses,
-            onAddClicked: () {},
-            exportButton: exportButtonAT,
-            cardsExpensKey: cardsExpenseAT,
-            valueExpensKey: valueExpenseAT,
-            dateKey: dateAT,
-            descriptionKey: descriptionAT,
-            categoriesKey: categoriesAT,
-            addButtonKey: addButtonAT,
-          ),
-          TransactionsFactory(context: context).build(selectedTab == 1),
-          DashboardScreen(key: dashboardKey, isActive: true),
-          Goalsscrean(
-            key: goalKey,
-            title: AppLocalizations.of(context)!.budget,
-          ),
-          CustomCalendar(
-            key: calendarKey,
-            onCalendarRefresh: () =>
-                calendarKey.currentState?.refreshCalendar(),
-          )
-        ],
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (_) => ProManeger()..checkUserProStatus()),
+        // ChangeNotifierProvider(
+        //     create: (_) => LoginViewModel()..init()),
+      ],
+      child: Scaffold(
+        backgroundColor: const Color(0xFF0D1117),
+        body: IndexedStack(
+          index: selectedTab,
+          children: [
+            AddTransactionController(
+              isActive: selectedTab == 0,
+              title: AppLocalizations.of(context)!.myExpenses,
+              onAddClicked: () {
+                cardEvents.notifyCardAdded();
+              },
+              exportButton: exportButtonAT,
+              cardsExpensKey: cardsExpenseAT,
+              valueExpensKey: valueExpenseAT,
+              dateKey: dateAT,
+              descriptionKey: descriptionAT,
+              categoriesKey: categoriesAT,
+              addButtonKey: addButtonAT,
+            ),
+            TransactionsFactory(context: context, cardEvents: cardEvents)
+                .build(selectedTab == 1),
+            DashboardScreen(key: dashboardKey, isActive: true),
+            Goalsscrean(
+              key: goalKey,
+              title: AppLocalizations.of(context)!.budget,
+            ),
+            CustomCalendar(
+              key: calendarKey,
+              onCalendarRefresh: () =>
+                  calendarKey.currentState?.refreshCalendar(),
+            )
+          ],
+        ),
+        bottomNavigationBar: _buildElegantTabBar(),
       ),
-      bottomNavigationBar: _buildElegantTabBar(),
     );
   }
 

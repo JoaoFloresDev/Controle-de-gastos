@@ -9,29 +9,25 @@ class LogoutScrean extends StatefulWidget {
   final VoidCallback loadcards;
   final bool isPro;
   final void Function(BuildContext context) showProModal;
+  final Authentication authService;
   const LogoutScrean(
       {required this.updateUser,
       required this.loadcards,
       required this.isPro,
-      required this.showProModal});
+      required this.showProModal, 
+      required this.authService});
   @override
   _LogoutScreanState createState() => _LogoutScreanState();
 }
 
 class _LogoutScreanState extends State<LogoutScrean> {
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPassowrdController = TextEditingController();
   String? errorMenssage;
-  Authentication? _authService;
   User? user;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     user = FirebaseAuth.instance.currentUser;
-    _authService = Authentication();
   }
 
   @override
@@ -151,7 +147,7 @@ class _LogoutScreanState extends State<LogoutScrean> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () async {
-                          await _authService?.signOut();
+                          await widget.authService.signOut();
                           setState(() {
                             // user?.reload();
                           });

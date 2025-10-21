@@ -4,12 +4,13 @@ import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
 
 class TransactionsRepository {
-  final Authentication _authService;
+  final Authentication authService;
 
-  TransactionsRepository(this._authService);
+  TransactionsRepository({required this.authService});
 
   Future<List<CardModel>> retrieveCards() async {
-    if (_authService.userId == null) {
+    print("CHEGOU AQUI, USERID: ${authService.userId}");
+    if (authService.userId == null) {
       return CardService.retrieveCards();
     } else {
       return SaveExpensOnCloud().fetchCards();
@@ -18,7 +19,7 @@ class TransactionsRepository {
 
   // MARK: - Add, Delete, and Update Cards
   Future<void> addCard(CardModel cardModel) async {
-    if (_authService.userId == null) {
+    if (authService.userId == null) {
       CardService().addCard(cardModel);
     } else {
       return SaveExpensOnCloud().addNewDate(cardModel);
@@ -26,7 +27,7 @@ class TransactionsRepository {
   }
 
   Future<void> deleteCard(CardModel cardModel) async {
-    if (_authService.userId == null) {
+    if (authService.userId == null) {
       CardService().deleteCard(cardModel);
     } else {
       return SaveExpensOnCloud().addNewDate(cardModel);
@@ -34,13 +35,14 @@ class TransactionsRepository {
   }
 
   Future<void> updateCard(CardModel oldCard, CardModel newCard) async {
-    if (_authService.userId == null) {
+    if (authService.userId == null) {
       CardService().updateCard(oldCard, newCard);
     } else {
       SaveExpensOnCloud().deleteDate(oldCard);
       SaveExpensOnCloud().addNewDate(newCard);
     }
   }
+
 
   // static Future<void> deleteAllCards() async {}
 }

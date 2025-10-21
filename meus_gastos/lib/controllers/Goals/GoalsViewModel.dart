@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/controllers/Goals/Data/GoalsService.dart';
+import 'package:meus_gastos/controllers/Goals/GoalsModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
@@ -55,6 +56,7 @@ class GoalsViewModel extends ChangeNotifier {
     await loadGoals(notify: false);
 
     _isLoading = false;
+
     notifyListeners();
   }
 
@@ -72,13 +74,12 @@ class GoalsViewModel extends ChangeNotifier {
     }
   }
 
-
   Future<void> loadGoals({bool notify = true}) async {
     _isLoading = true;
     if (notify) notifyListeners();
 
     _goalsByCategory = await goalsService.getGoals(_categories);
-   
+
     sumTotalGoal();
 
     _isLoading = false;
@@ -128,13 +129,11 @@ class GoalsViewModel extends ChangeNotifier {
   void addGoal(String newGoalCategoryId, double newGoalValue) {
     try {
       goalsService.addMeta(newGoalCategoryId, newGoalValue);
-      
-
 
       _goalsByCategory = {
         newGoalCategoryId: newGoalValue,
-        ..._goalsByCategory..remove(newGoalCategoryId)};
-
+        ..._goalsByCategory..remove(newGoalCategoryId)
+      };
 
       sumTotalGoal();
 
@@ -151,4 +150,6 @@ class GoalsViewModel extends ChangeNotifier {
     _formattedDate =
         formattedDate[0].toUpperCase() + formattedDate.substring(1);
   }
+
 }
+  

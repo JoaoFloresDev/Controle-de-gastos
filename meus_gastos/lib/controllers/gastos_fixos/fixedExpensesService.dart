@@ -108,7 +108,7 @@ class Fixedexpensesservice {
       });
     // }
   }
-
+  
   static Future<void> deleteAllCards() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove("fixed_expenses");

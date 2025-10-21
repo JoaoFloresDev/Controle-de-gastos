@@ -133,6 +133,7 @@ class _AddTransactionControllerState extends State<AddTransactionController>
   void _showAddedAnimation() {
     final header = _headerCardKey.currentState;
     if (header == null) return;
+    if (header.valorController.numberValue == 0) return;
     final list = _verticalCircleListKey.currentState?.categorieList;
     final catName = (list != null && list.isNotEmpty)
         ? list[header.lastIndexSelected].name
@@ -356,7 +357,6 @@ class _AddTransactionControllerState extends State<AddTransactionController>
               InsertExpenseButton(
                 onPressed: () {
                   final header = _headerCardKey.currentState;
-                  print("aaaa");
                   if (header != null) {
                     final list =
                         _verticalCircleListKey.currentState?.categorieList;
@@ -411,6 +411,7 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                           onAddClicked: () async {
                             _loadCards();
                             _loadFixedCards();
+                            widget.onAddClicked();
                           },
                           onCardsEmpty: () {
                             print("aqui! recore");

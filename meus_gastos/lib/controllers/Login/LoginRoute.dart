@@ -1,16 +1,22 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:meus_gastos/controllers/Login/Authentication.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Login/cadastro_login/LoginScrean.dart';
 import 'package:meus_gastos/controllers/Login/cadastro_login/LogoutScrean.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:provider/provider.dart';
+import 'package:meus_gastos/services/ProManeger.dart';
 
 class LoginRoute {
-  void loginScrean(BuildContext context, LoginViewModel viewModel) {
-    viewModel.isProCheck();
+  void loginScrean(
+      BuildContext context,
+      LoginViewModel viewModel,
+      ProManeger proViewModel,
+      VoidCallback onLoginChange,
+      Authentication authService) {
     FocusScope.of(context).unfocus();
     showModalBottomSheet(
       context: context,
@@ -26,18 +32,21 @@ class LoginRoute {
               ),
             ),
             child: LoginScreen(
-              updateUser: () async {
-                viewModel.isLoadingChange();
+              updateUser: (User user) {
+                viewModel.login(user);
 
                 Navigator.of(context).pop();
 
                 // await sincroniza_primeiro_acesso();
               },
-              loadcards: () {},
-              isPro: viewModel.isPro,
+              loadcards: () {
+                onLoginChange();
+              },
+              isPro: proViewModel.isPro,
               showProModal: (context) {
                 _showProModal(context);
               },
+              authService: authService,
             ));
       },
     );
@@ -64,10 +73,12 @@ class LoginRoute {
     );
   }
 
-  void logoutScreen(BuildContext context) {
-    LoginViewModel viewModel = context.read<LoginViewModel>();
-
-    FocusScope.of(context).unfocus();
+  void logoutScreen(
+      BuildContext context,
+      LoginViewModel viewModel,
+      ProManeger proViewModel,
+      VoidCallback onLoginChange,
+      Authentication authService) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -84,7 +95,7 @@ class LoginRoute {
             child: LogoutScrean(
               updateUser: () async {
                 // await service.CardService.deleteAllCards();
-                viewModel.isLoadingChange();
+                viewModel.logout();
 
                 // await Fixedexpensesservice.deleteAllCards();
                 // setState(() {
@@ -93,11 +104,14 @@ class LoginRoute {
                 // });
                 Navigator.of(context).pop();
               },
-              loadcards: () {},
-              isPro: viewModel.isPro,
+              loadcards: () {
+                onLoginChange();
+              },
+              isPro: proViewModel.isPro,
               showProModal: (context) {
                 _showProModal(context);
               },
+              authService: authService,
             ));
       },
     );

@@ -1,9 +1,13 @@
 import 'dart:io';
+import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
+import 'package:meus_gastos/controllers/Login/Authentication.dart';
 import 'package:meus_gastos/controllers/Login/LoginButtonScrean.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCardRecorrent.dart';
+import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
+import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
@@ -12,26 +16,29 @@ import 'package:meus_gastos/controllers/gastos_fixos/UI/criar_gastosFixos.dart';
 import 'ViewComponents/ListCard.dart';
 import '../../models/CardModel.dart';
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
-import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 
-class InsertTransactions extends StatefulWidget {
-  const InsertTransactions(
+class TransactionsScrean extends StatefulWidget {
+  const TransactionsScrean(
       {required this.onAddClicked,
       super.key,
       required this.title,
-      required this.isActive});
-
+      required this.isActive,
+      required this.cardEvents,
+      required this.auth});
+  final Authentication auth;
   final VoidCallback onAddClicked;
   final String title;
+
+  final CardEvents cardEvents;
 
   final bool isActive;
 
   @override
-  State<InsertTransactions> createState() => _InsertTransactionsState();
+  State<TransactionsScrean> createState() => _TransactionsScreanState();
 }
 
-class _InsertTransactionsState extends State<InsertTransactions> {
+class _TransactionsScreanState extends State<TransactionsScrean> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late DateTime currentDate;
 
@@ -50,14 +57,85 @@ class _InsertTransactionsState extends State<InsertTransactions> {
   }
 
   @override
-  void didUpdateWidget(covariant InsertTransactions oldWidget) {
+  void didUpdateWidget(covariant TransactionsScrean oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.isActive && !oldWidget.isActive) {
       // viewModel.loadCards();
     }
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<TransactionsViewModel>(
+      builder: (context, viewModel, child) => GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: CupertinoNavigationBar(
+            leading: GestureDetector(
+              onTap: () {
+                _showCupertinoModalBottomFixedExpenses(context);
+              },
+              child: const Icon(Icons.repeat, size: 24, color: AppColors.label),
+            ),
+            middle: MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+              child: Text(
+                widget.title,
+                style: const TextStyle(color: AppColors.label, fontSize: 20),
+              ),
+            ),
+            backgroundColor: AppColors.background1,
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // LoginButtonScrean(
+                //   onLoginChange: () {
+                //     print("Recarregou");
+                //     viewModel.loadCards();
+                //   },
+                //   auth: widget.auth,
+                // ),
+                GestureDetector(
+                  onTap: () {
+                    _showProModal(context);
+                  },
+                  child: const Text(
+                    "PRO",
+                    style: TextStyle(
+                      color: AppColors.label,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          body: GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: Column(
+              children: [
+                BannerAdFactory().build(),
+                const SizedBox(height: 8),
+                // Aqui eu vou colocar o date_select para filtrar os cards
+                if ((viewModel.cardList.isNotEmpty) ||
+                    (viewModel.fixedCards.isNotEmpty)) ...[
+                  _cardListBuild(viewModel),
+                ] else ...[
+                  _empityListCardBuild(),
+                ]
+              ],
+            ),
+          ),
+          backgroundColor: AppColors.background1,
+        ),
+      ),
+    );
+  }
+
   void _showProModal(BuildContext context) async {
+    ProManeger proViewModel = ProManeger();
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -67,14 +145,18 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           return ProModal(
             isLoading: _isLoading,
             onSubscriptionPurchased: () {
-              setState(() {});
+              setState(() {
+                proViewModel.checkUserProStatus();
+              });
             },
           );
         } else {
           return ProModalAndroid(
             isLoading: _isLoading,
             onSubscriptionPurchased: () {
-              setState(() {});
+              setState(() {
+                proViewModel.checkUserProStatus();
+              });
             },
           );
         }
@@ -87,7 +169,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     final allCards = <Widget>[];
 
     // Adiciona fixedCards
-    for (var fcard in viewModel.fixedCards.reversed) {
+    for (var fcard in viewModel.fixedCards) {
       var card = viewModel.Fixed_to_NormalCard(fcard);
       if (card.amount == 0) continue;
 
@@ -113,8 +195,9 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           child: ListCard(
             onTap: (card) {
               widget.onAddClicked();
-              _showCupertinoModalBottomSheet(context, card, viewModel);
+              _cardDetails(context, card, viewModel);
             },
+
             card: card,
             background: AppColors.card,
           ),
@@ -126,10 +209,10 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     return Expanded(
       child: ListView.builder(
         padding: const EdgeInsets.only(bottom: 70),
-        shrinkWrap: true, 
+        shrinkWrap: true,
         // physics: NeverScrollableScrollPhysics(),
         itemCount: allCards.length,
-        itemBuilder:(context, index) => allCards[index],
+        itemBuilder: (context, index) => allCards[index],
       ),
     );
   }
@@ -314,74 +397,8 @@ class _InsertTransactionsState extends State<InsertTransactions> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: CupertinoNavigationBar(
-          leading: GestureDetector(
-            onTap: () {
-              _showCupertinoModalBottomFixedExpenses(context);
-            },
-            child: const Icon(Icons.repeat, size: 24, color: AppColors.label),
-          ),
-          middle: MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-            child: Text(
-              widget.title,
-              style: const TextStyle(color: AppColors.label, fontSize: 20),
-            ),
-          ),
-          backgroundColor: AppColors.background1,
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ChangeNotifierProvider<LoginViewModel>(
-                create: (_) => LoginViewModel()..init(),
-                child: LoginButtonScrean(),
-              ),
-              GestureDetector(
-                onTap: () {
-                  _showProModal(context);
-                },
-                child: const Text(
-                  "PRO",
-                  style: TextStyle(
-                    color: AppColors.label,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        body: Consumer<TransactionsViewModel>(
-          builder: (context, viewModel, child) => GestureDetector(
-            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-            child: Column(
-              children: [
-                const BannerAdconstruct(),
-                const SizedBox(height: 8),
-                // Aqui eu vou colocar o date_select para filtrar os cards
-                if ((viewModel.cardList.isNotEmpty) ||
-                    (viewModel.fixedCards.isNotEmpty)) ...[
-                  _cardListBuild(viewModel),
-                ] else ...[
-                  _empityListCardBuild(),
-                ]
-              ],
-            ),
-          ),
-        ),
-        backgroundColor: AppColors.background1,
-      ),
-    );
-  }
-
-  void _showCupertinoModalBottomSheet(BuildContext context, CardModel card, TransactionsViewModel viewModel) {
+  void _cardDetails(
+      BuildContext context, CardModel card, TransactionsViewModel viewModel) {
     FocusScope.of(context).unfocus();
     showModalBottomSheet(
       context: context,
@@ -430,7 +447,7 @@ class _InsertTransactionsState extends State<InsertTransactions> {
           child: CriarGastosFixos(
             onAddPressedBack: () {
               setState(() {
-                // viewModel.loadCards();
+                widget.cardEvents.notifyCardAdded();
               });
             },
           ),

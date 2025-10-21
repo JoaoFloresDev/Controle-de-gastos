@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsViewModel.dart';
-import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/controllers/ads_review/BannerAdConstruct.dart';
 import 'package:meus_gastos/controllers/Goals/SetGoals/SetGoalScreen.dart';
+import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
@@ -119,7 +120,7 @@ class GoalsscreanState extends State<Goalsscrean>
   }
 
   Widget _buildAdBanner() {
-    return const BannerAdconstruct();
+    return BannerAdFactory().build();
   }
 
   Widget _buildHeaderSection() {
@@ -292,7 +293,7 @@ class GoalsscreanState extends State<Goalsscrean>
           final spent =
               viewModel.expensByCategoryOfCurrentMonth[category.id] ?? 0;
           final goal = viewModel.goalsByCategory[category.id] ?? 0;
-          final isOverGoal = spent > goal;
+          final isOverGoal = spent > goal && goal > 0;
 
           return GestureDetector(
             onTap: () {
@@ -349,7 +350,7 @@ class GoalsscreanState extends State<Goalsscrean>
         ),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: isOverGoal
+          color: isOverGoal 
               ? AppColors.deletionButton.withOpacity(0.3)
               : AppColors.label.withOpacity(0.12),
           width: 1.5,
@@ -382,7 +383,7 @@ class GoalsscreanState extends State<Goalsscrean>
             lineWidth: 6.0,
             animation: true,
             animationDuration: 1200,
-            percent: (spent > goal)
+            percent: (spent > goal) && (goal>0)
                 ? 1
                 : goal > 0
                     ? (spent / goal).clamp(0.0, 1.0)
@@ -409,7 +410,7 @@ class GoalsscreanState extends State<Goalsscrean>
             backgroundColor: AppColors.card,
           ),
           const SizedBox(height: 12),
-          if (goal == 0 && spent == 0)
+          if (goal == 0)
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(

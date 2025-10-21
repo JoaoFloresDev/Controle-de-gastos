@@ -1,7 +1,8 @@
 import 'dart:io';
 // import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
-// import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
+// import 'package:meus_gastos/controllers/Transactions/TransactionsScrean/ViewComponents/ListCardRecorrent.dart';
 // import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
+import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,14 +18,14 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 // import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 // import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
 // import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
-import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/controllers/ads_review/BannerAdConstruct.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 // import 'package:in_app_purchase/in_app_purchase.dart';
 // import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 // import 'dart:io';
 // import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
-// import 'package:meus_gastos/controllers/Transactions/InsertTransactions/ViewComponents/ListCardRecorrent.dart';
+// import 'package:meus_gastos/controllers/Transactions/TransactionsScrean/ViewComponents/ListCardRecorrent.dart';
 // import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:flutter/cupertino.dart';
@@ -246,13 +247,7 @@ class DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget _buildBannerAd() {
-    if (_isPro || Platform.isMacOS) return const SizedBox.shrink();
-    return Container(
-      height: 60,
-      width: double.infinity,
-      alignment: Alignment.center,
-      child: BannerAdconstruct(),
-    );
+    return BannerAdFactory().build();
   }
 
   Widget _buildMonthSelector() {
@@ -501,7 +496,7 @@ class DashboardScreenState extends State<DashboardScreen>
             ),
           ),
           child: ExtractByCategory(
-                category: model.category.name, currentMonth: currentDate),
+              category: model.category.name, currentMonth: currentDate),
         ); // O widget com o código acima
       },
     );

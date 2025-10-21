@@ -1,107 +1,44 @@
-import 'dart:io';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:meus_gastos/controllers/ads_review/BannerAdViewModel.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
-class BannerAdconstruct extends StatefulWidget {
-  const BannerAdconstruct({super.key});
-
-  @override
-  _BannerAdconstructState createState() => _BannerAdconstructState();
-}
-
-class _BannerAdconstructState extends State<BannerAdconstruct> {
-  //MARK: variables
-  BannerAd? _bannerAd;
-  bool _isAdLoaded = false;
-  bool _isPro = false;
-
-  String getBannerAdUnitId() {
-    if (Platform.isAndroid) {
-      return 'ca-app-pub-8858389345934911/3074198669'; // Ad Unit ID do Android
-    } else if (Platform.isIOS) {
-      return 'ca-app-pub-8858389345934911/4314469007';
-      // return 'ca-app-pub-3940256099942544/2934735716'; // de teste
-    } else {
-      throw UnsupportedError('Unsupported platform');
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _loadBannerAd();
-    _checkUserProStatus();
-  }
-
-  void _loadBannerAd() {
-    _bannerAd = BannerAd(
-      adUnitId: getBannerAdUnitId(),
-      size: AdSize.fullBanner,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          print("$_isAdLoaded");
-          setState(() {
-            _isAdLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          print('Ad failed to load: $error');
-          ad.dispose();
-        },
-      ),
-    );
-
-    _bannerAd?.load();
-  }
-
-  @override
-  void dispose() {
-    _bannerAd?.dispose();
-    super.dispose();
-  }
- Future<void> _checkUserProStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    bool isYearlyPro = prefs.getBool('yearly.pro') ?? false;
-    bool isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
-    setState(() {
-      _isPro = isYearlyPro || isMonthlyPro;
-    });
-  }
+class BannerAdConstruct extends StatelessWidget {
+  const BannerAdConstruct({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // if (!_isPro && !Platform.isMacOS){
-    // _isPro =  ProManeger().checkUserProStatus() as bool;
-    if(!_isPro) {
-    setState(() {});
-      return Container(
-        height: 60,
-        width: double.infinity,
-        alignment: Alignment.center,
-        child: Stack(
-          children: [
-            if (!_isAdLoaded)
-              Center(
-                child: LoadingContainer(),
-              ),
-            if (_isAdLoaded)
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 60, 
-                  child: AdWidget(ad: _bannerAd!),
+    return Consumer2<BannerAdViewModel, ProManeger>(
+      builder: (context, adViewModel, proManager, child) {
+        // Se o usuário é Pro, não mostra anúncio
+        
+        if (proManager.isPro) {
+          return const SizedBox();
+        }
+
+        return Container(
+          height: 60,
+          width: double.infinity,
+          alignment: Alignment.center,
+          child: Stack(
+            children: [
+              if (!adViewModel.isAdLoaded)
+                Center(child: LoadingContainer()),
+              if (adViewModel.isAdLoaded && adViewModel.bannerAd != null)
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 60,
+                    child: AdWidget(ad: adViewModel.bannerAd!),
+                  ),
                 ),
-              ),
-          ],
-        ),
-      );
-    }else{
-      return const SizedBox();
-    }
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 

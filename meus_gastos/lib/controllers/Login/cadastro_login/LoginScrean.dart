@@ -1,28 +1,28 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 
 import 'package:meus_gastos/controllers/Login/Authentication.dart';
 
 class LoginScreen extends StatefulWidget {
-  final VoidCallback updateUser;
+  final void Function(User user) updateUser;
   final VoidCallback loadcards;
   final bool isPro;
   final void Function(BuildContext context) showProModal;
+  final Authentication authService;
   LoginScreen(
       {required this.updateUser,
       required this.isPro,
       required this.showProModal,
-      required this.loadcards});
+      required this.loadcards,
+      required this.authService});
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final Authentication _authService = Authentication();
 
   String? errorMenssage;
 
@@ -132,12 +132,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressed: widget.isPro
                                 ? () async {
                                     final user =
-                                        await _authService.signInWithGoogle();
+                                        await widget.authService.signInWithGoogle();
                                     if (user != null) {
+
                                       print(
                                           'Usuário logado: ${user.displayName}');
                                       setState(() {
-                                        widget.updateUser();
+                                        widget.updateUser(user);
                                         widget.loadcards();
                                       });
                                     } else {
