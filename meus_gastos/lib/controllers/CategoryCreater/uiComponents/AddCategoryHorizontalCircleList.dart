@@ -1,13 +1,4 @@
-import 'dart:math';
-import 'package:flutter/services.dart';
-import 'package:uuid/uuid.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class AddCategoryHorizontalCircleList extends StatefulWidget {
   final Function(int) onItemSelected;
@@ -23,36 +14,35 @@ class AddCategoryHorizontalCircleList extends StatefulWidget {
 }
 
 final List<IconData> accountIcons = [
-  Icons.directions_car, // Transporte
-  Icons.home, // Moradia
-  Icons.electrical_services, // Utilidades
-  Icons.healing, // Saúde
-  Icons.shopping_cart, // Compras
-  Icons.local_dining, // Restaurantes
-  Icons.movie, // Entretenimento
-  Icons.school, // Educação
-  Icons.fitness_center, // Atividades físicas
-  Icons.local_bar, // Bebidas / Lazer
-  Icons.pets, // Pets
-  Icons.flight, // Viagens
-  Icons.credit_card, // Finanças / Cartão
-  Icons.monetization_on, // Investimentos
-  Icons.savings, // Poupança
-  Icons.attach_money, // Outras despesas financeiras
-  Icons.account_balance_wallet, // Gestão de contas
-  Icons.card_travel, // Transporte de longa distância
-  // Ícones adicionais:
-  Icons.local_florist, // Hobbies / Presentes
-  Icons.fastfood, // Lanches rápidos
-  Icons.free_breakfast, // Café / Desjejum
-  Icons.bike_scooter, // Mobilidade alternativa
-  Icons.wifi, // Internet / Telecomunicações
-  Icons.phone_android, // Telefonia
-  Icons.build, // Manutenção / Reparos
-  Icons.local_offer, // Promoções / Ofertas
-  Icons.pie_chart, // Distribuição de gastos (Categoria Geral)
-  Icons.restaurant, // Alimentação
-  Icons.local_grocery_store, // Supermercado
+  Icons.directions_car, 
+  Icons.home, 
+  Icons.electrical_services, 
+  Icons.healing, 
+  Icons.shopping_cart, 
+  Icons.local_dining, 
+  Icons.movie, 
+  Icons.school, 
+  Icons.fitness_center, 
+  Icons.local_bar, 
+  Icons.pets, 
+  Icons.flight, 
+  Icons.credit_card, 
+  Icons.monetization_on, 
+  Icons.savings, 
+  Icons.attach_money, 
+  Icons.account_balance_wallet, 
+  Icons.card_travel, 
+  Icons.local_florist, 
+  Icons.fastfood, 
+  Icons.free_breakfast, 
+  Icons.bike_scooter, 
+  Icons.wifi, 
+  Icons.phone_android, 
+  Icons.build, 
+  Icons.local_offer, 
+  Icons.pie_chart, 
+  Icons.restaurant, 
+  Icons.local_grocery_store, 
 ];
 
 class _AddCategoryHorizontalCircleListState
