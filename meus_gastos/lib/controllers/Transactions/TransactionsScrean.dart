@@ -109,7 +109,7 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
 
       allCards.add(
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
           child: ListCardRecorrent(
             onTap: (card) {
               widget.onAddClicked();
@@ -125,7 +125,7 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
     for (var card in viewModel.cardList.reversed) {
       allCards.add(
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
           child: ListCard(
             onTap: (card) {
               widget.onAddClicked();

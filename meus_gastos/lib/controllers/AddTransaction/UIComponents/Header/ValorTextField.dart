@@ -46,37 +46,43 @@ class _ValorTextFieldState extends State<ValorTextField> {
     widget.controller.updateValue(0.0);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      child: CupertinoTextField(
-        focusNode: widget.focusNode, // Use o focusNode aqui
-        decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(color: AppColors.label)),
-        ),
-        style: const TextStyle(color: AppColors.label),
-        placeholder: AppLocalizations.of(context)!.enterAmount,
-        placeholderStyle: const TextStyle(color: AppColors.labelPlaceholder),
-        keyboardType: TextInputType.number,
-        keyboardAppearance: Brightness.dark,
-        controller: widget.controller,
-        suffix: _showClearButton
-            ? CupertinoButton(
-                padding: const EdgeInsets.all(0),
-                minSize: 30,
-                onPressed: _clearText,
-                child: Container(
-                  padding: const EdgeInsets.all(4),
-                  child: const Icon(
-                    CupertinoIcons.clear_circled_solid,
-                    color: Color.fromARGB(143, 142, 142, 147),
-                    size: 24,
-                  ),
-                ),
-              )
-            : null,
+@override
+Widget build(BuildContext context) {
+  return Container(
+    height: 40,
+    child: CupertinoTextField(
+      focusNode: widget.focusNode,
+      decoration: const BoxDecoration(
+        border: Border(bottom: BorderSide(color: AppColors.label)),
       ),
-    );
-  }
+      style: const TextStyle(
+        color: AppColors.label,
+        fontSize: 20, // Adicione o tamanho da fonte aqui (padrão é ~14)
+      ),
+      placeholder: AppLocalizations.of(context)!.enterAmount,
+      placeholderStyle: const TextStyle(
+        color: AppColors.labelPlaceholder,
+        fontSize: 18, // Mantenha o mesmo tamanho no placeholder
+      ),
+      keyboardType: TextInputType.number,
+      keyboardAppearance: Brightness.dark,
+      controller: widget.controller,
+      suffix: _showClearButton
+          ? CupertinoButton(
+              padding: const EdgeInsets.all(0),
+              minSize: 30,
+              onPressed: _clearText,
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                child: const Icon(
+                  CupertinoIcons.clear_circled_solid,
+                  color: Color.fromARGB(143, 142, 142, 147),
+                  size: 24,
+                ),
+              ),
+            )
+          : null,
+    ),
+  );
+}
 }
