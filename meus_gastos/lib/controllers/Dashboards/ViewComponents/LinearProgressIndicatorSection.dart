@@ -17,15 +17,19 @@ class LinearProgressIndicatorSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15, top: 6, bottom: 12),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 8, bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+      child:
           Text(TranslateService.getTranslatedCategoryName(context, model.title),
               style: const TextStyle(
                   color: AppColors.label,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold)),
+                  fontSize: 17,
+                  fontWeight: FontWeight.w500)),
+          ),
           const SizedBox(height: 10),
           Stack(
             alignment: Alignment.topRight,

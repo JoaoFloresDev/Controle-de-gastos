@@ -56,14 +56,20 @@ class GoalsscreanState extends State<Goalsscrean>
       appBar: _buildAppBar(),
       body: GestureDetector(
         onTap: () {},
-        child: ListView(
-          children: [
-            _buildAdBanner(),
-            _buildHeaderSection(),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: _buildAdBanner(),
+            ),
+            SliverToBoxAdapter(
+              child: _buildHeaderSection(),
+            ),
             if (viewModel.isLoading)
-              _buildLoadingIndicator()
+              SliverToBoxAdapter(
+                child: _buildLoadingIndicator(),
+              )
             else
-              _buildCategoryGrid(viewModel),
+              _buildCategorySliverGrid(viewModel),
           ],
         ),
       ),
@@ -262,50 +268,49 @@ PreferredSizeWidget _buildAppBar() {
     );
   }
 
-  Widget _buildCategoryGrid(GoalsViewModel viewModel) {
+  Widget _buildCategorySliverGrid(GoalsViewModel viewModel) {
     return AnimatedBuilder(
       animation: _animationController,
       builder: (context, child) {
-        if (viewModel.isLoading) return LoadingContainer();
-        return Transform.translate(
-          offset: Offset(0, 30 * (1 - _animationController.value)),
-          child: Opacity(
-              opacity: _animationController.value,
-              child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: _buildGrid(viewModel))),
+        if (viewModel.isLoading) {
+          return SliverToBoxAdapter(child: LoadingContainer());
+        }
+        return SliverPadding(
+          padding: const EdgeInsets.all(16.0),
+          sliver: SliverOpacity(
+            opacity: _animationController.value,
+            sliver: Consumer<GoalsViewModel>(
+              builder: (context, viewModel, child) => SliverGrid(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
+                  mainAxisExtent: 190,
+                ),
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    final category = viewModel.categories[index];
+                    final spent = viewModel
+                            .expensByCategoryOfCurrentMonth[category.id] ??
+                        0;
+                    final goal = viewModel.goalsByCategory[category.id] ?? 0;
+                    final isOverGoal = spent > goal && goal > 0;
+
+                    return GestureDetector(
+                      onTap: () {
+                        _buildSetGoalModel(
+                            category, spent, goal, isOverGoal, viewModel);
+                      },
+                      child: _buildCategoryCard(category, spent, goal, isOverGoal),
+                    );
+                  },
+                  childCount: viewModel.categories.length,
+                ),
+              ),
+            ),
+          ),
         );
       },
-    );
-  }
-
-  Widget _buildGrid(GoalsViewModel viewModelParent) {
-    return Consumer<GoalsViewModel>(
-      builder: (context, viewModel, child) => GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
-          mainAxisExtent: 190,
-        ),
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: viewModel.categories.length,
-        itemBuilder: (context, index) {
-          final category = viewModel.categories[index];
-          final spent =
-              viewModel.expensByCategoryOfCurrentMonth[category.id] ?? 0;
-          final goal = viewModel.goalsByCategory[category.id] ?? 0;
-          final isOverGoal = spent > goal && goal > 0;
-
-          return GestureDetector(
-            onTap: () {
-              _buildSetGoalModel(category, spent, goal, isOverGoal, viewModel);
-            },
-            child: _buildCategoryCard(category, spent, goal, isOverGoal),
-          );
-        },
-      ),
     );
   }
 

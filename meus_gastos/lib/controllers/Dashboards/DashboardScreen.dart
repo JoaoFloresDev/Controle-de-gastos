@@ -461,7 +461,7 @@ class DashboardScreenState extends State<DashboardScreen>
           AppLocalizations.of(context)!.topExpensesOfTheMonth,
           style: const TextStyle(
             color: AppColors.label,
-            fontSize: 18,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -527,7 +527,7 @@ class DashboardScreenState extends State<DashboardScreen>
       "${AppLocalizations.of(context)!.totalSpent}: ${TranslateService.formatCurrency(totalGasto, context)}",
       style: const TextStyle(
         color: AppColors.label,
-        fontSize: 18,
+        fontSize: 22,
         fontWeight: FontWeight.bold,
       ),
     );

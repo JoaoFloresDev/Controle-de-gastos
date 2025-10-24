@@ -39,11 +39,11 @@ class DescriptionInputField extends StatelessWidget {
         placeholder: AppLocalizations.of(context)!.description,
         placeholderStyle: TextStyle(
           color: CupertinoColors.white.withOpacity(0.5),
-          fontSize: 16,
+          fontSize: 18,
         ),
         style: const TextStyle(
           color: CupertinoColors.white,
-          fontSize: 16,
+          fontSize: 18,
         ),
         controller: controller,
         textCapitalization: TextCapitalization.sentences,

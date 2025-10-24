@@ -22,8 +22,8 @@ class HeaderBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            'Registrar Despesa',
+          Text(
+            AppLocalizations.of(context)!.registerExpense,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,

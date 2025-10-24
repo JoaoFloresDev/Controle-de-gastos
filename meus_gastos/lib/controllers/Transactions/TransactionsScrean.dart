@@ -54,17 +54,19 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     isLogin = false;
   }
 
-  @override
-  void didUpdateWidget(covariant TransactionsScrean oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.isActive && !oldWidget.isActive) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
+@override
+void didUpdateWidget(covariant TransactionsScrean oldWidget) {
+  super.didUpdateWidget(oldWidget);
+  if (widget.isActive && !oldWidget.isActive) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         Provider.of<TransactionsViewModel>(context, listen: false).loadCards();
+        // Adicione esta linha para notificar o header
+        widget.cardEvents.notifyCardAdded();
       }
     });
-    }
   }
+}
 
   void _showProModal(BuildContext context) async {
     ProManeger proViewModel = ProManeger();
@@ -123,7 +125,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     for (var card in viewModel.cardList.reversed) {
       allCards.add(
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
           child: ListCard(
             onTap: (card) {
               widget.onAddClicked();

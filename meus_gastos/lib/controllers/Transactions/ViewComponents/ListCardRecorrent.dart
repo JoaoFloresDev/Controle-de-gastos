@@ -35,7 +35,7 @@ class ListCardRecorrent extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTap(card),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
         decoration: BoxDecoration(
           color: const Color.fromARGB(104, 44, 44, 44),
           borderRadius: BorderRadius.circular(20),

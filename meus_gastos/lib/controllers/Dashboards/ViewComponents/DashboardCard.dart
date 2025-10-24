@@ -67,7 +67,7 @@ class DashboardCard extends StatelessWidget {
                                               '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
                                           radius: 30,
                                           titleStyle: const TextStyle(
-                                              fontSize: 12,
+                                              fontSize: 13,
                                               fontWeight: FontWeight.bold,
                                               color: AppColors.label),
                                           titlePositionPercentageOffset: 1.8,
@@ -159,8 +159,8 @@ class DashboardCard extends StatelessWidget {
         Text('$label - $percent',
             style: const TextStyle(
                 color: AppColors.label,
-                fontWeight: FontWeight.bold,
-                fontSize: 12)),
+                fontWeight: FontWeight.w600,
+                fontSize: 14)),
       ],
     );
   }

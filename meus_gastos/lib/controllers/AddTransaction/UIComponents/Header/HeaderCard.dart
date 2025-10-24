@@ -193,7 +193,7 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
                   Expanded(
                     child: Center(
                       child: Text(
-                        'Data e Hora',
+                        AppLocalizations.of(context)!.dateAndHour,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
