@@ -24,7 +24,7 @@ class SyncService {
     List<FixedExpense> remoteFixedExpenses =
         await SaveFixedExpenseOnClound().fetchCardsFixedCards();
     List<CardModel> remoteNormalExpenses =
-        await SaveExpensOnCloud().fetchCards();
+        await SaveExpensOnCloud().fetchCards(userId);
     if (localNormalExpenses != remoteNormalExpenses)
       print("É DIFERENTE");
     else

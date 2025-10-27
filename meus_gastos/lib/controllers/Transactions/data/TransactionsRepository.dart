@@ -1,48 +1,47 @@
-import 'package:meus_gastos/controllers/Login/Authentication.dart';
+import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
 
 class TransactionsRepository {
-  final Authentication authService;
+  final LoginViewModel loginViewModel;
 
-  TransactionsRepository({required this.authService});
+  TransactionsRepository({required this.loginViewModel});
 
   Future<List<CardModel>> retrieveCards() async {
-    print("CHEGOU AQUI, USERID: ${authService.userId}");
-    if (authService.userId == null) {
-      return CardService.retrieveCards();
+    print("CHEGOU AQUI, USERID: ${loginViewModel.user!.displayName}");
+    if (loginViewModel.isLogin) {
+      return SaveExpensOnCloud().fetchCards(loginViewModel.user!.uid);
     } else {
-      return SaveExpensOnCloud().fetchCards();
+      return CardService.retrieveCards();
     }
   }
 
   // MARK: - Add, Delete, and Update Cards
   Future<void> addCard(CardModel cardModel) async {
-    if (authService.userId == null) {
-      CardService().addCard(cardModel);
+    if (loginViewModel.isLogin) {
+      return SaveExpensOnCloud().addNewDate(loginViewModel.user!.uid, cardModel);
     } else {
-      return SaveExpensOnCloud().addNewDate(cardModel);
+      CardService().addCard(cardModel);
     }
   }
 
   Future<void> deleteCard(CardModel cardModel) async {
-    if (authService.userId == null) {
-      CardService().deleteCard(cardModel);
+    if (loginViewModel.isLogin) {
+      return SaveExpensOnCloud().addNewDate(loginViewModel.user!.uid, cardModel);
     } else {
-      return SaveExpensOnCloud().addNewDate(cardModel);
+      CardService().deleteCard(cardModel);
     }
   }
 
   Future<void> updateCard(CardModel oldCard, CardModel newCard) async {
-    if (authService.userId == null) {
-      CardService().updateCard(oldCard, newCard);
+    if (loginViewModel.isLogin) {
+      SaveExpensOnCloud().deleteDate(loginViewModel.user!.uid, oldCard);
+      SaveExpensOnCloud().addNewDate(loginViewModel.user!.uid, newCard);
     } else {
-      SaveExpensOnCloud().deleteDate(oldCard);
-      SaveExpensOnCloud().addNewDate(newCard);
+      CardService().updateCard(oldCard, newCard);
     }
   }
-
 
   // static Future<void> deleteAllCards() async {}
 }

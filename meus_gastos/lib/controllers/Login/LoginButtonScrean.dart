@@ -7,30 +7,29 @@ import 'LoginRoute.dart';
 
 class LoginButtonScrean extends StatelessWidget {
   final VoidCallback onLoginChange;
-  final Authentication auth;
-  LoginButtonScrean({required this.onLoginChange, required this.auth});
+  LoginButtonScrean({required this.onLoginChange});
 
   Widget build(BuildContext context) {
     return Consumer2<LoginViewModel, ProManeger>(
-        builder: (context, viewModel, proManeger, child) {
-      print("Consumer2 rebuildou: isLogin = ${viewModel.isLogin}");
+        builder: (context, loginViewModel, proManeger, child) {
+      print("Consumer2 rebuildou: isLogin = ${loginViewModel.isLogin}");
       return GestureDetector(
         onTap: () async {
-          if (viewModel.isLogin)
+          if (loginViewModel.isLogin)
             LoginRoute().logoutScreen(
               context,
-              viewModel,
+              loginViewModel,
               proManeger,
-              onLoginChange, auth
+              onLoginChange,
             );
           else
             LoginRoute()
-                .loginScrean(context, viewModel, proManeger, onLoginChange, auth);
+                .loginScrean(context, loginViewModel, proManeger, onLoginChange);
           onLoginChange();
         },
         child: Padding(
           padding: EdgeInsets.only(right: 8.0),
-          child: viewModel.isLogin
+          child: loginViewModel.isLogin
               ? Icon(
                   Icons.cloud,
                   color: AppColors.labelPlaceholder,

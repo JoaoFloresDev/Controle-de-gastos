@@ -17,8 +17,8 @@ class SaveExpensOnCloud {
     }
   }
 
-  Future<void> addNewDate(CardModel card) async {
-    if (FirebaseService().userId == null) return;
+  Future<void> addNewDate(String? userId, CardModel card) async {
+    if (userId == null) return;
 
     await FirebaseService()
         .firestore
@@ -29,9 +29,9 @@ class SaveExpensOnCloud {
         .set(card.toJson());
   }
 
-  Future<void> deleteDate(CardModel card) async {
+  Future<void> deleteDate(String? userId, CardModel card) async {
     try {
-      if (FirebaseService().userId == null) return;
+      if (userId == null) return;
 
       await FirebaseService()
           .firestore
@@ -47,10 +47,10 @@ class SaveExpensOnCloud {
     }
   }
 
-  Future<List<CardModel>> fetchCards() async {
+  Future<List<CardModel>> fetchCards(String? userId) async {
     try {
-      if (FirebaseService().userId == null) return [];
-
+      if (userId == null) return [];
+      print("Chegou aqui e o usuário é: $userId");
       QuerySnapshot snapshot = await FirebaseService()
           .firestore
           .collection(FirebaseService().userId!)

@@ -38,8 +38,13 @@ class Authentication {
     }
   }
 
+  User? getCurrentUser() {
+    return _firebaseAuth.currentUser;
+  }
+
   Future<void> signOut() async {
     await _googleSignIn.signOut();
+    await _firebaseAuth.signOut();
     _userId = null;
   }
 }

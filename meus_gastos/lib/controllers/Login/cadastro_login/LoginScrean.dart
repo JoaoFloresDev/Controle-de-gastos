@@ -1,28 +1,30 @@
 import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 
 import 'package:meus_gastos/controllers/Login/Authentication.dart';
 
 class LoginScreen extends StatefulWidget {
-  final void Function(User user) updateUser;
   final VoidCallback loadcards;
   final bool isPro;
   final void Function(BuildContext context) showProModal;
-  final Authentication authService;
+  final LoginViewModel viewModel;
   LoginScreen(
-      {required this.updateUser,
+      {
       required this.isPro,
       required this.showProModal,
       required this.loadcards,
-      required this.authService});
+      required this.viewModel});
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  Authentication authService = Authentication();
 
   String? errorMenssage;
 
@@ -63,11 +65,9 @@ class _LoginScreenState extends State<LoginScreen> {
               showDeleteButton: false,
             ),
 
-            // Conteúdo principal
             Expanded(
               child: Stack(
                 children: [
-                  // Conteúdo da tela
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 16),
@@ -100,7 +100,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         const SizedBox(height: 24),
 
-                        // Título e descrição
                         Text(
                           AppLocalizations.of(context)!.signin,
                           style: const TextStyle(
@@ -124,26 +123,26 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         const SizedBox(height: 40),
 
-                        // Botão de login com Google
                         SizedBox(
                           width: double.infinity,
                           height: 56,
                           child: ElevatedButton(
                             onPressed: widget.isPro
                                 ? () async {
-                                    final user =
-                                        await widget.authService.signInWithGoogle();
-                                    if (user != null) {
+                                    await widget.viewModel.login();
+                                    if (widget.viewModel.isLogin) {
 
                                       print(
-                                          'Usuário logado: ${user.displayName}');
+                                          'Usuário logado: ${widget.viewModel.user!.displayName}');
+                                      
                                       setState(() {
-                                        widget.updateUser(user);
                                         widget.loadcards();
                                       });
+
                                     } else {
                                       print('Login cancelado ou falhou.');
                                     }
+                                    Navigator.of(context).pop();
                                   }
                                 : null,
                             style: ElevatedButton.styleFrom(

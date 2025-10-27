@@ -11,12 +11,13 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 
 class LoginRoute {
+
   void loginScrean(
-      BuildContext context,
-      LoginViewModel viewModel,
-      ProManeger proViewModel,
-      VoidCallback onLoginChange,
-      Authentication authService) {
+    BuildContext context,
+    LoginViewModel viewModel,
+    ProManeger proViewModel,
+    VoidCallback onLoginChange,
+  ) {
     FocusScope.of(context).unfocus();
     showModalBottomSheet(
       context: context,
@@ -32,13 +33,7 @@ class LoginRoute {
               ),
             ),
             child: LoginScreen(
-              updateUser: (User user) {
-                viewModel.login(user);
-
-                Navigator.of(context).pop();
-
-                // await sincroniza_primeiro_acesso();
-              },
+              viewModel: viewModel,
               loadcards: () {
                 onLoginChange();
               },
@@ -46,7 +41,6 @@ class LoginRoute {
               showProModal: (context) {
                 _showProModal(context);
               },
-              authService: authService,
             ));
       },
     );
@@ -74,11 +68,11 @@ class LoginRoute {
   }
 
   void logoutScreen(
-      BuildContext context,
-      LoginViewModel viewModel,
-      ProManeger proViewModel,
-      VoidCallback onLoginChange,
-      Authentication authService) {
+    BuildContext context,
+    LoginViewModel viewModel,
+    ProManeger proViewModel,
+    VoidCallback onLoginChange,
+  ) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -93,25 +87,15 @@ class LoginRoute {
               ),
             ),
             child: LogoutScrean(
-              updateUser: () async {
-                // await service.CardService.deleteAllCards();
-                viewModel.logout();
-
-                // await Fixedexpensesservice.deleteAllCards();
-                // setState(() {
-                //   loadCards();
-                //   _verticalCircleListKey.currentState?.loadCategories();
-                // });
-                Navigator.of(context).pop();
-              },
+              
               loadcards: () {
                 onLoginChange();
               },
+              loginModelView: viewModel,
               isPro: proViewModel.isPro,
               showProModal: (context) {
                 _showProModal(context);
               },
-              authService: authService,
             ));
       },
     );

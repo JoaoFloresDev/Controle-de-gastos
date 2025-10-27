@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsScreen.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsViewModel.dart';
+import 'package:meus_gastos/controllers/Login/Authentication.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsFactory.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
@@ -145,43 +146,46 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       providers: [
         ChangeNotifierProvider(
             create: (_) => ProManeger()..checkUserProStatus()),
-        // ChangeNotifierProvider(
-        //     create: (_) => LoginViewModel()..init()),
+        ChangeNotifierProvider(create: (_) => LoginViewModel()..init()),
       ],
-      child: Scaffold(
-        backgroundColor: const Color(0xFF0D1117),
-        body: IndexedStack(
-          index: selectedTab,
-          children: [
-            AddTransactionController(
-              isActive: selectedTab == 0,
-              title: AppLocalizations.of(context)!.myExpenses,
-              onAddClicked: () {
-                cardEvents.notifyCardAdded();
-              },
-              exportButton: exportButtonAT,
-              cardsExpensKey: cardsExpenseAT,
-              valueExpensKey: valueExpenseAT,
-              dateKey: dateAT,
-              descriptionKey: descriptionAT,
-              categoriesKey: categoriesAT,
-              addButtonKey: addButtonAT,
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            backgroundColor: const Color(0xFF0D1117),
+            body: IndexedStack(
+              index: selectedTab,
+              children: [
+                AddTransactionController(
+                  isActive: selectedTab == 0,
+                  title: AppLocalizations.of(context)!.myExpenses,
+                  onAddClicked: () {
+                    cardEvents.notifyCardAdded();
+                  },
+                  exportButton: exportButtonAT,
+                  cardsExpensKey: cardsExpenseAT,
+                  valueExpensKey: valueExpenseAT,
+                  dateKey: dateAT,
+                  descriptionKey: descriptionAT,
+                  categoriesKey: categoriesAT,
+                  addButtonKey: addButtonAT,
+                ),
+                TransactionsFactory(context: context, cardEvents: cardEvents)
+                    .build(selectedTab == 1),
+                DashboardScreen(key: dashboardKey, isActive: true),
+                Goalsscrean(
+                  key: goalKey,
+                  title: AppLocalizations.of(context)!.budget,
+                ),
+                CustomCalendar(
+                  key: calendarKey,
+                  onCalendarRefresh: () =>
+                      calendarKey.currentState?.refreshCalendar(),
+                )
+              ],
             ),
-            TransactionsFactory(context: context, cardEvents: cardEvents)
-                .build(selectedTab == 1),
-            DashboardScreen(key: dashboardKey, isActive: true),
-            Goalsscrean(
-              key: goalKey,
-              title: AppLocalizations.of(context)!.budget,
-            ),
-            CustomCalendar(
-              key: calendarKey,
-              onCalendarRefresh: () =>
-                  calendarKey.currentState?.refreshCalendar(),
-            )
-          ],
-        ),
-        bottomNavigationBar: _buildElegantTabBar(),
+            bottomNavigationBar: _buildElegantTabBar(),
+          );
+        }
       ),
     );
   }

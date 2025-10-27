@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Login/Authentication.dart';
+import 'package:meus_gastos/controllers/Login/LoginButtonScrean.dart';
+import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCardRecorrent.dart';
@@ -22,9 +24,7 @@ class TransactionsScrean extends StatefulWidget {
       super.key,
       required this.title,
       required this.isActive,
-      required this.cardEvents,
-      required this.auth});
-  final Authentication auth;
+      required this.cardEvents,});
   final VoidCallback onAddClicked;
   final String title;
 
@@ -46,6 +46,8 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
   bool? isLogin;
   String? userId;
 
+  //MARK: Life cicle 
+
   @override
   void initState() {
     super.initState();
@@ -54,19 +56,93 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     isLogin = false;
   }
 
-@override
-void didUpdateWidget(covariant TransactionsScrean oldWidget) {
-  super.didUpdateWidget(oldWidget);
-  if (widget.isActive && !oldWidget.isActive) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        Provider.of<TransactionsViewModel>(context, listen: false).loadCards();
-        // Adicione esta linha para notificar o header
-        widget.cardEvents.notifyCardAdded();
-      }
-    });
+  @override
+  void didUpdateWidget(covariant TransactionsScrean oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isActive && !oldWidget.isActive) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          Provider.of<TransactionsViewModel>(context, listen: false)
+              .loadCards();
+          // Adicione esta linha para notificar o header
+          widget.cardEvents.notifyCardAdded();
+        }
+      });
+    }
   }
-}
+
+    @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        key: _scaffoldKey,
+        appBar: CupertinoNavigationBar(
+          leading: GestureDetector(
+            onTap: () {
+              _showCupertinoModalBottomFixedExpenses(context);
+            },
+            child: const Icon(Icons.repeat, size: 24, color: AppColors.label),
+          ),
+          middle: MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: Text(
+              widget.title,
+              style: const TextStyle(color: AppColors.label, fontSize: 20),
+            ),
+          ),
+          backgroundColor: AppColors.background1,
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Consumer2<LoginViewModel, TransactionsViewModel>(
+                builder: (context, loginVM, cardsVM, child) =>
+                    LoginButtonScrean(
+                  
+                  onLoginChange: cardsVM.loadCards,
+                ),
+                // create: (_) => LoginViewModel()..init(),
+              ),
+              GestureDetector(
+                onTap: () {
+                  _showProModal(context);
+                },
+                child: const Text(
+                  "PRO",
+                  style: TextStyle(
+                    color: AppColors.label,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: Consumer<TransactionsViewModel>(
+          builder: (context, viewModel, child) => GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: Column(
+              children: [
+                BannerAdFactory().build(),
+                const SizedBox(height: 8),
+                // Aqui eu vou colocar o date_select para filtrar os cards
+                if ((viewModel.cardList.isNotEmpty) ||
+                    (viewModel.fixedCards.isNotEmpty)) ...[
+                  _cardListBuild(viewModel),
+                ] else ...[
+                  _empityListCardBuild(),
+                ]
+              ],
+            ),
+          ),
+        ),
+        backgroundColor: AppColors.background1,
+      ),
+    );
+  }
+
+  //MARK: Widgets
 
   void _showProModal(BuildContext context) async {
     ProManeger proViewModel = ProManeger();
@@ -131,7 +207,6 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
               widget.onAddClicked();
               _cardDetails(context, card, viewModel);
             },
-
             card: card,
             background: AppColors.card,
           ),
@@ -331,74 +406,10 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: CupertinoNavigationBar(
-          leading: GestureDetector(
-            onTap: () {
-              _showCupertinoModalBottomFixedExpenses(context);
-            },
-            child: const Icon(Icons.repeat, size: 24, color: AppColors.label),
-          ),
-          middle: MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-            child: Text(
-              widget.title,
-              style: const TextStyle(color: AppColors.label, fontSize: 20),
-            ),
-          ),
-          backgroundColor: AppColors.background1,
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // ChangeNotifierProvider<LoginViewModel>(
-              //   create: (_) => LoginViewModel()..init(),
-              //   child: LoginButtonScrean(),
-              // ),
-              GestureDetector(
-                onTap: () {
-                  _showProModal(context);
-                },
-                child: const Text(
-                  "PRO",
-                  style: TextStyle(
-                    color: AppColors.label,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        body: Consumer<TransactionsViewModel>(
-          builder: (context, viewModel, child) => GestureDetector(
-            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-            child: Column(
-              children: [
-                BannerAdFactory().build(),
-                const SizedBox(height: 8),
-                // Aqui eu vou colocar o date_select para filtrar os cards
-                if ((viewModel.cardList.isNotEmpty) ||
-                    (viewModel.fixedCards.isNotEmpty)) ...[
-                  _cardListBuild(viewModel),
-                ] else ...[
-                  _empityListCardBuild(),
-                ]
-              ],
-            ),
-          ),
-        ),
-        backgroundColor: AppColors.background1,
-      ),
-    );
-  }
 
-  void _cardDetails(BuildContext context, CardModel card, TransactionsViewModel viewModel) {
+
+  void _cardDetails(
+      BuildContext context, CardModel card, TransactionsViewModel viewModel) {
     FocusScope.of(context).unfocus();
     showModalBottomSheet(
       context: context,

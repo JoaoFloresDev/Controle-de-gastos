@@ -1,40 +1,38 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 
 import 'package:meus_gastos/controllers/Login/Authentication.dart';
 
 class LogoutScrean extends StatefulWidget {
-  final VoidCallback updateUser;
   final VoidCallback loadcards;
+  final LoginViewModel loginModelView;
   final bool isPro;
   final void Function(BuildContext context) showProModal;
-  final Authentication authService;
-  const LogoutScrean(
-      {required this.updateUser,
-      required this.loadcards,
-      required this.isPro,
-      required this.showProModal, 
-      required this.authService});
+  LogoutScrean({
+    required this.loadcards,
+    required this.isPro,
+    required this.showProModal,
+    required this.loginModelView
+  });
   @override
   _LogoutScreanState createState() => _LogoutScreanState();
 }
 
 class _LogoutScreanState extends State<LogoutScrean> {
   String? errorMenssage;
-  User? user;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    user = FirebaseAuth.instance.currentUser;
   }
 
   @override
   Widget build(BuildContext context) {
     String userName = "";
-    if (user != null) {
-      userName = user!.displayName!;
+    if (widget.loginModelView.user != null) {
+      userName = widget.loginModelView.user!.displayName!;
       print('Nome do usuário: $userName');
     } else {
       print('Usuário não está autenticado.');
@@ -127,7 +125,7 @@ class _LogoutScreanState extends State<LogoutScrean> {
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  user!.email!,
+                                  widget.loginModelView.isLogin ? widget.loginModelView.user!.email! : "",
                                   style: TextStyle(
                                     color: AppColors.label.withOpacity(0.7),
                                     fontSize: 13,
@@ -147,12 +145,12 @@ class _LogoutScreanState extends State<LogoutScrean> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () async {
-                          await widget.authService.signOut();
+                          await widget.loginModelView.logout();
                           setState(() {
                             // user?.reload();
                           });
                           print('Usuário deslogado.');
-                          widget.updateUser();
+                          Navigator.of(context).pop();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
