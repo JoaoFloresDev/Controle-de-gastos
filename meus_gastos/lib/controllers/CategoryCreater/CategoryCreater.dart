@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/uiComponents/AddCategoryHorizontalCircleList.dart';
 
