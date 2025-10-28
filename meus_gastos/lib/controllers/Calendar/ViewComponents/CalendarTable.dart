@@ -64,7 +64,7 @@ class CalendarTable extends StatelessWidget {
               child: Text(
                 formattedDate,
                 style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: AppColors.label,
                 ),
@@ -100,7 +100,7 @@ class CalendarTable extends StatelessWidget {
             : today
                 ? AppColors.card
                 : null,
-        shape: BoxShape.circle,
+         borderRadius: BorderRadius.circular(10),
       ),
       constraints: const BoxConstraints(minWidth: 40, minHeight: 40),
       child: Column(
@@ -110,8 +110,8 @@ class CalendarTable extends StatelessWidget {
             day.day.toString(),
             style: const TextStyle(
               color: AppColors.label,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
             ),
           ),
           if (expense > 0)
@@ -119,8 +119,8 @@ class CalendarTable extends StatelessWidget {
               "${expense.toStringAsFixed(0)}",
               style: const TextStyle(
                 color: AppColors.button,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
               ),
             ),
         ],

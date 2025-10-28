@@ -111,9 +111,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
             boxShadow: isSelected
                 ? [
                     BoxShadow(
-                      color: AppColors.button.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
+                      color: AppColors.button.withOpacity(0.1),
                     ),
                   ]
                 : null,
@@ -151,7 +149,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
                               ? AppColors.label
                               : AppColors.label.withOpacity(0.75),
                           fontWeight:
-                              isSelected ? FontWeight.w400 : FontWeight.w300,
+                              isSelected ? FontWeight.w600 : FontWeight.w500,
                           height: 1.15,
                         ),
                         textAlign: TextAlign.center,

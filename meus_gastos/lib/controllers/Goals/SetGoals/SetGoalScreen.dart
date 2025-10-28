@@ -22,7 +22,6 @@ class SetGoalsScreen extends StatefulWidget {
 
 class SetSetGoalsState extends State<SetGoalsScreen> {
   late MoneyMaskedTextController valorController;
-
   bool _controllerInitialized = false;
 
   @override
@@ -51,50 +50,43 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Container(
-        decoration: const BoxDecoration(
-          color: AppColors.background1,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
+    return Container(
+      decoration: const BoxDecoration(
+        color: AppColors.background1,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            CustomHeader(
-              title: TranslateService.getTranslatedCategoryName(
-                  context, widget.category.name),
-              onCancelPressed: () {},
-            ),
-            Expanded(
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          CustomHeader(
+            title: TranslateService.getTranslatedCategoryName(
+                context, widget.category.name),
+            onCancelPressed: () {},
+          ),
+          Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              physics: const ClampingScrollPhysics(),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
               child: Column(
                 children: [
-                  const SizedBox(height: 20),
                   _buildCategoryIcon(),
                   const SizedBox(height: 16),
                   if (widget.initialValue > 0) ...[
                     _buildCurrentGoalInfo(),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 16),
                   ] else
                     const SizedBox(height: 8),
                   _buildInputSection(),
-                  const SizedBox(height: 24),
-                  _buildActionButtons(context),
                   const SizedBox(height: 20),
+                  _buildActionButtons(context),
                 ],
               ),
             ),
           ),
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -103,15 +95,22 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
     return Hero(
       tag: 'category_${widget.category.id}',
       child: Container(
-        width: 80,
-        height: 80,
+        width: 72,
+        height: 72,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.grey.shade900.withOpacity(0.8),
+          color: AppColors.card.withOpacity(0.5),
           border: Border.all(
-            color: Colors.grey.shade700,
+            color: AppColors.label.withOpacity(0.1),
             width: 1.5,
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 15,
+              offset: const Offset(0, 6),
+            ),
+          ],
         ),
         child: Center(
           child: Icon(
@@ -126,12 +125,12 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
 
   Widget _buildCurrentGoalInfo() {
     return Container(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.grey.shade900.withOpacity(0.6),
+        color: AppColors.card.withOpacity(0.4),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Colors.grey.shade700,
+          color: AppColors.label.withOpacity(0.08),
           width: 1,
         ),
       ),
@@ -140,16 +139,16 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: widget.category.color.withOpacity(0.2),
+              color: AppColors.label.withOpacity(0.06),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(
-              Icons.savings_outlined,
-              color: widget.category.color,
-              size: 20,
+              Icons.flag_outlined,
+              color: AppColors.label.withOpacity(0.6),
+              size: 18,
             ),
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,18 +156,19 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
                 Text(
                   AppLocalizations.of(context)!.currentGoal,
                   style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey.shade400,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                    color: AppColors.labelPlaceholder.withOpacity(0.8),
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   TranslateService.formatCurrency(widget.initialValue, context),
                   style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 17,
+                    color: AppColors.label,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: -0.3,
                   ),
                 ),
               ],
@@ -181,27 +181,26 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
 
   Widget _buildInputSection() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Text(
-              AppLocalizations.of(context)!.setGoal,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
+        Padding(
+          padding: const EdgeInsets.only(left: 2, bottom: 12),
+          child: Text(
+            AppLocalizations.of(context)!.setGoal,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: AppColors.label,
+              letterSpacing: -0.3,
             ),
-            Expanded(child: SizedBox())
-          ],
+          ),
         ),
-        const SizedBox(height: 16),
         Container(
           decoration: BoxDecoration(
-            color: Colors.grey.shade900.withOpacity(0.6),
+            color: AppColors.card.withOpacity(0.4),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: Colors.grey.shade700,
+              color: AppColors.label.withOpacity(0.08),
               width: 1,
             ),
           ),
@@ -217,18 +216,25 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
   Widget _buildActionButtons(BuildContext context) {
     return Column(
       children: [
-        // Primary action button
+        // Botão principal
         Container(
           width: double.infinity,
-          height: 56,
+          height: 52,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(14),
             color: AppColors.button,
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.button.withOpacity(0.25),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(14),
               onTap: () {
                 widget.addGoal(widget.category.id, valorController.numberValue);
                 Navigator.of(context).pop();
@@ -237,9 +243,10 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
                 child: Text(
                   AppLocalizations.of(context)!.update,
                   style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
                     color: AppColors.label,
+                    letterSpacing: -0.2,
                   ),
                 ),
               ),
@@ -247,24 +254,23 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
           ),
         ),
 
-        const SizedBox(height: 16),
-
-        if (widget.initialValue > 0)
+        if (widget.initialValue > 0) ...[
+          const SizedBox(height: 10),
           Container(
             width: double.infinity,
             height: 48,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(14),
               color: Colors.transparent,
               border: Border.all(
-                color: Colors.grey.shade600,
+                color: AppColors.label.withOpacity(0.12),
                 width: 1.5,
               ),
             ),
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(14),
                 onTap: () {
                   valorController.updateValue(0);
                 },
@@ -273,14 +279,16 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
                     AppLocalizations.of(context)!.clear,
                     style: TextStyle(
                       fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade400,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.labelPlaceholder.withOpacity(0.8),
+                      letterSpacing: -0.1,
                     ),
                   ),
                 ),
               ),
             ),
           ),
+        ],
       ],
     );
   }
