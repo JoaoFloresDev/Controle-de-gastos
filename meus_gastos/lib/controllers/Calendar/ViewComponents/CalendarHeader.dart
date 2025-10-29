@@ -37,7 +37,7 @@ class CalendarHeader extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
+          padding: EdgeInsetsGeometry.only(left: 16, right: 16, top: 8),
           child: Divider(
           height: 1,
           thickness: 1,

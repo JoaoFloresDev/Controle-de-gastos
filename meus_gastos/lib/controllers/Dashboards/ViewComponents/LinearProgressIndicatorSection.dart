@@ -21,6 +21,7 @@ class LinearProgressIndicatorSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Row(children: [
           Padding(
             padding: const EdgeInsets.only(left: 10),
       child:
@@ -29,6 +30,20 @@ class LinearProgressIndicatorSection extends StatelessWidget {
                   color: AppColors.label,
                   fontSize: 17,
                   fontWeight: FontWeight.w500)),
+          ),
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.only(right: 24),
+      child:
+                                Text(
+                  model.progress.toStringAsFixed(0),
+                  style: const TextStyle(
+                      color: AppColors.label,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600),
+                ),
+          )
+          ],
           ),
           const SizedBox(height: 10),
           Stack(
@@ -40,13 +55,6 @@ class LinearProgressIndicatorSection extends StatelessWidget {
                 lineHeight: 30.0,
                 animationDuration: 1000,
                 percent: model.progress / totalAmount,
-                center: Text(
-                  model.progress.toStringAsFixed(0),
-                  style: const TextStyle(
-                      color: AppColors.label,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold),
-                ),
                 linearStrokeCap: LinearStrokeCap.roundAll,
                 barRadius: const Radius.circular(12),
                 backgroundColor: model.color.withOpacity(0.2),

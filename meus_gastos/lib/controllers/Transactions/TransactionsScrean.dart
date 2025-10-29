@@ -173,22 +173,19 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.button.withOpacity(0.08),
-                    blurRadius: 20,
-                    offset: const Offset(0, 8),
+                    color: AppColors.label.withOpacity(0.08)
                   ),
                 ],
               ),
               child: const Icon(
                 Icons.receipt_long_outlined,
-                color: AppColors.button,
+                color: AppColors.label,
                 size: 38,
               ),
             ),
 
             const SizedBox(height: 18),
 
-            // Título principal
             Text(
               AppLocalizations.of(context)!.transactionPlaceholderSubtitle,
               style: const TextStyle(
@@ -208,7 +205,7 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
               AppLocalizations.of(context)!.transactionPlaceholderTitle,
               style: TextStyle(
                 color: AppColors.label.withOpacity(0.7),
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: FontWeight.w400,
                 height: 1.5,
               ),
@@ -236,19 +233,19 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
                   Row(
                     children: [
                       Container(
-                        width: 32,
-                        height: 32,
+                        width: 40,
+                        height: 40,
                         decoration: BoxDecoration(
-                          color: AppColors.button.withOpacity(0.1),
+                          color: AppColors.label.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Icon(
                           Icons.add_circle_outline,
-                          color: AppColors.button,
-                          size: 20,
+                          color: AppColors.label,
+                          size: 24,
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 16),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -258,16 +255,17 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
                                   .transactionPlaceholderRow1Title,
                               style: const TextStyle(
                                 color: AppColors.label,
-                                fontSize: 14,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
+                            SizedBox(height: 2),
                             Text(
                               AppLocalizations.of(context)!
                                   .transactionPlaceholderRow1Subtitle,
                               style: TextStyle(
-                                color: AppColors.label.withOpacity(0.6),
-                                fontSize: 12,
+                                color: AppColors.label.withOpacity(0.8),
+                                fontSize: 16,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -276,23 +274,23 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 22),
                   Row(
                     children: [
                       Container(
-                        width: 32,
-                        height: 32,
+                        width: 40,
+                        height: 40,
                         decoration: BoxDecoration(
-                          color: AppColors.button.withOpacity(0.1),
+                          color: AppColors.label.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Icon(
                           Icons.repeat,
-                          color: AppColors.button,
-                          size: 20,
+                          color: AppColors.label,
+                          size: 24,
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 16),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -302,16 +300,17 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
                                   .transactionPlaceholderRow2Title,
                               style: const TextStyle(
                                 color: AppColors.label,
-                                fontSize: 14,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
+                            SizedBox(height: 2),
                             Text(
                               AppLocalizations.of(context)!
                                   .transactionPlaceholderRow3Subtitle,
                               style: TextStyle(
-                                color: AppColors.label.withOpacity(0.6),
-                                fontSize: 12,
+                                color: AppColors.label.withOpacity(0.8),
+                                fontSize: 16,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
