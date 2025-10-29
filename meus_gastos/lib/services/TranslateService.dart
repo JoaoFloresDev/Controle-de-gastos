@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 
-class Translateservice {
+class TranslateService {
   static String getCurrencySymbol(BuildContext context) {
     Locale locale = Localizations.localeOf(context);
 
@@ -34,8 +34,9 @@ class Translateservice {
     // Formata a data
     return dateFormat.format(date);
   }
-  
-  static String getTranslatedCategoryUsingModel(BuildContext context, CategoryModel category) {
+
+  static String getTranslatedCategoryUsingModel(
+      BuildContext context, CategoryModel category) {
     switch (category.id) {
       case 'Unknown':
         return AppLocalizations.of(context)!.unknown;
@@ -57,10 +58,23 @@ class Translateservice {
         return AppLocalizations.of(context)!.videoGame;
       case 'Drink':
         return AppLocalizations.of(context)!.drink;
+      case 'Water':
+        return AppLocalizations.of(context)!.water;
+      case 'Light':
+        return AppLocalizations.of(context)!.light;
+      case 'Wifi':
+        return AppLocalizations.of(context)!.wifi;
+      case 'Phone':
+        return AppLocalizations.of(context)!.phone;
+      case 'CreditCard':
+        return AppLocalizations.of(context)!.creditCard;
+      case 'AddCategory':
+        return AppLocalizations.of(context)!.addCategory;
       default:
         return category.name; // Retorna o valor original se não houver tradução
     }
   }
+
   static String getTranslatedCategoryName(BuildContext context, String legend) {
     switch (legend) {
       case 'Unknown':
@@ -83,6 +97,18 @@ class Translateservice {
         return AppLocalizations.of(context)!.videoGame;
       case 'Drink':
         return AppLocalizations.of(context)!.drink;
+      case 'Water':
+        return AppLocalizations.of(context)!.water;
+      case 'Light':
+        return AppLocalizations.of(context)!.light;
+      case 'Wifi':
+        return AppLocalizations.of(context)!.wifi;
+      case 'Phone':
+        return AppLocalizations.of(context)!.phone;
+      case 'Credit Card':
+        return AppLocalizations.of(context)!.creditCard;
+      case 'AddCategory':
+        return AppLocalizations.of(context)!.addCategory;
       default:
         return legend; // Retorna o valor original se não houver tradução
     }

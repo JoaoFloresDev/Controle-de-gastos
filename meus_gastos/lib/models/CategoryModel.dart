@@ -6,41 +6,46 @@ class CategoryModel {
   final IconData icon;
   final String name;
   int frequency;
+  bool available;
 
+  //mark - Constructor
   CategoryModel({
-    required this.id,
-    required this.color,
-    required this.icon,
+    this.id = '',
+    this.color = Colors.grey,
+    this.icon = Icons.category,
     required this.name,
-    this.frequency = 0});
+    this.frequency = 0,
+    this.available = true
+  });
 
+  //mark - From JSON
+  factory CategoryModel.fromJson(dynamic json) {
+    if (json is String) {
+      return CategoryModel(
+        name: json,
+      );
+    }
+    return CategoryModel(
+      id: json['id'],
+      color: Color(json['color']),
+      icon: IconData(json['icon'], fontFamily: json['fontFamily']),
+      name: json['name'],
+      frequency: json['frequency'] ?? 0,
+      available: json['available'] ?? true,
+      
+    );
+  }
+
+  //mark - To JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'color': color.value,
       'icon': icon.codePoint,
+      'fontFamily': icon.fontFamily,
       'name': name,
-      'frequency': frequency
+      'frequency': frequency,
+      'available': available,
     };
   }
-
-  factory CategoryModel.fromJson(Map<String, dynamic> json) {
-    return CategoryModel(
-      id: json['id'],
-      color: Color(json['color']),
-      icon: IconData(json['icon'], fontFamily: 'MaterialIcons'),
-      name: json['name'],
-      frequency: json['frequency']
-    );
-  }
-
-   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is CategoryModel && other.id == id;
-  }
-
-  @override
-  int get hashCode => id.hashCode;
 }
