@@ -105,7 +105,6 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
     // Adiciona fixedCards
     for (var fcard in viewModel.fixedCards) {
       var card = viewModel.Fixed_to_NormalCard(fcard);
-      if (card.amount == 0) continue;
 
       allCards.add(
         Padding(
