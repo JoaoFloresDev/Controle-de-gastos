@@ -119,8 +119,8 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
             ],
           ),
         ),
-        body: Consumer<TransactionsViewModel>(
-          builder: (context, viewModel, child) => GestureDetector(
+        body: Consumer2<TransactionsViewModel, LoginViewModel>(
+          builder: (context, viewModel, loginVM, child) => GestureDetector(
             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
             child: Column(
               children: [

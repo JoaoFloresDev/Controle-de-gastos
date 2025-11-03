@@ -1,41 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/services/firebase/FirebaseService.dart';
+import 'package:meus_gastos/repositories/Transactions/ITransactionsRepository.dart';
+import 'package:meus_gastos/services/firebase/FirebaseServiceSingleton.dart';
 
-class SaveExpensOnCloud {
-  Future<void> addDatesOfOfflineState() async {
-    if (FirebaseService().userId == null) return;
-    List<CardModel> cards = await CardService.retrieveCards();
-    for (var card in cards) {
-      await FirebaseService()
-          .firestore
-          .collection(FirebaseService().userId!)
-          .doc(card.id)
-          .set(card.toJson());
-      // await firestore.collection(userId).doc(card.id)
-    }
-  }
+class TransactionsRepositoryRemote implements ITransactionsRepository {
+  final String userId;
 
-  Future<void> addNewDate(String? userId, CardModel card) async {
+  TransactionsRepositoryRemote({required this.userId});
+
+  @override
+  Future<void> addCard(CardModel card) async {
+    
     if (userId == null) return;
 
     await FirebaseService()
         .firestore
-        .collection(FirebaseService().userId!)
+        .collection(userId)
         .doc('NormalCards')
         .collection("cardList")
         .doc(card.id)
         .set(card.toJson());
   }
-
-  Future<void> deleteDate(String? userId, CardModel card) async {
+  
+@override
+  Future<void> deleteCard(CardModel card) async {
     try {
       if (userId == null) return;
 
       await FirebaseService()
           .firestore
-          .collection(FirebaseService().userId!)
+          .collection(userId)
           .doc('NormalCards')
           .collection("cardList")
           .doc(card.id)
@@ -47,13 +41,14 @@ class SaveExpensOnCloud {
     }
   }
 
-  Future<List<CardModel>> fetchCards(String? userId) async {
+  @override
+  Future<List<CardModel>> retrieve() async {
     try {
       if (userId == null) return [];
       print("Chegou aqui e o usuário é: $userId");
       QuerySnapshot snapshot = await FirebaseService()
           .firestore
-          .collection(FirebaseService().userId!)
+          .collection(userId)
           .doc('NormalCards')
           .collection('cardList')
           .get();
@@ -65,5 +60,11 @@ class SaveExpensOnCloud {
       print('Erro ao buscar cartões: $e');
       return [];
     }
+  }
+
+  @override
+  Future<void> updateCard(CardModel oldCard, CardModel newCard) async {
+    await deleteCard(oldCard);
+    await addCard(newCard);
   }
 }

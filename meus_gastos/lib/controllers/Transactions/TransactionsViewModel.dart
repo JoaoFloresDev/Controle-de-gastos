@@ -1,20 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
-import 'package:meus_gastos/controllers/Transactions/data/TransactionsRepository.dart';
+import 'package:meus_gastos/repositories/Transactions/ITransactionsRepository.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 
 class TransactionsViewModel extends ChangeNotifier {
-  final TransactionsRepository repository;
+  final ITransactionsRepository repository;
   final CardEvents cardEvents;
-
+  final LoginViewModel loginVM;
   TransactionsViewModel({
     required this.repository,
     required this.cardEvents,
-  });
+    required this.loginVM,
+  }) {
+    // Escuta mudanças no login
+    loginVM.addListener(_onLoginChanged);
+  }
 
   List<CardModel> _cardList = [];
   List<FixedExpense> _fixedCards = [];
@@ -26,12 +30,10 @@ class TransactionsViewModel extends ChangeNotifier {
 
   DateTime get currentDate => _currentDate;
 
-  void _onloginChanged(bool isLogin) {
-    if (isLogin) {
-      loadCards();
-    } else {
-      notifyListeners();
-    }
+  void _onLoginChanged() {
+    final userId = loginVM.isLogin ? loginVM.user!.uid : "";
+    final isLoggedIn = loginVM.isLogin;
+    loadCards();
   }
 
   Future<void> init() async {
@@ -47,7 +49,7 @@ class TransactionsViewModel extends ChangeNotifier {
   }
 
   Future<void> loadCards() async {
-    List<CardModel> cards = await repository.retrieveCards();
+    List<CardModel> cards = await repository.retrieve();
     var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
     _cardList = cards.where((card) => card.amount > 0).toList();
     _fixedCards = fcard;
@@ -71,9 +73,15 @@ class TransactionsViewModel extends ChangeNotifier {
   Future<void> deleteCard(CardModel cardModel) async {
     List<String> idsFixed = await Fixedexpensesservice.getFixedExpenseIds();
     await repository.deleteCard(cardModel);
-    if (idsFixed.contains(cardModel.idFixoControl)){
+    if (idsFixed.contains(cardModel.idFixoControl)) {
       cardModel.amount = 0;
       CardService().addCard(cardModel);
     }
+  }
+
+  @override
+  void dispose() {
+    loginVM.removeListener(_onLoginChanged);
+    super.dispose();
   }
 }

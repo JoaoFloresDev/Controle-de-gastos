@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meus_gastos/controllers/Login/Authentication.dart';
+import 'package:meus_gastos/controllers/Login/AuthenticationSingleton.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 
 class LoginViewModel extends ChangeNotifier {
@@ -22,8 +22,8 @@ class LoginViewModel extends ChangeNotifier {
 }
 
   Future<void> login() async {
-    _isLogin = true;
     _user = await auth.signInWithGoogle();
+    _isLogin = auth.isLoggedIn;
     notifyListeners();
   }
 

@@ -1,4 +1,3 @@
-import 'package:meus_gastos/controllers/Login/Authentication.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
