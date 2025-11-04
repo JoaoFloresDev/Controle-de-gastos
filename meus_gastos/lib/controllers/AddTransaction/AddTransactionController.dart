@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater2.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';

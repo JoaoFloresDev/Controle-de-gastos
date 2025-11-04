@@ -37,7 +37,7 @@ class CategoryForm extends StatelessWidget {
           },
         ),
         
-        const SizedBox(height: 8),
+        const SizedBox(height: 12),
         
         // Grid de seleção de cores
         ColorGridSelector(
@@ -72,8 +72,8 @@ class CategoryForm extends StatelessWidget {
           color: AppColors.card,
           borderRadius: BorderRadius.circular(12),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-        placeholder: AppLocalizations.of(context)!.category,
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+        placeholder: "Digite o nome da categoria",
         placeholderStyle: TextStyle(
           color: Colors.white.withOpacity(0.4),
           fontSize: 16,

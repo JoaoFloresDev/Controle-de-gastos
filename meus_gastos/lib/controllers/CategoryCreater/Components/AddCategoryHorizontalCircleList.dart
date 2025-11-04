@@ -103,7 +103,7 @@ class _AddCategoryHorizontalCircleListState
     final iconColor = widget.selectedColor ?? AppColors.buttonSelected;
     
     return Container(
-      height: 80,
+      height: 76,
       decoration: BoxDecoration(
         color: AppColors.card.withOpacity(0.3),
         borderRadius: BorderRadius.circular(16),
