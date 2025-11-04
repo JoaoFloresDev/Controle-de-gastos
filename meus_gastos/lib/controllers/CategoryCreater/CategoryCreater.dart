@@ -1,514 +1,625 @@
-// import 'package:meus_gastos/controllers/CategoryCreater/AddCategoryHorizontalCircleList.dart';
-import 'package:meus_gastos/controllers/Goals/Data/GoalsService.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
-// import 'package:meus_gastos/controllers/CategoryCreater/AddCategoryHorizontalCircleList.dart';
-import 'package:meus_gastos/controllers/Goals/Data/GoalsService.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
-import 'package:meus_gastos/services/TranslateService.dart';
-import 'dart:math';
-import 'package:flutter/services.dart';
-import 'package:uuid/uuid.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
-import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:meus_gastos/controllers/CategoryCreater/AddCategoryHorizontalCircleList.dart';
+// import 'package:meus_gastos/controllers/Goals/Data/GoalsService.dart';
+// import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
+// import 'package:meus_gastos/services/TranslateService.dart';
+// import 'dart:math';
+// import 'package:flutter/services.dart';
+// import 'package:uuid/uuid.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:meus_gastos/designSystem/ImplDS.dart';
+// import 'package:meus_gastos/services/CategoryService.dart';
+// import 'package:meus_gastos/models/CategoryModel.dart';
+// import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+// import 'package:meus_gastos/l10n/app_localizations.dart';
+// import 'package:meus_gastos/controllers/CategoryCreater/Components/AddCategoryHorizontalCircleList.dart';
 
-class Categorycreater extends StatefulWidget {
-  final VoidCallback onCategoryAdded;
+// class Categorycreater extends StatefulWidget {
+//   final VoidCallback onCategoryAdded;
 
-  const Categorycreater({super.key, required this.onCategoryAdded});
-
-  @override
-  State<Categorycreater> createState() => _CategorycreaterState();
-}
-
-class _CategorycreaterState extends State<Categorycreater> {
-  late TextEditingController categoriaController;
-  late Color _currentColor =
-      Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
-  late Future<List<CategoryModel>> _futureCategories = Future.value([]);
-
-  int selectedIndex = 0;
-
-  // MARK: - Lifecycle Methods
-  @override
-  void initState() {
-    super.initState();
-    categoriaController = TextEditingController();
-    _futureCategories = CategoryService().getAllCategoriesAvaliable();
-  }
-
-  @override
-  void dispose() {
-    categoriaController.dispose();
-    super.dispose();
-  }
-
-  // MARK: - Helper Methods
-  void _hideKeyboard() {
-    FocusScope.of(context).unfocus();
-  }
-
-  void _pickColor(BuildContext context) {
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
-          child: Container(
-            color: Colors.transparent, // Fundo transparente ao redor do diálogo
-            child: GestureDetector(
-              onTap: () {},
-              child: CupertinoAlertDialog(
-                content: Container(
-                  padding: const EdgeInsets.all(8),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.chooseColor,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 16),
-                      ColorPicker(
-                        pickerColor: _currentColor,
-                        onColorChanged: (Color color) {
-                          setState(() {
-                            _currentColor = color;
-                          });
-                        },
-                        showLabel: false,
-                        pickerAreaHeightPercent: 0.6,
-                        displayThumbColor: false,
-                        enableAlpha: false,
-                        paletteType: PaletteType.hsv,
-                        pickerAreaBorderRadius:
-                            const BorderRadius.all(Radius.circular(0)),
-                      ),
-                      SizedBox(
-                        width: 160,
-                        height: 40,
-                        child: CupertinoButton(
-                          color: AppColors.button, // Cor de fundo azul
-                          borderRadius: BorderRadius.circular(
-                              8.0), // Cantos ligeiramente arredondados
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                              vertical: 12.0), // Tamanho do botão
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(
-                            AppLocalizations.of(context)!.select,
-                            style: const TextStyle(
-                              color: Colors.white, // Cor do texto branco
-                              fontSize: 16.0, // Tamanho do texto
-                              fontWeight: FontWeight.bold, // Texto em negrito
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget buildColorPicker() {
-    return Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        padding: const EdgeInsets.all(8),
-        child: ColorPicker(
-            pickerColor: _currentColor,
-            onColorChanged: (Color color) {
-              setState(() {
-                _currentColor = color;
-              });
-            },
-            showLabel: false,
-            pickerAreaHeightPercent: 0.6,
-            displayThumbColor: false,
-            enableAlpha: false,
-            paletteType: PaletteType.hsv,
-            pickerAreaBorderRadius:
-                const BorderRadius.all(Radius.circular(20))));
-  }
-
-  // MARK: - Add Category
-  void adicionar() async {
-    int frequency = 2;
-    CategoryModel? categoryHighFrequency =
-        await CategoryService().getCategoryWithHighestFrequency();
-    if (categoryHighFrequency != null && categoryHighFrequency.id.isNotEmpty) {
-      frequency = categoryHighFrequency.frequency + 1;
-    }
-    CategoryModel category = CategoryModel(
-        id: const Uuid().v4(),
-        color: _currentColor,
-        icon: accountIcons[selectedIndex],
-        name: categoriaController.text,
-        frequency: frequency);
-
-    await CategoryService().addCategory(category);
-    widget.onCategoryAdded();
-    setState(() {
-      _futureCategories = CategoryService().getAllCategoriesAvaliable();
-    });
-  }
-
-  // MARK: - Build Method
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: Container(
-        padding: const EdgeInsets.all(0),
-        decoration: const BoxDecoration(
-          color: AppColors.background1,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CustomHeader(
-              title: AppLocalizations.of(context)!.createCategory,
-              onCancelPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            GestureDetector(
-              onTap: _hideKeyboard,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Form(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 12),
-                      AddCategoryHorizontalCircleList(
-                        onItemSelected: (index) {
-                          setState(() {
-                            selectedIndex = index;
-                          });
-                        },
-                      ),
-                      const SizedBox(height: 12),
-                      CupertinoTextField(
-                        style: const TextStyle(
-                          color: Color.fromARGB(255, 252, 252, 254),
-                        ),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Color.fromARGB(255, 255, 255, 255),
-                            ),
-                          ),
-                        ),
-                        placeholder: AppLocalizations.of(context)!.category,
-                        placeholderStyle: const TextStyle(
-                            color: Color.fromARGB(144, 255, 255, 255)),
-                        controller: categoriaController,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(15),
-                        ],
-                        textCapitalization: TextCapitalization.sentences,
-                      ),
-                      const SizedBox(height: 32),
-                      Row(
-                        children: [
-                          Text(
-                            "${AppLocalizations.of(context)!.chooseColor} ",
-                            style: const TextStyle(
-                                color: AppColors.label, fontSize: 20),
-                          ),
-                          const SizedBox(width: 15),
-                          GestureDetector(
-                            onTap: () => _pickColor(context),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: _currentColor,
-                                border: Border.all(
-                                  color: AppColors.button,
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              height: 30,
-                              width: 30,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 32),
-Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 16),
-  child: SizedBox(
-    width: double.infinity,
-    child: CupertinoButton(
-      color: AppColors.button,
-      onPressed: () {
-        if (categoriaController.text.isNotEmpty) {
-          adicionar();
-          FocusScope.of(context).unfocus();
-          // Navigator.pop(context);
-        }
-      },
-      child: Text(
-        AppLocalizations.of(context)!.addCategory,
-        style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.label),
-      ),
-    ),
-  ),
-),
-const SizedBox(height: 40),
-Stack(
-  children: [
-    SizedBox(
-      height: MediaQuery.of(context).size.height - 550,
-      child: FutureBuilder<List<CategoryModel>>(
-        future: _futureCategories,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text("Error", style: TextStyle(color: Colors.white)));
-          } else if (snapshot.hasData) {
-            final categories = snapshot.data!;
-            if (categories.isEmpty) {
-              return Center(child: Text("No categories found", style: TextStyle(color: Colors.white)));
-            }
-            return ListView.separated(
-              padding: EdgeInsets.zero,
-              itemCount: categories.length - 1,
-              separatorBuilder: (context, index) => const SizedBox(height: 8),
-              itemBuilder: (context, index) {
-                final category = categories[index];
-                return Container(
-                  margin: EdgeInsets.only(left: 16, right: 16, top: index == 0 ? 30 : 8, bottom: index == categories.length - 2 ? 40 : 8),
-                  decoration: BoxDecoration(
-                    color: AppColors.card,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    leading: Icon(category.icon, color: category.color, size: 30),
-                    title: Text(TranslateService.getTranslatedCategoryUsingModel(context, category), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.redAccent),
-                      onPressed: () {
-                        FocusScope.of(context).unfocus();
-                        CategoryService().deleteCategory(category.id);
-                        setState(() {
-                          widget.onCategoryAdded();
-                          _futureCategories = CategoryService().getAllCategories();
-                        });
-                      },
-                    ),
-                  ),
-                );
-              },
-            );
-          } else {
-            return const SizedBox();
-          }
-        },
-      ),
-    ),
-    Positioned(
-      top: 0,
-      left: 0,
-      right: 0,
-      child: Container(
-        height: 40,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.background1,
-              AppColors.background1.withOpacity(0),
-            ],
-          ),
-        ),
-      ),
-    ),
-    Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: Container(
-        height: 50,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [
-              AppColors.background1,
-              AppColors.background1.withOpacity(0),
-            ],
-          ),
-        ),
-      ),
-    ),
-  ],
-)
-
-
-                    ],
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// class AddCategoryHorizontalCircleList extends StatefulWidget {
-//   final Function(int) onItemSelected;
-
-//   const AddCategoryHorizontalCircleList({
-//     super.key,
-//     required this.onItemSelected,
-//   });
+//   const Categorycreater({super.key, required this.onCategoryAdded});
 
 //   @override
-//   _AddCategoryHorizontalCircleListState createState() =>
-//       _AddCategoryHorizontalCircleListState();
+//   State<Categorycreater> createState() => _CategorycreaterState();
 // }
 
-// class _AddCategoryHorizontalCircleListState
-//     extends State<AddCategoryHorizontalCircleList> {
+// class _CategorycreaterState extends State<Categorycreater> with SingleTickerProviderStateMixin {
+//   late TextEditingController categoriaController;
+//   late Color _currentColor = Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
+//   late AnimationController _animationController;
+//   late Animation<double> _fadeAnimation;
+  
 //   int selectedIndex = 0;
+//   List<CategoryModel> _categories = [];
 
-//   final List<IconData> accountIcons = [
-//     // Alimentação
-//     Icons.restaurant, // Restaurante
-//     Icons.fastfood, // Comida rápida
-//     Icons.local_pizza, // Pizza ou delivery
-//     Icons.coffee, // Cafeteria ou bebidas
+//   @override
+//   void initState() {
+//     super.initState();
+//     categoriaController = TextEditingController();
+//     _loadCategories();
+    
+//     _animationController = AnimationController(
+//       duration: const Duration(milliseconds: 300),
+//       vsync: this,
+//     );
+    
+//     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+//       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+//     );
+    
+//     _animationController.forward();
+//   }
 
-//     // Transporte
-//     Icons.directions_car, // Carro
-//     Icons.local_taxi, // Táxi ou ride-share
-//     Icons.train, // Trem ou transporte público
-//     Icons.directions_bus, // Ônibus
-//     Icons.airplanemode_active, // Viagem de avião
-//     Icons.electric_bike, // Bicicleta elétrica ou transporte alternativo
+//   void _loadCategories() async {
+//     final categories = await CategoryService().getAllCategoriesAvaliable();
+//     setState(() {
+//       _categories = categories;
+//     });
+//   }
 
-//     // Compras
-//     Icons.shopping_cart, // Compras gerais
-//     Icons.shopping_bag, // Sacola de compras
-//     Icons.card_giftcard, // Presentes
-//     Icons.local_mall, // Shopping ou lojas
+//   @override
+//   void dispose() {
+//     categoriaController.dispose();
+//     _animationController.dispose();
+//     super.dispose();
+//   }
 
-//     // Entretenimento e lazer
-//     Icons.movie, // Cinema ou filmes
-//     Icons.sports_esports, // Jogos eletrônicos
-//     Icons.music_note, // Música
-//     Icons.theater_comedy, // Teatro ou eventos
-//     Icons.local_bar, // Bar ou festas
+//   void _hideKeyboard() {
+//     FocusScope.of(context).unfocus();
+//   }
 
-//     // Contas e serviços
-//     Icons.lightbulb, // Eletricidade
-//     Icons.water_drop, // Água
-//     Icons.wifi, // Internet
-//     Icons.phone, // Telefone
-//     Icons.home, // Aluguel ou hipoteca
+//   void _pickColor(BuildContext context) {
+//     showCupertinoModalPopup(
+//       context: context,
+//       builder: (BuildContext context) {
+//         return Container(
+//           height: 420,
+//           padding: const EdgeInsets.all(20),
+//           decoration: const BoxDecoration(
+//             color: AppColors.card,
+//             borderRadius: BorderRadius.only(
+//               topLeft: Radius.circular(24),
+//               topRight: Radius.circular(24),
+//             ),
+//           ),
+//           child: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               Container(
+//                 width: 40,
+//                 height: 4,
+//                 decoration: BoxDecoration(
+//                   color: Colors.white.withOpacity(0.3),
+//                   borderRadius: BorderRadius.circular(2),
+//                 ),
+//               ),
+//               const SizedBox(height: 20),
+//               Text(
+//                 AppLocalizations.of(context)!.chooseColor,
+//                 style: const TextStyle(
+//                   fontSize: 18,
+//                   fontWeight: FontWeight.bold,
+//                   color: Colors.white,
+//                 ),
+//               ),
+//               const SizedBox(height: 20),
+//               ColorPicker(
+//                 pickerColor: _currentColor,
+//                 onColorChanged: (Color color) {
+//                   setState(() {
+//                     _currentColor = color;
+//                   });
+//                 },
+//                 showLabel: false,
+//                 pickerAreaHeightPercent: 0.6,
+//                 displayThumbColor: false,
+//                 enableAlpha: false,
+//                 paletteType: PaletteType.hsv,
+//                 pickerAreaBorderRadius: const BorderRadius.all(Radius.circular(12)),
+//               ),
+//               const SizedBox(height: 16),
+//               SizedBox(
+//                 width: double.infinity,
+//                 height: 48,
+//                 child: CupertinoButton(
+//                   color: AppColors.button,
+//                   borderRadius: BorderRadius.circular(12),
+//                   padding: EdgeInsets.zero,
+//                   onPressed: () => Navigator.of(context).pop(),
+//                   child: Text(
+//                     AppLocalizations.of(context)!.select,
+//                     style: const TextStyle(
+//                       color: Colors.white,
+//                       fontSize: 16,
+//                       fontWeight: FontWeight.w600,
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         );
+//       },
+//     );
+//   }
 
-//     // Saúde e bem-estar
-//     Icons.health_and_safety, // Saúde geral
-//     Icons.medical_services, // Serviços médicos
-//     Icons.fitness_center, // Academia
-//     Icons.spa, // Bem-estar ou estética
+//   void adicionar() async {
+//     // Busca todas as categorias antes de adicionar
+//     List<CategoryModel> allCategories = await CategoryService().getAllCategories();
+    
+//     // Separa AddCategory
+//     List<CategoryModel> withoutAddCategory = allCategories
+//         .where((cat) => cat.id != 'AddCategory')
+//         .toList();
+    
+//     CategoryModel? addCategory = allCategories.firstWhere(
+//       (cat) => cat.id == 'AddCategory',
+//       orElse: () => CategoryModel(
+//         id: 'AddCategory',
+//         color: AppColors.button,
+//         icon: Icons.add,
+//         name: 'AddCategory',
+//         frequency: 0,
+//       ),
+//     );
 
-//     // Educação
-//     Icons.school, // Educação ou cursos
-//     Icons.menu_book, // Livros ou materiais de estudo
-//     Icons.laptop, // Cursos online ou tecnologia
+//     // Cria nova categoria
+//     CategoryModel category = CategoryModel(
+//       id: const Uuid().v4(),
+//       color: _currentColor,
+//       icon: accountIcons[selectedIndex],
+//       name: categoriaController.text,
+//       frequency: 0,
+//     );
 
-//     // Família e cuidado pessoal
-//     Icons.child_friendly, // Crianças
-//     Icons.pets, // Animais de estimação
-//     Icons.cleaning_services, // Limpeza
-//     Icons.baby_changing_station, // Produtos para bebês
+//     // Adiciona a nova categoria antes de AddCategory
+//     withoutAddCategory.add(category);
+//     List<CategoryModel> newOrderedList = [...withoutAddCategory, addCategory];
+    
+//     // Salva a nova ordem completa
+//     await CategoryService().saveOrderedCategories(newOrderedList);
+//     widget.onCategoryAdded();
+    
+//     categoriaController.clear();
+    
+//     // Atualiza o estado diretamente sem piscar
+//     setState(() {
+//       _currentColor = Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
+//       selectedIndex = 0;
+//       _categories = newOrderedList;
+//     });
+//   }
 
-//     // Economia e investimentos
-//     Icons.attach_money, // Dinheiro
-//     Icons.savings, // Poupança
-//     Icons.trending_up, // Investimentos
-//     Icons.money_off, // Gastos inesperados
-
-//     // Viagens e turismo
-//     Icons.hotel, // Hospedagem
-//     Icons.beach_access, // Praia ou férias
-//     Icons.map, // Turismo
-
-//     // Outras categorias
-//     Icons.construction, // Manutenção ou reparos
-//     Icons.work, // Trabalho
-//     Icons.volunteer_activism, // Doações
-//     Icons.local_florist, // Flores ou jardinagem
-//     Icons.cake, // Festas ou celebrações
-//     Icons.devices, // Eletrônicos
-//   ];
+// Future<void> _reorderCategories(int oldIndex, int newIndex) async {
+//   // Ajusta o índice
+//   if (newIndex > oldIndex) {
+//     newIndex -= 1;
+//   }
+  
+//   // Trabalha com a lista local _categories em vez de buscar do SharedPreferences
+//   List<CategoryModel> withoutAddCategory = _categories
+//       .where((cat) => cat.id != 'AddCategory')
+//       .toList();
+  
+//   CategoryModel? addCategory = _categories.firstWhere(
+//     (cat) => cat.id == 'AddCategory',
+//     orElse: () => CategoryModel(
+//       id: 'AddCategory',
+//       color: AppColors.button,
+//       icon: Icons.add,
+//       name: 'AddCategory',
+//       frequency: 0,
+//     ),
+//   );
+  
+//   // Reordena apenas as categorias sem AddCategory
+//   final item = withoutAddCategory.removeAt(oldIndex);
+//   withoutAddCategory.insert(newIndex, item);
+  
+//   // Reconstroi a lista completa: categorias reordenadas + AddCategory no final
+//   List<CategoryModel> newOrderedList = [...withoutAddCategory, addCategory];
+  
+//   // Atualiza o estado IMEDIATAMENTE (sem await)
+//   setState(() {
+//     _categories = newOrderedList;
+//   });
+  
+//   // Salva em background (sem bloquear a UI)
+//   CategoryService().saveOrderedCategories(newOrderedList).then((_) {
+//     widget.onCategoryAdded();
+//   });
+  
+//   HapticFeedback.mediumImpact();
+// }
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return SizedBox(
-//       height: 60,
-//       child: ListView.builder(
-//         scrollDirection: Axis.horizontal,
-//         itemCount: accountIcons.length,
-//         itemBuilder: (context, index) {
-//           return GestureDetector(
-//             onTap: () {
-//               setState(() {
-//                 selectedIndex = index;
-//               });
-//               widget.onItemSelected(index);
-//             },
-//             child: Column(
-//               mainAxisSize: MainAxisSize.min,
-//               children: [
-//                 Container(
-//                   width: 50,
-//                   height: 50,
-//                   margin: const EdgeInsets.symmetric(horizontal: 8),
-//                   decoration: BoxDecoration(
-//                     color: selectedIndex == index
-//                         ? AppColors.buttonSelected
-//                         : AppColors.buttonDeselected,
-//                     shape: BoxShape.circle,
-//                   ),
-//                   child: Icon(accountIcons[index]),
-//                 ),
-//               ],
+//     return Material(
+//       color: Colors.transparent,
+//       child: FadeTransition(
+//         opacity: _fadeAnimation,
+//         child: Container(
+//           decoration: const BoxDecoration(
+//             color: AppColors.background1,
+//             borderRadius: BorderRadius.only(
+//               topLeft: Radius.circular(24),
+//               topRight: Radius.circular(24),
 //             ),
-//           );
-//         },
+//           ),
+//           child: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               // Header maior e sem sombra
+//               Container(
+//                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+//                 decoration: BoxDecoration(
+//                   color: AppColors.card.withOpacity(0.5),
+//                   borderRadius: const BorderRadius.only(
+//                     topLeft: Radius.circular(24),
+//                     topRight: Radius.circular(24),
+//                   ),
+//                 ),
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                   children: [
+//                     CupertinoButton(
+//                       padding: EdgeInsets.zero,
+//                       minSize: 0,
+//                       onPressed: () => Navigator.pop(context),
+//                       child: const Icon(
+//                         CupertinoIcons.xmark_circle_fill,
+//                         color: Colors.white54,
+//                         size: 24,
+//                       ),
+//                     ),
+//                     Text(
+//                       AppLocalizations.of(context)!.createCategory,
+//                       style: const TextStyle(
+//                         fontSize: 17,
+//                         fontWeight: FontWeight.bold,
+//                         color: Colors.white,
+//                       ),
+//                     ),
+//                     const SizedBox(width: 24),
+//                   ],
+//                 ),
+//               ),
+
+//               // Conteúdo principal - tudo em um scroll
+//               Expanded(
+//                 child: SingleChildScrollView(
+//                   padding: const EdgeInsets.all(16),
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       // Seletor de ícones
+//                       AddCategoryHorizontalCircleList(
+//                         onItemSelected: (index) {
+//                           setState(() {
+//                             selectedIndex = index;
+//                           });
+//                           HapticFeedback.lightImpact();
+//                         },
+//                       ),
+                      
+//                       const SizedBox(height: 16),
+                      
+//                       // Campo de nome da categoria
+//                       Container(
+//                         decoration: BoxDecoration(
+//                           color: AppColors.card,
+//                           borderRadius: BorderRadius.circular(12),
+//                         ),
+//                         child: CupertinoTextField(
+//                           style: const TextStyle(
+//                             color: Colors.white,
+//                             fontSize: 16,
+//                           ),
+//                           decoration: BoxDecoration(
+//                             color: AppColors.card,
+//                             borderRadius: BorderRadius.circular(12),
+//                           ),
+//                           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+//                           placeholder: AppLocalizations.of(context)!.category,
+//                           placeholderStyle: TextStyle(
+//                             color: Colors.white.withOpacity(0.4),
+//                             fontSize: 16,
+//                           ),
+//                           controller: categoriaController,
+//                           inputFormatters: [
+//                             LengthLimitingTextInputFormatter(15),
+//                           ],
+//                           textCapitalization: TextCapitalization.sentences,
+//                         ),
+//                       ),
+                      
+//                       const SizedBox(height: 12),
+                      
+//                       // Seletor de cor compacto sem sombra
+//                       Container(
+//                         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+//                         decoration: BoxDecoration(
+//                           color: AppColors.card,
+//                           borderRadius: BorderRadius.circular(12),
+//                         ),
+//                         child: Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Text(
+//                               AppLocalizations.of(context)!.chooseColor,
+//                               style: const TextStyle(
+//                                 color: Colors.white,
+//                                 fontSize: 16,
+//                                 fontWeight: FontWeight.w500,
+//                               ),
+//                             ),
+//                             GestureDetector(
+//                               onTap: () {
+//                                 _pickColor(context);
+//                                 HapticFeedback.lightImpact();
+//                               },
+//                               child: Container(
+//                                 decoration: BoxDecoration(
+//                                   color: _currentColor,
+//                                   borderRadius: BorderRadius.circular(8),
+//                                   border: Border.all(
+//                                     color: Colors.white.withOpacity(0.2),
+//                                     width: 2,
+//                                   ),
+//                                 ),
+//                                 height: 36,
+//                                 width: 36,
+//                                 child: Icon(
+//                                   CupertinoIcons.eyedropper,
+//                                   color: _currentColor.computeLuminance() > 0.5 
+//                                       ? Colors.black54 
+//                                       : Colors.white70,
+//                                   size: 18,
+//                                 ),
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+                      
+//                       const SizedBox(height: 12),
+                      
+//                       // Botão adicionar
+//                       SizedBox(
+//                         width: double.infinity,
+//                         height: 48,
+//                         child: CupertinoButton(
+//                           color: AppColors.button,
+//                           borderRadius: BorderRadius.circular(12),
+//                           padding: EdgeInsets.zero,
+//                           onPressed: () {
+//                             if (categoriaController.text.isNotEmpty) {
+//                               adicionar();
+//                               HapticFeedback.mediumImpact();
+//                               _hideKeyboard();
+//                             }
+//                           },
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.center,
+//                             children: [
+//                               const Icon(CupertinoIcons.add_circled, size: 18),
+//                               const SizedBox(width: 8),
+//                               Text(
+//                                 AppLocalizations.of(context)!.addCategory,
+//                                 style: const TextStyle(
+//                                   fontWeight: FontWeight.w600,
+//                                   color: Colors.white,
+//                                   fontSize: 16,
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       ),
+                      
+//                       const SizedBox(height: 12),
+//                       const Divider(),
+//                       const SizedBox(height: 12),
+                      
+//                       // Lista de categorias sem sombras
+//                       Container(
+//                         decoration: BoxDecoration(
+//                           color: AppColors.card.withOpacity(0.3),
+//                           borderRadius: BorderRadius.circular(12),
+//                         ),
+//                         child: _categories.isEmpty || _categories.length <= 1
+//                             ? Center(
+//                                 child: Padding(
+//                                   padding: const EdgeInsets.all(20),
+//                                   child: Column(
+//                                     mainAxisSize: MainAxisSize.min,
+//                                     children: [
+//                                       Icon(
+//                                         CupertinoIcons.square_stack_3d_up,
+//                                         size: 40,
+//                                         color: Colors.white.withOpacity(0.3),
+//                                       ),
+//                                       const SizedBox(height: 8),
+//                                       Text(
+//                                         "Nenhuma categoria criada",
+//                                         style: TextStyle(
+//                                           color: Colors.white.withOpacity(0.5),
+//                                           fontSize: 13,
+//                                         ),
+//                                       ),
+//                                     ],
+//                                   ),
+//                                 ),
+//                               )
+//                             : Column(
+//                                 crossAxisAlignment: CrossAxisAlignment.start,
+//                                 mainAxisSize: MainAxisSize.min,
+//                                 children: [
+//                                   Padding(
+//                                     padding: const EdgeInsets.fromLTRB(12, 10, 12, 8),
+//                                     child: Row(
+//                                       children: [
+//                                         Icon(
+//                                           CupertinoIcons.list_bullet,
+//                                           size: 16,
+//                                           color: Colors.white.withOpacity(0.6),
+//                                         ),
+//                                         const SizedBox(width: 6),
+//                                         Text(
+//                                           "Minhas Categorias",
+//                                           style: TextStyle(
+//                                             color: Colors.white.withOpacity(0.6),
+//                                             fontSize: 13,
+//                                             fontWeight: FontWeight.w600,
+//                                           ),
+//                                         ),
+//                                         const Spacer(),
+//                                         Icon(
+//                                           CupertinoIcons.arrow_up_arrow_down,
+//                                           size: 14,
+//                                           color: Colors.white.withOpacity(0.4),
+//                                         ),
+//                                       ],
+//                                     ),
+//                                   ),
+//                                   // Lista sem scroll, usa o scroll do pai
+//                                   ReorderableListView.builder(
+//                                     shrinkWrap: true,
+//                                     physics: const NeverScrollableScrollPhysics(),
+//                                     padding: const EdgeInsets.only(bottom: 14, left: 10, right: 10),
+//                                     buildDefaultDragHandles: false,
+//                                     itemCount: _categories.length - 1,
+//                                     onReorder: _reorderCategories,
+//                                     proxyDecorator: (child, index, animation) {
+//                                       return Material(
+//                                         color: Colors.transparent,
+//                                         child: child,
+//                                       );
+//                                     },
+//                                     itemBuilder: (context, index) {
+//                                       final category = _categories[index];
+//                                       return Container(
+//                                         key: ValueKey(category.id),
+//                                         margin: const EdgeInsets.only(bottom: 10),
+//                                         decoration: BoxDecoration(
+//                                           color: AppColors.card,
+//                                           borderRadius: BorderRadius.circular(14),
+//                                         ),
+//                                         child: Padding(
+//                                           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+//                                           child: Row(
+//                                             children: [
+//                                               // Drag handle - ÁREA MAIOR E MAIS CLICÁVEL
+//                                               ReorderableDragStartListener(
+//                                                 index: index,
+//                                                 child: Container(
+//                                                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//                                                   margin: const EdgeInsets.only(right: 4),
+//                                                   child: Icon(
+//                                                     CupertinoIcons.line_horizontal_3,
+//                                                     color: Colors.white.withOpacity(0.4),
+//                                                     size: 30,
+//                                                   ),
+//                                                 ),
+//                                               ),
+//                                               // Ícone da categoria - FUNDO PRETO
+//                                               Container(
+//                                                 width: 40,
+//                                                 height: 40,
+//                                                 decoration: BoxDecoration(
+//                                                   color: Colors.black.withOpacity(0.4),
+//                                                   borderRadius: BorderRadius.circular(8)
+//                                                 ),
+//                                                 child: Icon(
+//                                                   category.icon,
+//                                                   color: category.color,
+//                                                   size: 20,
+//                                                 ),
+//                                               ),
+//                                               const SizedBox(width: 14),
+//                                               // Nome da categoria
+//                                               Expanded(
+//                                                 child: Text(
+//                                                   TranslateService.getTranslatedCategoryUsingModel(
+//                                                     context,
+//                                                     category,
+//                                                   ),
+//                                                   style: const TextStyle(
+//                                                     color: Colors.white,
+//                                                     fontWeight: FontWeight.w600,
+//                                                     fontSize: 16,
+//                                                     letterSpacing: 0.2,
+//                                                   ),
+//                                                   overflow: TextOverflow.ellipsis,
+//                                                 ),
+//                                               ),
+//                                               // Botão deletar
+//                                               CupertinoButton(
+//                                                 padding: const EdgeInsets.all(8),
+//                                                 minSize: 0,
+//                                                 onPressed: () async {
+//                                                   _hideKeyboard();
+//                                                   final shouldDelete = await showCupertinoDialog<bool>(
+//                                                     context: context,
+//                                                     builder: (context) => CupertinoAlertDialog(
+//                                                       title: const Text("Excluir categoria"),
+//                                                       content: const Text(
+//                                                         "Tem certeza que deseja excluir esta categoria?",
+//                                                       ),
+//                                                       actions: [
+//                                                         CupertinoDialogAction(
+//                                                           child: const Text("Cancelar"),
+//                                                           onPressed: () => Navigator.pop(context, false),
+//                                                         ),
+//                                                         CupertinoDialogAction(
+//                                                           isDestructiveAction: true,
+//                                                           onPressed: () => Navigator.pop(context, true),
+//                                                           child: const Text("Excluir"),
+//                                                         ),
+//                                                       ],
+//                                                     ),
+//                                                   );
+                                                  
+//                                                   if (shouldDelete == true) {
+//                                                     await CategoryService().deleteCategory(category.id);
+//                                                     widget.onCategoryAdded();
+                                                    
+//                                                     // Recarrega as categorias
+//                                                     final updatedCategories = await CategoryService().getAllCategoriesAvaliable();
+//                                                     setState(() {
+//                                                       _categories = updatedCategories;
+//                                                     });
+//                                                     HapticFeedback.mediumImpact();
+//                                                   }
+//                                                 },
+//                                                 child: Container(
+//                                                   padding: const EdgeInsets.all(8),
+//                                                   decoration: BoxDecoration(
+//                                                     color: Colors.redAccent.withOpacity(0.1),
+//                                                     borderRadius: BorderRadius.circular(10),
+//                                                   ),
+//                                                   child: const Icon(
+//                                                     CupertinoIcons.trash,
+//                                                     color: Colors.redAccent,
+//                                                     size: 20,
+//                                                   ),
+//                                                 ),
+//                                               ),
+//                                               const SizedBox(width: 4),
+//                                             ],
+//                                           ),
+//                                         ),
+//                                       );
+//                                     },
+//                                   ),
+//                                 ],
+//                               ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
 //       ),
 //     );
 //   }

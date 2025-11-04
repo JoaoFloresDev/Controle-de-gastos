@@ -15,7 +15,6 @@ class CategoryService {
     List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
     categories.add(jsonEncode(category.toJson()));
     await prefs.setStringList(_categoriesKey, categories);
-    // }
   }
 
   Future<void> deleteCategory(String id) async {
@@ -31,10 +30,33 @@ class CategoryService {
     }).toList();
 
     await prefs.setStringList(_categoriesKey, updatedCategories);
-    // }
   }
 
-final List<CategoryModel> defaultCategories = [
+  Future<void> updateCategory(CategoryModel category) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
+
+    List<String> updatedCategories = categories.map((cat) {
+      final Map<String, dynamic> categoryMap = jsonDecode(cat);
+      if (categoryMap['id'] == category.id) {
+        return jsonEncode(category.toJson());
+      }
+      return cat;
+    }).toList();
+
+    await prefs.setStringList(_categoriesKey, updatedCategories);
+  }
+
+  // Salva a ordem completa das categorias
+  Future<void> saveOrderedCategories(List<CategoryModel> categories) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> categoriesJson = categories
+        .map((category) => jsonEncode(category.toJson()))
+        .toList();
+    await prefs.setStringList(_categoriesKey, categoriesJson);
+  }
+
+  final List<CategoryModel> defaultCategories = [
     CategoryModel(
       id: 'Shopping',
       color: const Color(0xFF00E676), // Verde neon
@@ -44,28 +66,28 @@ final List<CategoryModel> defaultCategories = [
     ),
     CategoryModel(
       id: 'Home',
-      color: const Color(0xFF7C4DFF), // Amarelo vibrante
+      color: const Color(0xFF7C4DFF), // Roxo
       icon: Icons.home,
       name: 'Home',
       frequency: 0,
     ),
     CategoryModel(
       id: 'Transport',
-      color: const Color(0xFF2979FF), // Púrpura profundo
+      color: const Color(0xFF2979FF), // Azul
       icon: Icons.directions_car_outlined,
       name: 'Transport',
       frequency: 0,
     ),
     CategoryModel(
       id: 'Restaurant',
-      color: const Color(0xFFB39DDB), // Laranja intenso
+      color: const Color(0xFFB39DDB), // Lavanda
       icon: Icons.restaurant,
       name: 'Restaurant',
       frequency: 0,
     ),
     CategoryModel(
       id: 'Hospital',
-      color: const Color(0xFFFF1744), // Rosa pink vibrante
+      color: const Color(0xFFFF1744), // Vermelho
       icon: Icons.local_hospital,
       name: 'Hospital',
       frequency: 0,
@@ -79,33 +101,33 @@ final List<CategoryModel> defaultCategories = [
     ),
     CategoryModel(
       id: 'Drink',
-      color: const Color(0xFFFF6E40), // Magenta neon
+      color: const Color(0xFFFF6E40), // Laranja
       icon: Icons.local_drink_outlined,
       name: 'Drink',
       frequency: 0,
     ),
     CategoryModel(
       id: 'ShoppingBasket',
-      color: const Color(0xFF00E5FF), // Ciano elétrico
+      color: const Color(0xFF00E5FF), // Ciano
       icon: Icons.shopping_basket,
       name: 'ShoppingBasket',
       frequency: 0,
     ),
-        CategoryModel(
+    CategoryModel(
       id: 'CreditCard',
-      color: const Color(0xFFFF4081), // Azul ciano
+      color: const Color(0xFFFF4081), // Rosa
       icon: Icons.credit_card,
       name: 'Credit Card',
       frequency: 0,
     ),
-        CategoryModel(
+    CategoryModel(
       id: 'Education',
-      color: const Color(0xFFD4A574), // Verde menta brilhante
+      color: const Color(0xFFD4A574), // Bege
       icon: Icons.school_outlined,
       name: 'Education',
       frequency: 0,
     ),
-        CategoryModel(
+    CategoryModel(
       id: 'Phone',
       color: const Color(0xFF00BFA5), // Turquesa
       icon: Icons.phone,
@@ -121,14 +143,14 @@ final List<CategoryModel> defaultCategories = [
     ),
     CategoryModel(
       id: 'VideoGame',
-      color: const Color(0xFFD500F9), // Laranja coral
+      color: const Color(0xFFD500F9), // Magenta
       icon: Icons.videogame_asset,
       name: 'VideoGame',
       frequency: 0,
     ),
     CategoryModel(
       id: 'Unknown',
-      color: const Color(0xFF9E9E9E), // Cinza neutro
+      color: const Color(0xFF9E9E9E), // Cinza
       icon: Icons.question_mark_rounded,
       name: 'Unknown',
       frequency: 0,
@@ -138,7 +160,7 @@ final List<CategoryModel> defaultCategories = [
       color: AppColors.button,
       icon: Icons.add,
       name: 'AddCategory',
-      frequency: -10,
+      frequency: 0,
     ),
   ];
 
@@ -151,18 +173,15 @@ final List<CategoryModel> defaultCategories = [
       for (var category in defaultCategories) {
         await addCategory(category);
       }
-      return defaultCategories
-        ..sort((a, b) => b.frequency.compareTo(a.frequency));
+      return defaultCategories;
     } else {
       List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
       List<CategoryModel> aux = categories.map((category) {
         final Map<String, dynamic> categoryMap = jsonDecode(category);
         return CategoryModel.fromJson(categoryMap);
       }).toList();
-      aux.sort((a, b) => b.frequency.compareTo(a.frequency));
       return aux;
     }
-    // }
   }
 
   Future<List<CategoryModel>> getAllCategoriesAvaliable() async {
@@ -206,7 +225,6 @@ final List<CategoryModel> defaultCategories = [
   }
 
   Future<CategoryModel?> getCategoryWithHighestFrequency() async {
-
     List<CategoryModel> categories = await getAllCategories();
 
     if (categories.isEmpty) return null;

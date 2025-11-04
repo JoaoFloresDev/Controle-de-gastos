@@ -191,7 +191,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
             right: 0,
             child: IgnorePointer(
               child: Container(
-                height: 80, // Altura do gradiente
+                height: 60, // Altura do gradiente
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
@@ -252,7 +252,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
                 right: 0,
                 child: IgnorePointer(
                   child: Container(
-                    height: 80, // Altura do gradiente
+                    height: 24, // Altura do gradiente
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.bottomCenter,
