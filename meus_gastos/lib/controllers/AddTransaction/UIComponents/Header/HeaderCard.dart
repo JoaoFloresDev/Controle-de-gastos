@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/UI/criar_gastosFixos.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/CriarGastosFixos.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/services/CardService.dart' as service;
