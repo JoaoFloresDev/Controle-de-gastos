@@ -5,7 +5,6 @@ import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/firebase/SaveFixedExpenseOnClound.dart';
-import 'package:meus_gastos/services/firebase/SaveExpensOnCloud.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SyncService {
@@ -23,8 +22,8 @@ class SyncService {
     // 🔹 2. Baixa os dados do Firebase
     List<FixedExpense> remoteFixedExpenses =
         await SaveFixedExpenseOnClound().fetchCardsFixedCards();
-    List<CardModel> remoteNormalExpenses =
-        await SaveExpensOnCloud().fetchCards(userId);
+    List<CardModel> remoteNormalExpenses = [];
+    // await SaveExpensOnCloud().fetchCards(userId);
     if (localNormalExpenses != remoteNormalExpenses)
       print("É DIFERENTE");
     else

@@ -45,7 +45,6 @@ class TransactionsRepositoryRemote implements ITransactionsRepository {
   Future<List<CardModel>> retrieve() async {
     try {
       if (userId == null) return [];
-      print("Chegou aqui e o usuário é: $userId");
       QuerySnapshot snapshot = await FirebaseService()
           .firestore
           .collection(userId)
@@ -55,7 +54,7 @@ class TransactionsRepositoryRemote implements ITransactionsRepository {
 
       return snapshot.docs
           .map((doc) => CardModel.fromJson(doc.data() as Map<String, dynamic>))
-          .toList();
+          .toList()..sort((a, b) => a.date.compareTo(b.date));
     } catch (e) {
       print('Erro ao buscar cartões: $e');
       return [];

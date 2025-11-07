@@ -1,7 +1,9 @@
+import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'dart:io';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCardRecorrent.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -146,9 +148,9 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
       category: selectedCategory, // Use the actual selected category
       id: CardService.generateUniqueId(),
     );
-
-    CardService().addCard(newCard);
-    await CategoryService().incrementCategoryFrequency(selectedCategory.id);
+    // CardService().addCard(newCard);
+    // await CategoryService().incrementCategoryFrequency(selectedCategory.id);
+    context.read<TransactionsViewModel>().addCard(newCard);
 
     setState(() {
       valorController.updateValue(0.0);

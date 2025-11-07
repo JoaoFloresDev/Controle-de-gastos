@@ -11,7 +11,6 @@ class LoginButtonScrean extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer2<LoginViewModel, ProManeger>(
         builder: (context, loginViewModel, proManeger, child) {
-      print("Consumer2 rebuildou: isLogin = ${loginViewModel.isLogin}");
       return GestureDetector(
         onTap: () async {
           if (loginViewModel.isLogin)

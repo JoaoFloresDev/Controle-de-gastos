@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:meus_gastos/controllers/Dashboards/DashboardViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +31,7 @@ import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgress
 
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
+
   const DashboardScreen({Key? key, this.isActive = false}) : super(key: key);
 
   @override
@@ -38,51 +40,48 @@ class DashboardScreen extends StatefulWidget {
 
 class DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
-  bool _isPro = false;
   final GlobalKey<TotalSpentCarouselWithTitlesState> insights =
       GlobalKey<TotalSpentCarouselWithTitlesState>();
 
   
-  List<ProgressIndicatorModel> progressIndicators2 = [
-    ProgressIndicatorModel(
-      title: "Alimentação",
-      progress: 400,
-      category: CategoryModel(
-        id: "1",
-        name: "Alimentação",
-        color: Color.fromARGB(255, 41, 40, 40),
-        icon: CupertinoIcons.cart,
-        frequency: 5,
-      ),
-      color: Color.fromARGB(255, 41, 40, 40),
-    ),
-    ProgressIndicatorModel(
-      title: "Transporte",
-      progress: 200,
-      category: CategoryModel(
-        id: "2",
-        name: "Transporte",
-        color: Color.fromARGB(255, 41, 40, 40),
-        icon: CupertinoIcons.car,
-        frequency: 3,
-      ),
-      color: Color.fromARGB(255, 41, 40, 40),
-    ),
-    ProgressIndicatorModel(
-      title: "Lazer",
-      progress: 300,
-      category: CategoryModel(
-        id: "3",
-        name: "Lazer",
-        color: Color.fromARGB(255, 41, 40, 40),
-        icon: CupertinoIcons.smiley,
-        frequency: 2,
-      ),
-      color: Color.fromARGB(255, 41, 40, 40),
-    ),
-  ];
-
-  
+  // List<ProgressIndicatorModel> progressIndicators2 = [
+  //   ProgressIndicatorModel(
+  //     title: "Alimentação",
+  //     progress: 400,
+  //     category: CategoryModel(
+  //       id: "1",
+  //       name: "Alimentação",
+  //       color: Color.fromARGB(255, 41, 40, 40),
+  //       icon: CupertinoIcons.cart,
+  //       frequency: 5,
+  //     ),
+  //     color: Color.fromARGB(255, 41, 40, 40),
+  //   ),
+  //   ProgressIndicatorModel(
+  //     title: "Transporte",
+  //     progress: 200,
+  //     category: CategoryModel(
+  //       id: "2",
+  //       name: "Transporte",
+  //       color: Color.fromARGB(255, 41, 40, 40),
+  //       icon: CupertinoIcons.car,
+  //       frequency: 3,
+  //     ),
+  //     color: Color.fromARGB(255, 41, 40, 40),
+  //   ),
+  //   ProgressIndicatorModel(
+  //     title: "Lazer",
+  //     progress: 300,
+  //     category: CategoryModel(
+  //       id: "3",
+  //       name: "Lazer",
+  //       color: Color.fromARGB(255, 41, 40, 40),
+  //       icon: CupertinoIcons.smiley,
+  //       frequency: 2,
+  //     ),
+  //     color: Color.fromARGB(255, 41, 40, 40),
+  //   ),
+  // ];
 
   final PageController _pageController = PageController();
   // int _currentIndex = 0;
@@ -93,31 +92,23 @@ class DashboardScreenState extends State<DashboardScreen>
   @override
   void initState() {
     super.initState();
-    _onScreenDisplayed();
+    // _onScreenDisplayed();
   }
 
   void inicializeDashboard() {
     // _currentIndex = 0;
-    _onScreenDisplayed();
+    // _onScreenDisplayed();
   }
 
-
-  Future<void> _onScreenDisplayed() async {
-    if (widget.isActive) {
-      await _loadInitialData();
-    }
-    totalexpens = await CardService.getTotalExpenses(currentDate);
-  }
+  // Future<void> _onScreenDisplayed() async {
+  //   if (widget.isActive) {
+  //     await _loadInitialData();
+  //   }
+  //   totalexpens = await CardService.getTotalExpenses(currentDate);
+  // }
 
   Future<void> _loadInitialData() async {
-    await _loadProgressIndicators(currentDate);
-  }
-
-  void _changeMonth(int delta) {
-    setState(() {
-      currentDate = DateTime(currentDate.year, currentDate.month + delta);
-      _loadProgressIndicators(currentDate);
-    });
+    // await _loadProgressIndicators(currentDate);
   }
 
   void _onPageChanged(int index) {
@@ -130,7 +121,7 @@ class DashboardScreenState extends State<DashboardScreen>
   
 
   void refreshData() {
-    _onScreenDisplayed();
+    // _onScreenDisplayed();
     _loadInitialData();
   }
 
@@ -138,17 +129,17 @@ class DashboardScreenState extends State<DashboardScreen>
     return BannerAdFactory().build();
   }
 
-  Widget _buildMonthSelector() {
+  Widget _buildMonthSelector(DashboardViewModel dashboardVM) {
     return MonthSelector(
-      currentDate: currentDate,
-      onChangeMonth: _changeMonth,
+      currentDate: dashboardVM.currentDate,
+      onChangeMonth: dashboardVM.changeMonth,
     );
   }
 
-  double _calculatePageHeight() {
+  double _calculatePageHeight(DashboardViewModel dashboardVM) {
     double baseHeight = 300;
     double heightPerLine = 40;
-    List<String> labels = pieChartDataItems.map((item) => item.label).toList();
+    List<String> labels = dashboardVM.pieChartDataItems.map((item) => item.label).toList();
     int calculateLines(List<String> labels) {
       int lines = 0;
       int i = 0;
@@ -162,6 +153,7 @@ class DashboardScreenState extends State<DashboardScreen>
         }
         lines++;
       }
+
       return lines;
     }
 
@@ -174,12 +166,12 @@ class DashboardScreenState extends State<DashboardScreen>
     return pageHeight;
   }
 
-  Widget _buildTotalSpentCarousel() {
+  Widget _buildTotalSpentCarousel(DashboardViewModel dashboardVM) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12),
       child: SizedBox(
         height: 520,
-        child: totalGasto == 0
+        child: dashboardVM.totalGasto == 0
             ? Container(
                 margin:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -235,13 +227,14 @@ class DashboardScreenState extends State<DashboardScreen>
                   ],
                 ),
               )
-            : TotalSpentCarouselWithTitles(currentDate: currentDate),
+            : TotalSpentCarouselWithTitles(currentDate: dashboardVM.currentDate),
       ),
     );
   }
 
-  Widget _buildPageView() {
-    double pageHeight = _calculatePageHeight();
+  Widget _buildPageView(DashboardViewModel dashboardVM) {
+    double pageHeight = _calculatePageHeight(dashboardVM);
+    print(" Consumer rebuildou! Total de categorias: ${dashboardVM.cards.length}");
     return SizedBox(
       height: pageHeight,
       child: PageView(
@@ -252,23 +245,23 @@ class DashboardScreenState extends State<DashboardScreen>
             padding:
                 const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
             child: DashboardCard(
-              items: pieChartDataItems,
+              items: dashboardVM.pieChartDataItems,
             ),
           ),
           Padding(
             padding:
                 const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
             child: WeeklyStackedBarChart(
-              weekIntervals: Last5WeeksIntervals,
-              weeklyData: Last5WeeksProgressIndicators,
+              weekIntervals: dashboardVM.Last5WeeksIntervals,
+              weeklyData: dashboardVM.Last5WeeksProgressIndicators,
             ),
           ),
           Padding(
             padding:
                 const EdgeInsets.only(left: 8.0, right: 8.0, top: 4, bottom: 8),
             child: DailyStackedBarChart(
-              last5weewdailyData: weeklyData,
-              last5WeeksIntervals: Last5WeeksIntervals,
+              last5weewdailyData: dashboardVM.weeklyData,
+              last5WeeksIntervals: dashboardVM.Last5WeeksIntervals,
             ),
           ),
         ],
@@ -315,8 +308,8 @@ class DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-  Widget _buildProgressIndicators(BuildContext context) {
-    if (progressIndicators.isEmpty) {
+  Widget _buildProgressIndicators(BuildContext context, DashboardViewModel dashboardVM) {
+    if (dashboardVM.progressIndicators.isEmpty) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -354,12 +347,12 @@ class DashboardScreenState extends State<DashboardScreen>
           ),
         ),
         const SizedBox(height: 8),
-        for (var progressIndicator in progressIndicators)
+        for (var progressIndicator in dashboardVM.progressIndicators)
           GestureDetector(
-            onTap: () => _showExpenseDetails(context, progressIndicator),
+            onTap: () => _showExpenseDetails(context, progressIndicator, dashboardVM),
             child: LinearProgressIndicatorSection(
               model: progressIndicator,
-              totalAmount: progressIndicators.fold(
+              totalAmount: dashboardVM.progressIndicators.fold(
                   0,
                   (maxValue, item) =>
                       maxValue > item.progress ? maxValue : item.progress),
@@ -369,7 +362,7 @@ class DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-  void _showExpenseDetails(BuildContext context, ProgressIndicatorModel model) {
+  void _showExpenseDetails(BuildContext context, ProgressIndicatorModel model, DashboardViewModel dashboardVM) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -384,7 +377,7 @@ class DashboardScreenState extends State<DashboardScreen>
             ),
           ),
           child: ExtractByCategory(
-              category: model.category.name, currentMonth: currentDate),
+              category: model.category.name, currentMonth: dashboardVM.currentDate),
         ); // O widget com o código acima
       },
     );
@@ -410,9 +403,9 @@ class DashboardScreenState extends State<DashboardScreen>
     return const CircularProgressIndicator(color: AppColors.background1);
   }
 
-  Widget _buildTotalSpentText(BuildContext context) {
+  Widget _buildTotalSpentText(BuildContext context, DashboardViewModel dashboardVM) {
     return Text(
-      "${AppLocalizations.of(context)!.totalSpent}: ${TranslateService.formatCurrency(totalGasto, context)}",
+      "${AppLocalizations.of(context)!.totalSpent}: ${TranslateService.formatCurrency(dashboardVM.totalGasto, context)}",
       style: const TextStyle(
         color: AppColors.label,
         fontSize: 22,
@@ -424,7 +417,6 @@ class DashboardScreenState extends State<DashboardScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final transactionsViewModel = context.watch<TransactionsViewModel>();
     return Scaffold(
       backgroundColor: AppColors.background1,
       appBar: CupertinoNavigationBar(
@@ -454,37 +446,39 @@ class DashboardScreenState extends State<DashboardScreen>
           ),
         ),
       ),
-      body: SafeArea(
-        child: isLoading
-            ? Center(child: _buildLoadingIndicator())
-            : Column(
-                children: [
-                  _buildBannerAd(),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 16),
-                          _buildMonthSelector(),
-                          const SizedBox(height: 16),
-                          _buildTotalSpentText(context),
-                          const SizedBox(height: 8),
-                          _buildPageView(),
-                          _buildPageIndicators(),
-                          const SizedBox(height: 12),
-                          _buildTotalSpentCarousel(),
-                          const SizedBox(height: 8),
-                          if (isLoading)
-                            _buildLoadingIndicator()
-                          else
-                            _buildProgressIndicators(context),
-                          const SizedBox(height: 40),
-                        ],
+      body: Consumer<DashboardViewModel>(
+        builder: (context, dashboardVM, child) => SafeArea(
+          child: dashboardVM.isLoading
+              ? Center(child: _buildLoadingIndicator())
+              : Column(
+                  children: [
+                    _buildBannerAd(),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 16),
+                            _buildMonthSelector(dashboardVM),
+                            const SizedBox(height: 16),
+                            _buildTotalSpentText(context, dashboardVM),
+                            const SizedBox(height: 8),
+                            _buildPageView(dashboardVM),
+                            _buildPageIndicators(),
+                            const SizedBox(height: 12),
+                            _buildTotalSpentCarousel(dashboardVM),
+                            const SizedBox(height: 8),
+                            if (dashboardVM.isLoading)
+                              _buildLoadingIndicator()
+                            else
+                              _buildProgressIndicators(context, dashboardVM),
+                            const SizedBox(height: 40),
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              ),
+                    )
+                  ],
+                ),
+        ),
       ),
     );
   }

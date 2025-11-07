@@ -12,13 +12,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
+// import 'package:meus_gastos/controllers/Dashboards/DashboardScreenRefatore.dart';
+import 'controllers/Dashboards/DashboardsFactory.dart';
 import 'package:meus_gastos/repositories/Transactions/TransactionsRepositoryLocal.dart';
 import 'package:meus_gastos/repositories/Transactions/TransactionsRepositoryRemote.dart';
 import 'package:meus_gastos/repositories/Transactions/TransactionsRepositorySelector.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/services/firebase/FirebaseServiceSingleton.dart';
-// import 'package:meus_gastos/services/firebase/firebaseService.dart';
 import 'package:onepref/onepref.dart';
 import 'package:window_size/window_size.dart';
 import 'package:meus_gastos/controllers/AddTransaction/AddTransactionController.dart';
@@ -98,7 +98,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   late Animation<double> _animation;
 
   final calendarKey = GlobalKey<CustomCalendarState>();
-  final dashboardKey = GlobalKey<DashboardScreenState>();
+  // final dashboardKey = GlobalKey<DashboardScreenState>();
   final goalKey = GlobalKey<GoalsscreanState>();
 
   final exportButtonAT = GlobalKey(debugLabel: 'exportButtonAT');
@@ -176,6 +176,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 )..init();
               },
             ),
+            
           ],
           child: Scaffold(
             backgroundColor: const Color(0xFF0D1117),
@@ -198,7 +199,8 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 ),
                 TransactionsFactory(
                     cardEvents: cardEvents, isActivate: selectedTab == 1),
-                DashboardScreen(key: dashboardKey, isActive: true),
+                // DashboardScreen(key: dashboardKey, isActive: true),
+                DashboardsFactory(isActivate: selectedTab == 2),
                 Goalsscrean(
                   key: goalKey,
                   title: AppLocalizations.of(context)!.budget,
@@ -306,7 +308,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           HitTestBehavior.opaque, // <- ESSENCIAL: toda área vira "clicável"
       onTap: () {
         if (index == 2) {
-          if (selectedTab != 2) dashboardKey.currentState?.refreshData();
+          // if (selectedTab != 2) dashboardKey.currentState?.refreshData();
         }
         if (index == 3) {
           goalKey.currentState?.refreshGoals();

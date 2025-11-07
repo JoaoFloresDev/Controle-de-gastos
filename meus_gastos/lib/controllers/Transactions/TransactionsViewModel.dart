@@ -16,7 +16,6 @@ class TransactionsViewModel extends ChangeNotifier {
     required this.cardEvents,
     required this.loginVM,
   }) {
-    // Escuta mudanças no login
     loginVM.addListener(_onLoginChanged);
   }
 
@@ -41,6 +40,12 @@ class TransactionsViewModel extends ChangeNotifier {
     cardEvents.addListener(() {
       loadCards(); // recarrega sempre que um novo card é criado
     });
+  }
+
+  Future<void> addCard(CardModel card) async {
+    await repository.addCard(card);
+    cardList.add(card);
+    notifyListeners();
   }
 
   void setCurrentDate(DateTime newDate) {
