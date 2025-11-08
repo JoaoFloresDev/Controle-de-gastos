@@ -137,7 +137,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
 
   Widget _buildMobileVersion() {
     return Container(
-      height: 110,
+      height: 100,
       decoration: BoxDecoration(
         color: AppColors.card.withOpacity(0.3),
         borderRadius: BorderRadius.circular(16),
@@ -208,7 +208,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
     return ListView.builder(
       controller: _scrollController,
       scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       itemCount: widget.icons_list_recorrent.length,
       itemBuilder: (context, index) {
         final category = widget.icons_list_recorrent[index];
@@ -235,8 +235,8 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
                   curve: Curves.easeOutCubic,
-                  width: isSelected ? 60 : 54,
-                  height: isSelected ? 60 : 54,
+                  width: isSelected ? 54 : 44,
+                  height: isSelected ? 54 : 44,
                   decoration: BoxDecoration(
                     color: isSelected
                         ? Colors.black.withOpacity(0.4)

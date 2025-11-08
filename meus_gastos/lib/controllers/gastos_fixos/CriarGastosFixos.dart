@@ -147,7 +147,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                             style: const TextStyle(color: CupertinoColors.white),
                             controller: descricaoController,
                           ),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 6),
                           RepetitionMenu(
                             referenceDate: _selectedDate,
                             onRepetitionSelected: (String selectedRepetition) {
@@ -157,7 +157,6 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                             },
                             defaultRepetition: 'mensal',
                           ),
-                          const SizedBox(height: 12),
                           HorizontalCircleList(
                             onItemSelected: (index) {
                               setState(() {
@@ -167,6 +166,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                             icons_list_recorrent: icons_list_recorrent,
                             defaultIndexCategory: 0,
                           ),
+                          const SizedBox(height: 16),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: SizedBox(

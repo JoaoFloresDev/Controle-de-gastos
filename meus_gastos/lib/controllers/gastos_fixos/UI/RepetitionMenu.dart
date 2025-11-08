@@ -178,7 +178,7 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12.0),
       child: CupertinoButton(
         color: AppColors.card,
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
