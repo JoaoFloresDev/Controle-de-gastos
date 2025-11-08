@@ -1,3 +1,4 @@
+import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -83,15 +84,15 @@ class _CampoComMascaraState extends State<CampoComMascara> {
                   CupertinoButton(
                     padding: EdgeInsets.zero,
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text(
-                      'Cancelar',
+                    child: Text(
+                      AppLocalizations.of(context)!.cancel,
                       style: TextStyle(color: CupertinoColors.systemGrey),
                     ),
                   ),
-                  const Expanded(
+                  Expanded(
                     child: Center(
                       child: Text(
-                        'Data e Hora',
+                        AppLocalizations.of(context)!.dateHour,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,

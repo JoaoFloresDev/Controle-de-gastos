@@ -428,12 +428,6 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                   ),
                 ),
               ),
-            ] else ...[
-              KeyboardDoneToolbar(
-                onDone: () {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                },
-              ),
             ],
           ],
         ),
@@ -493,7 +487,7 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                   topRight: Radius.circular(20),
                 ),
               ),
-              child: Categorycreater(
+              child: CategoryCreater(
                 onCategoryAdded: () {
                   setState(() {
                     _verticalCircleListKey.currentState?.loadCategories();

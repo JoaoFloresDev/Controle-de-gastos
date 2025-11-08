@@ -1,14 +1,13 @@
 import 'dart:io';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/ListCardFixeds.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/UI/criar_gastosFixos.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/UI/ListCardFixeds.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/CriarGastosFixos.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import '../../../models/CardModel.dart';

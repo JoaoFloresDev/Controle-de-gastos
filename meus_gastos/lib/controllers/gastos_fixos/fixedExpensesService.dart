@@ -1,5 +1,5 @@
 // import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/intervalsControl.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/UI/intervalsControl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 // import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';

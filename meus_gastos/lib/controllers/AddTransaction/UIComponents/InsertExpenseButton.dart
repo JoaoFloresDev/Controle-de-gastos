@@ -31,7 +31,7 @@ class InsertExpenseButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
       child: SizedBox(
-        height: 60,
+        height: 52,
         width: double.infinity,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(

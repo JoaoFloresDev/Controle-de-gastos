@@ -52,6 +52,10 @@ class TranslateService {
         return AppLocalizations.of(context)!.shoppingBasket;
       case 'Hospital':
         return AppLocalizations.of(context)!.hospital;
+      case 'Transport':
+        return AppLocalizations.of(context)!.transport;
+      case 'Education':
+        return AppLocalizations.of(context)!.education;
       case 'Movie':
         return AppLocalizations.of(context)!.movie;
       case 'VideoGame':

@@ -1,515 +1,309 @@
-// import 'package:meus_gastos/controllers/CategoryCreater/AddCategoryHorizontalCircleList.dart';
-import 'package:meus_gastos/controllers/Goals/Data/GoalsService.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
-// import 'package:meus_gastos/controllers/CategoryCreater/AddCategoryHorizontalCircleList.dart';
-import 'package:meus_gastos/controllers/Goals/Data/GoalsService.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
-import 'package:meus_gastos/services/TranslateService.dart';
 import 'dart:math';
-import 'package:flutter/services.dart';
-import 'package:uuid/uuid.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
-import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:meus_gastos/controllers/CategoryCreater/AddCategoryHorizontalCircleList.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:uuid/uuid.dart';
+import 'Components/categoryForm.dart';
+import 'Components/categoriesList.dart';
 
-class Categorycreater extends StatefulWidget {
+class CategoryCreater extends StatefulWidget {
   final VoidCallback onCategoryAdded;
 
-  const Categorycreater({super.key, required this.onCategoryAdded});
+  const CategoryCreater({super.key, required this.onCategoryAdded});
 
   @override
-  State<Categorycreater> createState() => _CategorycreaterState();
+  State<CategoryCreater> createState() => _CategoryCreaterState();
 }
 
-class _CategorycreaterState extends State<Categorycreater> {
-  late TextEditingController categoriaController;
-  late Color _currentColor =
-      Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
-  late Future<List<CategoryModel>> _futureCategories = Future.value([]);
+class _CategoryCreaterState extends State<CategoryCreater> with SingleTickerProviderStateMixin {
+  late TextEditingController _nameController;
+  late Color _currentColor;
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
+  
+  int _selectedIconIndex = 0;
+  List<CategoryModel> _categories = [];
 
-  int selectedIndex = 0;
+  // Lista de cores pré-definidas (mesma do ColorGridSelector)
+  static const List<Color> _predefinedColors = [
+    Color(0xFFE63946), Color(0xFFFF6B6B), Color(0xFFFF8B94), Color(0xFFFF69B4),
+    Color(0xFFE91E63), Color(0xFFFFA07A), Color(0xFFFF7F50), Color(0xFFFF5722),
+    Color(0xFFFF9800), Color(0xFFFF6F00), Color(0xFFFFB74D), Color(0xFFFFD93D),
+    Color(0xFFFFC93C), Color(0xFFFFC107), Color(0xFFF9A825), Color(0xFFFFEB3B),
+    Color(0xFFFFEE58), Color(0xFFFFF176), Color(0xFFFFE082), Color(0xFFFFD54F),
+    Color(0xFFCDDC39), Color(0xFFAED581), Color(0xFF66BB6A), Color(0xFF4CAF50),
+    Color(0xFF6BCB77), Color(0xFF2E7D32), Color(0xFF26A69A), Color(0xFF009688),
+    Color(0xFF00ACC1), Color(0xFF0288D1), Color(0xFF2196F3), Color(0xFF1976D2),
+    Color(0xFF1565C0), Color(0xFF3F51B5), Color(0xFF5C6BC0), Color(0xFF673AB7),
+    Color(0xFF9C27B0), Color(0xFFAB47BC), Color(0xFFBA68C8), Color(0xFFB565D8),
+  ];
 
-  // MARK: - Lifecycle Methods
   @override
   void initState() {
     super.initState();
-    categoriaController = TextEditingController();
-    _futureCategories = CategoryService().getAllCategoriesAvaliable();
+    _nameController = TextEditingController();
+    _currentColor = _generateRandomColor();
+    _loadCategories();
+    _setupAnimation();
+  }
+
+  void _setupAnimation() {
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+    
+    _animationController.forward();
+  }
+
+final List<IconData> accountIcons = [
+  Icons.directions_car, // Transporte
+  Icons.home, // Moradia
+  Icons.electrical_services, // Utilidades
+  Icons.healing, // Saúde
+  Icons.shopping_cart, // Compras
+  Icons.local_dining, // Restaurantes
+  Icons.movie, // Entretenimento
+  Icons.school, // Educação
+  Icons.fitness_center, // Atividades físicas
+  Icons.local_bar, // Bebidas / Lazer
+  Icons.pets, // Pets
+  Icons.flight, // Viagens
+  Icons.credit_card, // Finanças / Cartão
+  Icons.monetization_on, // Investimentos
+  Icons.savings, // Poupança
+  Icons.attach_money, // Outras despesas financeiras
+  Icons.account_balance_wallet, // Gestão de contas
+  Icons.card_travel, // Transporte de longa distância
+  Icons.local_florist, // Hobbies / Presentes
+  Icons.fastfood, // Lanches rápidos
+  Icons.free_breakfast, // Café / Desjejum
+  Icons.bike_scooter, // Mobilidade alternativa
+  Icons.wifi, // Internet / Telecomunicações
+  Icons.phone_android, // Telefonia
+  Icons.build, // Manutenção / Reparos
+  Icons.local_offer, // Promoções / Ofertas
+  Icons.pie_chart, // Distribuição de gastos (Categoria Geral)
+  Icons.restaurant, // Alimentação
+  Icons.local_grocery_store, // Supermercado
+];
+
+  Color _generateRandomColor() {
+    // Seleciona uma cor aleatória da lista de cores pré-definidas
+    return _predefinedColors[Random().nextInt(_predefinedColors.length)];
+  }
+
+  Future<void> _loadCategories() async {
+    final categories = await CategoryService().getAllCategoriesAvaliable();
+    setState(() {
+      _categories = categories;
+    });
   }
 
   @override
   void dispose() {
-    categoriaController.dispose();
+    _nameController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
-  // MARK: - Helper Methods
   void _hideKeyboard() {
     FocusScope.of(context).unfocus();
   }
 
-  void _pickColor(BuildContext context) {
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
-          child: Container(
-            color: Colors.transparent, // Fundo transparente ao redor do diálogo
-            child: GestureDetector(
-              onTap: () {},
-              child: CupertinoAlertDialog(
-                content: Container(
-                  padding: const EdgeInsets.all(8),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.chooseColor,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 16),
-                      ColorPicker(
-                        pickerColor: _currentColor,
-                        onColorChanged: (Color color) {
-                          setState(() {
-                            _currentColor = color;
-                          });
-                        },
-                        showLabel: false,
-                        pickerAreaHeightPercent: 0.6,
-                        displayThumbColor: false,
-                        enableAlpha: false,
-                        paletteType: PaletteType.hsv,
-                        pickerAreaBorderRadius:
-                            const BorderRadius.all(Radius.circular(0)),
-                      ),
-                      SizedBox(
-                        width: 160,
-                        height: 40,
-                        child: CupertinoButton(
-                          color: AppColors.button, // Cor de fundo azul
-                          borderRadius: BorderRadius.circular(
-                              8.0), // Cantos ligeiramente arredondados
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                              vertical: 12.0), // Tamanho do botão
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(
-                            AppLocalizations.of(context)!.select,
-                            style: const TextStyle(
-                              color: Colors.white, // Cor do texto branco
-                              fontSize: 16.0, // Tamanho do texto
-                              fontWeight: FontWeight.bold, // Texto em negrito
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
+  Future<void> _addCategory() async {
+    final allCategories = await CategoryService().getAllCategories();
+    
+    final withoutAddCategory = allCategories
+        .where((cat) => cat.id != 'AddCategory')
+        .toList();
+    
+    final addCategory = allCategories.firstWhere(
+      (cat) => cat.id == 'AddCategory',
+      orElse: () => CategoryModel(
+        id: 'AddCategory',
+        color: AppColors.button,
+        icon: Icons.add,
+        name: 'AddCategory',
+        frequency: 0,
+      ),
     );
-  }
 
-  Widget buildColorPicker() {
-    return Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        padding: const EdgeInsets.all(8),
-        child: ColorPicker(
-            pickerColor: _currentColor,
-            onColorChanged: (Color color) {
-              setState(() {
-                _currentColor = color;
-              });
-            },
-            showLabel: false,
-            pickerAreaHeightPercent: 0.6,
-            displayThumbColor: false,
-            enableAlpha: false,
-            paletteType: PaletteType.hsv,
-            pickerAreaBorderRadius:
-                const BorderRadius.all(Radius.circular(20))));
-  }
+    final newCategory = CategoryModel(
+      id: const Uuid().v4(),
+      color: _currentColor,
+      icon: accountIcons[_selectedIconIndex],
+      name: _nameController.text,
+      frequency: 0,
+    );
 
-  // MARK: - Add Category
-  void adicionar() async {
-    int frequency = 2;
-    CategoryModel? categoryHighFrequency =
-        await CategoryService().getCategoryWithHighestFrequency();
-    if (categoryHighFrequency != null && categoryHighFrequency.id.isNotEmpty) {
-      frequency = categoryHighFrequency.frequency + 1;
-    }
-    CategoryModel category = CategoryModel(
-        id: const Uuid().v4(),
-        color: _currentColor,
-        icon: accountIcons[selectedIndex],
-        name: categoriaController.text,
-        frequency: frequency);
-
-    await CategoryService().addCategory(category);
+    // Adiciona a nova categoria NO TOPO da lista (índice 0)
+    withoutAddCategory.insert(0, newCategory);
+    final newOrderedList = [...withoutAddCategory, addCategory];
+    
+    await CategoryService().saveOrderedCategories(newOrderedList);
     widget.onCategoryAdded();
+    
+    _nameController.clear();
+    _hideKeyboard();
+    
     setState(() {
-      _futureCategories = CategoryService().getAllCategoriesAvaliable();
+      _currentColor = _generateRandomColor();
+      _selectedIconIndex = 0;
+      _categories = newOrderedList;
     });
   }
 
-  // MARK: - Build Method
+  Future<void> _reorderCategories(int oldIndex, int newIndex) async {
+    if (newIndex > oldIndex) {
+      newIndex -= 1;
+    }
+    
+    final withoutAddCategory = _categories
+        .where((cat) => cat.id != 'AddCategory')
+        .toList();
+    
+    final addCategory = _categories.firstWhere(
+      (cat) => cat.id == 'AddCategory',
+      orElse: () => CategoryModel(
+        id: 'AddCategory',
+        color: AppColors.button,
+        icon: Icons.add,
+        name: 'AddCategory',
+        frequency: 0,
+      ),
+    );
+    
+    final item = withoutAddCategory.removeAt(oldIndex);
+    withoutAddCategory.insert(newIndex, item);
+    
+    final newOrderedList = [...withoutAddCategory, addCategory];
+    
+    setState(() {
+      _categories = newOrderedList;
+    });
+    
+    CategoryService().saveOrderedCategories(newOrderedList).then((_) {
+      widget.onCategoryAdded();
+    });
+    
+    HapticFeedback.mediumImpact();
+  }
+
+  Future<void> _onCategoryDeleted() async {
+    widget.onCategoryAdded();
+    final updatedCategories = await CategoryService().getAllCategoriesAvaliable();
+    setState(() {
+      _categories = updatedCategories;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      child: Container(
-        padding: const EdgeInsets.all(0),
-        decoration: const BoxDecoration(
-          color: AppColors.background1,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CustomHeader(
-              title: AppLocalizations.of(context)!.createCategory,
-              onCancelPressed: () {
-                Navigator.pop(context);
-              },
+      child: FadeTransition(
+        opacity: _fadeAnimation,
+        child: Container(
+          decoration: const BoxDecoration(
+            color: AppColors.background1,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
             ),
-            GestureDetector(
-              onTap: _hideKeyboard,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Form(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 12),
-                      AddCategoryHorizontalCircleList(
-                        onItemSelected: (index) {
-                          setState(() {
-                            selectedIndex = index;
-                          });
-                        },
-                      ),
-                      const SizedBox(height: 12),
-                      CupertinoTextField(
-                        style: const TextStyle(
-                          color: Color.fromARGB(255, 252, 252, 254),
-                        ),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Color.fromARGB(255, 255, 255, 255),
-                            ),
-                          ),
-                        ),
-                        placeholder: AppLocalizations.of(context)!.category,
-                        placeholderStyle: const TextStyle(
-                            color: Color.fromARGB(144, 255, 255, 255)),
-                        controller: categoriaController,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(15),
-                        ],
-                        textCapitalization: TextCapitalization.sentences,
-                      ),
-                      const SizedBox(height: 32),
-                      Row(
-                        children: [
-                          Text(
-                            "${AppLocalizations.of(context)!.chooseColor} ",
-                            style: const TextStyle(
-                                color: AppColors.label, fontSize: 20),
-                          ),
-                          const SizedBox(width: 15),
-                          GestureDetector(
-                            onTap: () => _pickColor(context),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: _currentColor,
-                                border: Border.all(
-                                  color: AppColors.button,
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              height: 30,
-                              width: 30,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 32),
-Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 16),
-  child: SizedBox(
-    width: double.infinity,
-    child: CupertinoButton(
-      color: AppColors.button,
-      onPressed: () {
-        if (categoriaController.text.isNotEmpty) {
-          adicionar();
-          FocusScope.of(context).unfocus();
-          // Navigator.pop(context);
-        }
-      },
-      child: Text(
-        AppLocalizations.of(context)!.addCategory,
-        style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.label),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildHeader(),
+              _buildContent(),
+            ],
+          ),
+        ),
       ),
-    ),
-  ),
-),
-const SizedBox(height: 40),
-Stack(
-  children: [
-    SizedBox(
-      height: MediaQuery.of(context).size.height - 550,
-      child: FutureBuilder<List<CategoryModel>>(
-        future: _futureCategories,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text("Error", style: TextStyle(color: Colors.white)));
-          } else if (snapshot.hasData) {
-            final categories = snapshot.data!;
-            if (categories.isEmpty) {
-              return Center(child: Text("No categories found", style: TextStyle(color: Colors.white)));
-            }
-            return ListView.separated(
-              padding: EdgeInsets.zero,
-              itemCount: categories.length - 1,
-              separatorBuilder: (context, index) => const SizedBox(height: 8),
-              itemBuilder: (context, index) {
-                final category = categories[index];
-                return Container(
-                  margin: EdgeInsets.only(left: 16, right: 16, top: index == 0 ? 30 : 8, bottom: index == categories.length - 2 ? 40 : 8),
-                  decoration: BoxDecoration(
-                    color: AppColors.card,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    leading: Icon(category.icon, color: category.color, size: 30),
-                    title: Text(TranslateService.getTranslatedCategoryUsingModel(context, category), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.redAccent),
-                      onPressed: () {
-                        FocusScope.of(context).unfocus();
-                        CategoryService().deleteCategory(category.id);
-                        setState(() {
-                          widget.onCategoryAdded();
-                          _futureCategories = CategoryService().getAllCategories();
-                        });
-                      },
-                    ),
-                  ),
-                );
+    );
+  }
+
+  Widget _buildHeader() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      decoration: BoxDecoration(
+        color: AppColors.card.withOpacity(0.5),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CupertinoButton(
+            padding: EdgeInsets.zero,
+            minSize: 0,
+            onPressed: () => Navigator.pop(context),
+            child: const Icon(
+              CupertinoIcons.xmark_circle_fill,
+              color: Colors.white54,
+              size: 24,
+            ),
+          ),
+          Text(
+            AppLocalizations.of(context)!.createCategory,
+            style: const TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(width: 24),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildContent() {
+    return Expanded(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.only(left: 16, right: 16,top: 8, bottom: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CategoryForm(
+              nameController: _nameController,
+              selectedColor: _currentColor,
+              selectedIconIndex: _selectedIconIndex,
+              onIconSelected: (index) {
+                setState(() {
+                  _selectedIconIndex = index;
+                });
               },
-            );
-          } else {
-            return const SizedBox();
-          }
-        },
-      ),
-    ),
-    Positioned(
-      top: 0,
-      left: 0,
-      right: 0,
-      child: Container(
-        height: 40,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.background1,
-              AppColors.background1.withOpacity(0),
-            ],
-          ),
-        ),
-      ),
-    ),
-    Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: Container(
-        height: 50,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-            colors: [
-              AppColors.background1,
-              AppColors.background1.withOpacity(0),
-            ],
-          ),
-        ),
-      ),
-    ),
-  ],
-)
-
-
-                    ],
-                  ),
-                ),
-              ),
-            )
+              onColorChanged: (color) {
+                setState(() {
+                  _currentColor = color;
+                });
+              },
+              onSubmit: _addCategory,
+            ),
+            
+            const SizedBox(height: 12),
+            const Divider(),
+            const SizedBox(height: 12),
+            
+            CategoriesList(
+              categories: _categories,
+              onReorder: _reorderCategories,
+              onCategoryDeleted: _onCategoryDeleted,
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-// class AddCategoryHorizontalCircleList extends StatefulWidget {
-//   final Function(int) onItemSelected;
-
-//   const AddCategoryHorizontalCircleList({
-//     super.key,
-//     required this.onItemSelected,
-//   });
-
-//   @override
-//   _AddCategoryHorizontalCircleListState createState() =>
-//       _AddCategoryHorizontalCircleListState();
-// }
-
-// class _AddCategoryHorizontalCircleListState
-//     extends State<AddCategoryHorizontalCircleList> {
-//   int selectedIndex = 0;
-
-//   final List<IconData> accountIcons = [
-//     // Alimentação
-//     Icons.restaurant, // Restaurante
-//     Icons.fastfood, // Comida rápida
-//     Icons.local_pizza, // Pizza ou delivery
-//     Icons.coffee, // Cafeteria ou bebidas
-
-//     // Transporte
-//     Icons.directions_car, // Carro
-//     Icons.local_taxi, // Táxi ou ride-share
-//     Icons.train, // Trem ou transporte público
-//     Icons.directions_bus, // Ônibus
-//     Icons.airplanemode_active, // Viagem de avião
-//     Icons.electric_bike, // Bicicleta elétrica ou transporte alternativo
-
-//     // Compras
-//     Icons.shopping_cart, // Compras gerais
-//     Icons.shopping_bag, // Sacola de compras
-//     Icons.card_giftcard, // Presentes
-//     Icons.local_mall, // Shopping ou lojas
-
-//     // Entretenimento e lazer
-//     Icons.movie, // Cinema ou filmes
-//     Icons.sports_esports, // Jogos eletrônicos
-//     Icons.music_note, // Música
-//     Icons.theater_comedy, // Teatro ou eventos
-//     Icons.local_bar, // Bar ou festas
-
-//     // Contas e serviços
-//     Icons.lightbulb, // Eletricidade
-//     Icons.water_drop, // Água
-//     Icons.wifi, // Internet
-//     Icons.phone, // Telefone
-//     Icons.home, // Aluguel ou hipoteca
-
-//     // Saúde e bem-estar
-//     Icons.health_and_safety, // Saúde geral
-//     Icons.medical_services, // Serviços médicos
-//     Icons.fitness_center, // Academia
-//     Icons.spa, // Bem-estar ou estética
-
-//     // Educação
-//     Icons.school, // Educação ou cursos
-//     Icons.menu_book, // Livros ou materiais de estudo
-//     Icons.laptop, // Cursos online ou tecnologia
-
-//     // Família e cuidado pessoal
-//     Icons.child_friendly, // Crianças
-//     Icons.pets, // Animais de estimação
-//     Icons.cleaning_services, // Limpeza
-//     Icons.baby_changing_station, // Produtos para bebês
-
-//     // Economia e investimentos
-//     Icons.attach_money, // Dinheiro
-//     Icons.savings, // Poupança
-//     Icons.trending_up, // Investimentos
-//     Icons.money_off, // Gastos inesperados
-
-//     // Viagens e turismo
-//     Icons.hotel, // Hospedagem
-//     Icons.beach_access, // Praia ou férias
-//     Icons.map, // Turismo
-
-//     // Outras categorias
-//     Icons.construction, // Manutenção ou reparos
-//     Icons.work, // Trabalho
-//     Icons.volunteer_activism, // Doações
-//     Icons.local_florist, // Flores ou jardinagem
-//     Icons.cake, // Festas ou celebrações
-//     Icons.devices, // Eletrônicos
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       height: 60,
-//       child: ListView.builder(
-//         scrollDirection: Axis.horizontal,
-//         itemCount: accountIcons.length,
-//         itemBuilder: (context, index) {
-//           return GestureDetector(
-//             onTap: () {
-//               setState(() {
-//                 selectedIndex = index;
-//               });
-//               widget.onItemSelected(index);
-//             },
-//             child: Column(
-//               mainAxisSize: MainAxisSize.min,
-//               children: [
-//                 Container(
-//                   width: 50,
-//                   height: 50,
-//                   margin: const EdgeInsets.symmetric(horizontal: 8),
-//                   decoration: BoxDecoration(
-//                     color: selectedIndex == index
-//                         ? AppColors.buttonSelected
-//                         : AppColors.buttonDeselected,
-//                     shape: BoxShape.circle,
-//                   ),
-//                   child: Icon(accountIcons[index]),
-//                 ),
-//               ],
-//             ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }

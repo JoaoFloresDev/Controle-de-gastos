@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsScreen.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsViewModel.dart';
-import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsFactory.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,16 +10,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:meus_gastos/controllers/Transactions/TransactionsScrean.dart';
 import 'package:meus_gastos/controllers/Dashboards/DashboardScreen.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/services/firebase/FirebaseService.dart';
-// import 'package:meus_gastos/services/firebase/firebaseService.dart';
 import 'package:onepref/onepref.dart';
 import 'package:window_size/window_size.dart';
 import 'package:meus_gastos/controllers/AddTransaction/AddTransactionController.dart';
 import 'package:meus_gastos/controllers/Calendar/CustomCalendar.dart';
-
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -299,7 +295,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 200),
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 11,
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
               color: isSelected ? Colors.white : const Color(0xFF8E8E93),
             ),
