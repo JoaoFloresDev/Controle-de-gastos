@@ -49,7 +49,7 @@ class DescriptionInputField extends StatelessWidget {
         textCapitalization: TextCapitalization.sentences,
         maxLines: 1,
         keyboardAppearance: Brightness.dark,
-        textInputAction: TextInputAction.newline
+        textInputAction: TextInputAction.done
       ),
     );
   }

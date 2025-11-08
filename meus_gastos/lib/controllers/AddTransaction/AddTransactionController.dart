@@ -428,12 +428,6 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                   ),
                 ),
               ),
-            ] else ...[
-              KeyboardDoneToolbar(
-                onDone: () {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                },
-              ),
             ],
           ],
         ),
