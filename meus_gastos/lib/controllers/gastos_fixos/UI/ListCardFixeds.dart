@@ -1,15 +1,53 @@
+import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/models/CardModel.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import '../fixedExpensesModel.dart';
 
-class ListCardFixeds extends StatelessWidget {
+class ListCardFixeds extends StatefulWidget {
   final FixedExpense card;
   final Function(FixedExpense) onTap;
 
   const ListCardFixeds({super.key, required this.card, required this.onTap});
+
+  @override
+  State<ListCardFixeds> createState() => _ListCardFixedsState();
+}
+
+class _ListCardFixedsState extends State<ListCardFixeds> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 150),
+      vsync: this,
+    );
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.98).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _handleTapDown(TapDownDetails details) {
+    _controller.forward();
+  }
+
+  void _handleTapUp(TapUpDetails details) {
+    _controller.reverse();
+  }
+
+  void _handleTapCancel() {
+    _controller.reverse();
+  }
 
   // MARK - Private helper methods
   String _getRepetitionText(BuildContext context, String repetition, DateTime referenceDate) {
@@ -33,92 +71,155 @@ class ListCardFixeds extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onTap(card),
-      child: Container(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
-        decoration: BoxDecoration(
-          color: AppColors.card,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: const [
-            BoxShadow(
-              color: AppColors.cardShadow,
-              spreadRadius: 1,
-              blurRadius: 3,
-              offset: Offset(0, 1),
+    return ScaleTransition(
+      scale: _scaleAnimation,
+      child: GestureDetector(
+        onTapDown: _handleTapDown,
+        onTapUp: _handleTapUp,
+        onTapCancel: _handleTapCancel,
+        onTap: () => widget.onTap(widget.card),
+        child: Container(
+          margin: const EdgeInsets.only(bottom: 12),
+          decoration: BoxDecoration(
+            color: AppColors.card,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.06),
+                spreadRadius: 0,
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
+            border: Border.all(
+              color: AppColors.label.withOpacity(0.08),
+              width: 1,
             ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  TranslateService.formatCurrency(card.price, context),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.label,
-                  ),
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
+                // Header com categoria e valor
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      width: 16,
-                      height: 16,
-                      margin: const EdgeInsets.symmetric(horizontal: 16),
-                      decoration: const BoxDecoration(
-                        color: AppColors.card,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        card.category.icon,
-                        size: 16,
-                        color: card.category.color,
+                    // Categoria com ícone
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: AppColors.background1,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: AppColors.label.withOpacity(0.1),
+                                width: 1,
+                              ),
+                            ),
+                            child: Icon(
+                              widget.card.category.icon,
+                              size: 20,
+                              color: widget.card.category.color,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  TranslateService.getTranslatedCategoryUsingModel(
+                                    context,
+                                    widget.card.category,
+                                  ),
+                                  style: const TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.label,
+                                    letterSpacing: -0.2,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  _getRepetitionText(
+                                    context,
+                                    widget.card.tipoRepeticao,
+                                    widget.card.date,
+                                  ),
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.labelPlaceholder,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    const SizedBox(width: 12),
+                    // Valor
                     Text(
-                      TranslateService.getTranslatedCategoryUsingModel(context, card.category),
-                      style: const TextStyle(
-                        fontSize: 11,
-                        color: AppColors.label,
+                      TranslateService.formatCurrency(
+                        widget.card.price,
+                        context,
                       ),
-                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.label,
+                        letterSpacing: -0.5,
+                      ),
                     ),
                   ],
                 ),
+                
+                // Descrição (se existir)
+                if (widget.card.description.isNotEmpty) ...[
+                  const SizedBox(height: 12),
+                  Divider(
+                    color: AppColors.label.withOpacity(0.1),
+                    thickness: 1,
+                    height: 1,
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 2, left: 6),
+                        child: Icon(
+                          Icons.chat_bubble_outline_rounded,
+                          size: 14,
+                          color: AppColors.label.withOpacity(0.5),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          widget.card.description,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: AppColors.label.withOpacity(0.85),
+                            fontWeight: FontWeight.w500,
+                            height: 1.4,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ],
             ),
-            Divider(
-              color: AppColors.cardShadow.withOpacity(0.5),
-                thickness: 1,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    card.description,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: AppColors.label,
-                    ),
-                  ),
-                ),
-                Text(
-                  _getRepetitionText(context, card.tipoRepeticao, card.date), // Alteração nesta linha
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: AppColors.label,
-                  ),
-                ),
-              ],
-            ),
-          ],
+          ),
         ),
       ),
     );
