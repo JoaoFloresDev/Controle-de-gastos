@@ -51,10 +51,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     descricaoController = TextEditingController(text: widget.card.description);
 
     descricaoFocusNode = FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      descricaoFocusNode.requestFocus();
-    });
   }
 
   @override
@@ -144,6 +140,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
           ),
           const SizedBox(height: 8),
           CupertinoTextField(
+            autofocus: false,
             decoration: const BoxDecoration(
               border: Border(
                 bottom: BorderSide(
@@ -169,7 +166,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                     lastIndexSelected = index;
                   });
                 },
-                defaultdIndexCategory: lastIndexSelected! ?? 0,
+                defaultdIndexCategory: lastIndexSelected ?? 0,
               ),
             ),
           ],
