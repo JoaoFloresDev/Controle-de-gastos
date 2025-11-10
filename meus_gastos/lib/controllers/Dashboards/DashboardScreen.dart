@@ -1,78 +1,23 @@
 import 'dart:io';
-// import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
-// import 'package:meus_gastos/controllers/Transactions/TransactionsScrean/ViewComponents/ListCardRecorrent.dart';
-// import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
 import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:in_app_purchase/in_app_purchase.dart';
-// import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-// import 'package:meus_gastos/gastos_fixos/ListCardFixeds.dart';
-// import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
-// import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
-// import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
-// import '../../../models/CardModel.dart';
-// import 'package:meus_gastos/services/CardService.dart' as service;
-// import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
-// import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
-// import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'package:meus_gastos/controllers/ads_review/BannerAdConstruct.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-// import 'package:in_app_purchase/in_app_purchase.dart';
-// import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
-// import 'dart:io';
-// import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
-// import 'package:meus_gastos/controllers/Transactions/TransactionsScrean/ViewComponents/ListCardRecorrent.dart';
-// import 'package:meus_gastos/gastos_fixos/CardDetails/DetailScreenMainScrean.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:in_app_purchase/in_app_purchase.dart';
-// import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
-// import 'package:meus_gastos/designSystem/ImplDS.dart';
-// import 'package:meus_gastos/gastos_fixos/ListCard.dart';
-// import 'package:meus_gastos/gastos_fixos/UI/criar_gastosFixos.dart';
-// import 'package:meus_gastos/gastos_fixos/fixedExpensesModel.dart';
-// import 'package:meus_gastos/gastos_fixos/fixedExpensesService.dart';
-// import '../../../models/CardModel.dart';
-// import 'package:meus_gastos/services/CardService.dart' as service;
-// import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
-// import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
-// import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
-// import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
-// import 'package:meus_gastos/l10n/app_localizations.dart';
-
-// import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-// import 'package:in_app_purchase/in_app_purchase.dart';
-// import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
-import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';
-// import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarouselWidget.dart';
-// import 'package:url_launcher/url_launcher.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:ui';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';import 'dart:ui';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/controllers/exportExcel/exportExcelScreen.dart';
-// import 'package:meus_gastos/designSystem/ImplDS.dart';
-// import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
-
-// Imports externos
-// import 'package:flutter/cupertino.dart';
-// import 'package:meus_gastos/l10n/app_localizations.dart';
-
-// Imports de serviços
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/DashbordService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-
-// Imports de modelos
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 
 // Imports de controllers
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartDaysofWeek.dart';
-import 'package:meus_gastos/controllers/ExtractByCategory/ExtractByCategory.dart';
+import 'package:meus_gastos/controllers/ExtractByCategory/ExtractByCategoryScreen.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartWeek.dart';
 // import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 
@@ -495,27 +440,11 @@ class DashboardScreenState extends State<DashboardScreen>
               topRight: Radius.circular(20),
             ),
           ),
-          child: ExtractByCategory(
+          child: ExtractByCategoryScreen(
               category: model.category.name, currentMonth: currentDate),
-        ); // O widget com o código acima
+        );
       },
     );
-    // showCupertinoModalPopup(
-    //   context: context,
-    //   builder: (BuildContext context) {
-    //     return Container(
-    //       height: MediaQuery.of(context).size.height - 70,
-    //       decoration: const BoxDecoration(
-    //         borderRadius: BorderRadius.only(
-    //           topLeft: Radius.circular(20),
-    //           topRight: Radius.circular(20),
-    //         ),
-    //       ),
-    //       child: ExtractByCategory(
-    //           category: model.category.name, currentMonth: currentDate),
-    //     );
-    //   },
-    // );
   }
 
   Widget _buildLoadingIndicator() {

@@ -57,6 +57,7 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    lastIndexSelected = 0;
     _fadeController = AnimationController(
       duration: const Duration(milliseconds: 400),
       vsync: this,
@@ -90,14 +91,18 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
   //mark - actions
 
   /// This method is passed to the VerticalCircleList widget to receive the loaded categories.
-  void onCategoriesLoaded(List<CategoryModel> loadedCategories) {
-    setState(() {
-      _categories = loadedCategories;
-      _isCategoriesLoaded = true;
-    });
-    // Pass the data up to the parent screen if needed
-    widget.onCategoriesLoaded(loadedCategories);
-  }
+/// This method is passed to the VerticalCircleList widget to receive the loaded categories.
+void onCategoriesLoaded(List<CategoryModel> loadedCategories) {
+  setState(() {
+    _categories = loadedCategories;
+    _isCategoriesLoaded = true;
+    if (lastIndexSelected >= loadedCategories.length) {
+      lastIndexSelected = 0;
+    }
+  });
+  // Pass the data up to the parent screen if needed
+  widget.onCategoriesLoaded(loadedCategories);
+}
 
   /// Sets the selected category index from the child list.
   void onCategorySelected(int index) {

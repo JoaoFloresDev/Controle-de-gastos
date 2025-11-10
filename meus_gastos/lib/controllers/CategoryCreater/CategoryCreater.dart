@@ -155,8 +155,6 @@ final List<IconData> accountIcons = [
     _hideKeyboard();
     
     setState(() {
-      _currentColor = _generateRandomColor();
-      _selectedIconIndex = 0;
       _categories = newOrderedList;
     });
   }

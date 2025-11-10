@@ -472,32 +472,37 @@ class _AddTransactionControllerState extends State<AddTransactionController>
         _headerCardKey.currentState?.onCategorySelected(index);
       },
 
-      onAddCategorySelected: () {
-        print("AHHHHH");
-        showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          backgroundColor: Colors.transparent,
-          builder: (BuildContext context) {
-            return Container(
-              height: MediaQuery.of(context).size.height - 70,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-              ),
-              child: CategoryCreater(
-                onCategoryAdded: () {
-                  setState(() {
-                    _verticalCircleListKey.currentState?.loadCategories();
-                  });
-                },
-              ),
-            );
+onAddCategorySelected: () {
+  print("AHHHHH");
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (BuildContext context) {
+      return Container(
+        height: MediaQuery.of(context).size.height - 70,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: CategoryCreater(
+          onCategoryAdded: () {
+            setState(() {
+              // Recarrega as categorias
+              _verticalCircleListKey.currentState?.loadCategories();
+              // Seleciona o primeiro item no header (índice 0)
+              _headerCardKey.currentState?.onCategorySelected(0);
+              // Seleciona o primeiro item na UI (índice 0)
+              _verticalCircleListKey.currentState?.setSelectedIndex(0);
+            });
           },
-        );
-      },
+        ),
+      );
+    },
+  );
+},
     );
   }
 }

@@ -7,10 +7,10 @@ import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCard.dar
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 
-class ExtractByCategory extends StatefulWidget {
+class ExtractByCategoryScreen extends StatefulWidget {
   final String category;
   final DateTime currentMonth;
-  const ExtractByCategory(
+  const ExtractByCategoryScreen(
       {Key? key, required this.category, required this.currentMonth})
       : super(key: key);
   
@@ -18,7 +18,7 @@ class ExtractByCategory extends StatefulWidget {
   _ExtractByCategoryState createState() => _ExtractByCategoryState();
 }
 
-class _ExtractByCategoryState extends State<ExtractByCategory> {
+class _ExtractByCategoryState extends State<ExtractByCategoryScreen> {
   late List<CardModel> cards = [];
 
   @override

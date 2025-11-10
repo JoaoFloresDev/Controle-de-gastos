@@ -382,11 +382,11 @@ abstract class AppLocalizations {
   /// **'Gaming'**
   String get videoGame;
 
-  /// No description provided for @drink.
+  /// No description provided for @fun.
   ///
   /// In en, this message translates to:
-  /// **'Entertainment'**
-  String get drink;
+  /// **'Fun'**
+  String get fun;
 
   /// No description provided for @water.
   ///
