@@ -12,7 +12,6 @@ import 'package:meus_gastos/models/CategoryModel.dart';
 import 'UIComponents/Header/HeaderCard.dart';
 import 'UIComponents/VerticalCircleList.dart';
 import 'UIComponents/CompactListCardRecorrent.dart';
-import 'UIComponents/KeyboardDoneToolbar.dart';
 import 'UIComponents/CustomSeparator.dart';
 import 'UIComponents/InsertExpenseButton.dart';
 import 'UIComponents/AddedExpenseToast.dart';

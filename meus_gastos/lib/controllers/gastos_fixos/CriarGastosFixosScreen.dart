@@ -117,7 +117,10 @@ Widget build(BuildContext context) {
                         Row(
                           children: [
                             Expanded(
-                              child: ValorTextField(controller: valorController),
+                              child: ValorTextField(
+  key: valorFieldKey,
+  controller: valorController,
+),
                             ),
                             const SizedBox(width: 8),
                             Expanded(
@@ -188,6 +191,8 @@ Widget build(BuildContext context) {
                                   widget.onAddPressedBack();
                                   _loadFixedExpenses();
                                 });
+                                // valorFieldKey.currentState?.clear();
+                                // print("aa123!");
                               },
                               child: Text(
                                 AppLocalizations.of(context)!.add,
@@ -262,6 +267,8 @@ Widget build(BuildContext context) {
     ),
   );
 }
+
+final valorFieldKey = GlobalKey<ValorTextFieldState>();
 
   void _showCupertinoModalBottomSheet(BuildContext context, FixedExpense card) {
     print(card.tipoRepeticao);

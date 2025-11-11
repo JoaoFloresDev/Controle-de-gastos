@@ -12,6 +12,7 @@ import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
 
 class EditionHeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;

@@ -125,7 +125,6 @@ class _ExtractByCategoryState extends State<ExtractByCategoryScreen> {
             padding: EdgeInsets.zero,
             minSize: 0,
             onPressed: () {
-              print("Close button pressed");
               Navigator.pop(context);
             },
             child: const Icon(

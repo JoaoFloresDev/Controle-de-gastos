@@ -7,7 +7,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/UI/ListCardFixeds.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/CriarGastosFixos.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/CriarGastosFixosScreen.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import '../../../models/CardModel.dart';

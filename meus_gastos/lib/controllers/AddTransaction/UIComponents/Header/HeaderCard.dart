@@ -88,10 +88,6 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
     );
   }
 
-  //mark - actions
-
-  /// This method is passed to the VerticalCircleList widget to receive the loaded categories.
-/// This method is passed to the VerticalCircleList widget to receive the loaded categories.
 void onCategoriesLoaded(List<CategoryModel> loadedCategories) {
   setState(() {
     _categories = loadedCategories;
@@ -100,7 +96,6 @@ void onCategoriesLoaded(List<CategoryModel> loadedCategories) {
       lastIndexSelected = 0;
     }
   });
-  // Pass the data up to the parent screen if needed
   widget.onCategoriesLoaded(loadedCategories);
 }
 
