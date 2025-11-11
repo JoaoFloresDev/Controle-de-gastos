@@ -1,12 +1,6 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
-import 'package:meus_gastos/services/TranslateService.dart';
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 class QuickValueButton extends StatefulWidget {

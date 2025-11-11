@@ -1,13 +1,5 @@
-import 'dart:math';
 import 'package:flutter/services.dart';
-import 'package:uuid/uuid.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class AddCategoryHorizontalCircleList extends StatefulWidget {
   final Function(int) onItemSelected;
