@@ -81,9 +81,8 @@ class ValorTextFieldState extends State<ValorTextField> with SingleTickerProvide
   // MARK: - Private Methods
 
   void _onFocusChanged() {
-    if (!_focusNode.hasFocus && _showKeyboard) {
-      _hideKeyboard();
-    }
+    // Removido o comportamento automático de esconder o teclado ao perder o foco
+    // O teclado agora só é escondido explicitamente pelo botão confirmar ou ao clicar fora
   }
 
   void _onTextChanged() {
@@ -104,13 +103,17 @@ class ValorTextFieldState extends State<ValorTextField> with SingleTickerProvide
   }
 
   void _showKeyboardWithAnimation() {
-    final numeric = widget.controller.numberValue;
-    _rawValue = (numeric * 100).round().toString();
+    final currentValue = widget.controller.numberValue;
+    _rawValue = currentValue > 0 ? (currentValue * 100).round().toString() : '';
 
     setState(() {
       _showKeyboard = true;
     });
-    _focusNode.requestFocus();
+
+    if (!_focusNode.hasFocus) {
+      _focusNode.requestFocus();
+    }
+
     _showOverlay();
     _animationController.forward();
   }
@@ -120,9 +123,13 @@ class ValorTextFieldState extends State<ValorTextField> with SingleTickerProvide
     setState(() {
       _showKeyboard = false;
     });
+    
+    // Remove o overlay e unfocus sem resetar o valor
     Future.delayed(const Duration(milliseconds: 100), () {
       _removeOverlay();
-      if (_focusNode.hasFocus) _focusNode.unfocus();
+      if (_focusNode.hasFocus) {
+        _focusNode.unfocus();
+      }
     });
   }
 
@@ -173,9 +180,8 @@ class ValorTextFieldState extends State<ValorTextField> with SingleTickerProvide
   }
 
   void _handleConfirm() {
-    final cents = int.tryParse(_rawValue) ?? 0;
-    widget.controller.updateValue(cents / 100.0);
-    _rawValue = (widget.controller.numberValue * 100).round().toString();
+    // CORREÇÃO: Apenas esconde o teclado sem resetar o valor
+    // O _rawValue é mantido para preservar o estado
     _hideKeyboard();
     widget.onConfirm?.call();
   }

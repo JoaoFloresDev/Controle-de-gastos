@@ -77,9 +77,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
 
     descricaoFocusNode = FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      descricaoFocusNode.requestFocus();
-    });
     tipoRepeticao = widget.card.tipoRepeticao;
     loadCategories();
   }
