@@ -1,14 +1,8 @@
-import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
+
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
-// import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
 import 'EditionHeaderCard.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:meus_gastos/controllers/ads_review/BannerAdConstruct.dart';
-import 'package:flutter/material.dart';
-
-// await Constructreview.checkAndRequestReview();
 class DetailScreen extends StatefulWidget {
   final CardModel card;
   final VoidCallback onAddClicked;

@@ -1,20 +1,7 @@
-import 'dart:io';
-import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/UI/ListCardFixeds.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/CriarGastosFixosScreen.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesService.dart';
 import '../../../models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart' as service;
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCard.dart';
 
 class TransactionList extends StatelessWidget {

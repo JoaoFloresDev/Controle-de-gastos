@@ -7,7 +7,6 @@ import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'ViewComponents/CampoComMascara.dart';
 import 'ViewComponents/HorizontalCircleList.dart';
-import 'package:meus_gastos/controllers/CardDetails/ViewComponents/ValorTextField.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';

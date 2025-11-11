@@ -1,9 +1,7 @@
 import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:intl/intl.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class CampoComMascara extends StatefulWidget {
   final DateTime currentDate;
