@@ -134,7 +134,7 @@ PreferredSizeWidget _buildAppBar() {
 
 Widget _buildHeaderSection() {
   return Container(
-    margin: const EdgeInsets.fromLTRB(16, 8, 16, 6),
+    margin: const EdgeInsets.fromLTRB(16, 24, 16, 6),
     decoration: BoxDecoration(
       color: AppColors.card.withOpacity(0.6),
       borderRadius: BorderRadius.circular(18),
