@@ -2,8 +2,8 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/UI/HorizontalCircleList.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/UI/HorizontalCircleList.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:uuid/uuid.dart';
@@ -14,8 +14,8 @@ import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/UI/RepetitionMenu.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/UI/RepetitionMenu.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
 
 class EditionHeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;
