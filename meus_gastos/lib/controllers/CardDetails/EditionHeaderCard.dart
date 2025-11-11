@@ -12,6 +12,7 @@ import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
 
 class EditionHeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;
@@ -51,10 +52,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     descricaoController = TextEditingController(text: widget.card.description);
 
     descricaoFocusNode = FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      descricaoFocusNode.requestFocus();
-    });
   }
 
   @override
@@ -144,6 +141,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
           ),
           const SizedBox(height: 8),
           CupertinoTextField(
+            autofocus: false,
             decoration: const BoxDecoration(
               border: Border(
                 bottom: BorderSide(
@@ -169,7 +167,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                     lastIndexSelected = index;
                   });
                 },
-                defaultdIndexCategory: lastIndexSelected! ?? 0,
+                defaultdIndexCategory: lastIndexSelected ?? 0,
               ),
             ),
           ],

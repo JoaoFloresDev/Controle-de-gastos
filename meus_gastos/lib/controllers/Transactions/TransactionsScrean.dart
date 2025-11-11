@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/CriarGastosFixos.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/CriarGastosFixosScreen.dart';
 import 'ViewComponents/ListCard.dart';
 import '../../models/CardModel.dart';
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';

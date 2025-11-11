@@ -47,7 +47,7 @@ class _DetailScreen extends State<DetailScreen> {
               title: AppLocalizations.of(context)!.transactionDetails,
               onCancelPressed: () {
                 // FocusScope.of(context).unfocus();
-                // Navigator.of(context).pop();
+                Navigator.of(context).pop();
               },
               onDeletePressed: () {
                 widget.onDelete(widget.card);

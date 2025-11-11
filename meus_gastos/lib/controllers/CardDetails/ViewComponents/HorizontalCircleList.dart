@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
@@ -8,6 +9,7 @@ import 'package:meus_gastos/services/TranslateService.dart';
 class HorizontalCircleList extends StatefulWidget {
   final Function(int) onItemSelected;
   final int defaultdIndexCategory;
+
   const HorizontalCircleList({
     super.key,
     required this.onItemSelected,
@@ -20,184 +22,226 @@ class HorizontalCircleList extends StatefulWidget {
 
 class HorizontalCircleListState extends State<HorizontalCircleList> {
   int selectedIndex = 0;
-  int lastSelectedIndex = 0;
   List<CategoryModel> categorieList = [];
+  late ScrollController _scrollController;
+  bool _showLeftGradient = false;
+  bool _showRightGradient = true;
+  bool _isLoaded = false;
 
-  // MARK: - InitState
   @override
   void initState() {
     super.initState();
-    selectedIndex = widget.defaultdIndexCategory;
-    lastSelectedIndex = selectedIndex;
     _scrollController = ScrollController();
+    _scrollController.addListener(_updateGradients);
     loadCategories();
   }
 
   @override
   void dispose() {
+    _scrollController.removeListener(_updateGradients);
     _scrollController.dispose();
     super.dispose();
   }
 
-  // MARK: - Load Categories
   Future<void> loadCategories() async {
     categorieList = await CategoryService().getAllCategoriesAvaliable();
-    print(categorieList.removeLast().name);
+    categorieList.removeLast();
+
     setState(() {
-      categorieList = categorieList;
+      selectedIndex = widget.defaultdIndexCategory;
+      _isLoaded = true;
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToSelected(selectedIndex);
     });
   }
 
-  // MARK: - Build Method
-  @override
-  Widget build(BuildContext context) {
-    return Platform.isMacOS
-        ? Macbuild()
-        : SizedBox(
-            height: 90,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: categorieList.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    if (categorieList[index].id != 'AddCategory') {
-                      setState(() {
-                        lastSelectedIndex = selectedIndex;
-                        selectedIndex = index;
-                      });
-                    }
-                    widget.onItemSelected(index);
-                  },
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        margin: const EdgeInsets.symmetric(horizontal: 8),
-                        decoration: BoxDecoration(
-                          color: categorieList[index].id == 'AddCategory'
-                              ? Colors.transparent
-                              : selectedIndex == index
-                                  ? AppColors.buttonSelected
-                                  : Colors.transparent,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          categorieList[index].icon,
-                          color: categorieList[index].color,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Container(
-                        width: 80,
-                        child: Text(
-                          TranslateService.getTranslatedCategoryUsingModel(
-                              context, categorieList[index]),
-                          style: const TextStyle(
-                              fontSize: 10, color: Colors.white),
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          );
+  void _updateGradients() {
+    setState(() {
+      _showLeftGradient = _scrollController.offset > 10;
+      _showRightGradient = _scrollController.offset <
+          _scrollController.position.maxScrollExtent - 10;
+    });
   }
 
-  Widget Macbuild() {
-    return SizedBox(
-      height: 90,
-      child: Row(
-        children: [
-          IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: AppColors.label),
-            onPressed: () {
-              // Volta 100 pixels para a esquerda
-              _scrollController.animateTo(
-                _scrollController.offset - 100,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-              );
-            },
+  void _scrollToSelected(int index) {
+    if (categorieList.isEmpty) return;
+    final double itemWidth = 70.0;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double targetScroll =
+        (index * itemWidth) - (screenWidth / 2) + (itemWidth / 2);
+
+    _scrollController.animateTo(
+      targetScroll.clamp(0.0, _scrollController.position.maxScrollExtent),
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_isLoaded) {
+      return SizedBox(
+        height: 110,
+        child: Center(
+          child: CupertinoActivityIndicator(
+            color: AppColors.label,
           ),
-          Expanded(
-            child: ListView.builder(
-              controller: _scrollController,
-              scrollDirection: Axis.horizontal,
-              itemCount: categorieList.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    if (categorieList[index].id != 'AddCategory') {
-                      setState(() {
-                        lastSelectedIndex = selectedIndex;
-                        selectedIndex = index;
-                      });
-                    }
-                    widget.onItemSelected(index);
-                  },
+        ),
+      );
+    }
+
+    return Container(
+      height: 110,
+      decoration: BoxDecoration(
+        color: AppColors.card.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Stack(
+        children: [
+          ListView.builder(
+            controller: _scrollController,
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            itemCount: categorieList.length,
+            itemBuilder: (context, index) {
+              final isSelected = selectedIndex == index;
+              final category = categorieList[index];
+
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                  _scrollToSelected(index);
+                  HapticFeedback.lightImpact();
+                  widget.onItemSelected(index);
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeOutCubic,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
+                  width: 70,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        margin: const EdgeInsets.symmetric(horizontal: 8),
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.easeOutCubic,
+                        width: isSelected ? 56 : 50,
+                        height: isSelected ? 56 : 50,
                         decoration: BoxDecoration(
-                          color: categorieList[index].id == 'AddCategory'
-                              ? Colors.transparent
-                              : selectedIndex == index
-                                  ? AppColors.buttonSelected
-                                  : Colors.transparent,
+                          color: isSelected
+                              ? category.color.withOpacity(0.15)
+                              : Colors.transparent,
                           shape: BoxShape.circle,
+                          border: Border.all(
+                            color: isSelected
+                                ? category.color
+                                : Colors.transparent,
+                            width: 2,
+                          ),
                         ),
-                        child: Icon(
-                          categorieList[index].icon,
-                          color: categorieList[index].color,
+                        child: AnimatedScale(
+                          scale: isSelected ? 1.0 : 0.85,
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeOutCubic,
+                          child: Icon(
+                            category.icon,
+                            color: isSelected
+                                ? category.color
+                                : Colors.white.withOpacity(0.6),
+                            size: isSelected ? 26 : 24,
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 4),
-                      Container(
-                        width: 80,
-                        child: Text(
-                          TranslateService.getTranslatedCategoryUsingModel(
-                              
-                              context, categorieList[index]),
-                          style: const TextStyle(
-                              
-                              fontSize: 12, color: Colors.white),
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
+                      const SizedBox(height: 6),
+                      Text(
+                        TranslateService.getTranslatedCategoryUsingModel(
+                            context, category),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: isSelected
+                              ? category.color
+                              : Colors.white.withOpacity(0.6),
+                          fontWeight:
+                              isSelected ? FontWeight.w600 : FontWeight.w400,
                         ),
                       ),
+                      if (isSelected)
+                        const SizedBox(height: 4),
+                      if (isSelected)
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          width: 4,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: category.color,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
                     ],
                   ),
-                );
-              },
-            ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.arrow_forward_ios, color: AppColors.label),
-            onPressed: () {
-              // Avança 100 pixels para a direita
-              _scrollController.animateTo(
-                _scrollController.offset + 100,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
+                ),
               );
             },
           ),
+          if (_showLeftGradient)
+            Positioned(
+              left: 0,
+              top: 0,
+              bottom: 0,
+              child: IgnorePointer(
+                child: Container(
+                  width: 40,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        AppColors.card.withOpacity(0.3),
+                        AppColors.card.withOpacity(0.0),
+                      ],
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(16),
+                      bottomLeft: Radius.circular(16),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          if (_showRightGradient)
+            Positioned(
+              right: 0,
+              top: 0,
+              bottom: 0,
+              child: IgnorePointer(
+                child: Container(
+                  width: 40,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.centerRight,
+                      end: Alignment.centerLeft,
+                      colors: [
+                        AppColors.card.withOpacity(0.3),
+                        AppColors.card.withOpacity(0.0),
+                      ],
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(16),
+                      bottomRight: Radius.circular(16),
+                    ),
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );
   }
-
-  late ScrollController _scrollController;
 }

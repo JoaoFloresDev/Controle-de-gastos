@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesService.dart';
 import 'package:meus_gastos/services/firebase/FirebaseService.dart';
 
 class SaveFixedExpenseOnClound {

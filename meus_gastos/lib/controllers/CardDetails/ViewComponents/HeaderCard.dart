@@ -8,7 +8,7 @@ import 'CampoComMascara.dart';
 import 'HorizontalCircleList.dart';
 import 'ValorTextField.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-
+import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 // import 'package:firebase_auth/firebase_auth.dart';

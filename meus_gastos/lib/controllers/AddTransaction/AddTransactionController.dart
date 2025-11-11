@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesService.dart';
 import '../../../models/CardModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:flutter/foundation.dart';
@@ -12,7 +12,6 @@ import 'package:meus_gastos/models/CategoryModel.dart';
 import 'UIComponents/Header/HeaderCard.dart';
 import 'UIComponents/VerticalCircleList.dart';
 import 'UIComponents/CompactListCardRecorrent.dart';
-import 'UIComponents/KeyboardDoneToolbar.dart';
 import 'UIComponents/CustomSeparator.dart';
 import 'UIComponents/InsertExpenseButton.dart';
 import 'UIComponents/AddedExpenseToast.dart';
@@ -472,32 +471,37 @@ class _AddTransactionControllerState extends State<AddTransactionController>
         _headerCardKey.currentState?.onCategorySelected(index);
       },
 
-      onAddCategorySelected: () {
-        print("AHHHHH");
-        showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          backgroundColor: Colors.transparent,
-          builder: (BuildContext context) {
-            return Container(
-              height: MediaQuery.of(context).size.height - 70,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-              ),
-              child: CategoryCreater(
-                onCategoryAdded: () {
-                  setState(() {
-                    _verticalCircleListKey.currentState?.loadCategories();
-                  });
-                },
-              ),
-            );
+onAddCategorySelected: () {
+  print("AHHHHH");
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (BuildContext context) {
+      return Container(
+        height: MediaQuery.of(context).size.height - 70,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: CategoryCreater(
+          onCategoryAdded: () {
+            setState(() {
+              // Recarrega as categorias
+              _verticalCircleListKey.currentState?.loadCategories();
+              // Seleciona o primeiro item no header (índice 0)
+              _headerCardKey.currentState?.onCategorySelected(0);
+              // Seleciona o primeiro item na UI (índice 0)
+              _verticalCircleListKey.currentState?.setSelectedIndex(0);
+            });
           },
-        );
-      },
+        ),
+      );
+    },
+  );
+},
     );
   }
 }

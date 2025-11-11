@@ -153,7 +153,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get videoGame => 'Videojuegos';
 
   @override
-  String get drink => 'Ocio';
+  String get fun => 'Ocio';
 
   @override
   String get water => 'Agua';

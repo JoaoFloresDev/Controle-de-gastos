@@ -153,7 +153,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get videoGame => 'Gaming';
 
   @override
-  String get drink => 'Entertainment';
+  String get fun => 'Fun';
 
   @override
   String get water => 'Water';
