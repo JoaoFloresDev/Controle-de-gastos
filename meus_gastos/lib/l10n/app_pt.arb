@@ -159,5 +159,12 @@
     "dateAndHour" : "Data e Hora",
     "insertExpend" : "Inserir Despesa",
     "addTransactionPopupTitle" : "Registrar Despesa",
-    "addTransactionPopupSubtitle" : "Valor gasto"
+    "addTransactionPopupSubtitle" : "Valor gasto",
+"automaticAddition": "Adição Automática",
+"suggestion": "Sugestão",
+"automatic": "Automático",
+"selectAdditionType": "Selecionar Tipo de Adição",
+"selectAdditionTypeDescription": "Escolha como essa despesa será adicionada",
+"automaticAdditionDescription": "Adiciona a despesa automaticamente na data agendada",
+"suggestionDescription": "Lembra você de adicionar a despesa na data agendada"
 }

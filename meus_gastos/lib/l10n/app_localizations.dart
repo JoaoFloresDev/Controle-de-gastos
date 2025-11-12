@@ -1041,6 +1041,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Amount spent'**
   String get addTransactionPopupSubtitle;
+
+  /// No description provided for @automaticAddition.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic Addition'**
+  String get automaticAddition;
+
+  /// No description provided for @suggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestion'**
+  String get suggestion;
+
+  /// No description provided for @automatic.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get automatic;
+
+  /// No description provided for @selectAdditionType.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Addition Type'**
+  String get selectAdditionType;
+
+  /// No description provided for @selectAdditionTypeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose how this expense will be added'**
+  String get selectAdditionTypeDescription;
+
+  /// No description provided for @automaticAdditionDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Adds the expense automatically on the scheduled date'**
+  String get automaticAdditionDescription;
+
+  /// No description provided for @suggestionDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminds you to add the expense on the scheduled date'**
+  String get suggestionDescription;
 }
 
 class _AppLocalizationsDelegate

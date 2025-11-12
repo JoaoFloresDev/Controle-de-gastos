@@ -1,5 +1,5 @@
 // import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/UI/intervalsControl.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/UI/IntervalsControl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 // import 'package:meus_gastos/services/firebase/saveExpensOnCloud.dart';
@@ -170,10 +170,6 @@ class Fixedexpensesservice {
       final shouldShow = Intervalscontrol()
               .IsapresentetionNecessary(fcard, normalCards, verificationDate) &&
           currentDate.isAfter(fcard.date);
-      // && (verificationDate.hour > fcard.date.hour ||
-      //     (verificationDate.hour == fcard.date.hour &&
-      //         verificationDate.minute >= fcard.date.minute));
-      // print(shouldShow);
       return shouldShow;
     }).toList();
   }

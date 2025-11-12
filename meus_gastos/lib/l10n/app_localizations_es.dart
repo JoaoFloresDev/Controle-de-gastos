@@ -497,4 +497,28 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get addTransactionPopupSubtitle => 'Monto gastado';
+
+  @override
+  String get automaticAddition => 'Adición Automática';
+
+  @override
+  String get suggestion => 'Sugerencia';
+
+  @override
+  String get automatic => 'Automático';
+
+  @override
+  String get selectAdditionType => 'Seleccionar Tipo de Adición';
+
+  @override
+  String get selectAdditionTypeDescription =>
+      'Elige cómo se agregará este gasto';
+
+  @override
+  String get automaticAdditionDescription =>
+      'Agrega el gasto automáticamente en la fecha programada';
+
+  @override
+  String get suggestionDescription =>
+      'Te recuerda agregar el gasto en la fecha programada';
 }

@@ -190,5 +190,7 @@
 "suggestion": "Suggestion",
 "automatic": "Automatic",
 "selectAdditionType": "Select Addition Type",
-"selectAdditionTypeDescription": "Choose how this expense will be added"
+"selectAdditionTypeDescription": "Choose how this expense will be added",
+"automaticAdditionDescription": "Adds the expense automatically on the scheduled date",
+"suggestionDescription": "Reminds you to add the expense on the scheduled date"
 }

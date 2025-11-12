@@ -121,12 +121,8 @@ class Intervalscontrol {
     DateTime todayStart = DateTime(
         today.year, today.month, today.day, fixDate.hour, fixDate.minute);
     DateTime todayEnd = todayStart.add(Duration(days: 1));
-
-    // Filtra os itens cuja data está entre o início e o fim do dia de hoje
     List<CardModel> filteredCards = cards.where((card) {
       DateTime itemDate = card.date;
-      // print("${card.date}: ${itemDate.isAfter(todayStart.subtract(Duration(milliseconds: 1))) &&
-      //     itemDate.isBefore(todayEnd)}");
       return itemDate.isAfter(todayStart.subtract(Duration(milliseconds: 1))) &&
           itemDate.isBefore(todayEnd);
     }).toList();

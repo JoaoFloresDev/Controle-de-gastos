@@ -25,7 +25,6 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
   @override
   void initState() {
     super.initState();
-    // _updateRepetitionText();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _updateRepetitionText(context);
     });
@@ -34,7 +33,6 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
   @override
   void didUpdateWidget(RepetitionMenu oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Atualiza os textos quando a `referenceDate` for alterada
     if (widget.referenceDate != oldWidget.referenceDate) {
       _updateRepetitionText(context);
     }
@@ -74,8 +72,8 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
   void _showRepetitionOptions(BuildContext context) {
     final DateFormat dayFormat = DateFormat('d');
     Locale locale = Localizations.localeOf(context);
-    String languageCode = locale.languageCode; // Exemplo: 'pt'
-    String countryCode = locale.countryCode ?? ''; // Exemplo: 'BR'
+    String languageCode = locale.languageCode;
+    String countryCode = locale.countryCode ?? '';
     String localeString =
         countryCode.isNotEmpty ? '$languageCode\_$countryCode' : languageCode;
     final DateFormat monthDayFormat = DateFormat('d MMMM', localeString);
@@ -102,7 +100,13 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
                 Navigator.pop(context);
               },
               child: Text(
-                  "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth"),
+                  "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth",
+                  style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: CupertinoColors.white,
+                          ),
+                          ),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
@@ -114,7 +118,11 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
                 Navigator.pop(context);
               },
               child: Text(
-                  "${AppLocalizations.of(context)!.weeklyEvery} $dayOfWeek"),
+                  "${AppLocalizations.of(context)!.weeklyEvery} $dayOfWeek",                  style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: CupertinoColors.white,
+                          ),),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
@@ -126,7 +134,11 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
                 Navigator.pop(context);
               },
               child: Text(
-                  "${AppLocalizations.of(context)!.yearlyEveryDay} $monthDay"),
+                  "${AppLocalizations.of(context)!.yearlyEveryDay} $monthDay",                  style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: CupertinoColors.white,
+                          ),),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
@@ -139,7 +151,11 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
                 Navigator.pop(context);
               },
               child: Text(
-                  "${AppLocalizations.of(context)!.weekdaysMondayToFriday}"),
+                  "${AppLocalizations.of(context)!.weekdaysMondayToFriday}",                  style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: CupertinoColors.white,
+                          ),),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
@@ -157,7 +173,13 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text("${AppLocalizations.of(context)!.cancel}"),
+            child: Text(
+              AppLocalizations.of(context)!.cancel,
+              style: const TextStyle(
+                fontWeight: FontWeight.w400,
+                color: CupertinoColors.white,
+              ),
+            ),
           ),
         );
       },
@@ -166,22 +188,45 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12.0),
-      child: CupertinoButton(
-        color: AppColors.card,
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
-        onPressed: () => _showRepetitionOptions(context),
-        child: Center(
-          child: Text(
-            _selectedRepetition,
-            style: const TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-              color: CupertinoColors.white,
+    return GestureDetector(
+      onTap: () => _showRepetitionOptions(context),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.card,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: CupertinoColors.systemBlue.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(
+                CupertinoIcons.repeat,
+                color: CupertinoColors.systemBlue,
+                size: 20,
+              ),
             ),
-            textAlign: TextAlign.center,
-          ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                _selectedRepetition,
+                style: const TextStyle(
+                  color: CupertinoColors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            Icon(
+              CupertinoIcons.chevron_right,
+              color: CupertinoColors.white.withOpacity(0.3),
+              size: 18,
+            ),
+          ],
         ),
       ),
     );

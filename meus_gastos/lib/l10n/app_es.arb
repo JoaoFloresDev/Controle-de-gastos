@@ -159,6 +159,13 @@
   "dateAndHour" : "Fecha y hora",
   "insertExpend" : "Insertar gasto",
   "addTransactionPopupTitle" : "Registrar gasto",
-  "addTransactionPopupSubtitle" : "Monto gastado"
+  "addTransactionPopupSubtitle" : "Monto gastado",
+  "automaticAddition": "Adición Automática",
+"suggestion": "Sugerencia",
+"automatic": "Automático",
+"selectAdditionType": "Seleccionar Tipo de Adición",
+"selectAdditionTypeDescription": "Elige cómo se agregará este gasto",
+"automaticAdditionDescription": "Agrega el gasto automáticamente en la fecha programada",
+"suggestionDescription": "Te recuerda agregar el gasto en la fecha programada"
   
 }
