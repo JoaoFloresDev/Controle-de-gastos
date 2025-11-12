@@ -185,5 +185,10 @@
     "set": "Set",
     "totalGoalForMonth": "Total budget for a month",
     "currentGoal" : "Current Goal",
-    "setGoal" : "Set Goal"
+    "setGoal" : "Set Goal",
+    "automaticAddition": "Automatic Addition",
+"suggestion": "Suggestion",
+"automatic": "Automatic",
+"selectAdditionType": "Select Addition Type",
+"selectAdditionTypeDescription": "Choose how this expense will be added"
 }

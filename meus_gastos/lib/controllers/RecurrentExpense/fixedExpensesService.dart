@@ -9,26 +9,10 @@ import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart
 import 'package:meus_gastos/services/CardService.dart';
 
 class Fixedexpensesservice {
-  // static Future<void> saveFixedExpense(FixedExpense expense) async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-  //   // Carregar lista de gastos fixos existentes
-  //   List<String> expensesList = prefs.getStringList('fixed_expenses') ?? [];
-
-  //   // Adicionar o novo gasto
-  //   expensesList.add(jsonEncode(expense.toJson()));
-
-  //   // Salvar de volta no SharedPreferences
-  //   await prefs.setStringList('fixed_expenses', expensesList);
-  // }
-  // MARK: getSortedFixedExpenses
   static Future<List<FixedExpense>> getSortedFixedExpenses() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString('fixed_expenses');
     List<FixedExpense> fc = [];
-    // User? user = FirebaseAuth.instance.currentUser;
-
-    // if (user == null) {
       if (cardsString != null) {
         final List<dynamic> jsonList = json.decode(cardsString);
         fc = jsonList
@@ -36,14 +20,7 @@ class Fixedexpensesservice {
             .toList()
           ..sort((a, b) => b.date.compareTo(a.date));
       }
-    // } else {
-      // fc = await SaveExpensOnCloud().fetchCardsFixedCards()
-      //   ..sort((a, b) => b.date.compareTo(a.date));
-    // }
-    // print("metodo antigo:${fc.length} firebase${fixedCardList.length}");
     return fc;
-    // }
-    // return [];
   }
 
   static Future<List<FixedExpense>> getSortedFixedExpensesToSync() async {
