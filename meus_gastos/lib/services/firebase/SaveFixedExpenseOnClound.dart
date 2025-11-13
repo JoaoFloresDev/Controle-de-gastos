@@ -6,7 +6,7 @@ import 'package:meus_gastos/services/firebase/FirebaseService.dart';
 class SaveFixedExpenseOnClound {
   Future<void> addDatesOfOfflineStateFixedCards() async {
     List<FixedExpense> cards =
-        await Fixedexpensesservice.getSortedFixedExpenses();
+        await FixedExpensesService.getSortedFixedExpenses();
     for (var card in cards) {
       await FirebaseService().firestore.collection(FirebaseService().userId!).doc(card.id).set(card.toJson());
       // await firestore.collection(userId).doc(card.id)

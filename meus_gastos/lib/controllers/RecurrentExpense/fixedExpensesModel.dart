@@ -7,17 +7,19 @@ class FixedExpense {
   double price;
   DateTime date;
   CategoryModel category;
-  String tipoRepeticao='mensal';
+  String repetitionType = 'monthly';
+  String? additionType;
 
-  FixedExpense(
-      {required this.description,
-      required this.price,
-      required this.date,
-      required this.category,
-      required this.id,
-      required this.tipoRepeticao});
+  FixedExpense({
+    required this.description,
+    required this.price,
+    required this.date,
+    required this.category,
+    required this.id,
+    required this.repetitionType,
+    this.additionType,
+  });
 
-  // Para salvar em SharedPreferences, converter em Map
   Map<String, dynamic> toJson() {
     return {
       'description': description,
@@ -25,11 +27,11 @@ class FixedExpense {
       'date': date.toIso8601String(),
       'category': category.toJson(),
       'id': id,
-      'tipoRepeticao': tipoRepeticao,
+      'repetitionType': repetitionType,
+      'additionType': additionType ?? 'suggestion',
     };
   }
 
-  // Para ler de SharedPreferences, criar a partir de Map
   factory FixedExpense.fromJson(Map<String, dynamic> json) {
     return FixedExpense(
       description: json['description'],
@@ -37,8 +39,11 @@ class FixedExpense {
       date: DateTime.parse(json['date']),
       category: CategoryModel.fromJson(json['category']),
       id: json['id'],
-      tipoRepeticao: json['tipoRepeticao'],
+      repetitionType: json['repetitionType'] ?? json['tipoRepeticao'] ?? 'monthly',
+      additionType: json['additionType'] ?? json['tipoAdicao'] ?? 'suggestion',
     );
   }
 
+  bool get isAutomaticAddition => (additionType ?? 'suggestion') == 'automatic';
+  bool get isSuggestion => (additionType ?? 'suggestion') == 'suggestion';
 }

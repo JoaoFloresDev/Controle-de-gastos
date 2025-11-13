@@ -148,7 +148,7 @@ class _ListCardFixedsState extends State<ListCardFixeds> with SingleTickerProvid
                                 Text(
                                   _getRepetitionText(
                                     context,
-                                    widget.card.tipoRepeticao,
+                                    widget.card.repetitionType,
                                     widget.card.date,
                                   ),
                                   style: const TextStyle(

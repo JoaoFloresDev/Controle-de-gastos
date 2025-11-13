@@ -166,7 +166,11 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
                 widget.onRepetitionSelected('diario');
                 Navigator.pop(context);
               },
-              child: Text("${AppLocalizations.of(context)!.daily}"),
+              child: Text("${AppLocalizations.of(context)!.daily}",style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: CupertinoColors.white,
+                          )),
             ),
           ],
           cancelButton: CupertinoActionSheetAction(

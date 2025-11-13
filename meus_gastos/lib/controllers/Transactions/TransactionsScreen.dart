@@ -102,7 +102,6 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
     // Combine fixedCards e cardList em uma única lista de widgets
     final allCards = <Widget>[];
 
-    // Adiciona fixedCards
     for (var fcard in viewModel.fixedCards) {
       var card = viewModel.Fixed_to_NormalCard(fcard);
 
@@ -119,8 +118,6 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
         ),
       );
     }
-
-    // Adiciona normal cards
     for (var card in viewModel.cardList.reversed) {
       allCards.add(
         Padding(
@@ -353,10 +350,6 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // ChangeNotifierProvider<LoginViewModel>(
-              //   create: (_) => LoginViewModel()..init(),
-              //   child: LoginButtonScrean(),
-              // ),
               GestureDetector(
                 onTap: () {
                   _showProModal(context);
@@ -380,7 +373,6 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
               children: [
                 BannerAdFactory().build(),
                 const SizedBox(height: 8),
-                // Aqui eu vou colocar o date_select para filtrar os cards
                 if ((viewModel.cardList.isNotEmpty) ||
                     (viewModel.fixedCards.isNotEmpty)) ...[
                   _cardListBuild(viewModel),

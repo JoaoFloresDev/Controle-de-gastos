@@ -1,12 +1,9 @@
-import 'package:meus_gastos/controllers/CardDetails/ViewComponents/CampoComMascara.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/designSystem/Components/CustomHeader.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/UI/HorizontalCircleList.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'CardDetails/DetailScreen.dart';
-import 'UI/ListCardFixeds.dart';
 import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
@@ -31,20 +28,20 @@ class CriarGastosFixos extends StatefulWidget {
 }
 
 class _CriarGastosFixos extends State<CriarGastosFixos> {
-  late MoneyMaskedTextController valorController;
-  final descricaoController = TextEditingController();
-  int lastIndexSelected_category = 0;
-  int lastIndexSelected_day = 1;
-  String tipoRepeticao = "mensal";
-  String tipoAdicao = "automatica";
+  late MoneyMaskedTextController valueController;
+  final descriptionController = TextEditingController();
+  int lastSelectedCategoryIndex = 0;
+  int lastSelectedDayIndex = 1;
+  String repetitionType = "monthly";
+  String additionType = "automatic";
   bool _controllerInitialized = false;
 
   List<FixedExpense> _fixedExpenses = [];
-  List<CategoryModel> icons_list_recorrent = [];
+  List<CategoryModel> recurrentIconsList = [];
 
   DateTime _selectedDate = DateTime.now();
 
-  final valorFieldKey = GlobalKey<ValorTextFieldState>();
+  final valueFieldKey = GlobalKey<ValorTextFieldState>();
 
   @override
   void initState() {
@@ -61,7 +58,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
       final locale = Localizations.localeOf(context);
       final currencySymbol = TranslateService.getCurrencySymbol(context);
 
-      valorController = MoneyMaskedTextController(
+      valueController = MoneyMaskedTextController(
         leftSymbol: currencySymbol,
         decimalSeparator: locale.languageCode == 'pt' ? ',' : '.',
         initialValue: 0.0,
@@ -72,33 +69,33 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
 
   @override
   void dispose() {
-    valorController.dispose();
-    descricaoController.dispose();
+    valueController.dispose();
+    descriptionController.dispose();
     super.dispose();
   }
 
   Future<void> loadCategories() async {
-    var categorieList = await CategoryService().getAllCategoriesAvaliable();
+    var categoryList = await CategoryService().getAllCategoriesAvaliable();
     setState(() {
-      icons_list_recorrent = categorieList.sublist(0, categorieList.length - 1);
+      recurrentIconsList = categoryList.sublist(0, categoryList.length - 1);
     });
   }
 
   Future<void> _loadFixedExpenses() async {
     List<FixedExpense> expenses =
-        await Fixedexpensesservice.getSortedFixedExpenses();
+        await FixedExpensesService.getSortedFixedExpenses();
     setState(() {
       _fixedExpenses = expenses;
     });
   }
 
   void _resetForm() {
-    valorFieldKey.currentState?.clear();
-    descricaoController.clear();
+    valueFieldKey.currentState?.clear();
+    descriptionController.clear();
     setState(() {
-      lastIndexSelected_category = 0;
-      tipoRepeticao = "mensal";
-      tipoAdicao = "automatica";
+      lastSelectedCategoryIndex = 0;
+      repetitionType = "monthly";
+      additionType = "automatic";
       _selectedDate = DateTime.now();
     });
   }
@@ -136,14 +133,14 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                 child: Column(
                   children: [
                     FormSection(
-                      valorFieldKey: valorFieldKey,
-                      valorController: valorController,
-                      descricaoController: descricaoController,
+                      valorFieldKey: valueFieldKey,
+                      valorController: valueController,
+                      descricaoController: descriptionController,
                       selectedDate: _selectedDate,
-                      tipoRepeticao: tipoRepeticao,
-                      tipoAdicao: tipoAdicao,
-                      icons_list_recorrent: icons_list_recorrent,
-                      lastIndexSelected_category: lastIndexSelected_category,
+                      tipoRepeticao: repetitionType,
+                      tipoAdicao: additionType,
+                      icons_list_recorrent: recurrentIconsList,
+                      lastIndexSelected_category: lastSelectedCategoryIndex,
                       onDateChanged: (DateTime newDate) {
                         setState(() {
                           _selectedDate = newDate;
@@ -151,30 +148,30 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                       },
                       onRepetitionChanged: (String selectedRepetition) {
                         setState(() {
-                          tipoRepeticao = selectedRepetition;
+                          repetitionType = selectedRepetition;
                         });
                       },
                       onAdditionTypeChanged: (String selectedType) {
                         setState(() {
-                          tipoAdicao = selectedType;
+                          additionType = selectedType;
                         });
                       },
                       onCategoryChanged: (int index) {
                         setState(() {
-                          lastIndexSelected_category = index;
+                          lastSelectedCategoryIndex = index;
                         });
                       },
                       onAddPressed: () async {
                         FocusScope.of(context).unfocus();
 
-                        await Fixedexpensesservice.addCard(FixedExpense(
-                          description: descricaoController.text,
-                          price: valorController.numberValue,
+                        await FixedExpensesService.addCard(FixedExpense(
+                          description: descriptionController.text,
+                          price: valueController.numberValue,
                           date: _selectedDate,
-                          category: icons_list_recorrent[
-                              lastIndexSelected_category],
+                          category: recurrentIconsList[lastSelectedCategoryIndex],
                           id: const Uuid().v4(),
-                          tipoRepeticao: tipoRepeticao,
+                          repetitionType: repetitionType,
+                          additionType: additionType,
                         ));
                         _resetForm();
                         await _loadFixedExpenses();
@@ -209,7 +206,6 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
   }
 
   void _showCupertinoModalBottomSheet(BuildContext context, FixedExpense card) {
-    print(card.tipoRepeticao);
     FocusScope.of(context).unfocus();
     showCupertinoModalPopup(
       context: context,
@@ -230,12 +226,6 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                 widget.onAddPressedBack();
               });
             },
-            // onDelete: () {
-            //   _loadFixedExpenses();
-            //   setState(() {
-            //     widget.onAddPressedBack();
-            //   });
-            // },
           ),
         );
       },

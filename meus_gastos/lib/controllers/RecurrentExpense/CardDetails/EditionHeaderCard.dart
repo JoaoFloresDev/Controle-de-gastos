@@ -77,7 +77,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
 
     descricaoFocusNode = FocusNode();
 
-    tipoRepeticao = widget.card.tipoRepeticao;
+    tipoRepeticao = widget.card.repetitionType;
     loadCategories();
   }
 
@@ -135,9 +135,9 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       date: _selectedDate,
       category: icons_list_recorrent[lastIndexSelected_category],
       id: widget.card.id,
-      tipoRepeticao: tipoRepeticao,
+      repetitionType: tipoRepeticao,
     );
-    Fixedexpensesservice.updateCard(widget.card.id, newCard);
+    FixedExpensesService.updateCard(widget.card.id, newCard);
 
     Future.delayed(const Duration(milliseconds: 300), () {
       widget.onAddClicked();
@@ -193,7 +193,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                   print(tipoRepeticao);
                 });
               },
-              defaultRepetition: widget.card.tipoRepeticao,
+              defaultRepetition: widget.card.repetitionType,
             ),
           const SizedBox(height: 12),
           HorizontalCircleList(
@@ -216,7 +216,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                 onPressed: () {
                   adicionar();
                   widget.onAddClicked;
-                  Fixedexpensesservice.printCardsInfo();
+                  FixedExpensesService.printCardsInfo();
                 },
                 child: Text(
                   widget.adicionarButtonTitle,

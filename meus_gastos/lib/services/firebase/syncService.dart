@@ -16,7 +16,7 @@ class SyncService {
 
     //  1. Carrega os dados locais
     List<FixedExpense> localFixedExpenses =
-        await Fixedexpensesservice.getSortedFixedExpensesToSync();
+        await FixedExpensesService.getSortedFixedExpensesToSync();
     List<CardModel> localNormalExpenses =
         await CardService.retrieveCardsToSync();
 

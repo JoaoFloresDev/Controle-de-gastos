@@ -141,7 +141,7 @@ class Intervalscontrol {
   }
 
   bool IsapresentetionNecessary(FixedExpense gastoFixo, List<CardModel> cards, DateTime currentDate) {
-    switch (gastoFixo.tipoRepeticao) {
+    switch (gastoFixo.repetitionType) {
       case 'mensal':
         // verifica se o dia do mês é maior que o gastoFixo.date.day e se não existe o gasto ainda
         return mensalInterval(gastoFixo, cards);

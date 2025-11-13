@@ -117,7 +117,7 @@ class Monthinsightsservices {
   }
 
   static Future<double> getFixedExpenses(DateTime currentDate) async {
-    List<String> fixedIds = await Fixedexpensesservice.getFixedExpenseIds();
+    List<String> fixedIds = await FixedExpensesService.getFixedExpenseIds();
     List<CardModel> cards = await CardService.retrieveCards();
     List<CardModel> cardsOfThisMonth = cards
         .where((card) =>
@@ -289,7 +289,7 @@ class Monthinsightsservices {
   }
 
   static Future<List<CardModel>> getVariavelCards(DateTime currentDate) async {
-    List<String> fixedIds = await Fixedexpensesservice.getFixedExpenseIds();
+    List<String> fixedIds = await FixedExpensesService.getFixedExpenseIds();
     List<CardModel> cards = await CardService.retrieveCards();
     List<CardModel> cardsOfThisMonth = cards
         .where((card) =>
@@ -643,7 +643,7 @@ class Monthinsightsservices {
 
   static Future<double> projectionFixedForTheMonth(DateTime currentDate) async {
     List<FixedExpense> fixedCards =
-        await Fixedexpensesservice.getSortedFixedExpenses();
+        await FixedExpensesService.getSortedFixedExpenses();
     double totalExpenseFixed = 0.0;
     if ((currentDate.month < DateTime.now().month &&
             currentDate.year == DateTime.now().year) ||
@@ -652,7 +652,7 @@ class Monthinsightsservices {
     }
     totalExpenseFixed = await getFixedExpenses(currentDate);
     for (var card in fixedCards) {
-      switch (card.tipoRepeticao) {
+      switch (card.repetitionType) {
         case ('mensal'):
           if (currentDate.day >= card.date.day) {
             totalExpenseFixed = totalExpenseFixed + card.price;

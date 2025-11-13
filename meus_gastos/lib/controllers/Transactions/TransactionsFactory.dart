@@ -1,6 +1,6 @@
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Login/Authentication.dart';
-import 'package:meus_gastos/controllers/Transactions/TransactionsScrean.dart';
+import 'package:meus_gastos/controllers/Transactions/TransactionsScreen.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/data/TransactionsRepository.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
