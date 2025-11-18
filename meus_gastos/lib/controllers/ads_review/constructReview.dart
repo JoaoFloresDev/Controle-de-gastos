@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -69,20 +70,23 @@ class ReviewService {
   }
 
   static void _showProModal(BuildContext context) async {
-    showModalBottomSheet(
+    ProManeger proViewModel = ProManeger();
+    showCupertinoModalPopup(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         if (Platform.isIOS || Platform.isMacOS) {
           return ProModal(
             isLoading: false,
-            onSubscriptionPurchased: () {},
+            onSubscriptionPurchased: () {
+              proViewModel.checkUserProStatus();
+            },
           );
         } else {
           return ProModalAndroid(
-            isLoading: true,
-            onSubscriptionPurchased: () {},
+            isLoading: false,
+            onSubscriptionPurchased: () {
+              proViewModel.checkUserProStatus();
+            },
           );
         }
       },
