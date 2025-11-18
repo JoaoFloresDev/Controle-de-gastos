@@ -1,8 +1,12 @@
+import 'package:meus_gastos/controllers/Transactions/data/TransactionsRepository.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import '../../../models/CardModel.dart';
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCard.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:meus_gastos/services/CardService.dart';
 
 class TransactionList extends StatelessWidget {
   final List<CardModel> transactions;
@@ -24,7 +28,6 @@ class TransactionList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 12),
-              // Ícone com círculo de fundo
               Container(
                 width: 70,
                 height: 70,
@@ -43,7 +46,6 @@ class TransactionList extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              // Texto existente com melhor estilo
               Text(
                 AppLocalizations.of(context)!.emptyDay,
                 textAlign: TextAlign.center,
@@ -102,7 +104,12 @@ class TransactionList extends StatelessWidget {
             onAddClicked: () {
               onRefresh();
             },
-            onDelete: (card) {},
+            onDelete: (cardToDelete) async {
+              final service = CardService();
+              await service.deleteCard(cardToDelete);
+              Navigator.of(context).pop();
+              onRefresh();
+            },
           ),
         );
       },
