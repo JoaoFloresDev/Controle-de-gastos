@@ -21,155 +21,158 @@ class DashboardCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
+    return Card(
         color: AppColors.card,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            offset: const Offset(0, 2),
-            blurRadius: 12,
-            spreadRadius: 0,
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: items.isEmpty
-            ? _buildPieChartPlaceholder(context)
-            : Column(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 220,
-                    child: PieChart(
-                      PieChartData(
-                        sectionsSpace: 2,
-                        centerSpaceRadius: 60,
-                        sections: items
-                            .map((item) => PieChartSectionData(
-                                  color: item.color,
-                                  value: item.value,
-                                  title:
-                                      '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(0)}%',
-                                  radius: 35,
-                                  titleStyle: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                  ),
-                                  titlePositionPercentageOffset: 0.6,
-                                ))
-                            .toList(),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Wrap(
-                    spacing: 12,
-                    runSpacing: 12,
-                    alignment: WrapAlignment.center,
-                    children: items
-                        .map((item) => _buildLegendItem(
-                            item.color,
-                            '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(0)}%',
-                            TranslateService.getTranslatedCategoryName(
-                                context, item.label)))
-                        .toList(),
-                  ),
-                  const SizedBox(height: 8),
-                ],
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [AppColors.card, AppColors.card2],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(18),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                offset: const Offset(0, 4),
+                blurRadius: 8,
+                spreadRadius: 2,
               ),
-      ),
-    );
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(0),
+            child: items.isEmpty
+                ? _buildPieChartPlaceholder(context)
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            height: 200,
+                            child: PieChart(
+                              PieChartData(
+                                sectionsSpace: 4,
+                                centerSpaceRadius: 50,
+                                sections: items
+                                    .map((item) => PieChartSectionData(
+                                          color: item.color,
+                                          value: item.value,
+                                          title:
+                                              '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
+                                          radius: 30,
+                                          titleStyle: const TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.label),
+                                          titlePositionPercentageOffset: 1.8,
+                                        ))
+                                    .toList(),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Wrap(
+                              spacing: 8,
+                              runSpacing: 4,
+                              alignment: WrapAlignment.center,
+                              children: items
+                                  .map((item) => _buildLegendItem(
+                                      item.color,
+                                      '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
+                                      TranslateService
+                                          .getTranslatedCategoryName(
+                                              context, item.label)))
+                                  .toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+          ),
+        ));
   }
 
   Widget _buildPieChartPlaceholder(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const SizedBox(height: 40),
-        Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            color: AppColors.button.withOpacity(0.1),
-            shape: BoxShape.circle,
+    return SizedBox.expand(
+      child: Container(
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [AppColors.card, AppColors.background1],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
-          child: const Icon(
-            Icons.pie_chart_outline,
-            size: 40,
-            color: AppColors.button,
-          ),
-        ),
-        const SizedBox(height: 24),
-        Text(
-          AppLocalizations.of(context)!.pieGraphPlaceholder,
-          style: const TextStyle(
-            color: AppColors.label,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 12),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          child: Text(
-            AppLocalizations.of(context)!.pietutorial,
-            style: TextStyle(
-              color: AppColors.label.withOpacity(0.7),
-              fontSize: 15,
-              fontWeight: FontWeight.w400,
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              offset: const Offset(0, 4),
+              blurRadius: 8,
+              spreadRadius: 2,
             ),
-            textAlign: TextAlign.center,
-          ),
+          ],
         ),
-        const SizedBox(height: 40),
-      ],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.pie_chart, size: 60, color: AppColors.label),
+            const SizedBox(height: 16),
+            Text(
+              AppLocalizations.of(context)!.pieGraphPlaceholder,
+              style: const TextStyle(
+                color: AppColors.label,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24),
+            Text(
+              AppLocalizations.of(context)!.pietutorial,
+              style: const TextStyle(
+                color: AppColors.label,
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 40),
+          ],
+        ),
+      ),
     );
   }
 
   Widget _buildLegendItem(Color color, String percent, String label) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: AppColors.background1,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 8,
-            height: 8,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
-          ),
-          const SizedBox(width: 8),
-          Text(
-            label,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.circle, color: color, size: 16),
+        const SizedBox(width: 8),
+        Text('$label - $percent',
             style: const TextStyle(
-              color: AppColors.label,
-              fontWeight: FontWeight.w500,
-              fontSize: 13,
-            ),
-          ),
-          const SizedBox(width: 6),
-          Text(
-            percent,
-            style: TextStyle(
-              color: AppColors.label.withOpacity(0.7),
-              fontWeight: FontWeight.w600,
-              fontSize: 13,
-            ),
-          ),
-        ],
-      ),
+                color: AppColors.label,
+                fontWeight: FontWeight.w600,
+                fontSize: 14)),
+      ],
     );
+  }
+
+  List<Widget> _buildExampleLegend() {
+    return [
+      _buildLegendItem(
+          const Color.fromARGB(255, 57, 57, 57), '40%', 'Exemplo 1'),
+      _buildLegendItem(
+          const Color.fromARGB(255, 55, 54, 54), '30%', 'Exemplo 2'),
+      _buildLegendItem(Colors.grey[600]!, '20%', 'Exemplo 3'),
+      _buildLegendItem(Colors.grey[700]!, '10%', 'Exemplo 4'),
+    ];
   }
 }

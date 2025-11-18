@@ -60,14 +60,14 @@ class LinearProgressIndicatorSection extends StatelessWidget {
                   ),
                 ],
               ),
-              Text(
-                '${percentage.toStringAsFixed(0)}%',
-                style: TextStyle(
-                  color: AppColors.label.withOpacity(0.7),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+          Text(
+            model.progress.toStringAsFixed(0),
+            style: const TextStyle(
+              color: AppColors.label,
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
             ],
           ),
           const SizedBox(height: 12),
@@ -86,14 +86,14 @@ class LinearProgressIndicatorSection extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            model.progress.toStringAsFixed(0),
-            style: const TextStyle(
-              color: AppColors.label,
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          // Text(
+          //   model.progress.toStringAsFixed(0),
+          //   style: const TextStyle(
+          //     color: AppColors.label,
+          //     fontSize: 13,
+          //     fontWeight: FontWeight.w500,
+          //   ),
+          // ),
         ],
       ),
     );
