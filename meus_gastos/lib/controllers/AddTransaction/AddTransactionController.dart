@@ -6,6 +6,7 @@ import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesService.dart';
 import '../../../models/CardModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:meus_gastos/services/CardService.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
@@ -91,7 +92,13 @@ class _AddTransactionControllerState extends State<AddTransactionController>
         await FixedExpensesService.getSortedFixedExpenses();
     fcard = await FixedExpensesService.filteredFixedCardsShow(
         fcard, DateTime.now());
+
+    // Adiciona automaticamente os gastos fixos com additionType = 'automatic'
+    await _addAutomaticFixedExpenses(fcard);
+
+    // Filtra apenas as sugestões para mostrar na tela
     List<CardModel> fixedCards = fcard
+        .where((item) => item.isSuggestion)
         .map((item) =>
             FixedExpensesService.fixedToNormalCard(item, DateTime.now()))
         .toList();
@@ -99,6 +106,23 @@ class _AddTransactionControllerState extends State<AddTransactionController>
     setState(() {
       mockCards = fixedCards;
     });
+  }
+
+  Future<void> _addAutomaticFixedExpenses(List<FixedExpense> fixedExpenses) async {
+    for (var fixedExpense in fixedExpenses) {
+      if (fixedExpense.isAutomaticAddition) {
+        final newCard = CardModel(
+          amount: fixedExpense.price,
+          description: fixedExpense.description,
+          date: FixedExpensesService.fixedToNormalCard(fixedExpense, DateTime.now()).date,
+          category: fixedExpense.category,
+          id: CardService.generateUniqueId(),
+          idFixoControl: fixedExpense.id,
+        );
+        await CardService().addCard(newCard);
+        print("Gasto fixo automático adicionado: ${newCard.description}");
+      }
+    }
   }
 
   void _updateHeaderHeight() {

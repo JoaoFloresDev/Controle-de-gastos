@@ -15,7 +15,7 @@ import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/UI/RepetitionMenu.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/UI/AdditionTypeSelector.dart';
 
 class EditionHeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;
@@ -48,6 +48,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
 
   late DateTime _selectedDate = widget.card.date;
   String tipoRepeticao = "";
+  String tipoAdicao = "";
 
   Future<void> loadCategories() async {
     var categorieList = await CategoryService().getAllCategories();
@@ -78,6 +79,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     descricaoFocusNode = FocusNode();
 
     tipoRepeticao = widget.card.repetitionType;
+    tipoAdicao = widget.card.additionType ?? 'suggestion';
     loadCategories();
   }
 
@@ -128,7 +130,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   // MARK: - Adicionar
   void adicionar() {
     print(icons_list_recorrent[lastIndexSelected_category].name);
-    
+
     final newCard = FixedExpense(
       price: valorController.numberValue,
       description: descricaoController.text,
@@ -136,6 +138,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       category: icons_list_recorrent[lastIndexSelected_category],
       id: widget.card.id,
       repetitionType: tipoRepeticao,
+      additionType: tipoAdicao,
     );
     FixedExpensesService.updateCard(widget.card.id, newCard);
 
@@ -194,6 +197,16 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                 });
               },
               defaultRepetition: widget.card.repetitionType,
+            ),
+          const SizedBox(height: 12),
+          if(widget.botomPageIsVisible)
+            AdditionTypeSelector(
+              selectedType: tipoAdicao,
+              onTypeSelected: (String selectedType) {
+                setState(() {
+                  tipoAdicao = selectedType;
+                });
+              },
             ),
           const SizedBox(height: 12),
           HorizontalCircleList(
