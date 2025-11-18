@@ -70,27 +70,27 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
 
   void _showProModal(BuildContext context) async {
     ProManeger proViewModel = ProManeger();
-    showModalBottomSheet(
+    showCupertinoModalPopup(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         if (Platform.isIOS || Platform.isMacOS) {
           return ProModal(
             isLoading: _isLoading,
             onSubscriptionPurchased: () {
-              setState(() {
-                proViewModel.checkUserProStatus();
-              });
+              proViewModel.checkUserProStatus();
+              if (mounted) {
+                setState(() {});
+              }
             },
           );
         } else {
           return ProModalAndroid(
             isLoading: _isLoading,
             onSubscriptionPurchased: () {
-              setState(() {
-                proViewModel.checkUserProStatus();
-              });
+              proViewModel.checkUserProStatus();
+              if (mounted) {
+                setState(() {});
+              }
             },
           );
         }

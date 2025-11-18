@@ -38,9 +38,9 @@ class AdditionTypeSelector extends StatelessWidget {
               ),
               child: Icon(
                 isAutomatic
-                    ? CupertinoIcons.checkmark_circle_fill 
-                    : CupertinoIcons.lightbulb_fill,
-                color: isAutomatic 
+                    ? CupertinoIcons.checkmark_circle_fill
+                    : CupertinoIcons.lightbulb,
+                color: isAutomatic
                     ? CupertinoColors.activeGreen
                     : CupertinoColors.systemYellow,
                 size: 20,
@@ -167,7 +167,7 @@ class AdditionTypeSelector extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: const Icon(
-                      CupertinoIcons.lightbulb_fill,
+                      CupertinoIcons.lightbulb,
                       size: 20,
                       color: CupertinoColors.systemYellow,
                     ),

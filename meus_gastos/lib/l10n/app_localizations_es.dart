@@ -521,4 +521,22 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get suggestionDescription =>
       'Te recuerda agregar el gasto en la fecha programada';
+
+  @override
+  String get cloudBackup => 'Copia de seguridad en la nube';
+
+  @override
+  String get save30Percent => 'Ahorra 30%';
+
+  @override
+  String get termsOfUse => 'Términos de Uso';
+
+  @override
+  String get privacyPolicy => 'Política de Privacidad';
+
+  @override
+  String get subscribed => 'Suscrito';
+
+  @override
+  String get subscribe => 'Suscribirse';
 }

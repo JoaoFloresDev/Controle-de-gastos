@@ -1083,6 +1083,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reminds you to add the expense on the scheduled date'**
   String get suggestionDescription;
+
+  /// No description provided for @cloudBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud Backup'**
+  String get cloudBackup;
+
+  /// No description provided for @save30Percent.
+  ///
+  /// In en, this message translates to:
+  /// **'Save 30%'**
+  String get save30Percent;
+
+  /// No description provided for @termsOfUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
+  String get termsOfUse;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
+  /// No description provided for @subscribed.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribed'**
+  String get subscribed;
+
+  /// No description provided for @subscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe'**
+  String get subscribe;
 }
 
 class _AppLocalizationsDelegate

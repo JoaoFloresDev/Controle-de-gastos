@@ -54,7 +54,29 @@ class TransactionsViewModel extends ChangeNotifier {
     _fixedCards = await FixedExpensesService.filteredFixedCardsShow(
         fixedCards, currentDate);
 
+    // Adiciona automaticamente os gastos fixos com additionType = 'automatic'
+    await _addAutomaticFixedExpenses(_fixedCards);
+
+    // Filtra apenas as sugestões para mostrar na tela
+    _fixedCards = _fixedCards.where((item) => item.isSuggestion).toList();
+
     notifyListeners();
+  }
+
+  Future<void> _addAutomaticFixedExpenses(List<FixedExpense> fixedExpenses) async {
+    for (var fixedExpense in fixedExpenses) {
+      if (fixedExpense.isAutomaticAddition) {
+        final newCard = CardModel(
+          amount: fixedExpense.price,
+          description: fixedExpense.description,
+          date: FixedExpensesService.fixedToNormalCard(fixedExpense, _currentDate).date,
+          category: fixedExpense.category,
+          id: CardService.generateUniqueId(),
+          idFixoControl: fixedExpense.id,
+        );
+        await CardService().addCard(newCard);
+      }
+    }
   }
 
   CardModel Fixed_to_NormalCard(FixedExpense fcard) {

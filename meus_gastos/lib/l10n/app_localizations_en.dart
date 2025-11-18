@@ -522,4 +522,22 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get suggestionDescription =>
       'Reminds you to add the expense on the scheduled date';
+
+  @override
+  String get cloudBackup => 'Cloud Backup';
+
+  @override
+  String get save30Percent => 'Save 30%';
+
+  @override
+  String get termsOfUse => 'Terms of Use';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get subscribed => 'Subscribed';
+
+  @override
+  String get subscribe => 'Subscribe';
 }

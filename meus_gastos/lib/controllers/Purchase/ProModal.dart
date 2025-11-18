@@ -186,128 +186,134 @@ class _ProModalState extends State<ProModal> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 630,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: const BoxDecoration(
-        color: AppColors.modalBackground,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.cardShadow,
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Stack(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(height: 26),
-              const Icon(
-                Icons.star_rounded,
-                color: Colors.amber,
-                size: 80,
-              ),
-              Text(
-                AppLocalizations.of(context)!.premiumVersion,
-                style: const TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.label,
-                ),
-              ),
-              const SizedBox(height: 15),
-              Text(
-                AppLocalizations.of(context)!.enjoyExclusiveFeatures,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: AppColors.labelSecondary,
-                ),
-              ),
-              Divider(
-                color: AppColors.labelSecondary,
-                thickness: 0.5,
-                indent: 40,
-                endIndent: 20,
-                height: 30,
-              ),
-              _buildFeatureRow(
-                icon: Icons.file_present_rounded,
-                label: AppLocalizations.of(context)!.exportToExcelOrPdf,
-              ),
-              _buildFeatureRow(
-                icon: Icons.block,
-                label: AppLocalizations.of(context)!.removeAds,
-              ),
-              const SizedBox(height: 40),
-              Column(
+    return Scaffold(
+      backgroundColor: AppColors.background1,
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Header com botões
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _buildSubscriptionButton(
-                    label: AppLocalizations.of(context)!.monthlySubscription,
-                    price: monthlyProductDetails != null
-                        ? formatPrice(monthlyProductDetails!.rawPrice,
-                            monthlyProductDetails!.currencySymbol)
-                        : AppLocalizations.of(context)!.loading,
-                    onPressed: () =>
-                        _buySubscription(monthlyProductDetails?.id ?? ''),
-                    productId: monthlyProductDetails?.id ?? '',
-                  ),
-                  const SizedBox(height: 22),
-                  _buildSubscriptionButton(
-                    label: AppLocalizations.of(context)!.yearlySubscription,
-                    price: yearlyProductDetails != null
-                        ? formatPrice(yearlyProductDetails!.rawPrice,
-                            yearlyProductDetails!.currencySymbol)
-                        : AppLocalizations.of(context)!.loading,
-                    onPressed: () =>
-                        _buySubscription(yearlyProductDetails?.id ?? ''),
-                    productId: yearlyProductDetails?.id ?? '',
-                  ),
-                  const SizedBox(height: 15),
-                  TextButton(
-                    onPressed: _restorePurchases,
-                    child: Text(
-                      AppLocalizations.of(context)!.restorePurchases,
-                      style: const TextStyle(
-                        color: AppColors.label,
-                        fontSize: 16,
-                      ),
+                  IconButton(
+                    icon: const Icon(
+                      CupertinoIcons.xmark,
+                      color: AppColors.label,
+                      size: 28,
                     ),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.info_outline_rounded,
+                      color: AppColors.label,
+                      size: 28,
+                    ),
+                    onPressed: () => _showMenuOptions(context),
                   ),
                 ],
               ),
-            ],
-          ),
-          Positioned(
-            right: 0,
-            child: IconButton(
-              icon: const Icon(
-                Icons.info_outline_rounded,
-                color: AppColors.label,
-                size: 28,
-              ),
-              onPressed: () => _showMenuOptions(context),
             ),
-          ),
-          Positioned(
-            left: 0,
-            child: IconButton(
-              icon: const Icon(
-                CupertinoIcons.clear,
-                color: AppColors.label,
-                size: 28,
+            // Conteúdo principal
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    // Título
+                    Column(
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.premiumVersion,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.label,
+                            letterSpacing: -0.5,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          AppLocalizations.of(context)!.enjoyExclusiveFeatures,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: AppColors.label.withOpacity(0.7),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    // Features compactas
+                    Column(
+                      children: [
+                        _buildCompactFeature(
+                          icon: Icons.description_outlined,
+                          title: AppLocalizations.of(context)!.exportToExcelOrPdf,
+                        ),
+                        const SizedBox(height: 12),
+                        _buildCompactFeature(
+                          icon: Icons.block_outlined,
+                          title: AppLocalizations.of(context)!.removeAds,
+                        ),
+                        const SizedBox(height: 12),
+                        _buildCompactFeature(
+                          icon: Icons.cloud_outlined,
+                          title: AppLocalizations.of(context)!.cloudBackup,
+                        ),
+                      ],
+                    ),
+                    // Planos
+                    Column(
+                      children: [
+                        _buildSubscriptionCard(
+                          label: AppLocalizations.of(context)!.yearlySubscription,
+                          price: yearlyProductDetails != null
+                              ? formatPrice(yearlyProductDetails!.rawPrice,
+                                  yearlyProductDetails!.currencySymbol)
+                              : AppLocalizations.of(context)!.loading,
+                          onPressed: () =>
+                              _buySubscription(yearlyProductDetails?.id ?? ''),
+                          productId: yearlyProductDetails?.id ?? '',
+                          isPopular: true,
+                          savings: AppLocalizations.of(context)!.save30Percent,
+                        ),
+                        const SizedBox(height: 12),
+                        _buildSubscriptionCard(
+                          label: AppLocalizations.of(context)!.monthlySubscription,
+                          price: monthlyProductDetails != null
+                              ? formatPrice(monthlyProductDetails!.rawPrice,
+                                  monthlyProductDetails!.currencySymbol)
+                              : AppLocalizations.of(context)!.loading,
+                          onPressed: () =>
+                              _buySubscription(monthlyProductDetails?.id ?? ''),
+                          productId: monthlyProductDetails?.id ?? '',
+                          isPopular: false,
+                        ),
+                      ],
+                    ),
+                    // Restaurar compras
+                    TextButton(
+                      onPressed: _restorePurchases,
+                      child: Text(
+                        AppLocalizations.of(context)!.restorePurchases,
+                        style: TextStyle(
+                          color: AppColors.label.withOpacity(0.7),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              onPressed: () => Navigator.of(context).pop(),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -326,7 +332,7 @@ class _ProModalState extends State<ProModal> {
                 _launchURL(
                     'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/');
               },
-              child: const Text('Terms of Use'),
+              child: Text(AppLocalizations.of(context)!.termsOfUse),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
@@ -334,14 +340,14 @@ class _ProModalState extends State<ProModal> {
                 _launchURL(
                     'https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing');
               },
-              child: const Text('Privacy Policy'),
+              child: Text(AppLocalizations.of(context)!.privacyPolicy),
             ),
           ],
           cancelButton: CupertinoActionSheetAction(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
         );
       },
@@ -356,78 +362,137 @@ class _ProModalState extends State<ProModal> {
     }
   }
 
-  Widget _buildSubscriptionButton({
+  Widget _buildCompactFeature({
+    required IconData icon,
+    required String title,
+  }) {
+    return Row(
+      children: [
+        Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            color: AppColors.button.withOpacity(0.15),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(
+            icon,
+            color: AppColors.button,
+            size: 22,
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              color: AppColors.label,
+            ),
+          ),
+        ),
+        const Icon(
+          Icons.check_circle,
+          color: CupertinoColors.activeGreen,
+          size: 20,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSubscriptionCard({
     required String label,
     required String price,
     required VoidCallback onPressed,
     required String productId,
+    required bool isPopular,
+    String? savings,
   }) {
     bool isPurchased = (productId == yearlyProId && isYearlyPro) ||
         (productId == monthlyProId && isMonthlyPro);
 
     bool isLoading = isLoadingPrice || loadingPurchases.contains(productId);
 
-    return SizedBox(
-      width: double.infinity,
-      height: 50,
-      child: ElevatedButton(
-        onPressed: isPurchased ? voidFunc : onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: isPurchased
-              ? const Color.fromARGB(255, 5, 162, 0)
-              : AppColors.button,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.label.withOpacity(0.15),
+          width: 1,
         ),
-        child: isLoading
-            ? const SizedBox(
-                width: 24,
-                height: 24,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                ),
-              )
-            : Text(
-                isPurchased ? "$label ✓✓" : "$label - $price",
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.label,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    price,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: AppColors.label.withOpacity(0.6),
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
               ),
+            ),
+            const SizedBox(width: 12),
+            SizedBox(
+              height: 38,
+              child: ElevatedButton(
+                onPressed: isPurchased ? null : onPressed,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: isPurchased
+                      ? CupertinoColors.activeGreen
+                      : AppColors.button,
+                  disabledBackgroundColor: CupertinoColors.activeGreen,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 0,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                ),
+                child: isLoading
+                    ? const SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                      )
+                    : Text(
+                        isPurchased
+                            ? AppLocalizations.of(context)!.subscribed
+                            : AppLocalizations.of(context)!.subscribe,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   void voidFunc() {}
-
-  Widget _buildFeatureRow({required IconData icon, required String label}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(width: 8),
-          Icon(
-            icon,
-            color: AppColors.label,
-            size: 30,
-          ),
-          const SizedBox(width: 8),
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-              color: AppColors.label,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

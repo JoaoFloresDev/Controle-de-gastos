@@ -525,4 +525,22 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get suggestionDescription =>
       'Lembra você de adicionar a despesa na data agendada';
+
+  @override
+  String get cloudBackup => 'Backup na nuvem';
+
+  @override
+  String get save30Percent => 'Economize 30%';
+
+  @override
+  String get termsOfUse => 'Termos de Uso';
+
+  @override
+  String get privacyPolicy => 'Política de Privacidade';
+
+  @override
+  String get subscribed => 'Assinado';
+
+  @override
+  String get subscribe => 'Assinar';
 }

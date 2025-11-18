@@ -2,9 +2,7 @@ import 'dart:io';
 import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/ads_review/BannerAdConstruct.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';import 'dart:ui';
@@ -14,36 +12,12 @@ import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/DashbordService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
-
-// Imports de controllers
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartDaysofWeek.dart';
 import 'package:meus_gastos/controllers/ExtractByCategory/ExtractByCategoryScreen.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartWeek.dart';
-// import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
-
-// Imports de widgets
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/MonthSelector.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgressIndicatorSection.dart';
-// import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';
-// import 'package:flutter/material.dart';
-
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:meus_gastos/designSystem/ImplDS.dart';
-// import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
-// import 'package:meus_gastos/models/CategoryModel.dart';
-// import 'package:meus_gastos/services/CardService.dart';
-// import 'package:meus_gastos/services/DashbordService.dart';
-// import 'package:meus_gastos/services/TranslateService.dart';
-// import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
-// import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.dart';
-// import 'package:meus_gastos/controllers/Dashboards/ViewComponents/MonthSelector.dart';
-// import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgressIndicatorSection.dart';
-// import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:meus_gastos/l10n/app_localizations.dart';
-
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
   const DashboardScreen({Key? key, this.isActive = false}) : super(key: key);

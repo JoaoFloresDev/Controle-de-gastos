@@ -166,6 +166,11 @@
 "selectAdditionType": "Seleccionar Tipo de Adición",
 "selectAdditionTypeDescription": "Elige cómo se agregará este gasto",
 "automaticAdditionDescription": "Agrega el gasto automáticamente en la fecha programada",
-"suggestionDescription": "Te recuerda agregar el gasto en la fecha programada"
-  
+"suggestionDescription": "Te recuerda agregar el gasto en la fecha programada",
+"cloudBackup": "Copia de seguridad en la nube",
+"save30Percent": "Ahorra 30%",
+"termsOfUse": "Términos de Uso",
+"privacyPolicy": "Política de Privacidad",
+"subscribed": "Suscrito",
+"subscribe": "Suscribirse"
 }
