@@ -21,6 +21,8 @@ class FixedExpense {
   });
 
   Map<String, dynamic> toJson() {
+    print("toJson");
+    print(additionType);
     return {
       'description': description,
       'price': price,
@@ -44,6 +46,7 @@ class FixedExpense {
     );
   }
 
+  // CORREÇÃO AQUI: os getters agora usam o mesmo valor padrão
   bool get isAutomaticAddition => (additionType ?? 'suggestion') == 'automatic';
   bool get isSuggestion => (additionType ?? 'suggestion') == 'suggestion';
 }

@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/CriarGastosFixosScreen.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/RecurrentExpenseScreen.dart';
 import 'ViewComponents/ListCard.dart';
 import '../../models/CardModel.dart';
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
@@ -434,7 +434,7 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
               topRight: Radius.circular(20),
             ),
           ),
-          child: CriarGastosFixos(
+          child: RecurrentExpenseScreen(
             onAddPressedBack: () {
               setState(() {
                 widget.cardEvents.notifyCardAdded();

@@ -5,7 +5,7 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/designSystem/Components/CustomHeader.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/UI/HorizontalCircleList.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
-import '../CardDetails/DetailScreen.dart';
+import '../CardDetailsScene/DetailScreen.dart';
 import 'ListCardFixeds.dart';
 import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';

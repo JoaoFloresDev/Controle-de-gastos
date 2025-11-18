@@ -15,7 +15,8 @@ class AdditionTypeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isAutomatic = selectedType == 'automatica';
+    // ✅ CORREÇÃO: Comparar com 'automatic' (inglês)
+    final isAutomatic = selectedType == 'automatic';
     
     return GestureDetector(
       onTap: () => _showActionSheet(context),
@@ -96,16 +97,15 @@ class AdditionTypeSelector extends StatelessWidget {
           actions: [
             CupertinoActionSheetAction(
               onPressed: () {
-                onTypeSelected('automatica');
+                // ✅ CORREÇÃO: Enviar 'automatic' (inglês) em vez de 'automatica'
+                onTypeSelected('automatic');
                 Navigator.pop(context);
               },
-              isDefaultAction: selectedType == 'automatica',
+              isDefaultAction: selectedType == 'automatic',
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: 8,
-                  ),
+                  const SizedBox(width: 8),
                   Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
@@ -123,7 +123,7 @@ class AdditionTypeSelector extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Text(
                           AppLocalizations.of(context)!.automaticAddition,
                           textAlign: TextAlign.left,
@@ -133,7 +133,7 @@ class AdditionTypeSelector extends StatelessWidget {
                             color: CupertinoColors.white,
                           ),
                         ),
-                        SizedBox(height: 6),
+                        const SizedBox(height: 6),
                         Text(
                           AppLocalizations.of(context)!.automaticAdditionDescription,
                           textAlign: TextAlign.left,
@@ -142,7 +142,7 @@ class AdditionTypeSelector extends StatelessWidget {
                             color: CupertinoColors.white.withOpacity(0.7),
                           ),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                       ],
                     ),
                   ),
@@ -151,16 +151,15 @@ class AdditionTypeSelector extends StatelessWidget {
             ),
             CupertinoActionSheetAction(
               onPressed: () {
-                onTypeSelected('sugestao');
+                // ✅ CORREÇÃO: Enviar 'suggestion' (inglês) em vez de 'sugestao'
+                onTypeSelected('suggestion');
                 Navigator.pop(context);
               },
-              isDefaultAction: selectedType == 'sugestao',
+              isDefaultAction: selectedType == 'suggestion',
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: 8,
-                  ),
+                  const SizedBox(width: 8),
                   Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
@@ -178,7 +177,7 @@ class AdditionTypeSelector extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Text(
                           AppLocalizations.of(context)!.suggestion,
                           textAlign: TextAlign.left,
@@ -188,7 +187,7 @@ class AdditionTypeSelector extends StatelessWidget {
                             color: CupertinoColors.white,
                           ),
                         ),
-                        SizedBox(height: 6),
+                        const SizedBox(height: 6),
                         Text(
                           AppLocalizations.of(context)!.suggestionDescription,
                           textAlign: TextAlign.left,
@@ -197,7 +196,7 @@ class AdditionTypeSelector extends StatelessWidget {
                             color: CupertinoColors.white.withOpacity(0.7),
                           ),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                       ],
                     ),
                   ),

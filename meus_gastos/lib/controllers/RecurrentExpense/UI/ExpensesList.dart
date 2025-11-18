@@ -1,22 +1,8 @@
-import 'package:meus_gastos/controllers/CardDetails/ViewComponents/CampoComMascara.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:meus_gastos/designSystem/Components/CustomHeader.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/UI/HorizontalCircleList.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
-import '../CardDetails/DetailScreen.dart';
 import 'ListCardFixeds.dart';
-import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesService.dart';
-import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:uuid/uuid.dart';
-import 'RepetitionMenu.dart';
-import 'AdditionTypeSelector.dart';
 
 class ExpensesList extends StatelessWidget {
   const ExpensesList({
@@ -62,11 +48,11 @@ class ExpensesList extends StatelessWidget {
       children: [
         ...(fixedExpenses.map((expense) {
           return Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 16, vertical: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
             child: ListCardFixeds(
               onTap: onExpenseTap,
               card: expense,
+              showAdditionType: true,
             ),
           );
         }).toList()),

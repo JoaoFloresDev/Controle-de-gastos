@@ -35,7 +35,6 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
     _scrollController = ScrollController();
     _scrollController.addListener(_updateGradients);
     
-    // Auto-scroll para o item selecionado após o build
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollToSelected(selectedIndex, animate: false);
     });
@@ -46,6 +45,13 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
     _scrollController.removeListener(_updateGradients);
     _scrollController.dispose();
     super.dispose();
+  }
+
+  void resetSelection() {
+    setState(() {
+      selectedIndex = 0;
+    });
+    _scrollToSelected(0, animate: true);
   }
 
   void _updateGradients() {
@@ -59,7 +65,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
   void _scrollToSelected(int index, {bool animate = true}) {
     if (!_scrollController.hasClients) return;
     
-    final double itemWidth = 90.0; // largura aproximada do item
+    final double itemWidth = 90.0;
     final double screenWidth = MediaQuery.of(context).size.width;
     final double targetScroll = (index * itemWidth) - (screenWidth / 2) + (itemWidth / 2);
     
@@ -94,7 +100,6 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
       ),
       child: Row(
         children: [
-          // Botão esquerda
           IconButton(
             icon: Icon(
               CupertinoIcons.chevron_left,
@@ -111,10 +116,8 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
             } : null,
           ),
           
-          // Lista de categorias
           Expanded(child: _buildCategoryList()),
           
-          // Botão direita
           IconButton(
             icon: Icon(
               CupertinoIcons.chevron_right,
@@ -146,7 +149,6 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
         children: [
           _buildCategoryList(),
           
-          // Gradiente esquerdo
           if (_showLeftGradient)
             Positioned(
               left: 0,
@@ -173,7 +175,6 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
               ),
             ),
           
-          // Gradiente direito
           if (_showRightGradient)
             Positioned(
               right: 0,
@@ -231,7 +232,6 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Container do ícone
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
                   curve: Curves.easeOutCubic,
@@ -265,7 +265,6 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                 
                 const SizedBox(height: 6),
                 
-                // Nome da categoria
                 SizedBox(
                   width: 75,
                   child: Text(

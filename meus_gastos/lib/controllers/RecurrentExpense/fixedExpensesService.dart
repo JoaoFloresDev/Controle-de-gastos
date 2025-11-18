@@ -56,9 +56,8 @@ class FixedExpensesService {
 
   static Future<void> addCard(FixedExpense fixedExpense) async {
     await modifyCards((cards) {
-      if (!(fixedExpense.price == 0)) {
+      print(fixedExpense.repetitionType);
         cards.add(fixedExpense);
-      }
       return cards;
     });
   }

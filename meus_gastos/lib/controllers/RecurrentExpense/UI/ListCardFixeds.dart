@@ -8,14 +8,21 @@ import '../fixedExpensesModel.dart';
 class ListCardFixeds extends StatefulWidget {
   final FixedExpense card;
   final Function(FixedExpense) onTap;
+  final bool showAdditionType;
 
-  const ListCardFixeds({super.key, required this.card, required this.onTap});
+  const ListCardFixeds({
+    super.key,
+    required this.card,
+    required this.onTap,
+    this.showAdditionType = false,
+  });
 
   @override
   State<ListCardFixeds> createState() => _ListCardFixedsState();
 }
 
-class _ListCardFixedsState extends State<ListCardFixeds> with SingleTickerProviderStateMixin {
+class _ListCardFixedsState extends State<ListCardFixeds>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
 
@@ -37,35 +44,52 @@ class _ListCardFixedsState extends State<ListCardFixeds> with SingleTickerProvid
     super.dispose();
   }
 
-  void _handleTapDown(TapDownDetails details) {
-    _controller.forward();
+  void _handleTapDown(TapDownDetails details) => _controller.forward();
+  void _handleTapUp(TapUpDetails details) => _controller.reverse();
+  void _handleTapCancel() => _controller.reverse();
+
+  Color _getAdditionTypeColor() {
+    return widget.card.isAutomaticAddition
+        ? const Color(0xFF4CAF50)
+        : const Color(0xFFFF9800);
   }
 
-  void _handleTapUp(TapUpDetails details) {
-    _controller.reverse();
+  IconData _getAdditionTypeIcon() {
+    return widget.card.isAutomaticAddition
+        ? Icons.check_circle_outline
+        : Icons.lightbulb_outline;
   }
 
-  void _handleTapCancel() {
-    _controller.reverse();
+  String _getAdditionTypeText(BuildContext context) {
+    return widget.card.isAutomaticAddition
+        ? AppLocalizations.of(context)!.automatic ?? 'Automatic'
+        : AppLocalizations.of(context)!.suggestion ?? 'Suggestion';
   }
 
-  // MARK - Private helper methods
-  String _getRepetitionText(BuildContext context, String repetition, DateTime referenceDate) {
+  String _getRepetitionText(
+      BuildContext context, String repetition, DateTime referenceDate) {
     final DateFormat dayFormat = DateFormat('d');
     final String dayOfMonth = dayFormat.format(referenceDate);
+    final localizations = AppLocalizations.of(context)!;
+
     switch (repetition) {
+      case 'monthly':
       case 'mensal':
-        return "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth";
+        return "${localizations.monthlyEveryDay} $dayOfMonth";
+      case 'weekly':
       case 'semanal':
-        return "${AppLocalizations.of(context)!.weeklyEvery} ${DateFormat.EEEE('pt_BR').format(referenceDate)}";
+        return "${localizations.weeklyEvery} ${DateFormat.EEEE('pt_BR').format(referenceDate)}";
+      case 'yearly':
       case 'anual':
-        return "${AppLocalizations.of(context)!.yearlyEveryDay} ${DateFormat('d MMMM', 'pt_BR').format(referenceDate)}";
+        return "${localizations.yearlyEveryDay} ${DateFormat('d MMMM', 'pt_BR').format(referenceDate)}";
+      case 'weekdays':
       case 'seg_sex':
-        return "${AppLocalizations.of(context)!.weekdaysMondayToFriday}";
+        return localizations.weekdaysMondayToFriday;
+      case 'daily':
       case 'diario':
-        return "${AppLocalizations.of(context)!.daily}";
+        return localizations.daily;
       default:
-        return "${AppLocalizations.of(context)!.monthlyEveryDay} $dayOfMonth";
+        return "${localizations.monthlyEveryDay} $dayOfMonth";
     }
   }
 
@@ -101,12 +125,10 @@ class _ListCardFixedsState extends State<ListCardFixeds> with SingleTickerProvid
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header com categoria e valor
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Categoria com ícone
                     Expanded(
                       child: Row(
                         children: [
@@ -133,7 +155,8 @@ class _ListCardFixedsState extends State<ListCardFixeds> with SingleTickerProvid
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  TranslateService.getTranslatedCategoryUsingModel(
+                                  TranslateService
+                                      .getTranslatedCategoryUsingModel(
                                     context,
                                     widget.card.category,
                                   ),
@@ -164,7 +187,6 @@ class _ListCardFixedsState extends State<ListCardFixeds> with SingleTickerProvid
                       ),
                     ),
                     const SizedBox(width: 12),
-                    // Valor
                     Text(
                       TranslateService.formatCurrency(
                         widget.card.price,
@@ -179,8 +201,6 @@ class _ListCardFixedsState extends State<ListCardFixeds> with SingleTickerProvid
                     ),
                   ],
                 ),
-                
-                // Descrição (se existir)
                 if (widget.card.description.isNotEmpty) ...[
                   const SizedBox(height: 12),
                   Divider(
@@ -214,7 +234,84 @@ class _ListCardFixedsState extends State<ListCardFixeds> with SingleTickerProvid
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
+                      if (widget.showAdditionType) ...[
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: _getAdditionTypeColor().withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(
+                              color: _getAdditionTypeColor().withOpacity(0.3),
+                              width: 1,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                _getAdditionTypeIcon(),
+                                size: 14,
+                                color: _getAdditionTypeColor(),
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                _getAdditionTypeText(context),
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                  color: _getAdditionTypeColor(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ],
+                  ),
+                ] else if (widget.showAdditionType) ...[
+                  const SizedBox(height: 12),
+                  Divider(
+                    color: AppColors.label.withOpacity(0.1),
+                    thickness: 1,
+                    height: 1,
+                  ),
+                  const SizedBox(height: 12),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: _getAdditionTypeColor().withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: _getAdditionTypeColor().withOpacity(0.3),
+                        width: 1,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          _getAdditionTypeIcon(),
+                          size: 16,
+                          color: _getAdditionTypeColor(),
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          _getAdditionTypeText(context),
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: _getAdditionTypeColor(),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ],
