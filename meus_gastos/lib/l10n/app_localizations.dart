@@ -439,7 +439,7 @@ abstract class AppLocalizations {
   /// No description provided for @export.
   ///
   /// In en, this message translates to:
-  /// **'Export'**
+  /// **'Export to Excel'**
   String get export;
 
   /// No description provided for @textExport.

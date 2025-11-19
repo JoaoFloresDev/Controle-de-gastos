@@ -17,19 +17,16 @@ class ReviewService {
     sessionCount += 1;
     await prefs.setInt('session_count', sessionCount);
 
-    if (sessionCount == 4) {
+    if (sessionCount == 4 || sessionCount == 5) {
       final InAppReview inAppReview = InAppReview.instance;
       if (await inAppReview.isAvailable()) {
         inAppReview.requestReview();
       }
-    } else if (sessionCount == 8 ||
-        ((sessionCount % 3 == 0 && !(sessionCount % 5 == 0)) &&
-            sessionCount > 10)) {
-      if (!isPro) {
-        _showProModal(context);
-      }
-    } else if (sessionCount == 10 || sessionCount % 11 == 0) {
+    } else if (sessionCount == 6 || sessionCount == 7) {
       _showCustomReviewDialog(context);
+    }
+    else if (sessionCount > 10 && !isPro) {
+      _showProModal(context);
     }
   }
 

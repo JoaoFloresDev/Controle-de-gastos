@@ -42,19 +42,9 @@ class CustomCalendarState extends State<CustomCalendar> {
     super.dispose();
   }
 
-  Future<void> _checkAndRequestReview() async {
-    ReviewService.checkAndRequestReview(context);
-    final prefs = await SharedPreferences.getInstance();
-    int sessionCount = prefs.getInt('session_count') ?? 0;
-    if ((sessionCount == 6) || (sessionCount % 5 == 0 && sessionCount > 10)) {
-      _adManager.showVideoAd(context);
-    }
-  }
-
   Future<void> _initializeCalendarData() async {
     await _calculateDailyExpenses();
     await _loadTransactionsForDay(_focusedDay);
-    _checkAndRequestReview();
   }
 
   Future<void> _calculateDailyExpenses() async {
@@ -91,6 +81,7 @@ class CustomCalendarState extends State<CustomCalendar> {
 
   void refreshCalendar() {
     _initializeCalendarData();
+    ReviewService.checkAndRequestReview(context);
   }
 
   @override
@@ -136,8 +127,11 @@ class CustomCalendarState extends State<CustomCalendar> {
                   ),
                   TransactionList(
                     transactions: _transactions,
-                    onRefresh: () {
-                      _loadTransactionsForDay(_selectedDay ?? DateTime.now());
+                    onRefresh: () async {
+                      // Recalcula os totais diários após exclusão/edição
+                      await _calculateDailyExpenses();
+                      // Recarrega as transações do dia selecionado
+                      await _loadTransactionsForDay(_selectedDay ?? DateTime.now());
                     },
                   ),
                 ]),

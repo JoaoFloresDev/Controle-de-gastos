@@ -180,7 +180,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get noExpensesThisWeek => 'Não há gastos nesta semana';
 
   @override
-  String get export => 'Exportar';
+  String get export => 'Exportar para Excel';
 
   @override
   String get textExport =>

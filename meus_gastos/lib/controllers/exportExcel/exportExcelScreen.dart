@@ -123,36 +123,6 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 children: [
-                  GestureDetector(
-                    onTap: _isLoadingSaveLocally
-                        ? null
-                        : () => _saveLocally(context),
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: AppColors.button,
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      child: _isLoadingSaveLocally
-                          ? Center(child: _buildLoadingIndicator())
-                          : Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(CupertinoIcons.cloud_download,
-                                    color: AppColors.label, size: 24),
-                                const SizedBox(width: 10),
-                                Text(
-                                  AppLocalizations.of(context)!.saveLocally,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.label,
-                                      fontSize: 16),
-                                ),
-                              ],
-                            ),
-                    ),
-                  ),
                   const SizedBox(height: 24),
                   GestureDetector(
                     onTap: _isLoadingShare ? null : _shareData,
