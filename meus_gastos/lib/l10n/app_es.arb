@@ -56,7 +56,7 @@
   "dateFormat": "HH:mm dd/MM/yyyy",
   "resumeDateFormat": "dd/MM",
   "noExpensesThisWeek": "Sin gastos esta semana",
-  "export": "Exportar",
+  "export": "Exportar a Excel",
   "textExport": "Haga clic en el botón de abajo para exportar sus datos a una hoja de cálculo de Excel o un archivo PDF.",
   "share": "Compartir",
   "saveLocally": "Guardar localmente",
