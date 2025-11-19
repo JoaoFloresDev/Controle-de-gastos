@@ -1,4 +1,3 @@
-import 'package:meus_gastos/controllers/ads_review/BannerAdConstruct.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -6,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'ViewComponents/CampoComMascara.dart';
-import 'ViewComponents/HorizontalCircleList.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/UI/HorizontalCircleList.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
@@ -37,10 +36,9 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
 
   late DateTime lastDateSelected = widget.card.date;
   List<CategoryModel> categorieList = [];
-  late int? lastIndexSelected;
+  late int lastIndexSelected_category = 0;
   final DateTime dataInicial = DateTime.now();
   final double valorInicial = 0.0;
-  bool isLoading = true;
 
   // MARK: - InitState
   @override
@@ -90,19 +88,19 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
 
   // MARK: - Load Categories
   Future<void> loadCategories() async {
-    categorieList = await CategoryService().getAllCategoriesAvaliable();
-    CategoryService().printAllCategories();
-    lastIndexSelected = categorieList
-        .indexWhere((category) => category.id == widget.card.category.id);
-    if (lastIndexSelected == -1) {
-      lastIndexSelected = 0;
+    var categories = await CategoryService().getAllCategories();
+    if (categories.isNotEmpty) {
+      setState(() {
+        categorieList = categories.sublist(0, categories.length - 1);
+        lastIndexSelected_category = categorieList
+            .indexWhere((category) => category.id == widget.card.category.id);
+
+        // Define um valor padrão se o item não for encontrado
+        if (lastIndexSelected_category == -1) {
+          lastIndexSelected_category = 0;
+        }
+      });
     }
-    setState(() {
-      lastIndexSelected = categorieList
-          .indexWhere((category) => category.id == widget.card.category.id);
-      print(lastIndexSelected);
-      isLoading = false;
-    });
   }
 
   // MARK: - Adicionar
@@ -111,7 +109,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       amount: valorController.numberValue,
       description: descricaoController.text,
       date: lastDateSelected,
-      category: categorieList[lastIndexSelected!],
+      category: categorieList[lastIndexSelected_category],
       id: CardService.generateUniqueId(),
     );
     CardService().updateCard(widget.card, newCard);
@@ -124,7 +122,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
-    print(lastDateSelected);
     return Padding(
       padding: const EdgeInsets.all(0.0),
       child: Column(
@@ -155,21 +152,15 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             style: const TextStyle(color: AppColors.label),
           ),
           const SizedBox(height: 24),
-          if (isLoading) ...[
-            LoadingContainer(),
-          ] else ...[
-            Container(
-              margin: EdgeInsets.zero,
-              child: HorizontalCircleList(
-                onItemSelected: (index) {
-                  setState(() {
-                    lastIndexSelected = index;
-                  });
-                },
-                defaultdIndexCategory: lastIndexSelected ?? 0,
-              ),
-            ),
-          ],
+          HorizontalCircleList(
+            onItemSelected: (index) {
+              setState(() {
+                lastIndexSelected_category = index;
+              });
+            },
+            icons_list_recorrent: categorieList,
+            defaultIndexCategory: lastIndexSelected_category,
+          ),
           const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),

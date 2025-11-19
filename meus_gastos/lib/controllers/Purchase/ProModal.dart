@@ -223,17 +223,46 @@ class _ProModalState extends State<ProModal> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // Título
+                    // Header compacto
                     Column(
                       children: [
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                AppColors.button,
+                                AppColors.button.withOpacity(0.7),
+                              ],
+                            ),
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.button.withOpacity(0.3),
+                                blurRadius: 16,
+                                spreadRadius: 0,
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.star_rounded,
+                            color: Colors.white,
+                            size: 32,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
                         Text(
                           AppLocalizations.of(context)!.premiumVersion,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
-                            fontSize: 32,
+                            fontSize: 28,
                             fontWeight: FontWeight.bold,
                             color: AppColors.label,
-                            letterSpacing: -0.5,
+                            letterSpacing: -0.8,
+                            height: 1.1,
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -241,49 +270,47 @@ class _ProModalState extends State<ProModal> {
                           AppLocalizations.of(context)!.enjoyExclusiveFeatures,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 15,
                             color: AppColors.label.withOpacity(0.7),
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
                     ),
-                    // Features compactas
-                    Column(
+                    // Features compactas em linha
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildCompactFeature(
-                          icon: Icons.description_outlined,
-                          title: AppLocalizations.of(context)!.exportToExcelOrPdf,
+                        _buildCompactFeatureIcon(
+                          icon: Icons.file_download_outlined,
+                          title: 'Export to excel',
                         ),
-                        const SizedBox(height: 12),
-                        _buildCompactFeature(
+                        _buildCompactFeatureIcon(
                           icon: Icons.block_outlined,
-                          title: AppLocalizations.of(context)!.removeAds,
-                        ),
-                        const SizedBox(height: 12),
-                        _buildCompactFeature(
-                          icon: Icons.cloud_outlined,
-                          title: AppLocalizations.of(context)!.cloudBackup,
-                        ),
+                          title: 'livre de anuncios',
+                        )
                       ],
                     ),
                     // Planos
                     Column(
                       children: [
-                        _buildSubscriptionCard(
+                        _buildCompactSubscriptionCard(
                           label: AppLocalizations.of(context)!.yearlySubscription,
                           price: yearlyProductDetails != null
                               ? formatPrice(yearlyProductDetails!.rawPrice,
                                   yearlyProductDetails!.currencySymbol)
                               : AppLocalizations.of(context)!.loading,
+                          pricePerMonth: yearlyProductDetails != null
+                              ? formatPrice(yearlyProductDetails!.rawPrice / 12,
+                                  yearlyProductDetails!.currencySymbol)
+                              : '',
                           onPressed: () =>
                               _buySubscription(yearlyProductDetails?.id ?? ''),
                           productId: yearlyProductDetails?.id ?? '',
                           isPopular: true,
-                          savings: AppLocalizations.of(context)!.save30Percent,
                         ),
                         const SizedBox(height: 12),
-                        _buildSubscriptionCard(
+                        _buildCompactSubscriptionCard(
                           label: AppLocalizations.of(context)!.monthlySubscription,
                           price: monthlyProductDetails != null
                               ? formatPrice(monthlyProductDetails!.rawPrice,
@@ -302,9 +329,10 @@ class _ProModalState extends State<ProModal> {
                       child: Text(
                         AppLocalizations.of(context)!.restorePurchases,
                         style: TextStyle(
-                          color: AppColors.label.withOpacity(0.7),
+                          color: AppColors.label.withOpacity(0.6),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
+                          decoration: TextDecoration.underline,
                         ),
                       ),
                     ),
@@ -362,133 +390,229 @@ class _ProModalState extends State<ProModal> {
     }
   }
 
-  Widget _buildCompactFeature({
+  Widget _buildCompactFeatureIcon({
     required IconData icon,
     required String title,
   }) {
-    return Row(
+    return Column(
       children: [
         Container(
-          width: 40,
-          height: 40,
+          width: 56,
+          height: 56,
           decoration: BoxDecoration(
-            color: AppColors.button.withOpacity(0.15),
-            borderRadius: BorderRadius.circular(10),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                AppColors.button.withOpacity(0.2),
+                AppColors.button.withOpacity(0.05),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(16),
           ),
           child: Icon(
             icon,
             color: AppColors.button,
-            size: 22,
+            size: 26,
           ),
         ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-              color: AppColors.label,
-            ),
+        const SizedBox(height: 8),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: AppColors.label,
           ),
-        ),
-        const Icon(
-          Icons.check_circle,
-          color: CupertinoColors.activeGreen,
-          size: 20,
         ),
       ],
     );
   }
 
-  Widget _buildSubscriptionCard({
+  Widget _buildCompactSubscriptionCard({
     required String label,
     required String price,
     required VoidCallback onPressed,
     required String productId,
     required bool isPopular,
-    String? savings,
+    String? pricePerMonth,
   }) {
     bool isPurchased = (productId == yearlyProId && isYearlyPro) ||
         (productId == monthlyProId && isMonthlyPro);
 
     bool isLoading = isLoadingPrice || loadingPurchases.contains(productId);
 
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColors.label.withOpacity(0.15),
-          width: 1,
+    return GestureDetector(
+      onTap: isPurchased ? null : onPressed,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        decoration: BoxDecoration(
+          gradient: isPopular
+              ? LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    AppColors.button.withOpacity(0.15),
+                    AppColors.button.withOpacity(0.05),
+                  ],
+                )
+              : null,
+          color: isPopular ? null : AppColors.card.withOpacity(0.3),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isPopular
+                ? AppColors.button.withOpacity(0.5)
+                : AppColors.label.withOpacity(0.1),
+            width: isPopular ? 2 : 1,
+          ),
+          boxShadow: isPopular
+              ? [
+                  BoxShadow(
+                    color: AppColors.button.withOpacity(0.2),
+                    blurRadius: 16,
+                    spreadRadius: 0,
+                    offset: const Offset(0, 6),
+                  ),
+                ]
+              : null,
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    label,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.label,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    price,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColors.label.withOpacity(0.6),
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 12),
-            SizedBox(
-              height: 38,
-              child: ElevatedButton(
-                onPressed: isPurchased ? null : onPressed,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: isPurchased
-                      ? CupertinoColors.activeGreen
-                      : AppColors.button,
-                  disabledBackgroundColor: CupertinoColors.activeGreen,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  elevation: 0,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                ),
-                child: isLoading
-                    ? const SizedBox(
-                        width: 18,
-                        height: 18,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(16, isPopular ? 20 : 14, 16, 14),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (isPopular)
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 3,
                         ),
-                      )
-                    : Text(
-                        isPurchased
-                            ? AppLocalizations.of(context)!.subscribed
-                            : AppLocalizations.of(context)!.subscribe,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                        decoration: BoxDecoration(
+                          color: AppColors.button,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Icon(
+                              Icons.star_rounded,
+                              color: Colors.white,
+                              size: 12,
+                            ),
+                            SizedBox(width: 3),
+                            Text(
+                              'POPULAR',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.white,
+                                letterSpacing: 0.3,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
+                    const SizedBox(height: 8),
+                    Text(
+                      label,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color:  AppColors.label,
+                        letterSpacing: -0.3,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        Text(
+                          price,
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.label,
+                            letterSpacing: -0.5,
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              const SizedBox(width: 12),
+              Container(
+                height: 44,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: isPurchased
+                        ? [
+                            CupertinoColors.activeGreen,
+                            CupertinoColors.activeGreen,
+                          ]
+                        : [
+                            AppColors.button,
+                            AppColors.button.withOpacity(0.8),
+                          ],
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: (isPurchased
+                              ? CupertinoColors.activeGreen
+                              : AppColors.button)
+                          .withOpacity(0.3),
+                      blurRadius: 10,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: isLoading
+                      ? const SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.5,
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
+                          ),
+                        )
+                      : Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (isPurchased)
+                              const Padding(
+                                padding: EdgeInsets.only(right: 6),
+                                child: Icon(
+                                  Icons.check_circle_rounded,
+                                  color: Colors.white,
+                                  size: 16,
+                                ),
+                              ),
+                            Text(
+                              isPurchased
+                                  ? AppLocalizations.of(context)!.subscribed
+                                  : AppLocalizations.of(context)!.subscribe,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                                letterSpacing: 0.2,
+                              ),
+                            ),
+                          ],
+                        ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
