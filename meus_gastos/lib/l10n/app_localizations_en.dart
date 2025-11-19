@@ -540,4 +540,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subscribe => 'Subscribe';
+
+  @override
+  String get exportFeature => 'Export';
+
+  @override
+  String get adFreeFeature => 'Ad-Free';
+
+  @override
+  String get backupFeature => 'Backup';
+
+  @override
+  String get popularBadge => 'POPULAR';
 }

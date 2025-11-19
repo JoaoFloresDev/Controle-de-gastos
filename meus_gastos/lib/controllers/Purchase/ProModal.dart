@@ -277,18 +277,21 @@ class _ProModalState extends State<ProModal> {
                         ),
                       ],
                     ),
-                    // Features compactas em linha
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _buildCompactFeatureIcon(
                           icon: Icons.file_download_outlined,
-                          title: 'Export to excel',
+                          title: AppLocalizations.of(context)!.exportFeature,
                         ),
                         _buildCompactFeatureIcon(
                           icon: Icons.block_outlined,
-                          title: 'livre de anuncios',
-                        )
+                          title: AppLocalizations.of(context)!.adFreeFeature,
+                        ),
+                        _buildCompactFeatureIcon(
+                          icon: Icons.cloud_sync_outlined,
+                          title: AppLocalizations.of(context)!.backupFeature,
+                        ),
                       ],
                     ),
                     // Planos
@@ -497,16 +500,16 @@ class _ProModalState extends State<ProModal> {
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
-                            Icon(
+                          children: [
+                            const Icon(
                               Icons.star_rounded,
                               color: Colors.white,
                               size: 12,
                             ),
-                            SizedBox(width: 3),
+                            const SizedBox(width: 3),
                             Text(
-                              'POPULAR',
-                              style: TextStyle(
+                              AppLocalizations.of(context)!.popularBadge,
+                              style: const TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w800,
                                 color: Colors.white,

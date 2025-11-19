@@ -1119,6 +1119,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Subscribe'**
   String get subscribe;
+
+  /// No description provided for @exportFeature.
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get exportFeature;
+
+  /// No description provided for @adFreeFeature.
+  ///
+  /// In en, this message translates to:
+  /// **'Ad-Free'**
+  String get adFreeFeature;
+
+  /// No description provided for @backupFeature.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup'**
+  String get backupFeature;
+
+  /// No description provided for @popularBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'POPULAR'**
+  String get popularBadge;
 }
 
 class _AppLocalizationsDelegate

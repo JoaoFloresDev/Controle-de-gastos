@@ -205,5 +205,9 @@
 "termsOfUse": "Terms of Use",
 "privacyPolicy": "Privacy Policy",
 "subscribed": "Subscribed",
-"subscribe": "Subscribe"
+"subscribe": "Subscribe",
+"exportFeature": "Export",
+"adFreeFeature": "Ad-Free",
+"backupFeature": "Backup",
+"popularBadge": "POPULAR"
 }

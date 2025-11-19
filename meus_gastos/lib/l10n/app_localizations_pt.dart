@@ -543,4 +543,16 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get subscribe => 'Assinar';
+
+  @override
+  String get exportFeature => 'Exportar';
+
+  @override
+  String get adFreeFeature => 'Livre de Anúncios';
+
+  @override
+  String get backupFeature => 'Backup';
+
+  @override
+  String get popularBadge => 'POPULAR';
 }

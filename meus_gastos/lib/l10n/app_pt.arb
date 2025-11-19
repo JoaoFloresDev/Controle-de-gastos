@@ -172,5 +172,9 @@
 "termsOfUse": "Termos de Uso",
 "privacyPolicy": "Política de Privacidade",
 "subscribed": "Assinado",
-"subscribe": "Assinar"
+"subscribe": "Assinar",
+"exportFeature": "Exportar",
+"adFreeFeature": "Livre de Anúncios",
+"backupFeature": "Backup",
+"popularBadge": "POPULAR"
 }

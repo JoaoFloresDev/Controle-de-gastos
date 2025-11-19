@@ -24,41 +24,61 @@ class TotalspentcarouselwidgetState extends State<Totalspentcarouselwidget> {
                 ? Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
-                      color: AppColors.card,
-                      borderRadius: BorderRadius.circular(16),
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.card.withOpacity(0.9),
+                          AppColors.card2.withOpacity(0.8)
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          offset: const Offset(0, 4),
-                          blurRadius: 8,
-                          spreadRadius: 2,
+                          color: Colors.black.withOpacity(0.15),
+                          offset: const Offset(0, 8),
+                          blurRadius: 16,
+                          spreadRadius: 0,
                         ),
                       ],
                     ),
                     alignment: Alignment.center,
+                    padding: const EdgeInsets.all(32),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: AppColors.button.withOpacity(0.15),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.insights_outlined,
+                            size: 48,
+                            color: AppColors.button,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
                         Text(
                           AppLocalizations.of(context)!.monthlyInsights,
                           style: const TextStyle(
                             color: AppColors.label,
-                            fontSize: 18,
+                            fontSize: 22,
                             fontWeight: FontWeight.bold,
+                            letterSpacing: -0.5,
                           ),
-                          textAlign: TextAlign
-                              .center, // Centraliza o texto dentro do widget
+                          textAlign: TextAlign.center,
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
+                        const SizedBox(height: 12),
                         Text(
-                          AppLocalizations.of(context)! 
+                          AppLocalizations.of(context)!
                               .youWillBeAbleToUnderstandYourExpensesHere,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.label,
-                            fontSize: 14,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.label.withOpacity(0.8),
+                            fontSize: 15,
+                            height: 1.4,
                           ),
                           textAlign: TextAlign.center,
                         )
