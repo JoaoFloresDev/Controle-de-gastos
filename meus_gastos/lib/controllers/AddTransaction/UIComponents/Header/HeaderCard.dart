@@ -106,6 +106,13 @@ void onCategoriesLoaded(List<CategoryModel> loadedCategories) {
     });
   }
 
+  /// Atualiza a data/hora para o momento atual
+  void updateDateTime() {
+    setState(() {
+      lastDateSelected = DateTime.now();
+    });
+  }
+
   void adicionar() async {
     if (!_isCategoriesLoaded) {
       // Show a toast or just ignore the click if categories aren't ready

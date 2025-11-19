@@ -83,6 +83,17 @@ class _AddTransactionControllerState extends State<AddTransactionController>
     super.didUpdateWidget(oldWidget);
     if (widget.isActive && !oldWidget.isActive) {
       _loadFixedCards();
+      // Atualiza a data/hora quando a aba se torna ativa
+      _headerCardKey.currentState?.updateDateTime();
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      // Atualiza a data/hora quando o app volta do background
+      _headerCardKey.currentState?.updateDateTime();
     }
   }
 

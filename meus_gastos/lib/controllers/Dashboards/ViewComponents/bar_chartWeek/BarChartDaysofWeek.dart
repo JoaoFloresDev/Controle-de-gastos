@@ -151,7 +151,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
-          borderRadius: BorderRadius.circular(20),
+          // borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.15),
@@ -347,12 +347,34 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             ? (data.progress / maxDailySum) * 90
             : data.progress,
         pointColorMapper: (data, _) => data.color,
-        width: 0.5,
+        gradient: LinearGradient(
+          colors: [
+            _getFilteredData()
+                .expand((day) => day)
+                .where((data) => data.category.name == category)
+                .first
+                .color.withOpacity(0.9),
+            _getFilteredData()
+                .expand((day) => day)
+                .where((data) => data.category.name == category)
+                .first
+                .color
+                .withOpacity(0.65),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+        width: 0.55,
         animationDuration: 800,
-        borderRadius: BorderRadius.circular(4),
+        // borderRadius: BorderRadius.circular(8),
         name: TranslateService.getTranslatedCategoryName(context, category),
-        borderWidth: 0,
-        borderColor: AppColors.card,
+        borderWidth: 1,
+        borderColor: _getFilteredData()
+            .expand((day) => day)
+            .where((data) => data.category.name == category)
+            .first
+            .color
+            .withOpacity(0.3),
       );
     }).toList());
 
@@ -375,22 +397,22 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
           ? TranslateService.formatCurrency(data.progress, context)
           : '',
       pointColorMapper: (data, _) => Colors.transparent,
-      width: 0.5,
-      borderRadius: BorderRadius.circular(4),
+      width: 0.55,
+      borderRadius: BorderRadius.circular(8),
       name: 'Total',
       borderWidth: 0,
       dataLabelSettings: DataLabelSettings(
         isVisible: true,
         labelAlignment: ChartDataLabelAlignment.top,
         textStyle: const TextStyle(
-            color: AppColors.label, fontWeight: FontWeight.bold),
+            color: AppColors.label, fontWeight: FontWeight.bold, fontSize: 10),
         builder: (data, point, series, pointIndex, seriesIndex) {
           return Text(
             data.progress > 0
                 ? TranslateService.formatCurrency(data.progress, context)
                 : '',
             style: const TextStyle(
-                fontSize: 8,
+                fontSize: 10,
                 color: AppColors.label,
                 fontWeight: FontWeight.bold),
           );

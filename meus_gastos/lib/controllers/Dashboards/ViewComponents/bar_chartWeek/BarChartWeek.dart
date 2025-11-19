@@ -52,31 +52,33 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
         ? 0
         : 120;
 
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [AppColors.card, AppColors.card2],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(18),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              offset: const Offset(0, 4),
-              blurRadius: 8,
-              spreadRadius: 2,
-            ),
-          ],
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [AppColors.card.withOpacity(0.9), AppColors.card2.withOpacity(0.8)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
-        child: Column(
-          children: [
-            Expanded(child: _buildChart(maxY)),
-            _buildCategorySelector(),
-          ],
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.15),
+            offset: const Offset(0, 8),
+            blurRadius: 16,
+            spreadRadius: 0,
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Column(
+            children: [
+              Expanded(child: _buildChart(maxY)),
+              _buildCategorySelector(),
+            ],
+          ),
         ),
       ),
     );
@@ -86,44 +88,63 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
     return Center(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(32),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [AppColors.card, AppColors.background1],
+            colors: [
+              AppColors.card.withOpacity(0.9),
+              AppColors.card2.withOpacity(0.8)
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              offset: const Offset(0, 4),
-              blurRadius: 8,
-              spreadRadius: 2,
+              color: Colors.black.withOpacity(0.15),
+              offset: const Offset(0, 8),
+              blurRadius: 16,
+              spreadRadius: 0,
             ),
           ],
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.bar_chart, size: 60, color: AppColors.label),
-            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppColors.button.withOpacity(0.15),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.bar_chart_outlined,
+                size: 48,
+                color: AppColors.button,
+              ),
+            ),
+            const SizedBox(height: 24),
             Text(
               AppLocalizations.of(context)!.weaklyGraphPlaceholder,
               style: const TextStyle(
                 color: AppColors.label,
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
+                letterSpacing: -0.5,
               ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),
             Text(
               AppLocalizations.of(context)!.noExpensesThisWeek,
-              style: const TextStyle(color: AppColors.label, fontSize: 16),
+              style: TextStyle(
+                color: AppColors.label.withOpacity(0.8),
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                height: 1.4,
+              ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 40),
           ],
         ),
       ),
@@ -152,7 +173,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
 
   Widget _buildCategorySelector() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0, left: 16, right: 16),
+      padding: const EdgeInsets.only(bottom: 12.0, left: 16, right: 16, top: 8),
       child: SelectCategories(
         categoryList: Dashbordservice.extractCategories(widget.weeklyData),
         onSelectionChanged: (selectedIndices) {
@@ -265,12 +286,64 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
                   color: AppColors.card));
           return categoryData.color;
         },
-        width: 0.5,
-        borderRadius:
-            BorderRadius.circular(4), // Adiciona cantos arredondados às barras
+        gradient: LinearGradient(
+          colors: [
+            widget.weeklyData.isNotEmpty && widget.weeklyData.any((week) => week.any((data) => data.category.name == category))
+                ? widget.weeklyData.expand((week) => week).firstWhere(
+                    (data) => data.category.name == category,
+                    orElse: () => ProgressIndicatorModel(
+                      title: category,
+                      progress: 0,
+                      category: CategoryModel(
+                        id: '',
+                        name: category,
+                        color: AppColors.card,
+                        icon: Icons.device_unknown
+                      ),
+                      color: AppColors.card
+                    )
+                  ).color
+                : AppColors.card,
+            widget.weeklyData.isNotEmpty && widget.weeklyData.any((week) => week.any((data) => data.category.name == category))
+                ? widget.weeklyData.expand((week) => week).firstWhere(
+                    (data) => data.category.name == category,
+                    orElse: () => ProgressIndicatorModel(
+                      title: category,
+                      progress: 0,
+                      category: CategoryModel(
+                        id: '',
+                        name: category,
+                        color: AppColors.card,
+                        icon: Icons.device_unknown
+                      ),
+                      color: AppColors.card
+                    )
+                  ).color.withOpacity(0.7)
+                : AppColors.card.withOpacity(0.7),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+        width: 0.55,
+        animationDuration: 800,
         name: TranslateService.getTranslatedCategoryName(context, category),
-        borderWidth: 0,
-        borderColor: AppColors.card,
+        borderWidth: 1,
+        borderColor: widget.weeklyData.isNotEmpty && widget.weeklyData.any((week) => week.any((data) => data.category.name == category))
+            ? widget.weeklyData.expand((week) => week).firstWhere(
+                (data) => data.category.name == category,
+                orElse: () => ProgressIndicatorModel(
+                  title: category,
+                  progress: 0,
+                  category: CategoryModel(
+                    id: '',
+                    name: category,
+                    color: AppColors.card,
+                    icon: Icons.device_unknown
+                  ),
+                  color: AppColors.card
+                )
+              ).color.withOpacity(0.3)
+            : AppColors.card.withOpacity(0.3),
       );
     }).toList());
     seriesList.add(StackedColumnSeries<
