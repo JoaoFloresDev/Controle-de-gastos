@@ -343,7 +343,12 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
             data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
             child: Text(
               widget.title,
-              style: const TextStyle(color: AppColors.label, fontSize: 20),
+              style: const TextStyle(
+                color: AppColors.label,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.3,
+              ),
             ),
           ),
           backgroundColor: AppColors.background1,
@@ -359,7 +364,8 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
                   style: TextStyle(
                     color: AppColors.label,
                     fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.5,
                   ),
                 ),
               ),

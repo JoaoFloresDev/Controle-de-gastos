@@ -122,7 +122,12 @@ PreferredSizeWidget _buildAppBar() {
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Text(
         widget.title,
-        style: const TextStyle(color: AppColors.label, fontSize: 20),
+        style: const TextStyle(
+          color: AppColors.label,
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 0.3,
+        ),
       ),
     ),
   );

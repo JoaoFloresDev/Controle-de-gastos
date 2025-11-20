@@ -169,14 +169,7 @@ class DashboardCard extends StatelessWidget {
             height: 10,
             decoration: BoxDecoration(
               color: color,
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: color.withOpacity(0.4),
-                  blurRadius: 4,
-                  spreadRadius: 1,
-                ),
-              ],
+              shape: BoxShape.circle
             ),
           ),
           const SizedBox(width: 8),
@@ -192,16 +185,5 @@ class DashboardCard extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  List<Widget> _buildExampleLegend() {
-    return [
-      _buildLegendItem(
-          const Color.fromARGB(255, 57, 57, 57), '40%', 'Exemplo 1'),
-      _buildLegendItem(
-          const Color.fromARGB(255, 55, 54, 54), '30%', 'Exemplo 2'),
-      _buildLegendItem(Colors.grey[600]!, '20%', 'Exemplo 3'),
-      _buildLegendItem(Colors.grey[700]!, '10%', 'Exemplo 4'),
-    ];
   }
 }

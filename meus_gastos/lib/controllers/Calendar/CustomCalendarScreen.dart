@@ -93,7 +93,12 @@ class CustomCalendarState extends State<CustomCalendar> {
             data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
             child: Text(
               AppLocalizations.of(context)!.calendar,
-              style: const TextStyle(color: AppColors.label, fontSize: 20),
+              style: const TextStyle(
+                color: AppColors.label,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.3,
+              ),
             ),
           ),
           backgroundColor: AppColors.background1),

@@ -446,7 +446,12 @@ class DashboardScreenState extends State<DashboardScreen>
           data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
           child: Text(
             AppLocalizations.of(context)!.myControl,
-            style: const TextStyle(color: AppColors.label, fontSize: 20),
+            style: const TextStyle(
+              color: AppColors.label,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.3,
+            ),
           ),
         ),
         backgroundColor: AppColors.background1,
@@ -457,14 +462,14 @@ class DashboardScreenState extends State<DashboardScreen>
               isScrollControlled: true,
               backgroundColor: Colors.transparent,
               builder: (BuildContext context) {
-                return Exportexcelscreen(); // O widget com o código acima
+                return const Exportexcelscreen(); // O widget com o código acima
               },
             );
           },
           child: const Icon(
             CupertinoIcons.share,
             size: 24.0,
-            color: Colors.white,
+            color: AppColors.label,
           ),
         ),
       ),

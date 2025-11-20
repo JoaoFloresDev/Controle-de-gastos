@@ -239,13 +239,6 @@ class _ProModalState extends State<ProModal> {
                               ],
                             ),
                             shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.button.withOpacity(0.3),
-                                blurRadius: 16,
-                                spreadRadius: 0,
-                              ),
-                            ],
                           ),
                           child: const Icon(
                             Icons.star_rounded,
@@ -463,17 +456,7 @@ class _ProModalState extends State<ProModal> {
                 ? AppColors.button.withOpacity(0.5)
                 : AppColors.label.withOpacity(0.1),
             width: isPopular ? 2 : 1,
-          ),
-          boxShadow: isPopular
-              ? [
-                  BoxShadow(
-                    color: AppColors.button.withOpacity(0.2),
-                    blurRadius: 16,
-                    spreadRadius: 0,
-                    offset: const Offset(0, 6),
-                  ),
-                ]
-              : null,
+          )
         ),
         child: Padding(
           padding: EdgeInsets.fromLTRB(16, isPopular ? 20 : 14, 16, 14),
@@ -560,17 +543,7 @@ class _ProModalState extends State<ProModal> {
                             AppColors.button.withOpacity(0.8),
                           ],
                   ),
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: (isPurchased
-                              ? CupertinoColors.activeGreen
-                              : AppColors.button)
-                          .withOpacity(0.3),
-                      blurRadius: 10,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
+                  borderRadius: BorderRadius.circular(12)
                 ),
                 child: Center(
                   child: isLoading

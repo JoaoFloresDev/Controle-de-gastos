@@ -248,16 +248,17 @@ final List<IconData> accountIcons = [
             onPressed: () => Navigator.pop(context),
             child: const Icon(
               CupertinoIcons.xmark_circle_fill,
-              color: Colors.white54,
+              color: AppColors.label,
               size: 24,
             ),
           ),
           Text(
             AppLocalizations.of(context)!.createCategory,
             style: const TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.3,
+              color: AppColors.label,
             ),
           ),
           const SizedBox(width: 24),
