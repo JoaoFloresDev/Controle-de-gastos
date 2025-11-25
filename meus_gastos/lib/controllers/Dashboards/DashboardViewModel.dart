@@ -1,10 +1,10 @@
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/MonthInsightsViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
-import 'package:meus_gastos/services/CardServiceRefatore.dart';
 import 'package:meus_gastos/services/DashbordService.dart';
 
 class DashboardViewModel extends ChangeNotifier {
@@ -14,7 +14,6 @@ class DashboardViewModel extends ChangeNotifier {
     // Ouve automaticamente mudanças de cards
     transactionsVM.addListener(_onDependenciesChanged);
   }
-
   void _onDependenciesChanged() {
     // Quando os cards mudarem, recarrega os dados
     loadProgressIndicators();
@@ -54,7 +53,7 @@ class DashboardViewModel extends ChangeNotifier {
     notifyListeners();
     cards = transactionsVM.cardList;
     _progressIndicators =
-        await CardService().getProgressIndicatorsByMonth(_currentDate, cards);
+        await Dashbordservice.getProgressIndicatorsByMonth(_currentDate, cards);
     _pieChartDataItems = _progressIndicators
         .map((indicator) => indicator.toPieChartDataItem())
         .toList();
@@ -62,9 +61,9 @@ class DashboardViewModel extends ChangeNotifier {
         0.0, (sum, indicator) => sum + indicator.progress);
     _Last5WeeksIntervals = Dashbordservice.getLast5WeeksIntervals(_currentDate);
     _Last5WeeksProgressIndicators =
-        await Dashbordservice.getLast5WeeksProgressIndicators(_currentDate);
+        await Dashbordservice.getLast5WeeksProgressIndicators(cards, _currentDate);
     _weeklyData =
-        await Dashbordservice.getProgressIndicatorsOfDaysForLast5Weeks(
+        await Dashbordservice.getProgressIndicatorsOfDaysForLast5Weeks(cards,
             _currentDate);
 
     _isLoading = false;

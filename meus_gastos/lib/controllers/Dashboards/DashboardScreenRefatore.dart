@@ -1,30 +1,22 @@
 import 'dart:io';
 import 'package:meus_gastos/controllers/Dashboards/DashboardViewModel.dart';
-import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/MonthInsightsFactory.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/MonthInsightsViewModel.dart';
 import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/TotalSpentCarousel.dart';
-import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/MonthInsightsScreen.dart';
 import 'package:meus_gastos/controllers/exportExcel/exportExcelScreen.dart';
-
-// Imports de serviços
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/services/DashbordService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 
-// Imports de modelos
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 
-// Imports de controllers
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartDaysofWeek.dart';
 import 'package:meus_gastos/controllers/ExtractByCategory/ExtractByCategory.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartWeek.dart';
 
-// Imports de widgets
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/MonthSelector.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgressIndicatorSection.dart';
@@ -40,76 +32,14 @@ class DashboardScreen extends StatefulWidget {
 
 class DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
-  final GlobalKey<TotalSpentCarouselWithTitlesState> insights =
-      GlobalKey<TotalSpentCarouselWithTitlesState>();
-
-  
-  // List<ProgressIndicatorModel> progressIndicators2 = [
-  //   ProgressIndicatorModel(
-  //     title: "Alimentação",
-  //     progress: 400,
-  //     category: CategoryModel(
-  //       id: "1",
-  //       name: "Alimentação",
-  //       color: Color.fromARGB(255, 41, 40, 40),
-  //       icon: CupertinoIcons.cart,
-  //       frequency: 5,
-  //     ),
-  //     color: Color.fromARGB(255, 41, 40, 40),
-  //   ),
-  //   ProgressIndicatorModel(
-  //     title: "Transporte",
-  //     progress: 200,
-  //     category: CategoryModel(
-  //       id: "2",
-  //       name: "Transporte",
-  //       color: Color.fromARGB(255, 41, 40, 40),
-  //       icon: CupertinoIcons.car,
-  //       frequency: 3,
-  //     ),
-  //     color: Color.fromARGB(255, 41, 40, 40),
-  //   ),
-  //   ProgressIndicatorModel(
-  //     title: "Lazer",
-  //     progress: 300,
-  //     category: CategoryModel(
-  //       id: "3",
-  //       name: "Lazer",
-  //       color: Color.fromARGB(255, 41, 40, 40),
-  //       icon: CupertinoIcons.smiley,
-  //       frequency: 2,
-  //     ),
-  //     color: Color.fromARGB(255, 41, 40, 40),
-  //   ),
-  // ];
+  final GlobalKey<MonthInsightsScreenState> insights =
+      GlobalKey<MonthInsightsScreenState>();
 
   final PageController _pageController = PageController();
   // int _currentIndex = 0;
 
   @override
   bool get wantKeepAlive => true;
-
-  @override
-  void initState() {
-    super.initState();
-    // _onScreenDisplayed();
-  }
-
-  void inicializeDashboard() {
-    // _currentIndex = 0;
-    // _onScreenDisplayed();
-  }
-
-  // Future<void> _onScreenDisplayed() async {
-  //   if (widget.isActive) {
-  //     await _loadInitialData();
-  //   }
-  //   totalexpens = await CardService.getTotalExpenses(currentDate);
-  // }
-
-  Future<void> _loadInitialData() async {
-    // await _loadProgressIndicators(currentDate);
-  }
 
   void _onPageChanged(int index) {
     setState(() {
@@ -118,12 +48,7 @@ class DashboardScreenState extends State<DashboardScreen>
     });
   }
 
-  
-
-  void refreshData() {
-    // _onScreenDisplayed();
-    _loadInitialData();
-  }
+  void refreshData() {}
 
   Widget _buildBannerAd() {
     return BannerAdFactory().build();
@@ -132,14 +57,18 @@ class DashboardScreenState extends State<DashboardScreen>
   Widget _buildMonthSelector(DashboardViewModel dashboardVM) {
     return MonthSelector(
       currentDate: dashboardVM.currentDate,
-      onChangeMonth: dashboardVM.changeMonth,
+      onChangeMonth: (int delta) {
+        dashboardVM.changeMonth(delta);
+        context.read<MonthInsightsViewModel>().loadValues(dashboardVM.currentDate);
+      },
     );
   }
 
   double _calculatePageHeight(DashboardViewModel dashboardVM) {
     double baseHeight = 300;
     double heightPerLine = 40;
-    List<String> labels = dashboardVM.pieChartDataItems.map((item) => item.label).toList();
+    List<String> labels =
+        dashboardVM.pieChartDataItems.map((item) => item.label).toList();
     int calculateLines(List<String> labels) {
       int lines = 0;
       int i = 0;
@@ -167,6 +96,7 @@ class DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget _buildTotalSpentCarousel(DashboardViewModel dashboardVM) {
+    print(" Consumer rebuildou! DATA ${dashboardVM.currentDate}");
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12),
       child: SizedBox(
@@ -227,14 +157,13 @@ class DashboardScreenState extends State<DashboardScreen>
                   ],
                 ),
               )
-            : TotalSpentCarouselWithTitles(currentDate: dashboardVM.currentDate),
+            : MonthInsightsScreen(),
       ),
     );
   }
 
   Widget _buildPageView(DashboardViewModel dashboardVM) {
     double pageHeight = _calculatePageHeight(dashboardVM);
-    print(" Consumer rebuildou! Total de categorias: ${dashboardVM.cards.length}");
     return SizedBox(
       height: pageHeight,
       child: PageView(
@@ -308,7 +237,8 @@ class DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-  Widget _buildProgressIndicators(BuildContext context, DashboardViewModel dashboardVM) {
+  Widget _buildProgressIndicators(
+      BuildContext context, DashboardViewModel dashboardVM) {
     if (dashboardVM.progressIndicators.isEmpty) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -349,7 +279,8 @@ class DashboardScreenState extends State<DashboardScreen>
         const SizedBox(height: 8),
         for (var progressIndicator in dashboardVM.progressIndicators)
           GestureDetector(
-            onTap: () => _showExpenseDetails(context, progressIndicator, dashboardVM),
+            onTap: () =>
+                _showExpenseDetails(context, progressIndicator, dashboardVM),
             child: LinearProgressIndicatorSection(
               model: progressIndicator,
               totalAmount: dashboardVM.progressIndicators.fold(
@@ -362,7 +293,8 @@ class DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-  void _showExpenseDetails(BuildContext context, ProgressIndicatorModel model, DashboardViewModel dashboardVM) {
+  void _showExpenseDetails(BuildContext context, ProgressIndicatorModel model,
+      DashboardViewModel dashboardVM) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -377,7 +309,8 @@ class DashboardScreenState extends State<DashboardScreen>
             ),
           ),
           child: ExtractByCategory(
-              category: model.category.name, currentMonth: dashboardVM.currentDate),
+              category: model.category.name,
+              currentMonth: dashboardVM.currentDate),
         ); // O widget com o código acima
       },
     );
@@ -403,7 +336,8 @@ class DashboardScreenState extends State<DashboardScreen>
     return const CircularProgressIndicator(color: AppColors.background1);
   }
 
-  Widget _buildTotalSpentText(BuildContext context, DashboardViewModel dashboardVM) {
+  Widget _buildTotalSpentText(
+      BuildContext context, DashboardViewModel dashboardVM) {
     return Text(
       "${AppLocalizations.of(context)!.totalSpent}: ${TranslateService.formatCurrency(dashboardVM.totalGasto, context)}",
       style: const TextStyle(
