@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:meus_gastos/controllers/Dashboards/DashboardViewModel.dart';
-import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/MonthInsightsFactory.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/MonthInsightsViewModel.dart';
 import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
 import 'package:provider/provider.dart';
