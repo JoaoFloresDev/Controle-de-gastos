@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValueInputSection.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-
+import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValueInputSection.dart';
 class SetGoalsScreen extends StatefulWidget {
   final CategoryModel category;
   final double initialValue;
@@ -22,8 +23,8 @@ class SetGoalsScreen extends StatefulWidget {
 
 class SetSetGoalsState extends State<SetGoalsScreen> {
   late MoneyMaskedTextController valorController;
-
   bool _controllerInitialized = false;
+  final GlobalKey _valueKey = GlobalKey(); // MUDANÇA: Mover para o State
 
   @override
   void didChangeDependencies() {
@@ -51,48 +52,50 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GestureDetector( // ADICIONADO: Previne que toques fora fechem o teclado
       onTap: () {
-        FocusScope.of(context).unfocus();
+        // Não faz nada - previne propagação
       },
       child: Container(
         decoration: const BoxDecoration(
           color: AppColors.background1,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
           ),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             CustomHeader(
               title: TranslateService.getTranslatedCategoryName(
                   context, widget.category.name),
-              onCancelPressed: () {},
+
+              onCancelPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
-            Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  _buildCategoryIcon(),
-                  const SizedBox(height: 16),
-                  if (widget.initialValue > 0) ...[
-                    _buildCurrentGoalInfo(),
+            Flexible(
+              child: SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.manual, // ADICIONADO
+                padding: EdgeInsets.fromLTRB(
+                  20,
+                  20,
+                  20,
+                  20 + MediaQuery.of(context).viewInsets.bottom,
+                ),
+                child: Column(
+                  children: [
+                    _buildCategoryIcon(),
+                    const SizedBox(height: 18),
+                    _buildInputSection(),
                     const SizedBox(height: 20),
-                  ] else
-                    const SizedBox(height: 8),
-                  _buildInputSection(),
-                  const SizedBox(height: 24),
-                  _buildActionButtons(context),
-                  const SizedBox(height: 20),
-                ],
+                    _buildActionButtons(context),
+                  ],
+                ),
               ),
             ),
-          ),
           ],
         ),
       ),
@@ -103,15 +106,22 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
     return Hero(
       tag: 'category_${widget.category.id}',
       child: Container(
-        width: 80,
-        height: 80,
+        width: 64,
+        height: 64,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.grey.shade900.withOpacity(0.8),
+          color: AppColors.card.withOpacity(0.5),
           border: Border.all(
-            color: Colors.grey.shade700,
+            color: AppColors.label.withOpacity(0.1),
             width: 1.5,
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 15,
+              offset: const Offset(0, 6),
+            ),
+          ],
         ),
         child: Center(
           child: Icon(
@@ -124,89 +134,33 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
     );
   }
 
-  Widget _buildCurrentGoalInfo() {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade900.withOpacity(0.6),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Colors.grey.shade700,
-          width: 1,
-        ),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: widget.category.color.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(
-              Icons.savings_outlined,
-              color: widget.category.color,
-              size: 20,
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.currentGoal,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey.shade400,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  TranslateService.formatCurrency(widget.initialValue, context),
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildInputSection() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Text(
-              AppLocalizations.of(context)!.setGoal,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
+        Padding(
+          padding: const EdgeInsets.only(left: 2, bottom: 12),
+          child: Text(
+            AppLocalizations.of(context)!.setGoal,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+              color: AppColors.label,
+              letterSpacing: -0.3,
             ),
-            Expanded(child: SizedBox())
-          ],
+          ),
         ),
-        const SizedBox(height: 16),
         Container(
           decoration: BoxDecoration(
-            color: Colors.grey.shade900.withOpacity(0.6),
+            color: AppColors.card.withOpacity(0.4),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: Colors.grey.shade700,
+              color: AppColors.label.withOpacity(0.08),
               width: 1,
             ),
           ),
           child: ValueInputSection(
-            valueKey: GlobalKey(),
+            valueKey: _valueKey, // MUDANÇA: Usar a key do State
             controller: valorController,
           ),
         ),
@@ -217,70 +171,41 @@ class SetSetGoalsState extends State<SetGoalsScreen> {
   Widget _buildActionButtons(BuildContext context) {
     return Column(
       children: [
-        // Primary action button
+
+        // Botão principal
         Container(
           width: double.infinity,
-          height: 56,
+          height: 52,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: AppColors.button,
+            borderRadius: BorderRadius.circular(14),
+            color: AppColors.button
           ),
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              borderRadius: BorderRadius.circular(16),
+
+              borderRadius: BorderRadius.circular(14),
               onTap: () {
                 widget.addGoal(widget.category.id, valorController.numberValue);
                 Navigator.of(context).pop();
               },
               child: Center(
                 child: Text(
-                  AppLocalizations.of(context)!.update,
+
+                  widget.initialValue > 0 ?
+                  AppLocalizations.of(context)!.update : AppLocalizations.of(context)!.set,
                   style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
                     color: AppColors.label,
+                    letterSpacing: -0.2,
                   ),
                 ),
               ),
             ),
           ),
-        ),
 
-        const SizedBox(height: 16),
-
-        if (widget.initialValue > 0)
-          Container(
-            width: double.infinity,
-            height: 48,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: Colors.transparent,
-              border: Border.all(
-                color: Colors.grey.shade600,
-                width: 1.5,
-              ),
-            ),
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                borderRadius: BorderRadius.circular(16),
-                onTap: () {
-                  valorController.updateValue(0);
-                },
-                child: Center(
-                  child: Text(
-                    AppLocalizations.of(context)!.clear,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade400,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+        )
       ],
     );
   }

@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 
+extension StringExtension on String {
+  String capitalize() {
+    if (isEmpty) return this;
+    return this[0].toUpperCase() + substring(1);
+  }
+}
+
 class CalendarHeader extends StatelessWidget {
   final DateTime? selectedDay;
   final DateTime focusedDay;
@@ -24,35 +31,48 @@ class CalendarHeader extends StatelessWidget {
         0.0;
     final formattedDate =
         DateFormat('EEEE, d MMM', Localizations.localeOf(context).toString())
-            .format(selectedDay ?? focusedDay);
+            .format(selectedDay ?? focusedDay)
+            .capitalize();
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 4, bottom: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Text(
-              formattedDate,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: AppColors.label,
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsetsGeometry.only(left: 16, right: 16, top: 8),
+          child: Divider(
+          height: 1,
+          thickness: 1,
+          color: const Color.fromARGB(80, 142, 142, 147),
+        ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  formattedDate,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.label,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-              overflow: TextOverflow.ellipsis,
-            ),
+              const SizedBox(width: 16),
+              Text(
+                "R\$ ${totalExpense.toStringAsFixed(2)}",
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.label,
+                ),
+              ),
+            ],
           ),
-          Text(
-            "R\$ ${totalExpense.toStringAsFixed(2)}",
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: AppColors.button,
-            ),
-            textAlign: TextAlign.right,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

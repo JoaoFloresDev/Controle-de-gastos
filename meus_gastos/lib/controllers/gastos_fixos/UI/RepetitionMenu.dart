@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/designSystem/Components/CustomHeader.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/HorizontalCircleList.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/UI/HorizontalCircleList.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import '../CardDetails/DetailScreen.dart';
-import '../ListCardFixeds.dart';
+import 'ListCardFixeds.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
@@ -178,7 +178,7 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12.0),
       child: CupertinoButton(
         color: AppColors.card,
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),

@@ -19,6 +19,7 @@ import 'package:meus_gastos/repositories/Transactions/TransactionsRepositoryRemo
 import 'package:meus_gastos/repositories/Transactions/TransactionsRepositorySelector.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/services/firebase/FirebaseServiceSingleton.dart';
+
 import 'package:onepref/onepref.dart';
 import 'package:window_size/window_size.dart';
 import 'package:meus_gastos/controllers/AddTransaction/AddTransactionController.dart';
@@ -98,7 +99,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   late Animation<double> _animation;
 
   final calendarKey = GlobalKey<CustomCalendarState>();
-  // final dashboardKey = GlobalKey<DashboardScreenState>();
+
   final goalKey = GlobalKey<GoalsscreanState>();
 
   final exportButtonAT = GlobalKey(debugLabel: 'exportButtonAT');
@@ -148,6 +149,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       providers: [
         ChangeNotifierProvider(
             create: (_) => ProManeger()..checkUserProStatus()),
+
         ChangeNotifierProvider(create: (_) => LoginViewModel()..init()),
       ],
       child: Builder(builder: (context) {
@@ -216,6 +218,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           ),
         );
       }),
+
     );
   }
 
@@ -307,9 +310,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       behavior:
           HitTestBehavior.opaque, // <- ESSENCIAL: toda área vira "clicável"
       onTap: () {
-        if (index == 2) {
-          // if (selectedTab != 2) dashboardKey.currentState?.refreshData();
-        }
+
         if (index == 3) {
           goalKey.currentState?.refreshGoals();
         }
@@ -332,7 +333,8 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 200),
             style: TextStyle(
-              fontSize: 12,
+
+              fontSize: 11,
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
               color: isSelected ? Colors.white : const Color(0xFF8E8E93),
             ),

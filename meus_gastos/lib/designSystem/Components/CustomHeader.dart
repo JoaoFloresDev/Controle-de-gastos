@@ -1,74 +1,13 @@
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-class WorkingHeader extends StatelessWidget {
-  final String title;
-  final VoidCallback? onCancelPressed;
-  final VoidCallback? onDeletePressed;
-  final bool showDeleteButton;
-  final Icon deleteButtonIcon;
-
-  const WorkingHeader({
-    Key? key,
-    required this.title,
-    this.onCancelPressed,
-    this.onDeletePressed,
-    this.showDeleteButton = false,
-    this.deleteButtonIcon = const Icon(CupertinoIcons.delete, color: Colors.white),
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blue, // Altere conforme sua paleta de cores
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // Botão de fechar usando CupertinoButton
-          CupertinoButton(
-            padding: EdgeInsets.zero,
-            child: const Icon(CupertinoIcons.clear, color: Colors.white),
-            onPressed: () {
-              print("Close button pressed");
-              if (onCancelPressed != null) {
-                onCancelPressed!();
-              } else {
-                Navigator.pop(context);
-              }
-            },
-          ),
-          // Título
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          // Botão de deletar (ou compartilhar) usando CupertinoButton
-          CupertinoButton(
-            padding: EdgeInsets.zero,
-            child: showDeleteButton
-                ? deleteButtonIcon
-                : const SizedBox(width: 24, height: 24),
-            onPressed: onDeletePressed,
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class CustomHeader extends StatelessWidget {
   final String title;
   final VoidCallback? onCancelPressed;
   final VoidCallback? onDeletePressed;
   final bool showDeleteButton;
-  final Icon deleteButtonIcon; // Agora obrigatório com valor padrão
+  final Icon deleteButtonIcon;
 
   const CustomHeader({
     super.key,
@@ -84,43 +23,72 @@ class CustomHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: AppColors.card,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      padding: const EdgeInsets.only(
+        top: 16,
+        bottom: 16,
+        left: 20,
+        right: 20,
+      ),
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          // Botão de Cancelar
-          _buildCancelButton(context),
-          // Título
+          // Título centralizado
           _buildTitle(),
-          // Botão de Deletar (opcional)
-          _buildDeleteButton(context),
+          // Botões nas laterais
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildCancelButton(context),
+              _buildDeleteButton(context),
+            ],
+          ),
         ],
       ),
     );
   }
 
   // MARK: - Cancel Button
-//mark - Cancel Button
-Widget _buildCancelButton(BuildContext context) {
-  return Material(
-    color: Colors.transparent,
-    child: IconButton(
-      icon: const Icon(Icons.close, color: AppColors.label),
-      onPressed: () {
-        print("aqui!!!");
-        Navigator.pop(context);
-      },
-    ),
-  );
-}
-
+  Widget _buildCancelButton(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: () {
+          if (onCancelPressed != null) {
+            onCancelPressed!();
+          } else {
+            Navigator.pop(context);
+          }
+        },
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: AppColors.label.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: const Icon(
+            Icons.close_rounded,
+            color: AppColors.label,
+            size: 20,
+          ),
+        ),
+      ),
+    );
+  }
 
   // MARK: - Title
   Widget _buildTitle() {
@@ -128,19 +96,38 @@ Widget _buildCancelButton(BuildContext context) {
       title,
       style: const TextStyle(
         color: AppColors.label,
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
+        fontSize: 17,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.2,
       ),
+      textAlign: TextAlign.center,
     );
   }
 
   // MARK: - Delete Button
   Widget _buildDeleteButton(BuildContext context) {
-    return IconButton(
-      onPressed: onDeletePressed,
-      icon: showDeleteButton
-          ? deleteButtonIcon
-          : const Icon(Icons.delete, color: Colors.transparent),
+    if (!showDeleteButton) {
+      return const SizedBox(width: 36, height: 36);
+    }
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: onDeletePressed,
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: AppColors.deletionButton.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Icon(
+            deleteButtonIcon.icon,
+            color: AppColors.deletionButton,
+            size: 20,
+          ),
+        ),
+      ),
     );
   }
 }

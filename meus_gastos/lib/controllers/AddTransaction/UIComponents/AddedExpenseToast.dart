@@ -46,7 +46,7 @@ class AddedExpenseToast extends StatefulWidget {
     
     overlay.insert(entry);
     
-    Timer(const Duration(milliseconds: 1000), () {
+    Timer(const Duration(milliseconds: 1200), () {
       if (entry.mounted) {
         entry.remove();
       }
@@ -202,7 +202,7 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: MediaQuery.of(context).padding.top + 16,
+      top: MediaQuery.of(context).padding.top,
       left: 16,
       right: 16,
       child: SlideTransition(

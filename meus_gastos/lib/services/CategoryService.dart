@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/CategoryModel.dart';
 
@@ -28,92 +29,130 @@ class CategoryService {
     }).toList();
 
     await prefs.setStringList(_categoriesKey, updatedCategories);
+  }
+
+  Future<void> updateCategory(CategoryModel category) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
+
+    List<String> updatedCategories = categories.map((cat) {
+      final Map<String, dynamic> categoryMap = jsonDecode(cat);
+      if (categoryMap['id'] == category.id) {
+        return jsonEncode(category.toJson());
+      }
+      return cat;
+    }).toList();
+
+    await prefs.setStringList(_categoriesKey, updatedCategories);
     // }
+  }
+
+  // Salva a ordem completa das categorias
+  Future<void> saveOrderedCategories(List<CategoryModel> categories) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> categoriesJson = categories
+        .map((category) => jsonEncode(category.toJson()))
+        .toList();
+    await prefs.setStringList(_categoriesKey, categoriesJson);
   }
 
   final List<CategoryModel> defaultCategories = [
     CategoryModel(
-      id: 'Unknown',
-      color: Colors.blueAccent.withOpacity(0.8),
-      icon: Icons.question_mark_rounded,
-      name: 'Unknown',
-      frequency: 0,
-    ),
-    CategoryModel(
       id: 'Shopping',
-      color: Colors.greenAccent.withOpacity(0.8),
+      color: const Color(0xFF00E676), // Verde neon
       icon: Icons.shopping_cart,
       name: 'Shopping',
       frequency: 0,
     ),
     CategoryModel(
-      id: 'Restaurant',
-      color: Colors.indigo.withOpacity(0.8),
-      icon: Icons.restaurant,
-      name: 'Restaurant',
-      frequency: 0,
-    ),
-    CategoryModel(
-      id: 'GasStation',
-      color: Colors.amberAccent.withOpacity(0.8),
-      icon: Icons.local_gas_station,
-      name: 'GasStation',
-      frequency: 0,
-    ),
-    CategoryModel(
       id: 'Home',
-      color: Colors.teal.withOpacity(0.8),
+      color: const Color(0xFF7C4DFF), // Roxo
       icon: Icons.home,
       name: 'Home',
       frequency: 0,
     ),
     CategoryModel(
-      id: 'ShoppingBasket',
-      color: Colors.pinkAccent.withOpacity(0.8),
-      icon: Icons.shopping_basket,
-      name: 'ShoppingBasket',
+      id: 'Transport',
+      color: const Color(0xFF2979FF), // Azul
+      icon: Icons.directions_car_outlined,
+      name: 'Transport',
+      frequency: 0,
+    ),
+    CategoryModel(
+      id: 'Restaurant',
+      color: const Color(0xFFB39DDB), // Lavanda
+      icon: Icons.restaurant,
+      name: 'Restaurant',
       frequency: 0,
     ),
     CategoryModel(
       id: 'Hospital',
-      color: Colors.tealAccent.withOpacity(0.8),
+      color: const Color(0xFFFF1744), // Vermelho
       icon: Icons.local_hospital,
       name: 'Hospital',
       frequency: 0,
     ),
     CategoryModel(
+      id: 'GasStation',
+      color: const Color(0xFFFFD700), // Dourado
+      icon: Icons.local_gas_station,
+      name: 'GasStation',
+      frequency: 0,
+    ),
+    CategoryModel(
+      id: 'Drink',
+      color: const Color(0xFFFF6E40), // Laranja
+      icon: Icons.local_drink_outlined,
+      name: 'Drink',
+      frequency: 0,
+    ),
+    CategoryModel(
+      id: 'ShoppingBasket',
+      color: const Color(0xFF00E5FF), // Ciano
+      icon: Icons.shopping_basket,
+      name: 'ShoppingBasket',
+      frequency: 0,
+    ),
+    CategoryModel(
+      id: 'CreditCard',
+      color: const Color(0xFFFF4081), // Rosa
+      icon: Icons.credit_card,
+      name: 'Credit Card',
+      frequency: 0,
+    ),
+    CategoryModel(
+      id: 'Education',
+      color: const Color(0xFFD4A574), // Bege
+      icon: Icons.school_outlined,
+      name: 'Education',
+      frequency: 0,
+    ),
+    CategoryModel(
+      id: 'Phone',
+      color: const Color(0xFF00BFA5), // Turquesa
+      icon: Icons.phone,
+      name: 'Phone',
+      frequency: 0,
+    ),
+    CategoryModel(
       id: 'Movie',
-      color: Colors.deepPurpleAccent.withOpacity(0.8),
+      color: const Color(0xFFAB47BC), // Roxo vibrante
       icon: Icons.movie,
       name: 'Movie',
       frequency: 0,
     ),
     CategoryModel(
       id: 'VideoGame',
-      color: Colors.brown.withOpacity(0.8),
+      color: const Color(0xFFD500F9), // Magenta
       icon: Icons.videogame_asset,
       name: 'VideoGame',
       frequency: 0,
     ),
     CategoryModel(
-      id: 'Drink',
-      color: Colors.cyanAccent.withOpacity(0.8),
-      icon: Icons.local_drink_outlined,
-      name: 'Drink',
-      frequency: 0,
-    ),
-    CategoryModel(
-      id: 'CreditCard',
-      color: Colors.limeAccent.withOpacity(0.8),
-      icon: Icons.credit_card,
-      name: 'Credit Card',
-      frequency: 0,
-    ),
-    CategoryModel(
-      id: 'Phone',
-      color: Colors.deepOrangeAccent.withOpacity(0.8),
-      icon: Icons.phone,
-      name: 'Phone',
+      id: 'Unknown',
+      color: const Color(0xFF9E9E9E), // Cinza
+      icon: Icons.question_mark_rounded,
+      name: 'Unknown',
       frequency: 0,
     ),
     CategoryModel(
@@ -121,7 +160,7 @@ class CategoryService {
       color: AppColors.button,
       icon: Icons.add,
       name: 'AddCategory',
-      frequency: -10,
+      frequency: 0,
     ),
   ];
 
@@ -134,18 +173,15 @@ class CategoryService {
       for (var category in defaultCategories) {
         await addCategory(category);
       }
-      return defaultCategories
-        ..sort((a, b) => b.frequency.compareTo(a.frequency));
+      return defaultCategories;
     } else {
       List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
       List<CategoryModel> aux = categories.map((category) {
         final Map<String, dynamic> categoryMap = jsonDecode(category);
         return CategoryModel.fromJson(categoryMap);
       }).toList();
-      aux.sort((a, b) => b.frequency.compareTo(a.frequency));
       return aux;
     }
-    // }
   }
 
   Future<List<CategoryModel>> getAllCategoriesAvaliable() async {
@@ -189,7 +225,6 @@ class CategoryService {
   }
 
   Future<CategoryModel?> getCategoryWithHighestFrequency() async {
-
     List<CategoryModel> categories = await getAllCategories();
 
     if (categories.isEmpty) return null;

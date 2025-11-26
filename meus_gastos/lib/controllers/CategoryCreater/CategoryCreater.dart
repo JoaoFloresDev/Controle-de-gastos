@@ -1,74 +1,116 @@
-import 'package:meus_gastos/controllers/CategoryCreater/uiComponents/PickColor.dart';
-import 'package:meus_gastos/services/TranslateService.dart';
 import 'dart:math';
-import 'package:flutter/services.dart';
-import 'package:uuid/uuid.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
-import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:meus_gastos/controllers/CategoryCreater/uiComponents/AddCategoryHorizontalCircleList.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:uuid/uuid.dart';
+import 'Components/categoryForm.dart';
+import 'Components/categoriesList.dart';
 
-class Categorycreater extends StatefulWidget {
+class CategoryCreater extends StatefulWidget {
   final VoidCallback onCategoryAdded;
 
-  const Categorycreater({super.key, required this.onCategoryAdded});
+  const CategoryCreater({super.key, required this.onCategoryAdded});
 
   @override
-  State<Categorycreater> createState() => _CategorycreaterState();
+  State<CategoryCreater> createState() => _CategoryCreaterState();
 }
 
-class _CategorycreaterState extends State<Categorycreater> {
-  // MARK: Variables
-  late TextEditingController categoriaController;
-  late Color _currentColor =
-      Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
-  List<CategoryModel> categories = [];
-  int selectedIndex = 0;
+class _CategoryCreaterState extends State<CategoryCreater> with SingleTickerProviderStateMixin {
+  late TextEditingController _nameController;
+  late Color _currentColor;
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
+  
+  int _selectedIconIndex = 0;
+  List<CategoryModel> _categories = [];
 
-  void loadCategories() async {
-    categories = await CategoryService().getAllCategoriesAvaliable();
-    setState(() {});
-  }
+  // Lista de cores pré-definidas (mesma do ColorGridSelector)
+  static const List<Color> _predefinedColors = [
+    Color(0xFFE63946), Color(0xFFFF6B6B), Color(0xFFFF8B94), Color(0xFFFF69B4),
+    Color(0xFFE91E63), Color(0xFFFFA07A), Color(0xFFFF7F50), Color(0xFFFF5722),
+    Color(0xFFFF9800), Color(0xFFFF6F00), Color(0xFFFFB74D), Color(0xFFFFD93D),
+    Color(0xFFFFC93C), Color(0xFFFFC107), Color(0xFFF9A825), Color(0xFFFFEB3B),
+    Color(0xFFFFEE58), Color(0xFFFFF176), Color(0xFFFFE082), Color(0xFFFFD54F),
+    Color(0xFFCDDC39), Color(0xFFAED581), Color(0xFF66BB6A), Color(0xFF4CAF50),
+    Color(0xFF6BCB77), Color(0xFF2E7D32), Color(0xFF26A69A), Color(0xFF009688),
+    Color(0xFF00ACC1), Color(0xFF0288D1), Color(0xFF2196F3), Color(0xFF1976D2),
+    Color(0xFF1565C0), Color(0xFF3F51B5), Color(0xFF5C6BC0), Color(0xFF673AB7),
+    Color(0xFF9C27B0), Color(0xFFAB47BC), Color(0xFFBA68C8), Color(0xFFB565D8),
+  ];
 
-  void adicionar() async {
-    int frequency = 2;
-    CategoryModel? categoryHighFrequency =
-        await CategoryService().getCategoryWithHighestFrequency();
-    if (categoryHighFrequency != null && categoryHighFrequency.id.isNotEmpty) {
-      frequency = categoryHighFrequency.frequency + 1;
-    }
-    CategoryModel category = CategoryModel(
-        id: const Uuid().v4(),
-        color: _currentColor,
-        icon: accountIcons[selectedIndex],
-        name: categoriaController.text,
-        frequency: frequency);
-
-    await CategoryService().addCategory(category);
-    widget.onCategoryAdded();
-    loadCategories();
-    setState(() {});
-  }
-
-  void changeColor(Color newColor) {
-    setState(() {
-      _currentColor = newColor;
-    });
-  }
-
-  // MARK: - Lifecycle Methods
   @override
   void initState() {
     super.initState();
-    categoriaController = TextEditingController();
-    loadCategories();
+    _nameController = TextEditingController();
+    _currentColor = _generateRandomColor();
+    _loadCategories();
+    _setupAnimation();
+  }
+
+  void _setupAnimation() {
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+    
+    _animationController.forward();
+  }
+
+final List<IconData> accountIcons = [
+  Icons.directions_car, // Transporte
+  Icons.home, // Moradia
+  Icons.electrical_services, // Utilidades
+  Icons.healing, // Saúde
+  Icons.shopping_cart, // Compras
+  Icons.local_dining, // Restaurantes
+  Icons.movie, // Entretenimento
+  Icons.school, // Educação
+  Icons.fitness_center, // Atividades físicas
+  Icons.local_bar, // Bebidas / Lazer
+  Icons.pets, // Pets
+  Icons.flight, // Viagens
+  Icons.credit_card, // Finanças / Cartão
+  Icons.monetization_on, // Investimentos
+  Icons.savings, // Poupança
+  Icons.attach_money, // Outras despesas financeiras
+  Icons.account_balance_wallet, // Gestão de contas
+  Icons.card_travel, // Transporte de longa distância
+  Icons.local_florist, // Hobbies / Presentes
+  Icons.fastfood, // Lanches rápidos
+  Icons.free_breakfast, // Café / Desjejum
+  Icons.bike_scooter, // Mobilidade alternativa
+  Icons.wifi, // Internet / Telecomunicações
+  Icons.phone_android, // Telefonia
+  Icons.build, // Manutenção / Reparos
+  Icons.local_offer, // Promoções / Ofertas
+  Icons.pie_chart, // Distribuição de gastos (Categoria Geral)
+  Icons.restaurant, // Alimentação
+  Icons.local_grocery_store, // Supermercado
+];
+
+  Color _generateRandomColor() {
+    // Seleciona uma cor aleatória da lista de cores pré-definidas
+    return _predefinedColors[Random().nextInt(_predefinedColors.length)];
+  }
+
+  Future<void> _loadCategories() async {
+    final categories = await CategoryService().getAllCategoriesAvaliable();
+    setState(() {
+      _categories = categories;
+    });
   }
 
   @override
   void dispose() {
-    categoriaController.dispose();
+    _nameController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -76,259 +118,192 @@ class _CategorycreaterState extends State<Categorycreater> {
     FocusScope.of(context).unfocus();
   }
 
+  Future<void> _addCategory() async {
+    final allCategories = await CategoryService().getAllCategories();
+    
+    final withoutAddCategory = allCategories
+        .where((cat) => cat.id != 'AddCategory')
+        .toList();
+    
+    final addCategory = allCategories.firstWhere(
+      (cat) => cat.id == 'AddCategory',
+      orElse: () => CategoryModel(
+        id: 'AddCategory',
+        color: AppColors.button,
+        icon: Icons.add,
+        name: 'AddCategory',
+        frequency: 0,
+      ),
+    );
+
+    final newCategory = CategoryModel(
+      id: const Uuid().v4(),
+      color: _currentColor,
+      icon: accountIcons[_selectedIconIndex],
+      name: _nameController.text,
+      frequency: 0,
+    );
+
+    // Adiciona a nova categoria NO TOPO da lista (índice 0)
+    withoutAddCategory.insert(0, newCategory);
+    final newOrderedList = [...withoutAddCategory, addCategory];
+    
+    await CategoryService().saveOrderedCategories(newOrderedList);
+    widget.onCategoryAdded();
+    
+    _nameController.clear();
+    _hideKeyboard();
+    
+    setState(() {
+      _currentColor = _generateRandomColor();
+      _selectedIconIndex = 0;
+      _categories = newOrderedList;
+    });
+  }
+
+  Future<void> _reorderCategories(int oldIndex, int newIndex) async {
+    if (newIndex > oldIndex) {
+      newIndex -= 1;
+    }
+    
+    final withoutAddCategory = _categories
+        .where((cat) => cat.id != 'AddCategory')
+        .toList();
+    
+    final addCategory = _categories.firstWhere(
+      (cat) => cat.id == 'AddCategory',
+      orElse: () => CategoryModel(
+        id: 'AddCategory',
+        color: AppColors.button,
+        icon: Icons.add,
+        name: 'AddCategory',
+        frequency: 0,
+      ),
+    );
+    
+    final item = withoutAddCategory.removeAt(oldIndex);
+    withoutAddCategory.insert(newIndex, item);
+    
+    final newOrderedList = [...withoutAddCategory, addCategory];
+    
+    setState(() {
+      _categories = newOrderedList;
+    });
+    
+    CategoryService().saveOrderedCategories(newOrderedList).then((_) {
+      widget.onCategoryAdded();
+    });
+    
+    HapticFeedback.mediumImpact();
+  }
+
+  Future<void> _onCategoryDeleted() async {
+    widget.onCategoryAdded();
+    final updatedCategories = await CategoryService().getAllCategoriesAvaliable();
+    setState(() {
+      _categories = updatedCategories;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      child: Container(
-        padding: const EdgeInsets.all(0),
-        decoration: const BoxDecoration(
-          color: AppColors.background1,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+      child: FadeTransition(
+        opacity: _fadeAnimation,
+        child: Container(
+          decoration: const BoxDecoration(
+            color: AppColors.background1,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildHeader(),
+              _buildContent(),
+            ],
           ),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CustomHeader(
-              title: AppLocalizations.of(context)!.createCategory,
-              onCancelPressed: () {
-                Navigator.pop(context);
-              },
+      ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      decoration: BoxDecoration(
+        color: AppColors.card.withOpacity(0.5),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CupertinoButton(
+            padding: EdgeInsets.zero,
+            minSize: 0,
+            onPressed: () => Navigator.pop(context),
+            child: const Icon(
+              CupertinoIcons.xmark_circle_fill,
+              color: Colors.white54,
+              size: 24,
             ),
-            GestureDetector(
-              onTap: _hideKeyboard,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Form(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 12),
-                      AddCategoryHorizontalCircleList(
-                        onItemSelected: (index) {
-                          setState(() {
-                            selectedIndex = index;
-                          });
-                        },
-                      ),
-                      const SizedBox(height: 12),
-                      _nameCategoryInput(),
-                      const SizedBox(height: 32),
-                      _inputCategoryColor(),
-                      const SizedBox(height: 32),
-                      _addButton(),
-                      const SizedBox(height: 40),
-                      _categoriesManegerList(),
-                    ],
-                  ),
-                ),
-              ),
-            )
+          ),
+          Text(
+            AppLocalizations.of(context)!.createCategory,
+            style: const TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(width: 24),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildContent() {
+    return Expanded(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.only(left: 16, right: 16,top: 8, bottom: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CategoryForm(
+              nameController: _nameController,
+              selectedColor: _currentColor,
+              selectedIconIndex: _selectedIconIndex,
+              onIconSelected: (index) {
+                setState(() {
+                  _selectedIconIndex = index;
+                });
+              },
+              onColorChanged: (color) {
+                setState(() {
+                  _currentColor = color;
+                });
+              },
+              onSubmit: _addCategory,
+            ),
+            
+            const SizedBox(height: 12),
+            const Divider(),
+            const SizedBox(height: 12),
+            
+            CategoriesList(
+              categories: _categories,
+              onReorder: _reorderCategories,
+              onCategoryDeleted: _onCategoryDeleted,
+            ),
           ],
         ),
       ),
     );
   }
-
-//MARK: Widgets
-
-  Widget _inputCategoryColor() {
-    return Row(
-      children: [
-        Text(
-          "${AppLocalizations.of(context)!.chooseColor} ",
-          style: const TextStyle(color: AppColors.label, fontSize: 20),
-        ),
-        const SizedBox(width: 15),
-        GestureDetector(
-          onTap: () => PickColor().pickColor(context, changeColor, _currentColor),
-          child: Container(
-            decoration: BoxDecoration(
-              color: _currentColor,
-              border: Border.all(
-                color: AppColors.button,
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            height: 30,
-            width: 30,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _categoriesManegerList() {
-    return Stack(
-      children: [
-        SizedBox(
-            height: MediaQuery.of(context).size.height - 550,
-            child: _listCategories()),
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: Container(
-            height: 40,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  AppColors.background1,
-                  AppColors.background1.withOpacity(0),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Container(
-            height: 50,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                colors: [
-                  AppColors.background1,
-                  AppColors.background1.withOpacity(0),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _addButton() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: SizedBox(
-        width: double.infinity,
-        child: CupertinoButton(
-          color: AppColors.button,
-          onPressed: () {
-            if (categoriaController.text.isNotEmpty) {
-              adicionar();
-              FocusScope.of(context).unfocus();
-              // Navigator.pop(context);
-            }
-          },
-          child: Text(
-            AppLocalizations.of(context)!.addCategory,
-            style: const TextStyle(
-                fontWeight: FontWeight.bold, color: AppColors.label),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _nameCategoryInput() {
-    return CupertinoTextField(
-      style: const TextStyle(
-        color: Color.fromARGB(255, 252, 252, 254),
-      ),
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Color.fromARGB(255, 255, 255, 255),
-          ),
-        ),
-      ),
-      placeholder: AppLocalizations.of(context)!.category,
-      placeholderStyle:
-          const TextStyle(color: Color.fromARGB(144, 255, 255, 255)),
-      controller: categoriaController,
-      inputFormatters: [
-        LengthLimitingTextInputFormatter(15),
-      ],
-      textCapitalization: TextCapitalization.sentences,
-    );
-  }
-
-  Widget _listCategories() {
-    if (categories.isEmpty) {
-      return Center(
-          child: Text("No categories found",
-              style: TextStyle(color: Colors.white)));
-    }
-    return ListView.separated(
-      padding: EdgeInsets.zero,
-      itemCount: categories.length - 1,
-      separatorBuilder: (context, index) => const SizedBox(height: 8),
-      itemBuilder: (context, index) {
-        final category = categories[index];
-        return Container(
-          margin: EdgeInsets.only(
-              left: 16,
-              right: 16,
-              top: index == 0 ? 30 : 8,
-              bottom: index == categories.length - 2 ? 40 : 8),
-          decoration: BoxDecoration(
-            color: AppColors.card,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 4,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: ListTile(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            leading: Icon(category.icon, color: category.color, size: 30),
-            title: Text(
-                TranslateService.getTranslatedCategoryUsingModel(
-                    context, category),
-                style: const TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold)),
-            trailing: IconButton(
-              icon: const Icon(Icons.delete, color: Colors.redAccent),
-              onPressed: () async {
-                FocusScope.of(context).unfocus();
-
-                await CategoryService().deleteCategory(category.id);
-
-                loadCategories();
-
-                widget.onCategoryAdded();
-              },
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  // Widget buildColorPicker() {
-  //   return Container(
-  //       decoration: BoxDecoration(
-  //         borderRadius: BorderRadius.circular(12),
-  //       ),
-  //       padding: const EdgeInsets.all(8),
-  //       child: ColorPicker(
-  //           pickerColor: _currentColor,
-  //           onColorChanged: (Color color) {
-  //             setState(() {
-  //               _currentColor = color;
-  //             });
-  //           },
-  //           showLabel: false,
-  //           pickerAreaHeightPercent: 0.6,
-  //           displayThumbColor: false,
-  //           enableAlpha: false,
-  //           paletteType: PaletteType.hsv,
-  //           pickerAreaBorderRadius:
-  //               const BorderRadius.all(Radius.circular(20))));
-  // }
 }

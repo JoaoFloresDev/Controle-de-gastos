@@ -111,9 +111,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
             boxShadow: isSelected
                 ? [
                     BoxShadow(
-                      color: AppColors.button.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
+                      color: AppColors.button.withOpacity(0.1),
                     ),
                   ]
                 : null,
@@ -140,8 +138,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
                 child: Center(
                   child: LayoutBuilder(
                     builder: (context, constraints) {
-                      double fontSize =
-                          14;
+                      double fontSize = 14;
                       return Text(
                         TranslateService.getTranslatedCategoryUsingModel(
                             context, category),
@@ -151,7 +148,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
                               ? AppColors.label
                               : AppColors.label.withOpacity(0.75),
                           fontWeight:
-                              isSelected ? FontWeight.w400 : FontWeight.w300,
+                              isSelected ? FontWeight.w600 : FontWeight.w500,
                           height: 1.15,
                         ),
                         textAlign: TextAlign.center,
@@ -187,19 +184,21 @@ class VerticalCircleListState extends State<VerticalCircleList> {
             itemCount: categorieList.length,
             itemBuilder: _buildGridItem,
           ),
+          // Gradiente de sombra no bottom
           Positioned(
             bottom: 0,
             left: 0,
             right: 0,
             child: IgnorePointer(
               child: Container(
-                decoration: const BoxDecoration(
+                height: 60, // Altura do gradiente
+                decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
                     colors: [
                       AppColors.background1,
-                      Colors.transparent,
+                      AppColors.background1.withOpacity(0.0),
                     ],
                   ),
                 ),
@@ -232,17 +231,42 @@ class VerticalCircleListState extends State<VerticalCircleList> {
         ),
         const SizedBox(height: 12),
         Expanded(
-          child: GridView.builder(
-            controller: _scrollController,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 0.9,
-            ),
-            itemCount: categorieList.length,
-            itemBuilder: _buildGridItem,
+          child: Stack(
+            children: [
+              GridView.builder(
+                controller: _scrollController,
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 5,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 0.9,
+                ),
+                itemCount: categorieList.length,
+                itemBuilder: _buildGridItem,
+              ),
+              // Gradiente de sombra no bottom para macOS
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: IgnorePointer(
+                  child: Container(
+                    height: 24, // Altura do gradiente
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          AppColors.background1,
+                          AppColors.background1.withOpacity(0.0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],

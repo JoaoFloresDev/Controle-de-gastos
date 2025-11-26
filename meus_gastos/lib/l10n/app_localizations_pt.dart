@@ -123,7 +123,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get unknown => 'Sem categoria';
 
   @override
-  String get shopping => 'Compras';
+  String get shopping => 'Mercado';
 
   @override
   String get restaurant => 'Restaurante';
@@ -132,13 +132,19 @@ class AppLocalizationsPt extends AppLocalizations {
   String get gasStation => 'Posto de Gasolina';
 
   @override
-  String get home => 'Casa';
+  String get home => 'Contas da Casa';
 
   @override
   String get shoppingBasket => 'Cesta de Compras';
 
   @override
-  String get hospital => 'Hospital';
+  String get hospital => 'Saúde';
+
+  @override
+  String get transport => 'Transporte';
+
+  @override
+  String get education => 'Educação';
 
   @override
   String get movie => 'Filme';
@@ -147,7 +153,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get videoGame => 'Videogame';
 
   @override
-  String get drink => 'Bebida';
+  String get drink => 'Lazer';
 
   @override
   String get water => 'Água';
@@ -448,7 +454,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get set => 'Definir';
 
   @override
-  String get totalGoalForMonth => 'Orçamento total para um mês';
+  String get totalGoalForMonth => 'Orçamento total do mês';
 
   @override
   String get currentGoal => 'Orçamento Atual';

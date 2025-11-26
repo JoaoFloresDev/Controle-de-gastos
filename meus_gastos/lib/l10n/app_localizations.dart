@@ -325,7 +325,7 @@ abstract class AppLocalizations {
   /// No description provided for @shopping.
   ///
   /// In en, this message translates to:
-  /// **'Shopping'**
+  /// **'Groceries'**
   String get shopping;
 
   /// No description provided for @restaurant.
@@ -337,7 +337,7 @@ abstract class AppLocalizations {
   /// No description provided for @gasStation.
   ///
   /// In en, this message translates to:
-  /// **'Gas Station'**
+  /// **'Gas'**
   String get gasStation;
 
   /// No description provided for @home.
@@ -349,31 +349,43 @@ abstract class AppLocalizations {
   /// No description provided for @shoppingBasket.
   ///
   /// In en, this message translates to:
-  /// **'Shopping Basket'**
+  /// **'Shopping'**
   String get shoppingBasket;
 
   /// No description provided for @hospital.
   ///
   /// In en, this message translates to:
-  /// **'Hospital'**
+  /// **'Health'**
   String get hospital;
+
+  /// No description provided for @transport.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport'**
+  String get transport;
+
+  /// No description provided for @education.
+  ///
+  /// In en, this message translates to:
+  /// **'Education'**
+  String get education;
 
   /// No description provided for @movie.
   ///
   /// In en, this message translates to:
-  /// **'Movie'**
+  /// **'Movies'**
   String get movie;
 
   /// No description provided for @videoGame.
   ///
   /// In en, this message translates to:
-  /// **'Video Game'**
+  /// **'Gaming'**
   String get videoGame;
 
   /// No description provided for @drink.
   ///
   /// In en, this message translates to:
-  /// **'Drink'**
+  /// **'Entertainment'**
   String get drink;
 
   /// No description provided for @water.

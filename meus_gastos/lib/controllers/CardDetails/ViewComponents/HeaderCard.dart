@@ -108,11 +108,6 @@ class HeaderCardState extends State<HeaderCard> {
       id: CardService.generateUniqueId(),
     );
     print("object");
-    // if (user != null) {
-    //   print("usuario logado");
-    //   if (!(newCard.amount == 0)) SaveExpensOnCloud().addNewDate(newCard);
-    // } else
-    //   print("Sem usuário");
 
     if (!(newCard.amount == 0)) CardService().addCard(newCard);
 

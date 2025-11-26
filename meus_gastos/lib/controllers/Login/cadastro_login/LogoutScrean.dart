@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
+
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 
@@ -16,6 +17,7 @@ class LogoutScrean extends StatefulWidget {
     required this.showProModal,
     required this.loginModelView
   });
+
   @override
   _LogoutScreanState createState() => _LogoutScreanState();
 }
@@ -33,6 +35,7 @@ class _LogoutScreanState extends State<LogoutScrean> {
     String userName = "";
     if (widget.loginModelView.user != null) {
       userName = widget.loginModelView.user!.displayName!;
+
       print('Nome do usuário: $userName');
     } else {
       print('Usuário não está autenticado.');
@@ -146,10 +149,12 @@ class _LogoutScreanState extends State<LogoutScrean> {
                       child: ElevatedButton(
                         onPressed: () async {
                           await widget.loginModelView.logout();
+
                           setState(() {
                             // user?.reload();
                           });
                           print('Usuário deslogado.');
+
                           Navigator.of(context).pop();
                         },
                         style: ElevatedButton.styleFrom(

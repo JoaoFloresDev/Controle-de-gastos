@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/UI/criar_gastosFixos.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/CriarGastosFixos.dart';
 import 'ViewComponents/ListCard.dart';
 import '../../models/CardModel.dart';
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
@@ -144,6 +144,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
 
   //MARK: Widgets
 
+
   void _showProModal(BuildContext context) async {
     ProManeger proViewModel = ProManeger();
     showModalBottomSheet(
@@ -181,11 +182,13 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     // Adiciona fixedCards
     for (var fcard in viewModel.fixedCards) {
       var card = viewModel.Fixed_to_NormalCard(fcard);
+
       if (card.amount == 0) continue;
 
       allCards.add(
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 1),
+
           child: ListCardRecorrent(
             onTap: (card) {
               widget.onAddClicked();
@@ -201,7 +204,8 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     for (var card in viewModel.cardList.reversed) {
       allCards.add(
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 1),
           child: ListCard(
             onTap: (card) {
               widget.onAddClicked();
@@ -248,22 +252,20 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.button.withOpacity(0.08),
-                    blurRadius: 20,
-                    offset: const Offset(0, 8),
+
+                    color: AppColors.label.withOpacity(0.08)
                   ),
                 ],
               ),
               child: const Icon(
                 Icons.receipt_long_outlined,
-                color: AppColors.button,
+                color: AppColors.label,
                 size: 38,
               ),
             ),
 
             const SizedBox(height: 18),
 
-            // Título principal
             Text(
               AppLocalizations.of(context)!.transactionPlaceholderSubtitle,
               style: const TextStyle(
@@ -283,7 +285,8 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
               AppLocalizations.of(context)!.transactionPlaceholderTitle,
               style: TextStyle(
                 color: AppColors.label.withOpacity(0.7),
-                fontSize: 16,
+
+                fontSize: 18,
                 fontWeight: FontWeight.w400,
                 height: 1.5,
               ),
@@ -311,19 +314,21 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                   Row(
                     children: [
                       Container(
-                        width: 32,
-                        height: 32,
+                        width: 40,
+                        height: 40,
                         decoration: BoxDecoration(
-                          color: AppColors.button.withOpacity(0.1),
+                          color: AppColors.label.withOpacity(0.1),
+
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Icon(
                           Icons.add_circle_outline,
-                          color: AppColors.button,
-                          size: 20,
+
+                          color: AppColors.label,
+                          size: 24,
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 16),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -333,16 +338,18 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                                   .transactionPlaceholderRow1Title,
                               style: const TextStyle(
                                 color: AppColors.label,
-                                fontSize: 14,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
+                            SizedBox(height: 2),
                             Text(
                               AppLocalizations.of(context)!
                                   .transactionPlaceholderRow1Subtitle,
                               style: TextStyle(
-                                color: AppColors.label.withOpacity(0.6),
-                                fontSize: 12,
+
+                                color: AppColors.label.withOpacity(0.8),
+                                fontSize: 16,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -351,23 +358,24 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 22),
                   Row(
                     children: [
                       Container(
-                        width: 32,
-                        height: 32,
+                        width: 40,
+                        height: 40,
                         decoration: BoxDecoration(
-                          color: AppColors.button.withOpacity(0.1),
+                          color: AppColors.label.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Icon(
                           Icons.repeat,
-                          color: AppColors.button,
-                          size: 20,
+
+                          color: AppColors.label,
+                          size: 24,
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 16),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -377,16 +385,18 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                                   .transactionPlaceholderRow2Title,
                               style: const TextStyle(
                                 color: AppColors.label,
-                                fontSize: 14,
+                               fontSize: 18,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
+                            SizedBox(height: 2),
                             Text(
                               AppLocalizations.of(context)!
                                   .transactionPlaceholderRow3Subtitle,
                               style: TextStyle(
-                                color: AppColors.label.withOpacity(0.6),
-                                fontSize: 12,
+
+                                color: AppColors.label.withOpacity(0.8),
+                                fontSize: 16,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -410,6 +420,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
 
   void _cardDetails(
       BuildContext context, CardModel card, TransactionsViewModel viewModel) {
+
     FocusScope.of(context).unfocus();
     showModalBottomSheet(
       context: context,

@@ -123,31 +123,37 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unknown => 'Unknown';
 
   @override
-  String get shopping => 'Shopping';
+  String get shopping => 'Groceries';
 
   @override
   String get restaurant => 'Restaurant';
 
   @override
-  String get gasStation => 'Gas Station';
+  String get gasStation => 'Gas';
 
   @override
   String get home => 'Home';
 
   @override
-  String get shoppingBasket => 'Shopping Basket';
+  String get shoppingBasket => 'Shopping';
 
   @override
-  String get hospital => 'Hospital';
+  String get hospital => 'Health';
 
   @override
-  String get movie => 'Movie';
+  String get transport => 'Transport';
 
   @override
-  String get videoGame => 'Video Game';
+  String get education => 'Education';
 
   @override
-  String get drink => 'Drink';
+  String get movie => 'Movies';
+
+  @override
+  String get videoGame => 'Gaming';
+
+  @override
+  String get drink => 'Entertainment';
 
   @override
   String get water => 'Water';

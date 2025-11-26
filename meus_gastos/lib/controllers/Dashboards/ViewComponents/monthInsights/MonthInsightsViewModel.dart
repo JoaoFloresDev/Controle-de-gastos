@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/MonthInsightsServices.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/monthInsightsServices.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CardModel.dart';
@@ -11,9 +11,7 @@ import 'package:meus_gastos/services/TranslateService.dart';
 class MonthInsightsViewModel extends ChangeNotifier {
   TransactionsViewModel transactionsViewModel;
 
-  MonthInsightsViewModel({required this.transactionsViewModel}) {
-    print(">>> NOVO VIEWMODEL CRIADO <<<");
-  }
+  MonthInsightsViewModel({required this.transactionsViewModel});
 
   bool isLoading = false;
 
@@ -47,11 +45,11 @@ class MonthInsightsViewModel extends ChangeNotifier {
   final Monthinsightsservices _monthServices = Monthinsightsservices();
   final CategoryService _categoryService = CategoryService();
 
-  Future<void> loadValues(DateTime NewDate) async {
+  Future<void> loadValues(DateTime newData) async {
     isLoading = true;
     notifyListeners();
 
-    currentDate = NewDate;
+    currentDate = newData;
 
     await getValues();
 
@@ -59,7 +57,7 @@ class MonthInsightsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getCards(){
+  Future<void> getCards() async {
     cards = transactionsViewModel.cardList;
   }
 
@@ -67,9 +65,10 @@ class MonthInsightsViewModel extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    getCards();
+    await getCards();
     categories = await _categoryService.getAllCategories();
-    print(">>> loadValues() rodou, qtd cards: ${cards.length} | data: ${currentDate}");
+    print(cards.length);
+    final mediaValues = await _monthServices.monthExpenses(currentDate, cards);
     monthExpenses = await _monthServices.monthExpenses(currentDate, cards);
 
     monthFixedExpensesTotals =
@@ -109,7 +108,7 @@ class MonthInsightsViewModel extends ChangeNotifier {
     highestDrop = await _monthServices.highestDropCategory(
         listDiferencesExpenseByCategory, cards);
 
-    avaregeDaily = _monthServices.dailyAverage(currentDate, monthExpenses);
+    avaregeDaily = _monthServices.dailyAverage(currentDate, mediaValues);
 
     monthFixedExpenses =
         _monthServices.dailyAverage(currentDate, monthFixedExpensesTotals);

@@ -1,6 +1,8 @@
+import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
 import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -32,7 +34,7 @@ class CustomCalendarState extends State<CustomCalendar> {
   @override
   void initState() {
     super.initState();
-    _initializeCalendarData();
+    // _initializeCalendarData();
     _adManager.loadAd();
   }
 
@@ -42,19 +44,9 @@ class CustomCalendarState extends State<CustomCalendar> {
     super.dispose();
   }
 
-  Future<void> _checkAndRequestReview() async {
-    ReviewService.checkAndRequestReview(context);
-    final prefs = await SharedPreferences.getInstance();
-    int sessionCount = prefs.getInt('session_count') ?? 0;
-    if ((sessionCount == 6) || (sessionCount % 5 == 0 && sessionCount > 10)) {
-      _adManager.showVideoAd(context);
-    }
-  }
-
   Future<void> _initializeCalendarData() async {
     await _calculateDailyExpenses();
     await _loadTransactionsForDay(_focusedDay);
-    _checkAndRequestReview();
   }
 
   Future<void> _calculateDailyExpenses() async {
@@ -76,8 +68,7 @@ class CustomCalendarState extends State<CustomCalendar> {
   }
 
   Future<void> _loadTransactionsForDay(DateTime day) async {
-    final allTransactions = await CardService.retrieveCards();
-    final transactionsForDay = allTransactions
+    final transactionsForDay = _transactions
         .where((card) =>
             card.date.year == day.year &&
             card.date.month == day.month &&
@@ -95,6 +86,10 @@ class CustomCalendarState extends State<CustomCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    TransactionsViewModel transactionsViewModel =
+        context.watch<TransactionsViewModel>();
+    _transactions = transactionsViewModel.cardList;
+    _loadTransactionsForDay(_focusedDay);
     return Scaffold(
       backgroundColor: AppColors.background1,
       appBar: CupertinoNavigationBar(
@@ -136,9 +131,6 @@ class CustomCalendarState extends State<CustomCalendar> {
                   ),
                   TransactionList(
                     transactions: _transactions,
-                    onRefresh: () {
-                      _loadTransactionsForDay(_selectedDay ?? DateTime.now());
-                    },
                   ),
                 ]),
               )),

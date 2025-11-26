@@ -35,10 +35,6 @@ class SyncService {
     for (FixedExpense card in remoteFixedExpenses) {
       print("Fixeds ${card.category.name} ${card.price}");
     }
-    for (FixedExpense card in localFixedExpenses) {
-      print("Normals ${card.category.name} ${card.price}");
-    }
-
     List<FixedExpense> updatedFixedExpenses =
         _mergeFixedData(localFixedExpenses, remoteFixedExpenses);
 

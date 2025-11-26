@@ -86,7 +86,7 @@ class _ListCardState extends State<ListCard> with SingleTickerProviderStateMixin
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -127,7 +127,7 @@ class _ListCardState extends State<ListCard> with SingleTickerProviderStateMixin
                                     widget.card.category,
                                   ),
                                   style: const TextStyle(
-                                    fontSize: 15,
+                                    fontSize: 17,
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.label,
                                     letterSpacing: -0.2,
@@ -156,8 +156,8 @@ class _ListCardState extends State<ListCard> with SingleTickerProviderStateMixin
                         context,
                       ),
                       style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 19,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.label,
                         letterSpacing: -0.5,
                       ),

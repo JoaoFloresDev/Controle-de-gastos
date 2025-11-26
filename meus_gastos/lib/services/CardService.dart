@@ -72,6 +72,10 @@ class CardService {
       if (index != -1) {
         cards[index] = newCard;
       }
+      // if (SaveExpensOnCloud().userId != null) {
+      //   SaveExpensOnCloud().deleteDate(cards[index]);
+      //   SaveExpensOnCloud().addNewDate(newCard);
+      // }
       return cards;
     });
   }

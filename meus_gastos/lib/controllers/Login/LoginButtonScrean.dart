@@ -1,3 +1,4 @@
+
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
@@ -23,11 +24,13 @@ class LoginButtonScrean extends StatelessWidget {
           else
             LoginRoute()
                 .loginScrean(context, loginViewModel, proManeger, onLoginChange);
+
           onLoginChange();
         },
         child: Padding(
           padding: EdgeInsets.only(right: 8.0),
           child: loginViewModel.isLogin
+
               ? Icon(
                   Icons.cloud,
                   color: AppColors.labelPlaceholder,

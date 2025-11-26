@@ -6,6 +6,8 @@ import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/material.dart';
+import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:flutter/material.dart';
 
 class WeekInterval {
   final DateTime start;
@@ -94,12 +96,14 @@ class Dashbordservice {
             card.date.isBefore(end.add(const Duration(days: 1))))
         .toList();
     for (var card in filteredCards) {
+      // print("${card.category.id}+++++++++++++++++++");
       totals[card.category.id] = (totals[card.category.id] ?? 0) + card.amount;
     }
 
     final List<CategoryModel> categories =
         await CategoryService().getAllCategories();
     final Map<String, CategoryModel> categoryMap = {
+      for (var category in categories) category.id: category,
       for (var category in categories) category.id: category,
     };
 
@@ -144,6 +148,10 @@ class Dashbordservice {
           uniqueCategories[progressIndicator.category.id] =
               progressIndicator.category;
         }
+        if (progressIndicator.progress != 0) {
+          uniqueCategories[progressIndicator.category.id] =
+              progressIndicator.category;
+        }
       }
     }
 
@@ -167,6 +175,7 @@ class Dashbordservice {
 
       if (!dailyTotals.containsKey(categoryId)) {
         dailyTotals[categoryId] = {for (int i = 1; i <= 7; i++) i: 0.0};
+        dailyTotals[categoryId] = {for (int i = 1; i <= 7; i++) i: 0.0};
       }
 
       dailyTotals[categoryId]![dayOfWeek] =
@@ -176,6 +185,7 @@ class Dashbordservice {
     final List<CategoryModel> categories =
         await CategoryService().getAllCategories();
     final Map<String, CategoryModel> categoryMap = {
+      for (var category in categories) category.id: category,
       for (var category in categories) category.id: category,
     };
 

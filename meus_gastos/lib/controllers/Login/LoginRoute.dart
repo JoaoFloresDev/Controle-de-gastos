@@ -18,6 +18,7 @@ class LoginRoute {
     ProManeger proViewModel,
     VoidCallback onLoginChange,
   ) {
+
     FocusScope.of(context).unfocus();
     showModalBottomSheet(
       context: context,
@@ -41,6 +42,7 @@ class LoginRoute {
               showProModal: (context) {
                 _showProModal(context);
               },
+
             ));
       },
     );
@@ -73,6 +75,7 @@ class LoginRoute {
     ProManeger proViewModel,
     VoidCallback onLoginChange,
   ) {
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -86,12 +89,12 @@ class LoginRoute {
                 topRight: Radius.circular(20),
               ),
             ),
-            child: LogoutScrean(
-              
+            child: LogoutScrean(              
               loadcards: () {
                 onLoginChange();
               },
               loginModelView: viewModel,
+
               isPro: proViewModel.isPro,
               showProModal: (context) {
                 _showProModal(context);

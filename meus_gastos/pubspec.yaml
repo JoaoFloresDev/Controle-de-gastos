@@ -14,6 +14,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: 0.20.2
+
+  keyboard_actions: ^4.2.1
   cupertino_icons: ^1.0.6
   flutter_masked_text2: ^0.9.0
   shared_preferences: ^2.0.6

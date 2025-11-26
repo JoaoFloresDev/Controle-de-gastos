@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
+
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 
@@ -18,6 +19,7 @@ class LoginScreen extends StatefulWidget {
       required this.showProModal,
       required this.loadcards,
       required this.viewModel});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -68,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Expanded(
               child: Stack(
                 children: [
+
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 16),
@@ -123,6 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         const SizedBox(height: 40),
 
+
                         SizedBox(
                           width: double.infinity,
                           height: 56,
@@ -143,6 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       print('Login cancelado ou falhou.');
                                     }
                                     Navigator.of(context).pop();
+
                                   }
                                 : null,
                             style: ElevatedButton.styleFrom(
