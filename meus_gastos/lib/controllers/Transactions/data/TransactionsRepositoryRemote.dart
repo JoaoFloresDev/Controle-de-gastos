@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/repositories/Transactions/ITransactionsRepository.dart';
+import 'package:meus_gastos/controllers/Transactions/data/ITransactionsRepository.dart';
 import 'package:meus_gastos/services/firebase/FirebaseServiceSingleton.dart';
 
 class TransactionsRepositoryRemote implements ITransactionsRepository {

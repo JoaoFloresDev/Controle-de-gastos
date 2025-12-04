@@ -1,4 +1,5 @@
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/Dashboards/DashboardScreenRefatore.dart';
 import 'package:meus_gastos/controllers/Dashboards/DashboardViewModel.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/MonthInsightsViewModel.dart';
@@ -14,13 +15,15 @@ class DashboardsFactory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final transactionsVM = context.watch<TransactionsViewModel>();
-
+    final categoryViewModel = context.read<CategoryViewModel>();
+    print(">>>>>>>>>>>> Tamanho categoryList: ${categoryViewModel.avaliebleCetegories.length}");
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (_) => DashboardViewModel(
             transactionsVM: transactionsVM,
             cardEvents: CardEvents(),
+            categories: categoryViewModel.categories
           )..loadProgressIndicators(),
         ),
         ChangeNotifierProvider(

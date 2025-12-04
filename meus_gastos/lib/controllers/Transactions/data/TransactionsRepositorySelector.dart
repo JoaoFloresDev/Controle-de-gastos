@@ -1,5 +1,5 @@
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/repositories/Transactions/ITransactionsRepository.dart';
+import 'package:meus_gastos/controllers/Transactions/data/ITransactionsRepository.dart';
 
 class TransactionsRepositorySelector implements ITransactionsRepository {
   ITransactionsRepository remoteRepository;

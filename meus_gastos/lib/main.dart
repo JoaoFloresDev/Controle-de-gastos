@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:meus_gastos/AppProviders.dart';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsScreen.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsViewModel.dart';
@@ -14,9 +15,9 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 // import 'package:meus_gastos/controllers/Dashboards/DashboardScreenRefatore.dart';
 import 'controllers/Dashboards/DashboardsFactory.dart';
-import 'package:meus_gastos/repositories/Transactions/TransactionsRepositoryLocal.dart';
-import 'package:meus_gastos/repositories/Transactions/TransactionsRepositoryRemote.dart';
-import 'package:meus_gastos/repositories/Transactions/TransactionsRepositorySelector.dart';
+import 'package:meus_gastos/controllers/Transactions/data/TransactionsRepositoryLocal.dart';
+import 'package:meus_gastos/controllers/Transactions/data/TransactionsRepositoryRemote.dart';
+import 'package:meus_gastos/controllers/Transactions/data/TransactionsRepositorySelector.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/services/firebase/FirebaseServiceSingleton.dart';
 
@@ -153,33 +154,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         ChangeNotifierProvider(create: (_) => LoginViewModel()..init()),
       ],
       child: Builder(builder: (context) {
-        return MultiProvider(
-          providers: [
-            // recria TransactionsViewModel sempre que userId mudar
-            ChangeNotifierProvider<TransactionsViewModel>(
-              key: ValueKey(context.watch<LoginViewModel>().user?.uid ?? ""),
-              create: (context) {
-                final loginVM = context.read<LoginViewModel>();
-                final isLoggedIn = loginVM.isLogin;
-                final userId = loginVM.user?.uid ?? "";
-
-                final localRepo = TransactionsRepositoryLocal();
-                final remoteRepo = TransactionsRepositoryRemote(userId: userId);
-                final repoSelector = TransactionsRepositorySelector(
-                  remoteRepository: remoteRepo,
-                  localRepository: localRepo,
-                  isLoggedIn: isLoggedIn,
-                );
-
-                return TransactionsViewModel(
-                  repository: repoSelector,
-                  cardEvents: CardEvents(),
-                  loginVM: loginVM,
-                )..init();
-              },
-            ),
-            
-          ],
+        return AppProviders(
           child: Scaffold(
             backgroundColor: const Color(0xFF0D1117),
             body: IndexedStack(

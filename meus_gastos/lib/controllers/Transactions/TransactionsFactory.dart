@@ -5,9 +5,9 @@ import 'package:meus_gastos/controllers/Transactions/TransactionsScrean.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:meus_gastos/repositories/Transactions/TransactionsRepositoryLocal.dart';
-import 'package:meus_gastos/repositories/Transactions/TransactionsRepositoryRemote.dart';
-import 'package:meus_gastos/repositories/Transactions/TransactionsRepositorySelector.dart';
+import 'package:meus_gastos/controllers/Transactions/data/TransactionsRepositoryLocal.dart';
+import 'package:meus_gastos/controllers/Transactions/data/TransactionsRepositoryRemote.dart';
+import 'package:meus_gastos/controllers/Transactions/data/TransactionsRepositorySelector.dart';
 import 'package:provider/provider.dart';
 
 class TransactionsFactory extends StatelessWidget {

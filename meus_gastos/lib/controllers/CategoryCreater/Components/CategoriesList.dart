@@ -1,19 +1,20 @@
 import 'package:flutter/cupertino.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:provider/provider.dart';
 import 'categoryListItem.dart';
 
 class CategoriesList extends StatelessWidget {
   final List<CategoryModel> categories;
   final Function(int oldIndex, int newIndex) onReorder;
-  final VoidCallback onCategoryDeleted;
+  final Function(String categoryId) onCategoryDeleted;
 
-  const CategoriesList({
-    super.key,
-    required this.categories,
-    required this.onReorder,
-    required this.onCategoryDeleted,
-  });
+  const CategoriesList(
+      {super.key,
+      required this.categories,
+      required this.onReorder,
+      required this.onCategoryDeleted});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class CategoriesList extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           _buildHeader(),
-          _buildReorderableList(),
+          _buildReorderableList(context),
         ],
       ),
     );
@@ -99,29 +100,31 @@ class CategoriesList extends StatelessWidget {
     );
   }
 
-  Widget _buildReorderableList() {
-    return ReorderableListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.only(bottom: 14, left: 10, right: 10),
-      buildDefaultDragHandles: false,
-      itemCount: categories.length - 1,
-      onReorder: (oldIndex, newIndex) => onReorder(oldIndex, newIndex),
-      proxyDecorator: (child, index, animation) {
-        return Material(
-          color: Colors.transparent,
-          child: child,
-        );
-      },
-      itemBuilder: (context, index) {
-        final category = categories[index];
-        return CategoryListItem(
-          key: ValueKey(category.id),
-          category: category,
-          index: index,
-          onDeleted: onCategoryDeleted,
-        );
-      },
-    );
+  Widget _buildReorderableList(BuildContext context) {
+      List<CategoryModel> categories = context.watch<CategoryViewModel>().avaliebleCetegories;
+
+      return ReorderableListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.only(bottom: 14, left: 10, right: 10),
+        buildDefaultDragHandles: false,
+        itemCount: categories.length - 1,
+        onReorder: (oldIndex, newIndex) => onReorder(oldIndex, newIndex),
+        proxyDecorator: (child, index, animation) {
+          return Material(
+            color: Colors.transparent,
+            child: child,
+          );
+        },
+        itemBuilder: (context, index) {
+          final category = categories[index];
+          return CategoryListItem(
+            key: ValueKey(category.id),
+            category: category,
+            index: index,
+            onDeleted: () => onCategoryDeleted(categories[index].id),
+          );
+        },
+      );
   }
 }

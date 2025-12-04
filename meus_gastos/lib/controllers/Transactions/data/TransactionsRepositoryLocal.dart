@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/repositories/Transactions/ITransactionsRepository.dart';
+import 'package:meus_gastos/controllers/Transactions/data/ITransactionsRepository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TransactionsRepositoryLocal implements ITransactionsRepository {

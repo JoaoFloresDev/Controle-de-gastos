@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:provider/provider.dart';
 
 //mark - VerticalCircleList Widget
 class VerticalCircleList extends StatefulWidget {
@@ -28,7 +29,6 @@ class VerticalCircleList extends StatefulWidget {
 //mark - VerticalCircleList State
 class VerticalCircleListState extends State<VerticalCircleList> {
   int selectedIndex = 0;
-  List<CategoryModel> categorieList = [];
   late ScrollController _scrollController;
 
   @override
@@ -36,18 +36,20 @@ class VerticalCircleListState extends State<VerticalCircleList> {
     super.initState();
     selectedIndex = widget.defaultdIndexCategory;
     _scrollController = ScrollController();
-    loadCategories();
+    // Future.microtask(() {
+    //   context.read<CategoryViewModel>().load();
+    // });
   }
 
   Future<void> loadCategories() async {
     // Await the categories from the service
-    categorieList = await CategoryService().getAllCategoriesAvaliable();
+    // categorieList = await CategoryService().getAllCategoriesAvaliable();
 
     // Update the UI
     setState(() {});
 
     // Send the loaded list back to the parent widget via the callback
-    widget.onCategoriesLoaded(categorieList);
+    widget.onCategoriesLoaded(context.read<CategoryViewModel>().categories);
   }
 
   @override
@@ -58,11 +60,12 @@ class VerticalCircleListState extends State<VerticalCircleList> {
 
   @override
   Widget build(BuildContext context) {
+    // context.read<CategoryViewModel>().load();
     return Platform.isMacOS ? _macBuild() : _mobileBuild();
   }
 
   Widget _buildGridItem(BuildContext context, int index) {
-    final category = categorieList[index];
+    final category = context.read<CategoryViewModel>().categories[index];
     final bool isAddCategory = category.id == 'AddCategory';
     final bool isSelected = selectedIndex == index;
 
@@ -77,8 +80,9 @@ class VerticalCircleListState extends State<VerticalCircleList> {
           }
           if (isAddCategory) {
             widget.onAddCategorySelected();
+          } else {
+            widget.onItemSelected(index);
           }
-          widget.onItemSelected(index);
         },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 100),
@@ -181,7 +185,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
               mainAxisSpacing: 8,
               childAspectRatio: 1.4,
             ),
-            itemCount: categorieList.length,
+            itemCount: context.read<CategoryViewModel>().categories.length,
             itemBuilder: _buildGridItem,
           ),
           // Gradiente de sombra no bottom
@@ -235,14 +239,15 @@ class VerticalCircleListState extends State<VerticalCircleList> {
             children: [
               GridView.builder(
                 controller: _scrollController,
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 5,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   childAspectRatio: 0.9,
                 ),
-                itemCount: categorieList.length,
+                itemCount: context.read<CategoryViewModel>().categories.length,
                 itemBuilder: _buildGridItem,
               ),
               // Gradiente de sombra no bottom para macOS

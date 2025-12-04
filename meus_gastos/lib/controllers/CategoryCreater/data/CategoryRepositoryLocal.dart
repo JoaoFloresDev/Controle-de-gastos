@@ -1,12 +1,14 @@
 import 'dart:convert';
+import 'package:meus_gastos/controllers/CategoryCreater/data/ICategoryRepository.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/CategoryModel.dart';
 
-class CategoryService {
+class CategoryRepositoryLocal implements ICategoryRepository {
   static const String _categoriesKey = 'categories';
   static const String _isFirstAccessKey = 'isFirstAccess';
 
+  @override
   Future<void> addCategory(CategoryModel category) async {
     final prefs = await SharedPreferences.getInstance();
     List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
@@ -15,6 +17,7 @@ class CategoryService {
     // }
   }
 
+  @override
   Future<void> deleteCategory(String id) async {
     final prefs = await SharedPreferences.getInstance();
     List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
@@ -30,6 +33,7 @@ class CategoryService {
     await prefs.setStringList(_categoriesKey, updatedCategories);
   }
 
+  @override
   Future<void> updateCategory(CategoryModel category) async {
     final prefs = await SharedPreferences.getInstance();
     List<String> categories = prefs.getStringList(_categoriesKey) ?? [];
@@ -47,6 +51,7 @@ class CategoryService {
   }
 
   // Salva a ordem completa das categorias
+  @override
   Future<void> saveOrderedCategories(List<CategoryModel> categories) async {
     final prefs = await SharedPreferences.getInstance();
     List<String> categoriesJson = categories
@@ -183,12 +188,6 @@ class CategoryService {
     }
   }
 
-  Future<List<CategoryModel>> getAllCategoriesAvaliable() async {
-    List<CategoryModel> categories = await getAllCategories();
-    categories = categories.where((cat) => cat.available).toList();
-    return categories;
-  }
-
   Future<void> printAllCategories() async {
     final categories = await getAllCategories();
     for (var category in categories) {
@@ -197,43 +196,5 @@ class CategoryService {
     }
   }
 
-  Future<void> incrementCategoryFrequency(String categoryId) async {
-    List<CategoryModel> allCategories = await getAllCategories();
 
-    final int index = allCategories.indexWhere((c) => c.id == categoryId);
-
-    if (index != -1) {
-      CategoryModel oldCategory = allCategories[index];
-      int currentFreq = oldCategory.frequency ?? 0;
-
-      CategoryModel updatedCategory = CategoryModel(
-        id: oldCategory.id,
-        name: oldCategory.name,
-        icon: oldCategory.icon,
-        color: oldCategory.color,
-        frequency: currentFreq + 1,
-      );
-      final prefs = await SharedPreferences.getInstance();
-      allCategories[index] = updatedCategory;
-
-      List<String> updatedList = allCategories
-          .map((category) => jsonEncode(category.toJson()))
-          .toList();
-      await prefs.setStringList(_categoriesKey, updatedList);
-    }
-  }
-
-  Future<CategoryModel?> getCategoryWithHighestFrequency() async {
-    List<CategoryModel> categories = await getAllCategories();
-
-    if (categories.isEmpty) return null;
-
-    CategoryModel highestFrequencyCategory = categories.reduce((a, b) {
-      final aFreq = a.frequency ?? 0;
-      final bFreq = b.frequency ?? 0;
-      return aFreq > bFreq ? a : b;
-    });
-
-    return highestFrequencyCategory;
-  }
 }

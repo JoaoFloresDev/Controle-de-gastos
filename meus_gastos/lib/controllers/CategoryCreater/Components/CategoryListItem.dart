@@ -40,7 +40,7 @@ class CategoryListItem extends StatelessWidget {
     );
 
     if (shouldDelete == true) {
-      await CategoryService().deleteCategory(category.id);
+      // await CategoryService().deleteCategory(category.id);
       HapticFeedback.mediumImpact();
       onDeleted();
     }

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
-import 'package:meus_gastos/repositories/Transactions/ITransactionsRepository.dart';
+import 'package:meus_gastos/controllers/Transactions/data/ITransactionsRepository.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CardModel.dart';

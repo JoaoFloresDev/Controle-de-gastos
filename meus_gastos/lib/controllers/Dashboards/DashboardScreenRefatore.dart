@@ -95,7 +95,6 @@ class DashboardScreenState extends State<DashboardScreen>
   }
 
   Widget _buildTotalSpentCarousel(DashboardViewModel dashboardVM) {
-    print(" Consumer rebuildou! DATA ${dashboardVM.currentDate}");
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12),
       child: SizedBox(

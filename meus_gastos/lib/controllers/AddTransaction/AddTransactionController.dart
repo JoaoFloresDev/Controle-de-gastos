@@ -1,9 +1,14 @@
 import 'dart:io';
 import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
+import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
+import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
+import 'package:meus_gastos/services/CardService.dart';
+import 'package:provider/provider.dart';
 import '../../../models/CardModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:flutter/foundation.dart';
@@ -134,7 +139,7 @@ class _AddTransactionControllerState extends State<AddTransactionController>
     final header = _headerCardKey.currentState;
     if (header == null) return;
     if (header.valorController.numberValue == 0) return;
-    final list = _verticalCircleListKey.currentState?.categorieList;
+    final list = context.read<CategoryViewModel>().categories;
     final catName = (list != null && list.isNotEmpty)
         ? list[header.lastIndexSelected].name
         : '—';
@@ -357,9 +362,9 @@ class _AddTransactionControllerState extends State<AddTransactionController>
               InsertExpenseButton(
                 onPressed: () {
                   final header = _headerCardKey.currentState;
+                  print(">>>>>>>>>>>>>>>>> ${header?.lastIndexSelected}");
                   if (header != null) {
-                    final list =
-                        _verticalCircleListKey.currentState?.categorieList;
+                    final list = context.read<CategoryViewModel>().avaliebleCetegories;
                     final selectedCat = (list != null && list.isNotEmpty)
                         ? list[header.lastIndexSelected]
                         : CategoryModel(
@@ -379,8 +384,15 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                           TranslateService.getTranslatedCategoryUsingModel(
                               context, selectedCat),
                     );
-                    header.adicionar();
+                    // header.adicionar();
                     widget.onAddClicked();
+                    context.read<TransactionsViewModel>().addCard(CardModel(
+                      amount: header.valorController.numberValue,
+                      description: header.descricaoController.text,
+                      date: header.lastDateSelected,
+                      category: selectedCat, 
+                      id: CardService.generateUniqueId(),
+                    ));
                     header.valorController.updateValue(0);
                     header.descricaoController.clear();
                   }
@@ -458,47 +470,51 @@ class _AddTransactionControllerState extends State<AddTransactionController>
   }
 
   Widget _buildCategoryList() {
-    return VerticalCircleList(
-      key: _verticalCircleListKey,
-      defaultdIndexCategory: 0,
-
-      // Connect the VerticalCircleList's output to the HeaderCard's input method.
-      onCategoriesLoaded: (categories) {
-        _headerCardKey.currentState?.onCategoriesLoaded(categories);
-      },
-
-      // Connect the item selection event to the HeaderCard's handler method.
-      onItemSelected: (index) {
-        _headerCardKey.currentState?.onCategorySelected(index);
-      },
-
-      onAddCategorySelected: () {
-        print("AHHHHH");
-        showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          backgroundColor: Colors.transparent,
-          builder: (BuildContext context) {
-            return Container(
-              height: MediaQuery.of(context).size.height - 70,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+    final parentContext = context;
+    final vm = context.watch<CategoryViewModel>();
+    if (vm.isLoading) {
+      return const CircularProgressIndicator(color: AppColors.background1);
+    } else {
+      return VerticalCircleList(
+        key: _verticalCircleListKey,
+        defaultdIndexCategory: 0,
+        onCategoriesLoaded: (categories) {
+          _headerCardKey.currentState?.onCategoriesLoaded(categories);
+        },
+        onItemSelected: (index) {
+          _headerCardKey.currentState?.onCategorySelected(index);
+        },
+        onAddCategorySelected: () {
+          showModalBottomSheet(
+            context: parentContext,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            builder: (BuildContext modalContext) {
+              
+              return ChangeNotifierProvider.value(
+                value: vm,
+                child: Container(
+                height: MediaQuery.of(parentContext).size.height - 70,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
                 ),
-              ),
-              child: CategoryCreater(
-                onCategoryAdded: () {
-                  setState(() {
-                    _verticalCircleListKey.currentState?.loadCategories();
-                  });
-                },
-              ),
-            );
-          },
-        );
-      },
-    );
+                child: CategoryCreater(
+                  onCategoryAdded: () {
+                    setState(() {
+                      vm.load();
+                    });
+                  },
+                ),
+                ),
+              );
+            },
+          );
+        },
+      );
+    }
   }
 }
 

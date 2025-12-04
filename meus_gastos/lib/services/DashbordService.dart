@@ -24,7 +24,7 @@ class WeekInterval {
 
 class Dashbordservice {
   static Future<List<ProgressIndicatorModel>> getProgressIndicatorsByMonth(
-      DateTime month, List<CardModel> cards) async {
+      DateTime month, List<CardModel> cards, List<CategoryModel> categories) async {
     if (cards.isEmpty) return [];
     final Map<String, double> totals = {};
 
@@ -39,8 +39,6 @@ class Dashbordservice {
       totals[card.category.id] = (totals[card.category.id] ?? 0) + card.amount;
     }
 
-    final List<CategoryModel> categories =
-        await CategoryService().getAllCategories();
     final Map<String, CategoryModel> categoryMap = {
       for (var category in categories) category.id: category
     };
@@ -86,7 +84,7 @@ class Dashbordservice {
   }
 
   static Future<List<ProgressIndicatorModel>> getProgressIndicatorsByWeek(
-      List<CardModel> cards, DateTime start, DateTime end) async {
+      List<CardModel> cards, DateTime start, DateTime end, List<CategoryModel> categories) async {
     if (cards.isEmpty) return [];
     final Map<String, double> totals = {};
     DateTime begin = DateTime(start.year, start.month, start.day);
@@ -96,14 +94,10 @@ class Dashbordservice {
             card.date.isBefore(end.add(const Duration(days: 1))))
         .toList();
     for (var card in filteredCards) {
-      // print("${card.category.id}+++++++++++++++++++");
       totals[card.category.id] = (totals[card.category.id] ?? 0) + card.amount;
     }
 
-    final List<CategoryModel> categories =
-        await CategoryService().getAllCategories();
     final Map<String, CategoryModel> categoryMap = {
-      for (var category in categories) category.id: category,
       for (var category in categories) category.id: category,
     };
 
@@ -125,13 +119,13 @@ class Dashbordservice {
   }
 
   static Future<List<List<ProgressIndicatorModel>>>
-      getLast5WeeksProgressIndicators(List<CardModel> cards, DateTime currentDate) async {
+      getLast5WeeksProgressIndicators(List<CardModel> cards, DateTime currentDate, List<CategoryModel> categories) async {
     List<WeekInterval> intervals = getLast5WeeksIntervals(currentDate);
     List<List<ProgressIndicatorModel>> progressIndicatorsList = [];
 
     for (var interval in intervals) {
       List<ProgressIndicatorModel> weeklyProgressIndicators =
-          await getProgressIndicatorsByWeek(cards, interval.start, interval.end);
+          await getProgressIndicatorsByWeek(cards, interval.start, interval.end, categories);
       progressIndicatorsList.add(weeklyProgressIndicators);
     }
 

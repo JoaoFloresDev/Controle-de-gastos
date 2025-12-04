@@ -154,7 +154,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             placeholder: AppLocalizations.of(context)!.description,
             placeholderStyle: const TextStyle(color: AppColors.line),
             controller: descricaoController,
-            focusNode: descricaoFocusNode,
             style: const TextStyle(color: AppColors.label),
           ),
           const SizedBox(height: 24),
