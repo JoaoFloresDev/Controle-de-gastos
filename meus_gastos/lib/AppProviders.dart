@@ -44,7 +44,7 @@ class AppProviders extends StatelessWidget {
             },
           ),
           ChangeNotifierProvider<CategoryViewModel>(
-            key: ValueKey(context.watch<LoginViewModel>().user?.uid ?? ""),
+            key: ValueKey(context.read<LoginViewModel>().user?.uid ?? ""),
             create: (context) {
               final loginVM = context.read<LoginViewModel>();
               final isLoggedIn = loginVM.isLogin;

@@ -171,7 +171,7 @@ class _CategoryCreaterState extends State<CategoryCreater>
       frequency: 0,
     );
 
-    // Adiciona a nova categoria NO TOPO da lista (índice 0)
+    _nameController.clear();
 
     context.read<CategoryViewModel>().add(newCategory);
 
@@ -183,7 +183,6 @@ class _CategoryCreaterState extends State<CategoryCreater>
         .saveOrderedCategories(newOrderedList);
     widget.onCategoryAdded();
 
-    _nameController.clear();
     _hideKeyboard();
 
     setState(() {
@@ -201,7 +200,7 @@ class _CategoryCreaterState extends State<CategoryCreater>
 
     // Cria uma NOVA lista (importante para o Flutter detectar mudança)
     final List<CategoryModel> reorderedList =
-        List<CategoryModel>.from(catVM.avaliebleCetegories);
+        List<CategoryModel>.from(catVM.categories);
 
     // Move o item
     final item = reorderedList.removeAt(oldIndex);
@@ -214,42 +213,6 @@ class _CategoryCreaterState extends State<CategoryCreater>
     catVM.saveOrderedCategoriesToFirebase(reorderedList);
   }
 
-  // Future<void> _reorderCategories(int oldIndex, int newIndex) async {
-  //   if (newIndex > oldIndex) {
-  //     newIndex -= 1;
-  //   }
-
-  //   final categories = List<CategoryModel>.from(
-  //     context.read<CategoryViewModel>().categories,
-  //   );
-
-  //   final withoutAddCategory =
-  //       categories.where((cat) => cat.id != 'AddCategory').toList();
-
-  //   final addCategory = _categories.firstWhere(
-  //     (cat) => cat.id == 'AddCategory',
-  //     orElse: () => CategoryModel(
-  //       id: 'AddCategory',
-  //       color: AppColors.button,
-  //       icon: Icons.add,
-  //       name: 'AddCategory',
-  //       frequency: 0,
-  //     ),
-  //   );
-
-  //   final item = withoutAddCategory.removeAt(oldIndex);
-  //   withoutAddCategory.insert(newIndex, item);
-
-  //   final newOrderedList = [...withoutAddCategory, addCategory];
-
-  //   Future.microtask(() {
-  //     context.read<CategoryViewModel>().saveOrderedCategories(newOrderedList);
-  //   }).then((_) {
-  //     widget.onCategoryAdded();
-  //   });
-
-  //   HapticFeedback.mediumImpact();
-  // }
 
   Future<void> _onCategoryDeleted(String categoryId) async {
     widget.onCategoryAdded();

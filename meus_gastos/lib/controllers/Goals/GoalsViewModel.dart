@@ -1,20 +1,22 @@
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/Goals/Data/GoalsService.dart';
-import 'package:meus_gastos/controllers/Goals/GoalsModel.dart';
+import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
+import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:meus_gastos/services/CardServiceRefatore.dart';
 
 class GoalsViewModel extends ChangeNotifier {
-  final CardService serviceCard = CardService();
-  CategoryService categoryService = CategoryService();
-  GoalsService goalsService = GoalsService();
+  CategoryViewModel categoryViewModel;
+  TransactionsViewModel transactionsViewModel;
 
-  GoalsViewModel() {
-    init();
-  }
+  GoalsViewModel(
+      {required this.categoryViewModel, required this.transactionsViewModel});
+
+  final CardService serviceCard = CardService();
+  GoalsService goalsService = GoalsService();
 
   bool _isLoading = false;
   List<CategoryModel> _categories = [];
@@ -61,7 +63,7 @@ class GoalsViewModel extends ChangeNotifier {
   }
 
   Future<void> loadCategorys() async {
-    _categories = await categoryService.getAllCategoriesAvaliable();
+    _categories = await categoryViewModel.getAllCategoriesAvaliable();
     _removeAddCategory();
   }
 
@@ -90,8 +92,10 @@ class GoalsViewModel extends ChangeNotifier {
     _isLoading = true;
     if (notify) notifyListeners();
 
-    _progressIndicators =
-        await serviceCard.getProgressIndicatorsByMonth(_currentDate);
+    List<CardModel> filteredCards = serviceCard.filterCardsOfMonth(
+        transactionsViewModel.cardList, _currentDate);
+    _progressIndicators = await serviceCard.getProgressIndicators(
+        filteredCards, categoryViewModel.avaliebleCetegories);
 
     _expensByCategoryOfCurrentMonth = {
       for (var item in _progressIndicators) item.category.id: item.progress
@@ -150,6 +154,4 @@ class GoalsViewModel extends ChangeNotifier {
     _formattedDate =
         formattedDate[0].toUpperCase() + formattedDate.substring(1);
   }
-
 }
-  

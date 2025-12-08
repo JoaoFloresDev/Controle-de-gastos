@@ -1,3 +1,4 @@
+import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/exportExcel/exportExcelScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/models/CardModel.dart';
@@ -6,6 +7,7 @@ import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCard.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:provider/provider.dart';
 
 class ExtractByCategory extends StatefulWidget {
   final String category;
@@ -139,7 +141,8 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
                                         onAddClicked: () {
                                           loadCards();
                                         },
-                                        onDelete: (card) {}
+                                        onDelete: (card) {},
+                                        categoryVM: context.read<CategoryViewModel>(),
                                       ),
                                     );
                                   },

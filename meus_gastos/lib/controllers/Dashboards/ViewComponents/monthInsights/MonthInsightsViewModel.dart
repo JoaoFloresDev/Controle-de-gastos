@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/monthInsightsServices.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 
 class MonthInsightsViewModel extends ChangeNotifier {
   TransactionsViewModel transactionsViewModel;
+  CategoryViewModel categoryViewModel;
 
-  MonthInsightsViewModel({required this.transactionsViewModel});
+  MonthInsightsViewModel(
+      {required this.transactionsViewModel, required this.categoryViewModel}) {
+    // Ouve automaticamente mudanças de cards
+    transactionsViewModel.addListener(_onDependenciesChanged);
+  }
+  void _onDependenciesChanged() {
+    loadValues(currentDate);
+  }
 
   bool isLoading = false;
 
@@ -43,7 +51,6 @@ class MonthInsightsViewModel extends ChangeNotifier {
   double projecaoFixed = 0;
 
   final Monthinsightsservices _monthServices = Monthinsightsservices();
-  final CategoryService _categoryService = CategoryService();
 
   Future<void> loadValues(DateTime newData) async {
     isLoading = true;
@@ -66,8 +73,10 @@ class MonthInsightsViewModel extends ChangeNotifier {
     notifyListeners();
 
     await getCards();
-    categories = await _categoryService.getAllCategories();
+    categories = categoryViewModel.categories;
     print(cards.length);
+    print(
+        ">>>>>>>>>>>> Tamanho categoryList: ${categoryViewModel.avaliebleCetegories.length}");
     final mediaValues = await _monthServices.monthExpenses(currentDate, cards);
     monthExpenses = await _monthServices.monthExpenses(currentDate, cards);
 

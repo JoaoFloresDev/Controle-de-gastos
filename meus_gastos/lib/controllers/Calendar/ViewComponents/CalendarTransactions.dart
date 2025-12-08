@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCard.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:provider/provider.dart';
 import '../../../models/CardModel.dart';
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
@@ -103,6 +105,7 @@ class TransactionList extends StatelessWidget {
               // onRefresh();
             },
             onDelete: (card) {},
+            categoryVM: context.read<CategoryViewModel>(),
           ),
         );
       },

@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/services/CardService.dart';
 import 'ViewComponents/CalendarTable.dart';
 import 'ViewComponents/CalendarHeader.dart';
 import 'ViewComponents/CalendarTransactions.dart';
@@ -50,10 +49,10 @@ class CustomCalendarState extends State<CustomCalendar> {
   }
 
   Future<void> _calculateDailyExpenses() async {
-    final allTransactions = await CardService.retrieveCards();
+    
     final Map<DateTime, double> expenses = {};
 
-    for (var transaction in allTransactions) {
+    for (var transaction in _transactions) {
       final day = DateTime(
         transaction.date.year,
         transaction.date.month,

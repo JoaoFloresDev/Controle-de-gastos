@@ -127,7 +127,6 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
     );
 
     CardService().addCard(newCard);
-    await CategoryService().incrementCategoryFrequency(selectedCategory.id);
 
     setState(() {
       valorController.updateValue(0.0);

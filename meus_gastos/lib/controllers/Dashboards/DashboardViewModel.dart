@@ -1,17 +1,20 @@
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
-import 'package:meus_gastos/services/DashbordService.dart';
+import 'package:meus_gastos/controllers/Dashboards/DashbordService.dart';
 
 class DashboardViewModel extends ChangeNotifier {
   final TransactionsViewModel transactionsVM;
   final CardEvents cardEvents;
-  final List<CategoryModel> categories;
-  DashboardViewModel({required this.transactionsVM, required this.cardEvents, required this.categories}) {
+  final CategoryViewModel categoriesVM;
+  DashboardViewModel(
+      {required this.transactionsVM,
+      required this.cardEvents,
+      required this.categoriesVM}) {
     // Ouve automaticamente mudanças de cards
     transactionsVM.addListener(_onDependenciesChanged);
   }
@@ -54,8 +57,11 @@ class DashboardViewModel extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     cards = transactionsVM.cardList;
-    _progressIndicators =
-        await Dashbordservice.getProgressIndicatorsByMonth(_currentDate, cards, categories);
+    _progressIndicators = await Dashbordservice.getProgressIndicatorsByMonth(
+        _currentDate, cards, categoriesVM.categories);
+    _progressIndicators.forEach((element) {
+      print(element.category.name);
+    });
     _pieChartDataItems = _progressIndicators
         .map((indicator) => indicator.toPieChartDataItem())
         .toList();
@@ -64,10 +70,10 @@ class DashboardViewModel extends ChangeNotifier {
     _Last5WeeksIntervals = Dashbordservice.getLast5WeeksIntervals(_currentDate);
     _Last5WeeksProgressIndicators =
         await Dashbordservice.getLast5WeeksProgressIndicators(
-            cards, _currentDate, categories);
+            cards, _currentDate, categoriesVM.categories);
     _weeklyData =
         await Dashbordservice.getProgressIndicatorsOfDaysForLast5Weeks(
-            cards, _currentDate);
+            cards, _currentDate, categoriesVM.categories);
 
     _isLoading = false;
     notifyListeners();

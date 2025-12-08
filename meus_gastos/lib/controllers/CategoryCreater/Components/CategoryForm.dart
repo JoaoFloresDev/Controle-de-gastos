@@ -36,21 +36,21 @@ class CategoryForm extends StatelessWidget {
             HapticFeedback.lightImpact();
           },
         ),
-        
+
         const SizedBox(height: 12),
-        
+
         // Grid de seleção de cores
         ColorGridSelector(
           selectedColor: selectedColor,
           onColorSelected: onColorChanged,
         ),
-        
-        const SizedBox(height: 12),        
+
+        const SizedBox(height: 12),
         // Campo de nome
         _buildNameField(context),
-        
+
         const SizedBox(height: 12),
-        
+
         // Botão adicionar
         _buildSubmitButton(context),
       ],
@@ -99,6 +99,7 @@ class CategoryForm extends StatelessWidget {
           if (nameController.text.isNotEmpty) {
             onSubmit();
             HapticFeedback.mediumImpact();
+            FocusScope.of(context).unfocus();
           }
         },
         child: Row(

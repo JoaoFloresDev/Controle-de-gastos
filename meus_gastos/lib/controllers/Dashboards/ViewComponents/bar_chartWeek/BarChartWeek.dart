@@ -3,7 +3,7 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
-import 'package:meus_gastos/services/DashbordService.dart';
+import 'package:meus_gastos/controllers/Dashboards/DashbordService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/selectCategorys.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';

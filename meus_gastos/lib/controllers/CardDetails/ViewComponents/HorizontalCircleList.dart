@@ -1,18 +1,17 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 
 class HorizontalCircleList extends StatefulWidget {
   final Function(int) onItemSelected;
   final int defaultdIndexCategory;
-  const HorizontalCircleList({
-    super.key,
-    required this.onItemSelected,
-    required this.defaultdIndexCategory,
-  });
+  final List<CategoryModel> categories;
+  const HorizontalCircleList(
+      {super.key,
+      required this.onItemSelected,
+      required this.defaultdIndexCategory,
+      required this.categories});
 
   @override
   HorizontalCircleListState createState() => HorizontalCircleListState();
@@ -41,11 +40,9 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
 
   // MARK: - Load Categories
   Future<void> loadCategories() async {
-    categorieList = await CategoryService().getAllCategoriesAvaliable();
-    print(categorieList.removeLast().name);
-    setState(() {
-      categorieList = categorieList;
-    });
+    categorieList = widget.categories;
+    // print(categorieList.removeLast().name);
+    setState(() {});
   }
 
   // MARK: - Build Method
@@ -167,10 +164,8 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                         width: 80,
                         child: Text(
                           TranslateService.getTranslatedCategoryUsingModel(
-                              
                               context, categorieList[index]),
                           style: const TextStyle(
-                              
                               fontSize: 12, color: Colors.white),
                           textAlign: TextAlign.center,
                           maxLines: 2,

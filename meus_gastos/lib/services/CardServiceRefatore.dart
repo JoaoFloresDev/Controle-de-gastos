@@ -4,21 +4,20 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:uuid/uuid.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
 
 class CardService {
 
   
+
   // MARK: - Progress Indicators
-  static Future<List<ProgressIndicatorModel>> getProgressIndicators(List<CardModel> cards) async {
+  Future<List<ProgressIndicatorModel>> getProgressIndicators(List<CardModel> cards, List<CategoryModel> categories) async {
+    if (cards.isEmpty) return [];
     final Map<String, double> totals = {};
 
     for (var card in cards) {
       totals[card.category.id] = (totals[card.category.id] ?? 0) + card.amount;
     }
 
-    final List<CategoryModel> categories =
-        await CategoryService().getAllCategories();
     final Map<String, CategoryModel> categoryMap = {
       for (var category in categories) category.id: category
     };
@@ -82,5 +81,14 @@ class CardService {
 
   List<String> getIdFixoControlList(List<CardModel> cards) {
     return cards.map((card) => card.idFixoControl).toList();
+  }
+
+  List<CardModel> filterCardsOfMonth(List<CardModel> cards, DateTime currentDate) {
+    return cards
+        .where((card) =>
+            card.date.year == currentDate.year &&
+            card.date.month == currentDate.month &&
+            card.amount != 0)
+        .toList();
   }
 }

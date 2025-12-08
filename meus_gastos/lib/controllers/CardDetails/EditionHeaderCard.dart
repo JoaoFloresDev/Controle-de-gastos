@@ -8,7 +8,6 @@ import 'package:meus_gastos/services/CardService.dart';
 import 'ViewComponents/CampoComMascara.dart';
 import 'ViewComponents/HorizontalCircleList.dart';
 import 'package:meus_gastos/controllers/CardDetails/ViewComponents/ValorTextField.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
@@ -16,6 +15,7 @@ import 'package:meus_gastos/services/TranslateService.dart';
 class EditionHeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;
   final String adicionarButtonTitle;
+  final List<CategoryModel> categories;
   final CardModel card;
 
   const EditionHeaderCard({
@@ -23,6 +23,7 @@ class EditionHeaderCard extends StatefulWidget {
     required this.onAddClicked,
     required this.adicionarButtonTitle,
     required this.card,
+    required this.categories,
   });
 
   @override
@@ -36,7 +37,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   late FocusNode descricaoFocusNode;
 
   late DateTime lastDateSelected = widget.card.date;
-  List<CategoryModel> categorieList = [];
   late int? lastIndexSelected;
   final DateTime dataInicial = DateTime.now();
   final double valorInicial = 0.0;
@@ -94,15 +94,14 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
 
   // MARK: - Load Categories
   Future<void> loadCategories() async {
-    categorieList = await CategoryService().getAllCategoriesAvaliable();
-    CategoryService().printAllCategories();
-    lastIndexSelected = categorieList
+    // TÁ ERRADO
+    lastIndexSelected = widget.categories
         .indexWhere((category) => category.id == widget.card.category.id);
     if (lastIndexSelected == -1) {
       lastIndexSelected = 0;
     }
     setState(() {
-      lastIndexSelected = categorieList
+      lastIndexSelected = widget.categories
           .indexWhere((category) => category.id == widget.card.category.id);
       print(lastIndexSelected);
       isLoading = false;
@@ -115,7 +114,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       amount: valorController.numberValue,
       description: descricaoController.text,
       date: lastDateSelected,
-      category: categorieList[lastIndexSelected!],
+      category: widget.categories[lastIndexSelected!],
       id: CardService.generateUniqueId(),
     );
     CardService().updateCard(widget.card, newCard);
@@ -128,7 +127,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   // MARK: - Build Method
   @override
   Widget build(BuildContext context) {
-    print(lastDateSelected);
     return Padding(
       padding: const EdgeInsets.all(0.0),
       child: Column(
@@ -169,6 +167,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                   });
                 },
                 defaultdIndexCategory: lastIndexSelected! ?? 0,
+                categories: widget.categories,
               ),
             ),
           ],

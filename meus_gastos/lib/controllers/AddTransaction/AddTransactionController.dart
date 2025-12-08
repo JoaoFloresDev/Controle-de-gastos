@@ -362,9 +362,9 @@ class _AddTransactionControllerState extends State<AddTransactionController>
               InsertExpenseButton(
                 onPressed: () {
                   final header = _headerCardKey.currentState;
-                  print(">>>>>>>>>>>>>>>>> ${header?.lastIndexSelected}");
                   if (header != null) {
-                    final list = context.read<CategoryViewModel>().avaliebleCetegories;
+                    final list =
+                        context.read<CategoryViewModel>().avaliebleCetegories;
                     final selectedCat = (list != null && list.isNotEmpty)
                         ? list[header.lastIndexSelected]
                         : CategoryModel(
@@ -387,12 +387,12 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                     // header.adicionar();
                     widget.onAddClicked();
                     context.read<TransactionsViewModel>().addCard(CardModel(
-                      amount: header.valorController.numberValue,
-                      description: header.descricaoController.text,
-                      date: header.lastDateSelected,
-                      category: selectedCat, 
-                      id: CardService.generateUniqueId(),
-                    ));
+                          amount: header.valorController.numberValue,
+                          description: header.descricaoController.text,
+                          date: header.lastDateSelected,
+                          category: selectedCat,
+                          id: CardService.generateUniqueId(),
+                        ));
                     header.valorController.updateValue(0);
                     header.descricaoController.clear();
                   }
@@ -490,24 +490,24 @@ class _AddTransactionControllerState extends State<AddTransactionController>
             isScrollControlled: true,
             backgroundColor: Colors.transparent,
             builder: (BuildContext modalContext) {
-              
               return ChangeNotifierProvider.value(
                 value: vm,
                 child: Container(
-                height: MediaQuery.of(parentContext).size.height - 70,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
+                  height: MediaQuery.of(parentContext).size.height - 70,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
                   ),
-                ),
-                child: CategoryCreater(
-                  onCategoryAdded: () {
-                    setState(() {
-                      vm.load();
-                    });
-                  },
-                ),
+                  child: CategoryCreater(
+                    onCategoryAdded: () {
+                      setState(() {
+                        vm.load();
+                        _headerCardKey.currentState!.lastIndexSelected = 0;
+                      });
+                    },
+                  ),
                 ),
               );
             },

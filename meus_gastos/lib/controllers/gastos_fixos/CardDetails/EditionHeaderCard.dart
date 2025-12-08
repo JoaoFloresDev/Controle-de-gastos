@@ -50,6 +50,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   String tipoRepeticao = "";
 
   Future<void> loadCategories() async {
+    // TÁ ERRADO
     var categorieList = await CategoryService().getAllCategories();
     if (categorieList.isNotEmpty) {
       setState(() {

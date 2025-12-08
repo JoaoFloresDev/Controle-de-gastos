@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 
 class CategoryListItem extends StatelessWidget {
@@ -40,7 +39,6 @@ class CategoryListItem extends StatelessWidget {
     );
 
     if (shouldDelete == true) {
-      // await CategoryService().deleteCategory(category.id);
       HapticFeedback.mediumImpact();
       onDeleted();
     }

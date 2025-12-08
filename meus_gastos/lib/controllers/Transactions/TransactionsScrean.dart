@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/Login/Authentication.dart';
 import 'package:meus_gastos/controllers/Login/LoginButtonScrean.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
@@ -19,12 +20,13 @@ import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class TransactionsScrean extends StatefulWidget {
-  const TransactionsScrean(
-      {required this.onAddClicked,
-      super.key,
-      required this.title,
-      required this.isActive,
-      required this.cardEvents,});
+  const TransactionsScrean({
+    required this.onAddClicked,
+    super.key,
+    required this.title,
+    required this.isActive,
+    required this.cardEvents,
+  });
   final VoidCallback onAddClicked;
   final String title;
 
@@ -46,7 +48,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
   bool? isLogin;
   String? userId;
 
-  //MARK: Life cicle 
+  //MARK: Life cicle
 
   @override
   void initState() {
@@ -71,7 +73,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     }
   }
 
-    @override
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -98,7 +100,6 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
               Consumer2<LoginViewModel, TransactionsViewModel>(
                 builder: (context, loginVM, cardsVM, child) =>
                     LoginButtonScrean(
-                  
                   onLoginChange: cardsVM.loadCards,
                 ),
                 // create: (_) => LoginViewModel()..init(),
@@ -144,7 +145,6 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
 
   //MARK: Widgets
 
-
   void _showProModal(BuildContext context) async {
     ProManeger proViewModel = ProManeger();
     showModalBottomSheet(
@@ -188,7 +188,6 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
       allCards.add(
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 1),
-
           child: ListCardRecorrent(
             onTap: (card) {
               widget.onAddClicked();
@@ -204,7 +203,6 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     for (var card in viewModel.cardList.reversed) {
       allCards.add(
         Padding(
-
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 1),
           child: ListCard(
             onTap: (card) {
@@ -251,10 +249,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                   ],
                 ),
                 boxShadow: [
-                  BoxShadow(
-
-                    color: AppColors.label.withOpacity(0.08)
-                  ),
+                  BoxShadow(color: AppColors.label.withOpacity(0.08)),
                 ],
               ),
               child: const Icon(
@@ -285,7 +280,6 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
               AppLocalizations.of(context)!.transactionPlaceholderTitle,
               style: TextStyle(
                 color: AppColors.label.withOpacity(0.7),
-
                 fontSize: 18,
                 fontWeight: FontWeight.w400,
                 height: 1.5,
@@ -318,12 +312,10 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                         height: 40,
                         decoration: BoxDecoration(
                           color: AppColors.label.withOpacity(0.1),
-
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Icon(
                           Icons.add_circle_outline,
-
                           color: AppColors.label,
                           size: 24,
                         ),
@@ -347,7 +339,6 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                               AppLocalizations.of(context)!
                                   .transactionPlaceholderRow1Subtitle,
                               style: TextStyle(
-
                                 color: AppColors.label.withOpacity(0.8),
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
@@ -370,7 +361,6 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                         ),
                         child: const Icon(
                           Icons.repeat,
-
                           color: AppColors.label,
                           size: 24,
                         ),
@@ -385,7 +375,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                                   .transactionPlaceholderRow2Title,
                               style: const TextStyle(
                                 color: AppColors.label,
-                               fontSize: 18,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -394,7 +384,6 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                               AppLocalizations.of(context)!
                                   .transactionPlaceholderRow3Subtitle,
                               style: TextStyle(
-
                                 color: AppColors.label.withOpacity(0.8),
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
@@ -416,11 +405,9 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     );
   }
 
-
-
   void _cardDetails(
       BuildContext context, CardModel card, TransactionsViewModel viewModel) {
-
+    CategoryViewModel catVM = context.read<CategoryViewModel>();
     FocusScope.of(context).unfocus();
     showModalBottomSheet(
       context: context,
@@ -445,6 +432,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
             onDelete: (card) {
               viewModel.deleteCard(card);
             },
+            categoryVM: catVM,
           ),
         );
       },

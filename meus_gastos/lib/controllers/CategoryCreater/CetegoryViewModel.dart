@@ -10,9 +10,7 @@ class CategoryViewModel extends ChangeNotifier {
 
   bool isLoading = false;
 
-  CategoryViewModel({required this.repo}) {
-    load();
-  }
+  CategoryViewModel({required this.repo});
 
   Future<void> load() async {
     isLoading = true;
@@ -33,8 +31,8 @@ class CategoryViewModel extends ChangeNotifier {
   }
 
   List<CategoryModel> getAllCategoriesAvaliable() {
-    categories = categories.where((cat) => cat.available).toList();
-    return categories;
+    List<CategoryModel> cat = categories.where((cat) => cat.available).toList();
+    return cat;
   }
 
   Future<void> add(CategoryModel c) async {
@@ -44,7 +42,7 @@ class CategoryViewModel extends ChangeNotifier {
   }
 
   Future<void> saveOrderedCategories(List<CategoryModel> cats) async {
-    isLoading = true;
+    // isLoading = true;
 
     final updated = <CategoryModel>[];
     for (int i = 0; i < cats.length; i++) {
@@ -72,7 +70,7 @@ class CategoryViewModel extends ChangeNotifier {
 
     await repo.saveOrderedCategories(cats);
 
-    isLoading = false;
+    // isLoading = false;
     notifyListeners();
   }
 
@@ -108,7 +106,8 @@ class CategoryViewModel extends ChangeNotifier {
 
   Future<void> delete(String id) async {
     await repo.deleteCategory(id);
-    categories.removeWhere((c) => c.id == id);
+    categories.where((c) => c.id == id).first.available = false;
+    avaliebleCetegories = getAllCategoriesAvaliable();
     notifyListeners();
   }
 }

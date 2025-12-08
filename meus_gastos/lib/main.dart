@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:meus_gastos/AppProviders.dart';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
+import 'package:meus_gastos/controllers/Goals/GoalsFactory.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsScreen.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsViewModel.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
@@ -43,15 +44,7 @@ void main() async {
   // inicializa firebase
   await FirebaseService().init();
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider<GoalsViewModel>(
-          // lazy: false,
-          create: (_) => GoalsViewModel()..init(),
-        ),
-      ],
-      child: const MyApp(),
-    ),
+    const MyApp(),
   );
 }
 
@@ -150,7 +143,6 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       providers: [
         ChangeNotifierProvider(
             create: (_) => ProManeger()..checkUserProStatus()),
-
         ChangeNotifierProvider(create: (_) => LoginViewModel()..init()),
       ],
       child: Builder(builder: (context) {
@@ -178,7 +170,8 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     cardEvents: cardEvents, isActivate: selectedTab == 1),
                 // DashboardScreen(key: dashboardKey, isActive: true),
                 DashboardsFactory(isActivate: selectedTab == 2),
-                Goalsscrean(
+
+                GoalsFactory(
                   key: goalKey,
                   title: AppLocalizations.of(context)!.budget,
                 ),
@@ -193,7 +186,6 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           ),
         );
       }),
-
     );
   }
 
@@ -285,7 +277,6 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       behavior:
           HitTestBehavior.opaque, // <- ESSENCIAL: toda área vira "clicável"
       onTap: () {
-
         if (index == 3) {
           goalKey.currentState?.refreshGoals();
         }
@@ -308,7 +299,6 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 200),
             style: TextStyle(
-
               fontSize: 11,
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
               color: isSelected ? Colors.white : const Color(0xFF8E8E93),

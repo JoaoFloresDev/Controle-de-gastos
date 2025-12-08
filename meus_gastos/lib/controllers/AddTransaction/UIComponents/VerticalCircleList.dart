@@ -43,13 +43,12 @@ class VerticalCircleListState extends State<VerticalCircleList> {
 
   Future<void> loadCategories() async {
     // Await the categories from the service
-    // categorieList = await CategoryService().getAllCategoriesAvaliable();
 
     // Update the UI
     setState(() {});
 
     // Send the loaded list back to the parent widget via the callback
-    widget.onCategoriesLoaded(context.read<CategoryViewModel>().categories);
+    widget.onCategoriesLoaded(context.read<CategoryViewModel>().avaliebleCetegories);
   }
 
   @override
@@ -65,7 +64,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
   }
 
   Widget _buildGridItem(BuildContext context, int index) {
-    final category = context.read<CategoryViewModel>().categories[index];
+    final category = context.read<CategoryViewModel>().avaliebleCetegories[index];
     final bool isAddCategory = category.id == 'AddCategory';
     final bool isSelected = selectedIndex == index;
 
@@ -185,7 +184,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
               mainAxisSpacing: 8,
               childAspectRatio: 1.4,
             ),
-            itemCount: context.read<CategoryViewModel>().categories.length,
+            itemCount: context.read<CategoryViewModel>().avaliebleCetegories.length,
             itemBuilder: _buildGridItem,
           ),
           // Gradiente de sombra no bottom
@@ -247,7 +246,7 @@ class VerticalCircleListState extends State<VerticalCircleList> {
                   mainAxisSpacing: 10,
                   childAspectRatio: 0.9,
                 ),
-                itemCount: context.read<CategoryViewModel>().categories.length,
+                itemCount: context.read<CategoryViewModel>().avaliebleCetegories.length,
                 itemBuilder: _buildGridItem,
               ),
               // Gradiente de sombra no bottom para macOS

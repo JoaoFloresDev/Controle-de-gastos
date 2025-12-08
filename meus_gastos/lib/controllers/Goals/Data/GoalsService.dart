@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:meus_gastos/controllers/Goals/GoalsModel.dart';
+import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/services/CardServiceRefatore.dart';
 // import 'package:meus_gastos/services/firebase/SaveGoalsToClould.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,17 +16,13 @@ class GoalsService {
     // if (SaveGoalsToClould().userId != null) {
     //   return SaveGoalsToClould().getAllGoals();
     // } else {
-      if (budgetsString != null) {
-        List<dynamic> jsonList = jsonDecode(budgetsString);
-        return jsonList
-            .map((jsonItem) => GoalModel.fromJson(jsonItem))
-            .toList();
-      }
+    if (budgetsString != null) {
+      List<dynamic> jsonList = jsonDecode(budgetsString);
+      return jsonList.map((jsonItem) => GoalModel.fromJson(jsonItem)).toList();
+    }
     // }
     return [];
   }
-
-  
 
   Future<Map<String, double>> getGoals(List<CategoryModel> categories) async {
     Map<String, double> budgetsByCat = {
@@ -34,8 +31,6 @@ class GoalsService {
 
     List<GoalModel> budgets = await retrive();
     List<String> categoriesId = categories.map((cat) => cat.id).toList();
-
-    
 
     if (budgets.isNotEmpty) {
       budgets.forEach((budg) {
@@ -93,12 +88,16 @@ class GoalsService {
     //   SaveGoalsToClould().deleteGoalInClound(categoryId);
   }
 
-  Future<void> deleteAllGoalsOfaCategory(CategoryModel category) async {
+  Future<void> deleteAllGoalsOfaCategory(
+      List<CardModel> cards, List<CategoryModel> categories, CategoryModel category) async {
     // deleta todas as metas com gasto zero no mes e categoria não avaliavel
     //
     List<GoalModel> budgets = await retrive();
+
+    List<CardModel> filteredCards = CardService().filterCardsOfMonth(cards, DateTime.now());
+
     List<ProgressIndicatorModel> progress =
-        await CardService().getProgressIndicatorsByMonth(DateTime.now());
+        await CardService().getProgressIndicators(filteredCards, categories);
 
     bool haveExpens = false;
 

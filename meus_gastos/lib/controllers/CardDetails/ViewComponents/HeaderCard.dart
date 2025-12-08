@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
@@ -22,6 +23,7 @@ class HeaderCard extends StatefulWidget {
   final GlobalKey description;
   final GlobalKey categories;
   final GlobalKey addButon;
+  final CategoryViewModel categoryVM;
   // final String adicionarButtonTitle;
 
   const HeaderCard({
@@ -34,6 +36,7 @@ class HeaderCard extends StatefulWidget {
     required this.description,
     required this.categories,
     required this.addButon,
+    required this.categoryVM,
   });
 
   @override
@@ -190,6 +193,7 @@ class HeaderCardState extends State<HeaderCard> {
                   }
                 },
                 defaultdIndexCategory: 0,
+                categories: widget.categoryVM.avaliebleCetegories,
               ),
             ),
             const SizedBox(height: 6),

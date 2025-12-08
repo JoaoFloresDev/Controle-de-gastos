@@ -16,19 +16,18 @@ class DashboardsFactory extends StatelessWidget {
   Widget build(BuildContext context) {
     final transactionsVM = context.watch<TransactionsViewModel>();
     final categoryViewModel = context.read<CategoryViewModel>();
-    print(">>>>>>>>>>>> Tamanho categoryList: ${categoryViewModel.avaliebleCetegories.length}");
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (_) => DashboardViewModel(
             transactionsVM: transactionsVM,
             cardEvents: CardEvents(),
-            categories: categoryViewModel.categories
+            categoriesVM: categoryViewModel
           )..loadProgressIndicators(),
         ),
         ChangeNotifierProvider(
           create: (_) =>
-              MonthInsightsViewModel(transactionsViewModel: transactionsVM)
+              MonthInsightsViewModel(transactionsViewModel: transactionsVM, categoryViewModel: categoryViewModel)
                 ..loadValues(DateTime.now()),
         )
       ],

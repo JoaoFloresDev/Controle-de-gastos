@@ -80,7 +80,7 @@ class CategoryRepositoryRemote implements ICategoryRepository {
           .doc('Categories')
           .collection('categoryList')
           .doc(id)
-          .delete();
+          .update({"available" : false});
 
       print("Categoria com ID ${id} deletada com sucesso.");
     } catch (e) {
