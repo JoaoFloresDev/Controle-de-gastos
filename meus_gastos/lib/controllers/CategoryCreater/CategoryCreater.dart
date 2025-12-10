@@ -200,11 +200,18 @@ class _CategoryCreaterState extends State<CategoryCreater>
 
     // Cria uma NOVA lista (importante para o Flutter detectar mudança)
     final List<CategoryModel> reorderedList =
-        List<CategoryModel>.from(catVM.categories);
+        List<CategoryModel>.from(catVM.avaliebleCetegories);
 
     // Move o item
     final item = reorderedList.removeAt(oldIndex);
     reorderedList.insert(newIndex, item);
+
+    // print("VELHO: ${oldIndex}, NOVO: ${newIndex}");
+
+    // for (var category in reorderedList) {
+    //   print(
+    //       'ID: ${category.id}, Name: ${category.name}, Frequency: ${category.frequency}');
+    // }
 
     // Atualiza IMEDIATAMENTE na UI (síncrono)
     catVM.updateCategoriesOrder(reorderedList);

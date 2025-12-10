@@ -94,7 +94,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   final calendarKey = GlobalKey<CustomCalendarState>();
 
-  final goalKey = GlobalKey<GoalsscreanState>();
+  final goalKey = GlobalKey(debugLabel: "goalScreen");
 
   final exportButtonAT = GlobalKey(debugLabel: 'exportButtonAT');
   final cardsExpenseAT = GlobalKey(debugLabel: 'cardsExpenseAT');
@@ -172,7 +172,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 DashboardsFactory(isActivate: selectedTab == 2),
 
                 GoalsFactory(
-                  key: goalKey,
+                  // key: goalKey,
                   title: AppLocalizations.of(context)!.budget,
                 ),
                 CustomCalendar(
@@ -278,7 +278,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           HitTestBehavior.opaque, // <- ESSENCIAL: toda área vira "clicável"
       onTap: () {
         if (index == 3) {
-          goalKey.currentState?.refreshGoals();
+          // goalKey.currentState?.refreshGoals();
         }
         if (index == 4) calendarKey.currentState?.refreshCalendar();
         setState(() => selectedTab = index);

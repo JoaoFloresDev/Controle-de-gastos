@@ -1,6 +1,7 @@
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
 import 'EditionHeaderCard.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 
@@ -9,14 +10,15 @@ class DetailScreen extends StatefulWidget {
   final CardModel card;
   final VoidCallback onAddClicked;
   final Function(CardModel) onDelete;
-  final CategoryViewModel categoryVM;
-  const DetailScreen({
-    super.key,
-    required this.card,
-    required this.onAddClicked,
-    required this.onDelete,
-    required this.categoryVM,
-  });
+  final List<CategoryModel> categories;
+  final Function(CardModel, CardModel) onAddCardPressed;
+  const DetailScreen(
+      {super.key,
+      required this.card,
+      required this.onAddClicked,
+      required this.onDelete,
+      required this.categories,
+      required this.onAddCardPressed});
 
   @override
   _DetailScreen createState() => _DetailScreen();
@@ -68,7 +70,8 @@ class _DetailScreen extends State<DetailScreen> {
                   widget.onAddClicked();
                   Navigator.of(context).pop();
                 },
-                categories: widget.categoryVM.avaliebleCetegories,
+                categories: widget.categories,
+                onAddCardPressed: widget.onAddCardPressed,
               ),
             ),
             const Expanded(child: SizedBox())

@@ -104,7 +104,7 @@ class Monthinsightsservices {
     } else {
       manyDays = daysInCurrentMonth(currentDate);
     }
-    print("AAAAAAAAA${manyDays}");
+    // print("AAAAAAAAA${manyDays}");
     return (totalAmountThisMonth / manyDays);
   }
 
@@ -324,7 +324,7 @@ class Monthinsightsservices {
     List<MapEntry<String, double>> entradasOrdenadas = gastosPorDia.entries
         .toList()
       ..sort((a, b) => b.value.compareTo(a.value));
-    print(entradasOrdenadas[0].value);
+    // print(entradasOrdenadas[0].value);
     return entradasOrdenadas.take(2).toList();
   }
 
@@ -499,7 +499,7 @@ class Monthinsightsservices {
 
       // Calculando a diferença entre o mês atual e o mês anterior
       final double difference = currentMonthTotal - previousMonthTotal;
-      print(difference);
+      // print(difference);
 
       // Armazenando a diferença no mapa
       differencesByCategory[categoryId] = difference;
@@ -530,7 +530,6 @@ class Monthinsightsservices {
     double expenseHighestDrop = 0.0;
 
     for (var entry in differencesByCategory.entries) {
-      print("!!!!!!!!!!!$entry.value");
       if (entry.value < expenseHighestDrop) {
         categoryHighestDrop = entry.key;
         expenseHighestDrop = entry.value;

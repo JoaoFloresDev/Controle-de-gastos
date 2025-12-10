@@ -207,9 +207,7 @@ class _WeeklyStackedBarChartState extends State<WeeklyStackedBarChart> {
           .fold(0.0, (sum, item) => sum + item.progress);
     }).toList();
 
-    for (var dia in weeklyTotalsControl) {
-      print('$dia!!!');
-    }
+ 
 
     List<double> weeklyTotals = widget.weekIntervals.map((weekInterval) {
       int index = widget.weekIntervals.indexOf(weekInterval);

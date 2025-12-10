@@ -110,15 +110,15 @@ class HeaderCardState extends State<HeaderCard> {
           [])[lastIndexSelected],
       id: CardService.generateUniqueId(),
     );
-    print("object");
+    // print("object");
 
     if (!(newCard.amount == 0)) CardService().addCard(newCard);
 
-    await CategoryService().incrementCategoryFrequency(
-        (_horizontalCircleListKey.currentState?.categorieList ??
-                [])[lastIndexSelected]
-            .id);
-    CategoryService().printAllCategories();
+    // await CategoryService().incrementCategoryFrequency(
+    //     (_horizontalCircleListKey.currentState?.categorieList ??
+    //             [])[lastIndexSelected]
+    //         .id);
+    // CategoryService().printAllCategories();
     setState(() {
       _horizontalCircleListKey.currentState?.loadCategories();
       _horizontalCircleListKey.currentState?.selectedIndex = 0;

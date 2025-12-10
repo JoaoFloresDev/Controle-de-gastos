@@ -1,7 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
+import 'package:meus_gastos/controllers/Goals/Data/GoalsRepository.dart';
 import 'package:meus_gastos/controllers/Goals/Data/GoalsService.dart';
+import 'package:meus_gastos/controllers/Goals/GoalsModel.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
@@ -11,9 +13,26 @@ import 'package:meus_gastos/services/CardServiceRefatore.dart';
 class GoalsViewModel extends ChangeNotifier {
   CategoryViewModel categoryViewModel;
   TransactionsViewModel transactionsViewModel;
+  GoalsRepository goalsRepo;
 
   GoalsViewModel(
-      {required this.categoryViewModel, required this.transactionsViewModel});
+      {required this.categoryViewModel,
+      required this.transactionsViewModel,
+      required this.goalsRepo}) {
+    _waitForTransactions();
+  }
+
+  void _waitForTransactions() {
+    if (transactionsViewModel.cardList.isNotEmpty) {
+      init();
+    } else {
+      transactionsViewModel.addListener(() {
+        if (transactionsViewModel.cardList.isNotEmpty) {
+          init();
+        }
+      });
+    }
+  }
 
   final CardService serviceCard = CardService();
   GoalsService goalsService = GoalsService();
@@ -59,11 +78,12 @@ class GoalsViewModel extends ChangeNotifier {
 
     _isLoading = false;
 
+    // print("CARREGADO: ${transactionsViewModel.cardList.length}");
     notifyListeners();
   }
 
   Future<void> loadCategorys() async {
-    _categories = await categoryViewModel.getAllCategoriesAvaliable();
+    _categories = categoryViewModel.getAllCategoriesAvaliable();
     _removeAddCategory();
   }
 
@@ -80,7 +100,9 @@ class GoalsViewModel extends ChangeNotifier {
     _isLoading = true;
     if (notify) notifyListeners();
 
-    _goalsByCategory = await goalsService.getGoals(_categories);
+    List<GoalModel> _goals = await goalsRepo.fetchGoals();
+
+    _goalsByCategory = await goalsService.getGoals(_goals, _categories);
 
     sumTotalGoal();
 
@@ -132,7 +154,8 @@ class GoalsViewModel extends ChangeNotifier {
 
   void addGoal(String newGoalCategoryId, double newGoalValue) {
     try {
-      goalsService.addMeta(newGoalCategoryId, newGoalValue);
+      goalsRepo.addGoal(
+          GoalModel(categoryId: newGoalCategoryId, value: newGoalValue));
 
       _goalsByCategory = {
         newGoalCategoryId: newGoalValue,

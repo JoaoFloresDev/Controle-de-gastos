@@ -65,7 +65,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
         }
       });
     }
-    print(lastIndexSelected_category);
+    // print(lastIndexSelected_category);
   }
 
   // MARK: - InitState
@@ -205,7 +205,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
               setState(() {
                 lastIndexSelected_category = index;
               });
-              print(lastIndexSelected_category);
+              // print(lastIndexSelected_category);
             },
             icons_list_recorrent: icons_list_recorrent,
             defaultIndexCategory: lastIndexSelected_category ?? 0,

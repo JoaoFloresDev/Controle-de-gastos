@@ -57,15 +57,15 @@ class CategoryViewModel extends ChangeNotifier {
     }
 
     categories = updated;
-    avaliebleCetegories = List<CategoryModel>.from(updated);
+    avaliebleCetegories = List<CategoryModel>.from(getAllCategoriesAvaliable());
 
     // categories.sort((a, b) => a.frequency.compareTo(b.frequency));
     // avaliebleCetegories = getAllCategoriesAvaliable();
 
-    for (var category in categories) {
-      print(
-          'ID: ${category.id}, Name: ${category.name}, Color: ${category.color}, Icon: ${category.icon}, Frequency: ${category.frequency}');
-    }
+    // for (var category in categories) {
+    //   print(
+    //       'ID: ${category.id}, Name: ${category.name}, Color: ${category.color}, Icon: ${category.icon}, Frequency: ${category.frequency}');
+    // }
     notifyListeners();
 
     await repo.saveOrderedCategories(cats);
@@ -80,7 +80,12 @@ class CategoryViewModel extends ChangeNotifier {
       reorderedList[i].frequency = i;
     }
 
-    categories = reorderedList;
+    for (int i = 0; i < reorderedList.length; i++) {
+      categories.where((cat) => cat.id == reorderedList[i].id).first.frequency =
+          reorderedList[i].frequency;
+    }
+
+    // categories = reorderedList;
     avaliebleCetegories = List.from(reorderedList); // Cria nova lista
 
     notifyListeners(); // UI atualiza AGORA

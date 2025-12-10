@@ -54,7 +54,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
             height: 90,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: categorieList.length,
+              itemCount: categorieList.length - 1,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {

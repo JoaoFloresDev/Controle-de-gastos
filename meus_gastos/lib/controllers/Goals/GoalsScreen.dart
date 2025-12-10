@@ -33,15 +33,15 @@ class GoalsscreanState extends State<Goalsscrean>
     );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<GoalsViewModel>().init();
+      // context.read<GoalsViewModel>().init();
     });
 
     _animationController.forward();
   }
 
-  Future<void> refreshGoals() async {
-    context.read<GoalsViewModel>().init();
-  }
+  // Future<void> refreshGoals() async {
+  //   context.read<GoalsViewModel>().init();
+  // }
 
   @override
   void dispose() {
@@ -51,7 +51,7 @@ class GoalsscreanState extends State<Goalsscrean>
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<GoalsViewModel>();
+    final viewModel = context.read<GoalsViewModel>();
     return Scaffold(
       appBar: _buildAppBar(),
       body: GestureDetector(

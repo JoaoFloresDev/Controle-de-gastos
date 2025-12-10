@@ -1,3 +1,4 @@
+import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/ads_review/BannerAdConstruct.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
+import 'package:provider/provider.dart';
 import 'ViewComponents/CampoComMascara.dart';
 import 'ViewComponents/HorizontalCircleList.dart';
 import 'package:meus_gastos/controllers/CardDetails/ViewComponents/ValorTextField.dart';
@@ -17,6 +19,7 @@ class EditionHeaderCard extends StatefulWidget {
   final String adicionarButtonTitle;
   final List<CategoryModel> categories;
   final CardModel card;
+  final Function(CardModel, CardModel) onAddCardPressed;
 
   const EditionHeaderCard({
     super.key,
@@ -24,6 +27,7 @@ class EditionHeaderCard extends StatefulWidget {
     required this.adicionarButtonTitle,
     required this.card,
     required this.categories,
+    required this.onAddCardPressed
   });
 
   @override
@@ -103,7 +107,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     setState(() {
       lastIndexSelected = widget.categories
           .indexWhere((category) => category.id == widget.card.category.id);
-      print(lastIndexSelected);
+      // print(lastIndexSelected);
       isLoading = false;
     });
   }
@@ -117,7 +121,8 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       category: widget.categories[lastIndexSelected!],
       id: CardService.generateUniqueId(),
     );
-    CardService().updateCard(widget.card, newCard);
+
+    widget.onAddCardPressed(widget.card, newCard);
 
     Future.delayed(const Duration(milliseconds: 300), () {
       widget.onAddClicked();

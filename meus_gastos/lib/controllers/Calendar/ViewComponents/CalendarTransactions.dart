@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
+import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCard.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:provider/provider.dart';
 import '../../../models/CardModel.dart';
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
@@ -14,6 +16,7 @@ class TransactionList extends StatelessWidget {
   const TransactionList({
     Key? key,
     required this.transactions,
+    // required this.categories
   }) : super(key: key);
 
   @override
@@ -86,6 +89,10 @@ class TransactionList extends StatelessWidget {
 
   void _showCupertinoModalBottomSheet(BuildContext context, CardModel card) {
     FocusScope.of(context).unfocus();
+    final List<CategoryModel> categories = context.read<CategoryViewModel>().categories;
+    updateCard(oldCard, newCard) => context
+                .read<TransactionsViewModel>()
+                .updateCard(oldCard, newCard);
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -105,7 +112,8 @@ class TransactionList extends StatelessWidget {
               // onRefresh();
             },
             onDelete: (card) {},
-            categoryVM: context.read<CategoryViewModel>(),
+            categories: categories,
+            onAddCardPressed: updateCard,
           ),
         );
       },

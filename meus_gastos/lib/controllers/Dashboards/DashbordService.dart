@@ -40,11 +40,7 @@ class Dashbordservice {
       for (var category in categories) category.id: category
     };
 
-    print("object. ${categories.length}");
-
-    categoryMap.forEach((catId, cat) {
-      print(">>>>>>>>> ID: ${catId}, NAME: ${cat.name}");
-    });
+    // print("object. ${categories.length}");
 
     final List<ProgressIndicatorModel> progressIndicators = totals.entries
         .map((entry) => ProgressIndicatorModel(

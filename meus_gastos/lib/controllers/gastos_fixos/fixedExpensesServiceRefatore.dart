@@ -5,23 +5,9 @@ import 'dart:convert';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 
-class Fixedexpensesservice {
-  static Future<List<FixedExpense>> getSortedFixedExpenses() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? cardsString = prefs.getString('fixed_expenses');
-    List<FixedExpense> fc = [];
-    // User? user = FirebaseAuth.instance.currentUser;
-
-    // if (user == null) {
-    if (cardsString != null) {
-      final List<dynamic> jsonList = json.decode(cardsString);
-      fc = jsonList.map((jsonItem) => FixedExpense.fromJson(jsonItem)).toList()
-        ..sort((a, b) => b.date.compareTo(a.date));
-    }
-    return fc;
-  }
-
-  static Future<List<FixedExpense>> getSortedFixedExpensesToSync() async {
+class FixedExpensesService {
+ 
+  Future<List<FixedExpense>> getSortedFixedExpensesToSync() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString('fixed_expenses');
     List<FixedExpense> fc = [];
@@ -33,9 +19,8 @@ class Fixedexpensesservice {
     return fc;
   }
 
-  static Future<List<String>> getFixedExpenseIds() async {
+  Future<List<String>> getFixedExpenseIds(List<FixedExpense> listExpenses) async {
     final List<String> fixedExpenseIds = [];
-    final List<FixedExpense> listExpenses = await getSortedFixedExpenses();
     if (listExpenses != null) {
       for (var item in listExpenses) {
         fixedExpenseIds.add(item.id);
@@ -44,52 +29,9 @@ class Fixedexpensesservice {
     return fixedExpenseIds;
   }
 
-  // MARK: - Modify Cards
-  static Future<void> modifyCards(
-      List<FixedExpense> Function(List<FixedExpense> cards)
-          modification) async {
-    final List<FixedExpense> cards = await getSortedFixedExpenses();
-    final List<FixedExpense> modifiedCards = modification(cards);
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String encodedData =
-        json.encode(modifiedCards.map((card) => card.toJson()).toList());
-    await prefs.setString("fixed_expenses", encodedData);
-  }
+ 
 
-  static Future<void> addCard(FixedExpense FixedExpense) async {
-    await modifyCards((cards) {
-      if (!(FixedExpense.price == 0)) {
-        cards.add(FixedExpense);
-      }
-      return cards;
-    });
-  }
-
-  static Future<void> deleteCard(String id) async {
-    await modifyCards((cards) {
-      cards.removeWhere((card) => card.id == id);
-      return cards;
-    });
-    // }
-  }
-
-  static Future<void> deleteAllCards() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove("fixed_expenses");
-  }
-
-  static Future<void> updateCard(String id, FixedExpense newCard) async {
-    await modifyCards((cards) {
-      final int index = cards.indexWhere((card) => card.id == id);
-      if (index != -1) {
-        cards[index] = newCard;
-        // }
-      }
-      return cards;
-    });
-  }
-
-  static DateTime getCurrentWeekdayDate(DateTime referenceDate) {
+  DateTime getCurrentWeekdayDate(DateTime referenceDate) {
     // Obtém o dia da semana da data de referência (1 = segunda-feira, 7 = domingo)
     int referenceWeekday = referenceDate.weekday;
 
@@ -104,7 +46,7 @@ class Fixedexpensesservice {
     return today.add(Duration(days: difference));
   }
 
-  static Future<List<FixedExpense>> filteredFixedCardsShow(
+  Future<List<FixedExpense>> filteredFixedCardsShow(
       List<FixedExpense> fixedCards, DateTime currentDate) async {
     // ERRADO
     List<CardModel> normalCards = await CardService.retrieveCards();
@@ -162,7 +104,7 @@ class Fixedexpensesservice {
     }).toList();
   }
 
-  static CardModel fixedToNormalCard(
+  CardModel fixedToNormalCard(
       FixedExpense fixedCard, DateTime currentDate) {
     int day = fixedCard.date.day;
     int hour = fixedCard.date.hour;
@@ -190,9 +132,7 @@ class Fixedexpensesservice {
     );
   }
 
-  static Future<void> printCardsInfo() async {
-    List<FixedExpense> cards =
-        await Fixedexpensesservice.getSortedFixedExpenses();
+  Future<void> printCardsInfo(List<FixedExpense> cards) async {
     for (var card in cards) {
       print('ID: ${card.id}');
       print('Description: ${card.description}');

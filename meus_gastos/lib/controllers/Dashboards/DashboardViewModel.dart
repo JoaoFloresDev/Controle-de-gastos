@@ -59,9 +59,9 @@ class DashboardViewModel extends ChangeNotifier {
     cards = transactionsVM.cardList;
     _progressIndicators = await Dashbordservice.getProgressIndicatorsByMonth(
         _currentDate, cards, categoriesVM.categories);
-    _progressIndicators.forEach((element) {
-      print(element.category.name);
-    });
+    // _progressIndicators.forEach((element) {
+    //   // print(element.category.name);
+    // });
     _pieChartDataItems = _progressIndicators
         .map((indicator) => indicator.toPieChartDataItem())
         .toList();

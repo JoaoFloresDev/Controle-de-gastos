@@ -74,9 +74,7 @@ class MonthInsightsViewModel extends ChangeNotifier {
 
     await getCards();
     categories = categoryViewModel.categories;
-    print(cards.length);
-    print(
-        ">>>>>>>>>>>> Tamanho categoryList: ${categoryViewModel.avaliebleCetegories.length}");
+    // print(cards.length);
     final mediaValues = await _monthServices.monthExpenses(currentDate, cards);
     monthExpenses = await _monthServices.monthExpenses(currentDate, cards);
 
@@ -130,7 +128,7 @@ class MonthInsightsViewModel extends ChangeNotifier {
 
     isLoading = false;
     notifyListeners();
-    print(listOfExpensesByCategoryOfCurrentMonth[highestFrequency.keys.first]);
+    // print(listOfExpensesByCategoryOfCurrentMonth[highestFrequency.keys.first]);
   }
 
   List<Map<String, dynamic>> buildGroupedPhrases(

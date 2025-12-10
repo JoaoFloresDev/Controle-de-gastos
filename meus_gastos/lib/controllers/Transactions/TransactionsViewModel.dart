@@ -64,13 +64,13 @@ class TransactionsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  CardModel Fixed_to_NormalCard(FixedExpense fcard) {
-    return Fixedexpensesservice.Fixed_to_NormalCard(fcard, _currentDate);
+  CardModel fixedToNormalCard(FixedExpense fcard) {
+    return Fixedexpensesservice.fixedToNormalCard(fcard, _currentDate);
   }
 
   Future<void> fakeExpens(FixedExpense cardFix) async {
     cardFix.price = 0;
-    var car = Fixedexpensesservice.Fixed_to_NormalCard(cardFix, _currentDate);
+    var car = Fixedexpensesservice.fixedToNormalCard(cardFix, _currentDate);
     await CardService().addCard(car);
     // SaveExpensOnCloud().addNewDate(car);
   }
@@ -82,6 +82,15 @@ class TransactionsViewModel extends ChangeNotifier {
       cardModel.amount = 0;
       CardService().addCard(cardModel);
     }
+  }
+
+  Future<void> updateCard(CardModel oldCard, CardModel newCard) async {
+    await repository.updateCard(oldCard, newCard);
+    if (cardList.contains(oldCard)) {
+      cardList.remove(oldCard);
+    }
+    cardList.add(newCard);
+    notifyListeners();
   }
 
   @override

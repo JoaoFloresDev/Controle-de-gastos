@@ -60,7 +60,6 @@ class _AddTransactionControllerState extends State<AddTransactionController>
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final GlobalKey<VerticalCircleListState> _verticalCircleListKey =
       GlobalKey<VerticalCircleListState>();
-  final GlobalKey _headerGradientKey = GlobalKey();
 
   //mark - variables
   bool _keyboardVisible = false;
@@ -102,9 +101,8 @@ class _AddTransactionControllerState extends State<AddTransactionController>
         fcard, DateTime.now());
     List<CardModel> fixedCards = fcard
         .map((item) =>
-            Fixedexpensesservice.Fixed_to_NormalCard(item, DateTime.now()))
+            Fixedexpensesservice.fixedToNormalCard(item, DateTime.now()))
         .toList();
-    print("${fixedCards.length} OPAAA");
     setState(() {
       mockCards = fixedCards;
     });

@@ -308,7 +308,10 @@ class DashboardScreenState extends State<DashboardScreen>
           ),
           child: ExtractByCategory(
               category: model.category.name,
-              currentMonth: dashboardVM.currentDate),
+              currentMonth: dashboardVM.currentDate,
+              cards: dashboardVM.cards,
+              categories: dashboardVM.categoriesVM.categories,
+              ),
         ); // O widget com o código acima
       },
     );

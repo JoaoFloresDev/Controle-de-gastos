@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
-import 'package:meus_gastos/controllers/Login/Authentication.dart';
 import 'package:meus_gastos/controllers/Login/LoginButtonScrean.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
@@ -54,7 +53,6 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
   void initState() {
     super.initState();
     currentDate = DateTime.now();
-    print("Usuário deslogado.");
     isLogin = false;
   }
 
@@ -181,7 +179,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
 
     // Adiciona fixedCards
     for (var fcard in viewModel.fixedCards) {
-      var card = viewModel.Fixed_to_NormalCard(fcard);
+      var card = viewModel.fixedToNormalCard(fcard);
 
       if (card.amount == 0) continue;
 
@@ -432,7 +430,9 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
             onDelete: (card) {
               viewModel.deleteCard(card);
             },
-            categoryVM: catVM,
+            categories: catVM.categories,
+            onAddCardPressed: (oldCard, newCard) =>
+                viewModel.updateCard(oldCard, newCard),
           ),
         );
       },
