@@ -377,7 +377,6 @@ void didUpdateWidget(covariant TransactionsScrean oldWidget) {
             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
             child: Column(
               children: [
-                BannerAdFactory().build(),
                 const SizedBox(height: 8),
                 if ((viewModel.cardList.isNotEmpty) ||
                     (viewModel.fixedCards.isNotEmpty)) ...[
