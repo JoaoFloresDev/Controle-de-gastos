@@ -62,11 +62,10 @@ class TransactionsRepositoryLocal implements ITransactionsRepository {
     });
   }
 
-  // MARK: - Delete All Cards
-  static Future<void> deleteAllCards() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool result = await prefs.remove(_storageKey);
-    print("Delet result = $result");
-  }
+  // static Future<void> deleteAllCards() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   bool result = await prefs.remove(_storageKey);
+  //   print("Delet result = $result");
+  // }
 
 }

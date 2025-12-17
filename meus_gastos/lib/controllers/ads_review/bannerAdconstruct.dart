@@ -12,7 +12,7 @@ class BannerAdConstruct extends StatelessWidget {
     return Consumer2<BannerAdViewModel, ProManeger>(
       builder: (context, adViewModel, proManager, child) {
         // Se o usuário é Pro, não mostra anúncio
-        
+        print(proManager.isPro);
         if (proManager.isPro) {
           return const SizedBox();
         }
@@ -23,8 +23,7 @@ class BannerAdConstruct extends StatelessWidget {
           alignment: Alignment.center,
           child: Stack(
             children: [
-              if (!adViewModel.isAdLoaded)
-                Center(child: LoadingContainer()),
+              if (!adViewModel.isAdLoaded) Center(child: LoadingContainer()),
               if (adViewModel.isAdLoaded && adViewModel.bannerAd != null)
                 Align(
                   alignment: Alignment.bottomCenter,

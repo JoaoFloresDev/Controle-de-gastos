@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/data/FixedExpensesRepository.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesServiceRefatore.dart';
@@ -11,6 +12,8 @@ class FixedExpensesViewModel extends ChangeNotifier {
 
   FixedExpensesService fixedExpensesService = FixedExpensesService();
 
+  TransactionsViewModel? _transactionsVM;
+
   List<FixedExpense> _fixedExpense = [];
   List<FixedExpense> get fixedExpenses => _fixedExpense;
 
@@ -19,38 +22,103 @@ class FixedExpensesViewModel extends ChangeNotifier {
 
   List<FixedExpense> listFilteredFixedCardsShow = [];
 
-  Future<void> fetchExpenses() async {
-    _fixedExpense = await _repo.fetch();
+  List<CardModel> listFixedExpenseAsNormalCard = [];
+
+  Future<void> init() async {
+    await fetchExpenses();
+    _recalculate();
+  }
+
+  void updateTransactionsVM(TransactionsViewModel transactionsVM) {
+    if (_transactionsVM == transactionsVM) return;
+
+    // Remove listener antigo
+    
+    _transactionsVM?.removeListener(_onTransactionsChanged);
+
+    _transactionsVM = transactionsVM;
+
+    // Adiciona listener novo
+    _transactionsVM!.addListener(_onTransactionsChanged);
+
+    _recalculate();
+  }
+
+  void _onTransactionsChanged() {
+    _recalculate();
+  }
+
+  void _recalculate() {
+    if (_transactionsVM == null) return;
+
+    print("RECAUCULATE...");
+
+    final cards = _transactionsVM!.cardList;
+    final now = DateTime.now();
+
+    listFilteredFixedCardsShow = fixedExpensesService.filteredFixedCardsShow(
+      cards,
+      _fixedExpense,
+      now,
+    );
+
+    listFixedExpenseAsNormalCard = listFilteredFixedCardsShow
+        .map((item) => fixedExpensesService.fixedToNormalCard(item, now))
+        .toList();
+
     notifyListeners();
   }
 
-  void addExpense(FixedExpense fexpense) {
+  Future<void> fetchExpenses() async {
+    _fixedExpense = await _repo.fetch();
+    _recalculate();
+  }
+
+  Future<void> addExpense(FixedExpense fexpense) async {
     _fixedExpense.add(fexpense);
-    _repo.add(fexpense);
-    notifyListeners();
+    await _repo.add(fexpense);
+    _recalculate();
   }
 
   void removeExpense(String expenseId) {
     _fixedExpense.remove(expenseId);
     _repo.delete(expenseId);
+    _recalculate();
+  }
+
+  void filteredFixedCardsShow(List<CardModel> cards, DateTime currentDate) {
+    for (var fc in _fixedExpense) {
+      print(fc.price);
+    }
+
+    fixedToNormalCardList(currentDate);
+
+    listFilteredFixedCardsShow = fixedExpensesService.filteredFixedCardsShow(
+        cards, _fixedExpense, currentDate);
+
     notifyListeners();
   }
 
-  Future<void> getFixedExpenseIds(List<FixedExpense> fcards) async {
-    fcardIds = await fixedExpensesService.getFixedExpenseIds(fcards);
+  Future<void> delete(FixedExpense card) async {
+    _fixedExpense.remove(card);
+    _repo.delete(card.id);
+
+    _recalculate();
   }
 
-  void getCurrentWeekdayDate(DateTime referenceDate) {
-    currentWeekdayDate =
-        fixedExpensesService.getCurrentWeekdayDate(referenceDate);
-  }
-
-  Future<void> filteredFixedCardsShow(DateTime currentDate) async {
-    listFilteredFixedCardsShow = await fixedExpensesService
-        .filteredFixedCardsShow(_fixedExpense, currentDate);
+  void fixedToNormalCardList(DateTime currentDate) {
+    listFixedExpenseAsNormalCard = listFilteredFixedCardsShow
+        .map((item) => fixedToNormalCard(item, DateTime.now()))
+        .toList();
   }
 
   CardModel fixedToNormalCard(FixedExpense fixedCard, DateTime currentDate) {
     return fixedExpensesService.fixedToNormalCard(fixedCard, currentDate);
+  }
+
+  @override
+  void dispose() {
+    _transactionsVM?.removeListener(_onTransactionsChanged);
+    super.dispose();
   }
 }

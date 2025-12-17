@@ -19,7 +19,7 @@ class FixedExpensesService {
     return fc;
   }
 
-  Future<List<String>> getFixedExpenseIds(List<FixedExpense> listExpenses) async {
+  List<String> getFixedExpenseIds(List<FixedExpense> listExpenses) {
     final List<String> fixedExpenseIds = [];
     if (listExpenses != null) {
       for (var item in listExpenses) {
@@ -46,10 +46,8 @@ class FixedExpensesService {
     return today.add(Duration(days: difference));
   }
 
-  Future<List<FixedExpense>> filteredFixedCardsShow(
-      List<FixedExpense> fixedCards, DateTime currentDate) async {
-    // ERRADO
-    List<CardModel> normalCards = await CardService.retrieveCards();
+  List<FixedExpense> filteredFixedCardsShow(
+      List<CardModel> normalCards, List<FixedExpense> fixedCards, DateTime currentDate)  {
     currentDate = DateTime.now();
 
     // printCardsInfo();

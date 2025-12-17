@@ -11,7 +11,6 @@ import 'package:meus_gastos/controllers/Transactions/data/TransactionsRepository
 import 'package:meus_gastos/controllers/Transactions/data/TransactionsRepositorySelector.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/FixedExpensesViewModel.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/data/FixedExpensesRepository.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:provider/provider.dart';
 
 class AppProviders extends StatelessWidget {
@@ -66,12 +65,24 @@ class AppProviders extends StatelessWidget {
             )..load();
           },
         ),
-        ChangeNotifierProvider<FixedExpensesViewModel>(
-          key: ValueKey(context.read<LoginViewModel>().user?.uid ?? ""),
+        // ChangeNotifierProvider<FixedExpensesViewModel>(
+        //   key: ValueKey(context.read<LoginViewModel>().user?.uid ?? ""),
+        //   create: (context) {
+        //     final loginVM = context.read<LoginViewModel>();
+        //     final _repo = FixedExpensesRepository(loginVM);
+        //     return FixedExpensesViewModel(_repo)..start();
+        //   },
+        // ),
+        ChangeNotifierProxyProvider<TransactionsViewModel,
+            FixedExpensesViewModel>(
           create: (context) {
             final loginVM = context.read<LoginViewModel>();
-            final _repo = FixedExpensesRepository(loginVM);
-            return FixedExpensesViewModel(_repo);
+            final repo = FixedExpensesRepository(loginVM);
+            return FixedExpensesViewModel(repo)..init();
+          },
+          update: (context, transactionsVM, fixedVM) {
+            fixedVM!.updateTransactionsVM(transactionsVM);
+            return fixedVM;
           },
         ),
       ],

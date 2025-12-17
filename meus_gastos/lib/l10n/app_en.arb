@@ -185,5 +185,15 @@
     "set": "Set",
     "totalGoalForMonth": "Total budget for a month",
     "currentGoal" : "Current Goal",
-    "setGoal" : "Set Goal"
+    "setGoal" : "Set Goal",
+    "noGoalsYet": "No Goals Yet",
+    "noGoalsDescription": "Start taking control of your finances by setting monthly spending goals",
+    "trackYourSpending": "Track Your Spending",
+    "trackYourSpendingDescription": "Monitor your expenses in real-time",
+    "stayOnBudget": "Stay on Budget",
+    "stayOnBudgetDescription": "Set limits for each category",
+    "getAlerts": "Get Alerts",
+    "getAlertsDescription": "Receive notifications when approaching limits",
+    "createFirstGoal": "Create My First Goal",
+    "tapCategoryToSetGoal": "Tap any category below to set a goal"
 }

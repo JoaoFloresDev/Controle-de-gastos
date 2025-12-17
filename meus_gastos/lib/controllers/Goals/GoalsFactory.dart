@@ -24,7 +24,7 @@ class GoalsFactory extends StatelessWidget {
         categoryViewModel: categoryVM,
         transactionsViewModel: transactionsVM,
         goalsRepo: goalRepo,
-      ),
+      )..init(),
       child: Goalsscrean(
         title: title,
       ),

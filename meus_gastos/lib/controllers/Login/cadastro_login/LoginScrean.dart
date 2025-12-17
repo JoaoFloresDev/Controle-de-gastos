@@ -13,19 +13,19 @@ class LoginScreen extends StatefulWidget {
   final bool isPro;
   final void Function(BuildContext context) showProModal;
   final LoginViewModel viewModel;
+  final VoidCallback showSyncModel;
   LoginScreen(
-      {
-      required this.isPro,
+      {required this.isPro,
       required this.showProModal,
       required this.loadcards,
-      required this.viewModel});
+      required this.viewModel,
+      required this.showSyncModel});
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   Authentication authService = Authentication();
 
   String? errorMenssage;
@@ -70,7 +70,6 @@ class _LoginScreenState extends State<LoginScreen> {
             Expanded(
               child: Stack(
                 children: [
-
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 24, vertical: 16),
@@ -126,7 +125,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         const SizedBox(height: 40),
 
-
                         SizedBox(
                           width: double.infinity,
                           height: 56,
@@ -135,19 +133,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ? () async {
                                     await widget.viewModel.login();
                                     if (widget.viewModel.isLogin) {
-
                                       print(
                                           'Usuário logado: ${widget.viewModel.user!.displayName}');
-                                      
-                                      setState(() {
-                                        widget.loadcards();
-                                      });
-
+                                      widget.showSyncModel();
+                                      // setState(() {
+                                      //   widget.loadcards();
+                                      // });
                                     } else {
                                       print('Login cancelado ou falhou.');
                                     }
                                     Navigator.of(context).pop();
-
                                   }
                                 : null,
                             style: ElevatedButton.styleFrom(

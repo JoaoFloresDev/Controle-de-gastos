@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:provider/provider.dart';
 
 class ListCardRecorrent extends StatefulWidget {
   final CardModel card;
   final Function(CardModel) onTap;
-  final Future<void> onAddClicked;
+  final VoidCallback onAddClicked;
 
   const ListCardRecorrent({
     Key? key,
@@ -72,12 +74,13 @@ class _ListCardRecorrentState extends State<ListCardRecorrent>
       id: CardService.generateUniqueId(),
       idFixoControl: widget.card.idFixoControl,
     );
-    await CardService().addCard(newCard);
+    await context.read<TransactionsViewModel>().addCard(newCard);
+    await widget.onAddClicked;
   }
 
   Future<void> fakeExpens(CardModel cardFix) async {
     cardFix.amount = 0;
-    await CardService().addCard(cardFix);
+    await context.read<TransactionsViewModel>().addCard(cardFix);
   }
 
   @override
@@ -138,7 +141,7 @@ class _ListCardRecorrentState extends State<ListCardRecorrent>
                   ),
                 ),
                 const SizedBox(height: 12),
-                
+
                 // Header com categoria e valor
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -171,7 +174,8 @@ class _ListCardRecorrentState extends State<ListCardRecorrent>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  TranslateService.getTranslatedCategoryUsingModel(
+                                  TranslateService
+                                      .getTranslatedCategoryUsingModel(
                                     context,
                                     widget.card.category,
                                   ),
@@ -184,7 +188,8 @@ class _ListCardRecorrentState extends State<ListCardRecorrent>
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  DateFormat(dateFormatString).format(widget.card.date),
+                                  DateFormat(dateFormatString)
+                                      .format(widget.card.date),
                                   style: const TextStyle(
                                     fontSize: 12,
                                     color: AppColors.labelPlaceholder,
@@ -213,7 +218,7 @@ class _ListCardRecorrentState extends State<ListCardRecorrent>
                     ),
                   ],
                 ),
-                
+
                 // Descrição (se existir)
                 if (widget.card.description.isNotEmpty) ...[
                   const SizedBox(height: 12),
@@ -251,7 +256,7 @@ class _ListCardRecorrentState extends State<ListCardRecorrent>
                     ],
                   ),
                 ],
-                
+
                 // Botões de ação
                 const SizedBox(height: 12),
                 Divider(

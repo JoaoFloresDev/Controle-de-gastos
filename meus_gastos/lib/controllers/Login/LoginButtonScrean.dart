@@ -20,12 +20,13 @@ class LoginButtonScrean extends StatelessWidget {
               loginViewModel,
               proManeger,
               onLoginChange,
+              
             );
           else
             LoginRoute()
                 .loginScrean(context, loginViewModel, proManeger, onLoginChange);
 
-          onLoginChange();
+          // onLoginChange();
         },
         child: Padding(
           padding: EdgeInsets.only(right: 8.0),

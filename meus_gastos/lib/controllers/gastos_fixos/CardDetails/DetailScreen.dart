@@ -11,11 +11,13 @@ import 'package:flutter/material.dart';
 class DetailScreen extends StatefulWidget {
   final FixedExpense card;
   final VoidCallback onAddClicked;
+  final Function(FixedExpense) onDeleteCliked;
 
   const DetailScreen({
     super.key,
     required this.card,
     required this.onAddClicked,
+    required this.onDeleteCliked,
   });
 
   @override
@@ -47,7 +49,7 @@ class _DetailScreen extends State<DetailScreen> {
                 Navigator.of(context).pop();
               },
               onDeletePressed: () {
-                Fixedexpensesservice.deleteCard(widget.card.id);
+                widget.onDeleteCliked(widget.card);
                 Future.delayed(const Duration(milliseconds: 300), () {
                   widget.onAddClicked();
                   Navigator.of(context).pop();

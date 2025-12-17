@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -67,6 +68,7 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
       isYearlyPro = prefs.getBool('yearly.pro') ?? false;
       isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
     });
+    widget.onSubscriptionPurchased();
   }
 
   void getProducts() async {
@@ -126,15 +128,14 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
     final prefs = await SharedPreferences.getInstance();
     if (storeProductIds[0].id == purchaseDetails.productID) {
       await prefs.setBool(monthlyProKey, true);
-      setState(() {
+      
         isMonthlyPro = true;
-        
-      });
+      
     } else if (storeProductIds[1].id == purchaseDetails.productID) {
       await prefs.setBool(YearlyProKey, true);
-      setState(() {
-        isYearlyPro = true;
-      });
+      
+      isYearlyPro = true;
+      
     }
     // Atualizar UI após restauração
     updateProStatus();

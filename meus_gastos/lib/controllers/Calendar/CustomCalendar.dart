@@ -71,7 +71,7 @@ class CustomCalendarState extends State<CustomCalendar> {
   Widget build(BuildContext context) {
     // 1. Busca todas as transações do ViewModel
     final transactionsViewModel = context.watch<TransactionsViewModel>();
-    final allTransactions = transactionsViewModel.cardList;
+    final allTransactions = transactionsViewModel.cardList.where((card)=>card.amount > 0).toList();
 
     // 2. Calcula gastos diários baseado em TODAS as transações
     _dailyExpenses = _calculateDailyExpenses(allTransactions);

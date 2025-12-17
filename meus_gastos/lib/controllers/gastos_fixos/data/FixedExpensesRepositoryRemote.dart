@@ -7,9 +7,10 @@ class FixedExpensesRepositoryRemote {
 
   FixedExpensesRepositoryRemote({required this.userId});
 
-  Future<List<FixedExpense>> fetch() async{
+  Future<List<FixedExpense>> fetch() async {
     try {
-      QuerySnapshot snapshot = await FirebaseService().firestore
+      QuerySnapshot snapshot = await FirebaseService()
+          .firestore
           .collection(userId)
           .doc('fixedCards')
           .collection('cardList')
@@ -25,10 +26,10 @@ class FixedExpensesRepositoryRemote {
     }
   }
 
-  Future<void> add(FixedExpense card) async{
-    
+  Future<void> add(FixedExpense card) async {
     try {
-      await FirebaseService().firestore
+      await FirebaseService()
+          .firestore
           .collection(userId)
           .doc('fixedCards')
           .collection("cardList")
@@ -40,23 +41,25 @@ class FixedExpensesRepositoryRemote {
     }
   }
 
-    Future<void> update(FixedExpense card) async {
-      try {
-        await FirebaseService().firestore
-            .collection(userId)
-            .doc('fixedCards')
-            .collection("cardList")
-            .doc(card.id)
-            .update(card.toJson());
-        print("Gasto atualizado com sucesso!");
-      } catch (e) {
-        print("Erro ao atualizar: $e");
-      }
+  Future<void> update(FixedExpense card) async {
+    try {
+      await FirebaseService()
+          .firestore
+          .collection(userId)
+          .doc('fixedCards')
+          .collection("cardList")
+          .doc(card.id)
+          .update(card.toJson());
+      print("Gasto atualizado com sucesso!");
+    } catch (e) {
+      print("Erro ao atualizar: $e");
     }
+  }
 
   Future<void> delete(String cardId) async {
     try {
-      await FirebaseService().firestore
+      await FirebaseService()
+          .firestore
           .collection(userId)
           .doc('fixedCards')
           .collection("cardList")
@@ -72,10 +75,9 @@ class FixedExpensesRepositoryRemote {
 
 // Future<void> addDatesOfOfflineStateFixedCards() async {
 //     List<FixedExpense> cards =
-//         await Fixedexpensesservice.getSortedFixedExpenses();
+//         await FixedExpensesService.getSortedFixedExpenses();
 //     for (var card in cards) {
 //       await FirebaseService().firestore.collection(FirebaseService().userId!).doc(card.id).set(card.toJson());
 //       // await firestore.collection(userId).doc(card.id)
 //     }
 //   }
-

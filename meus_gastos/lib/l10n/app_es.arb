@@ -159,6 +159,16 @@
   "dateAndHour" : "Fecha y hora",
   "insertExpend" : "Insertar gasto",
   "addTransactionPopupTitle" : "Registrar gasto",
-  "addTransactionPopupSubtitle" : "Monto gastado"
+  "addTransactionPopupSubtitle" : "Monto gastado",
+  "noGoalsYet": "Aún No Hay Metas",
+  "noGoalsDescription": "Comienza a controlar tus finanzas estableciendo metas mensuales de gastos",
+  "trackYourSpending": "Rastrea Tus Gastos",
+  "trackYourSpendingDescription": "Monitorea tus gastos en tiempo real",
+  "stayOnBudget": "Mantén el Presupuesto",
+  "stayOnBudgetDescription": "Establece límites para cada categoría",
+  "getAlerts": "Recibe Alertas",
+  "getAlertsDescription": "Recibe notificaciones al acercarte a los límites",
+  "createFirstGoal": "Crear Mi Primera Meta",
+  "tapCategoryToSetGoal": "Toca cualquier categoría abajo para establecer una meta"
   
 }

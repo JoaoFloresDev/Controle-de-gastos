@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 
-class Fixedexpensesservice {
+class FixedExpensesService {
   static Future<List<FixedExpense>> getSortedFixedExpenses() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString('fixed_expenses');
@@ -192,7 +192,7 @@ class Fixedexpensesservice {
 
   static Future<void> printCardsInfo() async {
     List<FixedExpense> cards =
-        await Fixedexpensesservice.getSortedFixedExpenses();
+        await FixedExpensesService.getSortedFixedExpenses();
     for (var card in cards) {
       print('ID: ${card.id}');
       print('Description: ${card.description}');

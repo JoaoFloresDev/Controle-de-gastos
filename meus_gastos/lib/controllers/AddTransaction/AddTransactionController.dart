@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/FixedExpensesViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
@@ -73,14 +74,9 @@ class _AddTransactionControllerState extends State<AddTransactionController>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    //mark - lifecycle
-
-    super.initState();
-    _loadFixedCards();
-
-    WidgetsBinding.instance.addObserver(this);
     // Aguarda renderizar para medir a altura real do HeaderCard
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      // _loadFixedCards();
       _updateHeaderHeight();
     });
   }
@@ -89,24 +85,24 @@ class _AddTransactionControllerState extends State<AddTransactionController>
   void didUpdateWidget(covariant AddTransactionController oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.isActive && !oldWidget.isActive) {
-      _loadFixedCards();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // _loadFixedCards();
+        _updateHeaderHeight();
+      });
     }
   }
 
   List<CardModel> mockCards = [];
-  Future<void> _loadFixedCards() async {
-    List<FixedExpense> fcard =
-        await Fixedexpensesservice.getSortedFixedExpenses();
-    fcard = await Fixedexpensesservice.filteredFixedCardsShow(
-        fcard, DateTime.now());
-    List<CardModel> fixedCards = fcard
-        .map((item) =>
-            Fixedexpensesservice.fixedToNormalCard(item, DateTime.now()))
-        .toList();
-    setState(() {
-      mockCards = fixedCards;
-    });
-  }
+
+  // Future<void> _loadFixedCards() async {
+  //   final fixedVM = context.read<FixedExpensesViewModel>();
+  //   final transactionsVM = context.read<TransactionsViewModel>();
+
+  //   fixedVM.filteredFixedCardsShow(
+  //     transactionsVM.cardList,
+  //     DateTime.now(),
+  //   );
+  // }
 
   void _updateHeaderHeight() {
     final box = _headerCardKey.currentContext?.findRenderObject() as RenderBox?;
@@ -344,7 +340,8 @@ class _AddTransactionControllerState extends State<AddTransactionController>
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-
+    // final fixedVM = context.watch<FixedExpensesViewModel>();
+    // final fixedCards = fixedVM.listFixedExpenseAsNormalCard;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       behavior: HitTestBehavior.deferToChild,
@@ -396,48 +393,68 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                   }
                 },
               ),
-              mockCards.isNotEmpty && showRecorrentCard
-                  ? SizedBox(height: 0)
-                  : SizedBox(height: 16),
-              AnimatedOpacity(
-                opacity: mockCards.isNotEmpty && showRecorrentCard ? 1.0 : 0.0,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeOut,
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeOut,
-                  height: mockCards.isNotEmpty && showRecorrentCard
-                      ? 104.0
-                      : 0.0, // Altura estimada (Separador + Lista)
-                  child: SingleChildScrollView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const CustomSeparator(),
-                        HorizontalCompactCardList(
-                          cards: mockCards,
-                          onTap: (card) => widget.onAddClicked(),
-                          onAddClicked: () async {
-                            _loadCards();
-                            _loadFixedCards();
-                            widget.onAddClicked();
-                          },
-                          onCardsEmpty: () {
-                            print("aqui! recore");
-                            _loadFixedCards();
-                            setState(() {
-                              // if (mockCards.isEmpty) {
-                              //     showRecorrentCard = false;
-                              // }
-                            });
-                          },
+              Consumer<FixedExpensesViewModel>(
+                  builder: (context, fixedCards, child) {
+                // fixedCards.filteredFixedCardsShow(
+                //     context.read<TransactionsViewModel>().cardList,
+                //     DateTime.now());
+                return Column(children: [
+                  fixedCards.listFixedExpenseAsNormalCard.isNotEmpty &&
+                          showRecorrentCard
+                      ? SizedBox(height: 0)
+                      : SizedBox(height: 16),
+                  AnimatedOpacity(
+                    opacity:
+                        fixedCards.listFixedExpenseAsNormalCard.isNotEmpty &&
+                                showRecorrentCard
+                            ? 1.0
+                            : 0.0,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOut,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeOut,
+                      height:
+                          fixedCards.listFixedExpenseAsNormalCard.isNotEmpty &&
+                                  showRecorrentCard
+                              ? 104.0
+                              : 0.0, // Altura estimada (Separador + Lista)
+                      child: SingleChildScrollView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const CustomSeparator(),
+                            HorizontalCompactCardList(
+                              cards: fixedCards.listFixedExpenseAsNormalCard,
+                              onTap: (card) => widget.onAddClicked(),
+                              onAddClicked: (card) async {
+                                context
+                                    .read<TransactionsViewModel>()
+                                    .addCard(card);
+                                widget.onAddClicked();
+                                _loadCards();
+                                fixedCards.filteredFixedCardsShow(
+                                context.read<TransactionsViewModel>().cardList,
+                                DateTime.now());
+                              },
+                              onCardsEmpty: () {
+                                print("aqui! recore");
+                                // _loadFixedCards();
+                                setState(() {
+                                  fixedCards.filteredFixedCardsShow(
+                                  context.read<TransactionsViewModel>().cardList,
+                                  DateTime.now());
+                                });
+                              },
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ),
+                ]);
+              }),
             ],
           ],
         ),
@@ -460,7 +477,7 @@ class _AddTransactionControllerState extends State<AddTransactionController>
         onCategoriesLoaded: (loadedCategories) {
           // You can now use the 'loadedCategories' list in this parent widget's state if needed.
           // For example: setState(() => _myListOfCategories = loadedCategories));
-          _loadFixedCards();
+          // _loadFixedCards();
           print('Categories have been loaded in the parent widget!');
         },
       ),

@@ -7,6 +7,7 @@ import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCardRecorrent.dart';
 import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/FixedExpensesViewModel.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -54,7 +55,22 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     super.initState();
     currentDate = DateTime.now();
     isLogin = false;
+
+    // Carrega dados iniciais após o primeiro frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        // _loadInitialData();
+      }
+    });
   }
+
+  // Future<void> _loadInitialData() async {
+  //   final transVM = context.read<TransactionsViewModel>();
+  //   final fixedVM = context.read<FixedExpensesViewModel>();
+
+  //   await transVM.loadCards();
+  //   fixedVM.filteredFixedCardsShow(transVM.cardList, currentDate);
+  // }
 
   @override
   void didUpdateWidget(covariant TransactionsScrean oldWidget) {
@@ -62,9 +78,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     if (widget.isActive && !oldWidget.isActive) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
-          Provider.of<TransactionsViewModel>(context, listen: false)
-              .loadCards();
-          // Adicione esta linha para notificar o header
+          // _loadInitialData(); // Reutiliza o mesmo método
           widget.cardEvents.notifyCardAdded();
         }
       });
@@ -118,24 +132,28 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
             ],
           ),
         ),
-        body: Consumer2<TransactionsViewModel, LoginViewModel>(
-          builder: (context, viewModel, loginVM, child) => GestureDetector(
+        body: Consumer2<TransactionsViewModel, FixedExpensesViewModel>(
+            builder: (context, transViewModel, fixedVM, child) {
+          return GestureDetector(
             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
             child: Column(
               children: [
                 BannerAdFactory().build(),
                 const SizedBox(height: 8),
                 // Aqui eu vou colocar o date_select para filtrar os cards
-                if ((viewModel.cardList.isNotEmpty) ||
-                    (viewModel.fixedCards.isNotEmpty)) ...[
-                  _cardListBuild(viewModel),
-                ] else ...[
-                  _empityListCardBuild(),
-                ]
+                if (transViewModel.isLoading)
+                  _buildLoadingIndicator()
+                else
+                  if ((transViewModel.cardList.isNotEmpty) ||
+                      (transViewModel.fixedCards.isNotEmpty)) ...[
+                    _cardListBuild(transViewModel, fixedVM),
+                  ] else ...[
+                    _empityListCardBuild(),
+                  ]
               ],
             ),
-          ),
-        ),
+          );
+        }),
         backgroundColor: AppColors.background1,
       ),
     );
@@ -143,8 +161,45 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
 
   //MARK: Widgets
 
+  Widget _buildLoadingIndicator() {
+    return Container(
+      padding: const EdgeInsets.all(40),
+      child: Center(
+        child: Container(
+          width: 60,
+          height: 60,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                AppColors.button,
+                AppColors.button.withOpacity(0.6),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.button.withOpacity(0.3),
+                blurRadius: 15,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: const Padding(
+            padding: EdgeInsets.all(12),
+            child: CircularProgressIndicator(
+              color: Colors.white,
+              strokeWidth: 3,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   void _showProModal(BuildContext context) async {
-    ProManeger proViewModel = ProManeger();
+    ProManeger proViewModel = context.read<ProManeger>();
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -154,9 +209,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
           return ProModal(
             isLoading: _isLoading,
             onSubscriptionPurchased: () {
-              setState(() {
-                proViewModel.checkUserProStatus();
-              });
+              proViewModel.checkUserProStatus();
             },
           );
         } else {
@@ -173,13 +226,17 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     );
   }
 
-  Widget _cardListBuild(TransactionsViewModel viewModel) {
+  Widget _cardListBuild(TransactionsViewModel transactionsViewModel,
+      FixedExpensesViewModel fExpensesVM) {
     // Combine fixedCards e cardList em uma única lista de widgets
     final allCards = <Widget>[];
 
+    // fExpensesVM.filteredFixedCardsShow(
+    //     transactionsViewModel.cardList, currentDate);
+
     // Adiciona fixedCards
-    for (var fcard in viewModel.fixedCards) {
-      var card = viewModel.fixedToNormalCard(fcard);
+    for (var fcard in fExpensesVM.listFilteredFixedCardsShow.reversed) {
+      var card = fExpensesVM.fixedToNormalCard(fcard, currentDate);
 
       if (card.amount == 0) continue;
 
@@ -191,21 +248,24 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
               widget.onAddClicked();
             },
             card: card,
-            onAddClicked: viewModel.loadCards(),
+            onAddClicked: () async {
+              await transactionsViewModel.loadCards();
+            },
           ),
         ),
       );
     }
 
     // Adiciona normal cards
-    for (var card in viewModel.cardList.reversed) {
+    for (var card in transactionsViewModel.cardList.reversed) {
+      if (card.amount == 0) continue;
       allCards.add(
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 1),
           child: ListCard(
             onTap: (card) {
               widget.onAddClicked();
-              _cardDetails(context, card, viewModel);
+              _cardDetails(context, card, transactionsViewModel);
             },
             card: card,
             background: AppColors.card,
@@ -425,6 +485,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
             onAddClicked: () {
               setState(() {
                 viewModel.loadCards();
+                // _loadInitialData();
               });
             },
             onDelete: (card) {
@@ -441,6 +502,9 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
 
   void _showCupertinoModalBottomFixedExpenses(BuildContext context) {
     FocusScope.of(context).unfocus();
+    FixedExpensesViewModel fixedExpensesViewModel =
+        context.read<FixedExpensesViewModel>();
+    CategoryViewModel categoryViewModel = context.read<CategoryViewModel>();
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -458,8 +522,11 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
             onAddPressedBack: () {
               setState(() {
                 widget.cardEvents.notifyCardAdded();
+                // _loadInitialData();
               });
             },
+            fixedExpensesViewModel: fixedExpensesViewModel,
+            categories: categoryViewModel.avaliebleCetegories,
           ),
         );
       },

@@ -58,7 +58,7 @@ class _DetailScreen extends State<DetailScreenFixedExpenses> {
                 Navigator.of(context).pop();
               },
               onDeletePressed: () {
-                // Fixedexpensesservice.deleteCard(widget.card.id);
+                // FixedExpensesService.deleteCard(widget.card.id);
                 Future.delayed(const Duration(milliseconds: 300), () {
                   // Adiciona falso gasto normal, para que não mostre o gasto fixo no determinado período
                   widget.onDeleteClicked(widget.card);

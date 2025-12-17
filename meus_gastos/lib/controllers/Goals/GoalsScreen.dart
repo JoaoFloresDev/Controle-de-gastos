@@ -51,7 +51,9 @@ class GoalsscreanState extends State<Goalsscrean>
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<GoalsViewModel>();
+    final viewModel = context.watch<GoalsViewModel>();
+    final hasGoals =
+        viewModel.totalGoal > 0;
     return Scaffold(
       appBar: _buildAppBar(),
       body: GestureDetector(
@@ -61,9 +63,14 @@ class GoalsscreanState extends State<Goalsscrean>
             SliverToBoxAdapter(
               child: _buildAdBanner(),
             ),
-            SliverToBoxAdapter(
-              child: _buildHeaderSection(),
-            ),
+            if (hasGoals) ...[
+              SliverToBoxAdapter(
+                child: _buildHeaderSection(),
+              ),
+            ] else
+              SliverToBoxAdapter(
+                child: _buildEmptyGoalsState(),
+              ),
             if (viewModel.isLoading)
               SliverToBoxAdapter(
                 child: _buildLoadingIndicator(),
@@ -115,145 +122,252 @@ class GoalsscreanState extends State<Goalsscrean>
     );
   }
 
-PreferredSizeWidget _buildAppBar() {
-  return CupertinoNavigationBar(
-    backgroundColor: AppColors.background1,
-    middle: MediaQuery(
-      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-      child: Text(
-        widget.title,
-        style: const TextStyle(color: AppColors.label, fontSize: 20),
+  PreferredSizeWidget _buildAppBar() {
+    return CupertinoNavigationBar(
+      backgroundColor: AppColors.background1,
+      middle: MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+        child: Text(
+          widget.title,
+          style: const TextStyle(color: AppColors.label, fontSize: 20),
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   Widget _buildAdBanner() {
     return BannerAdFactory().build();
   }
 
-Widget _buildHeaderSection() {
-  return Container(
-    margin: const EdgeInsets.fromLTRB(16, 8, 16, 6),
-    decoration: BoxDecoration(
-      color: AppColors.card.withOpacity(0.6),
-      borderRadius: BorderRadius.circular(18),
-      border: Border.all(
-        color: AppColors.label.withOpacity(0.08),
-        width: 1,
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.05),
-          blurRadius: 15,
-          offset: const Offset(0, 5),
+  Widget _buildEmptyGoalsState() {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: AppColors.card.withOpacity(0.6),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: AppColors.label.withOpacity(0.08),
+          width: 1,
         ),
-      ],
-    ),
-    child: Padding(
-      padding: const EdgeInsets.all(20),
-      child: Consumer<GoalsViewModel>(builder: (context, viewModel, child) {
-        viewModel.formatDate(context);
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Data
-            Text(
-              viewModel.formattedDate,
-              style: const TextStyle(
-                color: AppColors.labelPlaceholder,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          // Ícone
+          Container(
+            width: 56,
+            height: 56,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  AppColors.button.withOpacity(0.15),
+                  AppColors.button.withOpacity(0.05),
+                ],
               ),
             ),
-            const SizedBox(height: 4),
+            child: const Icon(
+              Icons.flag_outlined,
+              color: AppColors.button,
+              size: 28,
+            ),
+          ),
+          const SizedBox(height: 16),
 
-            // Valor e Porcentagem
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+          // Título
+          Text(
+            AppLocalizations.of(context)!.noGoalsYet,
+            style: const TextStyle(
+              color: AppColors.label,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              height: 1.2,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 8),
+
+          // Descrição
+          Text(
+            AppLocalizations.of(context)!.noGoalsDescription,
+            style: TextStyle(
+              color: AppColors.label.withOpacity(0.7),
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              height: 1.4,
+            ),
+            textAlign: TextAlign.center,
+            maxLines: 2,
+          ),
+          const SizedBox(height: 20),
+
+          // Dica rápida
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              color: AppColors.button.withOpacity(0.08),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  TranslateService.formatCurrency(
-                      viewModel.totalExpenses, context),
-                  style: const TextStyle(
-                    fontSize: 24,
-                    color: AppColors.label,
-                    fontWeight: FontWeight.w700,
+                Icon(
+                  Icons.lightbulb_outline,
+                  color: AppColors.button,
+                  size: 18,
+                ),
+                const SizedBox(width: 8),
+                Flexible(
+                  child: Text(
+                    AppLocalizations.of(context)!.tapCategoryToSetGoal,
+                    style: TextStyle(
+                      color: AppColors.label.withOpacity(0.8),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(width: 16),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: viewModel.totalExpenseIsOverGoal()
-                        ? AppColors.deletionButton.withOpacity(0.1)
-                        : AppColors.button.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    "${viewModel.totalProgressPercent.round()}%",
-                    style: TextStyle(
-                      fontSize: 15,
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeaderSection() {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 8, 16, 6),
+      decoration: BoxDecoration(
+        color: AppColors.card.withOpacity(0.6),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: AppColors.label.withOpacity(0.08),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 15,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Consumer<GoalsViewModel>(builder: (context, viewModel, child) {
+          viewModel.formatDate(context);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Data
+              Text(
+                viewModel.formattedDate,
+                style: const TextStyle(
+                  color: AppColors.labelPlaceholder,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 4),
+
+              // Valor e Porcentagem
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    TranslateService.formatCurrency(
+                        viewModel.totalExpenses, context),
+                    style: const TextStyle(
+                      fontSize: 24,
+                      color: AppColors.label,
                       fontWeight: FontWeight.w700,
-                      color: viewModel.totalExpenseIsOverGoal()
-                          ? AppColors.deletionButton
-                          : AppColors.button,
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-
-            // Barra de progresso
-            ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: LinearPercentIndicator(
-                padding: EdgeInsets.zero,
-                animation: true,
-                animationDuration: 1000,
-                lineHeight: 8.0,
-                percent: (viewModel.totalProgressPercent / 100).clamp(0.0, 1.0),
-                barRadius: const Radius.circular(6),
-                linearStrokeCap: LinearStrokeCap.roundAll,
-                backgroundColor: AppColors.label.withOpacity(0.08),
-                progressColor: viewModel.totalExpenseIsOverGoal()
-                    ? AppColors.deletionButton
-                    : AppColors.button,
+                  SizedBox(width: 16),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: viewModel.totalExpenseIsOverGoal()
+                          ? AppColors.deletionButton.withOpacity(0.1)
+                          : AppColors.button.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      "${viewModel.totalProgressPercent.round()}%",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: viewModel.totalExpenseIsOverGoal()
+                            ? AppColors.deletionButton
+                            : AppColors.button,
+                      ),
+                    ),
+                  ),
+                ],
               ),
+              const SizedBox(height: 10),
 
-            ),
-            const SizedBox(height: 12),
+              // Barra de progresso
+              ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                child: LinearPercentIndicator(
+                  padding: EdgeInsets.zero,
+                  animation: true,
+                  animationDuration: 1000,
+                  lineHeight: 8.0,
+                  percent:
+                      (viewModel.totalProgressPercent / 100).clamp(0.0, 1.0),
+                  barRadius: const Radius.circular(6),
+                  linearStrokeCap: LinearStrokeCap.roundAll,
+                  backgroundColor: AppColors.label.withOpacity(0.08),
+                  progressColor: viewModel.totalExpenseIsOverGoal()
+                      ? AppColors.deletionButton
+                      : AppColors.button,
+                ),
+              ),
+              const SizedBox(height: 12),
 
-            // Meta total
-            Row(
-              children: [
-                Text(
-                  "${AppLocalizations.of(context)!.totalGoalForMonth}: ",
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: AppColors.labelPlaceholder,
-                    fontWeight: FontWeight.w500,
+              // Meta total
+              Row(
+                children: [
+                  Text(
+                    "${AppLocalizations.of(context)!.totalGoalForMonth}: ",
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: AppColors.labelPlaceholder,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
-                Text(
-                  TranslateService.formatCurrency(
-                      viewModel.totalGoal, context),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: AppColors.label,
-                    fontWeight: FontWeight.w700,
+                  Text(
+                    TranslateService.formatCurrency(
+                        viewModel.totalGoal, context),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: AppColors.label,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
-        );
-      }),
-    ),
-  );
-}
+                ],
+              ),
+            ],
+          );
+        }),
+      ),
+    );
+  }
+
   Widget _buildCategorySliverGrid(GoalsViewModel viewModel) {
     return AnimatedBuilder(
       animation: _animationController,
@@ -265,8 +379,7 @@ Widget _buildHeaderSection() {
           padding: const EdgeInsets.all(16.0),
           sliver: SliverOpacity(
             opacity: _animationController.value,
-            sliver: Consumer<GoalsViewModel>(
-              builder: (context, viewModel, child) => SliverGrid(
+            sliver: SliverGrid(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   crossAxisSpacing: 8,
@@ -276,9 +389,9 @@ Widget _buildHeaderSection() {
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     final category = viewModel.categories[index];
-                    final spent = viewModel
-                            .expensByCategoryOfCurrentMonth[category.id] ??
-                        0;
+                    final spent =
+                        viewModel.expensByCategoryOfCurrentMonth[category.id] ??
+                            0;
                     final goal = viewModel.goalsByCategory[category.id] ?? 0;
                     final isOverGoal = spent > goal && goal > 0;
 
@@ -287,14 +400,14 @@ Widget _buildHeaderSection() {
                         _buildSetGoalModel(
                             category, spent, goal, isOverGoal, viewModel);
                       },
-                      child: _buildCategoryCard(category, spent, goal, isOverGoal),
+                      child:
+                          _buildCategoryCard(category, spent, goal, isOverGoal),
                     );
                   },
                   childCount: viewModel.categories.length,
                 ),
               ),
             ),
-          ),
         );
       },
     );
@@ -332,7 +445,6 @@ Widget _buildHeaderSection() {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       curve: Curves.easeInOut,
-
       padding: const EdgeInsets.only(top: 10, bottom: 8, left: 8, right: 8),
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -345,7 +457,7 @@ Widget _buildHeaderSection() {
         ),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: isOverGoal 
+          color: isOverGoal
               ? AppColors.deletionButton.withOpacity(0.3)
               : AppColors.label.withOpacity(0.12),
           width: 1.5,
@@ -362,13 +474,13 @@ Widget _buildHeaderSection() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-         SizedBox(
+          SizedBox(
             height: 34,
             child: Center(
               child: Text(
-                TranslateService.getTranslatedCategoryName(context, category.name),
+                TranslateService.getTranslatedCategoryName(
+                    context, category.name),
                 style: const TextStyle(
-
                   fontSize: 13,
                   color: AppColors.label,
                   fontWeight: FontWeight.w600,
@@ -386,7 +498,7 @@ Widget _buildHeaderSection() {
             lineWidth: 6.0,
             animation: true,
             animationDuration: 1200,
-            percent: (spent > goal) && (goal>0)
+            percent: (spent > goal) && (goal > 0)
                 ? 1
                 : goal > 0
                     ? (spent / goal).clamp(0.0, 1.0)
@@ -412,7 +524,6 @@ Widget _buildHeaderSection() {
                 : category.color.withOpacity(0.9),
             backgroundColor: AppColors.card,
           ),
-
           const SizedBox(height: 10),
           if (goal == 0)
             Container(
@@ -444,7 +555,6 @@ Widget _buildHeaderSection() {
                     color: isOverGoal
                         ? AppColors.deletionButton
                         : AppColors.button,
-
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
                   ),
@@ -454,7 +564,6 @@ Widget _buildHeaderSection() {
                   TranslateService.formatCurrency(goal, context),
                   style: const TextStyle(
                     color: AppColors.labelPlaceholder,
-
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
                   ),

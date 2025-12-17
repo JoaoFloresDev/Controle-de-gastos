@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
@@ -8,7 +8,7 @@ import 'package:meus_gastos/services/TranslateService.dart';
 class HorizontalCompactCardList extends StatefulWidget {
   final List<CardModel> cards;
   final Function(CardModel) onTap;
-  final Future<void> Function() onAddClicked;
+  final Future<void> Function(CardModel) onAddClicked;
   final void Function(CardModel card, String action)? onAction;
   final VoidCallback? onCardsEmpty;
 
@@ -139,7 +139,7 @@ class _HorizontalCompactCardListState extends State<HorizontalCompactCardList>
       child: CompactListCardRecorrent(
         card: card,
         onTap: widget.onTap,
-        onAddClicked: widget.onAddClicked,
+        onAddClicked: (card) => widget.onAddClicked(card),
         onAction: isInteractive
             ? (c, action) {
                 if (widget.onAction != null) {
@@ -156,7 +156,7 @@ class _HorizontalCompactCardListState extends State<HorizontalCompactCardList>
 class CompactListCardRecorrent extends StatelessWidget {
   final CardModel card;
   final Function(CardModel) onTap;
-  final Future<void> Function() onAddClicked;
+  final Future<void> Function(CardModel) onAddClicked;
   final void Function(CardModel card, String action)? onAction;
 
   const CompactListCardRecorrent({
@@ -176,15 +176,15 @@ class CompactListCardRecorrent extends StatelessWidget {
       id: CardService.generateUniqueId(),
       idFixoControl: card.idFixoControl,
     );
-    await CardService().addCard(newCard);
-    await onAddClicked();
+    // await CardService().addCard(newCard);
+    await onAddClicked(newCard);
     if (onAction != null) onAction!(card, 'add');
   }
 
   Future<void> fakeExpens() async {
     card.amount = 0;
-    await CardService().addCard(card);
-    await onAddClicked();
+    // await CardService().addCard(card);
+    await onAddClicked(card);
     if (onAction != null) onAction!(card, 'skip');
   }
 

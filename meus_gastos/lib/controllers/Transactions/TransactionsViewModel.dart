@@ -29,9 +29,9 @@ class TransactionsViewModel extends ChangeNotifier {
 
   DateTime get currentDate => _currentDate;
 
+  bool isLoading = true;
+
   void _onLoginChanged() {
-    final userId = loginVM.isLogin ? loginVM.user!.uid : "";
-    final isLoggedIn = loginVM.isLogin;
     loadCards();
   }
 
@@ -54,29 +54,29 @@ class TransactionsViewModel extends ChangeNotifier {
   }
 
   Future<void> loadCards() async {
-    List<CardModel> cards = await repository.retrieve();
-    var fcard = await Fixedexpensesservice.getSortedFixedExpenses();
-    _cardList = cards.where((card) => card.amount > 0).toList();
-    _fixedCards = fcard;
-    _fixedCards = await Fixedexpensesservice.filteredFixedCardsShow(
-        fixedCards, currentDate);
+    isLoading = true;
+    notifyListeners();
 
+    List<CardModel> cards = await repository.retrieve();
+    _cardList = cards.toList();
+
+    isLoading = false;
     notifyListeners();
   }
 
   CardModel fixedToNormalCard(FixedExpense fcard) {
-    return Fixedexpensesservice.fixedToNormalCard(fcard, _currentDate);
+    return FixedExpensesService.fixedToNormalCard(fcard, _currentDate);
   }
 
   Future<void> fakeExpens(FixedExpense cardFix) async {
     cardFix.price = 0;
-    var car = Fixedexpensesservice.fixedToNormalCard(cardFix, _currentDate);
+    var car = FixedExpensesService.fixedToNormalCard(cardFix, _currentDate);
     await CardService().addCard(car);
     // SaveExpensOnCloud().addNewDate(car);
   }
 
   Future<void> deleteCard(CardModel cardModel) async {
-    List<String> idsFixed = await Fixedexpensesservice.getFixedExpenseIds();
+    List<String> idsFixed = await FixedExpensesService.getFixedExpenseIds();
     await repository.deleteCard(cardModel);
     if (idsFixed.contains(cardModel.idFixoControl)) {
       cardModel.amount = 0;

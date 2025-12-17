@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/monthInsightsServices.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/FixedExpensesViewModel.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesServiceRefatore.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
@@ -11,9 +13,12 @@ import 'package:meus_gastos/services/TranslateService.dart';
 class MonthInsightsViewModel extends ChangeNotifier {
   TransactionsViewModel transactionsViewModel;
   CategoryViewModel categoryViewModel;
+  FixedExpensesViewModel fixedExpensesViewModel;
 
   MonthInsightsViewModel(
-      {required this.transactionsViewModel, required this.categoryViewModel}) {
+      {required this.transactionsViewModel,
+      required this.categoryViewModel,
+      required this.fixedExpensesViewModel}) {
     // Ouve automaticamente mudanças de cards
     transactionsViewModel.addListener(_onDependenciesChanged);
   }
@@ -72,20 +77,23 @@ class MonthInsightsViewModel extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
+    List<String> fcardsId = FixedExpensesService()
+        .getFixedExpenseIds(fixedExpensesViewModel.fixedExpenses);
+
     await getCards();
     categories = categoryViewModel.categories;
     // print(cards.length);
     final mediaValues = await _monthServices.monthExpenses(currentDate, cards);
     monthExpenses = await _monthServices.monthExpenses(currentDate, cards);
 
-    monthFixedExpensesTotals =
-        await _monthServices.getFixedExpenses(currentDate, cards);
+    monthFixedExpensesTotals = await _monthServices.getFixedExpenses(
+        currentDate, cards, fcardsId);
     businessExpensives =
         await _monthServices.getBusinessDaysExpenses(currentDate, cards);
     weekendExpensives =
         await _monthServices.getWeekendExpenses(currentDate, cards);
-    daysWithMostVariavelExepenses =
-        await _monthServices.doisDiasComMaiorGasto(currentDate, cards);
+    daysWithMostVariavelExepenses = await _monthServices.doisDiasComMaiorGasto(
+        currentDate, cards, fcardsId);
     averageCostPerPurchase =
         await _monthServices.avaregeCostPerPurchase(currentDate, cards);
     transectionsDaily = await _monthServices
@@ -97,8 +105,11 @@ class MonthInsightsViewModel extends ChangeNotifier {
         await _monthServices.expensesInDezenas(currentDate, cards);
 
     resumePreviousMonth = await _monthServices.resumeMonth(
-        _monthServices.diminuirUmMes(currentDate), cards);
-    resumeCurrentMonth = await _monthServices.resumeMonth(currentDate, cards);
+        _monthServices.diminuirUmMes(currentDate),
+        cards,
+        fcardsId);
+    resumeCurrentMonth = await _monthServices.resumeMonth(
+        currentDate, cards, fcardsId);
 
     listDiferencesExpenseByCategory =
         await _monthServices.diferencesExpenseByCategory(currentDate, cards);
@@ -108,8 +119,11 @@ class MonthInsightsViewModel extends ChangeNotifier {
         .expenseByCategoryOfCurrentMonth(currentDate, cards);
     listOfExpenseByCategoryOfPreviousMonth = await _monthServices
         .expenseByCategoryOfPreviousMonth(currentDate, cards);
-    projecaoFixed =
-        await _monthServices.projectionFixedForTheMonth(currentDate, cards);
+    projecaoFixed = await _monthServices.projectionFixedForTheMonth(
+        currentDate,
+        cards,
+        fixedExpensesViewModel.fixedExpenses,
+        fcardsId);
     highestIncrease = await _monthServices.highestIncreaseCategory(
         listDiferencesExpenseByCategory, cards);
     highestDrop = await _monthServices.highestDropCategory(

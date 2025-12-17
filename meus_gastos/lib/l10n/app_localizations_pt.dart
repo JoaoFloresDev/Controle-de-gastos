@@ -501,4 +501,38 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get addTransactionPopupSubtitle => 'Valor gasto';
+
+  @override
+  String get noGoalsYet => 'Nenhuma Meta Ainda';
+
+  @override
+  String get noGoalsDescription =>
+      'Comece a controlar suas finanças definindo metas mensais de gastos';
+
+  @override
+  String get trackYourSpending => 'Acompanhe Seus Gastos';
+
+  @override
+  String get trackYourSpendingDescription =>
+      'Monitore suas despesas em tempo real';
+
+  @override
+  String get stayOnBudget => 'Mantenha o Orçamento';
+
+  @override
+  String get stayOnBudgetDescription => 'Defina limites para cada categoria';
+
+  @override
+  String get getAlerts => 'Receba Alertas';
+
+  @override
+  String get getAlertsDescription =>
+      'Seja notificado ao se aproximar dos limites';
+
+  @override
+  String get createFirstGoal => 'Criar Minha Primeira Meta';
+
+  @override
+  String get tapCategoryToSetGoal =>
+      'Toque em qualquer categoria abaixo para definir uma meta';
 }

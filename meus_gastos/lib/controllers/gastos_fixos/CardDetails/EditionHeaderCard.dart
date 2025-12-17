@@ -115,9 +115,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     });
   }
 
-
-  
-
   // MARK: - Dispose
   @override
   void dispose() {
@@ -132,7 +129,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   // MARK: - Adicionar
   void adicionar() {
     print(icons_list_recorrent[lastIndexSelected_category].name);
-    
+
     final newCard = FixedExpense(
       price: valorController.numberValue,
       description: descricaoController.text,
@@ -141,7 +138,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       id: widget.card.id,
       tipoRepeticao: tipoRepeticao,
     );
-    Fixedexpensesservice.updateCard(widget.card.id, newCard);
+    FixedExpensesService.updateCard(widget.card.id, newCard);
 
     Future.delayed(const Duration(milliseconds: 300), () {
       widget.onAddClicked();
@@ -187,7 +184,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             style: const TextStyle(color: AppColors.label),
           ),
           const SizedBox(height: 12),
-          if(widget.botomPageIsVisible)
+          if (widget.botomPageIsVisible)
             RepetitionMenu(
               referenceDate: _selectedDate,
               onRepetitionSelected: (String selectedRepetition) {
@@ -220,11 +217,12 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                 onPressed: () {
                   adicionar();
                   widget.onAddClicked;
-                  Fixedexpensesservice.printCardsInfo();
+                  FixedExpensesService.printCardsInfo();
                 },
                 child: Text(
                   widget.adicionarButtonTitle,
-                  style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.label),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, color: AppColors.label),
                 ),
               ),
             ),

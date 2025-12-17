@@ -1041,6 +1041,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Amount spent'**
   String get addTransactionPopupSubtitle;
+
+  /// No description provided for @noGoalsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No Goals Yet'**
+  String get noGoalsYet;
+
+  /// No description provided for @noGoalsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Start taking control of your finances by setting monthly spending goals'**
+  String get noGoalsDescription;
+
+  /// No description provided for @trackYourSpending.
+  ///
+  /// In en, this message translates to:
+  /// **'Track Your Spending'**
+  String get trackYourSpending;
+
+  /// No description provided for @trackYourSpendingDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Monitor your expenses in real-time'**
+  String get trackYourSpendingDescription;
+
+  /// No description provided for @stayOnBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay on Budget'**
+  String get stayOnBudget;
+
+  /// No description provided for @stayOnBudgetDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Set limits for each category'**
+  String get stayOnBudgetDescription;
+
+  /// No description provided for @getAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Alerts'**
+  String get getAlerts;
+
+  /// No description provided for @getAlertsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Receive notifications when approaching limits'**
+  String get getAlertsDescription;
+
+  /// No description provided for @createFirstGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Create My First Goal'**
+  String get createFirstGoal;
+
+  /// No description provided for @tapCategoryToSetGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap any category below to set a goal'**
+  String get tapCategoryToSetGoal;
 }
 
 class _AppLocalizationsDelegate

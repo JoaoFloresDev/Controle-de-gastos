@@ -2,9 +2,11 @@ import 'package:meus_gastos/controllers/CardDetails/ViewComponents/CampoComMasca
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/FixedExpensesViewModel.dart';
 import 'package:meus_gastos/designSystem/Components/CustomHeader.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/UI/HorizontalCircleList.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:provider/provider.dart';
 import 'CardDetails/DetailScreen.dart';
 import 'UI/ListCardFixeds.dart';
 import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
@@ -18,12 +20,15 @@ import 'package:uuid/uuid.dart';
 import 'UI/RepetitionMenu.dart';
 
 class CriarGastosFixos extends StatefulWidget {
-  const CriarGastosFixos({
-    super.key,
-    required this.onAddPressedBack,
-  });
+  const CriarGastosFixos(
+      {super.key,
+      required this.onAddPressedBack,
+      required this.fixedExpensesViewModel,
+      required this.categories});
 
   final VoidCallback onAddPressedBack;
+  final FixedExpensesViewModel fixedExpensesViewModel;
+  final List<CategoryModel> categories;
 
   @override
   State<CriarGastosFixos> createState() => _CriarGastosFixos();
@@ -58,7 +63,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
   }
 
   Future<void> loadCategories() async {
-    var categorieList = await CategoryService().getAllCategoriesAvaliable();
+    var categorieList = widget.categories;
     setState(() {
       icons_list_recorrent = categorieList.sublist(0, categorieList.length - 1);
     });
@@ -73,196 +78,217 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
 
   Future<void> _loadFixedExpenses() async {
     List<FixedExpense> expenses =
-        await Fixedexpensesservice.getSortedFixedExpenses();
+        await FixedExpensesService.getSortedFixedExpenses();
     setState(() {
       _fixedExpenses = expenses;
     });
   }
 
-@override
-Widget build(BuildContext context) {
-  return GestureDetector(
-    onTap: () {
-      FocusManager.instance.primaryFocus?.unfocus();
-    },
-    child: Container(
-      decoration: const BoxDecoration(
-        color: AppColors.background1,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-        ),
-      ),
-      child: Column(
-        children: [
-          CustomHeader(
-            title: AppLocalizations.of(context)!.repeat,
-            onCancelPressed: () {
-              Navigator.of(context).pop();
-            },
-            onDeletePressed: () {},
-            showDeleteButton: false,
+  @override
+  Widget build(BuildContext context) {
+    _fixedExpenses =
+        widget.fixedExpensesViewModel.fixedExpenses.reversed.toList();
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Container(
+        decoration: const BoxDecoration(
+          color: AppColors.background1,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: 16.0, left: 16.0, right: 16.0, bottom: 0.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: ValorTextField(controller: valorController),
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: CampoComMascara(
-                                currentDate: _selectedDate,
-                                onCompletion: (DateTime newDate) {
-                                  setState(() {
-                                    _selectedDate = newDate;
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        CupertinoTextField(
-                          decoration: const BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: CupertinoColors.white,
-                              ),
-                            ),
-                          ),
-                          placeholder: AppLocalizations.of(context)!.description,
-                          placeholderStyle: TextStyle(
-                              color: CupertinoColors.white.withOpacity(0.5)),
-                          style: const TextStyle(color: CupertinoColors.white),
-                          controller: descricaoController,
-                        ),
-                        const SizedBox(height: 6),
-                        RepetitionMenu(
-                          referenceDate: _selectedDate,
-                          onRepetitionSelected: (String selectedRepetition) {
-                            setState(() {
-                              tipoRepeticao = selectedRepetition;
-                            });
-                          },
-                          defaultRepetition: 'mensal',
-                        ),
-                        HorizontalCircleList(
-                          onItemSelected: (index) {
-                            setState(() {
-                              lastIndexSelected_category = index;
-                            });
-                          },
-                          icons_list_recorrent: icons_list_recorrent,
-                          defaultIndexCategory: 0,
-                        ),
-                        const SizedBox(height: 16),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: CupertinoButton(
-                              color: AppColors.button,
-                              onPressed: () async {
-                                FocusScope.of(context).unfocus();
-                                await Fixedexpensesservice.addCard(FixedExpense(
-                                  description: descricaoController.text,
-                                  price: valorController.numberValue,
-                                  date: _selectedDate,
-                                  category: icons_list_recorrent[
-                                      lastIndexSelected_category],
-                                  id: const Uuid().v4(),
-                                  tipoRepeticao: tipoRepeticao,
-                                ));
-                                setState(() {
-                                  widget.onAddPressedBack();
-                                  _loadFixedExpenses();
-                                });
-                              },
-                              child: Text(
-                                AppLocalizations.of(context)!.add,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.label),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Divider(
-                      color: Colors.grey,
-                      thickness: 0.5,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  _fixedExpenses.isEmpty
-                      ? Padding(
-                          padding: const EdgeInsets.only(
-                              left: 16.0, right: 16.0, top: 20.0, bottom: 20.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+        ),
+        child: Column(
+          children: [
+            CustomHeader(
+              title: AppLocalizations.of(context)!.repeat,
+              onCancelPressed: () {
+                Navigator.of(context).pop();
+              },
+              onDeletePressed: () {},
+              showDeleteButton: false,
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 16.0, left: 16.0, right: 16.0, bottom: 0.0),
+                      child: Column(
+                        children: [
+                          Row(
                             children: [
-                              const Icon(
-                                Icons.inbox,
-                                color: AppColors.card,
-                                size: 40,
+                              Expanded(
+                                child:
+                                    ValorTextField(controller: valorController),
                               ),
-                              Text(
-                                AppLocalizations.of(context)!.addNewTransactions,
-                                style: const TextStyle(
-                                  color: AppColors.label,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.8,
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: CampoComMascara(
+                                  currentDate: _selectedDate,
+                                  onCompletion: (DateTime newDate) {
+                                    setState(() {
+                                      _selectedDate = newDate;
+                                    });
+                                  },
                                 ),
-                                textAlign: TextAlign.center,
                               ),
                             ],
                           ),
-                        )
-                      : Column(
-                          children: [
-                            ...(_fixedExpenses.map((expense) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 2),
-                                child: ListCardFixeds(
-                                  onTap: (card) {
-                                    _showCupertinoModalBottomSheet(context, card);
-                                  },
-                                  card: expense,
+                          const SizedBox(height: 8),
+                          CupertinoTextField(
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: CupertinoColors.white,
                                 ),
-                              );
-                            }).toList()),
-                            const SizedBox(height: 80), // Espaço vazio no final da lista
-                          ],
-                        ),
-                ],
+                              ),
+                            ),
+                            placeholder:
+                                AppLocalizations.of(context)!.description,
+                            placeholderStyle: TextStyle(
+                                color: CupertinoColors.white.withOpacity(0.5)),
+                            style:
+                                const TextStyle(color: CupertinoColors.white),
+                            controller: descricaoController,
+                          ),
+                          const SizedBox(height: 6),
+                          RepetitionMenu(
+                            referenceDate: _selectedDate,
+                            onRepetitionSelected: (String selectedRepetition) {
+                              setState(() {
+                                tipoRepeticao = selectedRepetition;
+                              });
+                            },
+                            defaultRepetition: 'mensal',
+                          ),
+                          HorizontalCircleList(
+                            onItemSelected: (index) {
+                              setState(() {
+                                lastIndexSelected_category = index;
+                              });
+                            },
+                            icons_list_recorrent: icons_list_recorrent,
+                            defaultIndexCategory: 0,
+                          ),
+                          const SizedBox(height: 16),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: CupertinoButton(
+                                color: AppColors.button,
+                                onPressed: () async {
+                                  FocusScope.of(context).unfocus();
+                                  // await FixedExpensesService.addCard(
+                                  //     FixedExpense(
+                                  //   description: descricaoController.text,
+                                  //   price: valorController.numberValue,
+                                  //   date: _selectedDate,
+                                  //   category: icons_list_recorrent[
+                                  //       lastIndexSelected_category],
+                                  //   id: const Uuid().v4(),
+                                  //   tipoRepeticao: tipoRepeticao,
+                                  // ));
+                                  await widget.fixedExpensesViewModel
+                                      .addExpense(FixedExpense(
+                                    description: descricaoController.text,
+                                    price: valorController.numberValue,
+                                    date: _selectedDate,
+                                    category: icons_list_recorrent[
+                                        lastIndexSelected_category],
+                                    id: const Uuid().v4(),
+                                    tipoRepeticao: tipoRepeticao,
+                                  ));
+                                  setState(() {
+                                    widget.onAddPressedBack();
+                                    _loadFixedExpenses();
+                                  });
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context)!.add,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.label),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Divider(
+                        color: Colors.grey,
+                        thickness: 0.5,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    _fixedExpenses.isEmpty
+                        ? Padding(
+                            padding: const EdgeInsets.only(
+                                left: 16.0,
+                                right: 16.0,
+                                top: 20.0,
+                                bottom: 20.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.inbox,
+                                  color: AppColors.card,
+                                  size: 40,
+                                ),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .addNewTransactions,
+                                  style: const TextStyle(
+                                    color: AppColors.label,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.8,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          )
+                        : Column(
+                            children: [
+                              ...(_fixedExpenses.map((expense) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 2),
+                                  child: ListCardFixeds(
+                                    onTap: (card) {
+                                      _showCupertinoModalBottomSheet(
+                                          context, card);
+                                    },
+                                    card: expense,
+                                  ),
+                                );
+                              }).toList()),
+                              const SizedBox(
+                                  height: 80), // Espaço vazio no final da lista
+                            ],
+                          ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   void _showCupertinoModalBottomSheet(BuildContext context, FixedExpense card) {
-    print(card.tipoRepeticao);
     FocusScope.of(context).unfocus();
     showCupertinoModalPopup(
       context: context,
@@ -278,10 +304,12 @@ Widget build(BuildContext context) {
           child: DetailScreen(
             card: card,
             onAddClicked: () {
-              _loadFixedExpenses();
               setState(() {
                 widget.onAddPressedBack();
               });
+            },
+            onDeleteCliked: (card) {
+              widget.fixedExpensesViewModel.delete(card);
             },
           ),
         );

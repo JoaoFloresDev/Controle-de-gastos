@@ -498,4 +498,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addTransactionPopupSubtitle => 'Amount spent';
+
+  @override
+  String get noGoalsYet => 'No Goals Yet';
+
+  @override
+  String get noGoalsDescription =>
+      'Start taking control of your finances by setting monthly spending goals';
+
+  @override
+  String get trackYourSpending => 'Track Your Spending';
+
+  @override
+  String get trackYourSpendingDescription =>
+      'Monitor your expenses in real-time';
+
+  @override
+  String get stayOnBudget => 'Stay on Budget';
+
+  @override
+  String get stayOnBudgetDescription => 'Set limits for each category';
+
+  @override
+  String get getAlerts => 'Get Alerts';
+
+  @override
+  String get getAlertsDescription =>
+      'Receive notifications when approaching limits';
+
+  @override
+  String get createFirstGoal => 'Create My First Goal';
+
+  @override
+  String get tapCategoryToSetGoal => 'Tap any category below to set a goal';
 }

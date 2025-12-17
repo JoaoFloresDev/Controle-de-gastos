@@ -19,19 +19,23 @@ class GoalsViewModel extends ChangeNotifier {
       {required this.categoryViewModel,
       required this.transactionsViewModel,
       required this.goalsRepo}) {
-    _waitForTransactions();
+    transactionsViewModel.addListener(_onTransactionsChanged);
   }
 
-  void _waitForTransactions() {
-    if (transactionsViewModel.cardList.isNotEmpty) {
-      init();
-    } else {
-      transactionsViewModel.addListener(() {
-        if (transactionsViewModel.cardList.isNotEmpty) {
-          init();
-        }
-      });
-    }
+  void _onTransactionsChanged() {
+    // Recalcula sempre que cardList mudar
+    recalculate();
+  }
+
+  @override
+  void dispose() {
+    transactionsViewModel.removeListener(_onTransactionsChanged);
+    super.dispose();
+  }
+
+  void recalculate() {
+    init();
+    notifyListeners();
   }
 
   final CardService serviceCard = CardService();
