@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
@@ -7,13 +8,13 @@ import 'package:meus_gastos/services/TranslateService.dart';
 
 class HorizontalCircleList extends StatefulWidget {
   final Function(int) onItemSelected;
-  final List<CategoryModel> icons_list_recorrent;
+  final List<CategoryModel> categories;
   final int defaultIndexCategory;
-  
+
   const HorizontalCircleList({
     super.key,
     required this.onItemSelected,
-    required this.icons_list_recorrent,
+    required this.categories,
     required this.defaultIndexCategory,
   });
 
@@ -32,12 +33,14 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
   void initState() {
     super.initState();
     selectedIndex = widget.defaultIndexCategory;
-    categories = widget.icons_list_recorrent;
-    print(categories.length);
+
+    categories = widget.categories;
+
     categories.removeWhere((cat) => cat.id == "AddCategory");
+
     _scrollController = ScrollController();
     _scrollController.addListener(_updateGradients);
-    
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollToSelected(selectedIndex, animate: false);
     });
@@ -60,18 +63,19 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
   void _updateGradients() {
     setState(() {
       _showLeftGradient = _scrollController.offset > 10;
-      _showRightGradient = _scrollController.offset < 
+      _showRightGradient = _scrollController.offset <
           _scrollController.position.maxScrollExtent - 10;
     });
   }
 
   void _scrollToSelected(int index, {bool animate = true}) {
     if (!_scrollController.hasClients) return;
-    
+
     final double itemWidth = 90.0;
     final double screenWidth = MediaQuery.of(context).size.width;
-    final double targetScroll = (index * itemWidth) - (screenWidth / 2) + (itemWidth / 2);
-    
+    final double targetScroll =
+        (index * itemWidth) - (screenWidth / 2) + (itemWidth / 2);
+
     if (animate) {
       _scrollController.animateTo(
         targetScroll.clamp(0.0, _scrollController.position.maxScrollExtent),
@@ -106,35 +110,37 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
           IconButton(
             icon: Icon(
               CupertinoIcons.chevron_left,
-              color: _showLeftGradient 
+              color: _showLeftGradient
                   ? Colors.white.withOpacity(0.8)
                   : Colors.white.withOpacity(0.3),
             ),
-            onPressed: _showLeftGradient ? () {
-              _scrollController.animateTo(
-                _scrollController.offset - 200,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeOutCubic,
-              );
-            } : null,
+            onPressed: _showLeftGradient
+                ? () {
+                    _scrollController.animateTo(
+                      _scrollController.offset - 200,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeOutCubic,
+                    );
+                  }
+                : null,
           ),
-          
           Expanded(child: _buildCategoryList()),
-          
           IconButton(
             icon: Icon(
               CupertinoIcons.chevron_right,
-              color: _showRightGradient 
+              color: _showRightGradient
                   ? Colors.white.withOpacity(0.8)
                   : Colors.white.withOpacity(0.3),
             ),
-            onPressed: _showRightGradient ? () {
-              _scrollController.animateTo(
-                _scrollController.offset + 200,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeOutCubic,
-              );
-            } : null,
+            onPressed: _showRightGradient
+                ? () {
+                    _scrollController.animateTo(
+                      _scrollController.offset + 200,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeOutCubic,
+                    );
+                  }
+                : null,
           ),
         ],
       ),
@@ -151,7 +157,6 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
       child: Stack(
         children: [
           _buildCategoryList(),
-          
           if (_showLeftGradient)
             Positioned(
               left: 0,
@@ -177,7 +182,6 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                 ),
               ),
             ),
-          
           if (_showRightGradient)
             Positioned(
               right: 0,
@@ -217,7 +221,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
       itemBuilder: (context, index) {
         final category = categories[index];
         final isSelected = selectedIndex == index;
-        
+
         return GestureDetector(
           onTap: () {
             setState(() {
@@ -246,7 +250,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                         : Colors.black.withOpacity(0.2),
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: isSelected 
+                      color: isSelected
                           ? category.color.withOpacity(0.8)
                           : Colors.transparent,
                       width: 2,
@@ -258,16 +262,14 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                     curve: Curves.easeOutCubic,
                     child: Icon(
                       category.icon,
-                      color: isSelected 
-                          ? category.color 
+                      color: isSelected
+                          ? category.color
                           : category.color.withOpacity(0.6),
                       size: isSelected ? 28 : 24,
                     ),
                   ),
                 ),
-                
                 const SizedBox(height: 6),
-                
                 SizedBox(
                   width: 75,
                   child: Text(
@@ -277,9 +279,10 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                     ),
                     style: TextStyle(
                       fontSize: isSelected ? 11 : 10,
-                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                      color: isSelected 
-                          ? Colors.white 
+                      fontWeight:
+                          isSelected ? FontWeight.w600 : FontWeight.w500,
+                      color: isSelected
+                          ? Colors.white
                           : Colors.white.withOpacity(0.7),
                       letterSpacing: 0.2,
                     ),

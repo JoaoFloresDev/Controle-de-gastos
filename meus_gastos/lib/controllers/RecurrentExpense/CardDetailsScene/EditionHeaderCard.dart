@@ -18,16 +18,18 @@ import 'package:meus_gastos/controllers/RecurrentExpense/UI/RepetitionMenu.dart'
 import 'package:meus_gastos/controllers/RecurrentExpense/UI/AdditionTypeSelector.dart';
 
 class EditionHeaderCard extends StatefulWidget {
-  final VoidCallback onAddClicked;
+  final Function(FixedExpense) onAddClicked;
   final String adicionarButtonTitle;
   final FixedExpense card;
   final bool botomPageIsVisible;
+  final List<CategoryModel> categoryList;
   const EditionHeaderCard(
       {super.key,
       required this.onAddClicked,
       required this.adicionarButtonTitle,
       required this.card,
-      required this.botomPageIsVisible});
+      required this.botomPageIsVisible,
+      required this.categoryList});
 
   @override
   _EditionHeaderCardState createState() => _EditionHeaderCardState();
@@ -39,11 +41,10 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   late CampoComMascara dateController;
   late FocusNode descricaoFocusNode;
 
-  List<CategoryModel> categorieList = [];
+  List<CategoryModel> icons_list_recorrent = [];
   final DateTime dataInicial = DateTime.now();
   final double valorInicial = 0.0;
   late int lastIndexSelected_category = 0;
-  List<CategoryModel> icons_list_recorrent = [];
   late bool _isPaga;
 
   late DateTime _selectedDate = widget.card.date;
@@ -52,11 +53,10 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
 
   Future<void> loadCategories() async {
     // TÁ ERRADO
-    var categorieList = await CategoryService().getAllCategories();
-    if (categorieList.isNotEmpty) {
+    if (widget.categoryList.isNotEmpty) {
       setState(() {
         icons_list_recorrent =
-            categorieList.sublist(0, categorieList.length - 1);
+            widget.categoryList;
         lastIndexSelected_category = icons_list_recorrent
             .indexWhere((category) => category.id == widget.card.category.id);
 
@@ -138,10 +138,10 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       repetitionType: repetitionType,
       additionType: tipoAdicao,
     );
-    FixedExpensesService.updateCard(widget.card.id, newCard);
+    // FixedExpensesService.updateCard(widget.card.id, newCard);
 
     Future.delayed(const Duration(milliseconds: 300), () {
-      widget.onAddClicked();
+      widget.onAddClicked(newCard);
     });
   }
 
@@ -197,7 +197,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
               defaultRepetition: widget.card.repetitionType,
             ),
           const SizedBox(height: 12),
-          if(widget.botomPageIsVisible)
+          if (widget.botomPageIsVisible)
             AdditionTypeSelector(
               selectedType: tipoAdicao,
               onTypeSelected: (String selectedType) {

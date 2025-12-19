@@ -143,13 +143,12 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                 // Aqui eu vou colocar o date_select para filtrar os cards
                 if (transViewModel.isLoading)
                   _buildLoadingIndicator()
-                else
-                  if ((transViewModel.cardList.isNotEmpty) ||
-                      (transViewModel.fixedCards.isNotEmpty)) ...[
-                    _cardListBuild(transViewModel, fixedVM),
-                  ] else ...[
-                    _empityListCardBuild(),
-                  ]
+                else if ((transViewModel.cardList.isNotEmpty) ||
+                    (transViewModel.fixedCards.isNotEmpty)) ...[
+                  _cardListBuild(transViewModel, fixedVM),
+                ] else ...[
+                  _empityListCardBuild(),
+                ]
               ],
             ),
           );
@@ -202,6 +201,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     ProManeger proViewModel = context.read<ProManeger>();
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       builder: (BuildContext context) {
         if (Platform.isIOS || Platform.isMacOS) {
           return ProModal(
@@ -211,15 +211,16 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
             },
           );
         } else {
-          return ProModalAndroid(
-            isLoading: _isLoading,
-            onSubscriptionPurchased: () {
-              proViewModel.checkUserProStatus();
-              if (mounted) {
-                setState(() {});
-              }
-            },
-          );
+          return SizedBox(
+              child: ProModalAndroid(
+                isLoading: _isLoading,
+                onSubscriptionPurchased: () {
+                  proViewModel.checkUserProStatus();
+                  if (mounted) {
+                    setState(() {});
+                  }
+                },
+              ));
         }
       },
     );

@@ -2,13 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/designSystem/Components/CustomHeader.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
 import 'CardDetailsScene/DetailScreen.dart';
 import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesServiceRefatore.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
@@ -17,17 +15,15 @@ import 'UI/ExpensesList.dart';
 import 'UI/FormSection.dart';
 
 class RecurrentExpenseScreen extends StatefulWidget {
-  const RecurrentExpenseScreen({
-    super.key,
-    required this.onAddPressedBack,
-    required this.fixedExpensesViewModel,
-    required this.categories
-  });
+  const RecurrentExpenseScreen(
+      {super.key,
+      required this.onAddPressedBack,
+      required this.fixedExpensesViewModel,
+      required this.categories});
 
   final VoidCallback onAddPressedBack;
   final FixedExpensesViewModel fixedExpensesViewModel;
   final List<CategoryModel> categories;
-
 
   @override
   State<RecurrentExpenseScreen> createState() => _RecurrentExpenseScreenState();
@@ -36,12 +32,12 @@ class RecurrentExpenseScreen extends StatefulWidget {
 class _RecurrentExpenseScreenState extends State<RecurrentExpenseScreen> {
   late MoneyMaskedTextController valueController;
   final descriptionController = TextEditingController();
-  
+
   int selectedCategoryIndex = 0;
   String repetitionType = "monthly";
   String additionType = "automatic";
   DateTime selectedDate = DateTime.now();
-  
+
   bool _isControllerInitialized = false;
   List<FixedExpense> fixedExpenses = [];
 
@@ -89,8 +85,7 @@ class _RecurrentExpenseScreenState extends State<RecurrentExpenseScreen> {
 
     print("repetitionType: $repetitionType");
     print("repetitionType: $additionType");
-    await widget.fixedExpensesViewModel
-    .addExpense(FixedExpense(
+    await widget.fixedExpensesViewModel.addExpense(FixedExpense(
       description: descriptionController.text,
       price: valueController.numberValue,
       date: selectedDate,
@@ -99,10 +94,9 @@ class _RecurrentExpenseScreenState extends State<RecurrentExpenseScreen> {
       repetitionType: repetitionType,
       additionType: additionType,
     ));
-    
+
     _resetForm();
     widget.onAddPressedBack();
-    setState(() {});
   }
 
   void _showExpenseDetails(FixedExpense expense) {
@@ -123,11 +117,16 @@ class _RecurrentExpenseScreenState extends State<RecurrentExpenseScreen> {
             onDeleteCliked: (card) {
               widget.fixedExpensesViewModel.delete(card);
             },
+            updateCard: (card) {
+              widget.fixedExpensesViewModel.update(card);
+            },
             onAddClicked: () {
               setState(() {
                 widget.onAddPressedBack();
               });
+              
             },
+            categories: widget.categories,
           ),
         );
       },

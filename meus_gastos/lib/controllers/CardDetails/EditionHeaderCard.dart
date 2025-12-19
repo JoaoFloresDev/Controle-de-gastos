@@ -1,14 +1,11 @@
-import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
-import 'package:meus_gastos/controllers/ads_review/BannerAdConstruct.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
-import 'package:provider/provider.dart';
 import 'ViewComponents/CampoComMascara.dart';
-import 'ViewComponents/HorizontalCircleList.dart';
+import 'ViewComponents/HorizontalCircleListRefatore.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
@@ -21,14 +18,13 @@ class EditionHeaderCard extends StatefulWidget {
   final CardModel card;
   final Function(CardModel, CardModel) onAddCardPressed;
 
-  const EditionHeaderCard({
-    super.key,
-    required this.onAddClicked,
-    required this.adicionarButtonTitle,
-    required this.card,
-    required this.categories,
-    required this.onAddCardPressed
-  });
+  const EditionHeaderCard(
+      {super.key,
+      required this.onAddClicked,
+      required this.adicionarButtonTitle,
+      required this.card,
+      required this.categories,
+      required this.onAddCardPressed});
 
   @override
   _EditionHeaderCardState createState() => _EditionHeaderCardState();
@@ -154,22 +150,18 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             style: const TextStyle(color: AppColors.label),
           ),
           const SizedBox(height: 24),
-          if (false) ...[
-            LoadingContainer(),
-          ] else ...[
-            Container(
-              margin: EdgeInsets.zero,
-              child: HorizontalCircleList(
-                onItemSelected: (index) {
-                  setState(() {
-                    lastIndexSelected = index;
-                  });
-                },
-                defaultdIndexCategory: lastIndexSelected! ?? 0,
-                categories: widget.categories,
-              ),
+          Container(
+            margin: EdgeInsets.zero,
+            child: HorizontalCircleList(
+              onItemSelected: (index) {
+                setState(() {
+                  lastIndexSelected = index;
+                });
+              },
+              defaultIndexCategory: lastIndexSelected! ?? 0,
+              categories: widget.categories,
             ),
-          ],
+          ),
           const SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),

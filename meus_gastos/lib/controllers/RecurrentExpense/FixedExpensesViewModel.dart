@@ -34,7 +34,7 @@ class FixedExpensesViewModel extends ChangeNotifier {
     if (_transactionsVM == transactionsVM) return;
 
     // Remove listener antigo
-    
+
     _transactionsVM?.removeListener(_onTransactionsChanged);
 
     _transactionsVM = transactionsVM;
@@ -81,9 +81,20 @@ class FixedExpensesViewModel extends ChangeNotifier {
     _recalculate();
   }
 
-  void removeExpense(String expenseId) {
-    _fixedExpense.remove(expenseId);
-    _repo.delete(expenseId);
+  Future<void> delete(FixedExpense card) async {
+    _fixedExpense.remove(card);
+    _repo.delete(card.id);
+
+    _recalculate();
+  }
+
+  Future<void> update(FixedExpense card) async {
+    for (int i = 0; i < _fixedExpense.length; i++) {
+      if (_fixedExpense[i].id == card.id) _fixedExpense[i] = card;
+    }
+    notifyListeners();
+    _repo.update(card);
+
     _recalculate();
   }
 
@@ -98,13 +109,6 @@ class FixedExpensesViewModel extends ChangeNotifier {
         cards, _fixedExpense, currentDate);
 
     notifyListeners();
-  }
-
-  Future<void> delete(FixedExpense card) async {
-    _fixedExpense.remove(card);
-    _repo.delete(card.id);
-
-    _recalculate();
   }
 
   void fixedToNormalCardList(DateTime currentDate) {

@@ -145,31 +145,32 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
     final purchases = await InAppPurchase.instance.restorePurchases();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 630,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: const BoxDecoration(
-        color: AppColors.modalBackground,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.cardShadow,
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
+@override
+Widget build(BuildContext context) {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    decoration: const BoxDecoration(
+      color: AppColors.modalBackground,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(30),
+        topRight: Radius.circular(30),
       ),
+      boxShadow: [
+        BoxShadow(
+          color: AppColors.cardShadow,
+          blurRadius: 10,
+          offset: Offset(0, 5),
+        ),
+      ],
+    ),
+    child: SingleChildScrollView(
+      padding: const EdgeInsets.only(bottom: 20),
       child: Stack(
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const SizedBox(height: 26),
+              const SizedBox(height: 40), // espaço pro botão de fechar
               const Icon(
                 Icons.star_rounded,
                 color: Colors.amber,
@@ -201,19 +202,21 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
                 icon: Icons.block,
                 label: AppLocalizations.of(context)!.removeAds,
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 30),
               Column(
                 children: [
                   _buildSubscriptionButton(
                     label: AppLocalizations.of(context)!.monthlySubscription,
                     price: _products.isNotEmpty
                         ? formatPrice(
-                            _products[0].rawPrice, _products[0].currencySymbol)
+                            _products[0].rawPrice,
+                            _products[0].currencySymbol,
+                          )
                         : AppLocalizations.of(context)!.loading,
                     onPressed: () => {
-                      _buySubscription(_products[0].id ?? ''),
-                      // iApEngine.handlePurchase(_products[0], storeProductIds)
-                    },
+                        _buySubscription(_products[0].id ?? ''),
+                        // iApEngine.handlePurchase(_products[0], storeProductIds)
+                      },
                     productId: _products.isNotEmpty ? _products[0].id : '',
                   ),
                   const SizedBox(height: 22),
@@ -221,13 +224,15 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
                     label: AppLocalizations.of(context)!.yearlySubscription,
                     price: _products.isNotEmpty
                         ? formatPrice(
-                            _products[1].rawPrice, _products[1].currencySymbol)
+                            _products[1].rawPrice,
+                            _products[1].currencySymbol,
+                          )
                         : AppLocalizations.of(context)!.loading,
                     onPressed: () => {
-                      _buySubscription(_products[1].id ?? ''),
-                      // iApEngine.handlePurchase(_products[1], storeProductIds)
-                    },
-                    productId: _products.isNotEmpty ? _products[1].id : '',
+                        _buySubscription(_products[1].id ?? ''),
+                        // iApEngine.handlePurchase(_products[0], storeProductIds)
+                      },
+                    productId: _products.length > 1 ? _products[1].id : '',
                   ),
                   const SizedBox(height: 15),
                   TextButton(
@@ -244,7 +249,10 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
               ),
             ],
           ),
+      
+          /// BOTÃO FECHAR
           Positioned(
+            top: 0,
             left: 0,
             child: IconButton(
               icon: const Icon(
@@ -255,8 +263,11 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),
+      
+          /// BOTÃO AJUDA
           Positioned(
-            right: 10,
+            top: 0,
+            right: 0,
             child: IconButton(
               icon: const Icon(
                 CupertinoIcons.question_circle,
@@ -264,15 +275,15 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
                 size: 28,
               ),
               onPressed: () {
-                // Ação a ser realizada ao clicar no botão de ajuda
                 // _showMenuOptions(context);
               },
             ),
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 
   Future<void> _buySubscription(String productId) async {
     setState(() {

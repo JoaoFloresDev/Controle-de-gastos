@@ -65,7 +65,8 @@ class TransactionsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _addAutomaticFixedExpenses(List<FixedExpense> fixedExpenses) async {
+  Future<void> _addAutomaticFixedExpenses(
+      List<FixedExpense> fixedExpenses) async {
     for (var fixedExpense in fixedExpenses) {
       if (fixedExpense.isAutomaticAddition) {
         final newCard = CardModel(
@@ -94,11 +95,12 @@ class TransactionsViewModel extends ChangeNotifier {
 
   Future<void> deleteCard(CardModel cardModel) async {
     List<String> idsFixed = await FixedExpensesService().getFixedExpenseIds([]);
-    await repository.deleteCard(cardModel);
     if (idsFixed.contains(cardModel.idFixoControl)) {
       cardModel.amount = 0;
       addCard(cardModel);
     }
+    notifyListeners();
+    await repository.deleteCard(cardModel);
   }
 
   Future<void> updateCard(CardModel oldCard, CardModel newCard) async {

@@ -84,13 +84,13 @@ class _ExtractByCategoryState extends State<ExtractByCategoryScreen> {
                                       color: AppColors.background1,
                                       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                                     ),
-                                    child: DetailScreen(
-                                      card: card,
-                                      onAddClicked: () {
-                                        loadCards();
-                                      },
-                                      onDelete: (card) {}
-                                    ),
+                                    // child: DetailScreen(
+                                    //   card: card,
+                                    //   onAddClicked: () {
+                                    //     loadCards();
+                                    //   },
+                                    //   onDelete: (card) {}
+                                    // ),
                                   );
                                 },
                               );

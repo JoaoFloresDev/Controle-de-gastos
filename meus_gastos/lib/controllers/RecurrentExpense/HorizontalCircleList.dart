@@ -1,3 +1,5 @@
+// DELETAR
+
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +25,16 @@ class HorizontalCircleList extends StatefulWidget {
 class HorizontalCircleListState extends State<HorizontalCircleList> {
   int selectedIndex = 0;
   int lastSelectedIndex = 0;
+  List<CategoryModel> categories = [];
   late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
+    categories = widget.icons_list_recorrent;
+    print(categories.length);
+    categories.removeWhere((cat) => cat.id == "AddCategory");
+    print(categories.length);
     selectedIndex = widget.defaultIndexCategory;
     lastSelectedIndex = selectedIndex;
     _scrollController = ScrollController();
@@ -60,7 +67,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
               child: ListView.builder(
                 controller: _scrollController,
                 scrollDirection: Axis.horizontal,
-                itemCount: widget.icons_list_recorrent.length,
+                itemCount: categories.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
@@ -84,8 +91,8 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
-                            widget.icons_list_recorrent[index].icon,
-                            color: widget.icons_list_recorrent[index].color,
+                            categories[index].icon,
+                            color: categories[index].color,
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -93,8 +100,9 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                           width: 80,
                           child: Text(
                             TranslateService.getTranslatedCategoryUsingModel(
-                                context, widget.icons_list_recorrent[index]),
-                            style: const TextStyle(fontSize: 9, color: Colors.white),
+                                context, categories[index]),
+                            style: const TextStyle(
+                                fontSize: 9, color: Colors.white),
                             textAlign: TextAlign.center,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -125,7 +133,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
         child: ListView.builder(
           controller: _scrollController,
           scrollDirection: Axis.horizontal,
-          itemCount: widget.icons_list_recorrent.length,
+          itemCount: categories.length,
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
@@ -149,8 +157,8 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
-                      widget.icons_list_recorrent[index].icon,
-                      color: widget.icons_list_recorrent[index].color,
+                      categories[index].icon,
+                      color: categories[index].color,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -158,8 +166,9 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                     width: 80,
                     child: Text(
                       TranslateService.getTranslatedCategoryUsingModel(
-                          context, widget.icons_list_recorrent[index]),
-                      style: const TextStyle(fontSize: 12, color: AppColors.label),
+                          context, categories[index]),
+                      style:
+                          const TextStyle(fontSize: 12, color: AppColors.label),
                       textAlign: TextAlign.center,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

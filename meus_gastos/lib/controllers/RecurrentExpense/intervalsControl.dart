@@ -1,3 +1,4 @@
+// DELETAR
 /* aqui será desenvolvido o controle dos intervalos 
 01 - Mensal: todo mês, se o dia atual for maior que o definido, aparece gasto fixo
 02 - Semanal: Toda semana aparece o gasto fixo, a partir de segunda
@@ -6,6 +7,7 @@
 
 //Mensal
 import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
+import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 

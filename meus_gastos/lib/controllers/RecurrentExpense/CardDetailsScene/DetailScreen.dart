@@ -1,24 +1,23 @@
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesService.dart';
-import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/models/CategoryModel.dart';
 import 'EditionHeaderCard.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:meus_gastos/controllers/ads_review/BannerAdConstruct.dart';
-import 'package:flutter/material.dart';
 
 class DetailScreen extends StatefulWidget {
   final FixedExpense card;
   final VoidCallback onAddClicked;
   final Function(FixedExpense) onDeleteCliked;
+  final Function(FixedExpense) updateCard;
+  final List<CategoryModel> categories;
 
-  const DetailScreen({
-    super.key,
-    required this.card,
-    required this.onAddClicked,
-    required this.onDeleteCliked,
-  });
+  const DetailScreen(
+      {super.key,
+      required this.card,
+      required this.onAddClicked,
+      required this.onDeleteCliked,
+      required this.updateCard,
+      required this.categories});
 
   @override
   _DetailScreen createState() => _DetailScreen();
@@ -63,11 +62,12 @@ class _DetailScreen extends State<DetailScreen> {
               child: EditionHeaderCard(
                 card: widget.card,
                 adicionarButtonTitle: AppLocalizations.of(context)!.update,
-                onAddClicked: () {
-                  widget.onAddClicked();
+                onAddClicked: (card) {
+                  widget.updateCard(card);
                   Navigator.of(context).pop();
                 },
                 botomPageIsVisible: true,
+                categoryList: widget.categories,
               ),
             ),
             const Expanded(child: SizedBox())

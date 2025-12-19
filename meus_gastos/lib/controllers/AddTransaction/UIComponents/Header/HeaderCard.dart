@@ -91,6 +91,7 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
   //mark - actions
 
   void onCategoriesLoaded(List<CategoryModel> loadedCategories) {
+    print("AHHHHHHHHHHH PERDEU O ADDCATEGORY");
     setState(() {
       _categories = loadedCategories;
       _isCategoriesLoaded = true;

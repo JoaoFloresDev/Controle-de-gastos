@@ -9,7 +9,6 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/services/firebase/syncService.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginRoute {
@@ -320,7 +319,8 @@ class LoginRoute {
                                             await SyncService()
                                                 .syncData(userId);
 
-                                            
+                                            print(
+                                                'Dados sincronizados com sucesso!');
 
                                             if (!context.mounted) return;
 
@@ -350,7 +350,8 @@ class LoginRoute {
                                               ),
                                             );
                                           } catch (e) {
-                                            // Mostrar erro
+                                            print(
+                                                'Erro ao sincronizar. Tente novamente.');
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(

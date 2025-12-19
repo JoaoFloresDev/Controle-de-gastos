@@ -27,6 +27,8 @@ class LoginViewModel extends ChangeNotifier {
     _user = await auth.signInWithGoogle();
     _isLogin = auth.isLoggedIn;
 
+    
+
     notifyListeners();
   }
 
@@ -36,4 +38,6 @@ class LoginViewModel extends ChangeNotifier {
     await auth.signOut();
     notifyListeners();
   }
+
+
 }

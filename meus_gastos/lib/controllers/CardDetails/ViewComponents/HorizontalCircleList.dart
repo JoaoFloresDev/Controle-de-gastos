@@ -1,10 +1,10 @@
-import 'dart:io';
+// DELETAR
+
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:flutter/services.dart';
-
 
 class HorizontalCircleList extends StatefulWidget {
   final Function(int) onItemSelected;
@@ -166,8 +166,7 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
                               isSelected ? FontWeight.w600 : FontWeight.w400,
                         ),
                       ),
-                      if (isSelected)
-                        const SizedBox(height: 4),
+                      if (isSelected) const SizedBox(height: 4),
                       if (isSelected)
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 200),

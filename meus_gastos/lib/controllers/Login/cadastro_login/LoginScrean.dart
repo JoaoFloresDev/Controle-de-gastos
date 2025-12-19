@@ -136,9 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       print(
                                           'Usuário logado: ${widget.viewModel.user!.displayName}');
                                       widget.showSyncModel();
-                                      // setState(() {
-                                      //   widget.loadcards();
-                                      // });
+                                      
                                     } else {
                                       print('Login cancelado ou falhou.');
                                     }
