@@ -382,11 +382,11 @@ abstract class AppLocalizations {
   /// **'Gaming'**
   String get videoGame;
 
-  /// No description provided for @drink.
+  /// No description provided for @fun.
   ///
   /// In en, this message translates to:
-  /// **'Entertainment'**
-  String get drink;
+  /// **'Fun'**
+  String get fun;
 
   /// No description provided for @water.
   ///
@@ -439,7 +439,7 @@ abstract class AppLocalizations {
   /// No description provided for @export.
   ///
   /// In en, this message translates to:
-  /// **'Export'**
+  /// **'Export to Excel'**
   String get export;
 
   /// No description provided for @textExport.
@@ -1042,6 +1042,48 @@ abstract class AppLocalizations {
   /// **'Amount spent'**
   String get addTransactionPopupSubtitle;
 
+  /// No description provided for @automaticAddition.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic Addition'**
+  String get automaticAddition;
+
+  /// No description provided for @suggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestion'**
+  String get suggestion;
+
+  /// No description provided for @automatic.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get automatic;
+
+  /// No description provided for @selectAdditionType.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Addition Type'**
+  String get selectAdditionType;
+
+  /// No description provided for @selectAdditionTypeDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose how this expense will be added'**
+  String get selectAdditionTypeDescription;
+
+  /// No description provided for @automaticAdditionDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Adds the expense automatically on the scheduled date'**
+  String get automaticAdditionDescription;
+
+  /// No description provided for @suggestionDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminds you to add the expense on the scheduled date'**
+  String get suggestionDescription;
+
   /// No description provided for @noGoalsYet.
   ///
   /// In en, this message translates to:
@@ -1101,6 +1143,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap any category below to set a goal'**
   String get tapCategoryToSetGoal;
+
+  /// No description provided for @cloudBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud Backup'**
+  String get cloudBackup;
+
+  /// No description provided for @save30Percent.
+  ///
+  /// In en, this message translates to:
+  /// **'Save 30%'**
+  String get save30Percent;
+
+  /// No description provided for @termsOfUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
+  String get termsOfUse;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
+  /// No description provided for @subscribed.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribed'**
+  String get subscribed;
+
+  /// No description provided for @subscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe'**
+  String get subscribe;
+
+  /// No description provided for @exportFeature.
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get exportFeature;
+
+  /// No description provided for @adFreeFeature.
+  ///
+  /// In en, this message translates to:
+  /// **'Ad-Free'**
+  String get adFreeFeature;
+
+  /// No description provided for @backupFeature.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup'**
+  String get backupFeature;
+
+  /// No description provided for @popularBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'POPULAR'**
+  String get popularBadge;
 }
 
 class _AppLocalizationsDelegate

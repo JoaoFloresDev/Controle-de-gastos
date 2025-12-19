@@ -1,5 +1,6 @@
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 
 class Monthinsightsservices {
@@ -598,7 +599,7 @@ class Monthinsightsservices {
     }
     totalExpenseFixed = await getFixedExpenses(currentDate, cards, fixedIds);
     for (var card in fixedCards) {
-      switch (card.tipoRepeticao) {
+      switch (card.repetitionType) {
         case ('mensal'):
           if (currentDate.day >= card.date.day) {
             totalExpenseFixed = totalExpenseFixed + card.price;

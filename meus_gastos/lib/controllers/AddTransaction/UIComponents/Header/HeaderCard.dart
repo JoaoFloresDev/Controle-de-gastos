@@ -57,6 +57,7 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    lastIndexSelected = 0;
     _fadeController = AnimationController(
       duration: const Duration(milliseconds: 400),
       vsync: this,
@@ -100,6 +101,13 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
   void onCategorySelected(int index) {
     setState(() {
       lastIndexSelected = index;
+    });
+  }
+
+  /// Atualiza a data/hora para o momento atual
+  void updateDateTime() {
+    setState(() {
+      lastDateSelected = DateTime.now();
     });
   }
 

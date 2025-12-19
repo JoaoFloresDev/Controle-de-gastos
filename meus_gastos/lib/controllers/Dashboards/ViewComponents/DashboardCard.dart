@@ -151,28 +151,39 @@ class DashboardCard extends StatelessWidget {
   }
 
   Widget _buildLegendItem(Color color, String percent, String label) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(Icons.circle, color: color, size: 16),
-        const SizedBox(width: 8),
-        Text('$label - $percent',
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: AppColors.background1.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: color.withOpacity(0.3),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 10,
+            height: 10,
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            '$label - $percent',
             style: const TextStyle(
-                color: AppColors.label,
-                fontWeight: FontWeight.w600,
-                fontSize: 14)),
-      ],
+              color: AppColors.label,
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+              letterSpacing: 0.2,
+            ),
+          ),
+        ],
+      ),
     );
-  }
-
-  List<Widget> _buildExampleLegend() {
-    return [
-      _buildLegendItem(
-          const Color.fromARGB(255, 57, 57, 57), '40%', 'Exemplo 1'),
-      _buildLegendItem(
-          const Color.fromARGB(255, 55, 54, 54), '30%', 'Exemplo 2'),
-      _buildLegendItem(Colors.grey[600]!, '20%', 'Exemplo 3'),
-      _buildLegendItem(Colors.grey[700]!, '10%', 'Exemplo 4'),
-    ];
   }
 }

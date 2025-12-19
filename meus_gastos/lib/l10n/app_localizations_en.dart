@@ -153,7 +153,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get videoGame => 'Gaming';
 
   @override
-  String get drink => 'Entertainment';
+  String get fun => 'Fun';
 
   @override
   String get water => 'Water';
@@ -180,7 +180,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noExpensesThisWeek => 'No expenses this week';
 
   @override
-  String get export => 'Export';
+  String get export => 'Export to Excel';
 
   @override
   String get textExport =>
@@ -500,6 +500,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addTransactionPopupSubtitle => 'Amount spent';
 
   @override
+  String get automaticAddition => 'Automatic Addition';
+
+  @override
+  String get suggestion => 'Suggestion';
+
+  @override
+  String get automatic => 'Automatic';
+
+  @override
+  String get selectAdditionType => 'Select Addition Type';
+
+  @override
+  String get selectAdditionTypeDescription =>
+      'Choose how this expense will be added';
+
+  @override
+  String get automaticAdditionDescription =>
+      'Adds the expense automatically on the scheduled date';
+
+  @override
+  String get suggestionDescription =>
+      'Reminds you to add the expense on the scheduled date';
+
+  @override
   String get noGoalsYet => 'No Goals Yet';
 
   @override
@@ -531,4 +555,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tapCategoryToSetGoal => 'Tap any category below to set a goal';
+
+  @override
+  String get cloudBackup => 'Cloud Backup';
+
+  @override
+  String get save30Percent => 'Save 30%';
+
+  @override
+  String get termsOfUse => 'Terms of Use';
+
+  @override
+  String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get subscribed => 'Subscribed';
+
+  @override
+  String get subscribe => 'Subscribe';
+
+  @override
+  String get exportFeature => 'Export';
+
+  @override
+  String get adFreeFeature => 'Ad-Free';
+
+  @override
+  String get backupFeature => 'Backup';
+
+  @override
+  String get popularBadge => 'POPULAR';
 }

@@ -25,7 +25,7 @@ import 'package:meus_gastos/services/firebase/FirebaseServiceSingleton.dart';
 import 'package:onepref/onepref.dart';
 import 'package:window_size/window_size.dart';
 import 'package:meus_gastos/controllers/AddTransaction/AddTransactionController.dart';
-import 'package:meus_gastos/controllers/Calendar/CustomCalendar.dart';
+import 'package:meus_gastos/controllers/Calendar/CustomCalendarScreen.dart';
 
 import 'package:provider/provider.dart';
 

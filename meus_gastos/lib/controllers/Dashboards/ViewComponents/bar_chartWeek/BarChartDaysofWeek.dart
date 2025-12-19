@@ -65,62 +65,75 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                 .reduce((a, b) => a + b)) // Soma os progressos de cada dia
             .reduce((a, b) => a > b ? a : b)
         : 0;
-    return Card(
-      color: AppColors.card,
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-      child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [AppColors.card, AppColors.card2],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(18),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                offset: const Offset(0, 4),
-                blurRadius: 8,
-                spreadRadius: 2,
-              ),
-            ],
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [AppColors.card.withOpacity(0.9), AppColors.card2.withOpacity(0.8)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.15),
+            offset: const Offset(0, 8),
+            blurRadius: 16,
+            spreadRadius: 0,
           ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: _buildWeekButtons(),
-              ),
-              if (maxY > 0) Expanded(child: _buildChart(maxY, maxDailySum)),
-              if (maxY == 0)
-                Expanded(
-                    child: Center(
-                        child: Text(
-                            AppLocalizations.of(context)!.noExpensesThisWeek,
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500)))),
-              Padding(
-                padding:
-                    const EdgeInsets.only(bottom: 8.0, left: 16, right: 16),
-                child: SelectCategories(
-                  categoryList: Dashbordservice.extractCategories(
-                      widget.last5weewdailyData[selectedWeek]),
-                  onSelectionChanged: (selectedIndices) {
-                    setState(() {
-                      selectedCategories = selectedIndices
-                          .map((index) => Dashbordservice.extractCategories(
-                              widget.last5weewdailyData[selectedWeek])[index])
-                          .toList();
-                    });
-                  },
-                  key: selectCategoryKey,
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12, 16, 12, 8),
+              child: _buildWeekButtons(),
+            ),
+            if (maxY > 0) Expanded(child: _buildChart(maxY, maxDailySum)),
+            if (maxY == 0)
+              Expanded(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.bar_chart_outlined,
+                        size: 48,
+                        color: AppColors.label.withOpacity(0.5),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        AppLocalizations.of(context)!.noExpensesThisWeek,
+                        style: TextStyle(
+                          color: AppColors.label.withOpacity(0.8),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ],
-          )),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12, left: 16, right: 16, top: 8),
+              child: SelectCategories(
+                categoryList: Dashbordservice.extractCategories(
+                    widget.last5weewdailyData[selectedWeek]),
+                onSelectionChanged: (selectedIndices) {
+                  setState(() {
+                    selectedCategories = selectedIndices
+                        .map((index) => Dashbordservice.extractCategories(
+                            widget.last5weewdailyData[selectedWeek])[index])
+                        .toList();
+                  });
+                },
+                key: selectCategoryKey,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -128,48 +141,63 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
     return Center(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(32),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [AppColors.card, AppColors.background1],
+            colors: [
+              AppColors.card.withOpacity(0.9),
+              AppColors.card2.withOpacity(0.8)
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
-          borderRadius: BorderRadius.circular(18),
+          // borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              offset: const Offset(0, 4),
-              blurRadius: 8,
-              spreadRadius: 2,
+              color: Colors.black.withOpacity(0.15),
+              offset: const Offset(0, 8),
+              blurRadius: 16,
+              spreadRadius: 0,
             ),
           ],
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.bar_chart, size: 60, color: AppColors.label),
-            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppColors.button.withOpacity(0.15),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.bar_chart_outlined,
+                size: 48,
+                color: AppColors.button,
+              ),
+            ),
+            const SizedBox(height: 24),
             Text(
               AppLocalizations.of(context)!.dailyGraphPlaceholder,
               style: const TextStyle(
                 color: AppColors.label,
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
+                letterSpacing: -0.5,
               ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),
             Text(
               AppLocalizations.of(context)!.noExpensesThisWeek,
-              style: const TextStyle(
-                color: AppColors.label,
-                fontSize: 16,
+              style: TextStyle(
+                color: AppColors.label.withOpacity(0.8),
+                fontSize: 15,
                 fontWeight: FontWeight.w500,
+                height: 1.4,
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 40),
           ],
         ),
       ),
@@ -198,7 +226,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
   Widget _buildWeekButtons() {
     return SizedBox(
       width: double.infinity,
-      height: 50.0,
+      height: 56.0,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: List.generate(
@@ -209,13 +237,12 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
 
             return Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
                 child: GestureDetector(
                   onTap: () {
                     setState(() {
                       if (selectedWeek != index) {
                         selectedWeek = index;
-                        // selectedCategories =
                         selectedCategories = [];
                         Set<int> selectedIndices = Set<int>.from(
                             Iterable<int>.generate(
@@ -230,17 +257,47 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                       }
                     });
                   },
-                  child: Container(
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: isSelected
-                          ? AppColors.buttonSelected
-                          : AppColors.buttonDeselected,
-                      borderRadius: BorderRadius.circular(4),
+                      gradient: isSelected
+                          ? LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                AppColors.button,
+                                AppColors.button.withOpacity(0.8),
+                              ],
+                            )
+                          : null,
+                      color: isSelected ? null : AppColors.background1.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: isSelected
+                            ? AppColors.button.withOpacity(0.5)
+                            : AppColors.label.withOpacity(0.1),
+                        width: isSelected ? 2 : 1,
+                      ),
+                      boxShadow: isSelected
+                          ? [
+                              BoxShadow(
+                                color: AppColors.button.withOpacity(0.3),
+                                blurRadius: 8,
+                                offset: const Offset(0, 3),
+                              ),
+                            ]
+                          : null,
                     ),
                     child: Text(
                       _getWeekLabel(interval),
-                      style: const TextStyle(color: AppColors.button),
+                      style: TextStyle(
+                        color: isSelected ? Colors.white : AppColors.label,
+                        fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                        fontSize: 11,
+                        height: 1.3,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
@@ -290,12 +347,34 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
             ? (data.progress / maxDailySum) * 90
             : data.progress,
         pointColorMapper: (data, _) => data.color,
-        width: 0.5,
+        gradient: LinearGradient(
+          colors: [
+            _getFilteredData()
+                .expand((day) => day)
+                .where((data) => data.category.name == category)
+                .first
+                .color.withOpacity(0.9),
+            _getFilteredData()
+                .expand((day) => day)
+                .where((data) => data.category.name == category)
+                .first
+                .color
+                .withOpacity(0.65),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+        width: 0.55,
         animationDuration: 800,
-        borderRadius: BorderRadius.circular(4),
+        // borderRadius: BorderRadius.circular(8),
         name: TranslateService.getTranslatedCategoryName(context, category),
-        borderWidth: 0,
-        borderColor: AppColors.card,
+        borderWidth: 1,
+        borderColor: _getFilteredData()
+            .expand((day) => day)
+            .where((data) => data.category.name == category)
+            .first
+            .color
+            .withOpacity(0.3),
       );
     }).toList());
 
@@ -318,22 +397,22 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
           ? TranslateService.formatCurrency(data.progress, context)
           : '',
       pointColorMapper: (data, _) => Colors.transparent,
-      width: 0.5,
-      borderRadius: BorderRadius.circular(4),
+      width: 0.55,
+      borderRadius: BorderRadius.circular(8),
       name: 'Total',
       borderWidth: 0,
       dataLabelSettings: DataLabelSettings(
         isVisible: true,
         labelAlignment: ChartDataLabelAlignment.top,
         textStyle: const TextStyle(
-            color: AppColors.label, fontWeight: FontWeight.bold),
+            color: AppColors.label, fontWeight: FontWeight.bold, fontSize: 10),
         builder: (data, point, series, pointIndex, seriesIndex) {
           return Text(
             data.progress > 0
                 ? TranslateService.formatCurrency(data.progress, context)
                 : '',
             style: const TextStyle(
-                fontSize: 8,
+                fontSize: 10,
                 color: AppColors.label,
                 fontWeight: FontWeight.bold),
           );

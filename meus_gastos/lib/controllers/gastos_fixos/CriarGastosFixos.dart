@@ -2,7 +2,7 @@ import 'package:meus_gastos/controllers/CardDetails/ViewComponents/CampoComMasca
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/FixedExpensesViewModel.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
 import 'package:meus_gastos/designSystem/Components/CustomHeader.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/UI/HorizontalCircleList.dart';
 import 'package:meus_gastos/services/CategoryService.dart';
@@ -11,7 +11,7 @@ import 'CardDetails/DetailScreen.dart';
 import 'UI/ListCardFixeds.dart';
 import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
 import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
@@ -39,7 +39,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
   final descricaoController = TextEditingController();
   int lastIndexSelected_category = 0;
   int lastIndexSelected_day = 1;
-  String tipoRepeticao = "mensal";
+  String repetitionType = "mensal";
 
   List<FixedExpense> _fixedExpenses = [];
   List<CategoryModel> icons_list_recorrent = [];
@@ -62,26 +62,9 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
     );
   }
 
-  Future<void> loadCategories() async {
-    var categorieList = widget.categories;
-    setState(() {
-      icons_list_recorrent = categorieList.sublist(0, categorieList.length - 1);
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    _loadFixedExpenses();
-    loadCategories();
-  }
-
-  Future<void> _loadFixedExpenses() async {
-    List<FixedExpense> expenses =
-        await FixedExpensesService.getSortedFixedExpenses();
-    setState(() {
-      _fixedExpenses = expenses;
-    });
   }
 
   @override
@@ -160,7 +143,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                             referenceDate: _selectedDate,
                             onRepetitionSelected: (String selectedRepetition) {
                               setState(() {
-                                tipoRepeticao = selectedRepetition;
+                                repetitionType = selectedRepetition;
                               });
                             },
                             defaultRepetition: 'mensal',
@@ -191,7 +174,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                                   //   category: icons_list_recorrent[
                                   //       lastIndexSelected_category],
                                   //   id: const Uuid().v4(),
-                                  //   tipoRepeticao: tipoRepeticao,
+                                  //   repetitionType: repetitionType,
                                   // ));
                                   await widget.fixedExpensesViewModel
                                       .addExpense(FixedExpense(
@@ -201,7 +184,7 @@ class _CriarGastosFixos extends State<CriarGastosFixos> {
                                     category: icons_list_recorrent[
                                         lastIndexSelected_category],
                                     id: const Uuid().v4(),
-                                    tipoRepeticao: tipoRepeticao,
+                                    repetitionType: repetitionType,
                                   ));
                                   setState(() {
                                     widget.onAddPressedBack();

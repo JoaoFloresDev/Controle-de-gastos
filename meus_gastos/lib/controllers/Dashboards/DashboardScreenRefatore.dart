@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/MonthInsightsScreen.dart';
 import 'package:meus_gastos/controllers/exportExcel/exportExcelScreen.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 
@@ -15,25 +14,29 @@ import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartDaysofWeek.dart';
 import 'package:meus_gastos/controllers/ExtractByCategory/ExtractByCategory.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartWeek.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/MonthInsightsScreen.dart';
 
+// import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
+
+// Imports de widgets
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/MonthSelector.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgressIndicatorSection.dart';
+
 
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
 
   const DashboardScreen({Key? key, this.isActive = false}) : super(key: key);
 
-  @override
+ @override
   DashboardScreenState createState() => DashboardScreenState();
 }
 
 class DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
-  final GlobalKey<MonthInsightsScreenState> insights =
-      GlobalKey<MonthInsightsScreenState>();
-
+  // final GlobalKey<MonthInsightsScreenState> insights =
+  //     GlobalKey<MonthInsightsScreenState>();
   final PageController _pageController = PageController();
   // int _currentIndex = 0;
 
@@ -315,22 +318,6 @@ class DashboardScreenState extends State<DashboardScreen>
         ); // O widget com o código acima
       },
     );
-    // showCupertinoModalPopup(
-    //   context: context,
-    //   builder: (BuildContext context) {
-    //     return Container(
-    //       height: MediaQuery.of(context).size.height - 70,
-    //       decoration: const BoxDecoration(
-    //         borderRadius: BorderRadius.only(
-    //           topLeft: Radius.circular(20),
-    //           topRight: Radius.circular(20),
-    //         ),
-    //       ),
-    //       child: ExtractByCategory(
-    //           category: model.category.name, currentMonth: currentDate),
-    //     );
-    //   },
-    // );
   }
 
   Widget _buildLoadingIndicator() {
@@ -359,7 +346,12 @@ class DashboardScreenState extends State<DashboardScreen>
           data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
           child: Text(
             AppLocalizations.of(context)!.myControl,
-            style: const TextStyle(color: AppColors.label, fontSize: 20),
+            style: const TextStyle(
+              color: AppColors.label,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.3,
+            ),
           ),
         ),
         backgroundColor: AppColors.background1,
@@ -370,14 +362,14 @@ class DashboardScreenState extends State<DashboardScreen>
               isScrollControlled: true,
               backgroundColor: Colors.transparent,
               builder: (BuildContext context) {
-                return Exportexcelscreen(); // O widget com o código acima
+                return const Exportexcelscreen(); // O widget com o código acima
               },
             );
           },
           child: const Icon(
             CupertinoIcons.share,
             size: 24.0,
-            color: Colors.white,
+            color: AppColors.label,
           ),
         ),
       ),

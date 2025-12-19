@@ -169,6 +169,12 @@ class VerticalCircleListState extends State<VerticalCircleList> {
     );
   }
 
+void setSelectedIndex(int index) {
+  setState(() {
+    selectedIndex = index;
+  });
+}
+
   Widget _mobileBuild() {
     return Container(
       color: AppColors.background1,

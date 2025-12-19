@@ -9,8 +9,8 @@ import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart'
 import 'package:meus_gastos/controllers/Transactions/data/TransactionsRepositoryLocal.dart';
 import 'package:meus_gastos/controllers/Transactions/data/TransactionsRepositoryRemote.dart';
 import 'package:meus_gastos/controllers/Transactions/data/TransactionsRepositorySelector.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/FixedExpensesViewModel.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/data/FixedExpensesRepository.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/data/FixedExpensesRepository.dart';
 import 'package:provider/provider.dart';
 
 class AppProviders extends StatelessWidget {

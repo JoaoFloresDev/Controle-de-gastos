@@ -57,32 +57,40 @@ class CategoryListItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
         child: Row(
           children: [
-            // Drag handle
+            // ÁREA DE DRAG EXPANDIDA - Engloba ícone de 3 linhas + ícone da categoria
             ReorderableDragStartListener(
               index: index,
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                 margin: const EdgeInsets.only(right: 4),
-                child: Icon(
-                  CupertinoIcons.line_horizontal_3,
-                  color: Colors.white.withOpacity(0.4),
-                  size: 30,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Ícone de 3 linhas (drag handle)
+                    Icon(
+                      CupertinoIcons.line_horizontal_3,
+                      color: Colors.white.withOpacity(0.4),
+                      size: 30,
+                    ),
+                    
+                    const SizedBox(width: 12),
+                    
+                    // Ícone da categoria (agora também faz parte da área de drag)
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.4),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(
+                        category.icon,
+                        color: category.color,
+                        size: 20,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ),
-            
-            // Ícone da categoria
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.4),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(
-                category.icon,
-                color: category.color,
-                size: 20,
               ),
             ),
             

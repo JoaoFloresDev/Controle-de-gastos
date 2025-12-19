@@ -1,8 +1,8 @@
-import 'package:meus_gastos/controllers/gastos_fixos/UI/intervalsControl.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/UI/intervalsControl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
 import 'package:meus_gastos/services/CardService.dart';
 
 class FixedExpensesService {
@@ -116,11 +116,11 @@ class FixedExpensesService {
       DateTime verificationDate = currentDate;
       bool isCurrentBeforeCardTime = false;
       // Se for diário, ajusta a data do fcard conforme o horário atual
-      if (fcard.tipoRepeticao == 'diario') {
+      if (fcard.repetitionType == 'diario') {
         isCurrentBeforeCardTime = currentDate.hour < fcard.date.hour ||
             (currentDate.hour == fcard.date.hour &&
                 currentDate.minute < fcard.date.minute);
-        // print("${fcard.tipoRepeticao} : $isCurrentBeforeCardTime ");
+        // print("${fcard.repetitionType} : $isCurrentBeforeCardTime ");
         if (isCurrentBeforeCardTime) {
           // print("AJJ");
           // Altera a data do fcard para ontem mantendo hora/minuto
@@ -169,7 +169,7 @@ class FixedExpensesService {
     int min = fixedCard.date.minute;
 
     // Apenas semanal precisa de ajuste específico
-    if (fixedCard.tipoRepeticao == 'semanal') {
+    if (fixedCard.repetitionType == 'semanal') {
       day = getCurrentWeekdayDate(fixedCard.date).day;
     }
 
@@ -199,7 +199,7 @@ class FixedExpensesService {
       print('Price: \$${card.price.toStringAsFixed(2)}');
       print('Date: ${card.date.toLocal()}');
       print('Category: ${card.category}');
-      print('Tipo de Repetição: ${card.tipoRepeticao}');
+      print('Tipo de Repetição: ${card.repetitionType}');
       print('---------------------------');
     }
   }

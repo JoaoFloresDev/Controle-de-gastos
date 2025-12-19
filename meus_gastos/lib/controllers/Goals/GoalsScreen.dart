@@ -122,16 +122,21 @@ class GoalsscreanState extends State<Goalsscrean>
     );
   }
 
-  PreferredSizeWidget _buildAppBar() {
-    return CupertinoNavigationBar(
-      backgroundColor: AppColors.background1,
-      middle: MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-        child: Text(
-          widget.title,
-          style: const TextStyle(color: AppColors.label, fontSize: 20),
+PreferredSizeWidget _buildAppBar() {
+  return CupertinoNavigationBar(
+    backgroundColor: AppColors.background1,
+    middle: MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+      child: Text(
+        widget.title,
+        style: const TextStyle(
+          color: AppColors.label,
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 0.3,
         ),
       ),
+    )
     );
   }
 
@@ -139,18 +144,17 @@ class GoalsscreanState extends State<Goalsscrean>
     return BannerAdFactory().build();
   }
 
-  Widget _buildEmptyGoalsState() {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: AppColors.card.withOpacity(0.6),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: AppColors.label.withOpacity(0.08),
-          width: 1,
-        ),
-        boxShadow: [
+Widget _buildEmptyGoalsState() {
+  return Container(
+    margin: const EdgeInsets.fromLTRB(16, 24, 16, 6),
+    decoration: BoxDecoration(
+      color: AppColors.card.withOpacity(0.6),
+      borderRadius: BorderRadius.circular(18),
+      border: Border.all(
+        color: AppColors.label.withOpacity(0.08),
+        width: 1,
+      ),
+      boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
             blurRadius: 15,

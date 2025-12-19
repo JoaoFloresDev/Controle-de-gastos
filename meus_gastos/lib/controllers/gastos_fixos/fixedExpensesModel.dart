@@ -6,7 +6,7 @@ class FixedExpense {
   double price;
   DateTime date;
   CategoryModel category;
-  String tipoRepeticao='mensal';
+  String repetitionType='mensal';
 
   FixedExpense(
       {required this.description,
@@ -14,7 +14,7 @@ class FixedExpense {
       required this.date,
       required this.category,
       required this.id,
-      required this.tipoRepeticao});
+      required this.repetitionType});
 
   // Para salvar em SharedPreferences, converter em Map
   Map<String, dynamic> toJson() {
@@ -24,7 +24,7 @@ class FixedExpense {
       'date': date.toIso8601String(),
       'category': category.toJson(),
       'id': id,
-      'tipoRepeticao': tipoRepeticao,
+      'repetitionType': repetitionType,
     };
   }
 
@@ -36,7 +36,7 @@ class FixedExpense {
       date: DateTime.parse(json['date']),
       category: CategoryModel.fromJson(json['category']),
       id: json['id'],
-      tipoRepeticao: json['tipoRepeticao'],
+      repetitionType: json['repetitionType'],
     );
   }
 

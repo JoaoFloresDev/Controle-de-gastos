@@ -29,7 +29,6 @@ class TransactionList extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 12),
-              // Ícone com círculo de fundo
               Container(
                 width: 70,
                 height: 70,
@@ -48,7 +47,6 @@ class TransactionList extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              // Texto existente com melhor estilo
               Text(
                 AppLocalizations.of(context)!.emptyDay,
                 textAlign: TextAlign.center,

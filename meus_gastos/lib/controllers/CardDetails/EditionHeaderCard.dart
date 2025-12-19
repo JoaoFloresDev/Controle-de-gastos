@@ -9,10 +9,10 @@ import 'package:meus_gastos/services/CardService.dart';
 import 'package:provider/provider.dart';
 import 'ViewComponents/CampoComMascara.dart';
 import 'ViewComponents/HorizontalCircleList.dart';
-import 'package:meus_gastos/controllers/CardDetails/ViewComponents/ValorTextField.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
 
 class EditionHeaderCard extends StatefulWidget {
   final VoidCallback onAddClicked;
@@ -44,7 +44,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   late int? lastIndexSelected;
   final DateTime dataInicial = DateTime.now();
   final double valorInicial = 0.0;
-  bool isLoading = true;
 
   // MARK: - InitState
   @override
@@ -55,10 +54,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     descricaoController = TextEditingController(text: widget.card.description);
 
     descricaoFocusNode = FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      descricaoFocusNode.requestFocus();
-    });
   }
 
   @override
@@ -107,8 +102,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     setState(() {
       lastIndexSelected = widget.categories
           .indexWhere((category) => category.id == widget.card.category.id);
-      // print(lastIndexSelected);
-      isLoading = false;
     });
   }
 
@@ -147,6 +140,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
           ),
           const SizedBox(height: 8),
           CupertinoTextField(
+            autofocus: false,
             decoration: const BoxDecoration(
               border: Border(
                 bottom: BorderSide(
@@ -160,7 +154,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
             style: const TextStyle(color: AppColors.label),
           ),
           const SizedBox(height: 24),
-          if (isLoading) ...[
+          if (false) ...[
             LoadingContainer(),
           ] else ...[
             Container(

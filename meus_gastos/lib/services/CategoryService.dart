@@ -99,10 +99,10 @@ class CategoryService {
       frequency: 0,
     ),
     CategoryModel(
-      id: 'Drink',
+      id: 'fun',
       color: const Color(0xFFFF6E40), // Laranja
-      icon: Icons.local_drink_outlined,
-      name: 'Drink',
+      icon: Icons.celebration,
+      name: 'fun',
       frequency: 0,
     ),
     CategoryModel(

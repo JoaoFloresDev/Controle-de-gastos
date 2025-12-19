@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'FinancialKeyboard.dart';
+import '../../../../designSystem/FinancialKeyboard.dart';
 
 class ValorTextField extends StatefulWidget {
   final MoneyMaskedTextController controller;
@@ -36,16 +37,20 @@ class ValorTextFieldState extends State<ValorTextField> with SingleTickerProvide
     _focusNode.addListener(_onFocusChanged);
     widget.controller.addListener(_onTextChanged);
     _showClearButton = widget.controller.text.isNotEmpty;
-    
-    // Configurar animação
+
+    final numeric = widget.controller.numberValue;
+    if (numeric > 0) {
+      _rawValue = (numeric * 100).round().toString();
+    }
+
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-    
+
     _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 1), // Começa fora da tela (embaixo)
-      end: Offset.zero, // Termina na posição normal
+      begin: const Offset(0, 1),
+      end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: _animationController,
       curve: Curves.easeOutCubic,
@@ -63,10 +68,21 @@ class ValorTextFieldState extends State<ValorTextField> with SingleTickerProvide
     super.dispose();
   }
 
+  // MARK: - Public Methods
+
+  void clear() {
+    setState(() {
+      _rawValue = '';
+      widget.controller.updateValue(0.0);
+      _showClearButton = false;
+    });
+  }
+
+  // MARK: - Private Methods
+
   void _onFocusChanged() {
-    if (!_focusNode.hasFocus && _showKeyboard) {
-      _hideKeyboard();
-    }
+    // Removido o comportamento automático de esconder o teclado ao perder o foco
+    // O teclado agora só é escondido explicitamente pelo botão confirmar ou ao clicar fora
   }
 
   void _onTextChanged() {
@@ -87,10 +103,17 @@ class ValorTextFieldState extends State<ValorTextField> with SingleTickerProvide
   }
 
   void _showKeyboardWithAnimation() {
+    final currentValue = widget.controller.numberValue;
+    _rawValue = currentValue > 0 ? (currentValue * 100).round().toString() : '';
+
     setState(() {
       _showKeyboard = true;
     });
-    _focusNode.requestFocus();
+
+    if (!_focusNode.hasFocus) {
+      _focusNode.requestFocus();
+    }
+
     _showOverlay();
     _animationController.forward();
   }
@@ -100,20 +123,18 @@ class ValorTextFieldState extends State<ValorTextField> with SingleTickerProvide
     setState(() {
       _showKeyboard = false;
     });
-    _focusNode.unfocus();
-    _removeOverlay();
-  }
-
-  // Método público para fechar o teclado
-  void closeKeyboard() {
-    if (_showKeyboard) {
-      _hideKeyboard();
-    }
+    
+    // Remove o overlay e unfocus sem resetar o valor
+    Future.delayed(const Duration(milliseconds: 100), () {
+      _removeOverlay();
+      if (_focusNode.hasFocus) {
+        _focusNode.unfocus();
+      }
+    });
   }
 
   void _showOverlay() {
     _removeOverlay();
-
     _overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
         bottom: 0,
@@ -132,7 +153,6 @@ class ValorTextFieldState extends State<ValorTextField> with SingleTickerProvide
         ),
       ),
     );
-
     Overlay.of(context).insert(_overlayEntry!);
   }
 
@@ -145,8 +165,7 @@ class ValorTextFieldState extends State<ValorTextField> with SingleTickerProvide
     setState(() {
       _rawValue += digit;
       final cents = int.tryParse(_rawValue) ?? 0;
-      final value = cents / 100.0;
-      widget.controller.updateValue(value);
+      widget.controller.updateValue(cents / 100.0);
     });
   }
 
@@ -154,29 +173,24 @@ class ValorTextFieldState extends State<ValorTextField> with SingleTickerProvide
     setState(() {
       if (_rawValue.isNotEmpty) {
         _rawValue = _rawValue.substring(0, _rawValue.length - 1);
-        
-        if (_rawValue.isEmpty) {
-          widget.controller.updateValue(0.0);
-        } else {
-          final cents = int.tryParse(_rawValue) ?? 0;
-          final value = cents / 100.0;
-          widget.controller.updateValue(value);
-        }
       }
+      final cents = int.tryParse(_rawValue.isEmpty ? '0' : _rawValue) ?? 0;
+      widget.controller.updateValue(cents / 100.0);
     });
   }
 
   void _handleConfirm() {
+    // CORREÇÃO: Apenas esconde o teclado sem resetar o valor
+    // O _rawValue é mantido para preservar o estado
     _hideKeyboard();
     widget.onConfirm?.call();
   }
 
   void _clearText() {
-    setState(() {
-      _rawValue = '';
-      widget.controller.updateValue(0.0);
-    });
+    clear();
   }
+
+  // MARK: - Build
 
   @override
   Widget build(BuildContext context) {
@@ -215,9 +229,7 @@ class ValorTextFieldState extends State<ValorTextField> with SingleTickerProvide
           Positioned(
             right: 0,
             child: GestureDetector(
-              onTap: () {
-                _clearText();
-              },
+              onTap: _clearText,
               child: Container(
                 padding: const EdgeInsets.all(8),
                 color: Colors.transparent,

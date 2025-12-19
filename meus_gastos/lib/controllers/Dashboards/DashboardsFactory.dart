@@ -4,7 +4,7 @@ import 'package:meus_gastos/controllers/Dashboards/DashboardScreenRefatore.dart'
 import 'package:meus_gastos/controllers/Dashboards/DashboardViewModel.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/MonthInsightsViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/FixedExpensesViewModel.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:provider/provider.dart';
 

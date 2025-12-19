@@ -60,8 +60,8 @@ class TranslateService {
         return AppLocalizations.of(context)!.movie;
       case 'VideoGame':
         return AppLocalizations.of(context)!.videoGame;
-      case 'Drink':
-        return AppLocalizations.of(context)!.drink;
+      case 'fun':
+        return AppLocalizations.of(context)!.fun;
       case 'Water':
         return AppLocalizations.of(context)!.water;
       case 'Light':
@@ -99,8 +99,8 @@ class TranslateService {
         return AppLocalizations.of(context)!.movie;
       case 'VideoGame':
         return AppLocalizations.of(context)!.videoGame;
-      case 'Drink':
-        return AppLocalizations.of(context)!.drink;
+      case 'fun':
+        return AppLocalizations.of(context)!.fun;
       case 'Water':
         return AppLocalizations.of(context)!.water;
       case 'Light':

@@ -153,7 +153,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get videoGame => 'Videogame';
 
   @override
-  String get drink => 'Lazer';
+  String get fun => 'Fun';
 
   @override
   String get water => 'Água';
@@ -180,7 +180,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get noExpensesThisWeek => 'Não há gastos nesta semana';
 
   @override
-  String get export => 'Exportar';
+  String get export => 'Exportar para Excel';
 
   @override
   String get textExport =>
@@ -503,6 +503,30 @@ class AppLocalizationsPt extends AppLocalizations {
   String get addTransactionPopupSubtitle => 'Valor gasto';
 
   @override
+  String get automaticAddition => 'Adição Automática';
+
+  @override
+  String get suggestion => 'Sugestão';
+
+  @override
+  String get automatic => 'Automático';
+
+  @override
+  String get selectAdditionType => 'Selecionar Tipo de Adição';
+
+  @override
+  String get selectAdditionTypeDescription =>
+      'Escolha como essa despesa será adicionada';
+
+  @override
+  String get automaticAdditionDescription =>
+      'Adiciona a despesa automaticamente na data agendada';
+
+  @override
+  String get suggestionDescription =>
+      'Lembra você de adicionar a despesa na data agendada';
+
+  @override
   String get noGoalsYet => 'Nenhuma Meta Ainda';
 
   @override
@@ -535,4 +559,34 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get tapCategoryToSetGoal =>
       'Toque em qualquer categoria abaixo para definir uma meta';
+
+  @override
+  String get cloudBackup => 'Backup na nuvem';
+
+  @override
+  String get save30Percent => 'Economize 30%';
+
+  @override
+  String get termsOfUse => 'Termos de Uso';
+
+  @override
+  String get privacyPolicy => 'Política de Privacidade';
+
+  @override
+  String get subscribed => 'Assinado';
+
+  @override
+  String get subscribe => 'Assinar';
+
+  @override
+  String get exportFeature => 'Exportar';
+
+  @override
+  String get adFreeFeature => 'Livre de Anúncios';
+
+  @override
+  String get backupFeature => 'Backup';
+
+  @override
+  String get popularBadge => 'POPULAR';
 }
