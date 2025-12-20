@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
+import 'package:meus_gastos/services/CardServiceRefatore.dart';
 import 'CampoComMascara.dart';
 import 'HorizontalCircleList.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
@@ -105,11 +104,10 @@ class HeaderCardState extends State<HeaderCard> {
       date: lastDateSelected,
       category: (_horizontalCircleListKey.currentState?.categorieList ??
           [])[lastIndexSelected],
-      id: CardService.generateUniqueId(),
+      id: CardService().generateUniqueId(),
     );
     // print("object");
 
-    if (!(newCard.amount == 0)) CardService().addCard(newCard);
 
     // await CategoryService().incrementCategoryFrequency(
     //     (_horizontalCircleListKey.currentState?.categorieList ??
@@ -117,7 +115,7 @@ class HeaderCardState extends State<HeaderCard> {
     //         .id);
     // CategoryService().printAllCategories();
     setState(() {
-      _horizontalCircleListKey.currentState?.loadCategories();
+      // _horizontalCircleListKey.currentState?.loadCategories();
       _horizontalCircleListKey.currentState?.selectedIndex = 0;
       valorController.updateValue(0.0);
       descricaoController.clear();

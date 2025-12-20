@@ -1,17 +1,15 @@
-import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
+import 'package:flutter/foundation.dart';
 import 'package:meus_gastos/controllers/exportExcel/exportExcelScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCard.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:provider/provider.dart';
 
 class ExtractByCategory extends StatefulWidget {
-  final String category;
+  final CategoryModel category;
   final List<CardModel> cards;
   final DateTime currentMonth;
   final List<CategoryModel> categories;
@@ -36,8 +34,7 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
   List<CardModel> selectByCategory(
       List<CardModel> cardList, DateTime currentDate) {
     return cardList
-        .where((card) => card.category.name == widget.category)
-        .where((c) => (c.date.month == currentDate.month && c.amount > 0))
+        .where((card) => card.category.id == widget.category.id)
         .where((c) => (c.date.month == currentDate.month && c.amount > 0))
         .toList();
   }
@@ -70,7 +67,7 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
                 ),
                 Text(
                   TranslateService.getTranslatedCategoryName(
-                      context, widget.category),
+                      context, widget.category.name),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -92,7 +89,7 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
                             borderRadius:
                                 BorderRadius.vertical(top: Radius.circular(20)),
                           ),
-                          child: Exportexcelscreen(category: widget.category),
+                          child: Exportexcelscreen(cards: widget.cards, category: widget.category.id),
                         );
                       },
                     );

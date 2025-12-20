@@ -1,4 +1,3 @@
-import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 
 class FixedExpense {

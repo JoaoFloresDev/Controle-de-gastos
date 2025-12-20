@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/services/CardServiceRefatore.dart';
 import 'ViewComponents/CampoComMascara.dart';
 import 'ViewComponents/HorizontalCircleListRefatore.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
@@ -108,7 +108,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
       description: descricaoController.text,
       date: lastDateSelected,
       category: widget.categories[lastIndexSelected!],
-      id: CardService.generateUniqueId(),
+      id: CardService().generateUniqueId(),
     );
 
     widget.onAddCardPressed(widget.card, newCard);

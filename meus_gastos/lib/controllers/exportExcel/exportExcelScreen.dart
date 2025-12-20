@@ -1,30 +1,19 @@
+import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/exportExcel/export_toExcel.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:meus_gastos/services/CardService.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'dart:io';
 import 'package:excel/excel.dart';
-
-import 'package:excel/excel.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:meus_gastos/models/CardModel.dart';
-import 'dart:io';
 
 class Exportexcelscreen extends StatefulWidget {
   final String? category;
-  const Exportexcelscreen({Key? key, this.category}) : super(key: key);
+  final List<CardModel> cards;
+  const Exportexcelscreen({Key? key, this.category, required this.cards}) : super(key: key);
   @override
   _Exportexcelscreen createState() => _Exportexcelscreen();
 }
@@ -168,15 +157,15 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
       _isLoadingSaveLocally = true;
     });
     if (_selectedFormat == 'Excel') {
-      Excel excel =
-          await ExportToExcel.buildExcelFromCards(category: widget.category);
+      Excel excel = await ExportToExcel.buildExcelFromCards(
+          widget.cards, widget.category);
       await ExportToExcel.saveExcelFileLocally(excel, context);
     } else if (_selectedFormat == 'PDF') {
-      Excel excel =
-          await ExportToExcel.buildExcelFromCards(category: widget.category);
+      Excel excel = await ExportToExcel.buildExcelFromCards(
+          widget.cards, widget.category);
       await ExportToExcel.convertExcelToPdf(excel, context);
     } else {
-      await _shareAsText();
+      await _shareAsText(widget.cards);
     }
     setState(() {
       _isLoadingSaveLocally = false;
@@ -189,8 +178,8 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
       _isLoadingShare = true;
     });
     if (_selectedFormat == 'Excel') {
-      Excel excel =
-          await ExportToExcel.buildExcelFromCards(category: widget.category);
+      Excel excel = await ExportToExcel.buildExcelFromCards(
+          widget.cards, widget.category);
       Directory directory = await getApplicationDocumentsDirectory();
       String filePath = '${directory.path}/sheet_of_expens.xlsx';
       File(filePath)
@@ -201,8 +190,8 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
         text: AppLocalizations.of(context)!.shareMensage,
       );
     } else if (_selectedFormat == 'PDF') {
-      Excel excel =
-          await ExportToExcel.buildExcelFromCards(category: widget.category);
+      Excel excel = await ExportToExcel.buildExcelFromCards(
+          widget.cards, widget.category);
       List<int> pdfBytes = await ExportToExcel.buildPdfFromExcel(excel);
       Directory directory = await getApplicationDocumentsDirectory();
       String filePath = '${directory.path}/sheet_of_expens.pdf';
@@ -212,7 +201,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
         text: AppLocalizations.of(context)!.shareMensage,
       );
     } else {
-      await _shareAsText();
+      await _shareAsText(widget.cards);
     }
     setState(() {
       _isLoadingShare = false;
@@ -220,13 +209,11 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
   }
 
   //mark - Share as Text
-  Future<void> _shareAsText() async {
+  Future<void> _shareAsText(List<CardModel> cards) async {
     try {
-      List<CardModel> cards = await CardService.retrieveCards();
       if (widget.category != null) {
-        cards = cards
-            .where((card) => card.category.name == widget.category)
-            .toList();
+        cards =
+            cards.where((card) => card.category.id == widget.category).where((card)=>card.amount>0).toList();
       }
       String message = '${AppLocalizations.of(context)!.shareMensage}\n\n';
       message += cards.map((card) {

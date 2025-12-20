@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:meus_gastos/controllers/Dashboards/DashboardViewModel.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/MonthInsightsViewModel.dart';
+import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -310,7 +311,7 @@ class DashboardScreenState extends State<DashboardScreen>
             ),
           ),
           child: ExtractByCategory(
-              category: model.category.name,
+              category: model.category,
               currentMonth: dashboardVM.currentDate,
               cards: dashboardVM.cards,
               categories: dashboardVM.categoriesVM.categories,
@@ -357,12 +358,13 @@ class DashboardScreenState extends State<DashboardScreen>
         backgroundColor: AppColors.background1,
         trailing: GestureDetector(
           onTap: () {
+            TransactionsViewModel transactionsViewModel = context.read<TransactionsViewModel>();
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,
               backgroundColor: Colors.transparent,
               builder: (BuildContext context) {
-                return const Exportexcelscreen(); // O widget com o código acima
+                return Exportexcelscreen(cards: transactionsViewModel.cardList);
               },
             );
           },

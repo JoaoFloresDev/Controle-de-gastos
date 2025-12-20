@@ -1,11 +1,10 @@
-import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:excel/excel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:open_file/open_file.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'dart:io';
 import 'package:meus_gastos/l10n/app_localizations.dart';
@@ -13,11 +12,10 @@ import 'package:meus_gastos/l10n/app_localizations.dart';
 class ExportToExcel {
   // Função para montar o arquivo Excel a partir dos dados, com filtro opcional de categoria
 // MARK - Build Excel From Cards
-  static Future<Excel> buildExcelFromCards({String? category}) async {
-    List<CardModel> cards = await CardService.retrieveCards();
+  static Future<Excel> buildExcelFromCards(List<CardModel> cards, String? category) async {
 
     if (category != null) {
-      cards = cards.where((card) => card.category.name == category).toList();
+      cards = cards.where((card) => ((card.category.id == category) && (card.amount > 0))).toList();
     }
 
     cards.sort((a, b) => b.date.compareTo(a.date));

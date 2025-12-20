@@ -1,20 +1,4 @@
-import 'dart:io';
-import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesService.dart';
-import '../../../models/CardModel.dart';
-import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import 'package:meus_gastos/models/CategoryModel.dart';
-import 'UIComponents/Header/HeaderCard.dart';
-import 'UIComponents/VerticalCircleList.dart';
-import 'UIComponents/CompactListCardRecorrent.dart';
-import 'UIComponents/CustomSeparator.dart';
-import 'UIComponents/InsertExpenseButton.dart';
-import 'UIComponents/AddedExpenseToast.dart';
 
 class HeaderWithGradientBackground extends StatefulWidget {
   final Widget Function(GlobalKey headerKey) headerBuilder;

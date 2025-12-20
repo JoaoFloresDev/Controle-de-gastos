@@ -1,9 +1,9 @@
 import 'package:meus_gastos/controllers/RecurrentExpense/UI/intervalsControl.dart';
 import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/services/CardServiceRefatore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
 
 class FixedExpensesService {
  
@@ -115,7 +115,7 @@ class FixedExpensesService {
 
     // Para diário ou seg_sex, usa o dia já contido em fixedCard.date
     return CardModel(
-      id: CardService.generateUniqueId(),
+      id: CardService().generateUniqueId(),
       amount: fixedCard.price,
       description: fixedCard.description,
       date: DateTime(

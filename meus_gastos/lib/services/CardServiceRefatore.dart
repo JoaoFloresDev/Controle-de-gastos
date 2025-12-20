@@ -66,7 +66,7 @@ class CardService {
   }
 
   // MARK: - Utility
-  static String generateUniqueId() {
+  String generateUniqueId() {
     var uuid = const Uuid();
     return uuid.v4();
   }

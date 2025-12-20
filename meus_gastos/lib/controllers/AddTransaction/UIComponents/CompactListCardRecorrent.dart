@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/services/CardServiceRefatore.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 
 class HorizontalCompactCardList extends StatefulWidget {
@@ -173,7 +172,7 @@ class CompactListCardRecorrent extends StatelessWidget {
       description: card.description,
       date: DateTime.now(),
       category: card.category,
-      id: CardService.generateUniqueId(),
+      id: CardService().generateUniqueId(),
       idFixoControl: card.idFixoControl,
     );
     // await CardService().addCard(newCard);

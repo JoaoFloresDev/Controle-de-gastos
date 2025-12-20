@@ -2,11 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/data/ITransactionsRepository.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesServiceRefatore.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/services/CardServiceRefatore.dart';
 
 class TransactionsViewModel extends ChangeNotifier {
   final ITransactionsRepository repository;
@@ -74,10 +73,11 @@ class TransactionsViewModel extends ChangeNotifier {
           description: fixedExpense.description,
           date: fixedToNormalCard(fixedExpense).date,
           category: fixedExpense.category,
-          id: CardService.generateUniqueId(),
+          id: CardService().generateUniqueId(),
           idFixoControl: fixedExpense.id,
         );
-        await CardService().addCard(newCard);
+        // problema esta aqui
+        // await CardService().addCard(newCard);
       }
     }
   }

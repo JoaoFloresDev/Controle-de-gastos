@@ -4,13 +4,8 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/UI/HorizontalCircleList.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
-import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:uuid/uuid.dart';
-import '../fixedExpensesService.dart';
 import 'package:meus_gastos/controllers/CardDetails/ViewComponents/CampoComMascara.dart';
 import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
@@ -227,7 +222,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                 onPressed: () {
                   adicionar();
                   widget.onAddClicked;
-                  FixedExpensesService.printCardsInfo();
                 },
                 child: Text(
                   widget.adicionarButtonTitle,

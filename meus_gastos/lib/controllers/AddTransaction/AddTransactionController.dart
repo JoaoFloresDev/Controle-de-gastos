@@ -3,16 +3,12 @@ import 'package:meus_gastos/controllers/CategoryCreater/CategoryCreater.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
-import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
-import 'package:meus_gastos/controllers/gastos_fixos/fixedExpensesService.dart';
-import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/services/CardServiceRefatore.dart';
 import 'package:provider/provider.dart';
 import '../../../models/CardModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:meus_gastos/services/CardService.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
@@ -383,7 +379,7 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                           description: header.descricaoController.text,
                           date: header.lastDateSelected,
                           category: selectedCat,
-                          id: CardService.generateUniqueId(),
+                          id: CardService().generateUniqueId(),
                         ));
                     header.valorController.updateValue(0);
                     header.descricaoController.clear();

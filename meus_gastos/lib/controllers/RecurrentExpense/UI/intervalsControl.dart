@@ -7,7 +7,7 @@
 //Mensal
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
+import 'package:meus_gastos/services/CardServiceRefatore.dart';
 
 class Intervalscontrol {
   List<CardModel> filterCardsByDateMonth(List<CardModel> cards, int givenDay) {

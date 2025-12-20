@@ -3,13 +3,12 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/services/CardServiceRefatore.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
-import 'package:meus_gastos/services/CardService.dart';
-import 'package:meus_gastos/services/CategoryService.dart';
 import 'HeaderBar.dart';
 import 'ValueInputSection.dart';
 import 'DescriptionInputField.dart';
@@ -132,10 +131,9 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
       description: descricaoController.text,
       date: lastDateSelected,
       category: selectedCategory, // Use the actual selected category
-      id: CardService.generateUniqueId(),
+      id: CardService().generateUniqueId(),
     );
 
-    CardService().addCard(newCard);
 
     setState(() {
       valorController.updateValue(0.0);
