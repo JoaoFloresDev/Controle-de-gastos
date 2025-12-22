@@ -5,7 +5,6 @@ import 'package:meus_gastos/controllers/Transactions/data/ITransactionsRepositor
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesServiceRefatore.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardServiceRefatore.dart';
 
 class TransactionsViewModel extends ChangeNotifier {
   final ITransactionsRepository repository;
@@ -43,9 +42,9 @@ class TransactionsViewModel extends ChangeNotifier {
   }
 
   Future<void> addCard(CardModel card) async {
-    await repository.addCard(card);
     cardList.add(card);
     notifyListeners();
+    await repository.addCard(card);
   }
 
   void setCurrentDate(DateTime newDate) {
@@ -64,24 +63,6 @@ class TransactionsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _addAutomaticFixedExpenses(
-      List<FixedExpense> fixedExpenses) async {
-    for (var fixedExpense in fixedExpenses) {
-      if (fixedExpense.isAutomaticAddition) {
-        final newCard = CardModel(
-          amount: fixedExpense.price,
-          description: fixedExpense.description,
-          date: fixedToNormalCard(fixedExpense).date,
-          category: fixedExpense.category,
-          id: CardService().generateUniqueId(),
-          idFixoControl: fixedExpense.id,
-        );
-        // problema esta aqui
-        // await CardService().addCard(newCard);
-      }
-    }
-  }
-
   CardModel fixedToNormalCard(FixedExpense fcard) {
     return FixedExpensesService().fixedToNormalCard(fcard, _currentDate);
   }
@@ -90,26 +71,28 @@ class TransactionsViewModel extends ChangeNotifier {
     cardFix.price = 0;
     var car = fixedToNormalCard(cardFix);
     await addCard(car);
-    // SaveExpensOnCloud().addNewDate(car);
   }
 
-  Future<void> deleteCard(CardModel cardModel) async {
-    List<String> idsFixed = await FixedExpensesService().getFixedExpenseIds([]);
+  Future<void> deleteCard(
+      CardModel cardModel, List<FixedExpense> fcards) async {
+    List<String> idsFixed =
+        await FixedExpensesService().getFixedExpenseIds(fcards);
     if (idsFixed.contains(cardModel.idFixoControl)) {
       cardModel.amount = 0;
-      addCard(cardModel);
+      updateCard(cardModel, cardModel);
+      print(cardModel.amount);
     }
     notifyListeners();
     await repository.deleteCard(cardModel);
   }
 
   Future<void> updateCard(CardModel oldCard, CardModel newCard) async {
-    await repository.updateCard(oldCard, newCard);
     if (cardList.contains(oldCard)) {
       cardList.remove(oldCard);
     }
     cardList.add(newCard);
     notifyListeners();
+    await repository.updateCard(oldCard, newCard);
   }
 
   @override

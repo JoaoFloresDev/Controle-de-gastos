@@ -175,14 +175,12 @@ class CompactListCardRecorrent extends StatelessWidget {
       id: CardService().generateUniqueId(),
       idFixoControl: card.idFixoControl,
     );
-    // await CardService().addCard(newCard);
     await onAddClicked(newCard);
     if (onAction != null) onAction!(card, 'add');
   }
 
   Future<void> fakeExpens() async {
     card.amount = 0;
-    // await CardService().addCard(card);
     await onAddClicked(card);
     if (onAction != null) onAction!(card, 'skip');
   }

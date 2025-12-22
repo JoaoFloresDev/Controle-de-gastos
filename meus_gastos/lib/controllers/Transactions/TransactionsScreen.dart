@@ -213,14 +213,14 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
         } else {
           return SizedBox(
               child: ProModalAndroid(
-                isLoading: _isLoading,
-                onSubscriptionPurchased: () {
-                  proViewModel.checkUserProStatus();
-                  if (mounted) {
-                    setState(() {});
-                  }
-                },
-              ));
+            isLoading: _isLoading,
+            onSubscriptionPurchased: () {
+              proViewModel.checkUserProStatus();
+              if (mounted) {
+                setState(() {});
+              }
+            },
+          ));
         }
       },
     );
@@ -237,6 +237,11 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     // Adiciona fixedCards
     for (var fcard in fExpensesVM.listFilteredFixedCardsShow.reversed) {
       var card = fExpensesVM.fixedToNormalCard(fcard, currentDate);
+      if (fcard.isAutomaticAddition) {
+        print("category: ${fcard.category.name} | amount: ${fcard.price}");
+        transactionsViewModel.addCard(card);
+        continue;
+      }
 
       if (card.amount == 0) continue;
 
@@ -265,7 +270,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
           child: ListCard(
             onTap: (card) {
               widget.onAddClicked();
-              _cardDetails(context, card, transactionsViewModel);
+              _cardDetails(context, card, transactionsViewModel, fExpensesVM);
             },
             card: card,
             background: AppColors.card,
@@ -463,8 +468,8 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     );
   }
 
-  void _cardDetails(
-      BuildContext context, CardModel card, TransactionsViewModel viewModel) {
+  void _cardDetails(BuildContext context, CardModel card,
+      TransactionsViewModel viewModel, FixedExpensesViewModel fixedVM) {
     CategoryViewModel catVM = context.read<CategoryViewModel>();
     FocusScope.of(context).unfocus();
     showModalBottomSheet(
@@ -489,7 +494,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
               });
             },
             onDelete: (card) {
-              viewModel.deleteCard(card);
+              viewModel.deleteCard(card, fixedVM.fixedExpenses);
             },
             categories: catVM.categories,
             onAddCardPressed: (oldCard, newCard) =>

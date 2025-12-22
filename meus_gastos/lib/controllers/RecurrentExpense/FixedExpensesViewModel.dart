@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesServiceRefatore.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/data/FixedExpensesRepository.dart';
@@ -72,6 +71,9 @@ class FixedExpensesViewModel extends ChangeNotifier {
 
   Future<void> fetchExpenses() async {
     _fixedExpense = await _repo.fetch();
+    _fixedExpense.sort((a, b) {
+      return a.date.compareTo(b.date);
+    });
     _recalculate();
   }
 
