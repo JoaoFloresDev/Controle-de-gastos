@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesServiceRefatore.dart';
@@ -7,8 +8,16 @@ import 'package:meus_gastos/models/CardModel.dart';
 
 class FixedExpensesViewModel extends ChangeNotifier {
   final FixedExpensesRepository _repo;
+  final SyncViewModel syncVM;
+  FixedExpensesViewModel(this._repo, this.syncVM) {
+    syncVM.addListener(_onSync);
+  }
+  void _onSync() {
+    if (syncVM.hasSynced) {
+      _recalculate();
+    }
+  }
 
-  FixedExpensesViewModel(this._repo);
 
   FixedExpensesService fixedExpensesService = FixedExpensesService();
 
@@ -126,6 +135,7 @@ class FixedExpensesViewModel extends ChangeNotifier {
   @override
   void dispose() {
     _transactionsVM?.removeListener(_onTransactionsChanged);
+    syncVM.removeListener(_onSync);
     super.dispose();
   }
 }

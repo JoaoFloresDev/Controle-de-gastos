@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/Goals/Data/GoalsRepository.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsScreen.dart';
@@ -24,6 +25,7 @@ class GoalsFactory extends StatelessWidget {
         categoryViewModel: categoryVM,
         transactionsViewModel: transactionsVM,
         goalsRepo: goalRepo,
+        syncVM: context.read<SyncViewModel>()
       )..init(),
       child: Goalsscrean(
         title: title,

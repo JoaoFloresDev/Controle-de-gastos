@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/data/CategoryRepositoryLocal.dart';
@@ -42,6 +43,7 @@ class AppProviders extends StatelessWidget {
               repository: repoSelector,
               cardEvents: CardEvents(),
               loginVM: loginVM,
+              syncVM: context.read<SyncViewModel>()
             )..init();
           },
         ),
@@ -62,6 +64,7 @@ class AppProviders extends StatelessWidget {
 
             return CategoryViewModel(
               repo: repoSelector,
+              syncVM: context.read<SyncViewModel>()
             )..load();
           },
         ),
@@ -78,7 +81,7 @@ class AppProviders extends StatelessWidget {
           create: (context) {
             final loginVM = context.read<LoginViewModel>();
             final repo = FixedExpensesRepository(loginVM);
-            return FixedExpensesViewModel(repo)..init();
+            return FixedExpensesViewModel(repo, context.read<SyncViewModel>())..init();
           },
           update: (context, transactionsVM, fixedVM) {
             fixedVM!.updateTransactionsVM(transactionsVM);

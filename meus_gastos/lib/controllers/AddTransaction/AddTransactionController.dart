@@ -351,6 +351,7 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                 onPressed: () {
                   final header = _headerCardKey.currentState;
                   if (header != null) {
+                    if(header.valorController.numberValue>0){
                     final list =
                         context.read<CategoryViewModel>().avaliebleCetegories;
                     final selectedCat = (list != null && list.isNotEmpty)
@@ -372,7 +373,6 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                           TranslateService.getTranslatedCategoryUsingModel(
                               context, selectedCat),
                     );
-                    // header.adicionar();
                     widget.onAddClicked();
                     context.read<TransactionsViewModel>().addCard(CardModel(
                           amount: header.valorController.numberValue,
@@ -383,7 +383,7 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                         ));
                     header.valorController.updateValue(0);
                     header.descricaoController.clear();
-                  }
+                  }}
                 },
               ),
               Consumer<FixedExpensesViewModel>(

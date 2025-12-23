@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:meus_gastos/AppProviders.dart';
+import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsFactory.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
@@ -137,6 +138,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         ChangeNotifierProvider(
             create: (_) => ProManeger()..checkUserProStatus()),
         ChangeNotifierProvider(create: (_) => LoginViewModel()..init()),
+        ChangeNotifierProvider(create: (_)=> SyncViewModel())
       ],
       child: Builder(builder: (context) {
         return AppProviders(

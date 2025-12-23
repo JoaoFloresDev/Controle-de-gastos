@@ -50,8 +50,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
     // TÁ ERRADO
     if (widget.categoryList.isNotEmpty) {
       setState(() {
-        icons_list_recorrent =
-            widget.categoryList;
+        icons_list_recorrent = widget.categoryList;
         lastIndexSelected_category = icons_list_recorrent
             .indexWhere((category) => category.id == widget.card.category.id);
 
@@ -124,20 +123,20 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   void adicionar() {
     print(icons_list_recorrent[lastIndexSelected_category].name);
 
-    final newCard = FixedExpense(
-      price: valorController.numberValue,
-      description: descricaoController.text,
-      date: _selectedDate,
-      category: icons_list_recorrent[lastIndexSelected_category],
-      id: widget.card.id,
-      repetitionType: repetitionType,
-      additionType: tipoAdicao,
-    );
-    // FixedExpensesService.updateCard(widget.card.id, newCard);
-
-    Future.delayed(const Duration(milliseconds: 300), () {
-      widget.onAddClicked(newCard);
-    });
+    if (valorController.numberValue > 0) {
+      final newCard = FixedExpense(
+        price: valorController.numberValue,
+        description: descricaoController.text,
+        date: _selectedDate,
+        category: icons_list_recorrent[lastIndexSelected_category],
+        id: widget.card.id,
+        repetitionType: repetitionType,
+        additionType: tipoAdicao,
+      );
+      Future.delayed(const Duration(milliseconds: 300), () {
+        widget.onAddClicked(newCard);
+      });
+    }
   }
 
   // MARK: - Build Method

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/designSystem/Components/CustomHeader.dart';
-import 'CardDetailsScene/DetailScreen.dart';
+import 'CardDetailsScreen/DetailScreen.dart';
 import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
@@ -82,21 +82,22 @@ class _RecurrentExpenseScreenState extends State<RecurrentExpenseScreen> {
 
   Future<void> _saveExpense() async {
     FocusScope.of(context).unfocus();
+    if (valueController.numberValue > 0) {
+      print("repetitionType: $repetitionType");
+      print("repetitionType: $additionType");
+      await widget.fixedExpensesViewModel.addExpense(FixedExpense(
+        description: descriptionController.text,
+        price: valueController.numberValue,
+        date: selectedDate,
+        category: widget.categories[selectedCategoryIndex],
+        id: const Uuid().v4(),
+        repetitionType: repetitionType,
+        additionType: additionType,
+      ));
 
-    print("repetitionType: $repetitionType");
-    print("repetitionType: $additionType");
-    await widget.fixedExpensesViewModel.addExpense(FixedExpense(
-      description: descriptionController.text,
-      price: valueController.numberValue,
-      date: selectedDate,
-      category: widget.categories[selectedCategoryIndex],
-      id: const Uuid().v4(),
-      repetitionType: repetitionType,
-      additionType: additionType,
-    ));
-
-    _resetForm();
-    widget.onAddPressedBack();
+      _resetForm();
+      widget.onAddPressedBack();
+    }
   }
 
   void _showExpenseDetails(FixedExpense expense) {
@@ -124,7 +125,6 @@ class _RecurrentExpenseScreenState extends State<RecurrentExpenseScreen> {
               setState(() {
                 widget.onAddPressedBack();
               });
-              
             },
             categories: widget.categories,
           ),

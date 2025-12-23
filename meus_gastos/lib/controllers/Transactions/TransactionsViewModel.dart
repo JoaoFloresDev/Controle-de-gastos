@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/data/ITransactionsRepository.dart';
@@ -10,12 +11,21 @@ class TransactionsViewModel extends ChangeNotifier {
   final ITransactionsRepository repository;
   final CardEvents cardEvents;
   final LoginViewModel loginVM;
-  TransactionsViewModel({
-    required this.repository,
-    required this.cardEvents,
-    required this.loginVM,
-  }) {
+  final SyncViewModel syncVM;
+
+  TransactionsViewModel(
+      {required this.repository,
+      required this.cardEvents,
+      required this.loginVM,
+      required this.syncVM}) {
     loginVM.addListener(_onLoginChanged);
+    syncVM.addListener(_onSync);
+  }
+
+  void _onSync() {
+    if (syncVM.hasSynced) {
+      loadCards();
+    }
   }
 
   List<CardModel> _cardList = [];
@@ -98,6 +108,7 @@ class TransactionsViewModel extends ChangeNotifier {
   @override
   void dispose() {
     loginVM.removeListener(_onLoginChanged);
+    syncVM.removeListener(_onSync);
     super.dispose();
   }
 }

@@ -103,19 +103,21 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
 
   // MARK: - Adicionar
   void adicionar() {
-    final newCard = CardModel(
-      amount: valorController.numberValue,
-      description: descricaoController.text,
-      date: lastDateSelected,
-      category: widget.categories[lastIndexSelected!],
-      id: CardService().generateUniqueId(),
-    );
+    if (valorController.numberValue > 0) {
+      final newCard = CardModel(
+        amount: valorController.numberValue,
+        description: descricaoController.text,
+        date: lastDateSelected,
+        category: widget.categories[lastIndexSelected!],
+        id: CardService().generateUniqueId(),
+      );
 
-    widget.onAddCardPressed(widget.card, newCard);
+      widget.onAddCardPressed(widget.card, newCard);
 
-    Future.delayed(const Duration(milliseconds: 300), () {
-      widget.onAddClicked();
-    });
+      Future.delayed(const Duration(milliseconds: 300), () {
+        widget.onAddClicked();
+      });
+    }
   }
 
   // MARK: - Build Method

@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/Goals/Data/GoalsRepository.dart';
 import 'package:meus_gastos/controllers/Goals/Data/GoalsService.dart';
@@ -14,22 +15,27 @@ class GoalsViewModel extends ChangeNotifier {
   CategoryViewModel categoryViewModel;
   TransactionsViewModel transactionsViewModel;
   GoalsRepository goalsRepo;
+  SyncViewModel syncVM;
 
   GoalsViewModel(
       {required this.categoryViewModel,
       required this.transactionsViewModel,
-      required this.goalsRepo}) {
+      required this.goalsRepo,
+      required this.syncVM}) {
     transactionsViewModel.addListener(_onTransactionsChanged);
+    categoryViewModel.addListener(_onTransactionsChanged);
+    syncVM.addListener(_onTransactionsChanged);
   }
 
   void _onTransactionsChanged() {
-    // Recalcula sempre que cardList mudar
     recalculate();
   }
 
   @override
   void dispose() {
     transactionsViewModel.removeListener(_onTransactionsChanged);
+    categoryViewModel.removeListener(_onTransactionsChanged);
+    syncVM.removeListener(_onTransactionsChanged);
     super.dispose();
   }
 

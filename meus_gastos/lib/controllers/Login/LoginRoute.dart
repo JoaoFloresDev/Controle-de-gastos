@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
+import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Login/cadastro_login/LoginScrean.dart';
 import 'package:meus_gastos/controllers/Login/cadastro_login/LogoutScrean.dart';
@@ -9,6 +11,7 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/services/firebase/syncService.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginRoute {
@@ -18,6 +21,7 @@ class LoginRoute {
     ProManeger proViewModel,
     VoidCallback onLoginChange,
   ) {
+    final syncVM = context.read<SyncViewModel>();
     FocusScope.of(context).unfocus();
     showModalBottomSheet(
       context: context,
@@ -48,6 +52,7 @@ class LoginRoute {
                     () {
                       onLoginChange();
                     },
+                    syncVM
                   );
                 }));
       },
@@ -113,13 +118,12 @@ class LoginRoute {
   }
 
   Future<bool> isFirstLogin(String userId) async {
-    // final prefs = await SharedPreferences.getInstance();
-    // return prefs.getBool('synced_$userId') != true;
-    return true;
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('synced_$userId') != true;
   }
 
   Future<void> syncInFirstAcess(
-      BuildContext context, String userId, VoidCallback loadCards) async {
+      BuildContext context, String userId, VoidCallback loadCards, SyncViewModel syncVM) async {
     final navigator = Navigator.of(context);
 
     bool prim = await isFirstLogin(userId);
@@ -313,70 +317,68 @@ class LoginRoute {
                                               .getInstance();
                                           await prefs.setBool(
                                               'synced_${userId}', true);
-                                          navigator.pop();
 
                                           try {
-                                            await SyncService()
-                                                .syncData(userId);
+                                            await syncVM
+                                                .sync(userId);
 
                                             print(
                                                 'Dados sincronizados com sucesso!');
 
-                                            if (!context.mounted) return;
-
                                             // Mostrar feedback de sucesso
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Row(
-                                                  children: [
-                                                    const Icon(
-                                                      Icons.check_circle,
-                                                      color: Colors.white,
-                                                      size: 20,
-                                                    ),
-                                                    const SizedBox(width: 8),
-                                                    const Text(
-                                                        'Dados sincronizados com sucesso!'),
-                                                  ],
-                                                ),
-                                                backgroundColor: Colors.green,
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                ),
-                                              ),
-                                            );
+                                            // ScaffoldMessenger.of(context)
+                                            //     .showSnackBar(
+                                            //   SnackBar(
+                                            //     content: Row(
+                                            //       children: [
+                                            //         const Icon(
+                                            //           Icons.check_circle,
+                                            //           color: Colors.white,
+                                            //           size: 20,
+                                            //         ),
+                                            //         const SizedBox(width: 8),
+                                            //         const Text(
+                                            //             'Dados sincronizados com sucesso!'),
+                                            //       ],
+                                            //     ),
+                                            //     backgroundColor: Colors.green,
+                                            //     behavior:
+                                            //         SnackBarBehavior.floating,
+                                            //     shape: RoundedRectangleBorder(
+                                            //       borderRadius:
+                                            //           BorderRadius.circular(8),
+                                            //     ),
+                                            //   ),
+                                            // );
                                           } catch (e) {
                                             print(
-                                                'Erro ao sincronizar. Tente novamente.');
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Row(
-                                                  children: [
-                                                    const Icon(
-                                                      Icons.error,
-                                                      color: Colors.white,
-                                                      size: 20,
-                                                    ),
-                                                    const SizedBox(width: 8),
-                                                    const Text(
-                                                        'Erro ao sincronizar. Tente novamente.'),
-                                                  ],
-                                                ),
-                                                backgroundColor: Colors.red,
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                ),
-                                              ),
-                                            );
+                                                'Erro ao sincronizar. Tente novamente.\n$e');
+                                            // ScaffoldMessenger.of(context)
+                                            //     .showSnackBar(
+                                            //   SnackBar(
+                                            //     content: Row(
+                                            //       children: [
+                                            //         const Icon(
+                                            //           Icons.error,
+                                            //           color: Colors.white,
+                                            //           size: 20,
+                                            //         ),
+                                            //         const SizedBox(width: 8),
+                                            //         const Text(
+                                            //             'Erro ao sincronizar. Tente novamente.'),
+                                            //       ],
+                                            //     ),
+                                            //     backgroundColor: Colors.red,
+                                            //     behavior:
+                                            //         SnackBarBehavior.floating,
+                                            //     shape: RoundedRectangleBorder(
+                                            //       borderRadius:
+                                            //           BorderRadius.circular(8),
+                                            //     ),
+                                            //   ),
+                                            // );
                                           }
+                                          navigator.pop();
                                         },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.blue,
@@ -388,7 +390,7 @@ class LoginRoute {
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                   ),
-                                  child: isLoading
+                                  child: syncVM.isSyncing
                                       ? const SizedBox(
                                           width: 20,
                                           height: 20,

@@ -1,16 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/data/ICategoryRepository.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 
 class CategoryViewModel extends ChangeNotifier {
   final ICategoryRepository repo;
-
+  final SyncViewModel syncVM;
   List<CategoryModel> categories = [];
   List<CategoryModel> avaliebleCetegories = [];
 
   bool isLoading = false;
 
-  CategoryViewModel({required this.repo});
+  CategoryViewModel({required this.repo, required this.syncVM}) {
+    syncVM.addListener(_onSync);
+  }
+
+  void _onSync() {
+    if (syncVM.hasSynced) {
+      load();
+    }
+  }
+
+  @override
+  void dispose() {
+    syncVM.removeListener(_onSync);
+    super.dispose();
+  }
 
   Future<void> load() async {
     isLoading = true;
