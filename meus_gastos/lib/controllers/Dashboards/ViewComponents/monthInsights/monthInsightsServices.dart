@@ -1,5 +1,4 @@
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 
@@ -79,13 +78,6 @@ class Monthinsightsservices {
             (card.date.month == currentDate.month) &&
             (currentDate.year == card.date.year))
         .toList();
-    if (currentDate.month == DateTime.now().month) {
-      List<CardModel> filteredCards = cards.where((card) {
-        return card.date != null &&
-            card.date.month == DateTime.now().month &&
-            card.date.day <= DateTime.now().day;
-      }).toList();
-    }
     double totalAmountThisMonth =
         cardsOfThisMonth.fold(0.0, (sum, card) => sum + card.amount);
 
@@ -104,8 +96,8 @@ class Monthinsightsservices {
     return (totalAmountThisMonth / manyDays);
   }
 
-  Future<double> getFixedExpenses(
-      DateTime currentDate, List<CardModel> cards, List<String> fixedIds) async { 
+  Future<double> getFixedExpenses(DateTime currentDate, List<CardModel> cards,
+      List<String> fixedIds) async {
     List<CardModel> cardsOfThisMonth = cards
         .where((card) =>
             (card.date.month == currentDate.month) &&
@@ -268,8 +260,8 @@ class Monthinsightsservices {
     return (totalAmountThisMonth / manyWeekendDays);
   }
 
-  Future<List<CardModel>> getVariavelCards(
-      DateTime currentDate, List<CardModel> cards, List<String> fixedIds) async {
+  Future<List<CardModel>> getVariavelCards(DateTime currentDate,
+      List<CardModel> cards, List<String> fixedIds) async {
     List<CardModel> cardsOfThisMonth = cards
         .where((card) =>
             (card.date.month == currentDate.month) &&
@@ -313,8 +305,11 @@ class Monthinsightsservices {
   }
 
   Future<List<MapEntry<String, double>>> doisDiasComMaiorGasto(
-      DateTime currentDate, List<CardModel> cardList, List<String> fixedIds ) async {
-    List<CardModel> cards = await getVariavelCards(currentDate, cardList, fixedIds);
+      DateTime currentDate,
+      List<CardModel> cardList,
+      List<String> fixedIds) async {
+    List<CardModel> cards =
+        await getVariavelCards(currentDate, cardList, fixedIds);
     Map<String, double> gastosPorDia = separarGastosPorDiaSemana(cards);
     List<MapEntry<String, double>> entradasOrdenadas = gastosPorDia.entries
         .toList()
@@ -408,11 +403,12 @@ class Monthinsightsservices {
     return DateTime(novoAno, novoMes, data.day);
   }
 
-  Future<Map<String, double>> resumeMonth(
-      DateTime currentDate, List<CardModel> cards, List<String> fixedIds) async {
+  Future<Map<String, double>> resumeMonth(DateTime currentDate,
+      List<CardModel> cards, List<String> fixedIds) async {
     double generalCust = await monthExpenses(currentDate, cards);
     double fixedCust = await getFixedExpenses(currentDate, cards, fixedIds);
-    List<CardModel> variableCards = await getVariavelCards(currentDate, cards, fixedIds);
+    List<CardModel> variableCards =
+        await getVariavelCards(currentDate, cards, fixedIds);
 
     double variableCust =
         variableCards.fold(0.0, (sum, card) => sum + card.amount);
@@ -563,7 +559,7 @@ class Monthinsightsservices {
     });
     return {
       categoriaMaisFrequente:
-          (((maiorFrequencia ?? 0) / (count_general == 0 ? 1 : count_general)) *
+          (((maiorFrequencia) / (count_general == 0 ? 1 : count_general)) *
                   100)
               .round(),
     };
@@ -589,7 +585,10 @@ class Monthinsightsservices {
   }
 
   Future<double> projectionFixedForTheMonth(
-      DateTime currentDate, List<CardModel> cards, List<FixedExpense> fixedCards, List<String> fixedIds) async {
+      DateTime currentDate,
+      List<CardModel> cards,
+      List<FixedExpense> fixedCards,
+      List<String> fixedIds) async {
     double totalExpenseFixed = 0.0;
 
     if ((currentDate.month < DateTime.now().month &&

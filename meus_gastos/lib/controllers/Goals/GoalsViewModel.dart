@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/Goals/Data/GoalsRepository.dart';
-import 'package:meus_gastos/controllers/Goals/Data/GoalsService.dart';
+import 'package:meus_gastos/controllers/Goals/GoalsService.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsModel.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/models/CardModel.dart';

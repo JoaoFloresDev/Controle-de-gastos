@@ -1,17 +1,13 @@
-import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:excel/excel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:open_file/open_file.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'dart:io';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class ExportToExcel {
-  // Função para montar o arquivo Excel a partir dos dados, com filtro opcional de categoria
-// MARK - Build Excel From Cards
   static Future<Excel> buildExcelFromCards(List<CardModel> cards, String? category) async {
 
     if (category != null) {
@@ -154,7 +150,7 @@ class ExportToExcel {
       await file.writeAsBytes(pdfBytes);
 
       print('Arquivo salvo em: $filePath');
-      final result = await OpenFile.open(filePath);
+      await OpenFile.open(filePath);
     } catch (e) {
       print('Erro ao salvar arquivo: $e');
     }

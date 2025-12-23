@@ -1,16 +1,13 @@
 import 'dart:io';
 import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
-import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Login/cadastro_login/LoginScrean.dart';
 import 'package:meus_gastos/controllers/Login/cadastro_login/LogoutScrean.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
-import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
-import 'package:meus_gastos/services/firebase/syncService.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -307,7 +304,8 @@ class LoginRoute {
 
                                 return ElevatedButton(
                                   onPressed: isLoading
-                                      ? null
+                                      // ignore: dead_code
+                                      ? () {}
                                       : () async {
                                           setState(() {
                                             isLoading = true;

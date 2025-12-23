@@ -1,6 +1,5 @@
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
-import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
 import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';

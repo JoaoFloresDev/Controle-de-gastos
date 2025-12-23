@@ -160,7 +160,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                   lastIndexSelected = index;
                 });
               },
-              defaultIndexCategory: lastIndexSelected! ?? 0,
+              defaultIndexCategory: lastIndexSelected!,
               categories: widget.categories,
             ),
           ),

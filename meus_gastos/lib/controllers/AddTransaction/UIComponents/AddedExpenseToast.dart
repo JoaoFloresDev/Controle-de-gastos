@@ -64,7 +64,7 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
   late final Animation<Offset> _slide;
   late final Animation<double> _fade;
   late final Animation<double> _scale;
-  late final Animation<double> _progress;
+  // late final Animation<double> _progress;
 
   @override
   void initState() {
@@ -96,9 +96,9 @@ class _AddedExpenseToastState extends State<AddedExpenseToast>
       CurvedAnimation(parent: _scaleController, curve: Curves.easeOutBack),
     );
 
-    _progress = Tween(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _progressController, curve: Curves.linear),
-    );
+    // _progress = Tween(begin: 0.0, end: 1.0).animate(
+    //   CurvedAnimation(parent: _progressController, curve: Curves.linear),
+    // );
 
     _slideController.forward();
     

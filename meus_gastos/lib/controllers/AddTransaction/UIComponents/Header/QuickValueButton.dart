@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:flutter/services.dart';
 
@@ -21,7 +20,7 @@ class _QuickValueButtonState extends State<QuickValueButton>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
-  late Animation<double> _opacityAnimation;
+  // late Animation<double> _opacityAnimation;
 
   @override
   void initState() {
@@ -39,13 +38,13 @@ class _QuickValueButtonState extends State<QuickValueButton>
       curve: Curves.easeInOut,
     ));
 
-    _opacityAnimation = Tween<double>(
-      begin: 0.15,
-      end: 0.25,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    ));
+    // _opacityAnimation = Tween<double>(
+    //   begin: 0.15,
+    //   end: 0.25,
+    // ).animate(CurvedAnimation(
+    //   parent: _animationController,
+    //   curve: Curves.easeInOut,
+    // ));
   }
 
   @override

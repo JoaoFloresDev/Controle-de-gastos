@@ -29,8 +29,7 @@ class _CategoryCreaterState extends State<CategoryCreater>
   late Animation<double> _fadeAnimation;
 
   int _selectedIconIndex = 0;
-  List<CategoryModel> _categories = [];
-
+  
   // Lista de cores pré-definidas (mesma do ColorGridSelector)
   static const List<Color> _predefinedColors = [
     Color(0xFFE63946),

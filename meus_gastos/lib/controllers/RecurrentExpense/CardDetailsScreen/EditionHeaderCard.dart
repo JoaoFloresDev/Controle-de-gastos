@@ -40,7 +40,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   final DateTime dataInicial = DateTime.now();
   final double valorInicial = 0.0;
   late int lastIndexSelected_category = 0;
-  late bool _isPaga;
 
   late DateTime _selectedDate = widget.card.date;
   String repetitionType = "";
@@ -67,7 +66,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
   @override
   void initState() {
     super.initState();
-    _isPaga = false;
 
     descricaoController = TextEditingController(text: widget.card.description);
 
@@ -100,12 +98,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
         _selectedDate = dateTime;
       },
     );
-  }
-
-  void _toggleStatus() {
-    setState(() {
-      _isPaga = !_isPaga; // Alterna entre 'Paga' e 'Não Paga'.
-    });
   }
 
   // MARK: - Dispose
@@ -209,7 +201,7 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
               // print(lastIndexSelected_category);
             },
             icons_list_recorrent: icons_list_recorrent,
-            defaultIndexCategory: lastIndexSelected_category ?? 0,
+            defaultIndexCategory: lastIndexSelected_category,
           ),
           const SizedBox(height: 16),
           Padding(

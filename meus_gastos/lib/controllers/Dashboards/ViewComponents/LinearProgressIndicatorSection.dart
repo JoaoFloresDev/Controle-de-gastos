@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
@@ -16,7 +15,7 @@ class LinearProgressIndicatorSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final percentage = (model.progress / totalAmount * 100).clamp(0, 100);
+    // final percentage = (model.progress / totalAmount * 100).clamp(0, 100);
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),

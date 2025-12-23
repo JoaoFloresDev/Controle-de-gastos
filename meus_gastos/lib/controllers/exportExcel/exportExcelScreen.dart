@@ -1,9 +1,7 @@
-import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/exportExcel/export_toExcel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
@@ -21,9 +19,7 @@ class Exportexcelscreen extends StatefulWidget {
 class _Exportexcelscreen extends State<Exportexcelscreen> {
   String _selectedFormat = 'Excel';
   bool _isLoadingShare = false;
-  bool _isLoadingSaveLocally = false;
 
-  //mark - Loading Indicator
 // MARK - Loading Indicator
   Widget _buildLoadingIndicator() {
     return const SizedBox(
@@ -151,26 +147,6 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
     );
   }
 
-  //mark - Save Locally
-  Future<void> _saveLocally(BuildContext context) async {
-    setState(() {
-      _isLoadingSaveLocally = true;
-    });
-    if (_selectedFormat == 'Excel') {
-      Excel excel = await ExportToExcel.buildExcelFromCards(
-          widget.cards, widget.category);
-      await ExportToExcel.saveExcelFileLocally(excel, context);
-    } else if (_selectedFormat == 'PDF') {
-      Excel excel = await ExportToExcel.buildExcelFromCards(
-          widget.cards, widget.category);
-      await ExportToExcel.convertExcelToPdf(excel, context);
-    } else {
-      await _shareAsText(widget.cards);
-    }
-    setState(() {
-      _isLoadingSaveLocally = false;
-    });
-  }
 
   //mark - Share Data
   Future<void> _shareData() async {

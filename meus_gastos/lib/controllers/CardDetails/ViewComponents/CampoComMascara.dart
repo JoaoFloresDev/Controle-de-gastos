@@ -139,15 +139,4 @@ class _CampoComMascaraState extends State<CampoComMascara> {
     String formattedDate = dateFormat.format(dateTime);
     return formattedDate;
   }
-
-  // MARK: - Format String para DateTime
-  String _formatDateTimeFromString(String dateText) {
-    final DateFormat formatter = DateFormat('HH:mm dd/MM/yyyy');
-    try {
-      final DateTime dateTime = formatter.parse(dateText);
-      return _formatDateTime(dateTime);
-    } catch (e) {
-      return '';
-    }
-  }
 }

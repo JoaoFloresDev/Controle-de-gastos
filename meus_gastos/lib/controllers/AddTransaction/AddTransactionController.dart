@@ -122,16 +122,16 @@ class _AddTransactionControllerState extends State<AddTransactionController>
     }
   }
 
+  // ignore: unused_element
   void _showAddedAnimation() {
     final header = _headerCardKey.currentState;
     if (header == null) return;
     if (header.valorController.numberValue == 0) return;
     final list = context.read<CategoryViewModel>().categories;
-    final catName = (list != null && list.isNotEmpty)
+    final catName = (list.isNotEmpty)
         ? list[header.lastIndexSelected].name
         : '—';
     final overlay = Overlay.of(context);
-    if (overlay == null) return;
     late OverlayEntry entry;
     final controller = AnimationController(
       vsync: this,
@@ -351,39 +351,41 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                 onPressed: () {
                   final header = _headerCardKey.currentState;
                   if (header != null) {
-                    if(header.valorController.numberValue>0){
-                    final list =
-                        context.read<CategoryViewModel>().avaliebleCetegories;
-                    final selectedCat = (list != null && list.isNotEmpty)
-                        ? list[header.lastIndexSelected]
-                        : CategoryModel(
-                            id: 'Unknown',
-                            color: Colors.blueAccent.withOpacity(0.8),
-                            icon: Icons.question_mark_rounded,
-                            name: 'Unknown',
-                            frequency: 0,
-                          );
-                    AddedExpenseToast.show(
-                      context: context,
-                      amount: header.valorController.numberValue,
-                      description: header.descricaoController.text,
-                      categoryIconColor: selectedCat.color,
-                      categoryIcon: selectedCat.icon,
-                      category:
-                          TranslateService.getTranslatedCategoryUsingModel(
-                              context, selectedCat),
-                    );
-                    widget.onAddClicked();
-                    context.read<TransactionsViewModel>().addCard(CardModel(
-                          amount: header.valorController.numberValue,
-                          description: header.descricaoController.text,
-                          date: header.lastDateSelected,
-                          category: selectedCat,
-                          id: CardService().generateUniqueId(),
-                        ));
-                    header.valorController.updateValue(0);
-                    header.descricaoController.clear();
-                  }}
+                    if (header.valorController.numberValue > 0) {
+                      final list =
+                          context.read<CategoryViewModel>().avaliebleCetegories;
+                      final selectedCat = (list.isNotEmpty)
+                          ? list[header.lastIndexSelected]
+                          : CategoryModel(
+                              id: 'Unknown',
+                              color: Colors.blueAccent.withOpacity(0.8),
+                              icon: Icons.question_mark_rounded,
+                              name: 'Unknown',
+                              frequency: 0,
+                            );
+                      AddedExpenseToast.show(
+                        context: context,
+                        amount: header.valorController.numberValue,
+                        description: header.descricaoController.text,
+                        categoryIconColor: selectedCat.color,
+                        categoryIcon: selectedCat.icon,
+                        category:
+                            TranslateService.getTranslatedCategoryUsingModel(
+                                context, selectedCat),
+                      );
+                      widget.onAddClicked();
+                      context.read<TransactionsViewModel>().addCard(CardModel(
+                            amount: header.valorController.numberValue,
+                            description: header.descricaoController.text,
+                            date: header.lastDateSelected,
+                            category: selectedCat,
+                            id: CardService().generateUniqueId(),
+                          ));
+                      header.valorController.updateValue(0);
+                      header.updateDateTime();
+                      header.descricaoController.clear();
+                    }
+                  }
                 },
               ),
               Consumer<FixedExpensesViewModel>(
@@ -428,16 +430,20 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                                 widget.onAddClicked();
                                 _loadCards();
                                 fixedCards.filteredFixedCardsShow(
-                                context.read<TransactionsViewModel>().cardList,
-                                DateTime.now());
+                                    context
+                                        .read<TransactionsViewModel>()
+                                        .cardList,
+                                    DateTime.now());
                               },
                               onCardsEmpty: () {
                                 print("aqui! recore");
                                 // _loadFixedCards();
                                 setState(() {
                                   fixedCards.filteredFixedCardsShow(
-                                  context.read<TransactionsViewModel>().cardList,
-                                  DateTime.now());
+                                      context
+                                          .read<TransactionsViewModel>()
+                                          .cardList,
+                                      DateTime.now());
                                 });
                               },
                             ),

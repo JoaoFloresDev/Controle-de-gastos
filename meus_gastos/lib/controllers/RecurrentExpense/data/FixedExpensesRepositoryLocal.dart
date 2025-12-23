@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FixedExpensesRepositoryLocal {

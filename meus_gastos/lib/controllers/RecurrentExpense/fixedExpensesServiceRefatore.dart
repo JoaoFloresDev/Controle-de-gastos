@@ -21,12 +21,10 @@ class FixedExpensesService {
 
   List<String> getFixedExpenseIds(List<FixedExpense> listExpenses) {
     final List<String> fixedExpenseIds = [];
-    if (listExpenses != null) {
-      for (var item in listExpenses) {
-        fixedExpenseIds.add(item.id);
-      }
+    for (var item in listExpenses) {
+      fixedExpenseIds.add(item.id);
     }
-    return fixedExpenseIds;
+      return fixedExpenseIds;
   }
 
  

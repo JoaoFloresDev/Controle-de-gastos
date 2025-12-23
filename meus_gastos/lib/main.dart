@@ -84,7 +84,6 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   int selectedTab = 0;
   final bool seeGoalScrean = true;
   late AnimationController _animationController;
-  late Animation<double> _animation;
 
   final calendarKey = GlobalKey<CustomCalendarState>();
 
@@ -114,10 +113,6 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
-    );
-    _animation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
     );
     _animationController.forward();
   }

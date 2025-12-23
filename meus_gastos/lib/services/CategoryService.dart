@@ -204,7 +204,7 @@ class CategoryService {
 
     if (index != -1) {
       CategoryModel oldCategory = allCategories[index];
-      int currentFreq = oldCategory.frequency ?? 0;
+      int currentFreq = oldCategory.frequency;
 
       CategoryModel updatedCategory = CategoryModel(
         id: oldCategory.id,
@@ -229,8 +229,8 @@ class CategoryService {
     if (categories.isEmpty) return null;
 
     CategoryModel highestFrequencyCategory = categories.reduce((a, b) {
-      final aFreq = a.frequency ?? 0;
-      final bFreq = b.frequency ?? 0;
+      final aFreq = a.frequency;
+      final bFreq = b.frequency;
       return aFreq > bFreq ? a : b;
     });
 

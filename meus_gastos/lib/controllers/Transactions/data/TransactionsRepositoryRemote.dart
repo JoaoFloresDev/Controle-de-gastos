@@ -11,8 +11,6 @@ class TransactionsRepositoryRemote implements ITransactionsRepository {
   @override
   Future<void> addCard(CardModel card) async {
     
-    if (userId == null) return;
-
     await FirebaseService()
         .firestore
         .collection(userId)
@@ -25,8 +23,6 @@ class TransactionsRepositoryRemote implements ITransactionsRepository {
 @override
   Future<void> deleteCard(CardModel card) async {
     try {
-      if (userId == null) return;
-
       await FirebaseService()
           .firestore
           .collection(userId)
@@ -44,7 +40,6 @@ class TransactionsRepositoryRemote implements ITransactionsRepository {
   @override
   Future<List<CardModel>> retrieve() async {
     try {
-      if (userId == null) return [];
       QuerySnapshot snapshot = await FirebaseService()
           .firestore
           .collection(userId)

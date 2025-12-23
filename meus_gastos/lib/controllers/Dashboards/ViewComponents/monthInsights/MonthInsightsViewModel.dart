@@ -4,7 +4,6 @@ import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/monthInsightsServices.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesServiceRefatore.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CardModel.dart';
@@ -333,6 +332,6 @@ class MonthInsightsViewModel extends ChangeNotifier {
     final DateFormat formatter =
         DateFormat(AppLocalizations.of(context)!.resumeDateFormat);
 
-    return '${formatter.format(DateTime(currentDate!.year, currentDate!.month, day))}';
+    return formatter.format(DateTime(currentDate.year, currentDate.month, day));
   }
 }

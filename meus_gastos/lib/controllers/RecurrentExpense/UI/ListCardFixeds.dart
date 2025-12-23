@@ -61,8 +61,8 @@ class _ListCardFixedsState extends State<ListCardFixeds>
 
   String _getAdditionTypeText(BuildContext context) {
     return widget.card.isAutomaticAddition
-        ? AppLocalizations.of(context)!.automatic ?? 'Automatic'
-        : AppLocalizations.of(context)!.suggestion ?? 'Suggestion';
+        ? AppLocalizations.of(context)!.automatic
+        : AppLocalizations.of(context)!.suggestion;
   }
 
   String _getRepetitionText(

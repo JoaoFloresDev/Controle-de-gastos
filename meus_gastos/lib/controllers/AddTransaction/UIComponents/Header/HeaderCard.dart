@@ -3,11 +3,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
-import 'package:meus_gastos/services/CardServiceRefatore.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'HeaderBar.dart';
 import 'ValueInputSection.dart';
@@ -85,12 +83,12 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
       decimalSeparator: locale.languageCode == 'pt' ? ',' : '.',
       initialValue: 0.0,
     );
+    lastDateSelected = DateTime.now();
   }
 
-  //mark - actions
+  //mark - actions  
 
   void onCategoriesLoaded(List<CategoryModel> loadedCategories) {
-    print("AHHHHHHHHHHH PERDEU O ADDCATEGORY");
     setState(() {
       _categories = loadedCategories;
       _isCategoriesLoaded = true;
@@ -124,16 +122,15 @@ class HeaderCardState extends State<HeaderCard> with TickerProviderStateMixin {
       return;
     }
 
-    final selectedCategory = _categories[lastIndexSelected];
+    // final selectedCategory = _categories[lastIndexSelected];
 
-    final newCard = CardModel(
-      amount: valorController.numberValue,
-      description: descricaoController.text,
-      date: lastDateSelected,
-      category: selectedCategory, // Use the actual selected category
-      id: CardService().generateUniqueId(),
-    );
-
+    // final newCard = CardModel(
+    //   amount: valorController.numberValue,
+    //   description: descricaoController.text,
+    //   date: lastDateSelected,
+    //   category: selectedCategory, // Use the actual selected category
+    //   id: CardService().generateUniqueId(),
+    // );
 
     setState(() {
       valorController.updateValue(0.0);

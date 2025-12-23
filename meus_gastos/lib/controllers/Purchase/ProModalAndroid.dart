@@ -1,4 +1,3 @@
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -142,7 +141,7 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
   }
 
   Future<void> _restorePurchases() async {
-    final purchases = await InAppPurchase.instance.restorePurchases();
+    await InAppPurchase.instance.restorePurchases();
   }
 
 @override
@@ -214,8 +213,7 @@ Widget build(BuildContext context) {
                           )
                         : AppLocalizations.of(context)!.loading,
                     onPressed: () => {
-                        _buySubscription(_products[0].id ?? ''),
-                        // iApEngine.handlePurchase(_products[0], storeProductIds)
+                        _buySubscription(_products[0].id ),
                       },
                     productId: _products.isNotEmpty ? _products[0].id : '',
                   ),
@@ -229,7 +227,7 @@ Widget build(BuildContext context) {
                           )
                         : AppLocalizations.of(context)!.loading,
                     onPressed: () => {
-                        _buySubscription(_products[1].id ?? ''),
+                        _buySubscription(_products[1].id),
                         // iApEngine.handlePurchase(_products[0], storeProductIds)
                       },
                     productId: _products.length > 1 ? _products[1].id : '',

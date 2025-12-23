@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValueInputSection.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
-import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValueInputSection.dart';
 class SetGoalsScreen extends StatefulWidget {
   final CategoryModel category;
   final double initialValue;

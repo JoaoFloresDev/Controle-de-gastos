@@ -16,8 +16,6 @@ class CategoryRepositoryRemote implements ICategoryRepository {
 
   @override
   Future<void> addCategory(CategoryModel category) async {
-    if (userId == null) return;
-
     try {
       await FirebaseService()
           .firestore
