@@ -32,8 +32,8 @@ class HorizontalCircleListState extends State<HorizontalCircleList> {
   void initState() {
     super.initState();
     selectedIndex = widget.defaultIndexCategory;
-    categories = widget.icons_list_recorrent;
-    print(categories.length);
+    categories = List.of(widget.icons_list_recorrent);
+    print("Remontou a lista de categorias, agora o tamanho e: ${categories.length}");
     categories.removeWhere((cat) => cat.id == "AddCategory");
     _scrollController = ScrollController();
     _scrollController.addListener(_updateGradients);

@@ -64,14 +64,6 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     });
   }
 
-  // Future<void> _loadInitialData() async {
-  //   final transVM = context.read<TransactionsViewModel>();
-  //   final fixedVM = context.read<FixedExpensesViewModel>();
-
-  //   await transVM.loadCards();
-  //   fixedVM.filteredFixedCardsShow(transVM.cardList, currentDate);
-  // }
-
   @override
   void didUpdateWidget(covariant TransactionsScrean oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -525,10 +517,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
           ),
           child: RecurrentExpenseScreen(
             onAddPressedBack: () {
-              setState(() {
-                widget.cardEvents.notifyCardAdded();
-                // _loadInitialData();
-              });
+              print(categoryViewModel.avaliebleCetegories.length);
             },
             fixedExpensesViewModel: fixedExpensesViewModel,
             categories: categoryViewModel.avaliebleCetegories,

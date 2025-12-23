@@ -83,8 +83,6 @@ class _RecurrentExpenseScreenState extends State<RecurrentExpenseScreen> {
   Future<void> _saveExpense() async {
     FocusScope.of(context).unfocus();
     if (valueController.numberValue > 0) {
-      print("repetitionType: $repetitionType");
-      print("repetitionType: $additionType");
       await widget.fixedExpensesViewModel.addExpense(FixedExpense(
         description: descriptionController.text,
         price: valueController.numberValue,
@@ -96,7 +94,6 @@ class _RecurrentExpenseScreenState extends State<RecurrentExpenseScreen> {
       ));
 
       _resetForm();
-      widget.onAddPressedBack();
     }
   }
 

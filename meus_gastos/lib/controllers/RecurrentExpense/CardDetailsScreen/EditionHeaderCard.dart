@@ -212,7 +212,6 @@ class _EditionHeaderCardState extends State<EditionHeaderCard> {
                 color: AppColors.button,
                 onPressed: () {
                   adicionar();
-                  widget.onAddClicked;
                 },
                 child: Text(
                   widget.adicionarButtonTitle,

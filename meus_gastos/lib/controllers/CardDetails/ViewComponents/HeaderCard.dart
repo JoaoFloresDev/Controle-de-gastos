@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:meus_gastos/controllers/CardDetails/ViewComponents/HorizontalCircleListRefatore.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'CampoComMascara.dart';
-import 'HorizontalCircleList.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/controllers/AddTransaction/UIComponents/Header/ValorTextField.dart';
 import 'package:intl/intl.dart';
@@ -85,13 +85,13 @@ class HeaderCardState extends State<HeaderCard> {
       // user = FirebaseAuth.instance.currentUser;
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _horizontalCircleListKey.currentState?.loadCategories();
+      // _horizontalCircleListKey.currentState?.loadCategories();
     });
   }
 
   // MARK: - Load Categories
   Future<void> loadCategories() async {
-    _horizontalCircleListKey.currentState?.loadCategories();
+    // _horizontalCircleListKey.currentState?.loadCategories();
   }
 
   // MARK: - Adicionar
@@ -158,18 +158,18 @@ class HeaderCardState extends State<HeaderCard> {
                 key: _horizontalCircleListKey,
                 onItemSelected: (index) {
                   final categorieList =
-                      _horizontalCircleListKey.currentState?.categorieList ??
+                      _horizontalCircleListKey.currentState?.categories ??
                           [];
                   if (categorieList[index].id == 'AddCategory') {
                     widget.onAddCategory();
-                    _horizontalCircleListKey.currentState?.loadCategories();
+                    // _horizontalCircleListKey.currentState?.loadCategories();
                   } else {
                     setState(() {
                       lastIndexSelected = index;
                     });
                   }
                 },
-                defaultdIndexCategory: 0,
+                defaultIndexCategory: 0,
                 categories: widget.categoryVM.avaliebleCetegories,
               ),
             ),
