@@ -48,11 +48,8 @@ class SyncService {
         _mergeData(localNormalExpenses, remoteNormalExpenses);
     if (updatedNormalExpenses != remoteNormalExpenses) print("Deu certo");
     print("object");
-    // 4. Salva as mudanças localmente
-    await _saveExpensesToLocal(prefs, updatedFixedExpenses, 'fixed_expenses');
-    await _saveExpensesToLocal(prefs, updatedNormalExpenses, 'normal_expenses');
 
-    // 5. Envia para o Firebase os dados locais que ainda não estão lá
+    // 4. Envia para o Firebase os dados locais que ainda não estão lá
     await _syncToFirebaseFixed(userId, updatedFixedExpenses, 'fixedCards');
     await _syncToFirebaseNormalExpenses(
       userId, updatedNormalExpenses, 'NormalCards');

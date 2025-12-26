@@ -105,6 +105,51 @@ class TransactionsViewModel extends ChangeNotifier {
     await repository.updateCard(oldCard, newCard);
   }
 
+  List<CardModel> _filteredTransactions = []; // Lista filtrada
+  DateTime? _filterStartDate;
+  DateTime? _filterEndDate;
+
+  // Método para filtrar por período
+  void filterByDateRange(DateTime startDate, DateTime endDate) {
+    _filterStartDate = startDate;
+    _filterEndDate = endDate;
+    _applyDateFilter();
+    notifyListeners();
+  }
+  
+  // Método privado para aplicar o filtro
+  void _applyDateFilter() {
+    if (_filterStartDate == null || _filterEndDate == null) {
+      _filteredTransactions = List.from(_cardList);
+      return;
+    }
+    
+    _filteredTransactions = _cardList.where((transaction) {
+      final transactionDate = transaction.date; // Ajuste conforme seu modelo
+      return transactionDate.isAfter(_filterStartDate!) && 
+             transactionDate.isBefore(_filterEndDate!);
+    }).toList();
+    
+    // Ordene se necessário
+    _filteredTransactions.sort((a, b) => b.date.compareTo(a.date));
+  }
+  
+  // Método para limpar o filtro
+  void clearFilter() {
+    _filterStartDate = null;
+    _filterEndDate = null;
+    _filteredTransactions = List.from(_cardList);
+    notifyListeners();
+  }
+  
+  
+  double getTotalExpenses() {
+    return _filteredTransactions
+        .fold(0.0, (sum, t) => sum + t.amount);
+  }
+ 
+
+
   @override
   void dispose() {
     loginVM.removeListener(_onLoginChanged);

@@ -42,14 +42,13 @@ class LoginRoute {
                 showProModal: (context) {
                   _showProModal(context, proViewModel);
                 },
-                showSyncModel: () {
+                showSyncModel: () async{
+                  bool prim = await isFirstLogin(viewModel.user!.uid);
                   syncInFirstAcess(
                     context,
                     viewModel.user!.uid,
-                    () {
-                      onLoginChange();
-                    },
-                    syncVM
+                    syncVM,
+                    prim
                   );
                 }));
       },
@@ -120,10 +119,9 @@ class LoginRoute {
   }
 
   Future<void> syncInFirstAcess(
-      BuildContext context, String userId, VoidCallback loadCards, SyncViewModel syncVM) async {
+      BuildContext context, String userId, SyncViewModel syncVM, bool prim) async {
     final navigator = Navigator.of(context);
 
-    bool prim = await isFirstLogin(userId);
     if (prim) {
       showDialog(
         context: context,

@@ -12,7 +12,8 @@ import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class CustomCalendar extends StatefulWidget {
   final VoidCallback onCalendarRefresh;
-  const CustomCalendar({Key? key, required this.onCalendarRefresh}) : super(key: key);
+  const CustomCalendar({Key? key, required this.onCalendarRefresh})
+      : super(key: key);
 
   @override
   CustomCalendarState createState() => CustomCalendarState();
@@ -37,9 +38,10 @@ class CustomCalendarState extends State<CustomCalendar> {
     super.dispose();
   }
 
-  Map<DateTime, double> _calculateDailyExpenses(List<CardModel> allTransactions) {
+  Map<DateTime, double> _calculateDailyExpenses(
+      List<CardModel> allTransactions) {
     final Map<DateTime, double> expenses = {};
-    
+
     for (var transaction in allTransactions) {
       final day = DateTime(
         transaction.date.year,
@@ -48,16 +50,18 @@ class CustomCalendarState extends State<CustomCalendar> {
       );
       expenses[day] = (expenses[day] ?? 0) + transaction.amount;
     }
-    
+
     return expenses;
   }
 
-  List<CardModel> _getTransactionsForDay(List<CardModel> allTransactions, DateTime day) {
-    return allTransactions.where((card) =>
-      card.date.year == day.year &&
-      card.date.month == day.month &&
-      card.date.day == day.day
-    ).toList();
+  List<CardModel> _getTransactionsForDay(
+      List<CardModel> allTransactions, DateTime day) {
+    return allTransactions
+        .where((card) =>
+            card.date.year == day.year &&
+            card.date.month == day.month &&
+            card.date.day == day.day)
+        .toList();
   }
 
   void refreshCalendar() {
@@ -70,7 +74,9 @@ class CustomCalendarState extends State<CustomCalendar> {
   Widget build(BuildContext context) {
     // 1. Busca todas as transações do ViewModel
     final transactionsViewModel = context.watch<TransactionsViewModel>();
-    final allTransactions = transactionsViewModel.cardList.where((card)=>card.amount > 0).toList();
+    final allTransactions = transactionsViewModel.cardList
+        .where((card) => card.amount > 0)
+        .toList();
 
     // 2. Calcula gastos diários baseado em TODAS as transações
     _dailyExpenses = _calculateDailyExpenses(allTransactions);
@@ -96,7 +102,6 @@ class CustomCalendarState extends State<CustomCalendar> {
       body: SafeArea(
         child: Column(
           children: [
-            BannerAdFactory().build(),
             Expanded(
               child: SingleChildScrollView(
                 child: ConstrainedBox(
@@ -105,6 +110,7 @@ class CustomCalendarState extends State<CustomCalendar> {
                   ),
                   child: Column(
                     children: [
+                      BannerAdFactory().build(),
                       CalendarTable(
                         focusedDay: _focusedDay,
                         selectedDay: _selectedDay,

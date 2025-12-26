@@ -16,42 +16,46 @@ import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/
 import 'package:meus_gastos/controllers/ExtractByCategory/ExtractByCategory.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/bar_chartWeek/BarChartWeek.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/MonthInsightsScreen.dart';
-
-// import 'package:meus_gastos/controllers/ads_review/bannerAdconstruct.dart';
-
-// Imports de widgets
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/MonthSelector.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgressIndicatorSection.dart';
-
 
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
 
   const DashboardScreen({Key? key, this.isActive = false}) : super(key: key);
 
- @override
+  @override
   DashboardScreenState createState() => DashboardScreenState();
 }
 
 class DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
-  // final GlobalKey<MonthInsightsScreenState> insights =
-  //     GlobalKey<MonthInsightsScreenState>();
   final PageController _pageController = PageController();
-  // int _currentIndex = 0;
+
+  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    
+  }
 
   @override
   bool get wantKeepAlive => true;
 
   void _onPageChanged(int index) {
     setState(() {
-      // _currentIndex = index;
       _currentIndexNotifier.value = index;
     });
   }
-
-  void refreshData() {}
 
   Widget _buildBannerAd() {
     return BannerAdFactory().build();
@@ -62,7 +66,9 @@ class DashboardScreenState extends State<DashboardScreen>
       currentDate: dashboardVM.currentDate,
       onChangeMonth: (int delta) {
         dashboardVM.changeMonth(delta);
-        context.read<MonthInsightsViewModel>().loadValues(dashboardVM.currentDate);
+        context
+            .read<MonthInsightsViewModel>()
+            .loadValues(dashboardVM.currentDate);
       },
     );
   }
@@ -109,7 +115,7 @@ class DashboardScreenState extends State<DashboardScreen>
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [AppColors.card, AppColors.background1],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -311,11 +317,11 @@ class DashboardScreenState extends State<DashboardScreen>
             ),
           ),
           child: ExtractByCategory(
-              category: model.category,
-              currentMonth: dashboardVM.currentDate,
-              cards: dashboardVM.cards,
-              categories: dashboardVM.categoriesVM.categories,
-              ),
+            category: model.category,
+            currentMonth: dashboardVM.currentDate,
+            cards: dashboardVM.cards,
+            categories: dashboardVM.categoriesVM.categories,
+          ),
         ); // O widget com o código acima
       },
     );
@@ -358,7 +364,8 @@ class DashboardScreenState extends State<DashboardScreen>
         backgroundColor: AppColors.background1,
         trailing: GestureDetector(
           onTap: () {
-            TransactionsViewModel transactionsViewModel = context.read<TransactionsViewModel>();
+            TransactionsViewModel transactionsViewModel =
+                context.read<TransactionsViewModel>();
             showModalBottomSheet(
               context: context,
               isScrollControlled: true,

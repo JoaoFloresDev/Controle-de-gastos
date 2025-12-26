@@ -1,6 +1,10 @@
 import 'dart:io';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
+import 'package:meus_gastos/controllers/Calendar/ViewComponents/CalendarHeader.dart';
+import 'package:meus_gastos/controllers/Calendar/ViewComponents/CalendarTable.dart';
+import 'package:meus_gastos/controllers/Calendar/ViewComponents/CalendarTransactions.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
+import 'package:meus_gastos/controllers/Dashboards/ViewComponents/MonthSelector.dart';
 import 'package:meus_gastos/controllers/Login/LoginButtonScrean.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
@@ -44,9 +48,11 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
 
   final bool _isLoading = false;
 
-  Set<String> purchasedProductIds = {};
-  bool? isLogin;
-  String? userId;
+  bool calendarView = false;
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
+  List<CardModel> _transactionsForSelectedDay = [];
+  Map<DateTime, double> _dailyExpenses = {};
 
   //MARK: Life cicle
 
@@ -54,7 +60,6 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
   void initState() {
     super.initState();
     currentDate = DateTime.now();
-    isLogin = false;
 
     // Carrega dados iniciais após o primeiro frame
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -77,8 +82,47 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     }
   }
 
+  Map<DateTime, double> _calculateDailyExpenses(
+      List<CardModel> allTransactions) {
+    final Map<DateTime, double> expenses = {};
+
+    for (var transaction in allTransactions) {
+      final day = DateTime(
+        transaction.date.year,
+        transaction.date.month,
+        transaction.date.day,
+      );
+      expenses[day] = (expenses[day] ?? 0) + transaction.amount;
+    }
+
+    return expenses;
+  }
+
+  List<CardModel> _getTransactionsForDay(
+      List<CardModel> allTransactions, DateTime day) {
+    return allTransactions
+        .where((card) =>
+            card.date.year == day.year &&
+            card.date.month == day.month &&
+            card.date.day == day.day)
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final transactionsViewModel = context.watch<TransactionsViewModel>();
+    final allTransactions = transactionsViewModel.cardList
+        .where((card) => card.amount > 0)
+        .toList();
+
+    // 2. Calcula gastos diários baseado em TODAS as transações
+    _dailyExpenses = _calculateDailyExpenses(allTransactions);
+
+    // 3. Filtra transações para o dia selecionado/focado
+    _transactionsForSelectedDay = _getTransactionsForDay(
+      allTransactions,
+      _selectedDay ?? _focusedDay,
+    );
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -130,17 +174,56 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
             child: Column(
               children: [
-                BannerAdFactory().build(),
-                const SizedBox(height: 8),
-                // Aqui eu vou colocar o date_select para filtrar os cards
-                if (transViewModel.isLoading)
-                  _buildLoadingIndicator()
-                else if ((transViewModel.cardList.isNotEmpty) ||
-                    (transViewModel.fixedCards.isNotEmpty)) ...[
-                  _cardListBuild(transViewModel, fixedVM),
-                ] else ...[
-                  _empityListCardBuild(),
-                ]
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: MediaQuery.of(context).size.height,
+                      ),
+                      child: Column(
+                        children: [
+                          BannerAdFactory().build(),
+                          const SizedBox(height: 8),
+                          // Aqui eu vou colocar o date_select para filtrar os cards
+                          if ((transViewModel.cardList.isNotEmpty) ||
+                              (transViewModel.fixedCards.isNotEmpty)) ...[
+                            _buildSwiftView(),
+                            const SizedBox(height: 12),
+                            if (calendarView) ...[
+                              CalendarTable(
+                                focusedDay: _focusedDay,
+                                selectedDay: _selectedDay,
+                                dailyExpenses: _dailyExpenses,
+                                onDaySelected: (selectedDay, focusedDay) {
+                                  setState(() {
+                                    _selectedDay = selectedDay;
+                                    _focusedDay = focusedDay;
+                                  });
+                                },
+                              ),
+                              CalendarHeader(
+                                selectedDay: _selectedDay,
+                                focusedDay: _focusedDay,
+                                dailyExpenses: _dailyExpenses,
+                              ),
+                              TransactionList(
+                                transactions: _transactionsForSelectedDay,
+                                // categories: context.read<>(),
+                              ),
+                            ] else ...[
+                              if (transViewModel.isLoading)
+                                _buildLoadingIndicator()
+                              else
+                                _cardListBuild(transViewModel, fixedVM),
+                            ]
+                          ] else ...[
+                            _empityListCardBuild(),
+                          ]
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           );
@@ -183,6 +266,158 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
               color: Colors.white,
               strokeWidth: 3,
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSwiftView() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Container(
+        height: 52,
+        decoration: BoxDecoration(
+          color: AppColors.card,
+          borderRadius: BorderRadius.circular(14),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.06),
+              blurRadius: 16,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(4),
+          child: Row(
+            children: [
+              // Botão Lista
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      calendarView = false;
+                    });
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeInOut,
+                    decoration: BoxDecoration(
+                      gradient: !calendarView
+                          ? LinearGradient(
+                              colors: [
+                                AppColors.button,
+                                AppColors.button.withOpacity(0.85),
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            )
+                          : null,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: !calendarView
+                          ? [
+                              BoxShadow(
+                                color: AppColors.button.withOpacity(0.3),
+                                blurRadius: 8,
+                                offset: const Offset(0, 2),
+                              ),
+                            ]
+                          : null,
+                    ),
+                    child: Center(
+                      child: AnimatedDefaultTextStyle(
+                        duration: const Duration(milliseconds: 200),
+                        style: TextStyle(
+                          color: !calendarView
+                              ? Colors.white
+                              : AppColors.labelPlaceholder,
+                          fontSize: 15,
+                          fontWeight:
+                              !calendarView ? FontWeight.w600 : FontWeight.w500,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              CupertinoIcons.list_bullet,
+                              color: !calendarView
+                                  ? Colors.white
+                                  : AppColors.labelPlaceholder,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(width: 4),
+
+              // Botão Calendário
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      calendarView = true;
+                    });
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeInOut,
+                    decoration: BoxDecoration(
+                      gradient: calendarView
+                          ? LinearGradient(
+                              colors: [
+                                AppColors.button,
+                                AppColors.button.withOpacity(0.85),
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            )
+                          : null,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: calendarView
+                          ? [
+                              BoxShadow(
+                                color: AppColors.button.withOpacity(0.3),
+                                blurRadius: 8,
+                                offset: const Offset(0, 2),
+                              ),
+                            ]
+                          : null,
+                    ),
+                    child: Center(
+                      child: AnimatedDefaultTextStyle(
+                        duration: const Duration(milliseconds: 200),
+                        style: TextStyle(
+                          color: calendarView
+                              ? Colors.white
+                              : AppColors.labelPlaceholder,
+                          fontSize: 15,
+                          fontWeight:
+                              calendarView ? FontWeight.w600 : FontWeight.w500,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              CupertinoIcons.calendar,
+                              color: calendarView
+                                  ? Colors.white
+                                  : AppColors.labelPlaceholder,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -272,190 +507,186 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
     }
 
     // Retorna uma única ListView
-    return Expanded(
-      child: ListView.builder(
-        padding: const EdgeInsets.only(bottom: 70),
-        shrinkWrap: true,
-        // physics: NeverScrollableScrollPhysics(),
-        itemCount: allCards.length,
-        itemBuilder: (context, index) => allCards[index],
-      ),
+    return ListView.builder(
+      padding: const EdgeInsets.only(bottom: 70),
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: allCards.length,
+      itemBuilder: (context, index) => allCards[index],
     );
   }
 
   Widget _empityListCardBuild() {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    AppColors.button.withOpacity(0.1),
-                    AppColors.button.withOpacity(0.05),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  AppColors.button.withOpacity(0.1),
+                  AppColors.button.withOpacity(0.05),
+                ],
+              ),
+              boxShadow: [
+                BoxShadow(color: AppColors.label.withOpacity(0.08)),
+              ],
+            ),
+            child: const Icon(
+              Icons.receipt_long_outlined,
+              color: AppColors.label,
+              size: 38,
+            ),
+          ),
+
+          const SizedBox(height: 18),
+
+          Text(
+            AppLocalizations.of(context)!.transactionPlaceholderSubtitle,
+            style: const TextStyle(
+              color: AppColors.label,
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+              height: 1.2,
+            ),
+            textAlign: TextAlign.center,
+          ),
+
+          const SizedBox(height: 12),
+
+          // Subtítulo explicativo
+          Text(
+            // AppLocalizations.of(context)!.emptyStateSubtitle ??
+            AppLocalizations.of(context)!.transactionPlaceholderTitle,
+            style: TextStyle(
+              color: AppColors.label.withOpacity(0.7),
+              fontSize: 18,
+              fontWeight: FontWeight.w400,
+              height: 1.5,
+            ),
+            textAlign: TextAlign.center,
+          ),
+
+          const SizedBox(height: 30),
+
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: AppColors.card,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: AppColors.label.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Icon(
+                        Icons.add_circle_outline,
+                        color: AppColors.label,
+                        size: 24,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!
+                                .transactionPlaceholderRow1Title,
+                            style: const TextStyle(
+                              color: AppColors.label,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(height: 2),
+                          Text(
+                            AppLocalizations.of(context)!
+                                .transactionPlaceholderRow1Subtitle,
+                            style: TextStyle(
+                              color: AppColors.label.withOpacity(0.8),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-                boxShadow: [
-                  BoxShadow(color: AppColors.label.withOpacity(0.08)),
-                ],
-              ),
-              child: const Icon(
-                Icons.receipt_long_outlined,
-                color: AppColors.label,
-                size: 38,
-              ),
-            ),
-
-            const SizedBox(height: 18),
-
-            Text(
-              AppLocalizations.of(context)!.transactionPlaceholderSubtitle,
-              style: const TextStyle(
-                color: AppColors.label,
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                height: 1.2,
-              ),
-              textAlign: TextAlign.center,
-            ),
-
-            const SizedBox(height: 12),
-
-            // Subtítulo explicativo
-            Text(
-              // AppLocalizations.of(context)!.emptyStateSubtitle ??
-              AppLocalizations.of(context)!.transactionPlaceholderTitle,
-              style: TextStyle(
-                color: AppColors.label.withOpacity(0.7),
-                fontSize: 18,
-                fontWeight: FontWeight.w400,
-                height: 1.5,
-              ),
-              textAlign: TextAlign.center,
-            ),
-
-            const SizedBox(height: 30),
-
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 8),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: AppColors.card,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.04),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: AppColors.label.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Icon(
-                          Icons.add_circle_outline,
-                          color: AppColors.label,
-                          size: 24,
-                        ),
+                const SizedBox(height: 22),
+                Row(
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: AppColors.label.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)!
-                                  .transactionPlaceholderRow1Title,
-                              style: const TextStyle(
-                                color: AppColors.label,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            SizedBox(height: 2),
-                            Text(
-                              AppLocalizations.of(context)!
-                                  .transactionPlaceholderRow1Subtitle,
-                              style: TextStyle(
-                                color: AppColors.label.withOpacity(0.8),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
+                      child: const Icon(
+                        Icons.repeat,
+                        color: AppColors.label,
+                        size: 24,
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 22),
-                  Row(
-                    children: [
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: AppColors.label.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Icon(
-                          Icons.repeat,
-                          color: AppColors.label,
-                          size: 24,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)!
-                                  .transactionPlaceholderRow2Title,
-                              style: const TextStyle(
-                                color: AppColors.label,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!
+                                .transactionPlaceholderRow2Title,
+                            style: const TextStyle(
+                              color: AppColors.label,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
                             ),
-                            SizedBox(height: 2),
-                            Text(
-                              AppLocalizations.of(context)!
-                                  .transactionPlaceholderRow3Subtitle,
-                              style: TextStyle(
-                                color: AppColors.label.withOpacity(0.8),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                              ),
+                          ),
+                          SizedBox(height: 2),
+                          Text(
+                            AppLocalizations.of(context)!
+                                .transactionPlaceholderRow3Subtitle,
+                            style: TextStyle(
+                              color: AppColors.label.withOpacity(0.8),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
+          ),
 
-            const SizedBox(height: 20),
-          ],
-        ),
+          const SizedBox(height: 20),
+        ],
       ),
     );
   }

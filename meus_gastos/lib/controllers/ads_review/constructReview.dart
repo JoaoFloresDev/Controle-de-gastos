@@ -1,36 +1,39 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ReviewService {
-  static Future<void> checkAndRequestReview(BuildContext context) async {
+  Future<void> checkAndRequestReview(
+      BuildContext context, InterstitialAdManager intersticalAd) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int sessionCount = prefs.getInt('session_count') ?? 0;
-    bool isPro = await ProManeger().checkUserProStatus();
-    sessionCount += 1;
-    await prefs.setInt('session_count', sessionCount);
+    bool isPro = context.read<ProManeger>().isPro;
 
-    if (sessionCount == 4 || sessionCount == 5) {
-      final InAppReview inAppReview = InAppReview.instance;
-      if (await inAppReview.isAvailable()) {
-        inAppReview.requestReview();
-      }
-    } else if (sessionCount == 6 || sessionCount == 7) {
+    sessionCount += 1;
+
+    if (sessionCount == 4) {
       _showCustomReviewDialog(context);
+    } else if (sessionCount == 7) {
+      intersticalAd.showVideoAd(context);
+    } else if (sessionCount > 10) {
+      if(!isPro)
+        _showProModal(context);
+      sessionCount = 0;
     }
-    else if (sessionCount > 10 && !isPro) {
-      _showProModal(context);
-    }
+    print(sessionCount);
+    await prefs.setInt('session_count', sessionCount);
   }
 
-  static void _showCustomReviewDialog(BuildContext context) {
+  void _showCustomReviewDialog(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
 
     showDialog(
@@ -59,15 +62,15 @@ class ReviewService {
     );
   }
 
-  static void _redirectToAppStore() {
+  void _redirectToAppStore() {
     final InAppReview inAppReview = InAppReview.instance;
     inAppReview.openStoreListing(
       appStoreId: '6502218501',
     );
   }
 
-  static void _showProModal(BuildContext context) async {
-    ProManeger proViewModel = ProManeger();
+  void _showProModal(BuildContext context) async {
+    ProManeger proViewModel = context.read<ProManeger>();
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) {

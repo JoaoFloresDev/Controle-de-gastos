@@ -63,10 +63,8 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
 
   Future<void> updateProStatus() async {
     final prefs = await SharedPreferences.getInstance();
-    setState(() {
       isYearlyPro = prefs.getBool('yearly.pro') ?? false;
       isMonthlyPro = prefs.getBool('monthly.pro') ?? false;
-    });
     widget.onSubscriptionPurchased();
   }
 

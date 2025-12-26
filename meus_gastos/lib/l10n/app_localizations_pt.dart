@@ -589,4 +589,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get popularBadge => 'POPULAR';
+
+  @override
+  String get settings => 'Configurações';
 }

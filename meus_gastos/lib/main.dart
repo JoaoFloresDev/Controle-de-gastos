@@ -4,7 +4,9 @@ import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsFactory.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
+import 'package:meus_gastos/controllers/Settings/SettingsScreen.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsFactory.dart';
+import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -107,6 +109,9 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   final cardEvents = CardEvents();
 
+  final InterstitialAdManager _adManager = InterstitialAdManager();
+
+
   @override
   void initState() {
     super.initState();
@@ -115,11 +120,13 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       vsync: this,
     );
     _animationController.forward();
+    _adManager.loadAd();
   }
 
   @override
   void dispose() {
     _animationController.dispose();
+    _adManager.dispose();
     super.dispose();
   }
 
@@ -158,18 +165,14 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 ),
                 TransactionsFactory(
                     cardEvents: cardEvents, isActivate: selectedTab == 1),
-                // DashboardScreen(key: dashboardKey, isActive: true),
-                DashboardsFactory(isActivate: selectedTab == 2),
+                DashboardsFactory(isActivate: selectedTab == 2, adManager: _adManager,),
 
                 GoalsFactory(
                   // key: goalKey,
                   title: AppLocalizations.of(context)!.budget,
                 ),
-                CustomCalendar(
-                  key: calendarKey,
-                  onCalendarRefresh: () =>
-                      calendarKey.currentState?.refreshCalendar(),
-                )
+                
+                SettingsScreenCompact()
               ],
             ),
             bottomNavigationBar: _buildElegantTabBar(),
@@ -235,14 +238,16 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         CupertinoIcons.list_bullet,
                         CupertinoIcons.chart_bar_fill,
                         CupertinoIcons.chart_pie_fill,
-                        CupertinoIcons.calendar,
+                        // CupertinoIcons.calendar,
+                        CupertinoIcons.settings
                       ][i],
                       label: [
                         AppLocalizations.of(context)!.add,
                         AppLocalizations.of(context)!.transactions,
                         AppLocalizations.of(context)!.dashboards,
                         AppLocalizations.of(context)!.budget,
-                        AppLocalizations.of(context)!.calendar,
+                        // AppLocalizations.of(context)!.calendar,
+                        AppLocalizations.of(context)!.settings
                       ][i],
                       index: i,
                     ),
@@ -267,10 +272,8 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       behavior:
           HitTestBehavior.opaque, // <- ESSENCIAL: toda área vira "clicável"
       onTap: () {
-        if (index == 3) {
-          // goalKey.currentState?.refreshGoals();
+        if (index == 2) {
         }
-        if (index == 4) calendarKey.currentState?.refreshCalendar();
         setState(() => selectedTab = index);
         HapticFeedback.lightImpact();
       },

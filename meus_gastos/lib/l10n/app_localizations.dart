@@ -1203,6 +1203,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'POPULAR'**
   String get popularBadge;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
 }
 
 class _AppLocalizationsDelegate
