@@ -64,7 +64,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '984231457254',
     projectId: 'meus-gastos-8fc37',
     storageBucket: 'meus-gastos-8fc37.firebasestorage.app',
-    androidClientId: '984231457254-chafmtqg5g9ca3tr6oghpu3guk239ihv.apps.googleusercontent.com',
+    androidClientId: '984231457254-6rhaujv1fdlmukm9j0jqlndb767l8o6h.apps.googleusercontent.com',
     iosClientId: '984231457254-p0hedpgojfqothrgmpumbjp5elcmb3c4.apps.googleusercontent.com',
     iosBundleId: 'com.gambit.meusgastos',
   );
@@ -75,7 +75,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '984231457254',
     projectId: 'meus-gastos-8fc37',
     storageBucket: 'meus-gastos-8fc37.firebasestorage.app',
-    androidClientId: '984231457254-chafmtqg5g9ca3tr6oghpu3guk239ihv.apps.googleusercontent.com',
+    androidClientId: '984231457254-6rhaujv1fdlmukm9j0jqlndb767l8o6h.apps.googleusercontent.com',
     iosClientId: '984231457254-cd3t1b4e9oolfqlv34m94jrs7ai0tocu.apps.googleusercontent.com',
     iosBundleId: 'com.gambit.meusgastos.meusGastos',
   );
