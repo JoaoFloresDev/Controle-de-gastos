@@ -268,11 +268,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get savefile => 'Elige el nombre del archivo';
 
   @override
-  String get reviewAppTitle => '¿Te gustó la aplicación?';
+  String get reviewAppTitle => 'Califica nuestra app';
 
   @override
-  String get reviewAppDescription =>
-      '¡Califica nuestra aplicación en la App Store para ayudar a más personas a descubrirla!';
+  String get reviewAppDescription => 'Deja tu reseña en la tienda';
 
   @override
   String get notNow => 'Ahora no';

@@ -278,150 +278,35 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
   Widget _buildSwiftView() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        height: 52,
-        decoration: BoxDecoration(
-          color: AppColors.card,
-          borderRadius: BorderRadius.circular(14),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.06),
-              blurRadius: 16,
-              offset: const Offset(0, 4),
+      child: SizedBox(
+        width: double.infinity,
+        child: CupertinoSlidingSegmentedControl<bool>(
+          groupValue: calendarView,
+          thumbColor: AppColors.button,
+          backgroundColor: AppColors.card,
+          children: {
+            false: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Icon(
+                CupertinoIcons.list_bullet,
+                color: !calendarView ? Colors.white : AppColors.labelPlaceholder,
+                size: 20,
+              ),
             ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(4),
-          child: Row(
-            children: [
-              // Botão Lista
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      calendarView = false;
-                    });
-                  },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    curve: Curves.easeInOut,
-                    decoration: BoxDecoration(
-                      gradient: !calendarView
-                          ? LinearGradient(
-                              colors: [
-                                AppColors.button,
-                                AppColors.button.withOpacity(0.85),
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            )
-                          : null,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: !calendarView
-                          ? [
-                              BoxShadow(
-                                color: AppColors.button.withOpacity(0.3),
-                                blurRadius: 8,
-                                offset: const Offset(0, 2),
-                              ),
-                            ]
-                          : null,
-                    ),
-                    child: Center(
-                      child: AnimatedDefaultTextStyle(
-                        duration: const Duration(milliseconds: 200),
-                        style: TextStyle(
-                          color: !calendarView
-                              ? Colors.white
-                              : AppColors.labelPlaceholder,
-                          fontSize: 15,
-                          fontWeight:
-                              !calendarView ? FontWeight.w600 : FontWeight.w500,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              CupertinoIcons.list_bullet,
-                              color: !calendarView
-                                  ? Colors.white
-                                  : AppColors.labelPlaceholder,
-                              size: 20,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+            true: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Icon(
+                CupertinoIcons.calendar,
+                color: calendarView ? Colors.white : AppColors.labelPlaceholder,
+                size: 20,
               ),
-
-              const SizedBox(width: 4),
-
-              // Botão Calendário
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      calendarView = true;
-                    });
-                  },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    curve: Curves.easeInOut,
-                    decoration: BoxDecoration(
-                      gradient: calendarView
-                          ? LinearGradient(
-                              colors: [
-                                AppColors.button,
-                                AppColors.button.withOpacity(0.85),
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            )
-                          : null,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: calendarView
-                          ? [
-                              BoxShadow(
-                                color: AppColors.button.withOpacity(0.3),
-                                blurRadius: 8,
-                                offset: const Offset(0, 2),
-                              ),
-                            ]
-                          : null,
-                    ),
-                    child: Center(
-                      child: AnimatedDefaultTextStyle(
-                        duration: const Duration(milliseconds: 200),
-                        style: TextStyle(
-                          color: calendarView
-                              ? Colors.white
-                              : AppColors.labelPlaceholder,
-                          fontSize: 15,
-                          fontWeight:
-                              calendarView ? FontWeight.w600 : FontWeight.w500,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              CupertinoIcons.calendar,
-                              color: calendarView
-                                  ? Colors.white
-                                  : AppColors.labelPlaceholder,
-                              size: 20,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          },
+          onValueChanged: (value) {
+            setState(() {
+              calendarView = value!;
+            });
+          },
         ),
       ),
     );

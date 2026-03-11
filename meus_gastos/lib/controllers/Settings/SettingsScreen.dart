@@ -14,6 +14,7 @@ import 'package:meus_gastos/controllers/RecurrentExpense/RecurrentExpenseScreen.
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreenCompact extends StatelessWidget {
@@ -319,13 +320,6 @@ class SettingsScreenCompact extends StatelessWidget {
             },
           ),
           _buildDivider(),
-          _buildOption(
-            icon: Icons.notifications,
-            title: AppLocalizations.of(context)!.notifications,
-            subtitle: AppLocalizations.of(context)!.notificationsDesc,
-            onTap: () {},
-          ),
-          _buildDivider(),
           if (context.read<LoginViewModel>().isLogin)
             _buildOption(
               icon: Icons.backup,
@@ -345,6 +339,18 @@ class SettingsScreenCompact extends StatelessWidget {
             title: AppLocalizations.of(context)!.helpSupport,
             subtitle: AppLocalizations.of(context)!.helpSupportDesc,
             onTap: () {},
+          ),
+          _buildDivider(),
+          _buildOption(
+            icon: Icons.star_outline,
+            title: AppLocalizations.of(context)!.reviewAppTitle,
+            subtitle: AppLocalizations.of(context)!.reviewAppDescription,
+            onTap: () {
+              final InAppReview inAppReview = InAppReview.instance;
+              inAppReview.openStoreListing(
+                appStoreId: '6502218501',
+              );
+            },
           ),
           _buildDivider(),
           _buildOption(

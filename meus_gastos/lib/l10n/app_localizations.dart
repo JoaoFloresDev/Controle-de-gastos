@@ -601,13 +601,13 @@ abstract class AppLocalizations {
   /// No description provided for @reviewAppTitle.
   ///
   /// In en, this message translates to:
-  /// **'Did you like the app?'**
+  /// **'Rate our app'**
   String get reviewAppTitle;
 
   /// No description provided for @reviewAppDescription.
   ///
   /// In en, this message translates to:
-  /// **'Rate our app on the App Store to help more people discover it!'**
+  /// **'Leave a review on the store'**
   String get reviewAppDescription;
 
   /// No description provided for @notNow.

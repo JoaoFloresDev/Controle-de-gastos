@@ -272,11 +272,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String get savefile => 'Escolha o nome do arquivo';
 
   @override
-  String get reviewAppTitle => 'Gostou do aplicativo?';
+  String get reviewAppTitle => 'Avalie nosso aplicativo';
 
   @override
-  String get reviewAppDescription =>
-      'Avalie nosso app na App Store para ajudar mais pessoas a descobri-lo!';
+  String get reviewAppDescription => 'Deixe sua avaliação na loja';
 
   @override
   String get notNow => 'Agora não';
