@@ -286,19 +286,54 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
           children: {
             false: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Icon(
-                CupertinoIcons.list_bullet,
-                color:
-                    !calendarView ? Colors.white : AppColors.labelPlaceholder,
-                size: 20,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    CupertinoIcons.list_bullet,
+                    color: !calendarView
+                        ? Colors.white
+                        : AppColors.labelPlaceholder,
+                    size: 18,
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    AppLocalizations.of(context)!.transactions,
+                    style: TextStyle(
+                      color: !calendarView
+                          ? Colors.white
+                          : AppColors.labelPlaceholder,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
             ),
             true: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Icon(
-                CupertinoIcons.calendar,
-                color: calendarView ? Colors.white : AppColors.labelPlaceholder,
-                size: 20,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    CupertinoIcons.calendar,
+                    color: calendarView
+                        ? Colors.white
+                        : AppColors.labelPlaceholder,
+                    size: 18,
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    AppLocalizations.of(context)!.calendar,
+                    style: TextStyle(
+                      color: calendarView
+                          ? Colors.white
+                          : AppColors.labelPlaceholder,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
             ),
           },
