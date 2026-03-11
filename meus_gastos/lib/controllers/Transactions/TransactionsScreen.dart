@@ -4,11 +4,10 @@ import 'package:meus_gastos/controllers/Calendar/ViewComponents/CalendarHeader.d
 import 'package:meus_gastos/controllers/Calendar/ViewComponents/CalendarTable.dart';
 import 'package:meus_gastos/controllers/Calendar/ViewComponents/CalendarTransactions.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
-import 'package:meus_gastos/controllers/Dashboards/ViewComponents/MonthSelector.dart';
 import 'package:meus_gastos/controllers/Login/LoginButtonScrean.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
-import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/UI/intervalsControl.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCardRecorrent.dart';
 import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
@@ -151,8 +150,8 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                     LoginButtonScrean(
                   onLoginChange: cardsVM.loadCards,
                 ),
-                // create: (_) => LoginViewModel()..init(),
               ),
+              const SizedBox(width: 8),
               GestureDetector(
                 onTap: () {
                   _showProModal(context);
@@ -289,7 +288,8 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Icon(
                 CupertinoIcons.list_bullet,
-                color: !calendarView ? Colors.white : AppColors.labelPlaceholder,
+                color:
+                    !calendarView ? Colors.white : AppColors.labelPlaceholder,
                 size: 20,
               ),
             ),
@@ -352,10 +352,13 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
       // Adiciona fixedCards
       for (var fcard in fExpensesVM.listFilteredFixedCardsShow.reversed) {
         var card = fExpensesVM.fixedToNormalCard(fcard, currentDate);
+        print("${fcard.category.name}: ${card.amount}");
         if (fcard.isAutomaticAddition) {
-          // print("category: ${fcard.category.name} | amount: ${fcard.price}");
-          transactionsViewModel.addCard(card);
-          transactionsViewModel.loadCards();
+          final shouldAdd = Intervalscontrol().IsapresentetionNecessary(
+              fcard, transactionsViewModel.cardList, DateTime.now());
+          if (shouldAdd) {
+            transactionsViewModel.addCard(card);
+          }
           continue;
         }
 
