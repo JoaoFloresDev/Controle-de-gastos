@@ -43,6 +43,7 @@ class FormSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime _selectedDate = selectedDate;
     return Padding(
       padding: const EdgeInsets.only(
           top: 16.0, left: 16.0, right: 16.0, bottom: 0.0),
@@ -59,7 +60,7 @@ class FormSection extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: CampoComMascara(
-                  currentDate: selectedDate,
+                  currentDate: _selectedDate,
                   onCompletion: onDateChanged,
                 ),
               ),
@@ -75,8 +76,8 @@ class FormSection extends StatelessWidget {
               ),
             ),
             placeholder: AppLocalizations.of(context)!.description,
-            placeholderStyle: TextStyle(
-                color: CupertinoColors.white.withOpacity(0.5)),
+            placeholderStyle:
+                TextStyle(color: CupertinoColors.white.withOpacity(0.5)),
             style: const TextStyle(color: CupertinoColors.white),
             controller: descricaoController,
           ),
@@ -104,12 +105,14 @@ class FormSection extends StatelessWidget {
               width: double.infinity,
               child: CupertinoButton(
                 color: AppColors.button,
-                onPressed: onAddPressed,
+                onPressed: () {
+                  onAddPressed();
+                  _selectedDate = DateTime.now();
+                },
                 child: Text(
                   AppLocalizations.of(context)!.add,
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.label),
+                      fontWeight: FontWeight.bold, color: AppColors.label),
                 ),
               ),
             ),

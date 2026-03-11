@@ -129,6 +129,9 @@ class CustomCalendarState extends State<CustomCalendar> {
                       ),
                       TransactionList(
                         transactions: _transactionsForSelectedDay,
+                        cardDetails: (card) {
+                          print("TáERRADOO");
+                        },
                         // categories: context.read<>(),
                       ),
                     ],

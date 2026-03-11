@@ -18,7 +18,6 @@ class FixedExpensesViewModel extends ChangeNotifier {
     }
   }
 
-
   FixedExpensesService fixedExpensesService = FixedExpensesService();
 
   TransactionsViewModel? _transactionsVM;
@@ -32,6 +31,8 @@ class FixedExpensesViewModel extends ChangeNotifier {
   List<FixedExpense> listFilteredFixedCardsShow = [];
 
   List<CardModel> listFixedExpenseAsNormalCard = [];
+
+  bool isLoading = false;
 
   Future<void> init() async {
     await fetchExpenses();
@@ -58,9 +59,15 @@ class FixedExpensesViewModel extends ChangeNotifier {
   }
 
   void _recalculate() {
+    isLoading = true;
+    notifyListeners();
     if (_transactionsVM == null) return;
 
     print("RECAUCULATE...");
+    print(listFilteredFixedCardsShow.length);
+    for (FixedExpense fcard in listFilteredFixedCardsShow) {
+      print("category: ${fcard.category.name} | amount: ${fcard.price}");
+    }
 
     final cards = _transactionsVM!.cardList;
     final now = DateTime.now();
@@ -75,6 +82,13 @@ class FixedExpensesViewModel extends ChangeNotifier {
         .map((item) => fixedExpensesService.fixedToNormalCard(item, now))
         .toList();
 
+    print("RECAUCULATE...");
+    print(listFilteredFixedCardsShow.length);
+    for (FixedExpense fcard in listFilteredFixedCardsShow) {
+      print("category: ${fcard.category.name} | amount: ${fcard.price}");
+    }
+
+    isLoading = false;
     notifyListeners();
   }
 
@@ -111,7 +125,7 @@ class FixedExpensesViewModel extends ChangeNotifier {
 
   void filteredFixedCardsShow(List<CardModel> cards, DateTime currentDate) {
     for (var fc in _fixedExpense) {
-      print(fc.price);
+      print("${fc.category.name}: ${fc.price} (${fc.isAutomaticAddition})");
     }
 
     fixedToNormalCardList(currentDate);

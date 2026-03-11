@@ -1209,6 +1209,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Settings'**
   String get settings;
+
+  /// No description provided for @unlockPro.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock PRO'**
+  String get unlockPro;
+
+  /// No description provided for @proDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited features, no ads and cloud sync'**
+  String get proDescription;
+
+  /// No description provided for @subscribeNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe Now'**
+  String get subscribeNow;
+
+  /// No description provided for @proAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'PRO Account'**
+  String get proAccount;
+
+  /// No description provided for @loginToSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in to sync your data to the cloud'**
+  String get loginToSync;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Log In'**
+  String get login;
+
+  /// No description provided for @fixedExpenses.
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed Expenses'**
+  String get fixedExpenses;
+
+  /// No description provided for @fixedExpensesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage recurring expenses'**
+  String get fixedExpensesDesc;
+
+  /// No description provided for @categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categories;
+
+  /// No description provided for @categoriesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Organize your transactions'**
+  String get categoriesDesc;
+
+  /// No description provided for @notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
+
+  /// No description provided for @notificationsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders and alerts'**
+  String get notificationsDesc;
+
+  /// No description provided for @backupSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup & Sync'**
+  String get backupSync;
+
+  /// No description provided for @backupSyncDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync your data'**
+  String get backupSyncDesc;
+
+  /// No description provided for @helpSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & Support'**
+  String get helpSupport;
+
+  /// No description provided for @helpSupportDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'FAQ and contact'**
+  String get helpSupportDesc;
+
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version 4.0.0'**
+  String get version;
 }
 
 class _AppLocalizationsDelegate

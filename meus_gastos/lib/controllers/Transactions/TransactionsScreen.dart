@@ -8,6 +8,7 @@ import 'package:meus_gastos/controllers/Dashboards/ViewComponents/MonthSelector.
 import 'package:meus_gastos/controllers/Login/LoginButtonScrean.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCardRecorrent.dart';
 import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
@@ -60,7 +61,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
   void initState() {
     super.initState();
     currentDate = DateTime.now();
-
+    print("AAAAAAAAAAAAAAAAAAAAAAAAAA $currentDate");
     // Carrega dados iniciais após o primeiro frame
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
@@ -184,8 +185,9 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                         children: [
                           BannerAdFactory().build(),
                           const SizedBox(height: 8),
-                          // Aqui eu vou colocar o date_select para filtrar os cards
-                          if ((transViewModel.cardList.isNotEmpty) ||
+                          if (transViewModel.isLoading || fixedVM.isLoading)
+                            _buildLoadingIndicator()
+                          else if ((transViewModel.cardList.isNotEmpty) ||
                               (transViewModel.fixedCards.isNotEmpty)) ...[
                             _buildSwiftView(),
                             const SizedBox(height: 12),
@@ -208,13 +210,14 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                               ),
                               TransactionList(
                                 transactions: _transactionsForSelectedDay,
+                                cardDetails: (card) {
+                                  _cardDetails(
+                                      context, card, transViewModel, fixedVM);
+                                },
                                 // categories: context.read<>(),
                               ),
                             ] else ...[
-                              if (transViewModel.isLoading)
-                                _buildLoadingIndicator()
-                              else
-                                _cardListBuild(transViewModel, fixedVM),
+                              _cardListBuild(transViewModel, fixedVM),
                             ]
                           ] else ...[
                             _empityListCardBuild(),
@@ -457,53 +460,55 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
       FixedExpensesViewModel fExpensesVM) {
     // Combine fixedCards e cardList em uma única lista de widgets
     final allCards = <Widget>[];
-
     // fExpensesVM.filteredFixedCardsShow(
     //     transactionsViewModel.cardList, currentDate);
 
-    // Adiciona fixedCards
-    for (var fcard in fExpensesVM.listFilteredFixedCardsShow.reversed) {
-      var card = fExpensesVM.fixedToNormalCard(fcard, currentDate);
-      if (fcard.isAutomaticAddition) {
-        print("category: ${fcard.category.name} | amount: ${fcard.price}");
-        transactionsViewModel.addCard(card);
-        continue;
+    if (!fExpensesVM.isLoading && !transactionsViewModel.isLoading) {
+      // Adiciona fixedCards
+      for (var fcard in fExpensesVM.listFilteredFixedCardsShow.reversed) {
+        var card = fExpensesVM.fixedToNormalCard(fcard, currentDate);
+        if (fcard.isAutomaticAddition) {
+          // print("category: ${fcard.category.name} | amount: ${fcard.price}");
+          transactionsViewModel.addCard(card);
+          transactionsViewModel.loadCards();
+          continue;
+        }
+
+        if (card.amount == 0) continue;
+
+        allCards.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 1),
+            child: ListCardRecorrent(
+              onTap: (card) {
+                widget.onAddClicked();
+              },
+              card: card,
+              onAddClicked: () async {
+                await transactionsViewModel.loadCards();
+              },
+            ),
+          ),
+        );
       }
 
-      if (card.amount == 0) continue;
-
-      allCards.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 1),
-          child: ListCardRecorrent(
-            onTap: (card) {
-              widget.onAddClicked();
-            },
-            card: card,
-            onAddClicked: () async {
-              await transactionsViewModel.loadCards();
-            },
+      // Adiciona normal cards
+      for (var card in transactionsViewModel.cardList.reversed) {
+        if (card.amount == 0) continue;
+        allCards.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 1),
+            child: ListCard(
+              onTap: (card) {
+                widget.onAddClicked();
+                _cardDetails(context, card, transactionsViewModel, fExpensesVM);
+              },
+              card: card,
+              background: AppColors.card,
+            ),
           ),
-        ),
-      );
-    }
-
-    // Adiciona normal cards
-    for (var card in transactionsViewModel.cardList.reversed) {
-      if (card.amount == 0) continue;
-      allCards.add(
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 1),
-          child: ListCard(
-            onTap: (card) {
-              widget.onAddClicked();
-              _cardDetails(context, card, transactionsViewModel, fExpensesVM);
-            },
-            card: card,
-            background: AppColors.card,
-          ),
-        ),
-      );
+        );
+      }
     }
 
     // Retorna uma única ListView

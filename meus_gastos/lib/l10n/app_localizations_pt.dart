@@ -592,4 +592,59 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get settings => 'Configurações';
+
+  @override
+  String get unlockPro => 'Desbloqueie o PRO';
+
+  @override
+  String get proDescription =>
+      'Recursos ilimitados, sem anúncios e sincronização na nuvem';
+
+  @override
+  String get subscribeNow => 'Assinar agora';
+
+  @override
+  String get proAccount => 'Conta PRO';
+
+  @override
+  String get loginToSync => 'Faça login para sincronizar seus dados na nuvem';
+
+  @override
+  String get login => 'Fazer login';
+
+  @override
+  String get fixedExpenses => 'Gastos fixos';
+
+  @override
+  String get fixedExpensesDesc => 'Gerencie despesas recorrentes';
+
+  @override
+  String get categories => 'Categorias';
+
+  @override
+  String get categoriesDesc => 'Organize suas transações';
+
+  @override
+  String get notifications => 'Notificações';
+
+  @override
+  String get notificationsDesc => 'Lembretes e alertas';
+
+  @override
+  String get backupSync => 'Backup & sincronização';
+
+  @override
+  String get backupSyncDesc => 'Sincronize seus dados';
+
+  @override
+  String get helpSupport => 'Ajuda & suporte';
+
+  @override
+  String get helpSupportDesc => 'FAQ e contato';
+
+  @override
+  String get about => 'Sobre';
+
+  @override
+  String get version => 'Versão 4.0.0';
 }

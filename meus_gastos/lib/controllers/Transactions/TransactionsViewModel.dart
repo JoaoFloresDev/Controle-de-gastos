@@ -91,9 +91,10 @@ class TransactionsViewModel extends ChangeNotifier {
       cardModel.amount = 0;
       updateCard(cardModel, cardModel);
       print(cardModel.amount);
+    }else{
+      await repository.deleteCard(cardModel);
     }
-    notifyListeners();
-    await repository.deleteCard(cardModel);
+      notifyListeners();
   }
 
   Future<void> updateCard(CardModel oldCard, CardModel newCard) async {
@@ -116,24 +117,24 @@ class TransactionsViewModel extends ChangeNotifier {
     _applyDateFilter();
     notifyListeners();
   }
-  
+
   // Método privado para aplicar o filtro
   void _applyDateFilter() {
     if (_filterStartDate == null || _filterEndDate == null) {
       _filteredTransactions = List.from(_cardList);
       return;
     }
-    
+
     _filteredTransactions = _cardList.where((transaction) {
       final transactionDate = transaction.date; // Ajuste conforme seu modelo
-      return transactionDate.isAfter(_filterStartDate!) && 
-             transactionDate.isBefore(_filterEndDate!);
+      return transactionDate.isAfter(_filterStartDate!) &&
+          transactionDate.isBefore(_filterEndDate!);
     }).toList();
-    
+
     // Ordene se necessário
     _filteredTransactions.sort((a, b) => b.date.compareTo(a.date));
   }
-  
+
   // Método para limpar o filtro
   void clearFilter() {
     _filterStartDate = null;
@@ -141,14 +142,10 @@ class TransactionsViewModel extends ChangeNotifier {
     _filteredTransactions = List.from(_cardList);
     notifyListeners();
   }
-  
-  
-  double getTotalExpenses() {
-    return _filteredTransactions
-        .fold(0.0, (sum, t) => sum + t.amount);
-  }
- 
 
+  double getTotalExpenses() {
+    return _filteredTransactions.fold(0.0, (sum, t) => sum + t.amount);
+  }
 
   @override
   void dispose() {

@@ -35,32 +35,32 @@ class LinearProgressIndicatorSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-      child:
-          Text(TranslateService.getTranslatedCategoryName(context, model.title),
-              style: const TextStyle(
-                  color: AppColors.label,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500)),
-          ),
+      //     Row(children: [
+      //     Padding(
+      //       padding: const EdgeInsets.only(left: 10),
+      // child:
+      //     Text(TranslateService.getTranslatedCategoryName(context, model.title),
+      //         style: const TextStyle(
+      //             color: AppColors.label,
+      //             fontSize: 17,
+      //             fontWeight: FontWeight.w500)),
+      //     ),
 
-          Spacer(),
-          Padding(
-            padding: const EdgeInsets.only(right: 24),
-      child:
-                                Text(
-                  model.progress.toStringAsFixed(0),
-                  style: const TextStyle(
-                      color: AppColors.label,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600),
-                ),
-          )
-          ],
-          ),
-          const SizedBox(height: 10),
+      //     Spacer(),
+      //     Padding(
+      //       padding: const EdgeInsets.only(right: 24),
+      // child:
+      //                           Text(
+      //             model.progress.toStringAsFixed(0),
+      //             style: const TextStyle(
+      //                 color: AppColors.label,
+      //                 fontSize: 17,
+      //                 fontWeight: FontWeight.w600),
+      //           ),
+      //     )
+      //     ],
+      //     ),
+      //     const SizedBox(height: 10),
           Stack(
             alignment: Alignment.topRight,
             children: [

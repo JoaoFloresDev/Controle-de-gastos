@@ -12,6 +12,7 @@ import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/RecurrentExpenseScreen.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:provider/provider.dart';
 
@@ -34,8 +35,8 @@ class SettingsScreenCompact extends StatelessWidget {
                     end: Alignment.bottomRight,
                     colors: proVM.isPro
                         ? [
-                            AppColors.button,
-                            AppColors.button.withOpacity(0.7),
+                            AppColors.background1,
+                            AppColors.background1,
                           ]
                         : [
                             const Color(0xFFFFD700),
@@ -45,7 +46,11 @@ class SettingsScreenCompact extends StatelessWidget {
                 ),
                 child: _buildHeaderContent(context, loginVM, proVM),
               ),
-
+              const Divider(
+                color: AppColors.modalBackground,
+                thickness: 0.5,
+                height: 10,
+              ),
               // Conteúdo rolável
               Expanded(
                 child: SingleChildScrollView(
@@ -93,8 +98,8 @@ class SettingsScreenCompact extends StatelessWidget {
               size: 56,
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Desbloqueie o PRO',
+            Text(
+              AppLocalizations.of(context)!.unlockPro,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 28,
@@ -103,7 +108,7 @@ class SettingsScreenCompact extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Recursos ilimitados, sem anúncios e sincronização na nuvem',
+              AppLocalizations.of(context)!.proDescription,
               style: TextStyle(
                 color: Colors.white.withOpacity(0.9),
                 fontSize: 14,
@@ -123,13 +128,13 @@ class SettingsScreenCompact extends StatelessWidget {
                   ),
                   elevation: 5,
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.workspace_premium, size: 20),
                     SizedBox(width: 8),
                     Text(
-                      'Assinar Agora',
+                      AppLocalizations.of(context)!.subscribeNow,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -211,8 +216,7 @@ class SettingsScreenCompact extends StatelessWidget {
                 ],
               ),
             ] else ...[
-              // Não logado (mas é PRO)
-              const Row(
+              Row(
                 children: [
                   Icon(
                     Icons.workspace_premium,
@@ -221,7 +225,7 @@ class SettingsScreenCompact extends StatelessWidget {
                   ),
                   SizedBox(width: 12),
                   Text(
-                    'Conta PRO',
+                    AppLocalizations.of(context)!.proAccount,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 28,
@@ -231,8 +235,8 @@ class SettingsScreenCompact extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8),
-              const Text(
-                'Faça login para sincronizar seus dados na nuvem',
+              Text(
+                AppLocalizations.of(context)!.loginToSync,
                 style: TextStyle(
                   color: Colors.white70,
                   fontSize: 14,
@@ -250,7 +254,7 @@ class SettingsScreenCompact extends StatelessWidget {
                     () {},
                   ),
                   icon: const Icon(Icons.login, size: 20),
-                  label: const Text('Fazer Login'),
+                  label: Text(AppLocalizations.of(context)!.login),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: AppColors.button,
@@ -280,15 +284,15 @@ class SettingsScreenCompact extends StatelessWidget {
         children: [
           _buildOption(
             icon: Icons.repeat,
-            title: 'Gastos Fixos',
-            subtitle: 'Gerencie despesas recorrentes',
+            title: AppLocalizations.of(context)!.fixedExpenses,
+            subtitle: AppLocalizations.of(context)!.fixedExpensesDesc,
             onTap: () => _navigateToFixedExpenses(context),
           ),
           _buildDivider(),
           _buildOption(
             icon: Icons.category,
-            title: 'Categorias',
-            subtitle: 'Organize suas transações',
+            title: AppLocalizations.of(context)!.categories,
+            subtitle: AppLocalizations.of(context)!.categoriesDesc,
             onTap: () {
               showModalBottomSheet(
                 context: context,
@@ -317,32 +321,36 @@ class SettingsScreenCompact extends StatelessWidget {
           _buildDivider(),
           _buildOption(
             icon: Icons.notifications,
-            title: 'Notificações',
-            subtitle: 'Lembretes e alertas',
+            title: AppLocalizations.of(context)!.notifications,
+            subtitle: AppLocalizations.of(context)!.notificationsDesc,
             onTap: () {},
           ),
           _buildDivider(),
-          if(context.read<LoginViewModel>().isLogin)
-          _buildOption(
-            icon: Icons.backup,
-            title: 'Backup & Sync',
-            subtitle: 'Sincronize seus dados',
-            onTap: () {
-              LoginRoute().syncInFirstAcess(context, context.read<LoginViewModel>().user!.uid, context.read<SyncViewModel>(), true);
-            },
-          ),
+          if (context.read<LoginViewModel>().isLogin)
+            _buildOption(
+              icon: Icons.backup,
+              title: AppLocalizations.of(context)!.backupSync,
+              subtitle: AppLocalizations.of(context)!.backupSyncDesc,
+              onTap: () {
+                LoginRoute().syncInFirstAcess(
+                    context,
+                    context.read<LoginViewModel>().user!.uid,
+                    context.read<SyncViewModel>(),
+                    true);
+              },
+            ),
           _buildDivider(),
           _buildOption(
             icon: Icons.help_outline,
-            title: 'Ajuda & Suporte',
-            subtitle: 'FAQ e contato',
+            title: AppLocalizations.of(context)!.helpSupport,
+            subtitle: AppLocalizations.of(context)!.helpSupportDesc,
             onTap: () {},
           ),
           _buildDivider(),
           _buildOption(
             icon: Icons.info_outline,
-            title: 'Sobre',
-            subtitle: 'Versão 1.0.0',
+            title: AppLocalizations.of(context)!.about,
+            subtitle: AppLocalizations.of(context)!.version,
             onTap: () {},
           ),
         ],

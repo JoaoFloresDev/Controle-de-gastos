@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
 
 class FixedExpensesService {
- 
   Future<List<FixedExpense>> getSortedFixedExpensesToSync() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString('fixed_expenses');
@@ -24,10 +23,8 @@ class FixedExpensesService {
     for (var item in listExpenses) {
       fixedExpenseIds.add(item.id);
     }
-      return fixedExpenseIds;
+    return fixedExpenseIds;
   }
-
- 
 
   DateTime getCurrentWeekdayDate(DateTime referenceDate) {
     // Obtém o dia da semana da data de referência (1 = segunda-feira, 7 = domingo)
@@ -44,64 +41,66 @@ class FixedExpensesService {
     return today.add(Duration(days: difference));
   }
 
-  List<FixedExpense> filteredFixedCardsShow(
-      List<CardModel> normalCards, List<FixedExpense> fixedCards, DateTime currentDate)  {
+  List<FixedExpense> filteredFixedCardsShow(List<CardModel> normalCards,
+      List<FixedExpense> fixedCards, DateTime currentDate) {
     currentDate = DateTime.now();
 
-    // printCardsInfo();
-
-    return fixedCards.where((fcard) {
-      DateTime verificationDate = currentDate;
-      bool isCurrentBeforeCardTime = false;
-      // Se for diário, ajusta a data do fcard conforme o horário atual
-      if (fcard.repetitionType == 'diario') {
-        isCurrentBeforeCardTime = currentDate.hour < fcard.date.hour ||
-            (currentDate.hour == fcard.date.hour &&
-                currentDate.minute < fcard.date.minute);
-        // print("${fcard.repetitionType} : $isCurrentBeforeCardTime ");
-        if (isCurrentBeforeCardTime) {
-          // print("AJJ");
-          // Altera a data do fcard para ontem mantendo hora/minuto
-          final yesterday = currentDate.subtract(const Duration(days: 1));
-          fcard.date = DateTime(
-            yesterday.year,
-            yesterday.month,
-            yesterday.day,
-            fcard.date.hour,
-            fcard.date.minute,
-          );
-          verificationDate = yesterday;
+    if (normalCards.length > 0) {
+      return fixedCards.where((fcard) {
+        DateTime verificationDate = currentDate;
+        bool isCurrentBeforeCardTime = false;
+        // Se for diário, ajusta a data do fcard conforme o horário atual
+        if (fcard.repetitionType == 'diario') {
+          isCurrentBeforeCardTime = currentDate.hour < fcard.date.hour ||
+              (currentDate.hour == fcard.date.hour &&
+                  currentDate.minute < fcard.date.minute);
+          // print("${fcard.repetitionType} : $isCurrentBeforeCardTime ");
+          if (isCurrentBeforeCardTime) {
+            // print("AJJ");
+            // Altera a data do fcard para ontem mantendo hora/minuto
+            final yesterday = currentDate.subtract(const Duration(days: 1));
+            fcard.date = DateTime(
+              yesterday.year,
+              yesterday.month,
+              yesterday.day,
+              fcard.date.hour,
+              fcard.date.minute,
+            );
+            verificationDate = yesterday;
+          } else {
+            fcard.date = DateTime(
+              currentDate.year,
+              currentDate.month,
+              currentDate.day,
+              fcard.date.hour,
+              fcard.date.minute,
+            );
+          }
         } else {
           fcard.date = DateTime(
-            currentDate.year,
-            currentDate.month,
-            currentDate.day,
+            fcard.date.year,
+            fcard.date.month,
+            fcard.date.day,
             fcard.date.hour,
             fcard.date.minute,
           );
         }
-      } else {
-        fcard.date = DateTime(
-          fcard.date.year,
-          fcard.date.month,
-          fcard.date.day,
-          fcard.date.hour,
-          fcard.date.minute,
-        );
-      }
-      final shouldShow = Intervalscontrol()
-              .IsapresentetionNecessary(fcard, normalCards, verificationDate) &&
-          currentDate.isAfter(fcard.date);
-      // && (verificationDate.hour > fcard.date.hour ||
-      //     (verificationDate.hour == fcard.date.hour &&
-      //         verificationDate.minute >= fcard.date.minute));
-      // print(shouldShow);
-      return shouldShow;
-    }).toList();
+        final shouldShow = Intervalscontrol().IsapresentetionNecessary(
+                fcard, normalCards, verificationDate) &&
+            currentDate.isAfter(fcard.date);
+        // && (verificationDate.hour > fcard.date.hour ||
+        //     (verificationDate.hour == fcard.date.hour &&
+        //         verificationDate.minute >= fcard.date.minute));
+        print("${fcard.category.name}, ${fcard.price}, : ${shouldShow}");
+
+        return shouldShow;
+      }).toList();
+    } else {
+      return [];
+    }
   }
 
-  CardModel fixedToNormalCard(
-      FixedExpense fixedCard, DateTime currentDate) {
+  CardModel fixedToNormalCard(FixedExpense fixedCard, DateTime currentDate) {
     int day = fixedCard.date.day;
     int hour = fixedCard.date.hour;
     int min = fixedCard.date.minute;

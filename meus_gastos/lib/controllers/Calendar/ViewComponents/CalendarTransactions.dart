@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
+import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCard.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -12,10 +13,12 @@ import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class TransactionList extends StatelessWidget {
   final List<CardModel> transactions;
+  final Function(CardModel) cardDetails;
 
   const TransactionList({
     Key? key,
     required this.transactions,
+    required this.cardDetails,
     // required this.categories
   }) : super(key: key);
 
@@ -76,7 +79,7 @@ class TransactionList extends StatelessWidget {
           child: ListCard(
             card: transaction,
             onTap: (selectedCard) {
-              _showCupertinoModalBottomSheet(context, selectedCard);
+              cardDetails(selectedCard);
             },
             background: AppColors.card,
           ),
@@ -87,10 +90,10 @@ class TransactionList extends StatelessWidget {
 
   void _showCupertinoModalBottomSheet(BuildContext context, CardModel card) {
     FocusScope.of(context).unfocus();
-    final List<CategoryModel> categories = context.read<CategoryViewModel>().categories;
-    updateCard(oldCard, newCard) => context
-                .read<TransactionsViewModel>()
-                .updateCard(oldCard, newCard);
+    final List<CategoryModel> categories =
+        context.read<CategoryViewModel>().categories;
+    updateCard(oldCard, newCard) =>
+        context.read<TransactionsViewModel>().updateCard(oldCard, newCard);
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,

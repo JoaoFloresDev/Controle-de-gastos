@@ -167,15 +167,15 @@ class CompactListCardRecorrent extends StatelessWidget {
   });
 
   void adicionar() async {
-    final newCard = CardModel(
-      amount: card.amount,
-      description: card.description,
-      date: DateTime.now(),
-      category: card.category,
-      id: CardService().generateUniqueId(),
-      idFixoControl: card.idFixoControl,
-    );
-    await onAddClicked(newCard);
+    // final newCard = CardModel(
+    //   amount: card.amount,
+    //   description: card.description,
+    //   date: DateTime.now(),
+    //   category: card.category,
+    //   id: CardService().generateUniqueId(),
+    //   idFixoControl: card.idFixoControl,
+    // );
+    await onAddClicked(card);
     if (onAction != null) onAction!(card, 'add');
   }
 

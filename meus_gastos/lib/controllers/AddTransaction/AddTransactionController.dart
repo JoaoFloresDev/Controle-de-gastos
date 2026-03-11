@@ -128,9 +128,8 @@ class _AddTransactionControllerState extends State<AddTransactionController>
     if (header == null) return;
     if (header.valorController.numberValue == 0) return;
     final list = context.read<CategoryViewModel>().categories;
-    final catName = (list.isNotEmpty)
-        ? list[header.lastIndexSelected].name
-        : '—';
+    final catName =
+        (list.isNotEmpty) ? list[header.lastIndexSelected].name : '—';
     final overlay = Overlay.of(context);
     late OverlayEntry entry;
     final controller = AnimationController(
@@ -384,36 +383,39 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                       header.valorController.updateValue(0);
                       header.updateDateTime();
                       header.descricaoController.clear();
+                    } else {
+                      showAddValueAlert(context);
                     }
                   }
                 },
               ),
               Consumer<FixedExpensesViewModel>(
                   builder: (context, fixedCards, child) {
+                List<CardModel> fcardsToShow = fixedCards
+                    .listFilteredFixedCardsShow
+                    .where((fcard) => !fcard.isAutomaticAddition)
+                    .map((fcard) =>
+                        fixedCards.fixedToNormalCard(fcard, fcard.date))
+                    .toList();
                 // fixedCards.filteredFixedCardsShow(
                 //     context.read<TransactionsViewModel>().cardList,
                 //     DateTime.now());
                 return Column(children: [
-                  fixedCards.listFixedExpenseAsNormalCard.isNotEmpty &&
-                          showRecorrentCard
+                  fcardsToShow.isNotEmpty && showRecorrentCard
                       ? SizedBox(height: 0)
                       : SizedBox(height: 16),
                   AnimatedOpacity(
-                    opacity:
-                        fixedCards.listFixedExpenseAsNormalCard.isNotEmpty &&
-                                showRecorrentCard
-                            ? 1.0
-                            : 0.0,
+                    opacity: fcardsToShow.isNotEmpty && showRecorrentCard
+                        ? 1.0
+                        : 0.0,
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeOut,
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.easeOut,
-                      height:
-                          fixedCards.listFixedExpenseAsNormalCard.isNotEmpty &&
-                                  showRecorrentCard
-                              ? 104.0
-                              : 0.0, // Altura estimada (Separador + Lista)
+                      height: fcardsToShow.isNotEmpty && showRecorrentCard
+                          ? 104.0
+                          : 0.0, // Altura estimada (Separador + Lista)
                       child: SingleChildScrollView(
                         physics: const NeverScrollableScrollPhysics(),
                         child: Column(
@@ -421,19 +423,26 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                           children: [
                             const CustomSeparator(),
                             HorizontalCompactCardList(
-                              cards: fixedCards.listFixedExpenseAsNormalCard,
+                              cards: fcardsToShow,
                               onTap: (card) => widget.onAddClicked(),
                               onAddClicked: (card) async {
-                                context
+                                print(fixedCards
+                                    .listFixedExpenseAsNormalCard.length);
+                                await context
                                     .read<TransactionsViewModel>()
                                     .addCard(card);
+                                await context
+                                    .read<TransactionsViewModel>()
+                                    .loadCards();
                                 widget.onAddClicked();
                                 _loadCards();
-                                fixedCards.filteredFixedCardsShow(
-                                    context
-                                        .read<TransactionsViewModel>()
-                                        .cardList,
-                                    DateTime.now());
+                                print(fixedCards
+                                    .listFixedExpenseAsNormalCard.length);
+                                // fixedCards.filteredFixedCardsShow(
+                                //     context
+                                //         .read<TransactionsViewModel>()
+                                //         .cardList,
+                                //     DateTime.now());
                               },
                               onCardsEmpty: () {
                                 print("aqui! recore");
@@ -459,6 +468,76 @@ class _AddTransactionControllerState extends State<AddTransactionController>
         ),
       ),
     );
+  }
+
+  void showAddValueAlert(BuildContext context) {
+    final overlay = Overlay.of(context);
+    late OverlayEntry overlayEntry;
+
+    overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        bottom: MediaQuery.of(context).padding.bottom + 80,
+        left: 16,
+        right: 16,
+        child: Material(
+          color: Colors.transparent,
+          child: TweenAnimationBuilder<double>(
+            duration: const Duration(milliseconds: 300),
+            tween: Tween(begin: 0.0, end: 1.0),
+            builder: (context, value, child) {
+              return Transform.translate(
+                offset: Offset(0, 20 * (1 - value)),
+                child: Opacity(
+                  opacity: value,
+                  child: child,
+                ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              decoration: BoxDecoration(
+                color: AppColors.deletionButton,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: const Row(
+                children: [
+                  Icon(
+                    Icons.warning_amber_rounded,
+                    color: Colors.white,
+                    size: 22,
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      'Adicione o valor do gasto',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    overlay.insert(overlayEntry);
+
+    // Remove após 2.5 segundos
+    Future.delayed(const Duration(milliseconds: 2500), () {
+      overlayEntry.remove();
+    });
   }
 
   Widget _buildHeader() {
@@ -487,7 +566,13 @@ class _AddTransactionControllerState extends State<AddTransactionController>
     final parentContext = context;
     final vm = context.watch<CategoryViewModel>();
     if (vm.isLoading) {
-      return const CircularProgressIndicator(color: AppColors.background1);
+      return Column(
+        children: [
+          Expanded(child: SizedBox()),
+          const CircularProgressIndicator(color: AppColors.button),
+          Expanded(child: SizedBox()),
+        ],
+      );
     } else {
       return VerticalCircleList(
         key: _verticalCircleListKey,

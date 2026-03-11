@@ -164,6 +164,7 @@ Widget _buildEmptyGoalsState() {
       ),
       child: Column(
         children: [
+          const SizedBox(height: 16),
           // Ícone
           Container(
             width: 56,
