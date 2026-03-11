@@ -426,8 +426,6 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                               cards: fcardsToShow,
                               onTap: (card) => widget.onAddClicked(),
                               onAddClicked: (card) async {
-                                print(fixedCards
-                                    .listFixedExpenseAsNormalCard.length);
                                 await context
                                     .read<TransactionsViewModel>()
                                     .addCard(card);
@@ -436,13 +434,14 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                                     .loadCards();
                                 widget.onAddClicked();
                                 _loadCards();
-                                print(fixedCards
-                                    .listFixedExpenseAsNormalCard.length);
-                                // fixedCards.filteredFixedCardsShow(
-                                //     context
-                                //         .read<TransactionsViewModel>()
-                                //         .cardList,
-                                //     DateTime.now());
+                                AddedExpenseToast.show(
+                                  context: context,
+                                  amount: card.amount,
+                                  description: card.description,
+                                  category: card.category.name,
+                                  categoryIcon: card.category.icon,
+                                  categoryIconColor: card.category.color,
+                                );
                               },
                               onCardsEmpty: () {
                                 print("aqui! recore");

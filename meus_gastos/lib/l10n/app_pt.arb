@@ -135,6 +135,7 @@
     "contactus" : "Entre em contato conosco",
     "loginWithGoogle" : "Entrar com Google",
     "sync": "Sincronizar",
+    "synced": "Sincronizado",
     "notNow": "Agora não",
     "syncData": "Sincronizar dados",
     "syncQuestion": "Deseja sincronizar os dados locais com a nuvem?",

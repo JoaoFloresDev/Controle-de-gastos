@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CardModel.dart';
-import 'package:meus_gastos/services/CardServiceRefatore.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 
 class HorizontalCompactCardList extends StatefulWidget {
@@ -167,14 +166,6 @@ class CompactListCardRecorrent extends StatelessWidget {
   });
 
   void adicionar() async {
-    // final newCard = CardModel(
-    //   amount: card.amount,
-    //   description: card.description,
-    //   date: DateTime.now(),
-    //   category: card.category,
-    //   id: CardService().generateUniqueId(),
-    //   idFixoControl: card.idFixoControl,
-    // );
     await onAddClicked(card);
     if (onAction != null) onAction!(card, 'add');
   }

@@ -317,64 +317,12 @@ class LoginRoute {
                                           try {
                                             await syncVM
                                                 .sync(userId);
-
-                                            print(
-                                                'Dados sincronizados com sucesso!');
-
-                                            // Mostrar feedback de sucesso
-                                            // ScaffoldMessenger.of(context)
-                                            //     .showSnackBar(
-                                            //   SnackBar(
-                                            //     content: Row(
-                                            //       children: [
-                                            //         const Icon(
-                                            //           Icons.check_circle,
-                                            //           color: Colors.white,
-                                            //           size: 20,
-                                            //         ),
-                                            //         const SizedBox(width: 8),
-                                            //         const Text(
-                                            //             'Dados sincronizados com sucesso!'),
-                                            //       ],
-                                            //     ),
-                                            //     backgroundColor: Colors.green,
-                                            //     behavior:
-                                            //         SnackBarBehavior.floating,
-                                            //     shape: RoundedRectangleBorder(
-                                            //       borderRadius:
-                                            //           BorderRadius.circular(8),
-                                            //     ),
-                                            //   ),
-                                            // );
+                                            navigator.pop();
+                                            _showSyncToast(context, true);
                                           } catch (e) {
-                                            print(
-                                                'Erro ao sincronizar. Tente novamente.\n$e');
-                                            // ScaffoldMessenger.of(context)
-                                            //     .showSnackBar(
-                                            //   SnackBar(
-                                            //     content: Row(
-                                            //       children: [
-                                            //         const Icon(
-                                            //           Icons.error,
-                                            //           color: Colors.white,
-                                            //           size: 20,
-                                            //         ),
-                                            //         const SizedBox(width: 8),
-                                            //         const Text(
-                                            //             'Erro ao sincronizar. Tente novamente.'),
-                                            //       ],
-                                            //     ),
-                                            //     backgroundColor: Colors.red,
-                                            //     behavior:
-                                            //         SnackBarBehavior.floating,
-                                            //     shape: RoundedRectangleBorder(
-                                            //       borderRadius:
-                                            //           BorderRadius.circular(8),
-                                            //     ),
-                                            //   ),
-                                            // );
+                                            navigator.pop();
+                                            _showSyncToast(context, false);
                                           }
-                                          navigator.pop();
                                         },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.blue,
@@ -432,5 +380,118 @@ class LoginRoute {
         ),
       );
     }
+  }
+
+  void _showSyncToast(BuildContext context, bool success) {
+    final overlay = Overlay.of(context);
+    late OverlayEntry entry;
+
+    entry = OverlayEntry(
+      builder: (_) => _SyncToastWidget(
+        success: success,
+        onDismiss: () {
+          if (entry.mounted) entry.remove();
+        },
+      ),
+    );
+
+    overlay.insert(entry);
+    Future.delayed(const Duration(seconds: 2), () {
+      if (entry.mounted) entry.remove();
+    });
+  }
+}
+
+class _SyncToastWidget extends StatefulWidget {
+  final bool success;
+  final VoidCallback onDismiss;
+
+  const _SyncToastWidget({required this.success, required this.onDismiss});
+
+  @override
+  State<_SyncToastWidget> createState() => _SyncToastWidgetState();
+}
+
+class _SyncToastWidgetState extends State<_SyncToastWidget>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<Offset> _slide;
+  late final Animation<double> _fade;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+      reverseDuration: const Duration(milliseconds: 300),
+    );
+    _slide = Tween(begin: const Offset(0, -1), end: Offset.zero)
+        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+    _fade = CurvedAnimation(parent: _controller, curve: Curves.easeOut);
+    _controller.forward();
+
+    Future.delayed(const Duration(milliseconds: 1700), () {
+      if (mounted) _controller.reverse().then((_) => widget.onDismiss());
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final color = widget.success ? Colors.green : Colors.red;
+    final icon = widget.success ? Icons.check_circle : Icons.error;
+    final text = widget.success
+        ? AppLocalizations.of(context)!.sync
+        : 'Erro';
+
+    return Positioned(
+      top: MediaQuery.of(context).padding.top + 8,
+      left: 16,
+      right: 16,
+      child: SlideTransition(
+        position: _slide,
+        child: FadeTransition(
+          opacity: _fade,
+          child: Material(
+            color: Colors.transparent,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: const Color(0xFF1a1a23),
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: color.withOpacity(0.3), width: 1),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 20,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Icon(icon, color: color, size: 22),
+                  const SizedBox(width: 12),
+                  Text(
+                    text,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
