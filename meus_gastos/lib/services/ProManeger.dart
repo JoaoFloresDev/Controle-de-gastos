@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ProManeger extends ChangeNotifier {
   bool _isPro = false;
 
-  bool get isPro => _isPro;
+  bool get isPro => _isPro; // TODO: reverter para _isPro
 
   Future<bool> checkUserProStatus() async {
     final prefs = await SharedPreferences.getInstance();
