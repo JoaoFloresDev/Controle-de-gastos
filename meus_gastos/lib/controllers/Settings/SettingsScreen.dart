@@ -344,18 +344,6 @@ class SettingsScreenCompact extends StatelessWidget {
             ),
           _buildDivider(),
           _buildOption(
-            icon: Icons.help_outline,
-            title: AppLocalizations.of(context)!.helpSupport,
-            subtitle: AppLocalizations.of(context)!.helpSupportDesc,
-            onTap: () {
-              final InAppReview inAppReview = InAppReview.instance;
-              inAppReview.openStoreListing(
-                appStoreId: '6502218501',
-              );
-            },
-          ),
-          _buildDivider(),
-          _buildOption(
             icon: Icons.star_outline,
             title: AppLocalizations.of(context)!.reviewAppTitle,
             subtitle: AppLocalizations.of(context)!.reviewAppDescription,
