@@ -892,6 +892,12 @@ abstract class AppLocalizations {
   /// **'Sync'**
   String get sync;
 
+  /// No description provided for @synced.
+  ///
+  /// In en, this message translates to:
+  /// **'Synchronized'**
+  String get synced;
+
   /// No description provided for @syncData.
   ///
   /// In en, this message translates to:

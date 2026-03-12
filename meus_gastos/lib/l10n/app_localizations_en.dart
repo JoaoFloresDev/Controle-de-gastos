@@ -419,6 +419,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sync => 'Sync';
 
   @override
+  String get synced => 'Synchronized';
+
+  @override
   String get syncData => 'Sync data';
 
   @override

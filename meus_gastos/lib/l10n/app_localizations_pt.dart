@@ -421,6 +421,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get sync => 'Sincronizar';
 
   @override
+  String get synced => 'Sincronizado';
+
+  @override
   String get syncData => 'Sincronizar dados';
 
   @override

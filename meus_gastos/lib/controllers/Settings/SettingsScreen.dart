@@ -28,29 +28,36 @@ class SettingsScreenCompact extends StatelessWidget {
         builder: (context, loginVM, proVM, child) {
           return Column(
             children: [
-              // Header com gradient
+              // Título fixo
               Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: proVM.isPro
-                        ? [
-                            AppColors.background1,
-                            AppColors.background1,
-                          ]
-                        : [
-                            const Color(0xFFFFD700),
-                            const Color(0xFFFFA500),
-                          ],
+                color: AppColors.background1,
+                child: SafeArea(
+                  bottom: false,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: Center(
+                      child: Text(
+                        AppLocalizations.of(context)!.settings,
+                        style: const TextStyle(
+                          color: AppColors.label,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.3,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
+              ),
+              // Header conteúdo
+              Container(
+                color: AppColors.background1,
                 child: _buildHeaderContent(context, loginVM, proVM),
               ),
               const Divider(
                 color: AppColors.modalBackground,
                 thickness: 0.5,
-                height: 10,
+                height: 0.5,
               ),
               // Conteúdo rolável
               Expanded(
@@ -86,80 +93,97 @@ class SettingsScreenCompact extends StatelessWidget {
   }
 
   Widget _buildProOffer(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Icon(
-              Icons.workspace_premium,
-              color: Colors.white,
-              size: 56,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              AppLocalizations.of(context)!.unlockPro,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              AppLocalizations.of(context)!.proDescription,
-              style: TextStyle(
-                color: Colors.white.withOpacity(0.9),
-                fontSize: 14,
-              ),
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () => _showProModal(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: const Color(0xFFFFD700),
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 5,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.workspace_premium, size: 20),
-                    SizedBox(width: 8),
-                    Text(
-                      AppLocalizations.of(context)!.subscribeNow,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+    return Container(
+      color: AppColors.modalBackground,
+      padding: const EdgeInsets.fromLTRB(24, 16, 24, 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+                children: [
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFFD700).withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                  ],
+                    child: const Icon(
+                      Icons.workspace_premium,
+                      color: Color(0xFFFFD700),
+                      size: 28,
+                    ),
+                  ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.unlockPro,
+                          style: const TextStyle(
+                            color: AppColors.label,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          AppLocalizations.of(context)!.proDescription,
+                          style: TextStyle(
+                            color: AppColors.label.withOpacity(0.6),
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => _showProModal(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.button,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 0,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.workspace_premium,
+                          size: 20, color: Color(0xFFFFD700)),
+                      const SizedBox(width: 8),
+                      Text(
+                        AppLocalizations.of(context)!.subscribeNow,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }
 
   Widget _buildUserInfo(
       BuildContext context, LoginViewModel loginVM, ProManeger proVM) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
             if (loginVM.isLogin) ...[
               // Avatar e Info
               Row(
@@ -267,8 +291,7 @@ class SettingsScreenCompact extends StatelessWidget {
                 ),
               ),
             ],
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -338,7 +361,12 @@ class SettingsScreenCompact extends StatelessWidget {
             icon: Icons.help_outline,
             title: AppLocalizations.of(context)!.helpSupport,
             subtitle: AppLocalizations.of(context)!.helpSupportDesc,
-            onTap: () {},
+            onTap: () {
+              final InAppReview inAppReview = InAppReview.instance;
+              inAppReview.openStoreListing(
+                appStoreId: '6502218501',
+              );
+            },
           ),
           _buildDivider(),
           _buildOption(
@@ -353,11 +381,10 @@ class SettingsScreenCompact extends StatelessWidget {
             },
           ),
           _buildDivider(),
-          _buildOption(
+          _buildStaticOption(
             icon: Icons.info_outline,
             title: AppLocalizations.of(context)!.about,
             subtitle: AppLocalizations.of(context)!.version,
-            onTap: () {},
           ),
         ],
       ),
@@ -423,6 +450,57 @@ class SettingsScreenCompact extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildStaticOption({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: AppColors.button.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              icon,
+              color: AppColors.button,
+              size: 24,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: AppColors.label,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    color: AppColors.label.withOpacity(0.6),
+                    fontSize: 13,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
