@@ -183,7 +183,9 @@ class SettingsScreenCompact extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        loginVM.user!.displayName![0].toUpperCase(),
+                        (loginVM.user?.displayName?.isNotEmpty == true)
+                            ? loginVM.user!.displayName![0].toUpperCase()
+                            : '?',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 32,
@@ -229,15 +231,15 @@ class SettingsScreenCompact extends StatelessWidget {
             ] else ...[
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.workspace_premium,
                     color: Colors.white,
                     size: 40,
                   ),
-                  SizedBox(width: 12),
+                  const SizedBox(width: 12),
                   Text(
                     AppLocalizations.of(context)!.proAccount,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -248,7 +250,7 @@ class SettingsScreenCompact extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 AppLocalizations.of(context)!.loginToSync,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white70,
                   fontSize: 14,
                 ),
@@ -383,7 +385,7 @@ class SettingsScreenCompact extends StatelessWidget {
                 width: 48,
                 height: 48,
                 decoration: BoxDecoration(
-                  color: AppColors.button.withOpacity(0.15),
+                  color: AppColors.button.withValues(alpha:0.15),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
@@ -409,7 +411,7 @@ class SettingsScreenCompact extends StatelessWidget {
                     Text(
                       subtitle,
                       style: TextStyle(
-                        color: AppColors.label.withOpacity(0.6),
+                        color: AppColors.label.withValues(alpha:0.6),
                         fontSize: 13,
                       ),
                     ),
@@ -418,7 +420,7 @@ class SettingsScreenCompact extends StatelessWidget {
               ),
               Icon(
                 Icons.arrow_forward_ios,
-                color: AppColors.label.withOpacity(0.3),
+                color: AppColors.label.withValues(alpha:0.3),
                 size: 16,
               ),
             ],
@@ -441,7 +443,7 @@ class SettingsScreenCompact extends StatelessWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: AppColors.button.withOpacity(0.15),
+              color: AppColors.button.withValues(alpha:0.15),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(
@@ -467,7 +469,7 @@ class SettingsScreenCompact extends StatelessWidget {
                 Text(
                   subtitle,
                   style: TextStyle(
-                    color: AppColors.label.withOpacity(0.6),
+                    color: AppColors.label.withValues(alpha:0.6),
                     fontSize: 13,
                   ),
                 ),
@@ -483,7 +485,7 @@ class SettingsScreenCompact extends StatelessWidget {
     return Divider(
       height: 1,
       indent: 80,
-      color: AppColors.label.withOpacity(0.1),
+      color: AppColors.label.withValues(alpha:0.1),
     );
   }
 
@@ -491,16 +493,16 @@ class SettingsScreenCompact extends StatelessWidget {
     showCupertinoDialog(
       context: context,
       builder: (context) => CupertinoAlertDialog(
-        title: const Text('Sair da Conta'),
-        content: const Text('Deseja realmente sair?'),
+        title: Text(AppLocalizations.of(context)!.signout),
+        content: Text(AppLocalizations.of(context)!.syncQuestion),
         actions: [
           CupertinoDialogAction(
-            child: const Text('Cancelar'),
+            child: Text(AppLocalizations.of(context)!.cancel),
             onPressed: () => Navigator.pop(context),
           ),
           CupertinoDialogAction(
             isDestructiveAction: true,
-            child: const Text('Sair'),
+            child: Text(AppLocalizations.of(context)!.signout),
             onPressed: () {
               loginVM.logout();
               Navigator.pop(context);
@@ -557,9 +559,7 @@ class SettingsScreenCompact extends StatelessWidget {
               ),
             ),
             child: RecurrentExpenseScreen(
-              onAddPressedBack: () {
-                print(categoryViewModel.avaliebleCetegories.length);
-              },
+              onAddPressedBack: () {},
               fixedExpensesViewModel: fixedExpensesViewModel,
               categories: categoryViewModel.avaliebleCetegories,
             ),

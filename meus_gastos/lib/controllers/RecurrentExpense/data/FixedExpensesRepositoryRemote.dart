@@ -21,7 +21,7 @@ class FixedExpensesRepositoryRemote {
               FixedExpense.fromJson(doc.data() as Map<String, dynamic>))
           .toList();
     } catch (e) {
-      print('Erro ao buscar cartões: $e');
+      // fetch failed, return empty list
       return [];
     }
   }
@@ -35,9 +35,8 @@ class FixedExpensesRepositoryRemote {
           .collection("cardList")
           .doc(card.id)
           .set(card.toJson());
-      print("Gasto salvo com sucesso!");
     } catch (e) {
-      print("Erro ${e}");
+      // add failed silently
     }
   }
 
@@ -50,9 +49,8 @@ class FixedExpensesRepositoryRemote {
           .collection("cardList")
           .doc(card.id)
           .update(card.toJson());
-      print("Gasto atualizado com sucesso!");
     } catch (e) {
-      print("Erro ao atualizar: $e");
+      // update failed silently
     }
   }
 
@@ -65,19 +63,8 @@ class FixedExpensesRepositoryRemote {
           .collection("cardList")
           .doc(cardId)
           .delete();
-
-      print("Document with ID ${cardId} deleted successfully.");
     } catch (e) {
-      print("Error deleting document: $e");
+      // deletion failed silently
     }
   }
 }
-
-// Future<void> addDatesOfOfflineStateFixedCards() async {
-//     List<FixedExpense> cards =
-//         await FixedExpensesService.getSortedFixedExpenses();
-//     for (var card in cards) {
-//       await FirebaseService().firestore.collection(FirebaseService().userId!).doc(card.id).set(card.toJson());
-//       // await firestore.collection(userId).doc(card.id)
-//     }
-//   }

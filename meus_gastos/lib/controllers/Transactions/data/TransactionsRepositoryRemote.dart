@@ -31,9 +31,8 @@ class TransactionsRepositoryRemote implements ITransactionsRepository {
           .doc(card.id)
           .delete();
 
-      print("Document with ID ${card.id} deleted successfully.");
     } catch (e) {
-      print("Error deleting document: $e");
+      // deletion failed silently
     }
   }
 
@@ -51,7 +50,7 @@ class TransactionsRepositoryRemote implements ITransactionsRepository {
           .map((doc) => CardModel.fromJson(doc.data() as Map<String, dynamic>))
           .toList()..sort((a, b) => a.date.compareTo(b.date));
     } catch (e) {
-      print('Erro ao buscar cartões: $e');
+      // fetch failed, return empty list
       return [];
     }
   }

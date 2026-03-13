@@ -99,20 +99,16 @@ class GoalsViewModel extends ChangeNotifier {
 
   void _removeAddCategory() {
     if (_categories.isEmpty) return;
-    try {
-      _categories.removeWhere((category) => category.id == "AddCategory");
-    } catch (e) {
-      print("AddTransactions already removed");
-    }
+    _categories.removeWhere((category) => category.id == "AddCategory");
   }
 
   Future<void> loadGoals({bool notify = true}) async {
     _isLoading = true;
     if (notify) notifyListeners();
 
-    List<GoalModel> _goals = await goalsRepo.fetchGoals();
+    List<GoalModel> goals = await goalsRepo.fetchGoals();
 
-    _goalsByCategory = await goalsService.getGoals(_goals, _categories);
+    _goalsByCategory = await goalsService.getGoals(goals, _categories);
 
     sumTotalGoal();
 
@@ -175,8 +171,8 @@ class GoalsViewModel extends ChangeNotifier {
       sumTotalGoal();
 
       notifyListeners();
-    } catch (e) {
-      print("Erro: $e");
+    } catch (_) {
+      // goal add failed silently
     }
   }
 

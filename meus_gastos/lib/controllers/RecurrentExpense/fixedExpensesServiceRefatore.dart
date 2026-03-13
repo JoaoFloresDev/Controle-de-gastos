@@ -89,7 +89,6 @@ class FixedExpensesService {
       // && (verificationDate.hour > fcard.date.hour ||
       //     (verificationDate.hour == fcard.date.hour &&
       //         verificationDate.minute >= fcard.date.minute));
-      print("${fcard.category.name}, ${fcard.price}, : ${shouldShow}");
 
       return shouldShow;
     }).toList();
@@ -122,15 +121,4 @@ class FixedExpensesService {
     );
   }
 
-  Future<void> printCardsInfo(List<FixedExpense> cards) async {
-    for (var card in cards) {
-      print('ID: ${card.id}');
-      print('Description: ${card.description}');
-      print('Price: \$${card.price.toStringAsFixed(2)}');
-      print('Date: ${card.date.toLocal()}');
-      print('Category: ${card.category}');
-      print('Tipo de Repetição: ${card.repetitionType}');
-      print('---------------------------');
-    }
-  }
 }

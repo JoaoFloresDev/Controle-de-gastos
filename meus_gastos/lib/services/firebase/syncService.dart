@@ -25,7 +25,7 @@ class SyncService {
     List<GoalModel> localGoals = await GoalsRepositoryLocal().fetchGoals();
     List<CategoryModel> localCategegories =
         await CategoryRepositoryLocal().getAllCategories();
-  
+
     // 2. Baixa os dados do Firebase
     List<FixedExpense> remoteFixedExpenses =
         await FixedExpensesRepositoryRemote(userId: userId).fetch();
@@ -35,19 +35,13 @@ class SyncService {
         await GoalsRepositoryRemote(userId: userId).fetchGoals();
     List<CategoryModel> remoteCategories =
         await CategoryRepositoryRemote(userId: userId).getAllCategories();
-      
+
     // 3. Processa sincronização
-    print(localFixedExpenses.length);
-    for (FixedExpense card in remoteFixedExpenses) {
-      print("Fixeds ${card.category.name} ${card.price}");
-    }
     List<FixedExpense> updatedFixedExpenses =
         _mergeFixedData(localFixedExpenses, remoteFixedExpenses);
 
     List<CardModel> updatedNormalExpenses =
         _mergeData(localNormalExpenses, remoteNormalExpenses);
-    if (updatedNormalExpenses != remoteNormalExpenses) print("Deu certo");
-    print("object");
 
     // 4. Envia para o Firebase os dados locais que ainda não estão lá
     await _syncToFirebaseFixed(userId, updatedFixedExpenses, 'fixedCards');
@@ -71,7 +65,6 @@ class SyncService {
       merged.putIfAbsent(
           e.id, () => e); // Adiciona apenas se não existir no Firebase
     }
-    merged.values.toList().forEach((card) => print("${card.id}"));
     return merged.values.toList();
   }
 
@@ -129,7 +122,6 @@ class SyncService {
       String userId, List<CardModel> expenses, String collection) async {
     for (var expense in expenses) {
       await TransactionsRepositoryRemote(userId: userId).addCard(expense);
-      print("${expense.amount}");
     }
   }
 
@@ -138,7 +130,6 @@ class SyncService {
       String userId, List<FixedExpense> expenses, String collection) async {
     for (var expense in expenses) {
       await FixedExpensesRepositoryRemote(userId: userId).add(expense);
-      print("${expense.price}");
     }
   }
 
@@ -146,7 +137,6 @@ class SyncService {
       String userId, List<GoalModel> goals, String collection) async {
     for (var goal in goals) {
       await GoalsRepositoryRemote(userId: userId).addGoal(goal);
-      print("${goal.value}");
     }
   }
 
@@ -154,7 +144,6 @@ class SyncService {
       String userId, List<CategoryModel> categories, String collection) async {
     for (var category in categories) {
       await CategoryRepositoryRemote(userId: userId).addCategory(category);
-      print("${category.name}");
     }
   }
 }

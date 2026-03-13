@@ -133,7 +133,6 @@ class MonthInsightsViewModel extends ChangeNotifier {
 
     monthFixedExpenses =
         _monthServices.dailyAverage(currentDate, monthFixedExpensesTotals);
-    businessExpensives = businessExpensives;
     avaregeBusinessDailys = _monthServices.dailyAverageBusinessDays(
         currentDate, businessExpensives);
 

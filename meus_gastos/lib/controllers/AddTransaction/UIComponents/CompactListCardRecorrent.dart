@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 
@@ -274,7 +275,7 @@ class CompactListCardRecorrent extends StatelessWidget {
                     onPressed: fakeExpens,
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
-                    tooltip: "skip",
+                    tooltip: AppLocalizations.of(context)!.cancel,
                   ),
                   const SizedBox(width: 8),
                   IconButton(
@@ -283,7 +284,7 @@ class CompactListCardRecorrent extends StatelessWidget {
                     onPressed: adicionar,
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
-                    tooltip: "add",
+                    tooltip: AppLocalizations.of(context)!.add,
                   ),
                 ],
               ),

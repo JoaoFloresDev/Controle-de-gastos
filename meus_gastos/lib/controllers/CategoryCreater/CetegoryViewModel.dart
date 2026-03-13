@@ -35,11 +35,13 @@ class CategoryViewModel extends ChangeNotifier {
     final withoutAddCategory =
         categories.where((cat) => cat.id != 'AddCategory').toList();
 
-    final addCategory =
-        categories.where((cat) => cat.id == 'AddCategory').toList().first;
+    final addCategoryList =
+        categories.where((cat) => cat.id == 'AddCategory').toList();
 
-    categories = [...withoutAddCategory, addCategory];
-    avaliebleCetegories = await getAllCategoriesAvaliable();
+    categories = addCategoryList.isNotEmpty
+        ? [...withoutAddCategory, addCategoryList.first]
+        : withoutAddCategory;
+    avaliebleCetegories = getAllCategoriesAvaliable();
 
     isLoading = false;
     notifyListeners();
@@ -110,10 +112,8 @@ class CategoryViewModel extends ChangeNotifier {
   Future<void> saveOrderedCategoriesToFirebase(List<CategoryModel> cats) async {
     try {
       await repo.saveOrderedCategories(cats);
-      print("Ordem salva no Firebase com sucesso!");
-    } catch (e) {
-      print("Erro ao salvar no Firebase: $e");
-      // Opcional: mostrar snackbar de erro
+    } catch (_) {
+      // silently ignore — UI does not require feedback for background save
     }
   }
 

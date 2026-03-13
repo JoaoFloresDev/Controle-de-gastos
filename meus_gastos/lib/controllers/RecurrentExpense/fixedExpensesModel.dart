@@ -20,8 +20,6 @@ class FixedExpense {
   });
 
   Map<String, dynamic> toJson() {
-    print("toJson");
-    print(additionType);
     return {
       'description': description,
       'price': price,
@@ -40,7 +38,7 @@ class FixedExpense {
       date: DateTime.parse(json['date']),
       category: CategoryModel.fromJson(json['category']),
       id: json['id'],
-      repetitionType: json['repetitionType'] ?? json['repetitionType'] ?? 'monthly',
+      repetitionType: json['repetitionType'] ?? 'monthly',
       additionType: json['additionType'] ?? json['tipoAdicao'] ?? 'suggestion',
     );
   }

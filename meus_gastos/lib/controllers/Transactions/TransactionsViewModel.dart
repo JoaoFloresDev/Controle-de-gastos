@@ -90,7 +90,6 @@ class TransactionsViewModel extends ChangeNotifier {
     if (idsFixed.contains(cardModel.idFixoControl)) {
       cardModel.amount = 0;
       updateCard(cardModel, cardModel);
-      print(cardModel.amount);
     }else{
       await repository.deleteCard(cardModel);
     }

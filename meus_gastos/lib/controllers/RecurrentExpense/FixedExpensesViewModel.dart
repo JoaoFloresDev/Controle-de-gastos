@@ -61,12 +61,10 @@ class FixedExpensesViewModel extends ChangeNotifier {
   void _recalculate() {
     isLoading = true;
     notifyListeners();
-    if (_transactionsVM == null) return;
-
-    print("RECAUCULATE...");
-    print(listFilteredFixedCardsShow.length);
-    for (FixedExpense fcard in listFilteredFixedCardsShow) {
-      print("category: ${fcard.category.name} | amount: ${fcard.price}");
+    if (_transactionsVM == null) {
+      isLoading = false;
+      notifyListeners();
+      return;
     }
 
     final cards = _transactionsVM!.cardList;
@@ -81,12 +79,6 @@ class FixedExpensesViewModel extends ChangeNotifier {
     listFixedExpenseAsNormalCard = listFilteredFixedCardsShow
         .map((item) => fixedExpensesService.fixedToNormalCard(item, now))
         .toList();
-
-    print("RECAUCULATE...");
-    print(listFilteredFixedCardsShow.length);
-    for (FixedExpense fcard in listFilteredFixedCardsShow) {
-      print("category: ${fcard.category.name} | amount: ${fcard.price}");
-    }
 
     isLoading = false;
     notifyListeners();
@@ -124,10 +116,6 @@ class FixedExpensesViewModel extends ChangeNotifier {
   }
 
   void filteredFixedCardsShow(List<CardModel> cards, DateTime currentDate) {
-    for (var fc in _fixedExpense) {
-      print("${fc.category.name}: ${fc.price} (${fc.isAutomaticAddition})");
-    }
-
     fixedToNormalCardList(currentDate);
 
     listFilteredFixedCardsShow = fixedExpensesService.filteredFixedCardsShow(
