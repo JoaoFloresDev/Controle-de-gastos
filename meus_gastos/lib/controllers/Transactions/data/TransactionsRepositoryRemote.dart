@@ -10,14 +10,17 @@ class TransactionsRepositoryRemote implements ITransactionsRepository {
 
   @override
   Future<void> addCard(CardModel card) async {
-    
-    await FirebaseService()
-        .firestore
-        .collection(userId)
-        .doc('NormalCards')
-        .collection("cardList")
-        .doc(card.id)
-        .set(card.toJson());
+    try {
+      await FirebaseService()
+          .firestore
+          .collection(userId)
+          .doc('NormalCards')
+          .collection("cardList")
+          .doc(card.id)
+          .set(card.toJson());
+    } catch (e) {
+      // add failed silently
+    }
   }
   
 @override

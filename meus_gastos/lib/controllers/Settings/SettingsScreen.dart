@@ -185,7 +185,9 @@ class SettingsScreenCompact extends StatelessWidget {
                       child: Text(
                         (loginVM.user?.displayName?.isNotEmpty == true)
                             ? loginVM.user!.displayName![0].toUpperCase()
-                            : '?',
+                            : (loginVM.user?.email?.isNotEmpty == true)
+                                ? loginVM.user!.email![0].toUpperCase()
+                                : '?',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 32,
@@ -200,7 +202,7 @@ class SettingsScreenCompact extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          loginVM.user!.displayName!,
+                          loginVM.user?.displayName ?? loginVM.user?.email ?? '',
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 22,
@@ -209,7 +211,7 @@ class SettingsScreenCompact extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          loginVM.user!.email!,
+                          loginVM.user?.email ?? '',
                           style: const TextStyle(
                             color: Colors.white70,
                             fontSize: 14,
@@ -294,6 +296,8 @@ class SettingsScreenCompact extends StatelessWidget {
       ),
       child: Column(
         children: [
+          _buildLoginOption(context),
+          _buildDivider(),
           _buildOption(
             icon: Icons.repeat,
             title: AppLocalizations.of(context)!.fixedExpenses,
@@ -331,19 +335,25 @@ class SettingsScreenCompact extends StatelessWidget {
             },
           ),
           _buildDivider(),
-          if (context.read<LoginViewModel>().isLogin)
-            _buildOption(
-              icon: Icons.backup,
-              title: AppLocalizations.of(context)!.backupSync,
-              subtitle: AppLocalizations.of(context)!.backupSyncDesc,
-              onTap: () {
-                LoginRoute().syncInFirstAcess(
-                    context,
-                    context.read<LoginViewModel>().user!.uid,
-                    context.read<SyncViewModel>(),
-                    true);
-              },
-            ),
+          _buildOption(
+            icon: Icons.backup,
+            title: AppLocalizations.of(context)!.backupSync,
+            subtitle: AppLocalizations.of(context)!.backupSyncDesc,
+            onTap: () {
+              final proVM = context.read<ProManeger>();
+              if (!proVM.isPro) {
+                _showPremiumAlert(context, proVM);
+                return;
+              }
+              final uid = context.read<LoginViewModel>().user?.uid;
+              if (uid == null) return;
+              LoginRoute().syncInFirstAcess(
+                  context,
+                  uid,
+                  context.read<SyncViewModel>(),
+                  true);
+            },
+          ),
           _buildDivider(),
           _buildOption(
             icon: Icons.star_outline,
@@ -481,6 +491,77 @@ class SettingsScreenCompact extends StatelessWidget {
     );
   }
 
+  Widget _buildLoginOption(BuildContext context) {
+    final loginVM = context.watch<LoginViewModel>();
+    final proVM = context.read<ProManeger>();
+    final isLoggedIn = loginVM.isLogin;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () {
+          if (isLoggedIn) {
+            _showLogoutDialog(context, loginVM);
+          } else {
+            LoginRoute().loginScrean(context, loginVM, proVM, () {});
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: AppColors.button.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  isLoggedIn ? Icons.cloud_done_outlined : Icons.login,
+                  color: AppColors.button,
+                  size: 24,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      isLoggedIn
+                          ? AppLocalizations.of(context)!.signout
+                          : AppLocalizations.of(context)!.login,
+                      style: const TextStyle(
+                        color: AppColors.label,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      isLoggedIn
+                          ? (loginVM.user?.email ?? '')
+                          : AppLocalizations.of(context)!.loginToSync,
+                      style: TextStyle(
+                        color: AppColors.label.withValues(alpha: 0.6),
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.arrow_forward_ios,
+                color: AppColors.label.withValues(alpha: 0.3),
+                size: 16,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildDivider() {
     return Divider(
       height: 1,
@@ -506,6 +587,25 @@ class SettingsScreenCompact extends StatelessWidget {
             onPressed: () {
               loginVM.logout();
               Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showPremiumAlert(BuildContext context, ProManeger proManeger) {
+    showCupertinoDialog(
+      context: context,
+      builder: (ctx) => CupertinoAlertDialog(
+        title: Text(AppLocalizations.of(context)!.premiumVersion),
+        content: Text(AppLocalizations.of(context)!.loginToSync),
+        actions: [
+          CupertinoDialogAction(
+            child: const Text("OK"),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              _showProModal(context);
             },
           ),
         ],

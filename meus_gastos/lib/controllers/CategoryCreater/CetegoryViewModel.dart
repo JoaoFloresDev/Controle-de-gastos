@@ -98,8 +98,10 @@ class CategoryViewModel extends ChangeNotifier {
     }
 
     for (int i = 0; i < reorderedList.length; i++) {
-      categories.where((cat) => cat.id == reorderedList[i].id).first.frequency =
-          reorderedList[i].frequency;
+      final match = categories.where((cat) => cat.id == reorderedList[i].id);
+      if (match.isNotEmpty) {
+        match.first.frequency = reorderedList[i].frequency;
+      }
     }
 
     // categories = reorderedList;
@@ -126,7 +128,8 @@ class CategoryViewModel extends ChangeNotifier {
 
   Future<void> delete(String id) async {
     await repo.deleteCategory(id);
-    categories.where((c) => c.id == id).first.available = false;
+    final match = categories.where((c) => c.id == id);
+    if (match.isNotEmpty) match.first.available = false;
     avaliebleCetegories = getAllCategoriesAvaliable();
     notifyListeners();
   }

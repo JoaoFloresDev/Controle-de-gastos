@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Calendar/ViewComponents/CalendarHeader.dart';
 import 'package:meus_gastos/controllers/Calendar/ViewComponents/CalendarTable.dart';
@@ -6,16 +5,13 @@ import 'package:meus_gastos/controllers/Calendar/ViewComponents/CalendarTransact
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/controllers/Login/LoginButtonScrean.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
-import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/UI/intervalsControl.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCardRecorrent.dart';
 import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
-import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/RecurrentExpenseScreen.dart';
 import 'ViewComponents/ListCard.dart';
@@ -45,8 +41,6 @@ class TransactionsScrean extends StatefulWidget {
 class _TransactionsScreanState extends State<TransactionsScrean> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late DateTime currentDate;
-
-  final bool _isLoading = false;
 
   bool calendarView = false;
   DateTime _focusedDay = DateTime.now();
@@ -142,30 +136,12 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
             ),
           ),
           backgroundColor: AppColors.background1,
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Consumer2<LoginViewModel, TransactionsViewModel>(
-                builder: (context, loginVM, cardsVM, child) =>
-                    LoginButtonScrean(
-                  onLoginChange: cardsVM.loadCards,
-                ),
-              ),
-              const SizedBox(width: 8),
-              GestureDetector(
-                onTap: () {
-                  _showProModal(context);
-                },
-                child: const Text(
-                  "PRO",
-                  style: TextStyle(
-                    color: AppColors.label,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
+          trailing: Consumer2<LoginViewModel, TransactionsViewModel>(
+            builder: (context, loginVM, cardsVM, child) =>
+                LoginButtonScrean(
+              onLoginChange: cardsVM.loadCards,
+              loginTextColor: Colors.white,
+            ),
           ),
         ),
         body: Consumer2<TransactionsViewModel, FixedExpensesViewModel>(
@@ -183,7 +159,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                       child: Column(
                         children: [
                           BannerAdFactory().build(),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 20),
                           if (transViewModel.isLoading || fixedVM.isLoading)
                             _buildLoadingIndicator()
                           else if ((transViewModel.cardList.isNotEmpty) ||
@@ -279,13 +255,14 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: SizedBox(
         width: double.infinity,
+        height: 44,
         child: CupertinoSlidingSegmentedControl<bool>(
           groupValue: calendarView,
           thumbColor: AppColors.button,
           backgroundColor: AppColors.card,
           children: {
             false: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 4),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -311,7 +288,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
               ),
             ),
             true: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 4),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -344,35 +321,6 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
           },
         ),
       ),
-    );
-  }
-
-  void _showProModal(BuildContext context) async {
-    ProManeger proViewModel = context.read<ProManeger>();
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (BuildContext context) {
-        if (Platform.isIOS || Platform.isMacOS) {
-          return ProModal(
-            isLoading: _isLoading,
-            onSubscriptionPurchased: () {
-              proViewModel.checkUserProStatus();
-            },
-          );
-        } else {
-          return SizedBox(
-              child: ProModalAndroid(
-            isLoading: _isLoading,
-            onSubscriptionPurchased: () {
-              proViewModel.checkUserProStatus();
-              if (mounted) {
-                setState(() {});
-              }
-            },
-          ));
-        }
-      },
     );
   }
 

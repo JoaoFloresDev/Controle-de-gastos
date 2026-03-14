@@ -145,101 +145,92 @@ PreferredSizeWidget _buildAppBar() {
   }
 
 Widget _buildEmptyGoalsState() {
-  return Container(
-    margin: const EdgeInsets.fromLTRB(16, 24, 16, 6),
-    decoration: BoxDecoration(
-      color: AppColors.card.withOpacity(0.6),
-      borderRadius: BorderRadius.circular(18),
-      border: Border.all(
-        color: AppColors.label.withOpacity(0.08),
-        width: 1,
-      ),
-      boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 15,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
+  final screenHeight = MediaQuery.of(context).size.height;
+  return SizedBox(
+    height: screenHeight * 0.55,
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 16),
           // Ícone
           Container(
-            width: 56,
-            height: 56,
+            width: 72,
+            height: 72,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  AppColors.button.withOpacity(0.15),
-                  AppColors.button.withOpacity(0.05),
+                  AppColors.button.withOpacity(0.2),
+                  AppColors.button.withOpacity(0.06),
                 ],
               ),
             ),
             child: const Icon(
               Icons.flag_outlined,
               color: AppColors.button,
-              size: 28,
+              size: 34,
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 20),
 
           // Título
           Text(
             AppLocalizations.of(context)!.noGoalsYet,
             style: const TextStyle(
               color: AppColors.label,
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
               height: 1.2,
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
 
           // Descrição
           Text(
             AppLocalizations.of(context)!.noGoalsDescription,
             style: TextStyle(
-              color: AppColors.label.withOpacity(0.7),
-              fontSize: 14,
+              color: AppColors.label.withOpacity(0.6),
+              fontSize: 15,
               fontWeight: FontWeight.w400,
-              height: 1.4,
+              height: 1.5,
             ),
             textAlign: TextAlign.center,
-            maxLines: 2,
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 32),
 
           // Dica rápida
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             decoration: BoxDecoration(
               color: AppColors.button.withOpacity(0.08),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(
+                color: AppColors.button.withOpacity(0.15),
+                width: 1,
+              ),
             ),
             child: Row(
-              mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
                   Icons.lightbulb_outline,
                   color: AppColors.button,
-                  size: 18,
+                  size: 20,
                 ),
-                const SizedBox(width: 8),
-                Flexible(
+                const SizedBox(width: 12),
+                Expanded(
                   child: Text(
                     AppLocalizations.of(context)!.tapCategoryToSetGoal,
                     style: TextStyle(
                       color: AppColors.label.withOpacity(0.8),
-                      fontSize: 13,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500,
+                      height: 1.4,
                     ),
-                    textAlign: TextAlign.center,
                   ),
                 ),
               ],
@@ -247,8 +238,9 @@ Widget _buildEmptyGoalsState() {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildHeaderSection() {
     return Container(

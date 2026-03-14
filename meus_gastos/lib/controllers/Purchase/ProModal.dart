@@ -188,12 +188,16 @@ class _ProModalState extends State<ProModal> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background1,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Header com botões
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      body: Column(
+        children: [
+          // Header com botões
+          Padding(
+            padding: EdgeInsets.only(
+              left: 8,
+              right: 8,
+              top: MediaQuery.of(context).padding.top + 8,
+              bottom: 8,
+            ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -280,7 +284,11 @@ class _ProModalState extends State<ProModal> {
                         _buildCompactFeatureIcon(
                           icon: Icons.block_outlined,
                           title: AppLocalizations.of(context)!.adFreeFeature,
-                        )
+                        ),
+                        _buildCompactFeatureIcon(
+                          icon: Icons.cloud_sync_outlined,
+                          title: AppLocalizations.of(context)!.login,
+                        ),
                       ],
                     ),
                     // Planos
@@ -334,7 +342,6 @@ class _ProModalState extends State<ProModal> {
             ),
           ],
         ),
-      ),
     );
   }
 

@@ -220,8 +220,8 @@ class MonthInsightsViewModel extends ChangeNotifier {
             "phrases": [
               [
                 "${AppLocalizations.of(context)!.firstTenDays}: ${TranslateService.formatCurrency(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[0] : 0, context)} (${_safePercent(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[0] : 0, monthExpenses)}%)",
-                "${AppLocalizations.of(context)!.secondTenDays}: ${TranslateService.formatCurrency(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[1] : 0, context)} (${_safePercent(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[1] : 0, monthExpenses)}%)",
-                "${AppLocalizations.of(context)!.thirdTenDays}: ${TranslateService.formatCurrency(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[2] : 0, context)} (${_safePercent(tenDaysExpenses.isNotEmpty ? tenDaysExpenses[2] : 0, monthExpenses)}%)"
+                "${AppLocalizations.of(context)!.secondTenDays}: ${TranslateService.formatCurrency(tenDaysExpenses.length > 1 ? tenDaysExpenses[1] : 0, context)} (${_safePercent(tenDaysExpenses.length > 1 ? tenDaysExpenses[1] : 0, monthExpenses)}%)",
+                "${AppLocalizations.of(context)!.thirdTenDays}: ${TranslateService.formatCurrency(tenDaysExpenses.length > 2 ? tenDaysExpenses[2] : 0, context)} (${_safePercent(tenDaysExpenses.length > 2 ? tenDaysExpenses[2] : 0, monthExpenses)}%)"
               ],
             ],
           },
