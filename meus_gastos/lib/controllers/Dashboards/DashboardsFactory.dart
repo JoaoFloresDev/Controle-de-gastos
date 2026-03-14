@@ -6,22 +6,19 @@ import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
 import 'package:meus_gastos/controllers/ads_review/constructReview.dart';
-import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:provider/provider.dart';
 
 class DashboardsFactory extends StatelessWidget {
   final bool isActivate;
-  final InterstitialAdManager adManager;
-  const DashboardsFactory(
-      {required this.isActivate, required this.adManager, super.key});
+  const DashboardsFactory({required this.isActivate, super.key});
 
   @override
   Widget build(BuildContext context) {
     final transactionsVM = context.watch<TransactionsViewModel>();
     final fixedExpensesVM = context.watch<FixedExpensesViewModel>();
     final categoryViewModel = context.read<CategoryViewModel>();
-    if (isActivate) ReviewService().checkAndRequestReview(context, adManager);
+    if (isActivate) ReviewService().checkAndRequestReview(context);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(

@@ -9,7 +9,6 @@ import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Settings/SettingsScreen.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsFactory.dart';
-import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -116,7 +115,6 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   final cardEvents = CardEvents();
 
-  final InterstitialAdManager _adManager = InterstitialAdManager();
 
 
   @override
@@ -127,7 +125,6 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       vsync: this,
     );
     _animationController.forward();
-    _adManager.loadAd();
     _incrementAndLoadOpenCount();
   }
 
@@ -205,7 +202,6 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   void dispose() {
     _animationController.dispose();
-    _adManager.dispose();
     super.dispose();
   }
 
@@ -244,7 +240,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 ),
                 TransactionsFactory(
                     cardEvents: cardEvents, isActivate: selectedTab == 1),
-                DashboardsFactory(isActivate: selectedTab == 2, adManager: _adManager,),
+                DashboardsFactory(isActivate: selectedTab == 2),
 
                 GoalsFactory(
                   // key: goalKey,

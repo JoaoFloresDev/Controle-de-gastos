@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ReviewService {
-  Future<void> checkAndRequestReview(
-      BuildContext context, InterstitialAdManager intersticalAd) async {
+  Future<void> checkAndRequestReview(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int sessionCount = prefs.getInt('session_count') ?? 0;
     bool isPro = context.read<ProManeger>().isPro;
@@ -22,14 +20,10 @@ class ReviewService {
 
     if (sessionCount == 4) {
       _showCustomReviewDialog(context);
-    } else if (sessionCount == 7) {
-      intersticalAd.showVideoAd(context);
     } else if (sessionCount > 10) {
-      if(!isPro)
-        _showProModal(context);
+      if (!isPro) _showProModal(context);
       sessionCount = 0;
     }
-    print(sessionCount);
     await prefs.setInt('session_count', sessionCount);
   }
 

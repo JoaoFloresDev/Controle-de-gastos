@@ -1,6 +1,5 @@
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
-import 'package:meus_gastos/controllers/ads_review/intersticalConstruct.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -24,17 +23,13 @@ class CustomCalendarState extends State<CustomCalendar> {
   DateTime? _selectedDay;
   List<CardModel> _transactionsForSelectedDay = [];
   Map<DateTime, double> _dailyExpenses = {};
-  final InterstitialAdManager _adManager = InterstitialAdManager();
-
   @override
   void initState() {
     super.initState();
-    _adManager.loadAd();
   }
 
   @override
   void dispose() {
-    _adManager.dispose();
     super.dispose();
   }
 
