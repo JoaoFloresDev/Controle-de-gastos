@@ -82,8 +82,14 @@ class LoginButtonScrean extends StatelessWidget {
     showCupertinoDialog(
       context: context,
       builder: (ctx) => CupertinoAlertDialog(
-        title: Text(AppLocalizations.of(context)!.premiumVersion),
-        content: Text(AppLocalizations.of(context)!.loginToSync),
+        title: Text(
+          AppLocalizations.of(context)!.premiumVersion,
+          style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+        ),
+        content: Text(
+          AppLocalizations.of(context)!.loginToSync,
+          style: const TextStyle(fontSize: 15),
+        ),
         actions: [
           CupertinoDialogAction(
             child: const Text("OK"),

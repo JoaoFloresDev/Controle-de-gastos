@@ -274,8 +274,8 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
                       boxShadow: isSelected
                           ? [
                               BoxShadow(
-                                color: AppColors.button.withOpacity(0.3),
-                                blurRadius: 8,
+                                color: Colors.black.withValues(alpha: 0.2),
+                                blurRadius: 6,
                                 offset: const Offset(0, 3),
                               ),
                             ]

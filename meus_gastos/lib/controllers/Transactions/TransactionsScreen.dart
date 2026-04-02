@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Calendar/ViewComponents/CalendarHeader.dart';
 import 'package:meus_gastos/controllers/Calendar/ViewComponents/CalendarTable.dart';
@@ -262,7 +263,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
           backgroundColor: AppColors.card,
           children: {
             false: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -288,7 +289,7 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
               ),
             ),
             true: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -326,47 +327,50 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
 
   Widget _cardListBuild(TransactionsViewModel transactionsViewModel,
       FixedExpensesViewModel fExpensesVM) {
-    // Combine fixedCards e cardList em uma única lista de widgets
-    final allCards = <Widget>[];
-    // fExpensesVM.filteredFixedCardsShow(
-    //     transactionsViewModel.cardList, currentDate);
+    final allItems = <Widget>[];
 
     if (!fExpensesVM.isLoading && !transactionsViewModel.isLoading) {
-      // Adiciona fixedCards
+      // Fixed cards (sem agrupamento por dia)
+      final fixedWidgets = <Widget>[];
       for (var fcard in fExpensesVM.listFilteredFixedCardsShow.reversed) {
         var card = fExpensesVM.fixedToNormalCard(fcard, currentDate);
-        print("${fcard.category.name}: ${card.amount}");
         if (fcard.isAutomaticAddition) {
           final shouldAdd = Intervalscontrol().IsapresentetionNecessary(
               fcard, transactionsViewModel.cardList, DateTime.now());
-          if (shouldAdd) {
-            transactionsViewModel.addCard(card);
-          }
+          if (shouldAdd) transactionsViewModel.addCard(card);
           continue;
         }
-
         if (card.amount == 0) continue;
-
-        allCards.add(
+        fixedWidgets.add(
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 1),
             child: ListCardRecorrent(
-              onTap: (card) {
-                widget.onAddClicked();
-              },
+              onTap: (card) => widget.onAddClicked(),
               card: card,
-              onAddClicked: () async {
-                await transactionsViewModel.loadCards();
-              },
+              onAddClicked: () async => await transactionsViewModel.loadCards(),
             ),
           ),
         );
       }
+      if (fixedWidgets.isNotEmpty) {
+        allItems.add(_buildDayHeader(AppLocalizations.of(context)!.recurrent));
+        allItems.addAll(fixedWidgets);
+      }
 
-      // Adiciona normal cards
-      for (var card in transactionsViewModel.cardList.reversed) {
-        if (card.amount == 0) continue;
-        allCards.add(
+      // Normal cards agrupados por dia
+      final normalCards = transactionsViewModel.cardList
+          .where((c) => c.amount > 0)
+          .toList()
+        ..sort((a, b) => b.date.compareTo(a.date));
+
+      DateTime? lastDay;
+      for (var card in normalCards) {
+        final day = DateTime(card.date.year, card.date.month, card.date.day);
+        if (lastDay == null || day != lastDay) {
+          lastDay = day;
+          allItems.add(_buildDayHeader(_formatDayHeader(day)));
+        }
+        allItems.add(
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 1),
             child: ListCard(
@@ -382,13 +386,37 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
       }
     }
 
-    // Retorna uma única ListView
     return ListView.builder(
       padding: const EdgeInsets.only(bottom: 70),
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: allCards.length,
-      itemBuilder: (context, index) => allCards[index],
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: allItems.length,
+      itemBuilder: (context, index) => allItems[index],
+    );
+  }
+
+  String _formatDayHeader(DateTime day) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(const Duration(days: 1));
+    if (day == today) return AppLocalizations.of(context)!.today;
+    if (day == yesterday) return AppLocalizations.of(context)!.yesterday;
+    return DateFormat('EEEE, d MMM', Localizations.localeOf(context).toString())
+        .format(day);
+  }
+
+  Widget _buildDayHeader(String label) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(18, 14, 18, 4),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: AppColors.label.withValues(alpha: 0.55),
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 0.3,
+        ),
+      ),
     );
   }
 

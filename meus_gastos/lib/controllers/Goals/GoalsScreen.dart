@@ -145,99 +145,63 @@ PreferredSizeWidget _buildAppBar() {
   }
 
 Widget _buildEmptyGoalsState() {
-  final screenHeight = MediaQuery.of(context).size.height;
-  return SizedBox(
-    height: screenHeight * 0.55,
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // Ícone
-          Container(
-            width: 72,
-            height: 72,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  AppColors.button.withOpacity(0.2),
-                  AppColors.button.withOpacity(0.06),
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    child: Column(
+      children: [
+        // Ícone + texto compacto
+        Row(
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    AppColors.button.withOpacity(0.2),
+                    AppColors.button.withOpacity(0.06),
+                  ],
+                ),
+              ),
+              child: const Icon(
+                Icons.flag_outlined,
+                color: AppColors.button,
+                size: 22,
+              ),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.noGoalsYet,
+                    style: const TextStyle(
+                      color: AppColors.label,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      height: 1.2,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    AppLocalizations.of(context)!.tapCategoryToSetGoal,
+                    style: TextStyle(
+                      color: AppColors.label.withOpacity(0.5),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                      height: 1.3,
+                    ),
+                  ),
                 ],
               ),
             ),
-            child: const Icon(
-              Icons.flag_outlined,
-              color: AppColors.button,
-              size: 34,
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          // Título
-          Text(
-            AppLocalizations.of(context)!.noGoalsYet,
-            style: const TextStyle(
-              color: AppColors.label,
-              fontSize: 22,
-              fontWeight: FontWeight.w700,
-              height: 1.2,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 10),
-
-          // Descrição
-          Text(
-            AppLocalizations.of(context)!.noGoalsDescription,
-            style: TextStyle(
-              color: AppColors.label.withOpacity(0.6),
-              fontSize: 15,
-              fontWeight: FontWeight.w400,
-              height: 1.5,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 32),
-
-          // Dica rápida
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-            decoration: BoxDecoration(
-              color: AppColors.button.withOpacity(0.08),
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(
-                color: AppColors.button.withOpacity(0.15),
-                width: 1,
-              ),
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.lightbulb_outline,
-                  color: AppColors.button,
-                  size: 20,
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    AppLocalizations.of(context)!.tapCategoryToSetGoal,
-                    style: TextStyle(
-                      color: AppColors.label.withOpacity(0.8),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      height: 1.4,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+          ],
+        ),
+      ],
     ),
   );
 }

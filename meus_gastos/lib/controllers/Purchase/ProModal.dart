@@ -195,31 +195,31 @@ class _ProModalState extends State<ProModal> {
             padding: EdgeInsets.only(
               left: 8,
               right: 8,
-              top: MediaQuery.of(context).padding.top + 8,
+              top: MediaQuery.of(context).viewPadding.top + 36,
               bottom: 8,
             ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: const Icon(
-                      CupertinoIcons.xmark,
-                      color: AppColors.label,
-                      size: 28,
-                    ),
-                    onPressed: () => Navigator.of(context).pop(),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: const Icon(
+                    CupertinoIcons.xmark,
+                    color: AppColors.label,
+                    size: 28,
                   ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.info_outline_rounded,
-                      color: AppColors.label,
-                      size: 28,
-                    ),
-                    onPressed: () => _showMenuOptions(context),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                IconButton(
+                  icon: const Icon(
+                    Icons.info_outline_rounded,
+                    color: AppColors.label,
+                    size: 28,
                   ),
-                ],
-              ),
+                  onPressed: () => _showMenuOptions(context),
+                ),
+              ],
             ),
+          ),
             // Conteúdo principal
             Expanded(
               child: Padding(

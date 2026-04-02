@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
@@ -14,175 +13,255 @@ class PieChartDataItem {
       {required this.label, required this.value, required this.color});
 }
 
-class DashboardCard extends StatelessWidget {
+class DashboardCard extends StatefulWidget {
   final List<PieChartDataItem> items;
 
   const DashboardCard({super.key, required this.items});
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-        color: AppColors.card,
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [AppColors.card, AppColors.card2],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(18),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                offset: const Offset(0, 4),
-                blurRadius: 8,
-                spreadRadius: 2,
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(0),
-            child: items.isEmpty
-                ? _buildPieChartPlaceholder(context)
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: double.infinity,
-                            height: 200,
-                            child: PieChart(
-                              PieChartData(
-                                sectionsSpace: 4,
-                                centerSpaceRadius: 50,
-                                sections: items
-                                    .map((item) => PieChartSectionData(
-                                          color: item.color,
-                                          value: item.value,
-                                          title:
-                                              '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
-                                          radius: 30,
-                                          titleStyle: const TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColors.label),
-                                          titlePositionPercentageOffset: 1.8,
-                                        ))
-                                    .toList(),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: Wrap(
-                              spacing: 8,
-                              runSpacing: 4,
-                              alignment: WrapAlignment.center,
-                              children: items
-                                  .map((item) => _buildLegendItem(
-                                      item.color,
-                                      '${(item.value / items.fold(0, (sum, item) => sum + item.value) * 100).toStringAsFixed(2)}%',
-                                      TranslateService
-                                          .getTranslatedCategoryName(
-                                              context, item.label)))
-                                  .toList(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-          ),
-        ));
-  }
+  State<DashboardCard> createState() => _DashboardCardState();
+}
 
-  Widget _buildPieChartPlaceholder(BuildContext context) {
-    return SizedBox.expand(
-      child: Container(
-        padding: const EdgeInsets.all(24),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [AppColors.card, AppColors.background1],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+class _DashboardCardState extends State<DashboardCard> {
+  int _touchedIndex = -1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [AppColors.card, AppColors.card2],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.18),
+            offset: const Offset(0, 8),
+            blurRadius: 20,
+            spreadRadius: 0,
           ),
-          borderRadius: BorderRadius.circular(18),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              offset: const Offset(0, 4),
-              blurRadius: 8,
-              spreadRadius: 2,
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.pie_chart, size: 60, color: AppColors.label),
-            const SizedBox(height: 16),
-            Text(
-              AppLocalizations.of(context)!.pieGraphPlaceholder,
-              style: const TextStyle(
-                color: AppColors.label,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 24),
-            Text(
-              AppLocalizations.of(context)!.pietutorial,
-              style: const TextStyle(
-                color: AppColors.label,
-                fontSize: 16,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 40),
-          ],
-        ),
+        ],
       ),
+      child: widget.items.isEmpty
+          ? _buildPieChartPlaceholder(context)
+          : Padding(
+              padding: const EdgeInsets.fromLTRB(16, 24, 16, 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    height: 180,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        PieChart(
+                          PieChartData(
+                            pieTouchData: PieTouchData(
+                              touchCallback: (event, response) {
+                                setState(() {
+                                  if (!event.isInterestedForInteractions ||
+                                      response == null ||
+                                      response.touchedSection == null) {
+                                    _touchedIndex = -1;
+                                    return;
+                                  }
+                                  _touchedIndex = response
+                                      .touchedSection!.touchedSectionIndex;
+                                });
+                              },
+                            ),
+                            sectionsSpace: 2,
+                            centerSpaceRadius: 50,
+                            startDegreeOffset: -90,
+                            sections: _buildSections(),
+                          ),
+                        ),
+                        _buildCenterLabel(context),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  _buildLegend(context),
+                ],
+              ),
+            ),
     );
   }
 
-  Widget _buildLegendItem(Color color, String percent, String label) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: AppColors.background1.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: color.withOpacity(0.3),
-          width: 1,
+  List<PieChartSectionData> _buildSections() {
+    final total = widget.items.fold(0.0, (sum, i) => sum + i.value);
+    return widget.items.asMap().entries.map((entry) {
+      final index = entry.key;
+      final item = entry.value;
+      final isTouched = index == _touchedIndex;
+      final radius = isTouched ? 38.0 : 32.0;
+      final pct = (item.value / total * 100);
+      final showLabel = pct >= 8;
+
+      return PieChartSectionData(
+        color: item.color,
+        value: item.value,
+        title: showLabel
+            ? TranslateService.getTranslatedCategoryName(context, item.label)
+            : '',
+        titleStyle: TextStyle(
+          color: Colors.white,
+          fontSize: isTouched ? 11 : 10,
+          fontWeight: FontWeight.w600,
+          shadows: [
+            Shadow(color: Colors.black.withValues(alpha: 0.5), blurRadius: 4),
+          ],
         ),
-      ),
-      child: Row(
+        radius: radius,
+        titlePositionPercentageOffset: 1.6,
+        borderSide: isTouched
+            ? BorderSide(color: item.color.withValues(alpha: 0.6), width: 2)
+            : const BorderSide(color: Colors.transparent, width: 0),
+      );
+    }).toList();
+  }
+
+  Widget _buildCenterLabel(BuildContext context) {
+    if (_touchedIndex >= 0 && _touchedIndex < widget.items.length) {
+      final item = widget.items[_touchedIndex];
+      final total = widget.items.fold(0.0, (sum, i) => sum + i.value);
+      final pct = (item.value / total * 100).toStringAsFixed(1);
+      return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             width: 10,
             height: 10,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle
-            ),
+            decoration: BoxDecoration(color: item.color, shape: BoxShape.circle),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(height: 6),
           Text(
-            '$label - $percent',
+            '$pct%',
             style: const TextStyle(
               color: AppColors.label,
-              fontWeight: FontWeight.w600,
-              fontSize: 13,
-              letterSpacing: 0.2,
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              height: 1,
             ),
           ),
+          const SizedBox(height: 4),
+          Text(
+            TranslateService.getTranslatedCategoryName(context, item.label),
+            style: TextStyle(
+              color: AppColors.label.withValues(alpha: 0.6),
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ],
+      );
+    }
+
+    return const SizedBox.shrink(
+    );
+  }
+
+  Widget _buildLegend(BuildContext context) {
+    final total = widget.items.fold(0.0, (sum, i) => sum + i.value);
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      alignment: WrapAlignment.center,
+      children: widget.items.asMap().entries.map((entry) {
+        final index = entry.key;
+        final item = entry.value;
+        final pct = (item.value / total * 100).toStringAsFixed(1);
+        final isSelected = index == _touchedIndex;
+        return GestureDetector(
+          onTap: () => setState(() {
+            _touchedIndex = isSelected ? -1 : index;
+          }),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 180),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            decoration: BoxDecoration(
+              color: isSelected
+                  ? item.color.withValues(alpha: 0.18)
+                  : AppColors.background1.withValues(alpha: 0.25),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: isSelected
+                    ? item.color.withValues(alpha: 0.7)
+                    : item.color.withValues(alpha: 0.2),
+                width: isSelected ? 1.5 : 1,
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    color: item.color,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  TranslateService.getTranslatedCategoryName(context, item.label),
+                  style: TextStyle(
+                    color: isSelected ? AppColors.label : AppColors.label.withValues(alpha: 0.8),
+                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                    fontSize: 12,
+                  ),
+                ),
+                const SizedBox(width: 5),
+                Text(
+                  '$pct%',
+                  style: TextStyle(
+                    color: item.color,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 11,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildPieChartPlaceholder(BuildContext context) {
+    return SizedBox.expand(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.pie_chart_outline_rounded, size: 56, color: AppColors.label.withValues(alpha: 0.4)),
+            const SizedBox(height: 16),
+            Text(
+              AppLocalizations.of(context)!.pieGraphPlaceholder,
+              style: TextStyle(
+                color: AppColors.label.withValues(alpha: 0.9),
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 10),
+            Text(
+              AppLocalizations.of(context)!.pietutorial,
+              style: TextStyle(
+                color: AppColors.label.withValues(alpha: 0.5),
+                fontSize: 14,
+                height: 1.5,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }

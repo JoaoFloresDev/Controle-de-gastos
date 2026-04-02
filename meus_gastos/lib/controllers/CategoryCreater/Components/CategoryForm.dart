@@ -73,7 +73,7 @@ class CategoryForm extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-        placeholder: "Digite o nome da categoria",
+        placeholder: AppLocalizations.of(context)!.enterCategoryName,
         placeholderStyle: TextStyle(
           color: Colors.white.withOpacity(0.4),
           fontSize: 16,

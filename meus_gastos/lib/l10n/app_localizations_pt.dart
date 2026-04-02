@@ -153,7 +153,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get videoGame => 'Videogame';
 
   @override
-  String get fun => 'Fun';
+  String get fun => 'Lazer';
 
   @override
   String get water => 'Água';
@@ -649,4 +649,47 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get version => 'Versão 4.0.0';
+
+  @override
+  String get today => 'Hoje';
+
+  @override
+  String get yesterday => 'Ontem';
+
+  @override
+  String get recurrent => 'Recorrentes';
+
+  @override
+  String get deleteCategory => 'Excluir Categoria';
+
+  @override
+  String get deleteCategoryConfirm =>
+      'Tem certeza que deseja excluir esta categoria?';
+
+  @override
+  String get enterCategoryName => 'Digite o nome da categoria';
+
+  @override
+  String get noCategoriesCreated => 'Nenhuma categoria criada';
+
+  @override
+  String get myCategories => 'Minhas Categorias';
+
+  @override
+  String get addExpenseAmount => 'Adicione o valor do gasto';
+
+  @override
+  String get textFormat => 'Texto';
+
+  @override
+  String get columnDate => 'Data';
+
+  @override
+  String get columnCategory => 'Categoria';
+
+  @override
+  String get columnExpense => 'Gasto';
+
+  @override
+  String get columnDescription => 'Descrição';
 }

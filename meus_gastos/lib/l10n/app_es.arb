@@ -207,5 +207,21 @@
   "helpSupport": "Ayuda y soporte",
   "helpSupportDesc": "Preguntas frecuentes y contacto",
   "about": "Acerca de",
-  "version": "Versión 4.0.0"
+  "version": "Versión 4.0.0",
+  "today": "Hoy",
+  "yesterday": "Ayer",
+  "recurrent": "Recurrentes",
+  "deleteCategory": "Eliminar Categoría",
+  "deleteCategoryConfirm": "¿Estás seguro de que deseas eliminar esta categoría?",
+  "enterCategoryName": "Ingresa el nombre de la categoría",
+  "noCategoriesCreated": "Ninguna categoría creada",
+  "myCategories": "Mis Categorías",
+  "addExpenseAmount": "Agrega el monto del gasto",
+  "textFormat": "Texto",
+  "columnDate": "Fecha",
+  "columnCategory": "Categoría",
+  "columnExpense": "Gasto",
+  "columnDescription": "Descripción",
+  "setGoal": "Definir Meta",
+  "signout": "Cerrar Sesión"
 }

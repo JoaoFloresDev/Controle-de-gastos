@@ -90,7 +90,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
                 'Texto': Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                  child: const Text('Texto', style: TextStyle(fontSize: 16)),
+                  child: Text(AppLocalizations.of(context)!.textFormat, style: const TextStyle(fontSize: 16)),
                 ),
               },
               onValueChanged: (value) {

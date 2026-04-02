@@ -1323,6 +1323,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version 4.0.0'**
   String get version;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @yesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get yesterday;
+
+  /// No description provided for @recurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Recurring'**
+  String get recurrent;
+
+  /// No description provided for @deleteCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Category'**
+  String get deleteCategory;
+
+  /// No description provided for @deleteCategoryConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this category?'**
+  String get deleteCategoryConfirm;
+
+  /// No description provided for @enterCategoryName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter category name'**
+  String get enterCategoryName;
+
+  /// No description provided for @noCategoriesCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'No categories created'**
+  String get noCategoriesCreated;
+
+  /// No description provided for @myCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'My Categories'**
+  String get myCategories;
+
+  /// No description provided for @addExpenseAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Add the expense amount'**
+  String get addExpenseAmount;
+
+  /// No description provided for @textFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get textFormat;
+
+  /// No description provided for @columnDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get columnDate;
+
+  /// No description provided for @columnCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get columnCategory;
+
+  /// No description provided for @columnExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Expense'**
+  String get columnExpense;
+
+  /// No description provided for @columnDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get columnDescription;
 }
 
 class _AppLocalizationsDelegate

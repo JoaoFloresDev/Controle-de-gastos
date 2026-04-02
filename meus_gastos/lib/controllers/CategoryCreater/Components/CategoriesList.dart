@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'categoryListItem.dart';
 
@@ -19,7 +20,7 @@ class CategoriesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (categories.isEmpty || categories.length <= 1) {
-      return _buildEmptyState();
+      return _buildEmptyState(context);
     }
 
     return Container(
@@ -31,14 +32,14 @@ class CategoriesList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildHeader(),
+          _buildHeader(context),
           _buildReorderableList(context),
         ],
       ),
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.card.withOpacity(0.3),
@@ -57,7 +58,7 @@ class CategoriesList extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                "Nenhuma categoria criada",
+                AppLocalizations.of(context)!.noCategoriesCreated,
                 style: TextStyle(
                   color: Colors.white.withOpacity(0.5),
                   fontSize: 13,
@@ -70,7 +71,7 @@ class CategoriesList extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(12, 10, 12, 8),
       child: Row(
@@ -82,7 +83,7 @@ class CategoriesList extends StatelessWidget {
           ),
           const SizedBox(width: 6),
           Text(
-            "Minhas Categorias",
+            AppLocalizations.of(context)!.myCategories,
             style: TextStyle(
               color: Colors.white.withOpacity(0.6),
               fontSize: 13,

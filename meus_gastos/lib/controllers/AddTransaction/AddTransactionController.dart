@@ -13,6 +13,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'UIComponents/Header/HeaderCard.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'UIComponents/VerticalCircleList.dart';
 import 'UIComponents/CompactListCardRecorrent.dart';
 import 'UIComponents/CustomSeparator.dart';
@@ -505,18 +506,18 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                   ),
                 ],
               ),
-              child: const Row(
+              child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.warning_amber_rounded,
                     color: Colors.white,
                     size: 22,
                   ),
-                  SizedBox(width: 12),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'Adicione o valor do gasto',
-                      style: TextStyle(
+                      AppLocalizations.of(context)!.addExpenseAmount,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 15,
                         fontWeight: FontWeight.w500,

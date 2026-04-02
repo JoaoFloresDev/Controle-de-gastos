@@ -239,5 +239,20 @@
   "helpSupport": "Help & Support",
   "helpSupportDesc": "FAQ and contact",
   "about": "About",
-  "version": "Version 4.0.0"
+  "version": "Version 4.0.0",
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "recurrent": "Recurring",
+  "deleteCategory": "Delete Category",
+  "deleteCategoryConfirm": "Are you sure you want to delete this category?",
+  "enterCategoryName": "Enter category name",
+  "noCategoriesCreated": "No categories created",
+  "myCategories": "My Categories",
+  "addExpenseAmount": "Add the expense amount",
+  "textFormat": "Text",
+  "columnDate": "Date",
+  "columnCategory": "Category",
+  "columnExpense": "Expense",
+  "columnDescription": "Description",
+  "fun": "Fun"
 }

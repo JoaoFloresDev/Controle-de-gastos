@@ -644,4 +644,47 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get version => 'Version 4.0.0';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get yesterday => 'Yesterday';
+
+  @override
+  String get recurrent => 'Recurring';
+
+  @override
+  String get deleteCategory => 'Delete Category';
+
+  @override
+  String get deleteCategoryConfirm =>
+      'Are you sure you want to delete this category?';
+
+  @override
+  String get enterCategoryName => 'Enter category name';
+
+  @override
+  String get noCategoriesCreated => 'No categories created';
+
+  @override
+  String get myCategories => 'My Categories';
+
+  @override
+  String get addExpenseAmount => 'Add the expense amount';
+
+  @override
+  String get textFormat => 'Text';
+
+  @override
+  String get columnDate => 'Date';
+
+  @override
+  String get columnCategory => 'Category';
+
+  @override
+  String get columnExpense => 'Expense';
+
+  @override
+  String get columnDescription => 'Description';
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
@@ -55,6 +57,24 @@ class TransactionsViewModel extends ChangeNotifier {
     cardList.add(card);
     notifyListeners();
     await repository.addCard(card);
+    _checkAndRequestReview();
+  }
+
+  Future<void> _checkAndRequestReview() async {
+    final prefs = await SharedPreferences.getInstance();
+    final alreadyRequested = prefs.getBool('review_requested') ?? false;
+    if (alreadyRequested) return;
+
+    final count = (prefs.getInt('add_card_count') ?? 0) + 1;
+    await prefs.setInt('add_card_count', count);
+
+    if (count == 5) {
+      await prefs.setBool('review_requested', true);
+      final inAppReview = InAppReview.instance;
+      if (await inAppReview.isAvailable()) {
+        inAppReview.requestReview();
+      }
+    }
   }
 
   void setCurrentDate(DateTime newDate) {

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class CategoryListItem extends StatelessWidget {
   final CategoryModel category;
@@ -20,19 +21,19 @@ class CategoryListItem extends StatelessWidget {
     final shouldDelete = await showCupertinoDialog<bool>(
       context: context,
       builder: (context) => CupertinoAlertDialog(
-        title: const Text("Excluir categoria"),
-        content: const Text(
-          "Tem certeza que deseja excluir esta categoria?",
+        title: Text(AppLocalizations.of(context)!.deleteCategory),
+        content: Text(
+          AppLocalizations.of(context)!.deleteCategoryConfirm,
         ),
         actions: [
           CupertinoDialogAction(
-            child: const Text("Cancelar"),
+            child: Text(AppLocalizations.of(context)!.cancel),
             onPressed: () => Navigator.pop(context, false),
           ),
           CupertinoDialogAction(
             isDestructiveAction: true,
             onPressed: () => Navigator.pop(context, true),
-            child: const Text("Excluir"),
+            child: Text(AppLocalizations.of(context)!.delete),
           ),
         ],
       ),

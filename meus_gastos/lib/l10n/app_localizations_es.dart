@@ -458,7 +458,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get currentGoal => 'Presupuesto actual';
 
   @override
-  String get setGoal => 'Definir Presupuesto';
+  String get setGoal => 'Definir Meta';
 
   @override
   String get confirm => 'Confirmar';
@@ -646,4 +646,47 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get version => 'Versión 4.0.0';
+
+  @override
+  String get today => 'Hoy';
+
+  @override
+  String get yesterday => 'Ayer';
+
+  @override
+  String get recurrent => 'Recurrentes';
+
+  @override
+  String get deleteCategory => 'Eliminar Categoría';
+
+  @override
+  String get deleteCategoryConfirm =>
+      '¿Estás seguro de que deseas eliminar esta categoría?';
+
+  @override
+  String get enterCategoryName => 'Ingresa el nombre de la categoría';
+
+  @override
+  String get noCategoriesCreated => 'Ninguna categoría creada';
+
+  @override
+  String get myCategories => 'Mis Categorías';
+
+  @override
+  String get addExpenseAmount => 'Agrega el monto del gasto';
+
+  @override
+  String get textFormat => 'Texto';
+
+  @override
+  String get columnDate => 'Fecha';
+
+  @override
+  String get columnCategory => 'Categoría';
+
+  @override
+  String get columnExpense => 'Gasto';
+
+  @override
+  String get columnDescription => 'Descripción';
 }

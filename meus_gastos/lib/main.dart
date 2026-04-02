@@ -1,12 +1,9 @@
 import 'dart:io';
-import 'package:in_app_review/in_app_review.dart';
 import 'package:meus_gastos/AppProviders.dart';
 import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsFactory.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
-import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
-import 'package:meus_gastos/controllers/Purchase/ProModalAndroid.dart';
 import 'package:meus_gastos/controllers/Settings/SettingsScreen.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsFactory.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
@@ -19,7 +16,6 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'controllers/Dashboards/DashboardsFactory.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/services/firebase/FirebaseServiceSingleton.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:onepref/onepref.dart';
 import 'package:window_size/window_size.dart';
@@ -91,7 +87,6 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   int selectedTab = 0;
   final bool seeGoalScrean = true;
   late AnimationController _animationController;
-  int _appOpenCount = 0;
 
   final calendarKey = GlobalKey<CustomCalendarState>();
 
@@ -125,78 +120,12 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       vsync: this,
     );
     _animationController.forward();
-    _incrementAndLoadOpenCount();
-  }
-
-  Future<void> _incrementAndLoadOpenCount() async {
-    final prefs = await SharedPreferences.getInstance();
-    final count = (prefs.getInt('app_open_count') ?? 0) + 1;
-    await prefs.setInt('app_open_count', count);
-    setState(() {
-      _appOpenCount = count;
-    });
   }
 
   void _onTabSelected(int index) {
     if (index == selectedTab) return;
     setState(() => selectedTab = index);
     HapticFeedback.lightImpact();
-    if (index != 0) {
-      _handleTabSideEffects(index);
-    }
-  }
-
-  void _handleTabSideEffects(int index) {
-    // 5th–10th open: show rate app prompt
-    if (_appOpenCount >= 5 && _appOpenCount <= 10) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _requestReview();
-      });
-      return;
-    }
-    // 13th open onwards: show pro modal if not premium
-    if (_appOpenCount >= 13) {
-      final proVM = context.read<ProManeger>();
-      if (!proVM.isPro) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _showProModal();
-        });
-      }
-    }
-  }
-
-  Future<void> _requestReview() async {
-    final inAppReview = InAppReview.instance;
-    if (await inAppReview.isAvailable()) {
-      inAppReview.requestReview();
-    }
-  }
-
-  void _showProModal() {
-    final proVM = context.read<ProManeger>();
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (BuildContext ctx) {
-        if (Platform.isIOS || Platform.isMacOS) {
-          return ProModal(
-            isLoading: false,
-            onSubscriptionPurchased: () {
-              proVM.checkUserProStatus();
-            },
-          );
-        } else {
-          return SizedBox(
-            child: ProModalAndroid(
-              isLoading: false,
-              onSubscriptionPurchased: () {
-                proVM.checkUserProStatus();
-              },
-            ),
-          );
-        }
-      },
-    );
   }
 
   @override
@@ -362,7 +291,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 200),
             style: TextStyle(
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
               color: isSelected ? Colors.white : const Color(0xFF8E8E93),
             ),
