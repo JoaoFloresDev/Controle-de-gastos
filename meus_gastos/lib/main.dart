@@ -17,7 +17,7 @@ import 'controllers/Dashboards/DashboardsFactory.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/services/firebase/FirebaseServiceSingleton.dart';
 
-import 'package:onepref/onepref.dart';
+
 import 'package:window_size/window_size.dart';
 import 'package:meus_gastos/controllers/AddTransaction/AddTransactionController.dart';
 import 'package:meus_gastos/controllers/Calendar/CustomCalendarScreen.dart';
@@ -36,8 +36,6 @@ void main() async {
   if (Platform.isMacOS) {
     setWindowMinSize(const Size(800, 800));
   }
-  await OnePref.init();
-
   // inicializa firebase
   await FirebaseService().init();
   runApp(

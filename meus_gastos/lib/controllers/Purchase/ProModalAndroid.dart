@@ -4,8 +4,6 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
-import 'package:onepref/onepref.dart';
-
 class ProModalAndroid extends StatefulWidget {
   final bool isLoading;
   final VoidCallback onSubscriptionPurchased;
@@ -31,11 +29,11 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
 
   late final List<ProductDetails> _products = <ProductDetails>[];
 
-  IApEngine iApEngine = IApEngine();
+  final InAppPurchase _inAppPurchase = InAppPurchase.instance;
 
-  List<ProductId> storeProductIds = <ProductId>[
-    ProductId(id: "id_remove_ads_month", isConsumable: true),
-    ProductId(id: "id_remove_ads_year", isConsumable: true)
+  final List<String> _storeProductIds = [
+    "id_remove_ads_month",
+    "id_remove_ads_year",
   ];
   Set<String> loadingPurchases = {};
 
@@ -52,11 +50,10 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
     super.initState();
     updateProStatus();
 
-    iApEngine.inAppPurchase.purchaseStream.listen((list) {
+    _inAppPurchase.purchaseStream.listen((list) {
       listenPurchases(list);
     });
     getProducts();
-    print(_products.length);
     _restorePurchases();
     updateProStatus();
   }
@@ -69,16 +66,17 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
   }
 
   void getProducts() async {
-    await iApEngine.getIsAvailable().then((value) async {
-      if (value) {
-        await iApEngine.queryProducts(storeProductIds).then((response) {
-          setState(() {
-            _products.addAll(response.productDetails);
-            isLoadingPrice = false;
-          });
+    final bool available = await _inAppPurchase.isAvailable();
+    if (available) {
+      final ProductDetailsResponse response =
+          await _inAppPurchase.queryProductDetails(_storeProductIds.toSet());
+      if (response.error == null) {
+        setState(() {
+          _products.addAll(response.productDetails);
+          isLoadingPrice = false;
         });
       }
-    });
+    }
   }
 
   // Future<void> listenPurchases(List<PurchaseDetails> list) async {
@@ -105,10 +103,10 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
       if ((purchase.status == PurchaseStatus.restored) ||
           (purchase.status == PurchaseStatus.purchased)) {
         // Identificar produto comprado
-        if (storeProductIds[0].id == purchase.productID) {
+        if (_storeProductIds[0] == purchase.productID) {
           await restore_purchases(purchase); // Atualizar estado
           widget.onSubscriptionPurchased(); // Ação pós-compra
-        } else if (storeProductIds[1].id == purchase.productID) {
+        } else if (_storeProductIds[1] == purchase.productID) {
           await restore_purchases(purchase); // Atualizar estado
           widget.onSubscriptionPurchased(); // Ação pós-compra
         }
@@ -123,12 +121,12 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
 
   Future<void> restore_purchases(PurchaseDetails purchaseDetails) async {
     final prefs = await SharedPreferences.getInstance();
-    if (storeProductIds[0].id == purchaseDetails.productID) {
+    if (_storeProductIds[0] == purchaseDetails.productID) {
       await prefs.setBool(monthlyProKey, true);
       
         isMonthlyPro = true;
       
-    } else if (storeProductIds[1].id == purchaseDetails.productID) {
+    } else if (_storeProductIds[1] == purchaseDetails.productID) {
       await prefs.setBool(YearlyProKey, true);
       
       isYearlyPro = true;
@@ -312,8 +310,8 @@ Widget build(BuildContext context) {
     required VoidCallback onPressed,
     required String productId,
   }) {
-    bool isPurchased = (productId == storeProductIds[1].id && isYearlyPro) ||
-        (productId == storeProductIds[0].id && isMonthlyPro);
+    bool isPurchased = (productId == _storeProductIds[1] && isYearlyPro) ||
+        (productId == _storeProductIds[0] && isMonthlyPro);
 
     bool isLoading = isLoadingPrice || loadingPurchases.contains(productId);
 
