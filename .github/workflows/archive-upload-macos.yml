@@ -47,7 +47,9 @@ jobs:
       - name: Build macOS
         run: |
           cd meus_gastos
-          flutter build macos --release --no-tree-shake-icons \
+          # --no-codesign lets Flutter build skip signing; the Archive step
+          # below handles signing via -allowProvisioningUpdates.
+          flutter build macos --release --no-codesign --no-tree-shake-icons \
             --build-name=${{ github.event.inputs.build_name || '3.4.0' }} \
             --build-number=${{ github.event.inputs.build_number || '33' }}
 
