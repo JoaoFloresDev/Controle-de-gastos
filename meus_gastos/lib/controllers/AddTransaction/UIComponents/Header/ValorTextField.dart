@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
@@ -194,15 +196,19 @@ class ValorTextFieldState extends State<ValorTextField> with SingleTickerProvide
 
   @override
   Widget build(BuildContext context) {
+    // No macOS o usuário tem teclado físico — ativa o text field como editável
+    // direto, sem o teclado financeiro overlay (que só faz sentido no mobile).
+    final bool isDesktop = Platform.isMacOS;
     return Stack(
       alignment: Alignment.centerRight,
       children: [
         GestureDetector(
-          onTap: _toggleKeyboard,
+          onTap: isDesktop ? null : _toggleKeyboard,
           child: Container(
             color: Colors.transparent,
             height: 40,
             child: IgnorePointer(
+              ignoring: !isDesktop,
               child: CupertinoTextField(
                 focusNode: _focusNode,
                 decoration: const BoxDecoration(
@@ -218,9 +224,15 @@ class ValorTextFieldState extends State<ValorTextField> with SingleTickerProvide
                   fontSize: 18,
                 ),
                 controller: widget.controller,
-                readOnly: true,
+                readOnly: !isDesktop,
                 showCursor: true,
-                enableInteractiveSelection: false,
+                enableInteractiveSelection: isDesktop,
+                keyboardType: isDesktop
+                    ? const TextInputType.numberWithOptions(decimal: true)
+                    : null,
+                inputFormatters: isDesktop
+                    ? [FilteringTextInputFormatter.digitsOnly]
+                    : null,
               ),
             ),
           ),

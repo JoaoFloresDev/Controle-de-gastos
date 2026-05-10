@@ -246,8 +246,11 @@ void setSelectedIndex(int index) {
                 controller: _scrollController,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 5,
+                // No macOS, em vez de fixar 5 colunas (que faz as células
+                // crescerem em fullscreen), limita a largura máxima por
+                // célula. Mais colunas aparecem em telas largas.
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 130,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   childAspectRatio: 0.9,

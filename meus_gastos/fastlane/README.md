@@ -21,7 +21,20 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 [bundle exec] fastlane ios sync_metadata
 ```
 
-Push localized metadata (name, subtitle, keywords, description, promotional text) to App Store Connect
+Push localized metadata for iOS
+
+----
+
+
+## Mac
+
+### mac sync_metadata
+
+```sh
+[bundle exec] fastlane mac sync_metadata
+```
+
+Push localized metadata for macOS (universal app, same bundle id as iOS)
 
 ----
 
