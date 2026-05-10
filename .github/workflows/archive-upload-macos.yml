@@ -34,10 +34,17 @@ jobs:
           flutter-version: '3.38.7'
           channel: 'stable'
 
-      - name: Install dependencies
+      - name: Install dependencies & generate Flutter macOS config
+        # --config-only generates the ephemeral xcfilelists and runs pod
+        # install but skips Dart compilation and codesign — those happen
+        # inside xcodebuild archive below.
         run: |
           cd meus_gastos
           flutter pub get
+          flutter build macos --config-only --release \
+            --build-name=${{ github.event.inputs.build_name || '3.4.0' }} \
+            --build-number=${{ github.event.inputs.build_number || '33' }}
+          cd macos && pod install
 
       - name: Write API Key
         run: |
