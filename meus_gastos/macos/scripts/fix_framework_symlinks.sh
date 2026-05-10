@@ -17,6 +17,10 @@ FW_DIR="${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}"
 [ -d "$FW_DIR" ] || exit 0
 
 SIGN_ID="${EXPANDED_CODE_SIGN_IDENTITY:-${CODE_SIGN_IDENTITY:--}}"
+echo "fix_framework_symlinks: using signing identity: ${SIGN_ID:0:20}..."
+if [ "$SIGN_ID" = "-" ]; then
+  echo "warning: signing identity not resolved (would do ad-hoc) — re-sign may invalidate distribution validation"
+fi
 
 # Iterate using find so paths with spaces ("My expenses.app") work.
 find "$FW_DIR" -maxdepth 1 -name "*.framework" -type d -print0 |
