@@ -2,7 +2,7 @@ name: meus_gastos
 description: "A new Flutter project."
 publish_to: 'none'
 
-version: 2.9.0+9
+version: 45.0.0+9
 
 environment:
   sdk: '>=3.3.2 <4.0.0'
