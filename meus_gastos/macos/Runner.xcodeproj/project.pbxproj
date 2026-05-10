@@ -256,6 +256,7 @@
 				3399D490228B24CF009A79C7 /* ShellScript */,
 				100B46B8A474701945E06303 /* [CP] Embed Pods Frameworks */,
 				6E46ED8ADCB5EFAF7F6998AC /* [CP] Copy Pods Resources */,
+				D1F1F1F1F1F1F1F1F1F1F1F1 /* Fix Framework Symlinks */,
 			);
 			buildRules = (
 			);
@@ -407,6 +408,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo \"$PRODUCT_NAME.app\" > \"$PROJECT_DIR\"/Flutter/ephemeral/.app_filename && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/macos_assemble.sh embed\n";
+		};
+		D1F1F1F1F1F1F1F1F1F1F1F1 /* Fix Framework Symlinks */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Fix Framework Symlinks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Some packages (e.g. objective_c) bundle frameworks without the\n# Resources/Versions/Current symlinks that Apple's macOS App Store\n# validator requires (ITMS-90291). Add them before signing.\nFW=\"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}\"\n[ -d \"$FW\" ] || exit 0\nfor fw in \"$FW\"/*.framework; do\n  [ -d \"$fw\" ] || continue\n  if [ -d \"$fw/Versions/A\" ] && [ ! -e \"$fw/Versions/Current\" ]; then\n    (cd \"$fw/Versions\" && ln -sf A Current)\n    echo \"Fixed Versions/Current in $(basename \\\"$fw\\\")\"\n  fi\n  if [ -d \"$fw/Versions/Current/Resources\" ] && [ ! -e \"$fw/Resources\" ]; then\n    (cd \"$fw\" && ln -sf Versions/Current/Resources Resources)\n    echo \"Fixed Resources symlink in $(basename \\\"$fw\\\")\"\n  fi\ndone\n";
 		};
 		33CC111E2044C6BF0003C045 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
