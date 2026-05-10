@@ -20,22 +20,36 @@ class TransactionsRepositoryLocal implements ITransactionsRepository {
 
   @override
   Future<void> addCard(CardModel cardModel) async {
+    cardModel.updatedAt = DateTime.now();
     await _modifyCards((cards) {
       cards.add(cardModel);
       return cards;
     });
   }
+
   @override
   Future<void> deleteCard(CardModel card) async {
+    // Soft delete: marca como deleted + bumpa updatedAt. O merge propaga
+    // o tombstone pro remote, então em outros devices a deleção também é
+    // aplicada em vez de o item ressuscitar.
     String id = card.id;
     await _modifyCards((cards) {
-      cards.removeWhere((card) => card.id == id);
+      final int index = cards.indexWhere((c) => c.id == id);
+      if (index != -1) {
+        cards[index].deleted = true;
+        cards[index].updatedAt = DateTime.now();
+      }
       return cards;
     });
   }
 
   @override
   Future<List<CardModel>> retrieve() async {
+    // Retorna TUDO incluindo tombstones (deleted=true). Filtragem para UI
+    // acontece no TransactionsViewModel.loadCards. Se filtrássemos aqui,
+    // _modifyCards leria sem tombstones e os apagaria do storage no próximo
+    // addCard/updateCard, o que faria deleções nunca propagarem pro remote
+    // via SyncService (que também usa retrieve direto).
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? cardsString = prefs.getString(_storageKey);
     if (cardsString != null) {
@@ -48,16 +62,13 @@ class TransactionsRepositoryLocal implements ITransactionsRepository {
 
   @override
   Future<void> updateCard(CardModel oldCard, CardModel newCard) async {
+    newCard.updatedAt = DateTime.now();
     String id = oldCard.id;
     await _modifyCards((cards) {
       final int index = cards.indexWhere((card) => card.id == id);
       if (index != -1) {
         cards[index] = newCard;
       }
-      // if (SaveExpensOnCloud().userId != null) {
-      //   SaveExpensOnCloud().deleteDate(cards[index]);
-      //   SaveExpensOnCloud().addNewDate(newCard);
-      // }
       return cards;
     });
   }

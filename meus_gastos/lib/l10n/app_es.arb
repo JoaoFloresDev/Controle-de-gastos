@@ -223,5 +223,9 @@
   "columnExpense": "Gasto",
   "columnDescription": "Descripción",
   "setGoal": "Definir Meta",
-  "signout": "Cerrar Sesión"
+  "signout": "Cerrar Sesión",
+  "noTransactionsFound": "No se encontraron transacciones",
+  "adNotReady": "El anuncio aún no está listo.",
+  "errorTitle": "Error",
+  "ok": "OK"
 }

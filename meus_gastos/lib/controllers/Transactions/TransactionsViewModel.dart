@@ -54,10 +54,19 @@ class TransactionsViewModel extends ChangeNotifier {
   }
 
   Future<void> addCard(CardModel card) async {
+    // Optimistic update: card aparece na lista imediatamente. Se o repo falhar,
+    // removemos para que o usuário veja claramente que não foi persistido,
+    // em vez do bug antigo (card aparecia, falha silenciosa, sumia no próximo
+    // reload sem aviso).
     cardList.add(card);
     notifyListeners();
-    await repository.addCard(card);
-    _checkAndRequestReview();
+    try {
+      await repository.addCard(card);
+      _checkAndRequestReview();
+    } catch (_) {
+      cardList.remove(card);
+      notifyListeners();
+    }
   }
 
   Future<void> _checkAndRequestReview() async {
@@ -87,7 +96,9 @@ class TransactionsViewModel extends ChangeNotifier {
     notifyListeners();
 
     List<CardModel> cards = await repository.retrieve();
-    _cardList = cards.toList();
+    // Filtra tombstones aqui (não no repo) para que o SyncService veja todos
+    // os items, incluindo deleções, e possa propagá-las entre devices.
+    _cardList = cards.where((c) => !c.deleted).toList();
 
     isLoading = false;
     notifyListeners();

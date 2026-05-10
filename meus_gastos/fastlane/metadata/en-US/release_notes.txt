@@ -1,0 +1,6 @@
+- Now available in 12 languages: English, Portuguese, Spanish, Chinese, Japanese, Korean, German, French, Italian, Turkish, Arabic and Indonesian.
+- Removed all ads — cleaner, faster experience.
+- More reliable cloud sync: edits and deletions now propagate correctly across devices.
+- Performance improvements on the add expense screen.
+- Pie chart now always shows the correct category color.
+- Several bug fixes and polish.

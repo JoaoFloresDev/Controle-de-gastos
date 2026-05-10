@@ -1,0 +1,6 @@
+- Disponible en 12 langues : français, anglais, portugais, espagnol, chinois, japonais, coréen, allemand, italien, turc, arabe et indonésien.
+- Toutes les publicités supprimées : expérience plus propre et rapide.
+- Synchronisation cloud plus fiable : les modifications et suppressions se propagent correctement entre les appareils.
+- Améliorations de performance sur l'écran d'ajout de dépense.
+- Le diagramme circulaire affiche toujours la bonne couleur de catégorie.
+- Diverses corrections.

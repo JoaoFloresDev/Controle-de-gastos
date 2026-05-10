@@ -92,7 +92,7 @@ class LoginButtonScrean extends StatelessWidget {
         ),
         actions: [
           CupertinoDialogAction(
-            child: const Text("OK"),
+            child: Text(AppLocalizations.of(context)!.ok),
             onPressed: () {
               Navigator.of(ctx).pop();
               _showProModal(context, proManeger);

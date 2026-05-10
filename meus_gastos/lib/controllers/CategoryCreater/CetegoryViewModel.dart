@@ -28,8 +28,15 @@ class CategoryViewModel extends ChangeNotifier {
   }
 
   Future<void> load() async {
-    isLoading = true;
-    notifyListeners();
+    // Mostra spinner apenas quando não há cache em memória — em refreshes
+    // (login/sync) mantém a lista anterior visível e atualiza silenciosamente
+    // quando chegar, evitando o flash do CircularProgressIndicator na tela
+    // de adição.
+    final bool hasCache = categories.isNotEmpty;
+    if (!hasCache) {
+      isLoading = true;
+      notifyListeners();
+    }
 
     categories = await repo.getAllCategories();
     final withoutAddCategory =

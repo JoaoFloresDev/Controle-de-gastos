@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
 
 extension StringExtension on String {
   String capitalize() {
@@ -62,7 +63,7 @@ class CalendarHeader extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               Text(
-                "R\$ ${totalExpense.toStringAsFixed(2)}",
+                TranslateService.formatCurrency(totalExpense, context),
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,

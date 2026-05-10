@@ -1,5 +1,4 @@
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
-import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -105,7 +104,6 @@ class CustomCalendarState extends State<CustomCalendar> {
                   ),
                   child: Column(
                     children: [
-                      BannerAdFactory().build(),
                       CalendarTable(
                         focusedDay: _focusedDay,
                         selectedDay: _selectedDay,

@@ -2,7 +2,7 @@ name: meus_gastos
 description: "A new Flutter project."
 publish_to: 'none'
 
-version: 44.0.0+8
+version: 2.9.0+9
 
 environment:
   sdk: '>=3.3.2 <4.0.0'
@@ -26,7 +26,6 @@ dependencies:
   percent_indicator: ^4.0.0
   flutter_colorpicker: ^1.0.3
   in_app_review: ^2.0.4
-  google_mobile_ads: ^5.2.0
   excel: ^4.0.6
   syncfusion_flutter_pdf: ^28.2.4
   path_provider: ^2.1.4

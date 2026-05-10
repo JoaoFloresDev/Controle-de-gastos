@@ -70,6 +70,7 @@ class _ListCardFixedsState extends State<ListCardFixeds>
     final DateFormat dayFormat = DateFormat('d');
     final String dayOfMonth = dayFormat.format(referenceDate);
     final localizations = AppLocalizations.of(context)!;
+    final localeString = Localizations.localeOf(context).toString();
 
     switch (repetition) {
       case 'monthly':
@@ -77,10 +78,10 @@ class _ListCardFixedsState extends State<ListCardFixeds>
         return "${localizations.monthlyEveryDay} $dayOfMonth";
       case 'weekly':
       case 'semanal':
-        return "${localizations.weeklyEvery} ${DateFormat.EEEE('pt_BR').format(referenceDate)}";
+        return "${localizations.weeklyEvery} ${DateFormat.EEEE(localeString).format(referenceDate)}";
       case 'yearly':
       case 'anual':
-        return "${localizations.yearlyEveryDay} ${DateFormat('d MMMM', 'pt_BR').format(referenceDate)}";
+        return "${localizations.yearlyEveryDay} ${DateFormat('d MMMM', localeString).format(referenceDate)}";
       case 'weekdays':
       case 'seg_sex':
         return localizations.weekdaysMondayToFriday;

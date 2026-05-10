@@ -7,6 +7,7 @@ import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCard.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 
 class ExtractByCategory extends StatefulWidget {
   final CategoryModel category;
@@ -111,8 +112,8 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
               child: filtered.isEmpty
                   ? Center(
                       child: Text(
-                        "No transactions found",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                        AppLocalizations.of(context)!.noTransactionsFound,
+                        style: const TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     )
                   : ListView.builder(

@@ -9,7 +9,6 @@ import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/UI/intervalsControl.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/ViewComponents/ListCardRecorrent.dart';
-import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -159,7 +158,6 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
                       ),
                       child: Column(
                         children: [
-                          BannerAdFactory().build(),
                           const SizedBox(height: 20),
                           if (transViewModel.isLoading || fixedVM.isLoading)
                             _buildLoadingIndicator()

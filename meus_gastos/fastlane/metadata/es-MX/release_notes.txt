@@ -1,0 +1,6 @@
+- Ahora disponible en 12 idiomas: español, inglés, portugués, chino, japonés, coreano, alemán, francés, italiano, turco, árabe e indonesio.
+- Anuncios eliminados: experiencia más limpia y rápida.
+- Sincronización en la nube más confiable: las ediciones y eliminaciones ahora se propagan correctamente entre dispositivos.
+- Mejoras de rendimiento en la pantalla para agregar gasto.
+- La gráfica circular ahora siempre muestra el color correcto de la categoría.
+- Correcciones varias.

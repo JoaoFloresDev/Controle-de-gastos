@@ -1,0 +1,6 @@
+- Ora disponibile in 12 lingue: italiano, inglese, portoghese, spagnolo, cinese, giapponese, coreano, tedesco, francese, turco, arabo e indonesiano.
+- Pubblicità completamente rimosse: esperienza più pulita e veloce.
+- Sincronizzazione cloud più affidabile: modifiche e cancellazioni vengono propagate correttamente tra i dispositivi.
+- Miglioramenti di prestazioni nella schermata di aggiunta spesa.
+- Il grafico a torta mostra sempre il colore corretto della categoria.
+- Correzioni varie.

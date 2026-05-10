@@ -221,5 +221,9 @@
     "columnDate": "Data",
     "columnCategory": "Categoria",
     "columnExpense": "Gasto",
-    "columnDescription": "Descrição"
+    "columnDescription": "Descrição",
+    "noTransactionsFound": "Nenhuma transação encontrada",
+    "adNotReady": "O anúncio ainda não está pronto.",
+    "errorTitle": "Erro",
+    "ok": "OK"
 }

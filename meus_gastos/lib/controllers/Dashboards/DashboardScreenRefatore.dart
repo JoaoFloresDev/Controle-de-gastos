@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:meus_gastos/controllers/Dashboards/DashboardViewModel.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/MonthInsightsViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
-import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -55,10 +54,6 @@ class DashboardScreenState extends State<DashboardScreen>
     setState(() {
       _currentIndexNotifier.value = index;
     });
-  }
-
-  Widget _buildBannerAd() {
-    return BannerAdFactory().build();
   }
 
   Widget _buildMonthSelector(DashboardViewModel dashboardVM) {
@@ -388,7 +383,6 @@ class DashboardScreenState extends State<DashboardScreen>
               ? Center(child: _buildLoadingIndicator())
               : Column(
                   children: [
-                    _buildBannerAd(),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(

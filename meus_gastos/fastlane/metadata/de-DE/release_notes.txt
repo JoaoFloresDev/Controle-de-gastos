@@ -1,0 +1,6 @@
+- Jetzt in 12 Sprachen verfügbar: Deutsch, Englisch, Portugiesisch, Spanisch, Chinesisch, Japanisch, Koreanisch, Französisch, Italienisch, Türkisch, Arabisch und Indonesisch.
+- Alle Anzeigen entfernt – sauberere und schnellere Erfahrung.
+- Zuverlässigere Cloud-Synchronisierung: Änderungen und Löschungen werden jetzt korrekt auf alle Geräte übertragen.
+- Performance-Verbesserungen auf der Ausgaben-Eingabe.
+- Tortendiagramm zeigt immer die korrekte Kategoriefarbe.
+- Diverse Bugfixes.

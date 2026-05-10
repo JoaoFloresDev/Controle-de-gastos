@@ -193,10 +193,6 @@ Widget build(BuildContext context) {
                 icon: Icons.file_present_rounded,
                 label: AppLocalizations.of(context)!.exportToExcelOrPdf,
               ),
-              _buildFeatureRow(
-                icon: Icons.block,
-                label: AppLocalizations.of(context)!.removeAds,
-              ),
               const SizedBox(height: 30),
               Column(
                 children: [

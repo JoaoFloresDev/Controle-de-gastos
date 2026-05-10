@@ -1,0 +1,35 @@
+"Uangku habis ke mana?" – jawabannya 3 detik per pengeluaran. Aplikasi sederhana untuk mengatur keuangan pribadi.
+
+KENAPA APLIKASI INI
+- Catat 3 detik: masukkan jumlah, pilih kategori, selesai. Tanpa daftar.
+- Grafik lingkaran: lihat ke mana uangmu bulan ini dengan satu pandangan.
+- Peringatan anggaran: atur batas per kategori, kami beri tahu saat hampir tercapai.
+- Pengeluaran tetap otomatis: sewa, listrik, langganan ditambahkan otomatis tiap bulan.
+- Tampilan kalender: temukan hari termahal dalam sebulan.
+- 14 kategori siap pakai: belanja bulanan, makan, transportasi, kesehatan, hiburan. Bisa ditambah sendiri.
+
+FITUR UTAMA
+- Pengulangan: harian, mingguan, bulanan, tahunan, atau hari kerja.
+- Grafik mingguan, bulanan, tahunan untuk analisis tren.
+- Wawasan bulanan: rata-rata harian, biaya tetap, biaya variabel, proyeksi akhir bulan.
+- Ekspor ke Excel atau PDF.
+- Mode gelap, nyaman di mata.
+- Sinkronisasi multi-perangkat (PRO): masuk, datamu di cloud.
+
+UNTUK SIAPA
+- Yang ingin menabung tapi bingung mulai dari mana
+- Keluarga yang ingin mengatur anggaran bulanan
+- Mahasiswa yang baru belajar atur uang
+- Freelancer dan pelaku usaha kecil
+
+YANG MEMBEDAKAN KAMI
+- Hanya yang penting: catat cepat, lihat jelas, jaga anggaran.
+- Tanpa wajib daftar, data tetap di perangkatmu.
+- Tanpa koneksi bank, privasi nomor satu.
+- Tanpa iklan mengganggu.
+
+Unduh sekarang dan kuasai keuangan pribadimu.
+
+=================
+Privacy Policy: https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing
+Terms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/

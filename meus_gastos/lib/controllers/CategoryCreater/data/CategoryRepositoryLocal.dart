@@ -173,10 +173,13 @@ class CategoryRepositoryLocal implements ICategoryRepository {
 
     bool isFirstAccess = prefs.getBool(_isFirstAccessKey) ?? true;
     if (isFirstAccess) {
+      // Single batched write em vez de 15 setStringList sequenciais
+      // (cada addCategory fazia getInstance + read + write).
+      final List<String> serialized = defaultCategories
+          .map((category) => jsonEncode(category.toJson()))
+          .toList();
+      await prefs.setStringList(_categoriesKey, serialized);
       await prefs.setBool(_isFirstAccessKey, false);
-      for (var category in defaultCategories) {
-        await addCategory(category);
-      }
       return defaultCategories;
     } else {
       List<String> categories = prefs.getStringList(_categoriesKey) ?? [];

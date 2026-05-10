@@ -689,4 +689,16 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get columnDescription => 'Descripción';
+
+  @override
+  String get noTransactionsFound => 'No se encontraron transacciones';
+
+  @override
+  String get adNotReady => 'El anuncio aún no está listo.';
+
+  @override
+  String get errorTitle => 'Error';
+
+  @override
+  String get ok => 'OK';
 }

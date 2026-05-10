@@ -692,4 +692,16 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get columnDescription => 'Descrição';
+
+  @override
+  String get noTransactionsFound => 'Nenhuma transação encontrada';
+
+  @override
+  String get adNotReady => 'O anúncio ainda não está pronto.';
+
+  @override
+  String get errorTitle => 'Erro';
+
+  @override
+  String get ok => 'OK';
 }

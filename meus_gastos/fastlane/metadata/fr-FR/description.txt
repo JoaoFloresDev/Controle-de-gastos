@@ -1,0 +1,35 @@
+« Mais où passe mon argent ? » C'est fini. Une appli simple pour gérer ton budget en 3 secondes par dépense.
+
+POURQUOI CETTE APPLI
+- Saisie ultra rapide : montant, catégorie, c'est noté. Aucune inscription requise.
+- Graphique en camembert : visualise instantanément la répartition de tes dépenses.
+- Alertes de budget : fixe une limite par catégorie, on te prévient avant le dépassement.
+- Dépenses fixes automatiques : loyer, électricité, abonnements – ajoutés tout seuls chaque mois.
+- Vue calendrier : repère le jour le plus cher du mois.
+- 14 catégories par défaut : courses, restaurant, transport, santé, loisirs, etc. Personnalisables.
+
+FONCTIONS PRINCIPALES
+- Récurrences : quotidienne, hebdo, mensuelle, annuelle ou jours ouvrés.
+- Graphiques semaine, mois, année pour analyser tes tendances.
+- Insights mensuels : moyenne quotidienne, charges fixes, charges variables, projection de fin de mois.
+- Export Excel ou PDF pour archiver ou partager.
+- Mode sombre, doux pour les yeux.
+- Synchronisation multi-appareils (PRO) : tes données dans le cloud après connexion.
+
+POUR QUI
+- Ceux qui veulent économiser mais ne savent pas par où commencer
+- Les familles qui veulent maîtriser le budget mensuel
+- Les étudiants qui débutent la gestion d'argent
+- Les freelances et indépendants
+
+CE QUI NOUS DIFFÉRENCIE
+- Pas de fonctions inutiles. Juste l'essentiel : saisir vite, voir clair, tenir le budget.
+- Aucune inscription obligatoire. Tes données restent locales par défaut.
+- Aucune connexion bancaire. La vie privée d'abord.
+- Aucune publicité intrusive.
+
+Télécharge maintenant et reprends le contrôle de tes dépenses.
+
+=================
+Privacy Policy: https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing
+Terms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/

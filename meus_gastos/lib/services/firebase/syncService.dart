@@ -14,9 +14,13 @@ import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SyncService {
-  Future<void> syncData(String userId) async {
-    final prefs = await SharedPreferences.getInstance();
+  // Storage keys (espelham as constantes privadas dos repos locais).
+  static const String _normalCardsKey = 'cardModels';
+  static const String _fixedExpensesKey = 'fixed_expenses';
+  static const String _goalsKey = 'budgets';
+  static const String _categoriesKey = 'categories';
 
+  Future<void> syncData(String userId) async {
     // 1. Carrega os dados locais
     List<FixedExpense> localFixedExpenses =
         await FixedExpensesRepositoryLocal().fetch();
@@ -39,31 +43,65 @@ class SyncService {
     // 3. Processa sincronização
     List<FixedExpense> updatedFixedExpenses =
         _mergeFixedData(localFixedExpenses, remoteFixedExpenses);
-
     List<CardModel> updatedNormalExpenses =
         _mergeData(localNormalExpenses, remoteNormalExpenses);
+    List<GoalModel> updatedGoals = _mergeGoalData(localGoals, remoteGoals);
+    // Categoria sintética "AddCategory" é o botão "+" da grade — não deve ir
+    // pro remote nem ser tratada como dado real no merge.
+    List<CategoryModel> updatedCategories = _mergeCategoryData(
+      localCategegories.where((c) => c.id != 'AddCategory').toList(),
+      remoteCategories.where((c) => c.id != 'AddCategory').toList(),
+    );
 
-    // 4. Envia para o Firebase os dados locais que ainda não estão lá
+    // 4. Persiste o resultado mergeado no LOCAL — antes só subia pro remote,
+    // o que fazia o usuário perder no logout tudo que veio do Firebase.
+    final prefs = await SharedPreferences.getInstance();
+    await _saveToLocal(prefs, _normalCardsKey, updatedNormalExpenses);
+    await _saveToLocal(prefs, _fixedExpensesKey, updatedFixedExpenses);
+    await _saveToLocal(prefs, _goalsKey, updatedGoals);
+    await _saveCategoriesToLocal(prefs, updatedCategories, localCategegories);
+
+    // 5. Envia para o Firebase os dados que ainda não estão lá
     await _syncToFirebaseFixed(userId, updatedFixedExpenses, 'fixedCards');
     await _syncToFirebaseNormalExpenses(
-      userId, updatedNormalExpenses, 'NormalCards');
-
-    List<GoalModel> updatedGoals = _mergeGoalData(localGoals, remoteGoals);
+        userId, updatedNormalExpenses, 'NormalCards');
     await _syncToFirebaseGoals(userId, updatedGoals, 'goals');
-
-    List<CategoryModel> updatedCategories = _mergeCategoryData(localCategegories, remoteCategories);
     await _syncToFirebaseCategories(userId, updatedCategories, 'categories');
   }
 
-  // Compara e mergeia os dados
-  List<CardModel> _mergeData(List<CardModel> local, List<CardModel> remote) {
-    Map<String, CardModel> merged = {
-      for (var e in remote) e.id: e, // Firebase tem prioridade
-    };
+  Future<void> _saveToLocal(
+      SharedPreferences prefs, String key, List<dynamic> items) async {
+    final String encoded =
+        json.encode(items.map((e) => e.toJson()).toList());
+    await prefs.setString(key, encoded);
+  }
 
-    for (var e in local) {
-      merged.putIfAbsent(
-          e.id, () => e); // Adiciona apenas se não existir no Firebase
+  // Categorias usam setStringList (uma string JSON por item), não setString.
+  // Reanexa o item "AddCategory" do local para preservar o botão "+" da UI.
+  Future<void> _saveCategoriesToLocal(
+      SharedPreferences prefs,
+      List<CategoryModel> merged,
+      List<CategoryModel> local) async {
+    final addCategory = local.where((c) => c.id == 'AddCategory').toList();
+    final all = [...merged, ...addCategory];
+    final List<String> encoded =
+        all.map((c) => json.encode(c.toJson())).toList();
+    await prefs.setStringList(_categoriesKey, encoded);
+  }
+
+  // Merge resolve conflito por updatedAt — o mais recente vence. Antes era
+  // "remote sempre vence + local só se não existir no remote", o que
+  // (a) descartava silenciosamente edições locais mais recentes e (b) deixava
+  // tombstones de deleção do device A perderem para versões antigas do B.
+  // Tombstones (deleted=true) seguem no merged: a UI filtra no retrieve(),
+  // mas o sync precisa propagá-los para os outros devices.
+  List<CardModel> _mergeData(List<CardModel> local, List<CardModel> remote) {
+    final Map<String, CardModel> merged = {};
+    for (final e in [...local, ...remote]) {
+      final existing = merged[e.id];
+      if (existing == null || e.updatedAt.isAfter(existing.updatedAt)) {
+        merged[e.id] = e;
+      }
     }
     return merged.values.toList();
   }
@@ -108,13 +146,6 @@ class SyncService {
     }
 
     return merged.values.toList();
-  }
-
-  // Salva os dados localmente
-  Future<void> _saveExpensesToLocal(
-      SharedPreferences prefs, List<dynamic> expenses, String key) async {
-    String jsonString = json.encode(expenses.map((e) => e.toJson()).toList());
-    await prefs.setString(key, jsonString);
   }
 
   // Envia os dados locais para o Firebase

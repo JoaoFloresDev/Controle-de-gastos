@@ -15,12 +15,22 @@ class DashboardViewModel extends ChangeNotifier {
       {required this.transactionsVM,
       required this.cardEvents,
       required this.categoriesVM}) {
-    // Ouve automaticamente mudanças de cards
+    // Ouve mudanças de cards e categorias.
+    // Categorias precisam estar prontas para mapear cor/nome corretos no gráfico —
+    // sem isso, na 2ª abertura os cards chegam antes das categorias e o pie cai
+    // no fallback cinza (categoryMap vazio).
     transactionsVM.addListener(_onDependenciesChanged);
+    categoriesVM.addListener(_onDependenciesChanged);
   }
   void _onDependenciesChanged() {
-    // Quando os cards mudarem, recarrega os dados
     loadProgressIndicators();
+  }
+
+  @override
+  void dispose() {
+    transactionsVM.removeListener(_onDependenciesChanged);
+    categoriesVM.removeListener(_onDependenciesChanged);
+    super.dispose();
   }
 
   List<CardModel> cards = [];

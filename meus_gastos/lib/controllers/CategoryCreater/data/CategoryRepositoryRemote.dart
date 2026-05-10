@@ -10,7 +10,8 @@ class CategoryRepositoryRemote implements ICategoryRepository {
 
   @override
   Future<void> updateCategory(CategoryModel category) async {
-    await deleteCategory(category.id);
+    // set() idempotente: o delete antigo apagava o doc e a falha no add seguinte
+    // sumia com a categoria. Como o id não muda, sobrescrever é seguro.
     await addCategory(category);
   }
 

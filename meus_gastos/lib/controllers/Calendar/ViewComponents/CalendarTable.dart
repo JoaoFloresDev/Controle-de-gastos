@@ -55,9 +55,10 @@ class CalendarTable extends StatelessWidget {
         ),
         calendarBuilders: CalendarBuilders(
           headerTitleBuilder: (context, day) {
+            // 'MMMM yyyy' é locale-aware (sem o "de" hardcoded de PT) — em
+            // outros idiomas o intl gera "January 2026", "Januar 2026", etc.
             final formattedDate = toBeginningOfSentenceCase(
-              DateFormat("MMMM 'de' yyyy",
-                      Localizations.localeOf(context).languageCode)
+              DateFormat.yMMMM(Localizations.localeOf(context).toString())
                   .format(day),
             );
             return Center(

@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/controllers/Goals/GoalsViewModel.dart';
-import 'package:meus_gastos/controllers/ads_review/BannerAdConstruct.dart';
 import 'package:meus_gastos/controllers/Goals/SetGoals/SetGoalScreen.dart';
-import 'package:meus_gastos/controllers/ads_review/BannerAdFactory.dart';
+import 'package:meus_gastos/designSystem/Components/LoadingContainer.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
@@ -60,9 +59,6 @@ class GoalsscreanState extends State<Goalsscrean>
         onTap: () {},
         child: CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(
-              child: _buildAdBanner(),
-            ),
             if (hasGoals) ...[
               SliverToBoxAdapter(
                 child: _buildHeaderSection(),
@@ -138,10 +134,6 @@ PreferredSizeWidget _buildAppBar() {
       ),
     )
     );
-  }
-
-  Widget _buildAdBanner() {
-    return BannerAdFactory().build();
   }
 
 Widget _buildEmptyGoalsState() {

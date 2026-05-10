@@ -11,7 +11,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'controllers/Dashboards/DashboardsFactory.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
@@ -31,8 +30,6 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
   // inapp
   InAppPurchase.instance.isAvailable();
-  // Ads
-  MobileAds.instance.initialize();
   if (Platform.isMacOS) {
     setWindowMinSize(const Size(800, 800));
   }
@@ -65,9 +62,18 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('en', ''),
-        Locale('es', ''),
-        Locale('pt', ''),
+        Locale('en'),
+        Locale('pt'),
+        Locale('es'),
+        Locale('zh'),
+        Locale('ja'),
+        Locale('ko'),
+        Locale('de'),
+        Locale('fr'),
+        Locale('it'),
+        Locale('tr'),
+        Locale('ar'),
+        Locale('id'),
       ],
       home: MyHomePage(),
     );

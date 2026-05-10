@@ -8,6 +8,14 @@ class CardModel {
   final CategoryModel category;
   final String idFixoControl;
 
+  // updatedAt: timestamp da última modificação. Usado pelo SyncService para
+  // resolver conflito entre local e remote (vence o mais recente).
+  // deleted: tombstone para deleção. Hard-delete sumia em multi-device porque
+  // o item ressuscitava do remote no próximo sync. Marcamos como true e o
+  // merge propaga; UI filtra.
+  DateTime updatedAt;
+  bool deleted;
+
   CardModel({
     required this.id,
     required this.amount,
@@ -15,21 +23,23 @@ class CardModel {
     required this.date,
     required this.category,
     this.idFixoControl = '0',
-  });
+    DateTime? updatedAt,
+    this.deleted = false,
+  }) : updatedAt = updatedAt ?? DateTime.now();
 
-  // Converte o modelo para JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'amount': amount,
       'description': description,
-      'date': date.toIso8601String(), // Formato ISO 8601 para a data
-      'category': category.toJson(), // Converte a categoria para JSON
+      'date': date.toIso8601String(),
+      'category': category.toJson(),
       'idFixoControl': idFixoControl,
+      'updatedAt': updatedAt.toIso8601String(),
+      'deleted': deleted,
     };
   }
 
-  // Construtor para criar o modelo a partir de JSON
   factory CardModel.fromJson(Map<String, dynamic> map) {
     return CardModel(
       id: map['id'],
@@ -38,11 +48,18 @@ class CardModel {
       date: DateTime.parse(map['date']),
       category: map['category'] is String
           ? CategoryModel(name: map['category']) // Para dados antigos
-          : CategoryModel.fromJson(map['category']), // Para dados novos
+          : CategoryModel.fromJson(map['category']),
       idFixoControl:
           map.containsKey('idFixoControl') && map['idFixoControl'] != null
               ? map['idFixoControl'].toString()
               : '0',
+      // Backward compat: dados antigos não tinham updatedAt; usa a data da
+      // despesa como fallback. Isso garante que edições novas (com timestamp
+      // atual) sempre vencem dados legados.
+      updatedAt: map['updatedAt'] != null
+          ? DateTime.parse(map['updatedAt'])
+          : DateTime.parse(map['date']),
+      deleted: map['deleted'] ?? false,
     );
   }
 }

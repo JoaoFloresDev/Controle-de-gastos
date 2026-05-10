@@ -282,10 +282,6 @@ class _ProModalState extends State<ProModal> {
                           title: AppLocalizations.of(context)!.exportFeature,
                         ),
                         _buildCompactFeatureIcon(
-                          icon: Icons.block_outlined,
-                          title: AppLocalizations.of(context)!.adFreeFeature,
-                        ),
-                        _buildCompactFeatureIcon(
                           icon: Icons.cloud_sync_outlined,
                           title: AppLocalizations.of(context)!.login,
                         ),

@@ -42,6 +42,7 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
     final DateFormat dayFormat = DateFormat('d');
     final String dayOfMonth = dayFormat.format(widget.referenceDate);
     print("${widget.defaultRepetition}");
+    final localeString = Localizations.localeOf(context).toString();
     switch (widget.defaultRepetition) {
       case ('mensal'):
         _selectedRepetition =
@@ -49,11 +50,11 @@ class _RepetitionMenuState extends State<RepetitionMenu> {
         break;
       case ('semanal'):
         _selectedRepetition =
-            "${AppLocalizations.of(context)!.weeklyEvery} ${DateFormat.EEEE('pt_BR').format(widget.referenceDate)}";
+            "${AppLocalizations.of(context)!.weeklyEvery} ${DateFormat.EEEE(localeString).format(widget.referenceDate)}";
         break;
       case ('anual'):
         _selectedRepetition =
-            "${AppLocalizations.of(context)!.yearlyEveryDay} ${DateFormat('d MMMM', 'pt_BR').format(widget.referenceDate)}";
+            "${AppLocalizations.of(context)!.yearlyEveryDay} ${DateFormat('d MMMM', localeString).format(widget.referenceDate)}";
         break;
       case ('seg_sex'):
         _selectedRepetition =

@@ -254,5 +254,9 @@
   "columnCategory": "Category",
   "columnExpense": "Expense",
   "columnDescription": "Description",
-  "fun": "Fun"
+  "fun": "Fun",
+  "noTransactionsFound": "No transactions found",
+  "adNotReady": "The ad is not ready yet.",
+  "errorTitle": "Error",
+  "ok": "OK"
 }

@@ -52,7 +52,9 @@ class HeaderBar extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              DateFormat('HH:mm  dd/MM').format(selectedDate),
+              DateFormat('HH:mm  dd/MM',
+                      Localizations.localeOf(context).toString())
+                  .format(selectedDate),
               style: const TextStyle(
                 color: ModernColors.textSecondary,
                 fontSize: 13,

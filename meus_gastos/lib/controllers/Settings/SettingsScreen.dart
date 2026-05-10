@@ -602,7 +602,7 @@ class SettingsScreenCompact extends StatelessWidget {
         content: Text(AppLocalizations.of(context)!.loginToSync),
         actions: [
           CupertinoDialogAction(
-            child: const Text("OK"),
+            child: Text(AppLocalizations.of(context)!.ok),
             onPressed: () {
               Navigator.of(ctx).pop();
               _showProModal(context);

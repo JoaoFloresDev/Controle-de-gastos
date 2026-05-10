@@ -370,17 +370,18 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
       );
     }).toList());
 
+    final totalLabel = AppLocalizations.of(context)!.total;
     seriesList.add(StackedColumnSeries<ProgressIndicatorModel, String>(
       dataSource: List.generate(days.length, (index) {
         return ProgressIndicatorModel(
           category: CategoryModel(
-              name: 'Total',
+              name: totalLabel,
               id: const Uuid().v4(),
               color: AppColors.background1,
               icon: Icons.device_unknown),
           progress: totalByDay[index],
           color: Colors.transparent,
-          title: 'Total',
+          title: totalLabel,
         );
       }),
       xValueMapper: (data, index) => days[index],
@@ -391,7 +392,7 @@ class _DailyStackedBarChartState extends State<DailyStackedBarChart> {
       pointColorMapper: (data, _) => Colors.transparent,
       width: 0.55,
       borderRadius: BorderRadius.circular(8),
-      name: 'Total',
+      name: totalLabel,
       borderWidth: 0,
       dataLabelSettings: DataLabelSettings(
         isVisible: true,

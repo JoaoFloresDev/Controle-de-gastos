@@ -42,14 +42,13 @@ class LoginRoute {
                 showProModal: (context) {
                   _showProModal(context, proViewModel);
                 },
-                showSyncModel: () async{
-                  bool prim = await isFirstLogin(viewModel.user!.uid);
-                  syncInFirstAcess(
-                    context,
-                    viewModel.user!.uid,
-                    syncVM,
-                    prim
-                  );
+                showSyncModel: () async {
+                  // Auto-sync silencioso no primeiro login. Antes mostrava um
+                  // dialog com "Agora não" — quem clicasse via lista vazia,
+                  // porque o repoSelector passa a ler do remote (vazio) após
+                  // o login e os dados locais ficavam invisíveis.
+                  await firstLoginAutoSync(
+                      context, viewModel.user!.uid, syncVM);
                 }));
       },
     );
@@ -116,6 +115,25 @@ class LoginRoute {
   Future<bool> isFirstLogin(String userId) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool('synced_$userId') != true;
+  }
+
+  /// Sincroniza automaticamente no primeiro login do usuário, sem dialog.
+  /// Após o login, o repoSelector troca de local pra remote — se não
+  /// sincronizar, os dados locais ficam invisíveis até o usuário ir nas
+  /// Settings e clicar em "Backup & Sync".
+  Future<void> firstLoginAutoSync(
+      BuildContext context, String userId, SyncViewModel syncVM) async {
+    final bool prim = await isFirstLogin(userId);
+    if (!prim) return;
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('synced_$userId', true);
+    try {
+      await syncVM.sync(userId);
+      if (context.mounted) _showSyncToast(context, true);
+    } catch (_) {
+      if (context.mounted) _showSyncToast(context, false);
+    }
   }
 
   Future<void> syncInFirstAcess(
@@ -448,7 +466,7 @@ class _SyncToastWidgetState extends State<_SyncToastWidget>
     final icon = widget.success ? Icons.check_circle : Icons.error;
     final text = widget.success
         ? AppLocalizations.of(context)!.sync
-        : 'Erro';
+        : AppLocalizations.of(context)!.errorTitle;
 
     return Positioned(
       top: MediaQuery.of(context).padding.top + 8,

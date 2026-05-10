@@ -687,4 +687,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get columnDescription => 'Description';
+
+  @override
+  String get noTransactionsFound => 'No transactions found';
+
+  @override
+  String get adNotReady => 'The ad is not ready yet.';
+
+  @override
+  String get errorTitle => 'Error';
+
+  @override
+  String get ok => 'OK';
 }

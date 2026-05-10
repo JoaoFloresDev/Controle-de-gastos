@@ -1,0 +1,6 @@
+- Agora disponível em 12 idiomas: português, inglês, espanhol, chinês, japonês, coreano, alemão, francês, italiano, turco, árabe e indonésio.
+- Anúncios removidos — experiência mais limpa e rápida.
+- Sincronização na nuvem mais confiável: edições e exclusões agora propagam corretamente entre dispositivos.
+- Melhorias de desempenho na tela de adicionar gasto.
+- Gráfico de pizza agora sempre mostra a cor correta da categoria.
+- Correções e ajustes diversos.

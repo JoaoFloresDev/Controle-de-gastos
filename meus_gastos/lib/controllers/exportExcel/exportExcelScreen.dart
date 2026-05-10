@@ -4,6 +4,7 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'dart:io';
 import 'package:excel/excel.dart';
@@ -193,7 +194,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
       }
       String message = '${AppLocalizations.of(context)!.shareMensage}\n\n';
       message += cards.map((card) {
-        return '${card.date.toLocal().toString().split(' ')[0]}\t${card.category.name}\tR\$ ${card.amount.toStringAsFixed(2)}';
+        return '${card.date.toLocal().toString().split(' ')[0]}\t${card.category.name}\t${TranslateService.formatCurrency(card.amount, context)}';
       }).join('\n');
       await Share.share(message,
           subject: AppLocalizations.of(context)!.shareMensage);
