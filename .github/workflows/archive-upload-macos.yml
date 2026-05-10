@@ -44,16 +44,12 @@ jobs:
           mkdir -p ~/private_keys
           echo '${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}' > ~/private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_KEY_ID }}.p8
 
-      - name: Build macOS
-        run: |
-          cd meus_gastos
-          # --no-codesign lets Flutter build skip signing; the Archive step
-          # below handles signing via -allowProvisioningUpdates.
-          flutter build macos --release --no-codesign --no-tree-shake-icons \
-            --build-name=${{ github.event.inputs.build_name || '3.4.0' }} \
-            --build-number=${{ github.event.inputs.build_number || '33' }}
-
       - name: Archive
+        # flutter build macos doesn't support --no-codesign (only iOS does),
+        # so we skip it and let xcodebuild archive trigger Flutter via the
+        # 'Run Script' build phase (xcode_backend.sh). It reads FLUTTER_*
+        # env vars and TREE_SHAKE_ICONS=false from the build settings,
+        # while -allowProvisioningUpdates handles signing.
         run: |
           cd meus_gastos/macos
           xcodebuild archive \
@@ -67,7 +63,8 @@ jobs:
             -authenticationKeyPath ~/private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_KEY_ID }}.p8 \
             DEVELOPMENT_TEAM=NZC6LC8NWM \
             FLUTTER_BUILD_NAME=${{ github.event.inputs.build_name || '3.4.0' }} \
-            FLUTTER_BUILD_NUMBER=${{ github.event.inputs.build_number || '33' }}
+            FLUTTER_BUILD_NUMBER=${{ github.event.inputs.build_number || '33' }} \
+            TREE_SHAKE_ICONS=false
 
       - name: Create ExportOptions.plist
         run: |
