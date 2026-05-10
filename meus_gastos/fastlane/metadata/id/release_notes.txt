@@ -1,6 +1,1 @@
-- Kini tersedia dalam 12 bahasa: Indonesia, Inggris, Portugis, Spanyol, Mandarin, Jepang, Korea, Jerman, Prancis, Italia, Turki, dan Arab.
-- Semua iklan dihapus – pengalaman lebih bersih dan cepat.
-- Sinkronisasi cloud lebih andal: perubahan dan penghapusan kini tersinkron dengan benar antar perangkat.
-- Peningkatan performa pada layar tambah pengeluaran.
-- Grafik lingkaran selalu menampilkan warna kategori yang benar.
-- Beberapa perbaikan bug.
+Kini dalam 12 bahasa. Catatan pengeluaran lebih cepat, peringatan anggaran, sinkronisasi cloud andal, tanpa iklan. Atur uang dan tabungan harian.

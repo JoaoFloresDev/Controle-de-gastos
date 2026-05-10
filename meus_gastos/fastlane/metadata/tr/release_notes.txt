@@ -1,6 +1,1 @@
-- Artık 12 dilde: Türkçe, İngilizce, Portekizce, İspanyolca, Çince, Japonca, Korece, Almanca, Fransızca, İtalyanca, Arapça ve Endonezce.
-- Tüm reklamlar kaldırıldı – daha temiz ve hızlı deneyim.
-- Daha güvenilir bulut senkronizasyonu: düzenleme ve silme işlemleri artık tüm cihazlara doğru aktarılıyor.
-- Harcama ekleme ekranında performans iyileştirmeleri.
-- Pasta grafiği her zaman doğru kategori rengini gösterir.
-- Çeşitli hata düzeltmeleri.
+Artık 12 dilde. Daha hızlı harcama takibi, akıllı bütçe uyarıları, güvenilir bulut senkronizasyon, reklamsız. Para yönetimi ve tasarruf kolaylaştı.

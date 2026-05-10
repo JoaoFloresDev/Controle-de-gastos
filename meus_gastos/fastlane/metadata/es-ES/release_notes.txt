@@ -1,6 +1,1 @@
-- Ahora disponible en 12 idiomas: español, inglés, portugués, chino, japonés, coreano, alemán, francés, italiano, turco, árabe e indonesio.
-- Anuncios eliminados: experiencia más limpia y rápida.
-- Sincronización en la nube más fiable: las ediciones y eliminaciones ahora se propagan correctamente entre dispositivos.
-- Mejoras de rendimiento en la pantalla de añadir gasto.
-- El gráfico circular ahora siempre muestra el color correcto de la categoría.
-- Correcciones varias.
+Ahora en 12 idiomas. Control de gastos más rápido, alertas de presupuesto, sincronización fiable y sin anuncios. Gestiona tus finanzas personales.
