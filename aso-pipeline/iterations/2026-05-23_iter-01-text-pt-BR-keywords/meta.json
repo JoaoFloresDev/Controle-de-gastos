@@ -1,0 +1,124 @@
+{
+  "iter_id": "2026-05-23_iter-01-text-pt-BR-keywords",
+  "type": "text",
+  "locale": "pt-BR",
+  "fields_changed": [
+    "subtitle",
+    "keywords"
+  ],
+  "fields_unchanged": [
+    "name",
+    "description",
+    "promotional_text"
+  ],
+  "approach": "parallel",
+  "approach_rationale": "Cold-start app (1.5 dl/dia média 30d, ≪15 threshold). Velocity > attribution. Per-keyword rank tracking via Astro permite post-hoc attribution. App live na ASC desde versão 45.0 com 13 locales mas tração organicamente fraca em pt-BR — paralelizar subtitle+keywords maximiza superfície de mudança numa única review-cycle. Exceção contextual à regra '1 variável por iter'.",
+  "status": "running",
+  "started_at": "2026-05-23",
+  "planned_close_at": "2026-06-20",
+  "actual_closed_at": null,
+  "hypothesis": {
+    "if_we_change": "Subtitle de 'Controle financeiro de despesa' (30/30) para 'Controle financeiro e receitas' (30/30) — substituindo o singular 'despesa' (dup stem com 'Despesas' no name) por 'receitas' (par universal 5/6 competitors, pop 50 diff 42, moverer pra peso 3× é GAIN puro). E keywords de 'finanças,financeiro,gestão,dinheiro,orçamento,poupança,despesas,controle,planejamento,gerenci,custos' (100/100) para 'controle de gastos,personal,casal,money,expenses,budget,gerenciador,dinheiro,gestão,pessoal,mensal' (98/100) — cortando 8 termos (finanças/financeiro dup subtitle, despesas dup name, controle dup subtitle, orçamento/poupança/custos low-value, gerenci truncado bug) e adicionando 9 termos intent-clean priorizando: (1) 'controle de gastos' rank 48 (NEAR-MISS push to top-30), (2) 'personal'+'expenses' rank 41+39 (RANK-PROTECT defenders), (3) 'casal'+'money'+'budget'+'gerenciador' moderate intent-OK pop 43-55, (4) 'pessoal'+'mensal' compositions.",
+    "then_we_expect": "Impressions diárias ↑ ≥ 25% e downloads diários ↑ ≥ 50% em 30 dias após deploy (de 1.5 dl/dia → 2.25+). 'controle de gastos' rank 48 → top-30 (alvo 25-28). Rank-protects mantidos: top-30 nos 13 termos já defendidos.",
+    "because": "(a) keyword field atual perde ~25 chars em dups com name/subtitle e bugs (gerenci truncado); (b) 'controle de gastos' (head do nicho, pop 53) está a 1 página do top-30 — bigrama explícito no field provavelmente cruza; (c) 'receitas' no subtitle peso 3× adiciona par universal que 5/6 competitors usam mas estamos sem peso; (d) intent filter elimina cofrinho/calculadora/pix/competitor-brands — preservando CVR e review-velocity (que são multiplicador maior pra cold-start app que rank bruto); (e) front-loading na ordem 'controle de gastos > personal > casal > money > ...' posiciona high-value terms primeiro."
+  },
+  "success_criterion": {
+    "primary_metric": "downloads_per_day",
+    "secondary_metrics": [
+      "impressions_per_day",
+      "keywords_ranking_top_30",
+      "search_terms_unique_30d",
+      "conversion_rate"
+    ],
+    "measurement_window": "30 days from deploy day, comparing last 14d vs baseline",
+    "baseline": {
+      "downloads_per_day": 1.5,
+      "downloads_per_day_source": "ASC Sales Reports 30d window (capturado 2026-05-23 via ASC API: 51 downloads em 34 dias entre 2026-04-19 e 2026-05-22)",
+      "impressions_per_day": "TBD — capturar via pull_analytics.py no Day 0",
+      "conversion_rate": "TBD — capturar via ASC Analytics impressions/downloads no Day 0",
+      "keywords_ranking_top_30": "TBD — capturar via Astro re-track no Day 0",
+      "search_terms_unique_30d": "TBD — capturar via ASC Analytics Reports API Day 0",
+      "captured_at": "2026-05-23"
+    },
+    "targets": {
+      "conservador": {
+        "downloads_per_day": 1.9,
+        "downloads_delta_pct": 25,
+        "impressions_delta_pct": 25,
+        "keywords_top_30": "+3 vs Day 0"
+      },
+      "bold": {
+        "downloads_per_day": 2.25,
+        "downloads_delta_pct": 50,
+        "impressions_delta_pct": 40,
+        "keywords_top_30": "+6 vs Day 0",
+        "is_official_target": true
+      },
+      "aspiracional_90d": {
+        "downloads_per_day": 4.5,
+        "downloads_multiplier": 3.0,
+        "impressions_multiplier": 2.5,
+        "note": "90 dias — aspiracional, não target dessa iter. Reflete o teto plausível pra cold-start app saindo de 1.5/dia com keywords reorganizados."
+      }
+    },
+    "go_no_go_threshold": "downloads_per_day média últimos 14d da iter ≥ 1.9 (conservador). Abaixo disso = hipótese fraca, reformula iter-02."
+  },
+  "cadence": {
+    "checkpoints": [
+      {
+        "day": 7,
+        "date": "2026-05-30",
+        "purpose": "early signal — rollback se downloads ↓ ≥30%",
+        "metrics_file": "metrics/2026-05-30_d07.csv"
+      },
+      {
+        "day": 14,
+        "date": "2026-06-06",
+        "purpose": "tendência clara",
+        "metrics_file": "metrics/2026-06-06_d14.csv"
+      },
+      {
+        "day": 21,
+        "date": "2026-06-13",
+        "purpose": "rascunho da próxima iter",
+        "metrics_file": "metrics/2026-06-13_d21.csv"
+      },
+      {
+        "day": 28,
+        "date": "2026-06-20",
+        "purpose": "decision day — promote/rollback/extend",
+        "metrics_file": "metrics/2026-06-20_d28_final.csv"
+      }
+    ],
+    "rollback_triggers": [
+      "Downloads/dia ↓ ≥ 30% sustentado por 7 dias seguidos",
+      "Apple rejeita (review fail)"
+    ],
+    "escalation_triggers": [
+      "Impressions ↑ ≥ 50% antes de Day 14 → tweaks mais ousados em iter-02",
+      "Keyword novo top-10 antes de Day 14 → reforçar via promotional_text"
+    ]
+  },
+  "research_done": false,
+  "research_files": [
+    "research/competitors.md",
+    "research/current_pool_pt-BR.csv",
+    "research/candidates_pt-BR.csv",
+    "research/keyword_candidates.md"
+  ],
+  "deployed": true,
+  "deploy_commit": null,
+  "deploy_timestamp": "2026-05-23T19:54:51Z",
+  "results": {
+    "baseline": {
+      "date": "2026-05-23",
+      "metrics_file": "metrics/2026-05-23_baseline.md",
+      "status": "pending — run ./scripts/pull_analytics.py Day 0"
+    },
+    "checkpoints": [],
+    "final": null
+  },
+  "verdict": null,
+  "promoted_to_current": false,
+  "notes": "Cold-start severo (1.5 dl/dia). Bugs identificados no baseline: (1) 'gerenci' truncado no keywords field; (2) 'despesas' duplicado entre name e keywords (waste ~9 chars); (3) 'controle' duplicado entre subtitle e keywords (waste ~9 chars); (4) singular 'despesa' no subtitle redundante com 'Despesas' no name. ~22 chars liberáveis pra termos sweet-spot pós-Astro.\n\nDEPLOYED 2026-05-23: ASC editable version v45.1 (PREPARE_FOR_SUBMISSION) id=c5eaaa6f-ac53-40ff-b344-7375fa26fe22 criada via API. Fastlane sync_metadata pushou 13 locales com subtitle+keywords pt-BR otimizados. PENDENTE manual no ASC web UI: (a) anexar novo build à v45.1 OU promover build atual; (b) clicar Submit for Review. Apple review ~24-48h."
+}

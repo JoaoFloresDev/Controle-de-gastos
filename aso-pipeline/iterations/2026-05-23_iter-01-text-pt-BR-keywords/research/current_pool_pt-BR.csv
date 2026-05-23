@@ -1,0 +1,29 @@
+App Name,App Id,Platform,Keyword,Store Domain,Store,Note,Last Update,Ranking,Change,Popularity,Difficulty,Apps in Ranking,Tags
+Minhas Despesas Gastos Contas,6502218501,iphone,minhas despesas,br,🇧🇷 Brazil,name tokens 1-2 — head brand-keyword combo,,,,,,,money;long;own
+Minhas Despesas Gastos Contas,6502218501,iphone,despesas gastos,br,🇧🇷 Brazil,name tokens 2-3 — bigram composto,,,,,,,money;long;own
+Minhas Despesas Gastos Contas,6502218501,iphone,gastos contas,br,🇧🇷 Brazil,name tokens 3-4 — bigram composto,,,,,,,money;long;own
+Minhas Despesas Gastos Contas,6502218501,iphone,despesas,br,🇧🇷 Brazil,name token 2 isolado — head-keyword,,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,gastos,br,🇧🇷 Brazil,name token 3 isolado — head-keyword,,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,contas,br,🇧🇷 Brazil,name token 4 isolado — head-keyword,,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,controle financeiro,br,🇧🇷 Brazil,subtitle tokens 1-2 — head bigram,,,,,,,money;long;own
+Minhas Despesas Gastos Contas,6502218501,iphone,financeiro de despesa,br,🇧🇷 Brazil,subtitle tokens 2-3-4 — long-tail composto,,,,,,,money;long;own
+Minhas Despesas Gastos Contas,6502218501,iphone,controle,br,🇧🇷 Brazil,subtitle token 1 isolado — head-keyword,,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,financeiro,br,🇧🇷 Brazil,subtitle token 2 isolado — head-keyword,,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,despesa,br,🇧🇷 Brazil,subtitle token 4 — singular variant (dup com Despesas no name),,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,controle de despesa,br,🇧🇷 Brazil,name+subtitle cross — Apple compõe via substring,,,,,,,money;long;own
+Minhas Despesas Gastos Contas,6502218501,iphone,controle de gastos,br,🇧🇷 Brazil,name+subtitle cross — head-keyword phrase do nicho,,,,,,,money;long;own
+Minhas Despesas Gastos Contas,6502218501,iphone,controle de contas,br,🇧🇷 Brazil,name+subtitle cross — bigram composto,,,,,,,money;long;own
+Minhas Despesas Gastos Contas,6502218501,iphone,finanças,br,🇧🇷 Brazil,keyword field — head,,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,financeiro,br,🇧🇷 Brazil,keyword field — head (dup com subtitle),,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,gestão,br,🇧🇷 Brazil,keyword field — abstrato,,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,dinheiro,br,🇧🇷 Brazil,keyword field — head universal,,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,orçamento,br,🇧🇷 Brazil,keyword field — head universal nicho,,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,poupança,br,🇧🇷 Brazil,keyword field — savings angle,,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,despesas,br,🇧🇷 Brazil,keyword field — dup com name,,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,controle,br,🇧🇷 Brazil,keyword field — dup com subtitle,,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,planejamento,br,🇧🇷 Brazil,keyword field — head,,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,gerenci,br,🇧🇷 Brazil,keyword field — TOKEN TRUNCADO (bug),,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,custos,br,🇧🇷 Brazil,keyword field — synonym de despesas,,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,gestão financeira,br,🇧🇷 Brazil,keywords cross — bigram from keywords field,,,,,,,money;long;own
+Minhas Despesas Gastos Contas,6502218501,iphone,planejamento financeiro,br,🇧🇷 Brazil,keywords cross — bigram from keywords field,,,,,,,money;long;own
+Minhas Despesas Gastos Contas,6502218501,iphone,controle de gastos pessoais,br,🇧🇷 Brazil,name+subtitle+keywords cross — trigrama composto,,,,,,,money;long;own

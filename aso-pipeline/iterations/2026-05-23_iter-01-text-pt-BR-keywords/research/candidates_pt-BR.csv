@@ -1,0 +1,90 @@
+App Name,App Id,Platform,Keyword,Store Domain,Store,Note,Last Update,Ranking,Change,Popularity,Difficulty,Apps in Ranking,Tags
+Minhas Despesas Gastos Contas,6502218501,iphone,controle de gastos,br,🇧🇷 Brazil,Mobills+Fleur usam no name — head-keyword central do nicho,,,,,,,money;long;own+competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,controle financeiro,br,🇧🇷 Brazil,Despezzas name + Mobills desc — head-bigram canônico,,,,,,,money;long;own+competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,gestão financeira,br,🇧🇷 Brazil,Minhas Economias+Despezzas desc — abstract head-bigram,,,,,,,money;long;own+competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,finanças pessoais,br,🇧🇷 Brazil,5/6 competitors usam no desc — head-bigram universal,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,planejamento financeiro,br,🇧🇷 Brazil,Mobills desc + variant nosso planejamento sozinho,,,,,,,money;long;own+competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,receitas,br,🇧🇷 Brazil,5/6 competitors usam — par universal receitas+despesas,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,receitas e despesas,br,🇧🇷 Brazil,MoneyNote+Fleur+Pitteri desc — par canônico,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,orçamento mensal,br,🇧🇷 Brazil,Fleur+Despezzas+Pitteri desc — long-tail high-intent,,,,,,,money;long;own+competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,orçamento pessoal,br,🇧🇷 Brazil,variant orçamento + persona,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,orçamento familiar,br,🇧🇷 Brazil,target persona família — gap competitivo,,,,,,,audience;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,gastos pessoais,br,🇧🇷 Brazil,Mobills desc "despesas pessoais" — variant,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,gastos mensais,br,🇧🇷 Brazil,variant gastos + período,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,gastos diários,br,🇧🇷 Brazil,nome de competitor (Gastos Diários app id 1414523287),,,,,,,competitor_brand;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,despesas diárias,br,🇧🇷 Brazil,MoneyNote desc — period modifier,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,despesas mensais,br,🇧🇷 Brazil,variant despesas + período,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,controle de despesas,br,🇧🇷 Brazil,head-phrase mais comum em pesquisa natural,,,,,,,money;long;own+competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,controle de contas,br,🇧🇷 Brazil,MoneyNote name — bigram composto cross-field,,,,,,,money;long;own+competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,controle de dinheiro,br,🇧🇷 Brazil,variant controle + dinheiro,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,contador de gastos,br,🇧🇷 Brazil,variant controle → contador (busca natural),,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,rastreador de gastos,br,🇧🇷 Brazil,Pitteri desc "rastreador" — sub-explorado,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,gerenciador de gastos,br,🇧🇷 Brazil,Mobills desc — completa gerenci truncado,,,,,,,money;long;own+competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,gerenciamento,br,🇧🇷 Brazil,fix gerenci truncado — versão full,,,,,,,money;short;own
+Minhas Despesas Gastos Contas,6502218501,iphone,gerenciar,br,🇧🇷 Brazil,verb stem — match queries imperativas,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,organizador financeiro,br,🇧🇷 Brazil,Minhas Economias desc — sinônimo de gestor,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,organizar,br,🇧🇷 Brazil,verb stem — query intent,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,economizar,br,🇧🇷 Brazil,Mobills+Minhas Economias desc — outcome verb,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,economia,br,🇧🇷 Brazil,noun variant — Minhas Economias nome,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,economias,br,🇧🇷 Brazil,Minhas Economias name+desc — competitor brand,,,,,,,competitor_brand;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,fluxo de caixa,br,🇧🇷 Brazil,Mobills+Despezzas+Controlle desc — termo formal,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,caixa,br,🇧🇷 Brazil,token isolado — match queries genéricas,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,saldo,br,🇧🇷 Brazil,MoneyNote desc — feature universal,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,extrato,br,🇧🇷 Brazil,banking-terminology — match users vindo de banco apps,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,transações,br,🇧🇷 Brazil,3/6 competitors usam — sinônimo neutro lançamentos,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,lançamentos,br,🇧🇷 Brazil,terminologia contábil — buscas mais técnicas,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,categorias,br,🇧🇷 Brazil,universal competitor feature — match feature queries,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,categorias de gastos,br,🇧🇷 Brazil,long-tail feature — match high-intent,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,gráficos,br,🇧🇷 Brazil,MoneyNote+Despezzas+Pitteri desc — feature universal,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,relatórios,br,🇧🇷 Brazil,Mobills+MoneyNote+Pitteri+Despezzas — feature universal,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,relatorio financeiro,br,🇧🇷 Brazil,sem acento (busca natural) + bigram,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,gastos cartao,br,🇧🇷 Brazil,sem acento + bigram cartão,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,cartao de credito,br,🇧🇷 Brazil,sem acento — busca natural,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,cartão de crédito,br,🇧🇷 Brazil,Mobills+Minhas Economias+Despezzas — feature universal Cluster A,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,cartões,br,🇧🇷 Brazil,plural — generic match,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,fatura,br,🇧🇷 Brazil,Despezzas desc + cluster A — match credit-card users,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,contas a pagar,br,🇧🇷 Brazil,Mobills desc — long-tail high-intent,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,vencimento,br,🇧🇷 Brazil,Despezzas desc — feature lembrete,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,lembrete de contas,br,🇧🇷 Brazil,Despezzas desc — feature-led bigram,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,dívidas,br,🇧🇷 Brazil,Despezzas+Fleur desc — negative-frame outcome,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,metas,br,🇧🇷 Brazil,Mobills desc — savings angle,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,meta financeira,br,🇧🇷 Brazil,long-tail goal angle,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,objetivos financeiros,br,🇧🇷 Brazil,Despezzas desc — formal goal phrase,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,minhas finanças,br,🇧🇷 Brazil,competitor brand Cicero — possessive variant,,,,,,,competitor_brand;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,meu orçamento,br,🇧🇷 Brazil,Pitteri brand — possessive variant,,,,,,,competitor_brand;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,meu dinheiro,br,🇧🇷 Brazil,natural search phrase — possessive variant,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,gastar menos,br,🇧🇷 Brazil,Pitteri desc "economizar e gastar melhor" — outcome verb,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,poupar,br,🇧🇷 Brazil,verb form de poupança — query intent,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,investimentos,br,🇧🇷 Brazil,Mobills (Toro) — adjacent niche pra cross-traffic,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,pix,br,🇧🇷 Brazil,GAP brasileiro — termo pt-BR único alto volume,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,controle pix,br,🇧🇷 Brazil,GAP brasileiro — long-tail pt-BR,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,gastos familia,br,🇧🇷 Brazil,sem acento + persona família,,,,,,,audience;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,família,br,🇧🇷 Brazil,target persona — broad,,,,,,,audience;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,casal,br,🇧🇷 Brazil,target persona — sub-explorado nicho,,,,,,,audience;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,casa,br,🇧🇷 Brazil,Minhas Economias categoria — domain term,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,alimentação,br,🇧🇷 Brazil,Minhas Economias categoria — match expense-category queries,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,mercado,br,🇧🇷 Brazil,brazilian-specific category — domain term,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,simples,br,🇧🇷 Brazil,MoneyNote+Fleur+Pitteri positioning — modifier,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,fácil,br,🇧🇷 Brazil,Mobills+Pitteri desc — positioning modifier,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,offline,br,🇧🇷 Brazil,MoneyNote positioning Cluster B — privacy angle,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,sem internet,br,🇧🇷 Brazil,MoneyNote positioning — long-tail privacy,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,grátis,br,🇧🇷 Brazil,MoneyNote+Fleur+Pitteri positioning — price modifier,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,gratuito,br,🇧🇷 Brazil,MoneyNote positioning — formal variant,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,sem assinatura,br,🇧🇷 Brazil,MoneyNote positioning — anti-recurring,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,calculadora,br,🇧🇷 Brazil,MoneyNote desc — utility cross-over,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,planilha,br,🇧🇷 Brazil,Mobills+Pitteri desc "aposente a planilha" — context query,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,minhas despesas,br,🇧🇷 Brazil,nosso name tokens 1-2 — verificar rank atual,,,,,,,brand;long;own
+Minhas Despesas Gastos Contas,6502218501,iphone,despezzas,br,🇧🇷 Brazil,competitor brand — capturar miss-types,,,,,,,competitor_brand;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,mobills,br,🇧🇷 Brazil,competitor brand — biggest in niche,,,,,,,competitor_brand;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,fleur,br,🇧🇷 Brazil,competitor brand — Cluster B alternative,,,,,,,competitor_brand;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,money note,br,🇧🇷 Brazil,MoneyNote brand split — capturar buscas split,,,,,,,competitor_brand;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,money,br,🇧🇷 Brazil,EN cross-locale (apps Cluster B EN visíveis),,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,wallet,br,🇧🇷 Brazil,Wallet BudgetBakers competitor + EN cross-locale,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,budget,br,🇧🇷 Brazil,EN cross-locale — pt-BR users c/ ingles,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,expense tracker,br,🇧🇷 Brazil,EN cross-locale — niche EN heavy in BR store,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,widget,br,🇧🇷 Brazil,MoneyNote+Fleur — feature differentiator,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,face id,br,🇧🇷 Brazil,MoneyNote desc — security feature query,,,,,,,money;long;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,senha,br,🇧🇷 Brazil,MoneyNote desc — security generic,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,backup,br,🇧🇷 Brazil,Pitteri+MoneyNote — sync angle,,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,icloud,br,🇧🇷 Brazil,Fleur+MoneyNote — sync angle (Apple ecosystem),,,,,,,money;short;competitor
+Minhas Despesas Gastos Contas,6502218501,iphone,sincronização,br,🇧🇷 Brazil,Fleur+Pitteri — sync feature,,,,,,,money;short;competitor
