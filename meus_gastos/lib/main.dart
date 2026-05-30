@@ -15,6 +15,8 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'controllers/Dashboards/DashboardsFactory.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/services/firebase/FirebaseServiceSingleton.dart';
+import 'package:meus_gastos/services/widget/WidgetBridge.dart';
+import 'package:meus_gastos/services/widget/WidgetSyncHost.dart';
 
 
 import 'package:window_size/window_size.dart';
@@ -35,6 +37,8 @@ void main() async {
   }
   // inicializa firebase
   await FirebaseService().init();
+  // inicializa a ponte com o widget nativo de adição rápida (App Group)
+  await WidgetBridge.init();
   runApp(
     const MyApp(),
   );
@@ -152,6 +156,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       ],
       child: Builder(builder: (context) {
         return AppProviders(
+          child: WidgetSyncHost(
           child: Scaffold(
             backgroundColor: const Color(0xFF0D1117),
             body: IndexedStack(
@@ -184,6 +189,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               ],
             ),
             bottomNavigationBar: _buildElegantTabBar(),
+          ),
           ),
         );
       }),
