@@ -673,4 +673,58 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get ok => '确定';
+
+  @override
+  String get onboardingTrackTitle => '几秒记一笔支出';
+
+  @override
+  String get onboardingTrackDesc => '一键记录支出，每天掌控你的钱。';
+
+  @override
+  String get onboardingChartsTitle => '看清钱花在哪里';
+
+  @override
+  String get onboardingChartsDesc => '清晰的图表按类别、周和月展示你的支出。';
+
+  @override
+  String get onboardingGoalsTitle => '预算助你不超支';
+
+  @override
+  String get onboardingGoalsDesc => '按类别设置每月预算，随时跟进每个目标的进度。';
+
+  @override
+  String get onboardingNext => '下一步';
+
+  @override
+  String get onboardingStart => '开始使用';
+
+  @override
+  String get onboardingSkip => '跳过';
+
+  @override
+  String get periodDay => '日';
+
+  @override
+  String get periodWeek => '周';
+
+  @override
+  String get periodMonth => '月';
+
+  @override
+  String get periodYear => '年';
+
+  @override
+  String get periodLabel => '期间';
+
+  @override
+  String get customPeriod => '自定义期间';
+
+  @override
+  String get selectPeriod => '选择期间';
+
+  @override
+  String get startDate => '开始日期';
+
+  @override
+  String get endDate => '结束日期';
 }

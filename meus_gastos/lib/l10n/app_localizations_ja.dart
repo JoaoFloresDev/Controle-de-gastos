@@ -673,4 +673,58 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get ok => 'OK';
+
+  @override
+  String get onboardingTrackTitle => '数秒で支出を記録';
+
+  @override
+  String get onboardingTrackDesc => 'ワンタップで支出を記録して、毎日お金を管理しましょう。';
+
+  @override
+  String get onboardingChartsTitle => 'お金の使い道が一目でわかる';
+
+  @override
+  String get onboardingChartsDesc => 'カテゴリ・週・月ごとのわかりやすいグラフで支出を確認できます。';
+
+  @override
+  String get onboardingGoalsTitle => '予算で目標をキープ';
+
+  @override
+  String get onboardingGoalsDesc => 'カテゴリごとに月間予算を設定して、目標への進み具合を確認しましょう。';
+
+  @override
+  String get onboardingNext => '次へ';
+
+  @override
+  String get onboardingStart => 'はじめる';
+
+  @override
+  String get onboardingSkip => 'スキップ';
+
+  @override
+  String get periodDay => '日';
+
+  @override
+  String get periodWeek => '週';
+
+  @override
+  String get periodMonth => '月';
+
+  @override
+  String get periodYear => '年';
+
+  @override
+  String get periodLabel => '期間';
+
+  @override
+  String get customPeriod => 'カスタム期間';
+
+  @override
+  String get selectPeriod => '期間を選択';
+
+  @override
+  String get startDate => '開始日';
+
+  @override
+  String get endDate => '終了日';
 }

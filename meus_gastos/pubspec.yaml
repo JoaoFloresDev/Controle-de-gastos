@@ -37,8 +37,11 @@ dependencies:
   file_picker: ^8.1.4
   table_calendar: ^3.0.7
   app_tracking_transparency: ^2.0.4
+  url_launcher: ^6.3.2
   window_size: ^0.1.0
   firebase_core: ^3.15.2
+  firebase_analytics: ^11.6.0
+  firebase_crashlytics: ^4.3.10
   firebase_auth: ^5.4.0 
   cloud_firestore: ^5.6.1
   google_sign_in: ^6.2.2
@@ -56,6 +59,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+  assets:
+    - assets/onboarding/
 
 dependency_overrides:
   win32: ^5.5.4

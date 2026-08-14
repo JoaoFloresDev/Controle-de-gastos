@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
+import 'package:meus_gastos/l10n/app_localizations.dart';
 
 // Enum para os tipos de período
 enum PeriodType {
@@ -24,18 +26,19 @@ class PeriodSelector extends StatelessWidget {
     this.onCustomPeriodTap,
   }) : super(key: key);
 
-  String _getPeriodLabel(PeriodType period) {
+  String _getPeriodLabel(BuildContext context, PeriodType period) {
+    final localizations = AppLocalizations.of(context)!;
     switch (period) {
       case PeriodType.day:
-        return 'Dia';
+        return localizations.periodDay;
       case PeriodType.week:
-        return 'Semana';
+        return localizations.periodWeek;
       case PeriodType.month:
-        return 'Mês';
+        return localizations.periodMonth;
       case PeriodType.year:
-        return 'Ano';
+        return localizations.periodYear;
       case PeriodType.custom:
-        return 'Período';
+        return localizations.periodLabel;
     }
   }
 
@@ -68,7 +71,7 @@ class PeriodSelector extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    _getPeriodLabel(period),
+                    _getPeriodLabel(context, period),
                     style: TextStyle(
                       color: isSelected ? Colors.white : AppColors.label,
                       fontSize: 14,
@@ -102,7 +105,8 @@ class PeriodNavigator extends StatelessWidget {
     this.onDateTap,
   }) : super(key: key);
 
-  String _formatPeriod() {
+  String _formatPeriod(BuildContext context) {
+    final locale = Localizations.localeOf(context).toString();
     switch (periodType) {
       case PeriodType.day:
         return '${currentDate.day}/${currentDate.month}/${currentDate.year}';
@@ -111,15 +115,11 @@ class PeriodNavigator extends StatelessWidget {
         final weekEnd = weekStart.add(const Duration(days: 6));
         return '${weekStart.day}/${weekStart.month} - ${weekEnd.day}/${weekEnd.month}';
       case PeriodType.month:
-        final months = [
-          'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
-          'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
-        ];
-        return '${months[currentDate.month - 1]} ${currentDate.year}';
+        return '${DateFormat.MMM(locale).format(currentDate)} ${currentDate.year}';
       case PeriodType.year:
         return '${currentDate.year}';
       case PeriodType.custom:
-        return 'Período Customizado';
+        return AppLocalizations.of(context)!.customPeriod;
     }
   }
 
@@ -142,7 +142,7 @@ class PeriodNavigator extends StatelessWidget {
           GestureDetector(
             onTap: onDateTap,
             child: Text(
-              _formatPeriod(),
+              _formatPeriod(context),
               style: const TextStyle(
                 color: AppColors.label,
                 fontSize: 16,
@@ -236,9 +236,9 @@ class _CustomPeriodModalState extends State<CustomPeriodModal> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text(
-            'Selecionar Período',
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context)!.selectPeriod,
+            style: const TextStyle(
               color: AppColors.label,
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -248,14 +248,14 @@ class _CustomPeriodModalState extends State<CustomPeriodModal> {
           const SizedBox(height: 24),
           _buildDateSelector(
             context,
-            'Data Inicial',
+            AppLocalizations.of(context)!.startDate,
             _startDate,
             () => _selectDate(context, true),
           ),
           const SizedBox(height: 16),
           _buildDateSelector(
             context,
-            'Data Final',
+            AppLocalizations.of(context)!.endDate,
             _endDate,
             () => _selectDate(context, false),
           ),
@@ -272,9 +272,9 @@ class _CustomPeriodModalState extends State<CustomPeriodModal> {
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-            child: const Text(
-              'Confirmar',
-              style: TextStyle(
+            child: Text(
+              AppLocalizations.of(context)!.confirm,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,

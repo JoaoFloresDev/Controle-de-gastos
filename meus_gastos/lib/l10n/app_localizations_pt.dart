@@ -704,4 +704,61 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get ok => 'OK';
+
+  @override
+  String get onboardingTrackTitle => 'Registre gastos em segundos';
+
+  @override
+  String get onboardingTrackDesc =>
+      'Adicione o que você gasta com um toque e mantenha seu dinheiro sob controle todos os dias.';
+
+  @override
+  String get onboardingChartsTitle => 'Veja para onde vai seu dinheiro';
+
+  @override
+  String get onboardingChartsDesc =>
+      'Gráficos claros mostram seus gastos por categoria, semana e mês.';
+
+  @override
+  String get onboardingGoalsTitle => 'Orçamentos que te mantêm no rumo';
+
+  @override
+  String get onboardingGoalsDesc =>
+      'Defina orçamentos mensais por categoria e acompanhe seu progresso em cada meta.';
+
+  @override
+  String get onboardingNext => 'Próximo';
+
+  @override
+  String get onboardingStart => 'Começar';
+
+  @override
+  String get onboardingSkip => 'Pular';
+
+  @override
+  String get periodDay => 'Dia';
+
+  @override
+  String get periodWeek => 'Semana';
+
+  @override
+  String get periodMonth => 'Mês';
+
+  @override
+  String get periodYear => 'Ano';
+
+  @override
+  String get periodLabel => 'Período';
+
+  @override
+  String get customPeriod => 'Período personalizado';
+
+  @override
+  String get selectPeriod => 'Selecionar período';
+
+  @override
+  String get startDate => 'Data inicial';
+
+  @override
+  String get endDate => 'Data final';
 }

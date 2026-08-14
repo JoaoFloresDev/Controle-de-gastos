@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,7 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
+import 'package:meus_gastos/services/AnalyticsService.dart';
 
 class ProModal extends StatefulWidget {
   final bool isLoading;
@@ -36,22 +38,29 @@ class _ProModalState extends State<ProModal> {
   Set<String> loadingPurchases = {};
 
   late InAppPurchase _inAppPurchase;
-  late Stream<List<PurchaseDetails>> _subscription;
+  StreamSubscription<List<PurchaseDetails>>? _purchaseSubscription;
 
   @override
   void initState() {
     super.initState();
+    AnalyticsService().paywallViewed('pro_modal');
     _inAppPurchase = InAppPurchase.instance;
-    _subscription = _inAppPurchase.purchaseStream;
-    _subscription.listen(_listenToPurchaseUpdated, onDone: () {
-      _subscription.drain();
-    }, onError: (error) {
-      // Trate erros aqui, se necessário
-    });
+    _purchaseSubscription = _inAppPurchase.purchaseStream.listen(
+      _listenToPurchaseUpdated,
+      onError: (error) {
+        // Trate erros aqui, se necessário
+      },
+    );
 
     _fetchProductDetails();
     _restorePurchases();
     updateProStatus();
+  }
+
+  @override
+  void dispose() {
+    _purchaseSubscription?.cancel();
+    super.dispose();
   }
 
   Future<void> updateProStatus() async {
@@ -68,6 +77,11 @@ class _ProModalState extends State<ProModal> {
     for (var purchaseDetails in purchaseDetailsList) {
       if (purchaseDetails.status == PurchaseStatus.purchased ||
           purchaseDetails.status == PurchaseStatus.restored) {
+        if (purchaseDetails.status == PurchaseStatus.purchased) {
+          AnalyticsService().purchaseCompleted(purchaseDetails.productID);
+        } else {
+          AnalyticsService().purchaseRestored();
+        }
         _deliverProduct(purchaseDetails);
         isPurchaseUpdated = true;
         if (purchaseDetails.productID == yearlyProId) {
@@ -77,7 +91,7 @@ class _ProModalState extends State<ProModal> {
           saveIsPremiummonthly();
         }
       } else if (purchaseDetails.status == PurchaseStatus.error) {
-        // Trate erros de compra aqui, se necessário
+        AnalyticsService().purchaseFailed(purchaseDetails.productID);
       }
       if (purchaseDetails.pendingCompletePurchase) {
         InAppPurchase.instance.completePurchase(purchaseDetails);
@@ -155,6 +169,7 @@ class _ProModalState extends State<ProModal> {
   }
 
   Future<void> _buySubscription(String productId) async {
+    AnalyticsService().purchaseStarted(productId);
     setState(() {
       loadingPurchases.add(productId);
     });

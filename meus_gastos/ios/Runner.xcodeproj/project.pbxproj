@@ -290,6 +290,7 @@
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				C108188D14E6407F4124F1CE /* [CP] Embed Pods Frameworks */,
 				453E1F2FF974A101E50C53C8 /* [CP] Copy Pods Resources */,
+				57F8B61E83AF2976EB768B50 /* FirebaseCrashlytics Upload Symbols */,
 			);
 			buildRules = (
 			);
@@ -456,6 +457,26 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		57F8B61E83AF2976EB768B50 /* FirebaseCrashlytics Upload Symbols */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "FirebaseCrashlytics Upload Symbols";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"";
 		};
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;

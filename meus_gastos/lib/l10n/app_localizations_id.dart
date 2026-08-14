@@ -697,4 +697,61 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get ok => 'OK';
+
+  @override
+  String get onboardingTrackTitle => 'Catat pengeluaran dalam hitungan detik';
+
+  @override
+  String get onboardingTrackDesc =>
+      'Tambahkan pengeluaranmu dengan sekali ketuk dan kendalikan uangmu setiap hari.';
+
+  @override
+  String get onboardingChartsTitle => 'Lihat ke mana uangmu pergi';
+
+  @override
+  String get onboardingChartsDesc =>
+      'Grafik yang jelas merinci pengeluaranmu per kategori, minggu, dan bulan.';
+
+  @override
+  String get onboardingGoalsTitle => 'Anggaran yang menjagamu tetap di jalur';
+
+  @override
+  String get onboardingGoalsDesc =>
+      'Tetapkan anggaran bulanan per kategori dan pantau kemajuanmu menuju setiap target.';
+
+  @override
+  String get onboardingNext => 'Lanjut';
+
+  @override
+  String get onboardingStart => 'Mulai';
+
+  @override
+  String get onboardingSkip => 'Lewati';
+
+  @override
+  String get periodDay => 'Hari';
+
+  @override
+  String get periodWeek => 'Minggu';
+
+  @override
+  String get periodMonth => 'Bulan';
+
+  @override
+  String get periodYear => 'Tahun';
+
+  @override
+  String get periodLabel => 'Periode';
+
+  @override
+  String get customPeriod => 'Periode kustom';
+
+  @override
+  String get selectPeriod => 'Pilih periode';
+
+  @override
+  String get startDate => 'Tanggal mulai';
+
+  @override
+  String get endDate => 'Tanggal akhir';
 }

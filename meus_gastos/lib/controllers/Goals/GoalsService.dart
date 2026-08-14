@@ -5,6 +5,7 @@ import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/models/ProgressIndicatorModel.dart';
 import 'package:meus_gastos/services/CardServiceRefatore.dart';
 // import 'package:meus_gastos/services/firebase/SaveGoalsToClould.dart';
+import 'package:meus_gastos/services/AnalyticsService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GoalsService {
@@ -60,6 +61,7 @@ class GoalsService {
   }
 
   Future<void> addMeta(String categoryId, double meta) async {
+    AnalyticsService().goalSet(category: categoryId);
     List<GoalModel> goal = await retrive();
     int index = goal.indexWhere((bud) => bud.categoryId == categoryId);
     if (index != -1) {

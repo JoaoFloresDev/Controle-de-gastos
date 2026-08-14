@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:meus_gastos/models/CardModel.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:meus_gastos/services/AnalyticsService.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'dart:io';
 import 'package:excel/excel.dart';
@@ -151,6 +152,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
 
   //mark - Share Data
   Future<void> _shareData() async {
+    AnalyticsService().exportShared(_selectedFormat);
     setState(() {
       _isLoadingShare = true;
     });

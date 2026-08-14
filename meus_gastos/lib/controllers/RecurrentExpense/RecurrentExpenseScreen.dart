@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:meus_gastos/services/AnalyticsService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:meus_gastos/designSystem/Components/CustomHeader.dart';
@@ -46,6 +47,7 @@ class _RecurrentExpenseScreenState extends State<RecurrentExpenseScreen> {
   @override
   void initState() {
     super.initState();
+    AnalyticsService().logScreen('recurrent_expenses');
   }
 
   @override

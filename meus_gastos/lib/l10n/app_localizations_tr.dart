@@ -695,4 +695,61 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get ok => 'Tamam';
+
+  @override
+  String get onboardingTrackTitle => 'Harcamaları saniyeler içinde kaydet';
+
+  @override
+  String get onboardingTrackDesc =>
+      'Harcadıklarını tek dokunuşla ekle, paranı her gün kontrol altında tut.';
+
+  @override
+  String get onboardingChartsTitle => 'Paran nereye gidiyor gör';
+
+  @override
+  String get onboardingChartsDesc =>
+      'Anlaşılır grafikler harcamalarını kategoriye, haftaya ve aya göre gösterir.';
+
+  @override
+  String get onboardingGoalsTitle => 'Seni yolda tutan bütçeler';
+
+  @override
+  String get onboardingGoalsDesc =>
+      'Kategoriye göre aylık bütçe belirle ve her hedefe ilerlemeni takip et.';
+
+  @override
+  String get onboardingNext => 'İleri';
+
+  @override
+  String get onboardingStart => 'Başla';
+
+  @override
+  String get onboardingSkip => 'Atla';
+
+  @override
+  String get periodDay => 'Gün';
+
+  @override
+  String get periodWeek => 'Hafta';
+
+  @override
+  String get periodMonth => 'Ay';
+
+  @override
+  String get periodYear => 'Yıl';
+
+  @override
+  String get periodLabel => 'Dönem';
+
+  @override
+  String get customPeriod => 'Özel dönem';
+
+  @override
+  String get selectPeriod => 'Dönem seç';
+
+  @override
+  String get startDate => 'Başlangıç tarihi';
+
+  @override
+  String get endDate => 'Bitiş tarihi';
 }

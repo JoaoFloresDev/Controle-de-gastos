@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui' show PlatformDispatcher;
 import 'package:meus_gastos/AppProviders.dart';
 import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
@@ -15,6 +16,10 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'controllers/Dashboards/DashboardsFactory.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/services/firebase/FirebaseServiceSingleton.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:meus_gastos/services/AnalyticsService.dart';
+import 'package:meus_gastos/controllers/Onboarding/OnboardingScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meus_gastos/services/widget/WidgetBridge.dart';
 import 'package:meus_gastos/services/widget/WidgetSyncHost.dart';
 
@@ -37,15 +42,28 @@ void main() async {
   }
   // inicializa firebase
   await FirebaseService().init();
+  if (Platform.isIOS || Platform.isAndroid || Platform.isMacOS) {
+    FlutterError.onError =
+        FirebaseCrashlytics.instance.recordFlutterFatalError;
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
+  }
   // inicializa a ponte com o widget nativo de adição rápida (App Group)
   await WidgetBridge.init();
+  final prefs = await SharedPreferences.getInstance();
+  final hasSeenOnboarding =
+      prefs.getBool(OnboardingScreen.hasSeenKey) ?? false;
   runApp(
-    const MyApp(),
+    MyApp(showOnboarding: !hasSeenOnboarding),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool showOnboarding;
+
+  const MyApp({super.key, this.showOnboarding = false});
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
@@ -79,8 +97,31 @@ class MyApp extends StatelessWidget {
         Locale('ar'),
         Locale('id'),
       ],
-      home: MyHomePage(),
+      home: RootGate(showOnboarding: showOnboarding),
     );
+  }
+}
+
+class RootGate extends StatefulWidget {
+  final bool showOnboarding;
+
+  const RootGate({super.key, required this.showOnboarding});
+
+  @override
+  State<RootGate> createState() => _RootGateState();
+}
+
+class _RootGateState extends State<RootGate> {
+  late bool _showOnboarding = widget.showOnboarding;
+
+  @override
+  Widget build(BuildContext context) {
+    if (_showOnboarding) {
+      return OnboardingScreen(
+        onFinish: () => setState(() => _showOnboarding = false),
+      );
+    }
+    return MyHomePage();
   }
 }
 
@@ -120,6 +161,14 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
 
 
+  static const _tabScreenNames = [
+    'add_transaction',
+    'transactions',
+    'dashboards',
+    'goals',
+    'settings',
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -128,11 +177,15 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       vsync: this,
     );
     _animationController.forward();
+    AnalyticsService().logScreen(_tabScreenNames[0]);
   }
 
   void _onTabSelected(int index) {
     if (index == selectedTab) return;
     setState(() => selectedTab = index);
+    if (index >= 0 && index < _tabScreenNames.length) {
+      AnalyticsService().logScreen(_tabScreenNames[index]);
+    }
     HapticFeedback.lightImpact();
   }
 

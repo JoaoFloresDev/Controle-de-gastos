@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:meus_gastos/controllers/Login/AuthenticationSingleton.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
+import 'package:meus_gastos/services/AnalyticsService.dart';
 
 
 class LoginViewModel extends ChangeNotifier {
@@ -26,8 +27,9 @@ class LoginViewModel extends ChangeNotifier {
   Future<void> login() async {
     _user = await auth.signInWithGoogle();
     _isLogin = auth.isLoggedIn;
-
-    
+    if (_isLogin) {
+      AnalyticsService().loginSuccess('google');
+    }
 
     notifyListeners();
   }
@@ -36,6 +38,7 @@ class LoginViewModel extends ChangeNotifier {
     _isLogin = false;
     _user = null;
     await auth.signOut();
+    AnalyticsService().logoutDone();
     notifyListeners();
   }
 

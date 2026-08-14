@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:meus_gastos/services/AnalyticsService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/CetegoryViewModel.dart';
@@ -77,6 +78,7 @@ class _CategoryCreaterState extends State<CategoryCreater>
   @override
   void initState() {
     super.initState();
+    AnalyticsService().logScreen('category_creator');
     _nameController = TextEditingController();
     _currentColor = _generateRandomColor();
     // _loadCategories();

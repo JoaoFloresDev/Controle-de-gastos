@@ -4,6 +4,7 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
+import 'package:meus_gastos/services/AnalyticsService.dart';
 class ProModalAndroid extends StatefulWidget {
   final bool isLoading;
   final VoidCallback onSubscriptionPurchased;
@@ -46,8 +47,8 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    AnalyticsService().paywallViewed('pro_modal');
     updateProStatus();
 
     _inAppPurchase.purchaseStream.listen((list) {
@@ -102,6 +103,11 @@ class _ProModalAndroidState extends State<ProModalAndroid> {
     for (final purchase in list) {
       if ((purchase.status == PurchaseStatus.restored) ||
           (purchase.status == PurchaseStatus.purchased)) {
+        if (purchase.status == PurchaseStatus.purchased) {
+          AnalyticsService().purchaseCompleted(purchase.productID);
+        } else {
+          AnalyticsService().purchaseRestored();
+        }
         // Identificar produto comprado
         if (_storeProductIds[0] == purchase.productID) {
           await restore_purchases(purchase); // Atualizar estado
@@ -204,24 +210,27 @@ Widget build(BuildContext context) {
                             _products[0].currencySymbol,
                           )
                         : AppLocalizations.of(context)!.loading,
-                    onPressed: () => {
-                        _buySubscription(_products[0].id ),
-                      },
+                    onPressed: () {
+                      if (_products.isNotEmpty) {
+                        _buySubscription(_products[0].id);
+                      }
+                    },
                     productId: _products.isNotEmpty ? _products[0].id : '',
                   ),
                   const SizedBox(height: 22),
                   _buildSubscriptionButton(
                     label: AppLocalizations.of(context)!.yearlySubscription,
-                    price: _products.isNotEmpty
+                    price: _products.length > 1
                         ? formatPrice(
                             _products[1].rawPrice,
                             _products[1].currencySymbol,
                           )
                         : AppLocalizations.of(context)!.loading,
-                    onPressed: () => {
-                        _buySubscription(_products[1].id),
-                        // iApEngine.handlePurchase(_products[0], storeProductIds)
-                      },
+                    onPressed: () {
+                      if (_products.length > 1) {
+                        _buySubscription(_products[1].id);
+                      }
+                    },
                     productId: _products.length > 1 ? _products[1].id : '',
                   ),
                   const SizedBox(height: 15),
@@ -276,6 +285,7 @@ Widget build(BuildContext context) {
 }
 
   Future<void> _buySubscription(String productId) async {
+    AnalyticsService().purchaseStarted(productId);
     setState(() {
       loadingPurchases.add(productId);
     });

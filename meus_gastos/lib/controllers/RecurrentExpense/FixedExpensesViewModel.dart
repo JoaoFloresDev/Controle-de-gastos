@@ -5,6 +5,7 @@ import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesServiceRefatore.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/data/FixedExpensesRepository.dart';
 import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/services/AnalyticsService.dart';
 
 class FixedExpensesViewModel extends ChangeNotifier {
   final FixedExpensesRepository _repo;
@@ -93,12 +94,14 @@ class FixedExpensesViewModel extends ChangeNotifier {
   }
 
   Future<void> addExpense(FixedExpense fexpense) async {
+    AnalyticsService().logEvent('recurrent_add');
     _fixedExpense.add(fexpense);
     await _repo.add(fexpense);
     _recalculate();
   }
 
   Future<void> delete(FixedExpense card) async {
+    AnalyticsService().logEvent('recurrent_delete');
     _fixedExpense.remove(card);
     _repo.delete(card.id);
 
@@ -106,6 +109,7 @@ class FixedExpensesViewModel extends ChangeNotifier {
   }
 
   Future<void> update(FixedExpense card) async {
+    AnalyticsService().logEvent('recurrent_edit');
     for (int i = 0; i < _fixedExpense.length; i++) {
       if (_fixedExpense[i].id == card.id) _fixedExpense[i] = card;
     }

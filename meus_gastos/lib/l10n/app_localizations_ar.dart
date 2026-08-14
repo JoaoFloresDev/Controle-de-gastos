@@ -683,4 +683,61 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get ok => 'حسنًا';
+
+  @override
+  String get onboardingTrackTitle => 'سجّل مصاريفك في ثوانٍ';
+
+  @override
+  String get onboardingTrackDesc =>
+      'أضف ما تنفقه بلمسة واحدة وابقَ متحكمًا بأموالك كل يوم.';
+
+  @override
+  String get onboardingChartsTitle => 'اعرف أين تذهب أموالك';
+
+  @override
+  String get onboardingChartsDesc =>
+      'رسوم بيانية واضحة تعرض إنفاقك حسب الفئة والأسبوع والشهر.';
+
+  @override
+  String get onboardingGoalsTitle => 'ميزانيات تُبقيك على المسار';
+
+  @override
+  String get onboardingGoalsDesc =>
+      'حدد ميزانية شهرية لكل فئة وتابع تقدمك نحو كل هدف.';
+
+  @override
+  String get onboardingNext => 'التالي';
+
+  @override
+  String get onboardingStart => 'ابدأ';
+
+  @override
+  String get onboardingSkip => 'تخطي';
+
+  @override
+  String get periodDay => 'يوم';
+
+  @override
+  String get periodWeek => 'أسبوع';
+
+  @override
+  String get periodMonth => 'شهر';
+
+  @override
+  String get periodYear => 'سنة';
+
+  @override
+  String get periodLabel => 'الفترة';
+
+  @override
+  String get customPeriod => 'فترة مخصصة';
+
+  @override
+  String get selectPeriod => 'اختر الفترة';
+
+  @override
+  String get startDate => 'تاريخ البدء';
+
+  @override
+  String get endDate => 'تاريخ الانتهاء';
 }

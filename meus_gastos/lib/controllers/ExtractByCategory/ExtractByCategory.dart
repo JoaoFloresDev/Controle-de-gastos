@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:meus_gastos/services/AnalyticsService.dart';
 import 'package:meus_gastos/controllers/exportExcel/exportExcelScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/models/CardModel.dart';
@@ -30,6 +31,7 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
   @override
   void initState() {
     super.initState();
+    AnalyticsService().logScreen('extract_by_category');
   }
 
   List<CardModel> selectByCategory(

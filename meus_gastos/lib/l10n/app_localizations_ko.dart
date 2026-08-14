@@ -674,4 +674,58 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get ok => '확인';
+
+  @override
+  String get onboardingTrackTitle => '몇 초 만에 지출 기록';
+
+  @override
+  String get onboardingTrackDesc => '한 번의 탭으로 지출을 기록하고 매일 돈을 관리하세요.';
+
+  @override
+  String get onboardingChartsTitle => '돈이 어디로 가는지 확인';
+
+  @override
+  String get onboardingChartsDesc => '카테고리별, 주별, 월별 그래프로 지출을 한눈에 볼 수 있어요.';
+
+  @override
+  String get onboardingGoalsTitle => '목표를 지켜주는 예산';
+
+  @override
+  String get onboardingGoalsDesc => '카테고리별 월 예산을 정하고 목표 달성 과정을 확인하세요.';
+
+  @override
+  String get onboardingNext => '다음';
+
+  @override
+  String get onboardingStart => '시작하기';
+
+  @override
+  String get onboardingSkip => '건너뛰기';
+
+  @override
+  String get periodDay => '일';
+
+  @override
+  String get periodWeek => '주';
+
+  @override
+  String get periodMonth => '월';
+
+  @override
+  String get periodYear => '연';
+
+  @override
+  String get periodLabel => '기간';
+
+  @override
+  String get customPeriod => '사용자 지정 기간';
+
+  @override
+  String get selectPeriod => '기간 선택';
+
+  @override
+  String get startDate => '시작일';
+
+  @override
+  String get endDate => '종료일';
 }

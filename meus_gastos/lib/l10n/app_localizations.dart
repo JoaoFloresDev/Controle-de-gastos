@@ -1449,6 +1449,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OK'**
   String get ok;
+
+  /// No description provided for @onboardingTrackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Track expenses in seconds'**
+  String get onboardingTrackTitle;
+
+  /// No description provided for @onboardingTrackDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Add what you spend with one tap and keep your money under control every day.'**
+  String get onboardingTrackDesc;
+
+  /// No description provided for @onboardingChartsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'See where your money goes'**
+  String get onboardingChartsTitle;
+
+  /// No description provided for @onboardingChartsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear charts break down your spending by category, week, and month.'**
+  String get onboardingChartsDesc;
+
+  /// No description provided for @onboardingGoalsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Budgets that keep you on track'**
+  String get onboardingGoalsTitle;
+
+  /// No description provided for @onboardingGoalsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Set monthly budgets by category and follow your progress toward each goal.'**
+  String get onboardingGoalsDesc;
+
+  /// No description provided for @onboardingNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get onboardingNext;
+
+  /// No description provided for @onboardingStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Get started'**
+  String get onboardingStart;
+
+  /// No description provided for @onboardingSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get onboardingSkip;
+
+  /// No description provided for @periodDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Day'**
+  String get periodDay;
+
+  /// No description provided for @periodWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Week'**
+  String get periodWeek;
+
+  /// No description provided for @periodMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get periodMonth;
+
+  /// No description provided for @periodYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Year'**
+  String get periodYear;
+
+  /// No description provided for @periodLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Period'**
+  String get periodLabel;
+
+  /// No description provided for @customPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom period'**
+  String get customPeriod;
+
+  /// No description provided for @selectPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Select period'**
+  String get selectPeriod;
+
+  /// No description provided for @startDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start date'**
+  String get startDate;
+
+  /// No description provided for @endDate.
+  ///
+  /// In en, this message translates to:
+  /// **'End date'**
+  String get endDate;
 }
 
 class _AppLocalizationsDelegate

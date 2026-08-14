@@ -1,4 +1,5 @@
 import 'package:meus_gastos/controllers/Transactions/TransactionsViewModel.dart';
+import 'package:meus_gastos/services/AnalyticsService.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meus_gastos/designSystem/ImplDS.dart';
@@ -25,6 +26,7 @@ class CustomCalendarState extends State<CustomCalendar> {
   @override
   void initState() {
     super.initState();
+    AnalyticsService().logScreen('calendar');
   }
 
   @override

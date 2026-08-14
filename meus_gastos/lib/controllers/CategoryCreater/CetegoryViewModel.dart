@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
 import 'package:meus_gastos/controllers/CategoryCreater/data/ICategoryRepository.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
+import 'package:meus_gastos/services/AnalyticsService.dart';
 
 class CategoryViewModel extends ChangeNotifier {
   final ICategoryRepository repo;
@@ -60,6 +61,7 @@ class CategoryViewModel extends ChangeNotifier {
   }
 
   Future<void> add(CategoryModel c) async {
+    AnalyticsService().categoryCreated(c.name);
     await repo.addCategory(c);
     categories.add(c);
     notifyListeners();
@@ -127,6 +129,7 @@ class CategoryViewModel extends ChangeNotifier {
   }
 
   Future<void> update(CategoryModel c) async {
+    AnalyticsService().categoryEdited();
     await repo.updateCategory(c);
     int index = categories.indexWhere((x) => x.id == c.id);
     if (index != -1) categories[index] = c;
@@ -134,6 +137,7 @@ class CategoryViewModel extends ChangeNotifier {
   }
 
   Future<void> delete(String id) async {
+    AnalyticsService().categoryDeleted();
     await repo.deleteCategory(id);
     final match = categories.where((c) => c.id == id);
     if (match.isNotEmpty) match.first.available = false;
