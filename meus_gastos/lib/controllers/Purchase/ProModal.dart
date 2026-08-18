@@ -245,24 +245,14 @@ class _ProModalState extends State<ProModal> {
                     // Header compacto
                     Column(
                       children: [
-                        Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                AppColors.button,
-                                AppColors.button.withOpacity(0.7),
-                              ],
-                            ),
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Icon(
+                        Image.asset(
+                          'assets/onboarding/hero_pro.png',
+                          height: 130,
+                          fit: BoxFit.contain,
+                          errorBuilder: (_, __, ___) => const Icon(
                             Icons.star_rounded,
-                            color: Colors.white,
-                            size: 32,
+                            color: AppColors.button,
+                            size: 80,
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -279,7 +269,7 @@ class _ProModalState extends State<ProModal> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          AppLocalizations.of(context)!.enjoyExclusiveFeatures,
+                          AppLocalizations.of(context)!.proDescription,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 15,
@@ -289,16 +279,23 @@ class _ProModalState extends State<ProModal> {
                         ),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildCompactFeatureIcon(
+                        _buildFeatureRow(
                           icon: Icons.file_download_outlined,
-                          title: AppLocalizations.of(context)!.exportFeature,
+                          title:
+                              AppLocalizations.of(context)!.exportToExcelOrPdf,
                         ),
-                        _buildCompactFeatureIcon(
+                        const SizedBox(height: 10),
+                        _buildFeatureRow(
                           icon: Icons.cloud_sync_outlined,
-                          title: AppLocalizations.of(context)!.login,
+                          title: AppLocalizations.of(context)!.cloudBackup,
+                        ),
+                        const SizedBox(height: 10),
+                        _buildFeatureRow(
+                          icon: Icons.block_rounded,
+                          title: AppLocalizations.of(context)!.adFreeFeature,
                         ),
                       ],
                     ),
@@ -319,6 +316,16 @@ class _ProModalState extends State<ProModal> {
                               _buySubscription(yearlyProductDetails?.id ?? ''),
                           productId: yearlyProductDetails?.id ?? '',
                           isPopular: true,
+                          savingsPercent: (yearlyProductDetails != null &&
+                                  monthlyProductDetails != null &&
+                                  monthlyProductDetails!.rawPrice > 0)
+                              ? (100 -
+                                      (yearlyProductDetails!.rawPrice /
+                                              12 /
+                                              monthlyProductDetails!.rawPrice) *
+                                          100)
+                                  .round()
+                              : null,
                         ),
                         const SizedBox(height: 12),
                         _buildCompactSubscriptionCard(
@@ -400,40 +407,40 @@ class _ProModalState extends State<ProModal> {
     }
   }
 
-  Widget _buildCompactFeatureIcon({
+  Widget _buildFeatureRow({
     required IconData icon,
     required String title,
   }) {
-    return Column(
+    return Row(
       children: [
         Container(
-          width: 56,
-          height: 56,
+          width: 36,
+          height: 36,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                AppColors.button.withOpacity(0.2),
-                AppColors.button.withOpacity(0.05),
-              ],
-            ),
-            borderRadius: BorderRadius.circular(16),
+            color: AppColors.button.withOpacity(0.15),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Icon(
             icon,
             color: AppColors.button,
-            size: 26,
+            size: 20,
           ),
         ),
-        const SizedBox(height: 8),
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: AppColors.label,
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              color: AppColors.label,
+            ),
           ),
+        ),
+        const Icon(
+          Icons.check_circle_rounded,
+          color: AppColors.button,
+          size: 20,
         ),
       ],
     );
@@ -446,6 +453,7 @@ class _ProModalState extends State<ProModal> {
     required String productId,
     required bool isPopular,
     String? pricePerMonth,
+    int? savingsPercent,
   }) {
     bool isPurchased = (productId == yearlyProId && isYearlyPro) ||
         (productId == monthlyProId && isMonthlyPro);
@@ -537,7 +545,29 @@ class _ProModalState extends State<ProModal> {
                             color: AppColors.label,
                             letterSpacing: -0.5,
                           ),
-                        )
+                        ),
+                        if (savingsPercent != null && savingsPercent > 0) ...[
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color:
+                                  CupertinoColors.activeGreen.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              '-$savingsPercent%',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w800,
+                                color: CupertinoColors.activeGreen,
+                              ),
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ],

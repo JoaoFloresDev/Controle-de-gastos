@@ -19,6 +19,7 @@ import 'package:meus_gastos/services/firebase/FirebaseServiceSingleton.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:meus_gastos/services/AnalyticsService.dart';
 import 'package:meus_gastos/controllers/Onboarding/OnboardingScreen.dart';
+import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meus_gastos/services/widget/WidgetBridge.dart';
 import 'package:meus_gastos/services/widget/WidgetSyncHost.dart';
@@ -114,12 +115,26 @@ class RootGate extends StatefulWidget {
 class _RootGateState extends State<RootGate> {
   late bool _showOnboarding = widget.showOnboarding;
 
+  Future<void> _finishOnboarding() async {
+    setState(() => _showOnboarding = false);
+    if (!mounted) return;
+    final navigator = Navigator.of(context);
+    await navigator.push(
+      MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (routeContext) => ProModal(
+          isLoading: false,
+          onSubscriptionPurchased: () =>
+              Navigator.of(routeContext).popUntil((route) => route.isFirst),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_showOnboarding) {
-      return OnboardingScreen(
-        onFinish: () => setState(() => _showOnboarding = false),
-      );
+      return OnboardingScreen(onFinish: _finishOnboarding);
     }
     return MyHomePage();
   }
@@ -354,7 +369,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 200),
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 10,
               fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
               color: isSelected ? Colors.white : const Color(0xFF8E8E93),
             ),
