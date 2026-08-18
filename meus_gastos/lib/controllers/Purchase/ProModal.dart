@@ -244,29 +244,17 @@ class _ProModalState extends State<ProModal> {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
                   children: [
-                    Container(
-                      width: 150,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: AppColors.button.withOpacity(0.35),
-                          width: 2,
-                        ),
-                      ),
-                      child: ClipOval(
-                        child: Image.asset(
-                          'assets/onboarding/hero_pro.png',
-                          fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) => const Icon(
-                            Icons.star_rounded,
-                            color: AppColors.button,
-                            size: 72,
-                          ),
-                        ),
+                    Image.asset(
+                      'assets/onboarding/hero_pro.png',
+                      height: 170,
+                      fit: BoxFit.contain,
+                      errorBuilder: (_, __, ___) => const Icon(
+                        Icons.star_rounded,
+                        color: AppColors.button,
+                        size: 72,
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 16),
                     Text(
                       l.unlockPremium,
                       textAlign: TextAlign.center,
