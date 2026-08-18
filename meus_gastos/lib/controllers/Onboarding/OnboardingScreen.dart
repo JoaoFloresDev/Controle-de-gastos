@@ -130,7 +130,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       children: [
                         Image.asset(
                           page.heroAsset,
-                          height: 260,
+                          height: 340,
                           fit: BoxFit.contain,
                           errorBuilder: (_, __, ___) => const Icon(
                             Icons.account_balance_wallet,

@@ -1557,6 +1557,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'End date'**
   String get endDate;
+
+  /// No description provided for @unlockPremium.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Premium'**
+  String get unlockPremium;
+
+  /// No description provided for @bestValue.
+  ///
+  /// In en, this message translates to:
+  /// **'BEST VALUE'**
+  String get bestValue;
+
+  /// No description provided for @perMonthShort.
+  ///
+  /// In en, this message translates to:
+  /// **'/month'**
+  String get perMonthShort;
+
+  /// No description provided for @planYearly.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly'**
+  String get planYearly;
+
+  /// No description provided for @planMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get planMonthly;
+
+  /// No description provided for @freeTrial3Days.
+  ///
+  /// In en, this message translates to:
+  /// **'3 days free'**
+  String get freeTrial3Days;
+
+  /// No description provided for @startFreeTrial.
+  ///
+  /// In en, this message translates to:
+  /// **'Start free trial'**
+  String get startFreeTrial;
 }
 
 class _AppLocalizationsDelegate

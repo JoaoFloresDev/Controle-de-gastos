@@ -761,4 +761,25 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get endDate => 'Data final';
+
+  @override
+  String get unlockPremium => 'Desbloqueie o Premium';
+
+  @override
+  String get bestValue => 'MELHOR VALOR';
+
+  @override
+  String get perMonthShort => '/mês';
+
+  @override
+  String get planYearly => 'Anual';
+
+  @override
+  String get planMonthly => 'Mensal';
+
+  @override
+  String get freeTrial3Days => '3 dias grátis';
+
+  @override
+  String get startFreeTrial => 'Iniciar teste grátis';
 }

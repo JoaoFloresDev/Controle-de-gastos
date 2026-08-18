@@ -33,6 +33,7 @@ class _ProModalState extends State<ProModal> {
   bool isYearlyPro = false;
   bool isMonthlyPro = false;
   bool isLoadingPrice = true;
+  late String selectedPlanId = yearlyProId;
 
   Set<String> purchasedProductIds = {};
   Set<String> loadingPurchases = {};
@@ -199,167 +200,234 @@ class _ProModalState extends State<ProModal> {
     await InAppPurchase.instance.restorePurchases();
   }
 
+  bool get _isPro => isYearlyPro || isMonthlyPro;
+
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context)!;
+    final viewPadding = MediaQueryData.fromView(View.of(context)).viewPadding;
+
     return Scaffold(
       backgroundColor: AppColors.background1,
       body: Column(
-        children: [
-          // Header com botões
-          Padding(
-            padding: EdgeInsets.only(
-              left: 8,
-              right: 8,
-              top: MediaQuery.of(context).viewPadding.top + 36,
-              bottom: 8,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: const Icon(
-                    CupertinoIcons.xmark,
-                    color: AppColors.label,
-                    size: 28,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                left: 8,
+                right: 8,
+                top: viewPadding.top + 8,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      CupertinoIcons.xmark,
+                      color: AppColors.label,
+                      size: 26,
+                    ),
+                    onPressed: () => Navigator.of(context).pop(),
                   ),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.info_outline_rounded,
-                    color: AppColors.label,
-                    size: 28,
+                  IconButton(
+                    icon: const Icon(
+                      Icons.info_outline_rounded,
+                      color: AppColors.label,
+                      size: 26,
+                    ),
+                    onPressed: () => _showMenuOptions(context),
                   ),
-                  onPressed: () => _showMenuOptions(context),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-            // Conteúdo principal
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // Header compacto
-                    Column(
-                      children: [
-                        Image.asset(
+                    Container(
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: AppColors.button.withOpacity(0.35),
+                          width: 2,
+                        ),
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(
                           'assets/onboarding/hero_pro.png',
-                          height: 130,
-                          fit: BoxFit.contain,
+                          fit: BoxFit.cover,
                           errorBuilder: (_, __, ___) => const Icon(
                             Icons.star_rounded,
                             color: AppColors.button,
-                            size: 80,
+                            size: 72,
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          AppLocalizations.of(context)!.premiumVersion,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.label,
-                            letterSpacing: -0.8,
-                            height: 1.1,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          AppLocalizations.of(context)!.proDescription,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: AppColors.label.withOpacity(0.7),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildFeatureRow(
-                          icon: Icons.file_download_outlined,
-                          title:
-                              AppLocalizations.of(context)!.exportToExcelOrPdf,
-                        ),
-                        const SizedBox(height: 10),
-                        _buildFeatureRow(
-                          icon: Icons.cloud_sync_outlined,
-                          title: AppLocalizations.of(context)!.cloudBackup,
-                        ),
-                        const SizedBox(height: 10),
-                        _buildFeatureRow(
-                          icon: Icons.block_rounded,
-                          title: AppLocalizations.of(context)!.adFreeFeature,
-                        ),
-                      ],
-                    ),
-                    // Planos
-                    Column(
-                      children: [
-                        _buildCompactSubscriptionCard(
-                          label: AppLocalizations.of(context)!.yearlySubscription,
-                          price: yearlyProductDetails != null
-                              ? formatPrice(yearlyProductDetails!.rawPrice,
-                                  yearlyProductDetails!.currencySymbol)
-                              : AppLocalizations.of(context)!.loading,
-                          pricePerMonth: yearlyProductDetails != null
-                              ? formatPrice(yearlyProductDetails!.rawPrice / 12,
-                                  yearlyProductDetails!.currencySymbol)
-                              : '',
-                          onPressed: () =>
-                              _buySubscription(yearlyProductDetails?.id ?? ''),
-                          productId: yearlyProductDetails?.id ?? '',
-                          isPopular: true,
-                          savingsPercent: (yearlyProductDetails != null &&
-                                  monthlyProductDetails != null &&
-                                  monthlyProductDetails!.rawPrice > 0)
-                              ? (100 -
-                                      (yearlyProductDetails!.rawPrice /
-                                              12 /
-                                              monthlyProductDetails!.rawPrice) *
-                                          100)
-                                  .round()
-                              : null,
-                        ),
-                        const SizedBox(height: 12),
-                        _buildCompactSubscriptionCard(
-                          label: AppLocalizations.of(context)!.monthlySubscription,
-                          price: monthlyProductDetails != null
-                              ? formatPrice(monthlyProductDetails!.rawPrice,
-                                  monthlyProductDetails!.currencySymbol)
-                              : AppLocalizations.of(context)!.loading,
-                          onPressed: () =>
-                              _buySubscription(monthlyProductDetails?.id ?? ''),
-                          productId: monthlyProductDetails?.id ?? '',
-                          isPopular: false,
-                        ),
-                      ],
-                    ),
-                    // Restaurar compras
-                    TextButton(
-                      onPressed: _restorePurchases,
-                      child: Text(
-                        AppLocalizations.of(context)!.restorePurchases,
-                        style: TextStyle(
-                          color: AppColors.label.withOpacity(0.6),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          decoration: TextDecoration.underline,
                         ),
                       ),
                     ),
+                    const SizedBox(height: 20),
+                    Text(
+                      l.unlockPremium,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.label,
+                        letterSpacing: -0.8,
+                        height: 1.1,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      l.proDescription,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: AppColors.label.withOpacity(0.7),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: AppColors.card.withOpacity(0.35),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Column(
+                        children: [
+                          _buildFeatureRow(
+                            icon: Icons.file_download_outlined,
+                            title: l.exportToExcelOrPdf,
+                          ),
+                          const SizedBox(height: 14),
+                          _buildFeatureRow(
+                            icon: Icons.cloud_sync_outlined,
+                            title: l.cloudBackup,
+                          ),
+                          const SizedBox(height: 14),
+                          _buildFeatureRow(
+                            icon: Icons.block_rounded,
+                            title: l.adFreeFeature,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    _buildPlanCard(
+                      productId: yearlyProId,
+                      label: l.planYearly,
+                      badge: l.bestValue,
+                      price: yearlyProductDetails != null
+                          ? formatPrice(yearlyProductDetails!.rawPrice,
+                              yearlyProductDetails!.currencySymbol)
+                          : l.loading,
+                      priceDetail: yearlyProductDetails != null
+                          ? '${formatPrice(yearlyProductDetails!.rawPrice / 12, yearlyProductDetails!.currencySymbol)}${l.perMonthShort}'
+                          : null,
+                    ),
+                    const SizedBox(height: 12),
+                    _buildPlanCard(
+                      productId: monthlyProId,
+                      label: l.planMonthly,
+                      price: monthlyProductDetails != null
+                          ? formatPrice(monthlyProductDetails!.rawPrice,
+                              monthlyProductDetails!.currencySymbol)
+                          : l.loading,
+                    ),
+                    const SizedBox(height: 8),
                   ],
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(24, 8, 24, 8),
+              child: SizedBox(
+                width: double.infinity,
+                height: 56,
+                child: ElevatedButton(
+                  onPressed: _isPro || loadingPurchases.isNotEmpty
+                      ? null
+                      : () => _buySubscription(selectedPlanId),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.button,
+                    foregroundColor: Colors.white,
+                    disabledBackgroundColor: _isPro
+                        ? CupertinoColors.activeGreen
+                        : AppColors.button.withOpacity(0.5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                  ),
+                  child: loadingPurchases.isNotEmpty
+                      ? const SizedBox(
+                          width: 22,
+                          height: 22,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.5,
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
+                          ),
+                        )
+                      : Text(
+                          _isPro ? l.subscribed : l.startFreeTrial,
+                          style: const TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: viewPadding.bottom + 6),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildFooterLink(l.restorePurchases, _restorePurchases),
+                  _footerDot(),
+                  _buildFooterLink(
+                    l.privacyPolicy,
+                    () => _launchURL(
+                        'https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing'),
+                  ),
+                  _footerDot(),
+                  _buildFooterLink(
+                    l.termsOfUse,
+                    () => _launchURL(
+                        'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/'),
+                  ),
+                ],
+              ),
+            ),
           ],
+      ),
+    );
+  }
+
+  Widget _footerDot() {
+    return Text(
+      ' · ',
+      style: TextStyle(
+        color: AppColors.label.withOpacity(0.4),
+        fontSize: 12,
+      ),
+    );
+  }
+
+  Widget _buildFooterLink(String text, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Text(
+        text,
+        style: TextStyle(
+          color: AppColors.label.withOpacity(0.6),
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
         ),
+      ),
     );
   }
 
@@ -437,206 +505,125 @@ class _ProModalState extends State<ProModal> {
             ),
           ),
         ),
-        const Icon(
-          Icons.check_circle_rounded,
-          color: AppColors.button,
-          size: 20,
-        ),
       ],
     );
   }
 
-  Widget _buildCompactSubscriptionCard({
+  Widget _buildPlanCard({
+    required String productId,
     required String label,
     required String price,
-    required VoidCallback onPressed,
-    required String productId,
-    required bool isPopular,
-    String? pricePerMonth,
-    int? savingsPercent,
+    String? priceDetail,
+    String? badge,
   }) {
-    bool isPurchased = (productId == yearlyProId && isYearlyPro) ||
-        (productId == monthlyProId && isMonthlyPro);
-
-    bool isLoading = isLoadingPrice || loadingPurchases.contains(productId);
+    final bool isSelected = selectedPlanId == productId;
 
     return GestureDetector(
-      onTap: isPurchased ? null : onPressed,
+      onTap: () => setState(() => selectedPlanId = productId),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         decoration: BoxDecoration(
-          gradient: isPopular
-              ? LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    AppColors.button.withOpacity(0.15),
-                    AppColors.button.withOpacity(0.05),
-                  ],
-                )
-              : null,
-          color: isPopular ? null : AppColors.card.withOpacity(0.3),
-          borderRadius: BorderRadius.circular(16),
+          color: isSelected
+              ? AppColors.button.withOpacity(0.12)
+              : AppColors.card.withOpacity(0.3),
+          borderRadius: BorderRadius.circular(18),
           border: Border.all(
-            color: isPopular
-                ? AppColors.button.withOpacity(0.5)
-                : AppColors.label.withOpacity(0.1),
-            width: isPopular ? 2 : 1,
-          )
-        ),
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(16, isPopular ? 20 : 14, 16, 14),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (isPopular)
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 4),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 3,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.button,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(
-                              Icons.star_rounded,
-                              color: Colors.white,
-                              size: 12,
-                            ),
-                            const SizedBox(width: 3),
-                            Text(
-                              AppLocalizations.of(context)!.popularBadge,
-                              style: const TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w800,
-                                color: Colors.white,
-                                letterSpacing: 0.3,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    const SizedBox(height: 8),
-                    Text(
-                      label,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color:  AppColors.label,
-                        letterSpacing: -0.3,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Text(
-                          price,
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w800,
-                            color: AppColors.label,
-                            letterSpacing: -0.5,
-                          ),
-                        ),
-                        if (savingsPercent != null && savingsPercent > 0) ...[
-                          const SizedBox(width: 8),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 2,
-                            ),
-                            decoration: BoxDecoration(
-                              color:
-                                  CupertinoColors.activeGreen.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Text(
-                              '-$savingsPercent%',
-                              style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w800,
-                                color: CupertinoColors.activeGreen,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 12),
-              Container(
-                height: 44,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: isPurchased
-                        ? [
-                            CupertinoColors.activeGreen,
-                            CupertinoColors.activeGreen,
-                          ]
-                        : [
-                            AppColors.button,
-                            AppColors.button.withOpacity(0.8),
-                          ],
-                  ),
-                  borderRadius: BorderRadius.circular(12)
-                ),
-                child: Center(
-                  child: isLoading
-                      ? const SizedBox(
-                          width: 18,
-                          height: 18,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2.5,
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.white),
-                          ),
-                        )
-                      : Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (isPurchased)
-                              const Padding(
-                                padding: EdgeInsets.only(right: 6),
-                                child: Icon(
-                                  Icons.check_circle_rounded,
-                                  color: Colors.white,
-                                  size: 16,
-                                ),
-                              ),
-                            Text(
-                              isPurchased
-                                  ? AppLocalizations.of(context)!.subscribed
-                                  : AppLocalizations.of(context)!.subscribe,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                                letterSpacing: 0.2,
-                              ),
-                            ),
-                          ],
-                        ),
-                ),
-              ),
-            ],
+            color: isSelected
+                ? AppColors.button
+                : AppColors.label.withOpacity(0.12),
+            width: isSelected ? 2 : 1,
           ),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              isSelected
+                  ? Icons.check_circle_rounded
+                  : Icons.radio_button_unchecked,
+              color: isSelected
+                  ? AppColors.button
+                  : AppColors.label.withOpacity(0.35),
+              size: 26,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        label,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.label,
+                          letterSpacing: -0.3,
+                        ),
+                      ),
+                      if (badge != null) ...[
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 3,
+                          ),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF1A33C),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            badge,
+                            style: const TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                              letterSpacing: 0.3,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    AppLocalizations.of(context)!.freeTrial3Days,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.label.withOpacity(0.6),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  price,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.label,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+                if (priceDetail != null)
+                  Text(
+                    priceDetail,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.label.withOpacity(0.6),
+                    ),
+                  ),
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
-
-  void voidFunc() {}
 }

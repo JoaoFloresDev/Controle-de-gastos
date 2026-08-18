@@ -1,145 +1,151 @@
 {
-  "appPolicies" : {
-    "eula" : "",
-    "policies" : [
+  "appPolicies": {
+    "eula": "",
+    "policies": [
       {
-        "locale" : "en_US",
-        "policyText" : "",
-        "policyURL" : ""
+        "locale": "en_US",
+        "policyText": "",
+        "policyURL": ""
       }
     ]
   },
-  "identifier" : "2D28BAF2",
-  "nonRenewingSubscriptions" : [
-
-  ],
-  "products" : [
-
-  ],
-  "settings" : {
-    "_applicationInternalID" : "6502218501",
-    "_developerTeamID" : "NZC6LC8NWM",
-    "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 749766723.00427306,
-    "_locale" : "en_US",
-    "_storefront" : "USA",
-    "_storeKitErrors" : [
+  "identifier": "2D28BAF2",
+  "nonRenewingSubscriptions": [],
+  "products": [],
+  "settings": {
+    "_applicationInternalID": "6502218501",
+    "_developerTeamID": "NZC6LC8NWM",
+    "_failTransactionsEnabled": false,
+    "_lastSynchronizedDate": 749766723.004273,
+    "_locale": "pt_BR",
+    "_storefront": "BRA",
+    "_storeKitErrors": [
       {
-        "current" : null,
-        "enabled" : false,
-        "name" : "Load Products"
+        "current": null,
+        "enabled": false,
+        "name": "Load Products"
       },
       {
-        "current" : null,
-        "enabled" : false,
-        "name" : "Purchase"
+        "current": null,
+        "enabled": false,
+        "name": "Purchase"
       },
       {
-        "current" : null,
-        "enabled" : false,
-        "name" : "Verification"
+        "current": null,
+        "enabled": false,
+        "name": "Verification"
       },
       {
-        "current" : null,
-        "enabled" : false,
-        "name" : "App Store Sync"
+        "current": null,
+        "enabled": false,
+        "name": "App Store Sync"
       },
       {
-        "current" : null,
-        "enabled" : false,
-        "name" : "Subscription Status"
+        "current": null,
+        "enabled": false,
+        "name": "Subscription Status"
       },
       {
-        "current" : null,
-        "enabled" : false,
-        "name" : "App Transaction"
+        "current": null,
+        "enabled": false,
+        "name": "App Transaction"
       },
       {
-        "current" : null,
-        "enabled" : false,
-        "name" : "Manage Subscriptions Sheet"
+        "current": null,
+        "enabled": false,
+        "name": "Manage Subscriptions Sheet"
       },
       {
-        "current" : null,
-        "enabled" : false,
-        "name" : "Refund Request Sheet"
+        "current": null,
+        "enabled": false,
+        "name": "Refund Request Sheet"
       },
       {
-        "current" : null,
-        "enabled" : false,
-        "name" : "Offer Code Redeem Sheet"
+        "current": null,
+        "enabled": false,
+        "name": "Offer Code Redeem Sheet"
       }
     ]
   },
-  "subscriptionGroups" : [
+  "subscriptionGroups": [
     {
-      "id" : "21550155",
-      "localizations" : [
-
-      ],
-      "name" : "premium",
-      "subscriptions" : [
+      "id": "21550155",
+      "localizations": [],
+      "name": "premium",
+      "subscriptions": [
         {
-          "adHocOffers" : [
-
-          ],
-          "codeOffers" : [
-
-          ],
-          "displayPrice" : "0.99",
-          "familyShareable" : false,
-          "groupNumber" : 2,
-          "internalID" : "6736405049",
-          "introductoryOffer" : null,
-          "localizations" : [
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "59.90",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "6736345302",
+          "introductoryOffer": {
+            "internalID": "6736345302T",
+            "displayPrice": "0",
+            "numberOfPeriods": 1,
+            "paymentMode": "free",
+            "subscriptionPeriod": "P3D",
+            "type": "IntroductoryOffer"
+          },
+          "localizations": [
             {
-              "description" : "Remove ads and export your data.",
-              "displayName" : "Monthly Subscription",
-              "locale" : "en_US"
+              "description": "Premium por 1 ano",
+              "displayName": "Premium Anual",
+              "locale": "pt_BR"
+            },
+            {
+              "description": "Premium for 1 year",
+              "displayName": "Premium Yearly",
+              "locale": "en_US"
             }
           ],
-          "productID" : "monthly.pro",
-          "recurringSubscriptionPeriod" : "P1M",
-          "referenceName" : "monthly.pro",
-          "subscriptionGroupID" : "21550155",
-          "type" : "RecurringSubscription",
-          "winbackOffers" : [
-
-          ]
+          "productID": "yearly.pro",
+          "recurringSubscriptionPeriod": "P1Y",
+          "referenceName": "yearly.pro",
+          "subscriptionGroupID": "21550155",
+          "type": "RecurringSubscription",
+          "winbackOffers": []
         },
         {
-          "adHocOffers" : [
-
-          ],
-          "codeOffers" : [
-
-          ],
-          "displayPrice" : "4.99",
-          "familyShareable" : false,
-          "groupNumber" : 1,
-          "internalID" : "6736345302",
-          "introductoryOffer" : null,
-          "localizations" : [
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "12.90",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "6736405049",
+          "introductoryOffer": {
+            "internalID": "6736405049T",
+            "displayPrice": "0",
+            "numberOfPeriods": 1,
+            "paymentMode": "free",
+            "subscriptionPeriod": "P3D",
+            "type": "IntroductoryOffer"
+          },
+          "localizations": [
             {
-              "description" : "Remove ads and export your data.",
-              "displayName" : "Annual Subscription",
-              "locale" : "en_US"
+              "description": "Premium por 1 mês",
+              "displayName": "Premium Mensal",
+              "locale": "pt_BR"
+            },
+            {
+              "description": "Premium for 1 month",
+              "displayName": "Premium Monthly",
+              "locale": "en_US"
             }
           ],
-          "productID" : "yearly.pro",
-          "recurringSubscriptionPeriod" : "P1Y",
-          "referenceName" : "yearly.pro",
-          "subscriptionGroupID" : "21550155",
-          "type" : "RecurringSubscription",
-          "winbackOffers" : [
-
-          ]
+          "productID": "monthly.pro",
+          "recurringSubscriptionPeriod": "P1M",
+          "referenceName": "monthly.pro",
+          "subscriptionGroupID": "21550155",
+          "type": "RecurringSubscription",
+          "winbackOffers": []
         }
       ]
     }
   ],
-  "version" : {
-    "major" : 4,
-    "minor" : 0
+  "version": {
+    "major": 4,
+    "minor": 0
   }
 }

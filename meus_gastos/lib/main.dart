@@ -121,7 +121,6 @@ class _RootGateState extends State<RootGate> {
     final navigator = Navigator.of(context);
     await navigator.push(
       MaterialPageRoute(
-        fullscreenDialog: true,
         builder: (routeContext) => ProModal(
           isLoading: false,
           onSubscriptionPurchased: () =>
