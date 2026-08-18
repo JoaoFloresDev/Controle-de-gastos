@@ -246,7 +246,7 @@ class _ProModalState extends State<ProModal> {
                   children: [
                     Image.asset(
                       'assets/onboarding/hero_pro.png',
-                      height: 170,
+                      height: 130,
                       fit: BoxFit.contain,
                       errorBuilder: (_, __, ___) => const Icon(
                         Icons.star_rounded,
