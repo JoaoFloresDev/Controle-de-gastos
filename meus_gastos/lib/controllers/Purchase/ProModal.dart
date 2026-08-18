@@ -310,7 +310,7 @@ class _ProModalState extends State<ProModal> {
                       price: yearlyProductDetails != null
                           ? formatPrice(yearlyProductDetails!.rawPrice,
                               yearlyProductDetails!.currencySymbol)
-                          : l.loading,
+                          : null,
                       priceDetail: yearlyProductDetails != null
                           ? '${formatPrice(yearlyProductDetails!.rawPrice / 12, yearlyProductDetails!.currencySymbol)}${l.perMonthShort}'
                           : null,
@@ -322,7 +322,7 @@ class _ProModalState extends State<ProModal> {
                       price: monthlyProductDetails != null
                           ? formatPrice(monthlyProductDetails!.rawPrice,
                               monthlyProductDetails!.currencySymbol)
-                          : l.loading,
+                          : null,
                     ),
                     const SizedBox(height: 8),
                   ],
@@ -500,7 +500,7 @@ class _ProModalState extends State<ProModal> {
   Widget _buildPlanCard({
     required String productId,
     required String label,
-    required String price,
+    String? price,
     String? priceDetail,
     String? badge,
   }) {
@@ -586,29 +586,41 @@ class _ProModalState extends State<ProModal> {
                 ],
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  price,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w800,
-                    color: AppColors.label,
-                    letterSpacing: -0.5,
+            if (price == null)
+              const SizedBox(
+                width: 16,
+                height: 16,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    AppColors.labelPlaceholder,
                   ),
                 ),
-                if (priceDetail != null)
+              )
+            else
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
                   Text(
-                    priceDetail,
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.label.withOpacity(0.6),
+                    price,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.label,
+                      letterSpacing: -0.5,
                     ),
                   ),
-              ],
-            ),
+                  if (priceDetail != null)
+                    Text(
+                      priceDetail,
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.label.withOpacity(0.6),
+                      ),
+                    ),
+                ],
+              ),
           ],
         ),
       ),
