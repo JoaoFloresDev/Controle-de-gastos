@@ -302,38 +302,43 @@ class _ProModalState extends State<ProModal> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 24),
-                    _buildPlanCard(
-                      productId: yearlyProId,
-                      label: l.planYearly,
-                      badge: l.bestValue,
-                      price: yearlyProductDetails != null
-                          ? formatPrice(yearlyProductDetails!.rawPrice,
-                              yearlyProductDetails!.currencySymbol)
-                          : null,
-                      priceDetail: yearlyProductDetails != null
-                          ? '${formatPrice(yearlyProductDetails!.rawPrice / 12, yearlyProductDetails!.currencySymbol)}${l.perMonthShort}'
-                          : null,
-                    ),
-                    const SizedBox(height: 12),
-                    _buildPlanCard(
-                      productId: monthlyProId,
-                      label: l.planMonthly,
-                      price: monthlyProductDetails != null
-                          ? formatPrice(monthlyProductDetails!.rawPrice,
-                              monthlyProductDetails!.currencySymbol)
-                          : null,
-                    ),
-                    const SizedBox(height: 8),
                   ],
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(24, 8, 24, 8),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                children: [
+                  _buildPlanCard(
+                    productId: yearlyProId,
+                    label: l.planYearly,
+                    badge: l.bestValue,
+                    price: yearlyProductDetails != null
+                        ? formatPrice(yearlyProductDetails!.rawPrice,
+                            yearlyProductDetails!.currencySymbol)
+                        : null,
+                    priceDetail: yearlyProductDetails != null
+                        ? '${formatPrice(yearlyProductDetails!.rawPrice / 12, yearlyProductDetails!.currencySymbol)}${l.perMonthShort}'
+                        : null,
+                  ),
+                  const SizedBox(height: 12),
+                  _buildPlanCard(
+                    productId: monthlyProId,
+                    label: l.planMonthly,
+                    price: monthlyProductDetails != null
+                        ? formatPrice(monthlyProductDetails!.rawPrice,
+                            monthlyProductDetails!.currencySymbol)
+                        : null,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(24, 12, 24, 8),
               child: SizedBox(
                 width: double.infinity,
-                height: 56,
+                height: 62,
                 child: ElevatedButton(
                   onPressed: _isPro || loadingPurchases.isNotEmpty
                       ? null
