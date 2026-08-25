@@ -1,0 +1,894 @@
+{
+  "captured_at": "2026-08-24T18:36:07Z",
+  "app_id": "6502218501",
+  "bundle_id": "com.gambit.meusgastos",
+  "issues": [
+    {
+      "id": "es-MX/es-ES name is misspelled Portuguese",
+      "severity": "high",
+      "locales": [
+        "es-MX",
+        "es-ES"
+      ],
+      "detail": "Live name in BOTH Spanish locales is 'Mis Despesas Gastos y Cuentas'. 'Despesas' is Portuguese; correct Spanish is 'Gastos'/'Despensas' is a different word entirely. Native Spanish speakers read it as a typo. es-ES and es-MX share the identical name AND subtitle ('Control financiero de gastos') and the identical keywords field.",
+      "evidence": {
+        "es-MX": {
+          "appInfoLocalization_id": "04159772-9cef-4aff-98f5-ded46efb5b8e",
+          "name": "Mis Despesas Gastos y Cuentas"
+        },
+        "es-ES": {
+          "appInfoLocalization_id": "aa9591d7-1cd9-4699-8509-2a04efd8d2d2",
+          "name": "Mis Despesas Gastos y Cuentas"
+        }
+      }
+    },
+    {
+      "id": "iter-02 meta.json under-reports its own deploy",
+      "severity": "medium",
+      "locales": [
+        "pt-BR"
+      ],
+      "detail": "iterations/2026-05-30_iter-02.../meta.json says deployed:false, status:running. VERIFIED FALSE: all three proposed fields are live on version 45.2.0 — name 'Meus Gastos: Casal e Despesas', subtitle 'Financas do casal e pessoais', AND keywords 'compartilhados,contas,minhas,economias,planilha,orcamento,diario,cartao,dividas,fatura,mensais' (94 chars). iter-02 was FULLY deployed, not partially. The briefing premise that the keywords field still held the old generic 'financas,financeiro,gestao,dinheiro,orcamento,poup...' string is incorrect for the live 45.2.0 record.",
+      "evidence": {
+        "live_version": "45.2.0",
+        "appStoreVersionLocalization_id": "33b381cf-5d83-4722-92d3-239125b77746",
+        "live_keywords": "compartilhados,contas,minhas,economias,planilha,orcamento,diario,cartao,dividas,fatura,mensais"
+      }
+    },
+    {
+      "id": "editable version is DEVELOPER_REJECTED, not PREPARE_FOR_SUBMISSION",
+      "severity": "medium",
+      "locales": [
+        "all"
+      ],
+      "detail": "Version 45.3.0 (id 137699c4-7e96-4abc-9b9a-77723dd65cf0) and its appInfo (d05dd4f3-4b35-415f-8d88-5f6f6ee787de) are both in DEVELOPER_REJECTED. Metadata PATCHes are accepted in this state, but the version must be re-submitted (or the rejection cleared) for anything to reach users. 45.3.0 already carries the same pt-BR/de-DE field values as live.",
+      "evidence": {
+        "editable_version_id": "137699c4-7e96-4abc-9b9a-77723dd65cf0",
+        "state": "DEVELOPER_REJECTED",
+        "editable_appInfo_id": "d05dd4f3-4b35-415f-8d88-5f6f6ee787de"
+      }
+    },
+    {
+      "id": "13 live locales, not 12",
+      "severity": "low",
+      "locales": [
+        "zh-Hans"
+      ],
+      "detail": "Briefing listed 12 live locales. ASC returns 13: the extra one is zh-Hans (name '记账 - 简单家庭账本'). Full list: ar-SA, de-DE, en-US, es-ES, es-MX, fr-FR, id, it, ja, ko, pt-BR, tr, zh-Hans."
+    },
+    {
+      "id": "no App Store Search Terms report exists for this app",
+      "severity": "medium",
+      "locales": [
+        "all"
+      ],
+      "detail": "Neither analytics request exposes a search-terms report. ONGOING (a31193ac) has 156 reports, ONE_TIME_SNAPSHOT (ea59a3c9) has 147; the APP_STORE_ENGAGEMENT category contains only Discovery/Engagement Standard+Detailed, Web Preview Standard+Detailed and Retention Messaging. There is no 'App Store Search Terms' report to request an instance of — so real per-query impressions are unavailable, not merely pending. The snapshot request has ZERO instances on every report; the ONGOING request DOES have daily instances.",
+      "evidence": {
+        "ongoing_request": "a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "snapshot_request": "ea59a3c9-1916-40ba-b2a0-5658af7761c0",
+        "engagement_reports": [
+          "App Store Discovery and Engagement Standard",
+          "App Store Discovery and Engagement Detailed",
+          "App Store Web Preview Engagement Standard",
+          "App Store Web Preview Engagement Detailed",
+          "Retention Messaging"
+        ]
+      }
+    },
+    {
+      "id": "en-US keywords field contains a duplicated token",
+      "severity": "low",
+      "locales": [
+        "en-US"
+      ],
+      "detail": "Live en-US keywords (100/100 chars) = 'finance,financial,manage,money,budgeting,savings,control,planning,personal,costs,save,financial,easy' — 'financial' appears TWICE, wasting 10 of 100 characters.",
+      "evidence": {
+        "keywords": "finance,financial,manage,money,budgeting,savings,control,planning,personal,costs,save,financial,easy"
+      }
+    },
+    {
+      "id": "ratings mass below lab rating-first threshold in BR",
+      "severity": "high",
+      "locales": [
+        "pt-BR"
+      ],
+      "detail": "BR has 18 ratings / 4.94 avg — below the RULES.md threshold of 25 for running an aggressive ASO iteration. Other stores: us 1, de 2, jp 0, tr 0, mx 0. Astro SERP confirms 18 ratings for our app on 'gastos do casal'.",
+      "evidence": {
+        "br": {
+          "count": 18,
+          "avg": 4.94
+        },
+        "us": 1,
+        "de": 2,
+        "jp": 0,
+        "tr": 0,
+        "mx": 0
+      }
+    }
+  ],
+  "app": {
+    "accessibilityUrl": null,
+    "name": "My Expenses: Personal Finances",
+    "bundleId": "com.gambit.meusgastos",
+    "sku": "MeusGastos",
+    "primaryLocale": "en-US",
+    "isOrEverWasMadeForKids": false,
+    "subscriptionStatusUrl": null,
+    "subscriptionStatusUrlVersion": null,
+    "subscriptionStatusUrlForSandbox": null,
+    "subscriptionStatusUrlVersionForSandbox": null,
+    "contentRightsDeclaration": "DOES_NOT_USE_THIRD_PARTY_CONTENT",
+    "streamlinedPurchasingEnabled": true
+  },
+  "versions": [
+    {
+      "id": "137699c4-7e96-4abc-9b9a-77723dd65cf0",
+      "versionString": "45.3.0",
+      "platform": "IOS",
+      "appStoreState": "DEVELOPER_REJECTED",
+      "createdDate": "2026-08-16T12:17:04-07:00",
+      "releaseType": "MANUAL"
+    },
+    {
+      "id": "d42087b5-7047-4401-8b4e-98e66fda38ab",
+      "versionString": "45.0",
+      "platform": "MAC_OS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2026-05-09T19:22:29-07:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "35b25733-4362-43f8-964b-facd58558f60",
+      "versionString": "3.3.0",
+      "platform": "MAC_OS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2025-02-07T18:04:37-08:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "24b86e50-77e3-48cb-a581-033f9dba4eb1",
+      "versionString": "3.2.0",
+      "platform": "MAC_OS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2025-02-02T21:34:18-08:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "af30f4b0-f211-43ab-8736-fd1983a154c0",
+      "versionString": "3.1",
+      "platform": "MAC_OS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2024-11-18T19:03:12-08:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "bb6dffee-4284-4864-b4ff-9b831d68c1ba",
+      "versionString": "3.0",
+      "platform": "MAC_OS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2024-10-10T07:27:48-07:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "0b6b3bed-6e30-4494-b670-4c19f951d439",
+      "versionString": "2.0",
+      "platform": "MAC_OS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2024-09-13T12:06:24-07:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "c6092767-4705-4b9d-9e48-bacdf6dd1bda",
+      "versionString": "1.0",
+      "platform": "MAC_OS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2024-05-03T14:35:10-07:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "4ca2f89a-7539-4cfc-9daf-e75dd0178a30",
+      "versionString": "45.2.0",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2026-05-29T21:05:57-07:00",
+      "releaseType": "MANUAL"
+    },
+    {
+      "id": "c5eaaa6f-ac53-40ff-b344-7375fa26fe22",
+      "versionString": "45.1",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2026-05-23T12:53:08-07:00",
+      "releaseType": "MANUAL"
+    },
+    {
+      "id": "419b3679-fd51-4db6-b575-a017a73e3a40",
+      "versionString": "45.0",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2026-05-09T16:02:08-07:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "dad0951a-52cf-4a63-a8aa-c0653617fde7",
+      "versionString": "2.8.0",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2026-04-01T18:38:57-07:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "c3856090-6baf-4e3b-b0fe-3b4ebff48c9b",
+      "versionString": "2.7.1",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2025-11-20T20:46:58-08:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "2fb8fd3a-3568-499f-9bbb-6ed26c37bebb",
+      "versionString": "2.7.0",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2025-11-20T06:03:53-08:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "f5639022-d619-45e1-a988-99d2bf8aebe9",
+      "versionString": "2.6.0",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2025-10-05T14:06:41-07:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "2f6ede30-0cf5-426e-b843-34357264334f",
+      "versionString": "2.5.0",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2025-08-23T08:45:30-07:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "a19ec2fa-ba62-4786-9df3-46c2a96913ad",
+      "versionString": "2.4.0",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2025-02-07T18:00:23-08:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "1013609c-c8f5-4941-a13e-9ec8ed171732",
+      "versionString": "2.3.0",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2025-02-02T21:00:31-08:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "b4d878e1-65b3-44af-ba91-aac732d7b84a",
+      "versionString": "2.2.3",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2024-11-14T13:45:50-08:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "86aded0e-1949-4165-8613-c1af81498220",
+      "versionString": "2.2.2",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2024-10-10T06:48:51-07:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "aae12476-b907-4e10-a501-5d0e8c819c60",
+      "versionString": "2.2.1",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2024-10-09T05:08:01-07:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "339b9e80-90f1-4989-ad59-10efe715837c",
+      "versionString": "2.2.0",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2024-10-08T19:40:31-07:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "7f45c129-cd35-4903-aea9-c8f1250b2460",
+      "versionString": "2.1.0",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2024-09-26T14:12:28-07:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "30277d8d-5008-43a3-a4c4-1cfebe75e711",
+      "versionString": "2.0",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2024-09-13T12:05:54-07:00",
+      "releaseType": "AFTER_APPROVAL"
+    },
+    {
+      "id": "7b64dc2b-4057-4407-b30f-f3881d6c80f6",
+      "versionString": "1.0",
+      "platform": "IOS",
+      "appStoreState": "READY_FOR_SALE",
+      "createdDate": "2024-05-03T14:35:10-07:00",
+      "releaseType": "AFTER_APPROVAL"
+    }
+  ],
+  "live_version": {
+    "id": "4ca2f89a-7539-4cfc-9daf-e75dd0178a30",
+    "versionString": "45.2.0",
+    "platform": "IOS",
+    "appStoreState": "READY_FOR_SALE",
+    "createdDate": "2026-05-29T21:05:57-07:00",
+    "releaseType": "MANUAL"
+  },
+  "editable_version": {
+    "id": "137699c4-7e96-4abc-9b9a-77723dd65cf0",
+    "versionString": "45.3.0",
+    "platform": "IOS",
+    "appStoreState": "DEVELOPER_REJECTED",
+    "createdDate": "2026-08-16T12:17:04-07:00",
+    "releaseType": "MANUAL"
+  },
+  "app_infos": [
+    {
+      "id": "4286a76c-b2e7-4baf-b1f2-da89b55f5036",
+      "appStoreState": "READY_FOR_SALE",
+      "state": "READY_FOR_DISTRIBUTION",
+      "appStoreAgeRating": "FOUR_PLUS"
+    },
+    {
+      "id": "d05dd4f3-4b35-415f-8d88-5f6f6ee787de",
+      "appStoreState": "DEVELOPER_REJECTED",
+      "state": "DEVELOPER_REJECTED",
+      "appStoreAgeRating": "FOUR_PLUS"
+    }
+  ],
+  "live_app_info": {
+    "id": "4286a76c-b2e7-4baf-b1f2-da89b55f5036",
+    "appStoreState": "READY_FOR_SALE",
+    "state": "READY_FOR_DISTRIBUTION",
+    "appStoreAgeRating": "FOUR_PLUS"
+  },
+  "editable_app_info": {
+    "id": "d05dd4f3-4b35-415f-8d88-5f6f6ee787de",
+    "appStoreState": "DEVELOPER_REJECTED",
+    "state": "DEVELOPER_REJECTED",
+    "appStoreAgeRating": "FOUR_PLUS"
+  },
+  "localizations": {
+    "ar-SA": {
+      "live": {
+        "name": "المصروفات - ميزانية وتتبع",
+        "subtitle": "إدارة الأموال والتوفير",
+        "keywords": "ميزانية,مصاريف,محفظة,توفير,أموال,حساب,نفقات,تخطيط,مالي,شخصي,راتب,فواتير,عائلة",
+        "keywords_len": 77,
+        "keywords_tokens": [
+          "ميزانية",
+          "مصاريف",
+          "محفظة",
+          "توفير",
+          "أموال",
+          "حساب",
+          "نفقات",
+          "تخطيط",
+          "مالي",
+          "شخصي",
+          "راتب",
+          "فواتير",
+          "عائلة"
+        ],
+        "promotionalText": "سجّل أي مصروف خلال 3 ثوانٍ. رسوم بيانية شهرية، تنبيهات الميزانية، ومصروفات ثابتة تلقائية – لتعرف بالضبط أين تذهب أموالك.",
+        "whatsNew": "متاح الآن بـ 12 لغة. تتبع المصروفات أسرع، تنبيهات الميزانية، مزامنة سحابية موثوقة، بدون إعلانات. إدارة الأموال والتوفير في تطبيق واحد.",
+        "description_len": 1370,
+        "appInfoLocalization_id": "6e7510e2-a470-49ac-87db-27c99d28bc60",
+        "appStoreVersionLocalization_id": "1b93783b-8241-4783-aae3-ecb98aac8bb1"
+      },
+      "editable": {
+        "name": "المصروفات - ميزانية وتتبع",
+        "subtitle": "إدارة الأموال والتوفير",
+        "keywords": "ميزانية,مصاريف,محفظة,توفير,أموال,حساب,نفقات,تخطيط,مالي,شخصي,راتب,فواتير,عائلة",
+        "keywords_len": 77,
+        "appInfoLocalization_id": "dfb43343-58d3-47ec-9a9c-9f832b86af95",
+        "appStoreVersionLocalization_id": "08ba7ecc-adcd-4ac2-9bff-4d9b85681bc2"
+      }
+    },
+    "de-DE": {
+      "live": {
+        "name": "Ausgaben - Haushaltsbuch",
+        "subtitle": "Budget & Finanzen verwalten",
+        "keywords": "kosten,sparen,geld,konto,finanzen,planer,monatsbudget,bilanz,haushalt,einkauf,fixkosten,einnahmen",
+        "keywords_len": 97,
+        "keywords_tokens": [
+          "kosten",
+          "sparen",
+          "geld",
+          "konto",
+          "finanzen",
+          "planer",
+          "monatsbudget",
+          "bilanz",
+          "haushalt",
+          "einkauf",
+          "fixkosten",
+          "einnahmen"
+        ],
+        "promotionalText": "In 3 Sekunden eintragen. Monatsdiagramme, Budget-Warnungen und automatische Fixkosten – endlich weißt du, wo dein Geld bleibt.",
+        "whatsNew": "Jetzt in 12 Sprachen. Schnelleres Haushaltsbuch, smarte Budget-Alerts, stabile Cloud-Synchronisierung, werbefrei. Ausgaben & Finanzen im Griff.",
+        "description_len": 1878,
+        "appInfoLocalization_id": "5bfd9213-d5c1-4275-95f2-4d4bba0b8e49",
+        "appStoreVersionLocalization_id": "d1599ebe-4060-485e-9a40-d4cd2a08e274"
+      },
+      "editable": {
+        "name": "Ausgaben - Haushaltsbuch",
+        "subtitle": "Budget & Finanzen verwalten",
+        "keywords": "kosten,sparen,geld,konto,finanzen,planer,monatsbudget,bilanz,haushalt,einkauf,fixkosten,einnahmen",
+        "keywords_len": 97,
+        "appInfoLocalization_id": "d6f8bb41-353a-45ea-a8c7-e1d0be5b0bab",
+        "appStoreVersionLocalization_id": "3da18ac7-4958-4597-82df-33f1fb3e42e9"
+      }
+    },
+    "en-US": {
+      "live": {
+        "name": "My Expenses: Personal Finances",
+        "subtitle": "Where's My Money? Easy Control",
+        "keywords": "finance,financial,manage,money,budgeting,savings,control,planning,personal,costs,save,financial,easy",
+        "keywords_len": 100,
+        "keywords_tokens": [
+          "finance",
+          "financial",
+          "manage",
+          "money",
+          "budgeting",
+          "savings",
+          "control",
+          "planning",
+          "personal",
+          "costs",
+          "save",
+          "financial",
+          "easy"
+        ],
+        "promotionalText": null,
+        "whatsNew": "Now in 12 languages. Faster expense tracker, smarter budget alerts, reliable cloud sync. Cleaner experience for daily money management.",
+        "description_len": 2027,
+        "appInfoLocalization_id": "eae94580-8a8d-4d36-99f7-0fbb1152b2f3",
+        "appStoreVersionLocalization_id": "68144cd8-e63c-4c18-85d3-97be89e2729c"
+      },
+      "editable": {
+        "name": "My Expenses: Personal Finances",
+        "subtitle": "Where's My Money? Easy Control",
+        "keywords": "finance,financial,manage,money,budgeting,savings,control,planning,personal,costs,save,financial,easy",
+        "keywords_len": 100,
+        "appInfoLocalization_id": "ee8a380e-b651-4953-9b45-3ed082454ee8",
+        "appStoreVersionLocalization_id": "1edee9c9-3775-4a42-837c-73882497ff18"
+      }
+    },
+    "es-ES": {
+      "live": {
+        "name": "Mis Despesas Gastos y Cuentas",
+        "subtitle": "Control financiero de gastos",
+        "keywords": "dinero,presupuesto,financiero,ingreso,ahorrar,gestión,familiar,pago,organizador,pagar,gasto,expensas",
+        "keywords_len": 100,
+        "keywords_tokens": [
+          "dinero",
+          "presupuesto",
+          "financiero",
+          "ingreso",
+          "ahorrar",
+          "gestión",
+          "familiar",
+          "pago",
+          "organizador",
+          "pagar",
+          "gasto",
+          "expensas"
+        ],
+        "promotionalText": null,
+        "whatsNew": "Ahora en 12 idiomas. Control de gastos más rápido, alertas de presupuesto, sincronización fiable y sin anuncios. Gestiona tus finanzas personales.",
+        "description_len": 1465,
+        "appInfoLocalization_id": "aa9591d7-1cd9-4699-8509-2a04efd8d2d2",
+        "appStoreVersionLocalization_id": "2a4414b0-d506-4df2-a716-53e091459092"
+      },
+      "editable": {
+        "name": "Mis Despesas Gastos y Cuentas",
+        "subtitle": "Control financiero de gastos",
+        "keywords": "dinero,presupuesto,financiero,ingreso,ahorrar,gestión,familiar,pago,organizador,pagar,gasto,expensas",
+        "keywords_len": 100,
+        "appInfoLocalization_id": "a77ff270-b578-43ca-8e48-b533d46fc3ab",
+        "appStoreVersionLocalization_id": "c4bad94e-21cd-486d-9203-0b8a21ff3929"
+      }
+    },
+    "es-MX": {
+      "live": {
+        "name": "Mis Despesas Gastos y Cuentas",
+        "subtitle": "Control financiero de gastos",
+        "keywords": "dinero,presupuesto,financiero,ingreso,ahorrar,gestión,familiar,pago,organizador,pagar,gasto,expensas",
+        "keywords_len": 100,
+        "keywords_tokens": [
+          "dinero",
+          "presupuesto",
+          "financiero",
+          "ingreso",
+          "ahorrar",
+          "gestión",
+          "familiar",
+          "pago",
+          "organizador",
+          "pagar",
+          "gasto",
+          "expensas"
+        ],
+        "promotionalText": null,
+        "whatsNew": "Ahora en 12 idiomas. Control de gastos más rápido, alertas de presupuesto, sincronización confiable y sin anuncios. Administra tus finanzas personales.",
+        "description_len": 1477,
+        "appInfoLocalization_id": "04159772-9cef-4aff-98f5-ded46efb5b8e",
+        "appStoreVersionLocalization_id": "641cce17-6116-43c3-8d4a-a17967960a77"
+      },
+      "editable": {
+        "name": "Mis Despesas Gastos y Cuentas",
+        "subtitle": "Control financiero de gastos",
+        "keywords": "dinero,presupuesto,financiero,ingreso,ahorrar,gestión,familiar,pago,organizador,pagar,gasto,expensas",
+        "keywords_len": 100,
+        "appInfoLocalization_id": "6f81f155-5868-4084-8769-61ac5f85ccd2",
+        "appStoreVersionLocalization_id": "cecd3a78-faae-4ce9-b9b1-bffffc6a4650"
+      }
+    },
+    "fr-FR": {
+      "live": {
+        "name": "Dépenses - Suivi & Budget",
+        "subtitle": "Finances perso & économie",
+        "keywords": "argent,compte,finance,gestion,suivi,economie,depense,planificateur,salaire,facture,ecologie,famille",
+        "keywords_len": 99,
+        "keywords_tokens": [
+          "argent",
+          "compte",
+          "finance",
+          "gestion",
+          "suivi",
+          "economie",
+          "depense",
+          "planificateur",
+          "salaire",
+          "facture",
+          "ecologie",
+          "famille"
+        ],
+        "promotionalText": "Saisis une dépense en 3 secondes. Graphiques mensuels, alertes de budget et dépenses fixes automatiques – l'argent enfin sous contrôle.",
+        "whatsNew": "Disponible en 12 langues. Suivi des dépenses plus rapide, alertes de budget, sync cloud fiable, sans pubs. Gestion des finances personnelles simplifiée.",
+        "description_len": 1821,
+        "appInfoLocalization_id": "f4d817d9-8c4a-4aaa-9047-3259ba57a619",
+        "appStoreVersionLocalization_id": "99d44a95-02bc-4256-9862-c1867d6fc6b6"
+      },
+      "editable": {
+        "name": "Dépenses - Suivi & Budget",
+        "subtitle": "Finances perso & économie",
+        "keywords": "argent,compte,finance,gestion,suivi,economie,depense,planificateur,salaire,facture,ecologie,famille",
+        "keywords_len": 99,
+        "appInfoLocalization_id": "7d5e7628-89fd-4e8a-9de4-b15496048313",
+        "appStoreVersionLocalization_id": "b6c4de65-c3c2-4b4d-9c22-38f28c5ae86c"
+      }
+    },
+    "id": {
+      "live": {
+        "name": "Pengeluaran - Catatan Anggaran",
+        "subtitle": "Atur uang & hemat dengan mudah",
+        "keywords": "uang,anggaran,tabungan,catatan,keuangan,gaji,dompet,buku kas,manajemen,hemat,bulanan,tagihan",
+        "keywords_len": 92,
+        "keywords_tokens": [
+          "uang",
+          "anggaran",
+          "tabungan",
+          "catatan",
+          "keuangan",
+          "gaji",
+          "dompet",
+          "buku kas",
+          "manajemen",
+          "hemat",
+          "bulanan",
+          "tagihan"
+        ],
+        "promotionalText": "Catat pengeluaran dalam 3 detik. Grafik bulanan, peringatan anggaran, dan pengeluaran tetap otomatis – akhirnya tahu uangmu lari ke mana.",
+        "whatsNew": "Kini dalam 12 bahasa. Catatan pengeluaran lebih cepat, peringatan anggaran, sinkronisasi cloud andal, tanpa iklan. Atur uang dan tabungan harian.",
+        "description_len": 1600,
+        "appInfoLocalization_id": "00e0fc3d-7005-4f42-ada4-29cc6d23c067",
+        "appStoreVersionLocalization_id": "9c843475-0dc9-4dfc-b5a7-ea9808b95f31"
+      },
+      "editable": {
+        "name": "Pengeluaran - Catatan Anggaran",
+        "subtitle": "Atur uang & hemat dengan mudah",
+        "keywords": "uang,anggaran,tabungan,catatan,keuangan,gaji,dompet,buku kas,manajemen,hemat,bulanan,tagihan",
+        "keywords_len": 92,
+        "appInfoLocalization_id": "a6539374-f209-4fe0-96da-6d6f1aade9e3",
+        "appStoreVersionLocalization_id": "f8cdbc9e-b40a-4c32-91d6-b6e5ad6375c9"
+      }
+    },
+    "it": {
+      "live": {
+        "name": "Spese - Bilancio Personale",
+        "subtitle": "Budget, risparmio e finanze",
+        "keywords": "soldi,bilancio,risparmio,conto,finanza,gestione,monitoraggio,spesa,denaro,budget,carta,famiglia",
+        "keywords_len": 95,
+        "keywords_tokens": [
+          "soldi",
+          "bilancio",
+          "risparmio",
+          "conto",
+          "finanza",
+          "gestione",
+          "monitoraggio",
+          "spesa",
+          "denaro",
+          "budget",
+          "carta",
+          "famiglia"
+        ],
+        "promotionalText": "Registra una spesa in 3 secondi. Grafici mensili, avvisi sul budget e spese fisse automatiche – finalmente capisci dove finiscono i tuoi soldi.",
+        "whatsNew": "Ora in 12 lingue. Tracker spese più rapido, avvisi di budget, sincronizzazione cloud affidabile, senza pubblicità. Bilancio e finanze personali semplici.",
+        "description_len": 1734,
+        "appInfoLocalization_id": "746245d0-e2b0-46db-b22c-52c8cbe537d3",
+        "appStoreVersionLocalization_id": "e3adcd7f-8426-4d2b-b6f4-722e8ad9c9ca"
+      },
+      "editable": {
+        "name": "Spese - Bilancio Personale",
+        "subtitle": "Budget, risparmio e finanze",
+        "keywords": "soldi,bilancio,risparmio,conto,finanza,gestione,monitoraggio,spesa,denaro,budget,carta,famiglia",
+        "keywords_len": 95,
+        "appInfoLocalization_id": "5f2b989a-5241-487b-bc74-a0ec4bfbc18c",
+        "appStoreVersionLocalization_id": "e08c4e14-c483-4ca2-90cb-b837a8018cfa"
+      }
+    },
+    "ja": {
+      "live": {
+        "name": "家計簿 - シンプル支出管理",
+        "subtitle": "節約・予算・お金の見える化",
+        "keywords": "支出,収支,節約,予算,お金,家計,記録,簡単,かけいぼ,マネー,出費,お小遣い,貯金,生活費",
+        "keywords_len": 47,
+        "keywords_tokens": [
+          "支出",
+          "収支",
+          "節約",
+          "予算",
+          "お金",
+          "家計",
+          "記録",
+          "簡単",
+          "かけいぼ",
+          "マネー",
+          "出費",
+          "お小遣い",
+          "貯金",
+          "生活費"
+        ],
+        "promotionalText": "3秒で1件入力できる、世界一シンプルな家計簿。月のグラフ、予算アラート、定期支出の自動追加で、お金の流れがひと目でわかる。",
+        "whatsNew": "12言語対応。家計簿の入力がさらに快適に、予算アラートとクラウド同期も安定。広告なしでお金の管理がスッキリ。",
+        "description_len": 903,
+        "appInfoLocalization_id": "159aadb9-72fe-406f-bf95-e47437f1eb1a",
+        "appStoreVersionLocalization_id": "4a5a971e-9b0b-402a-9a99-ee1ec2c74d01"
+      },
+      "editable": {
+        "name": "家計簿 - シンプル支出管理",
+        "subtitle": "節約・予算・お金の見える化",
+        "keywords": "支出,収支,節約,予算,お金,家計,記録,簡単,かけいぼ,マネー,出費,お小遣い,貯金,生活費",
+        "keywords_len": 47,
+        "appInfoLocalization_id": "c6a7b97d-81fd-4a97-9026-9c1f80a831ac",
+        "appStoreVersionLocalization_id": "e03a5618-d800-430c-8f83-11312ea1fe96"
+      }
+    },
+    "ko": {
+      "live": {
+        "name": "가계부 - 간단한 지출 관리",
+        "subtitle": "예산·자산 추적·절약 도우미",
+        "keywords": "머니,지출,예산,절약,자산,재테크,수입,통장,머니매니저,용돈,월급,생활비,가족,장부",
+        "keywords_len": 46,
+        "keywords_tokens": [
+          "머니",
+          "지출",
+          "예산",
+          "절약",
+          "자산",
+          "재테크",
+          "수입",
+          "통장",
+          "머니매니저",
+          "용돈",
+          "월급",
+          "생활비",
+          "가족",
+          "장부"
+        ],
+        "promotionalText": "3초 만에 한 건 입력. 월별 차트, 예산 알림, 고정 지출 자동 추가까지. 가장 쉬운 가계부 앱으로 돈의 흐름을 한눈에.",
+        "whatsNew": "12개 언어 지원. 가계부 입력이 더 빠르게, 예산 알림과 클라우드 동기화 개선, 광고 없는 깔끔한 지출 관리.",
+        "description_len": 908,
+        "appInfoLocalization_id": "eecf88a6-b5ba-46d4-b643-f633e8a6d423",
+        "appStoreVersionLocalization_id": "5ba7e02f-a1fb-4be0-b4da-33926a08d692"
+      },
+      "editable": {
+        "name": "가계부 - 간단한 지출 관리",
+        "subtitle": "예산·자산 추적·절약 도우미",
+        "keywords": "머니,지출,예산,절약,자산,재테크,수입,통장,머니매니저,용돈,월급,생활비,가족,장부",
+        "keywords_len": 46,
+        "appInfoLocalization_id": "52f5d978-3562-4073-95e8-7a247247b27a",
+        "appStoreVersionLocalization_id": "dd1a28ae-879e-4c54-b92f-81baaaebbd8b"
+      }
+    },
+    "pt-BR": {
+      "live": {
+        "name": "Meus Gastos: Casal e Despesas",
+        "subtitle": "Finanças do casal e pessoais",
+        "keywords": "compartilhados,contas,minhas,economias,planilha,orcamento,diario,cartao,dividas,fatura,mensais",
+        "keywords_len": 94,
+        "keywords_tokens": [
+          "compartilhados",
+          "contas",
+          "minhas",
+          "economias",
+          "planilha",
+          "orcamento",
+          "diario",
+          "cartao",
+          "dividas",
+          "fatura",
+          "mensais"
+        ],
+        "promotionalText": null,
+        "whatsNew": "Agora em 12 idiomas. Controle de gastos mais rápido, alertas de orçamento, sincronização confiável e sem anúncios. Cuide das suas finanças pessoais.",
+        "description_len": 2060,
+        "appInfoLocalization_id": "272c49a2-43e9-4dee-957e-e62acc03cf89",
+        "appStoreVersionLocalization_id": "33b381cf-5d83-4722-92d3-239125b77746"
+      },
+      "editable": {
+        "name": "Meus Gastos: Casal e Despesas",
+        "subtitle": "Finanças do casal e pessoais",
+        "keywords": "compartilhados,contas,minhas,economias,planilha,orcamento,diario,cartao,dividas,fatura,mensais",
+        "keywords_len": 94,
+        "appInfoLocalization_id": "85150ed8-1df9-4cb6-bc2d-fd4cdd0eaa1d",
+        "appStoreVersionLocalization_id": "6444baac-fa5a-48f2-8ce3-d64d299eb9b9"
+      }
+    },
+    "tr": {
+      "live": {
+        "name": "Harcamalar - Bütçe & Takip",
+        "subtitle": "Para yönetimi ve tasarruf",
+        "keywords": "para,bütçe,gider,masraf,tasarruf,gelir,kasa,defter,finans,kişisel,maaş,bakkal,aile,fatura",
+        "keywords_len": 89,
+        "keywords_tokens": [
+          "para",
+          "bütçe",
+          "gider",
+          "masraf",
+          "tasarruf",
+          "gelir",
+          "kasa",
+          "defter",
+          "finans",
+          "kişisel",
+          "maaş",
+          "bakkal",
+          "aile",
+          "fatura"
+        ],
+        "promotionalText": "3 saniyede harcama gir. Aylık grafikler, bütçe uyarıları, otomatik sabit giderler – paranın nereye gittiğini sonunda gör.",
+        "whatsNew": "Artık 12 dilde. Daha hızlı harcama takibi, akıllı bütçe uyarıları, güvenilir bulut senkronizasyon, reklamsız. Para yönetimi ve tasarruf kolaylaştı.",
+        "description_len": 1604,
+        "appInfoLocalization_id": "343f07f9-7211-4c4e-afc7-b5fe6cf9a437",
+        "appStoreVersionLocalization_id": "00e60a05-200d-43fa-aabc-4b74f092d4b1"
+      },
+      "editable": {
+        "name": "Harcamalar - Bütçe & Takip",
+        "subtitle": "Para yönetimi ve tasarruf",
+        "keywords": "para,bütçe,gider,masraf,tasarruf,gelir,kasa,defter,finans,kişisel,maaş,bakkal,aile,fatura",
+        "keywords_len": 89,
+        "appInfoLocalization_id": "9f686c52-62cf-44a6-a201-8e4b32f0e5dc",
+        "appStoreVersionLocalization_id": "0de5ad63-39a9-4bf4-859b-ec15d43ba24b"
+      }
+    },
+    "zh-Hans": {
+      "live": {
+        "name": "记账 - 简单家庭账本",
+        "subtitle": "支出管理｜预算追踪｜理财",
+        "keywords": "个人理财,消费记录,家庭账本,收支,财务,钱包,账单,理财app,日常开销,小账本,月账单,省钱",
+        "keywords_len": 48,
+        "keywords_tokens": [
+          "个人理财",
+          "消费记录",
+          "家庭账本",
+          "收支",
+          "财务",
+          "钱包",
+          "账单",
+          "理财app",
+          "日常开销",
+          "小账本",
+          "月账单",
+          "省钱"
+        ],
+        "promotionalText": "最简单的记账 App，3 秒记一笔。月度支出图表、预算提醒、定期账单——一眼看清你的钱花在哪里。",
+        "whatsNew": "现支持 12 种语言。更快的记账体验，预算提醒，稳定云同步，无广告。家庭账本与个人理财一站搞定。",
+        "description_len": 780,
+        "appInfoLocalization_id": "2c219d05-737b-49e1-a3e9-8565835666c9",
+        "appStoreVersionLocalization_id": "9813c340-a6eb-476e-a84b-f7b3928ae653"
+      },
+      "editable": {
+        "name": "记账 - 简单家庭账本",
+        "subtitle": "支出管理｜预算追踪｜理财",
+        "keywords": "个人理财,消费记录,家庭账本,收支,财务,钱包,账单,理财app,日常开销,小账本,月账单,省钱",
+        "keywords_len": 48,
+        "appInfoLocalization_id": "6d61cc74-b366-4e18-a58c-1f27f4f00dbf",
+        "appStoreVersionLocalization_id": "d11d0897-7e6a-42ee-8a46-2346d08354f4"
+      }
+    }
+  },
+  "locale_count": 13,
+  "locales": [
+    "ar-SA",
+    "de-DE",
+    "en-US",
+    "es-ES",
+    "es-MX",
+    "fr-FR",
+    "id",
+    "it",
+    "ja",
+    "ko",
+    "pt-BR",
+    "tr",
+    "zh-Hans"
+  ],
+  "analytics_report_requests": [
+    {
+      "id": "ea59a3c9-1916-40ba-b2a0-5658af7761c0",
+      "accessType": "ONE_TIME_SNAPSHOT",
+      "stoppedDueToInactivity": false,
+      "reports": [],
+      "total_reports": 147
+    },
+    {
+      "id": "a31193ac-6b49-4efe-9978-0c23da47df4d",
+      "accessType": "ONGOING",
+      "stoppedDueToInactivity": false,
+      "reports": [
+        {
+          "id": "r358-a31193ac-6b49-4efe-9978-0c23da47df4d",
+          "name": "Visual Intelligence Image Search Usage",
+          "category": "APP_USAGE",
+          "instance_count": 0,
+          "instances": []
+        }
+      ],
+      "total_reports": 156
+    }
+  ],
+  "ratings": {
+    "br": {
+      "count": 18,
+      "avg": 4.94
+    },
+    "us": {
+      "count": 1
+    },
+    "de": {
+      "count": 2
+    },
+    "jp": {
+      "count": 0
+    },
+    "tr": {
+      "count": 0
+    },
+    "mx": {
+      "count": 0
+    },
+    "threshold_rules_md": 25,
+    "source": "coordinator briefing + Astro SERP cross-check 2026-08-24"
+  }
+}

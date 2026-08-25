@@ -1,0 +1,149 @@
+Term,Verdict,Reason,Inventory Feature (or NOT-list item),Popularity,Difficulty,Our Ranking,Source
+abo kosten,PARTIAL,"Subscriptions can be logged as recurring expenses, but there is no renewal tracking or alert.",§1.5 recurring; NOT-list N6,5,5,OUT,longtail
+ausgaben,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,48,56,122,pool
+ausgaben app,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,51,OUT,cand
+ausgaben budget,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,50,172,longtail
+ausgaben dokumentieren,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,5,OUT,longtail
+ausgaben einfach,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,15,OUT,longtail
+ausgaben eintragen,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,5,OUT,cand
+ausgaben familie,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,13,OUT,cand
+ausgaben im griff,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,11,OUT,cand
+ausgaben kategorien,FIT,Expenses are categorised; 14 defaults plus custom categories with icon and colour.,§1.2 categories,5,5,OUT,longtail
+ausgaben kontrolle,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,40,214,longtail
+ausgaben kostenlos,FIT,"Core logging, charts, calendar and budgets are free; only export and sync are PRO.",§1.11 free core,5,52,137,longtail
+ausgaben manager,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,9,59,OUT,cand
+ausgaben manager haushaltsbuch,MISMATCH,Brand navigation — searcher is looking for a specific competitor app by name.,n/a — competitor brand,5,57,OUT,longtail
+ausgaben notieren,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,5,OUT,cand
+ausgaben paare,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,36,OUT,longtail
+ausgaben paare familien,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,15,OUT,longtail
+ausgaben planer,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,47,202,longtail
+ausgaben statistik,FIT,"Pie by category, weekly/daily bars and Month Insights render exactly this.",§1.3 charts + Month Insights,5,11,OUT,longtail
+ausgaben teilen,MISMATCH,SERP is 100% settle-up apps (Splitwise/Tricount/Splid/Splittr/Kittysplit); app cannot compute a split.,NOT-list N1 (no split/settle),13,52,OUT,cand
+ausgaben tracker,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,55,54,OUT,cand
+ausgaben uebersicht,FIT,"Pie by category, weekly/daily bars and Month Insights render exactly this.",§1.3 charts + Month Insights,5,11,OUT,cand
+ausgaben verwalten,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,47,12,pool
+ausgaben wg,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,46,OUT,longtail
+ausgaben zu zweit,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,OUT,longtail
+ausgabenkontrolle,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,5,OUT,cand
+bilanz,MISMATCH,Searcher wants to record income/balance; app logs expenses only.,NOT-list N3 (no income),8,42,176,pool
+buchhaltung,MISMATCH,"Business/accounting/quote/invoice intent (MEI, vendas, cotação); app has one entity, a personal expense.",NOT-list N11 (no accounting/invoicing),49,56,OUT,cand
+budget,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,52,55,OUT,pool
+budget app,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,9,58,OUT,cand
+budget einfach,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,9,OUT,longtail
+budget einnahmen ausgaben,PARTIAL,"SERP verified: this IS the German household-book category (Monee/MoneyStats/MoneyControl), but every incumbent logs income too and the app logs expenses only.",§1.1 expense logging; NOT-list N3,5,47,62,longtail
+budget familie,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,38,OUT,longtail
+budget kontrolle,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,5,OUT,longtail
+budget paare,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,38,OUT,cand
+budget planer,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,51,54,OUT,pool
+budget tracker,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,34,54,OUT,longtail
+budget verwalten,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,17,80,longtail
+budget zu zweit,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,OUT,longtail
+budgetplaner,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,48,OUT,cand
+budgetplaner familie,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,35,OUT,longtail
+digitales haushaltsbuch,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,55,195,longtail
+einkauf,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,20,73,OUT,pool
+einkauf ausgaben,PARTIAL,"Grocery spend can be logged under the Mercado category, but there is no shopping list or price tracking.",§1.2 categories; NOT-list,5,17,15,longtail
+einkaufsliste budget,MISMATCH,App does not have this capability.,NOT-list,5,7,OUT,longtail
+einnahmen,MISMATCH,Searcher wants to record income/balance; app logs expenses only.,NOT-list N3 (no income),5,42,OUT,pool
+einnahmen ausgaben,PARTIAL,"SERP verified: this IS the German household-book category (Monee/MoneyStats/MoneyControl), but every incumbent logs income too and the app logs expenses only.",§1.1 expense logging; NOT-list N3,7,52,119,pool
+einnahmen ausgaben tracker,PARTIAL,"SERP verified: this IS the German household-book category (Monee/MoneyStats/MoneyControl), but every incumbent logs income too and the app logs expenses only.",§1.1 expense logging; NOT-list N3,5,40,OUT,longtail
+einnahmen uebersicht,MISMATCH,Searcher wants to record income/balance; app logs expenses only.,NOT-list N3 (no income),5,9,OUT,longtail
+einnahmen und ausgaben,PARTIAL,"SERP verified: this IS the German household-book category (Monee/MoneyStats/MoneyControl), but every incumbent logs income too and the app logs expenses only.",§1.1 expense logging; NOT-list N3,5,40,93,longtail
+einnahmen verwalten,MISMATCH,Searcher wants to record income/balance; app logs expenses only.,NOT-list N3 (no income),5,13,26,longtail
+finanzen,MISMATCH,Searcher wants bank/Pix/account connection or statement import; all entry is manual.,NOT-list N4 (no bank sync),58,65,OUT,pool
+finanzen app,MISMATCH,Searcher wants bank/Pix/account connection or statement import; all entry is manual.,NOT-list N4 (no bank sync),5,56,OUT,cand
+finanzen familie,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,47,OUT,longtail
+finanzen fuer paare,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,9,OUT,cand
+finanzen im griff,PARTIAL,"Benefit the app serves indirectly (see spending -> spend less), not a feature it ships.",§1.3 insights; NOT-list N9,5,21,OUT,longtail
+finanzen paar,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,41,OUT,cand
+finanzen ueberblick,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,17,OUT,longtail
+finanzen verwalten,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,57,82,longtail
+finanzen zu zweit,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,OUT,longtail
+finanzmanager,MISMATCH,Searcher wants bank/Pix/account connection or statement import; all entry is manual.,NOT-list N4 (no bank sync),27,55,OUT,cand
+finanzplaner,MISMATCH,Searcher wants bank/Pix/account connection or statement import; all entry is manual.,NOT-list N4 (no bank sync),51,54,OUT,cand
+finanzplaner haushaltsbuch,MISMATCH,Brand navigation — searcher is looking for a specific competitor app by name.,n/a — competitor brand,9,57,124,longtail
+fixkosten,FIT,Fixed/recurring expenses with daily/weekly/monthly/yearly/weekday repetition.,§1.5 recurring expenses,12,44,65,pool
+fixkosten tracker,FIT,Fixed/recurring expenses with daily/weekly/monthly/yearly/weekday repetition.,§1.5 recurring expenses,5,13,OUT,longtail
+fixkosten uebersicht,FIT,Fixed/recurring expenses with daily/weekly/monthly/yearly/weekday repetition.,§1.5 recurring expenses,5,9,OUT,longtail
+fixkosten verwalten,FIT,Fixed/recurring expenses with daily/weekly/monthly/yearly/weekday repetition.,§1.5 recurring expenses,5,17,10,longtail
+geld,MISMATCH,Unqualified word whose SERP pool is another category; weight would buy wrong-intent installs.,"n/a — polysemous, wrong pool",52,70,OUT,pool
+geld im griff,PARTIAL,"Benefit the app serves indirectly (see spending -> spend less), not a feature it ships.",§1.3 insights; NOT-list N9,5,11,OUT,longtail
+geld sparen,PARTIAL,"Benefit the app serves indirectly (see spending -> spend less), not a feature it ships.",§1.3 insights; NOT-list N9,52,57,OUT,pool
+geld sparen budget,PARTIAL,"Benefit the app serves indirectly (see spending -> spend less), not a feature it ships.",§1.3 insights; NOT-list N9,5,49,OUT,pool
+geld sparen budget planer,PARTIAL,"Benefit the app serves indirectly (see spending -> spend less), not a feature it ships.",§1.3 insights; NOT-list N9,5,55,221,longtail
+geld teilen,MISMATCH,SERP is 100% settle-up apps (Splitwise/Tricount/Splid/Splittr/Kittysplit); app cannot compute a split.,NOT-list N1 (no split/settle),7,52,OUT,cand
+geld uebersicht,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,15,OUT,longtail
+geld verwalten,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,8,64,OUT,pool
+gemeinsame ausgaben,PARTIAL,"Shared-visibility reading is served (one login, synced list); shared-attribution reading is not.",Delivers §1.9 sync; NOT-list N1/N2,5,11,OUT,cand
+gemeinsame ausgaben paare,PARTIAL,"Shared-visibility reading is served (one login, synced list); shared-attribution reading is not.",Delivers §1.9 sync; NOT-list N1/N2,5,7,OUT,longtail
+gemeinsame finanzen,PARTIAL,"Shared-visibility reading is served (one login, synced list); shared-attribution reading is not.",Delivers §1.9 sync; NOT-list N1/N2,5,13,OUT,longtail
+gemeinsame kasse,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,11,OUT,cand
+gemeinsames konto,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,5,OUT,cand
+gemeinsames konto paare,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,5,OUT,longtail
+haushalt,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,24,51,97,pool
+haushalt ausgaben,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,49,32,longtail
+haushalt budget,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,52,140,longtail
+haushaltsbuch,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,61,60,59,pool
+haushaltsbuch app,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,60,197,cand
+haushaltsbuch ausgaben,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,43,31,pool
+haushaltsbuch budget,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,50,185,longtail
+haushaltsbuch budget ausgaben,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,52,89,longtail
+haushaltsbuch budgetplaner,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,49,124,longtail
+haushaltsbuch digital,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,20,OUT,longtail
+haushaltsbuch einfach,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,34,OUT,cand
+haushaltsbuch familie,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,58,176,cand
+haushaltsbuch finanzplaner,MISMATCH,Brand navigation — searcher is looking for a specific competitor app by name.,n/a — competitor brand,5,57,124,longtail
+haushaltsbuch kosten manager,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,55,86,longtail
+haushaltsbuch kostenlos,FIT,"Core logging, charts, calendar and budgets are free; only export and sync are PRO.",§1.11 free core,61,60,54,cand
+haushaltsbuch monatlich,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,5,11,34,longtail
+haushaltsbuch moneycontrol,MISMATCH,Brand navigation — searcher is looking for a specific competitor app by name.,n/a — competitor brand,7,60,207,longtail
+haushaltsbuch moneystats,MISMATCH,Brand navigation — searcher is looking for a specific competitor app by name.,n/a — competitor brand,11,54,OUT,longtail
+haushaltsbuch offline,FIT,Everything works offline in local storage; no account required.,§1.10 offline-first,5,17,OUT,longtail
+haushaltsbuch paar,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,17,OUT,longtail
+haushaltsbuch paare,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,23,OUT,cand
+haushaltsbuch wg,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,17,OUT,longtail
+haushaltsbuch zu zweit,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,OUT,longtail
+haushaltsbudget,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,47,122,longtail
+haushaltskasse,PARTIAL,"""Konto/conta"" reading is a bank account (not delivered); the household-ledger reading is.",§1.1; NOT-list N4,5,52,OUT,cand
+haushaltskasse gemeinsam,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,5,OUT,longtail
+haushaltskonto,PARTIAL,"""Konto/conta"" reading is a bank account (not delivered); the household-ledger reading is.",§1.1; NOT-list N4,5,46,33,longtail
+haushaltsplaner,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,35,55,132,cand
+haushaltsplaner geld sparen,PARTIAL,"Benefit the app serves indirectly (see spending -> spend less), not a feature it ships.",§1.3 insights; NOT-list N9,5,51,117,longtail
+kassenbuch,MISMATCH,"Business/accounting/quote/invoice intent (MEI, vendas, cotação); app has one entity, a personal expense.",NOT-list N11 (no accounting/invoicing),48,35,OUT,cand
+konto,MISMATCH,Searcher wants bank/Pix/account connection or statement import; all entry is manual.,NOT-list N4 (no bank sync),22,67,OUT,pool
+konto uebersicht,MISMATCH,Searcher wants bank/Pix/account connection or statement import; all entry is manual.,NOT-list N4 (no bank sync),5,13,OUT,longtail
+kontobuch,PARTIAL,"SERP verified: this IS the German household-book category (Monee/MoneyStats/MoneyControl), but every incumbent logs income too and the app logs expenses only.",§1.1 expense logging; NOT-list N3,5,45,59,cand
+kosten,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,60,OUT,pool
+kosten im blick,FIT,"Pie by category, weekly/daily bars and Month Insights render exactly this.",§1.3 charts + Month Insights,5,13,OUT,longtail
+kosten kontrolle,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,9,OUT,longtail
+kosten manager,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,52,OUT,cand
+kosten teilen,MISMATCH,SERP is 100% settle-up apps (Splitwise/Tricount/Splid/Splittr/Kittysplit); app cannot compute a split.,NOT-list N1 (no split/settle),7,51,OUT,cand
+kosten tracker,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,50,OUT,longtail
+kosten uebersicht,FIT,"Pie by category, weekly/daily bars and Month Insights render exactly this.",§1.3 charts + Month Insights,5,15,OUT,longtail
+kosten verwalten,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,11,48,longtail
+kostenplaner,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,51,211,cand
+laufende kosten,FIT,Fixed/recurring expenses with daily/weekly/monthly/yearly/weekday repetition.,§1.5 recurring expenses,5,48,OUT,longtail
+mein budget,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,21,53,OUT,cand
+mein budget ausgaben,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,55,193,longtail
+meine ausgaben,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,47,195,cand
+monatliche ausgaben,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,8,57,OUT,cand
+monatliche bilanz,MISMATCH,Searcher wants to record income/balance; app logs expenses only.,NOT-list N3 (no income),5,5,2,longtail
+monatliches budget,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,5,15,69,longtail
+monatsbudget,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,9,13,23,pool
+monatsbudget familie,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,9,OUT,longtail
+monatsbudget planer,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,5,19,46,longtail
+monee haushaltsbuch,MISMATCH,Brand navigation — searcher is looking for a specific competitor app by name.,n/a — competitor brand,15,19,OUT,longtail
+money manager,MISMATCH,Brand navigation — searcher is looking for a specific competitor app by name.,n/a — competitor brand,59,59,OUT,cand
+paar finanzen,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,23,OUT,cand
+paare finanzen,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,35,OUT,cand
+planer,MISMATCH,Unqualified word whose SERP pool is another category; weight would buy wrong-intent installs.,"n/a — polysemous, wrong pool",58,60,OUT,pool
+rechnung teilen,MISMATCH,SERP is 100% settle-up apps (Splitwise/Tricount/Splid/Splittr/Kittysplit); app cannot compute a split.,NOT-list N1 (no split/settle),6,43,OUT,cand
+reisekosten,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),15,51,OUT,longtail
+sparen,MISMATCH,"Searcher wants a savings pot / piggy bank / savings target; Goals are spending CAPS, not savings.",NOT-list N9 (no savings goals),50,52,OUT,pool
+sparen tracker,MISMATCH,"Searcher wants a savings pot / piggy bank / savings target; Goals are spending CAPS, not savings.",NOT-list N9 (no savings goals),5,42,OUT,longtail
+sparplan,MISMATCH,"Searcher wants a savings pot / piggy bank / savings target; Goals are spending CAPS, not savings.",NOT-list N9 (no savings goals),13,49,OUT,cand
+sparziel,MISMATCH,"Searcher wants a savings pot / piggy bank / savings target; Goals are spending CAPS, not savings.",NOT-list N9 (no savings goals),6,13,OUT,longtail
+supermarkt ausgaben,PARTIAL,"Grocery spend can be logged under the Mercado category, but there is no shopping list or price tracking.",§1.2 categories; NOT-list,5,5,OUT,longtail
+wg ausgaben,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,47,OUT,longtail
+wg kasse,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,51,OUT,longtail
+wg kosten teilen,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,36,OUT,longtail

@@ -1,0 +1,39 @@
+{
+  "iter_id": "2026-05-30_iter-02-text-pt-BR-name-subtitle-keywords",
+  "type": "text",
+  "locale": "pt-BR",
+  "fields_changed": [
+    "name",
+    "subtitle",
+    "keywords"
+  ],
+  "approach": "niche-domination",
+  "approach_rationale": "User goal: own top-1-4 on lower-pop, ultra-low-difficulty intent long-tails to add ~30 dl/month, instead of fighting saturated head terms. Couples niche validated via Astro: app already ranks #4 'controle de gastos do casal' (pop5 diff5) with ZERO targeting; #7-15 across the casal cluster. Big finance apps (Mobills/Organizze) ignore it. App supports it (login+cloud sync = couple shares one account). Concentrate 'casal' in name (7x) + subtitle (3x) to capture the whole cluster; keywords add 'compartilhados' + distinct long-tail stems. Also unblocks 'financas pessoais' (pop59, was rank 1000) via subtitle 3x.",
+  "status": "superseded",
+  "started_at": "2026-05-30",
+  "planned_close_at": "2026-06-27",
+  "hypothesis": {
+    "if_we_change": "name 'Meus Gastos: Contas e Despesas' -> 'Meus Gastos: Casal e Despesas' (29); subtitle 'Controle financeiro e receitas' -> 'Financas do casal e pessoais' (28); keywords -> 'compartilhados,contas,minhas,economias,planilha,orcamento,diario,cartao,dividas,fatura,mensais' (94).",
+    "then_we_expect": "Top-1-4 on couples cluster (controle de gastos do casal, gastos do casal, despesas do casal, gastos casal, financas do casal, contas do casal, app de gastos casal) + rank gastos/despesas compartilhados; financas pessoais (pop59) enters top-50 from 1000; +20-30 dl/month BR.",
+    "because": "diff 5-15 on casal cluster = near-zero competition; name carries 7x weight; app already #4-15 unoptimized. Low pop (5) per term but ~8 terms aggregate + clear purchase intent (couple seeking shared expense app)."
+  },
+  "success_criterion": {
+    "primary_metric": "downloads_per_day",
+    "measurement_window": "28 days from deploy",
+    "baseline": {
+      "downloads_per_day_BR": "~2-3 (excl 05-24/25 spike)",
+      "captured_at": "2026-05-30"
+    },
+    "targets": {
+      "bold": {
+        "casal_cluster_top4": 5,
+        "downloads_delta_month": 30
+      }
+    }
+  },
+  "supersedes": "2026-05-23_iter-01-text-pt-BR-keywords",
+  "deployed": true,
+  "deployed_at": "2026-05-30",
+  "correction_2026-08-25": "meta.json said deployed:false, but stage 1 of iter-03 verified on the API that all three fields (name, subtitle and keywords) shipped in version 45.2.0. The record was simply never updated. No result was ever measured — metrics/ stayed empty for the whole 28-day window.",
+  "superseded_by": "2026-08-24_iter-03-text-pt-BR-keywords"
+}

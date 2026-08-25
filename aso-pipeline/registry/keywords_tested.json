@@ -1,1 +1,37 @@
-[]
+[
+ {
+  "iter": "2026-08-24_iter-03",
+  "locale": "pt-BR",
+  "deployed_at": "2026-08-25",
+  "added": [
+   "categorias",
+   "fixas",
+   "resumo",
+   "extrato"
+  ],
+  "removed": [
+   "minhas",
+   "fatura",
+   "cartao",
+   "dividas"
+  ],
+  "result": null
+ },
+ {
+  "iter": "2026-08-24_iter-03",
+  "locale": "de-DE",
+  "deployed_at": "2026-08-25",
+  "added": [
+   "kontrolle",
+   "kategorien",
+   "statistik"
+  ],
+  "removed": [
+   "sparen",
+   "geld",
+   "finanzen",
+   "einnahmen"
+  ],
+  "result": null
+ }
+]

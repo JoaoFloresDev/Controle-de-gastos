@@ -51,10 +51,14 @@ struct QuickAddProvider: TimelineProvider {
 
     private var sampleCategories: [WidgetCategory] {
         [
-            WidgetCategory(id: "Restaurant", name: "Food", color: Color(argb: 0xFFB39DDB), symbol: "fork.knife"),
-            WidgetCategory(id: "GasStation", name: "Fuel", color: Color(argb: 0xFFFFD700), symbol: "fuelpump.fill"),
-            WidgetCategory(id: "Shopping", name: "Shop", color: Color(argb: 0xFF00E676), symbol: "cart.fill"),
-            WidgetCategory(id: "Transport", name: "Car", color: Color(argb: 0xFF2979FF), symbol: "car.fill"),
+            WidgetCategory(id: "Restaurant", name: "Food", color: Color(argb: 0xFFB39DDB),
+                           iconCodePoint: 0xE532, symbol: "fork.knife"),
+            WidgetCategory(id: "GasStation", name: "Fuel", color: Color(argb: 0xFFFFD700),
+                           iconCodePoint: 0xE394, symbol: "fuelpump.fill"),
+            WidgetCategory(id: "Shopping", name: "Shop", color: Color(argb: 0xFF00E676),
+                           iconCodePoint: 0xE59C, symbol: "cart.fill"),
+            WidgetCategory(id: "Transport", name: "Car", color: Color(argb: 0xFF2979FF),
+                           iconCodePoint: 0xEFC6, symbol: "car"),
         ]
     }
 }
@@ -206,13 +210,25 @@ struct QuickAddWidgetView: View {
         }
     }
 
+    /// Same glyph as the app's add-expense screen: the Material Icons codepoint
+    /// synced from Flutter, falling back to an SF Symbol if it is missing.
+    @ViewBuilder
+    private func categoryIcon(_ cat: WidgetCategory) -> some View {
+        if let glyph = cat.glyph {
+            Text(glyph)
+                .font(.custom(WidgetStore.iconFontName, size: m.iconFont * 1.15))
+        } else {
+            Image(systemName: cat.symbol)
+                .font(.system(size: m.iconFont, weight: .semibold))
+        }
+    }
+
     @ViewBuilder
     private func categoryButton(_ cat: WidgetCategory) -> some View {
         if #available(iOS 17.0, *) {
             Button(intent: AddExpenseIntent(categoryId: cat.id)) {
                 VStack(spacing: 4) {
-                    Image(systemName: cat.symbol)
-                        .font(.system(size: m.iconFont, weight: .semibold))
+                    categoryIcon(cat)
                         .foregroundStyle(.white)
                         .frame(width: m.circle, height: m.circle)
                         .background(

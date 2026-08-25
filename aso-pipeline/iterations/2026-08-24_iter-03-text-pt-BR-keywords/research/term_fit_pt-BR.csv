@@ -1,0 +1,356 @@
+Term,Verdict,Reason,Inventory Feature (or NOT-list item),Popularity,Difficulty,Our Ranking,Source
+acompanhar gastos,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,32,OUT,cand
+agenda financeira,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,5,44,OUT,cand
+alimentação,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,27,70,OUT,cand
+anotar despesas,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,43,OUT,longtail
+anotar gasto,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,33,OUT,cand
+anotar gastos,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,51,OUT,cand
+análise financeira,FIT,"Pie by category, weekly/daily bars and Month Insights render exactly this.",§1.3 charts + Month Insights,5,40,OUT,cand
+app de despesas,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,48,OUT,longtail
+app de despesas casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,13,10,longtail
+app de financas para casais,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,62,OUT,longtail
+app de financas para casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,OUT,longtail
+app de gastos,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,58,OUT,longtail
+app de gastos casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,4,cand
+app de orcamento,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,48,OUT,longtail
+app financeiro,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,58,OUT,cand
+app para casais,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,5,42,OUT,cand
+app para dividir contas,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,13,OUT,cand
+assinaturas mensais,PARTIAL,"Subscriptions can be logged as recurring expenses, but there is no renewal tracking or alert.",§1.5 recurring; NOT-list N6,5,5,OUT,longtail
+backup,MISMATCH,"App does have this, but the bare term's SERP is a different category (customization/utility apps).","n/a — polysemous, wrong pool",19,74,OUT,cand
+balanço financeiro,MISMATCH,Searcher wants to record income/balance; app logs expenses only.,NOT-list N3 (no income),5,5,OUT,cand
+budget,PARTIAL,English term in a pt-BR store: intent is aligned but the listing serves it only through the English locale.,"Intent aligned, language mismatch",43,38,OUT,cand
+caderno despesas,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,13,OUT,cand
+caixa,MISMATCH,Searcher wants bank/Pix/account connection or statement import; all entry is manual.,NOT-list N4 (no bank sync),85,87,OUT,cand
+caixa diário,MISMATCH,"Business/accounting/quote/invoice intent (MEI, vendas, cotação); app has one entity, a personal expense.",NOT-list N11 (no accounting/invoicing),5,11,OUT,cand
+caixinha,MISMATCH,"Searcher wants a savings pot / piggy bank / savings target; Goals are spending CAPS, not savings.",NOT-list N9 (no savings goals),5,23,OUT,cand
+calculadora,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,72,51,OUT,cand
+calculadora de despesas,PARTIAL,"App totals and averages spending, but the amount pad is digits-only (no + - x /), so it is not a calculator.",§1.3 totals; FinancialKeyboard.dart has no operators,5,37,OUT,longtail
+calculadora de gastos,PARTIAL,"App totals and averages spending, but the amount pad is digits-only (no + - x /), so it is not a calculator.",§1.3 totals; FinancialKeyboard.dart has no operators,5,50,OUT,longtail
+calendario medicamento,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,5,41,OUT,cand
+cartao casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,33,9,longtail
+cartao de credito,MISMATCH,"Searcher wants credit-card invoice/limit/closing-date management; ""Cartão"" is only a default category.",NOT-list N8 (no card management),71,71,OUT,cand
+carteira compartilhada,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,11,OUT,longtail
+cartão,MISMATCH,"Searcher wants credit-card invoice/limit/closing-date management; ""Cartão"" is only a default category.",NOT-list N8 (no card management),56,78,OUT,pool
+cartão de crédito,MISMATCH,"Searcher wants credit-card invoice/limit/closing-date management; ""Cartão"" is only a default category.",NOT-list N8 (no card management),52,73,OUT,cand
+cartões,MISMATCH,"Searcher wants credit-card invoice/limit/closing-date management; ""Cartão"" is only a default category.",NOT-list N8 (no card management),22,83,OUT,cand
+casa,MISMATCH,Unqualified word whose SERP pool is another category; weight would buy wrong-intent installs.,"n/a — polysemous, wrong pool",60,68,OUT,cand
+casal,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,54,52,212,pool
+categorias,FIT,Expenses are categorised; 14 defaults plus custom categories with icon and colour.,§1.2 categories,5,37,OUT,cand
+categorias de gastos,FIT,Expenses are categorised; 14 defaults plus custom categories with icon and colour.,§1.2 categories,5,5,OUT,cand
+categorizar gastos,FIT,Expenses are categorised; 14 defaults plus custom categories with icon and colour.,§1.2 categories,5,5,OUT,cand
+cofrinho,MISMATCH,"Searcher wants a savings pot / piggy bank / savings target; Goals are spending CAPS, not savings.",NOT-list N9 (no savings goals),51,23,OUT,cand
+cofrinho digital,MISMATCH,"Searcher wants a savings pot / piggy bank / savings target; Goals are spending CAPS, not savings.",NOT-list N9 (no savings goals),5,19,OUT,cand
+conta,MISMATCH,Searcher wants bank/Pix/account connection or statement import; all entry is manual.,NOT-list N4 (no bank sync),57,90,OUT,cand
+conta bancária,MISMATCH,Searcher wants bank/Pix/account connection or statement import; all entry is manual.,NOT-list N4 (no bank sync),5,93,OUT,cand
+contabilidade simples,MISMATCH,"Business/accounting/quote/invoice intent (MEI, vendas, cotação); app has one entity, a personal expense.",NOT-list N11 (no accounting/invoicing),5,11,OUT,cand
+contador de gastos,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,38,OUT,cand
+contas,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,55,80,OUT,pool
+contas a dois,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,37,OUT,longtail
+contas a pagar,MISMATCH,Searcher wants due-date reminders/alerts; app ships no notifications at all.,NOT-list N6 (no notifications),5,46,OUT,cand
+contas a pagar casal,MISMATCH,Searcher wants due-date reminders/alerts; app ships no notifications at all.,NOT-list N6 (no notifications),5,19,OUT,longtail
+contas casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,9,7,longtail
+contas compartilhadas,PARTIAL,"Shared-visibility reading is served (one login, synced list); shared-attribution reading is not.",Delivers §1.9 sync; NOT-list N1/N2,5,19,26,cand
+contas compartilhadas casal,PARTIAL,"Shared-visibility reading is served (one login, synced list); shared-attribution reading is not.",Delivers §1.9 sync; NOT-list N1/N2,5,5,4,cand
+contas da casa,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,21,OUT,longtail
+contas de casa,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,41,OUT,longtail
+contas despesas,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,35,56,pool
+contas do casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,9,7,pool
+contas do mes,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,5,42,OUT,longtail
+contas e despesas,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,60,OUT,pool
+contas em grupo,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,24,OUT,longtail
+contas fixas,FIT,Fixed/recurring expenses with daily/weekly/monthly/yearly/weekday repetition.,§1.5 recurring expenses,5,30,OUT,longtail
+contas grupo,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,37,OUT,longtail
+contas juntos,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,21,OUT,longtail
+contas mensais,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,5,50,OUT,longtail
+contas mensais casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,15,1,longtail
+controlar gastos,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,10,57,OUT,longtail
+controle,MISMATCH,Unqualified word whose SERP pool is another category; weight would buy wrong-intent installs.,"n/a — polysemous, wrong pool",69,70,OUT,cand
+controle cartao credito,MISMATCH,"Searcher wants credit-card invoice/limit/closing-date management; ""Cartão"" is only a default category.",NOT-list N8 (no card management),5,70,OUT,longtail
+controle contas,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,53,OUT,cand
+controle de assinaturas,PARTIAL,"Subscriptions can be logged as recurring expenses, but there is no renewal tracking or alert.",§1.5 recurring; NOT-list N6,5,7,OUT,longtail
+controle de caixa,MISMATCH,"Business/accounting/quote/invoice intent (MEI, vendas, cotação); app has one entity, a personal expense.",NOT-list N11 (no accounting/invoicing),5,43,OUT,cand
+controle de contas,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,52,OUT,cand
+controle de contas casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,11,OUT,longtail
+controle de contas mensais,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,5,57,OUT,cand
+controle de despesa,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,48,OUT,cand
+controle de despesas,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,56,OUT,cand
+controle de despesas casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,11,OUT,longtail
+controle de despesas do casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,11,OUT,longtail
+controle de despesas mensais,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,5,37,OUT,longtail
+controle de dinheiro,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,56,OUT,cand
+controle de dividas,MISMATCH,"Searcher wants a debt/payoff tracker (creditor, installments, plan); app has no debt model.",NOT-list N7 (no debt tracking),5,45,OUT,cand
+controle de dívidas,MISMATCH,"Searcher wants a debt/payoff tracker (creditor, installments, plan); app has no debt model.",NOT-list N7 (no debt tracking),5,19,OUT,cand
+controle de gastos,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,53,60,OUT,cand
+controle de gastos do casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,11,OUT,cand
+controle de gastos e orcamento,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,19,142,longtail
+controle de gastos ia,MISMATCH,App does not have this capability.,NOT-list,5,23,OUT,longtail
+controle de gastos pessoais,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,56,OUT,cand
+controle de medicamentos,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,5,39,OUT,cand
+controle financeiro,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,54,53,OUT,cand
+controle financeiro casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,39,OUT,cand
+controle financeiro e gastos,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,23,OUT,longtail
+controle financeiro facil,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,47,OUT,cand
+controle financeiro pessoal,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,55,61,OUT,cand
+controle orçamento,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,19,OUT,cand
+controle pix,MISMATCH,Searcher wants bank/Pix/account connection or statement import; all entry is manual.,NOT-list N4 (no bank sync),5,66,OUT,cand
+controle vendas,MISMATCH,"Business/accounting/quote/invoice intent (MEI, vendas, cotação); app has one entity, a personal expense.",NOT-list N11 (no accounting/invoicing),5,19,OUT,cand
+custos,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,46,OUT,cand
+despesa,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,51,OUT,cand
+despesas,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,52,49,OUT,pool
+despesas a dois,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,OUT,cand
+despesas cartao,PARTIAL,"Delivered only as a user-taggable category, not as a managed entity.",§1.2 categories; NOT-list N8,5,46,22,longtail
+despesas casa,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,47,OUT,longtail
+despesas casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,13,40,longtail
+despesas compartilhadas,PARTIAL,"Shared-visibility reading is served (one login, synced list); shared-attribution reading is not.",Delivers §1.9 sync; NOT-list N1/N2,5,5,9,cand
+despesas compartilhadas casal,PARTIAL,"Shared-visibility reading is served (one login, synced list); shared-attribution reading is not.",Delivers §1.9 sync; NOT-list N1/N2,5,5,2,cand
+despesas da casa,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,5,OUT,longtail
+despesas diárias,FIT,Daily view and daily-average insight are shipped.,§1.3 daily chart + média diária,5,41,19,cand
+despesas do casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,26,pool
+despesas do mes,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,5,21,OUT,longtail
+despesas em grupo,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,15,OUT,longtail
+despesas fixas,FIT,Fixed/recurring expenses with daily/weekly/monthly/yearly/weekday repetition.,§1.5 recurring expenses,5,11,OUT,cand
+despesas gastos,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,45,16,pool
+despesas grupo,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,11,OUT,cand
+despesas juntos,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,7,OUT,longtail
+despesas mensais,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,5,51,OUT,pool
+despesas mensais casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,10,1,longtail
+despesas pessoais,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,50,OUT,pool
+despesas pessoais casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,11,1,longtail
+despesas receitas,MISMATCH,Searcher wants to record income/balance; app logs expenses only.,NOT-list N3 (no income),5,17,OUT,cand
+despesas variáveis,FIT,Fixed/recurring expenses with daily/weekly/monthly/yearly/weekday repetition.,§1.5 recurring expenses,5,5,OUT,cand
+despezzas,PARTIAL,Misspelling of a real term; cannot be deliberately targeted.,n/a — typo variant,5,43,OUT,cand
+diario de compras,FIT,"Qualified ""diário de gastos"" = a running expense log, which is the core job.",§1.1 manual expense logging,5,15,OUT,longtail
+diario de despesas,FIT,"Qualified ""diário de gastos"" = a running expense log, which is the core job.",§1.1 manual expense logging,5,15,32,longtail
+diario de gastos,FIT,"Qualified ""diário de gastos"" = a running expense log, which is the core job.",§1.1 manual expense logging,5,15,243,pool
+diario financeiro,MISMATCH,"Unqualified ""diário"" pool is personal diary / period calendar, not expense logging.","n/a — polysemous, wrong pool",5,21,OUT,longtail
+dinheiro,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,53,58,OUT,cand
+dinheiro a dois,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,18,OUT,longtail
+dinheiro do casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,OUT,longtail
+dividas,MISMATCH,"Searcher wants a debt/payoff tracker (creditor, installments, plan); app has no debt model.",NOT-list N7 (no debt tracking),5,42,OUT,pool
+dividas do casal,MISMATCH,"Searcher wants a debt/payoff tracker (creditor, installments, plan); app has no debt model.",NOT-list N7 (no debt tracking),5,9,3,longtail
+dividir contas,MISMATCH,SERP is 100% settle-up apps (Splitwise/Tricount/Splid/Splittr/Kittysplit); app cannot compute a split.,NOT-list N1 (no split/settle),5,23,OUT,cand
+dividir contas amigos,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,11,OUT,longtail
+dividir contas casal,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,9,OUT,longtail
+dividir despesas,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,21,OUT,longtail
+dividir despesas casal,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,9,OUT,longtail
+dividir gastos,MISMATCH,SERP is 100% settle-up apps (Splitwise/Tricount/Splid/Splittr/Kittysplit); app cannot compute a split.,NOT-list N1 (no split/settle),8,17,OUT,longtail
+dividir gastos amigos,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,17,OUT,longtail
+dividir gastos casal,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,9,OUT,longtail
+divisão de contas,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,44,OUT,cand
+diário,MISMATCH,"Unqualified ""diário"" pool is personal diary / period calendar, not expense logging.","n/a — polysemous, wrong pool",5,54,OUT,pool
+diário gastos,FIT,"Qualified ""diário de gastos"" = a running expense log, which is the core job.",§1.1 manual expense logging,5,15,74,pool
+dívidas,MISMATCH,"Searcher wants a debt/payoff tracker (creditor, installments, plan); app has no debt model.",NOT-list N7 (no debt tracking),5,19,OUT,pool
+economia,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,8,51,OUT,cand
+economia do casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,4,longtail
+economia doméstica,PARTIAL,"Benefit the app serves indirectly (see spending -> spend less), not a feature it ships.",§1.3 insights; NOT-list N9,5,8,OUT,cand
+economias,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,48,OUT,pool
+economias casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,4,pool
+economias do casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,4,longtail
+economias mensais,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,5,39,14,longtail
+economizar,PARTIAL,"Benefit the app serves indirectly (see spending -> spend less), not a feature it ships.",§1.3 insights; NOT-list N9,5,50,OUT,cand
+economizar dinheiro,PARTIAL,"Benefit the app serves indirectly (see spending -> spend less), not a feature it ships.",§1.3 insights; NOT-list N9,5,21,OUT,cand
+economize,PARTIAL,"Benefit the app serves indirectly (see spending -> spend less), not a feature it ships.",§1.3 insights; NOT-list N9,24,42,OUT,cand
+educação financeira,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,5,49,OUT,cand
+entrada e saida,MISMATCH,Searcher wants to record income/balance; app logs expenses only.,NOT-list N3 (no income),5,54,OUT,cand
+entrada saída dinheiro,MISMATCH,Searcher wants to record income/balance; app logs expenses only.,NOT-list N3 (no income),5,5,OUT,cand
+expense,PARTIAL,English term in a pt-BR store: intent is aligned but the listing serves it only through the English locale.,"Intent aligned, language mismatch",7,23,OUT,cand
+expense tracker,PARTIAL,English term in a pt-BR store: intent is aligned but the listing serves it only through the English locale.,"Intent aligned, language mismatch",9,42,OUT,cand
+expenses,PARTIAL,English term in a pt-BR store: intent is aligned but the listing serves it only through the English locale.,"Intent aligned, language mismatch",30,19,OUT,cand
+extrato,MISMATCH,Searcher wants bank/Pix/account connection or statement import; all entry is manual.,NOT-list N4 (no bank sync),5,45,OUT,cand
+extrato de gastos,FIT,"Itemised breakdown by category, sorted largest to smallest.",§1.3 ExtractByCategory,5,11,OUT,cand
+extrato gastos,FIT,"Itemised breakdown by category, sorted largest to smallest.",§1.3 ExtractByCategory,5,11,OUT,cand
+face id,MISMATCH,App does not have this capability.,NOT-list,9,58,OUT,cand
+familiar,MISMATCH,Unqualified word whose SERP pool is another category; weight would buy wrong-intent installs.,"n/a — polysemous, wrong pool",18,32,OUT,cand
+família,MISMATCH,Unqualified word whose SERP pool is another category; weight would buy wrong-intent installs.,"n/a — polysemous, wrong pool",5,62,OUT,cand
+fatura,MISMATCH,"Searcher wants credit-card invoice/limit/closing-date management; ""Cartão"" is only a default category.",NOT-list N8 (no card management),5,9,OUT,pool
+fatura cartao,MISMATCH,"Searcher wants credit-card invoice/limit/closing-date management; ""Cartão"" is only a default category.",NOT-list N8 (no card management),5,50,121,pool
+fatura do cartao,MISMATCH,"Searcher wants credit-card invoice/limit/closing-date management; ""Cartão"" is only a default category.",NOT-list N8 (no card management),5,68,215,longtail
+faturas mensais,MISMATCH,"Searcher wants credit-card invoice/limit/closing-date management; ""Cartão"" is only a default category.",NOT-list N8 (no card management),5,5,5,longtail
+financas,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,53,56,OUT,pool
+financas a dois,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,19,OUT,longtail
+financas casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,37,18,longtail
+financas compartilhadas,PARTIAL,"Shared-visibility reading is served (one login, synced list); shared-attribution reading is not.",Delivers §1.9 sync; NOT-list N1/N2,5,19,10,longtail
+financas do casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,13,4,pool
+financas familiares,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,35,OUT,cand
+financas juntos,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,39,OUT,longtail
+financas para casais,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,60,OUT,cand
+financas pessoais casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,11,2,longtail
+financas pessoais e familiares,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,39,51,longtail
+financas simples,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,17,OUT,longtail
+finance,PARTIAL,English term in a pt-BR store: intent is aligned but the listing serves it only through the English locale.,"Intent aligned, language mismatch",48,52,OUT,cand
+financeiro,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,30,57,OUT,cand
+financeiro de despesa,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,40,OUT,cand
+financial,PARTIAL,English term in a pt-BR store: intent is aligned but the listing serves it only through the English locale.,"Intent aligned, language mismatch",14,7,OUT,cand
+finanças,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,52,62,OUT,pool
+finanças empresa,MISMATCH,"Business/accounting/quote/invoice intent (MEI, vendas, cotação); app has one entity, a personal expense.",NOT-list N11 (no accounting/invoicing),5,50,OUT,cand
+finanças pessoais,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,59,61,OUT,pool
+finanças pessoais em controle,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,38,OUT,cand
+fleur,MISMATCH,Brand navigation — searcher is looking for a specific competitor app by name.,n/a — competitor brand,8,51,OUT,cand
+fleur gastos,MISMATCH,Brand navigation — searcher is looking for a specific competitor app by name.,n/a — competitor brand,13,41,OUT,longtail
+fluxo de caixa,MISMATCH,Searcher wants to record income/balance; app logs expenses only.,NOT-list N3 (no income),5,34,OUT,cand
+fácil,PARTIAL,Pure qualifier with no standalone intent; only useful as a composition token.,n/a — qualifier,5,55,OUT,cand
+gastar menos,PARTIAL,"Benefit the app serves indirectly (see spending -> spend less), not a feature it ships.",§1.3 insights; NOT-list N9,5,15,OUT,cand
+gasto,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,53,OUT,cand
+gastos,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,37,63,OUT,pool
+gastos a dois,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,39,OUT,cand
+gastos cartao,PARTIAL,"Delivered only as a user-taggable category, not as a managed entity.",§1.2 categories; NOT-list N8,5,42,201,pool
+gastos cartao credito,PARTIAL,"Delivered only as a user-taggable category, not as a managed entity.",§1.2 categories; NOT-list N8,5,49,OUT,longtail
+gastos casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,9,5,pool
+gastos com mercado,PARTIAL,"Grocery spend can be logged under the Mercado category, but there is no shopping list or price tracking.",§1.2 categories; NOT-list,5,12,OUT,longtail
+gastos compartilhados,PARTIAL,"Shared-visibility reading is served (one login, synced list); shared-attribution reading is not.",Delivers §1.9 sync; NOT-list N1/N2,5,11,3,pool
+gastos compartilhados em casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,4,longtail
+gastos contas,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,19,87,pool
+gastos da casa,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,11,OUT,longtail
+gastos diarios,FIT,Daily view and daily-average insight are shipped.,§1.3 daily chart + média diária,31,52,OUT,cand
+gastos diários,FIT,Daily view and daily-average insight are shipped.,§1.3 daily chart + média diária,5,52,247,cand
+gastos do cartao,PARTIAL,"Delivered only as a user-taggable category, not as a managed entity.",§1.2 categories; NOT-list N8,5,40,72,longtail
+gastos do casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,4,pool
+gastos do mes,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,5,54,OUT,longtail
+gastos e receitas,MISMATCH,Searcher wants to record income/balance; app logs expenses only.,NOT-list N3 (no income),5,34,OUT,longtail
+gastos em grupo,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,5,OUT,longtail
+gastos entre amigos,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,9,OUT,cand
+gastos familia,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,42,OUT,cand
+gastos familiares,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,23,142,cand
+gastos fixos,FIT,Fixed/recurring expenses with daily/weekly/monthly/yearly/weekday repetition.,§1.5 recurring expenses,5,23,OUT,cand
+gastos gratis,FIT,"Core logging, charts, calendar and budgets are free; only export and sync are PRO.",§1.11 free core,5,60,OUT,longtail
+gastos grupo,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,9,OUT,longtail
+gastos juntos,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,9,OUT,longtail
+gastos mensais,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,5,58,OUT,pool
+gastos mensais casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,10,1,pool
+gastos namorados,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,OUT,longtail
+gastos offline,FIT,Everything works offline in local storage; no account required.,§1.10 offline-first,5,15,OUT,longtail
+gastos pessoais,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,60,131,pool
+gastos pessoais a dois,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,39,OUT,longtail
+gastos por categoria,FIT,Expenses are categorised; 14 defaults plus custom categories with icon and colour.,§1.2 categories,5,5,OUT,longtail
+gastos simples,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,39,OUT,longtail
+gerenci,PARTIAL,Word fragment / stopword-grade token with no standalone intent.,n/a — fragment,5,17,OUT,cand
+gerenciador,MISMATCH,Unqualified word whose SERP pool is another category; weight would buy wrong-intent installs.,"n/a — polysemous, wrong pool",46,56,OUT,cand
+gerenciador de gastos,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,57,OUT,cand
+gerenciador financeiro,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,17,51,OUT,cand
+gerenciador financeiro pessoal,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,43,OUT,cand
+gerenciamento,MISMATCH,Unqualified word whose SERP pool is another category; weight would buy wrong-intent installs.,"n/a — polysemous, wrong pool",5,51,OUT,cand
+gerenciar,MISMATCH,Unqualified word whose SERP pool is another category; weight would buy wrong-intent installs.,"n/a — polysemous, wrong pool",5,23,OUT,cand
+gestor de despesas,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,48,135,cand
+gestor de despesas orcamento,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,44,OUT,longtail
+gestor de gastos,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,6,47,OUT,cand
+gestor de orcamento e despesas,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,56,92,longtail
+gestão,MISMATCH,Unqualified word whose SERP pool is another category; weight would buy wrong-intent installs.,"n/a — polysemous, wrong pool",5,50,OUT,cand
+gestão de dinheiro,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,46,OUT,cand
+gestão financeira,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,51,OUT,cand
+gratuito,PARTIAL,Pure qualifier with no standalone intent; only useful as a composition token.,n/a — qualifier,5,76,OUT,cand
+gráfico despesas,FIT,"Pie by category, weekly/daily bars and Month Insights render exactly this.",§1.3 charts + Month Insights,5,13,OUT,cand
+gráficos,FIT,"Pie by category, weekly/daily bars and Month Insights render exactly this.",§1.3 charts + Month Insights,5,19,OUT,cand
+grátis,PARTIAL,Pure qualifier with no standalone intent; only useful as a composition token.,n/a — qualifier,5,88,OUT,cand
+guardar dinheiro,MISMATCH,"Searcher wants a savings pot / piggy bank / savings target; Goals are spending CAPS, not savings.",NOT-list N9 (no savings goals),5,40,OUT,cand
+icloud,MISMATCH,App does not have this capability.,NOT-list,68,60,OUT,cand
+investimentos,MISMATCH,"Searcher wants a savings pot / piggy bank / savings target; Goals are spending CAPS, not savings.",NOT-list N9 (no savings goals),5,79,OUT,cand
+jogo casal,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,49,54,173,longtail
+lançamentos,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,13,OUT,cand
+lembrete de contas,MISMATCH,Searcher wants due-date reminders/alerts; app ships no notifications at all.,NOT-list N6 (no notifications),5,45,OUT,cand
+limite do cartao,MISMATCH,"Searcher wants credit-card invoice/limit/closing-date management; ""Cartão"" is only a default category.",NOT-list N8 (no card management),5,72,OUT,longtail
+lucro prejuízo,MISMATCH,"Business/accounting/quote/invoice intent (MEI, vendas, cotação); app has one entity, a personal expense.",NOT-list N11 (no accounting/invoicing),5,5,OUT,cand
+mei contador,MISMATCH,"Business/accounting/quote/invoice intent (MEI, vendas, cotação); app has one entity, a personal expense.",NOT-list N11 (no accounting/invoicing),5,13,OUT,cand
+mercado,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,67,78,OUT,cand
+meta financeira,PARTIAL,"App calls its budgets ""metas mensais de gastos"" (spending caps); searcher may want a savings target instead.",§1.6 budget caps; NOT-list N9,5,19,OUT,cand
+meta financeira casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,9,OUT,longtail
+metas,PARTIAL,"App calls its budgets ""metas mensais de gastos"" (spending caps); searcher may want a savings target instead.",§1.6 budget caps; NOT-list N9,17,50,OUT,cand
+metas a dois,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,43,OUT,cand
+meu dinheiro,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,52,OUT,cand
+meu orçamento,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,38,OUT,cand
+meus gastos,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,52,OUT,pool
+meus gastos diarios,FIT,Daily view and daily-average insight are shipped.,§1.3 daily chart + média diária,5,31,6,longtail
+minhas contas,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,45,OUT,pool
+minhas despesas,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,57,43,OUT,pool
+minhas dividas,MISMATCH,"Searcher wants a debt/payoff tracker (creditor, installments, plan); app has no debt model.",NOT-list N7 (no debt tracking),5,39,57,longtail
+minhas economias,MISMATCH,Brand navigation — searcher is looking for a specific competitor app by name.,n/a — competitor brand,61,56,58,pool
+minhas financas,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,57,54,222,pool
+minhas financas controle,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,37,OUT,longtail
+minhas finanças,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,54,OUT,pool
+mobills,MISMATCH,Brand navigation — searcher is looking for a specific competitor app by name.,n/a — competitor brand,65,49,OUT,cand
+money,PARTIAL,English term in a pt-BR store: intent is aligned but the listing serves it only through the English locale.,"Intent aligned, language mismatch",55,49,OUT,cand
+money note,MISMATCH,Brand navigation — searcher is looking for a specific competitor app by name.,n/a — competitor brand,5,44,OUT,cand
+money organiser,PARTIAL,English term in a pt-BR store: intent is aligned but the listing serves it only through the English locale.,"Intent aligned, language mismatch",7,57,OUT,cand
+objetivo financeiro,PARTIAL,"App calls its budgets ""metas mensais de gastos"" (spending caps); searcher may want a savings target instead.",§1.6 budget caps; NOT-list N9,5,15,OUT,cand
+objetivos financeiros,PARTIAL,"App calls its budgets ""metas mensais de gastos"" (spending caps); searcher may want a savings target instead.",§1.6 budget caps; NOT-list N9,5,11,OUT,cand
+offline,MISMATCH,"App does have this, but the bare term's SERP is a different category (customization/utility apps).","n/a — polysemous, wrong pool",69,64,OUT,cand
+orcamento a dois,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,OUT,cand
+orcamento casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,9,15,longtail
+orcamento compartilhado,PARTIAL,"Shared-visibility reading is served (one login, synced list); shared-attribution reading is not.",Delivers §1.9 sync; NOT-list N1/N2,5,13,11,longtail
+orcamento da casa,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,21,OUT,longtail
+orcamento do casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,9,11,pool
+orcamento domestico,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,42,OUT,longtail
+orcamento e gastos familiares,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,15,OUT,longtail
+orcamento juntos,MISMATCH,"Searcher wants to split/settle a bill between people; app has no payer, no member, no split, no ""who owes whom"".",NOT-list N1 (no split/settle) + N2 (single userId),5,5,OUT,longtail
+orcamento mensal casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,OUT,longtail
+orcamento por categoria,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,5,OUT,longtail
+orcamento simples,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,19,OUT,longtail
+organizador,MISMATCH,Unqualified word whose SERP pool is another category; weight would buy wrong-intent installs.,"n/a — polysemous, wrong pool",24,60,OUT,cand
+organizador financeiro,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,57,59,OUT,cand
+organizar,MISMATCH,Unqualified word whose SERP pool is another category; weight would buy wrong-intent installs.,"n/a — polysemous, wrong pool",21,47,OUT,cand
+organizar contas,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,46,OUT,longtail
+organizar gastos,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,11,50,OUT,cand
+organizar gastos casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,OUT,cand
+organização financeira,PARTIAL,"Benefit the app serves indirectly (see spending -> spend less), not a feature it ships.",§1.3 insights; NOT-list N9,5,51,OUT,cand
+orçamento,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,47,OUT,pool
+orçamento despesas,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,23,116,pool
+orçamento familiar,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,48,OUT,cand
+orçamento mensal,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,50,OUT,cand
+orçamento pessoal,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,51,OUT,cand
+pagamento,MISMATCH,Searcher wants bank/Pix/account connection or statement import; all entry is manual.,NOT-list N4 (no bank sync),5,69,OUT,cand
+pagar,MISMATCH,Searcher wants bank/Pix/account connection or statement import; all entry is manual.,NOT-list N4 (no bank sync),5,78,OUT,cand
+pagar contas,MISMATCH,Searcher wants due-date reminders/alerts; app ships no notifications at all.,NOT-list N6 (no notifications),5,59,OUT,cand
+pagar dividas,MISMATCH,"Searcher wants a debt/payoff tracker (creditor, installments, plan); app has no debt model.",NOT-list N7 (no debt tracking),5,17,OUT,longtail
+pequenos negócios,MISMATCH,"Business/accounting/quote/invoice intent (MEI, vendas, cotação); app has one entity, a personal expense.",NOT-list N11 (no accounting/invoicing),5,33,OUT,cand
+personal,PARTIAL,English term in a pt-BR store: intent is aligned but the listing serves it only through the English locale.,"Intent aligned, language mismatch",48,59,OUT,cand
+personal finance,PARTIAL,English term in a pt-BR store: intent is aligned but the listing serves it only through the English locale.,"Intent aligned, language mismatch",8,38,64,cand
+pessoais,PARTIAL,Word fragment / stopword-grade token with no standalone intent.,n/a — fragment,5,19,OUT,pool
+pix,MISMATCH,Searcher wants bank/Pix/account connection or statement import; all entry is manual.,NOT-list N4 (no bank sync),65,85,OUT,cand
+planejador de viagens,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,5,44,OUT,cand
+planejamento,MISMATCH,Unqualified word whose SERP pool is another category; weight would buy wrong-intent installs.,"n/a — polysemous, wrong pool",5,59,OUT,cand
+planejamento financeiro,PARTIAL,"Benefit the app serves indirectly (see spending -> spend less), not a feature it ships.",§1.3 insights; NOT-list N9,5,56,OUT,cand
+planilha,MISMATCH,"SERP verified: 7 of top 10 are spreadsheet editors (Google Sheets 322k, Excel 304k, Numbers); app only EXPORTS xlsx.",NOT-list N12 (not a spreadsheet editor),60,67,222,pool
+planilha casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,7,2,longtail
+planilha compartilhada,PARTIAL,"Shared-visibility reading is served (one login, synced list); shared-attribution reading is not.",Delivers §1.9 sync; NOT-list N1/N2,5,29,1,longtail
+planilha de contas,FIT,"SERP verified: with the ""gastos"" qualifier the top 10 flips to expense trackers, not spreadsheet editors.",§1.1 + §1.7 export,5,45,OUT,longtail
+planilha de gastos,FIT,"SERP verified: with the ""gastos"" qualifier the top 10 flips to expense trackers, not spreadsheet editors.",§1.1 + §1.7 export,5,55,OUT,pool
+planilha de gastos mensais,FIT,"SERP verified: with the ""gastos"" qualifier the top 10 flips to expense trackers, not spreadsheet editors.",§1.1 + §1.7 export,5,54,101,longtail
+planilha de orcamento,FIT,"Monthly budget cap per category plus a total month budget, with progress.",§1.6 budgets/goals,5,50,OUT,longtail
+planilha despesas,FIT,"SERP verified: with the ""gastos"" qualifier the top 10 flips to expense trackers, not spreadsheet editors.",§1.1 + §1.7 export,5,50,OUT,pool
+planilha do casal,PARTIAL,"Couple/possessive intent: two people CAN share one Google login and see one list, but there is no partner feature, no per-person view, no split.",Delivers §1.9 shared login only; NOT-list N1/N2,5,5,2,longtail
+planilha financeira,MISMATCH,"SERP verified: 7 of top 10 are spreadsheet editors (Google Sheets 322k, Excel 304k, Numbers); app only EXPORTS xlsx.",NOT-list N12 (not a spreadsheet editor),59,62,OUT,cand
+planilha gastos,FIT,"SERP verified: with the ""gastos"" qualifier the top 10 flips to expense trackers, not spreadsheet editors.",§1.1 + §1.7 export,5,57,OUT,pool
+planilha mensal,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,5,49,OUT,longtail
+poupanca do casal,MISMATCH,"Searcher wants a savings pot / piggy bank / savings target; Goals are spending CAPS, not savings.",NOT-list N9 (no savings goals),5,5,OUT,longtail
+poupança,MISMATCH,"Searcher wants a savings pot / piggy bank / savings target; Goals are spending CAPS, not savings.",NOT-list N9 (no savings goals),5,89,OUT,cand
+poupar,MISMATCH,"Searcher wants a savings pot / piggy bank / savings target; Goals are spending CAPS, not savings.",NOT-list N9 (no savings goals),5,21,OUT,cand
+poupar dinheiro,MISMATCH,"Searcher wants a savings pot / piggy bank / savings target; Goals are spending CAPS, not savings.",NOT-list N9 (no savings goals),5,17,OUT,cand
+quitar dividas,MISMATCH,"Searcher wants a debt/payoff tracker (creditor, installments, plan); app has no debt model.",NOT-list N7 (no debt tracking),5,13,OUT,longtail
+quiz casal,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,14,36,OUT,longtail
+rastreador de despesas,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,19,OUT,longtail
+rastreador de gastos,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,33,OUT,cand
+receitas,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,50,41,OUT,cand
+receitas e despesas,MISMATCH,Searcher wants to record income/balance; app logs expenses only.,NOT-list N3 (no income),5,52,OUT,cand
+registrar despesas,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,15,OUT,cand
+registro de gastos,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,16,50,OUT,cand
+relatorio de gastos,FIT,"Pie by category, weekly/daily bars and Month Insights render exactly this.",§1.3 charts + Month Insights,5,15,OUT,longtail
+relatorio financeiro,FIT,"Pie by category, weekly/daily bars and Month Insights render exactly this.",§1.3 charts + Month Insights,5,19,OUT,cand
+relatorio mensal gastos,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,5,5,OUT,longtail
+relatório financeiro,FIT,"Pie by category, weekly/daily bars and Month Insights render exactly this.",§1.3 charts + Month Insights,5,19,OUT,cand
+relatórios,FIT,"Pie by category, weekly/daily bars and Month Insights render exactly this.",§1.3 charts + Month Insights,5,21,OUT,cand
+renda,MISMATCH,Searcher wants to record income/balance; app logs expenses only.,NOT-list N3 (no income),5,61,OUT,cand
+resumo de gastos,FIT,"Pie by category, weekly/daily bars and Month Insights render exactly this.",§1.3 charts + Month Insights,5,5,OUT,longtail
+resumo mensal,FIT,"Monthly view is the app's default frame: month totals, month insights, month projection.",§1.3 Month Insights + period filters,5,5,OUT,cand
+saidas dinheiro,MISMATCH,Searcher wants to record income/balance; app logs expenses only.,NOT-list N3 (no income),5,5,OUT,cand
+saldo,MISMATCH,Searcher wants to record income/balance; app logs expenses only.,NOT-list N3 (no income),21,39,OUT,cand
+saúde financeira,PARTIAL,"Benefit the app serves indirectly (see spending -> spend less), not a feature it ships.",§1.3 insights; NOT-list N9,5,37,OUT,cand
+sem assinatura,PARTIAL,Pure qualifier with no standalone intent; only useful as a composition token.,n/a — qualifier,5,11,OUT,cand
+sem internet,FIT,Everything works offline in local storage; no account required.,§1.10 offline-first,5,69,OUT,cand
+senha,MISMATCH,Term belongs to a different app category entirely.,n/a — outside the inventory,58,44,OUT,cand
+simples,PARTIAL,Pure qualifier with no standalone intent; only useful as a composition token.,n/a — qualifier,51,40,OUT,cand
+sincronização,PARTIAL,Polysemous: a plausible expense-tracker reading exists but the SERP pool is partly another intent. Composition-feeder only.,n/a — polysemous,5,43,OUT,cand
+transações,FIT,"Core job: log an expense by hand in seconds, with amount, description, date and category.",§1.1 manual expense logging,5,23,OUT,cand
+vencimento,MISMATCH,Searcher wants due-date reminders/alerts; app ships no notifications at all.,NOT-list N6 (no notifications),5,9,OUT,cand
+vida financeira,PARTIAL,"Benefit the app serves indirectly (see spending -> spend less), not a feature it ships.",§1.3 insights; NOT-list N9,5,48,OUT,cand
+wallet,MISMATCH,Searcher wants bank/Pix/account connection or statement import; all entry is manual.,NOT-list N4 (no bank sync),62,51,OUT,cand
+widget,MISMATCH,"App does have this, but the bare term's SERP is a different category (customization/utility apps).","n/a — polysemous, wrong pool",61,65,OUT,cand

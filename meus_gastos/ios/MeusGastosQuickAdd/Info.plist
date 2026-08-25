@@ -25,6 +25,10 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.widgetkit-extension</string>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>MaterialIcons-Regular.otf</string>
+	</array>
 	<key>UIDesignRequiresCompatibility</key>
 	<true/>
 </dict>

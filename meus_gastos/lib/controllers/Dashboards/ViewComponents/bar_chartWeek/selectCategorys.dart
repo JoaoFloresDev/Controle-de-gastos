@@ -42,7 +42,7 @@ class _SelectCategoriesState extends State<SelectCategories> {
 
   Widget _buildCategoryIcons() {
     return SizedBox(
-      height: 60,
+      height: 74,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: widget.categoryList.length,
@@ -50,13 +50,16 @@ class _SelectCategoriesState extends State<SelectCategories> {
           final isSelected = selectedIndices.contains(index);
           return GestureDetector(
             onTap: () => _toggleSelection(index),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _buildIconContainer(isSelected, index),
-                const SizedBox(height: 4),
-                _buildCategoryLabel(index),
-              ],
+            child: SizedBox(
+              width: 56,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _buildIconContainer(isSelected, index),
+                  const SizedBox(height: 4),
+                  _buildCategoryLabel(index),
+                ],
+              ),
             ),
           );
         },
@@ -68,7 +71,6 @@ class _SelectCategoriesState extends State<SelectCategories> {
     return Container(
       width: 40,
       height: 40,
-      margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
         color:
             isSelected ? AppColors.buttonSelected : AppColors.buttonDeselected,
@@ -86,8 +88,11 @@ class _SelectCategoriesState extends State<SelectCategories> {
       style: const TextStyle(
         fontSize: 9,
         color: AppColors.label,
+        height: 1.15,
       ),
       textAlign: TextAlign.center,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
     );
   }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		022E224D88AF01C49E8FEFDE /* MaterialIcons-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = CF543F84AB3EFFB206A8127C /* MaterialIcons-Regular.otf */; };
 		02A3FC5E321FA9DFDE10B872 /* QuickAddWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D038B071A1C5B889A7F81687 /* QuickAddWidget.swift */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		2122C9D0B2E3F59A253F7B68 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 590766C6BE45AC1479DF19D7 /* Pods_Runner.framework */; };
@@ -115,6 +116,7 @@
 		C4BD4E2D2CACBF4D00412FF0 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C4F1A2B12D4F8E0100A1B2C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CC596B0D572006503AA8765C /* MeusGastosQuickAdd.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = MeusGastosQuickAdd.entitlements; sourceTree = "<group>"; };
+		CF543F84AB3EFFB206A8127C /* MaterialIcons-Regular.otf */ = {isa = PBXFileReference; includeInIndex = 1; path = "MaterialIcons-Regular.otf"; sourceTree = "<group>"; };
 		D038B071A1C5B889A7F81687 /* QuickAddWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = QuickAddWidget.swift; sourceTree = "<group>"; };
 		FEA7B290755426BADF351017 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -148,6 +150,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18194A7A1B340A85A134DD88 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				CF543F84AB3EFFB206A8127C /* MaterialIcons-Regular.otf */,
+			);
+			name = Fonts;
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		28BDAF215A22BD733F795A0E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +260,7 @@
 				6386D3E2C0D4A0366B02E948 /* WidgetStore.swift */,
 				5E9B263A78B153A0A13536A3 /* Info.plist */,
 				CC596B0D572006503AA8765C /* MeusGastosQuickAdd.entitlements */,
+				18194A7A1B340A85A134DD88 /* Fonts */,
 			);
 			name = MeusGastosQuickAdd;
 			path = MeusGastosQuickAdd;
@@ -376,6 +388,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				022E224D88AF01C49E8FEFDE /* MaterialIcons-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

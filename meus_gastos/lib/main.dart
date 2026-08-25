@@ -97,6 +97,26 @@ class MyApp extends StatelessWidget {
         Locale('tr'),
         Locale('ar'),
         Locale('id'),
+        Locale('ru'),
+        Locale('hi'),
+        Locale('nl'),
+        Locale('pl'),
+        Locale('vi'),
+        Locale('th'),
+        Locale('ms'),
+        Locale('sv'),
+        Locale('da'),
+        Locale('nb'),
+        Locale('fi'),
+        Locale('uk'),
+        Locale('el'),
+        Locale('he'),
+        Locale('cs'),
+        Locale('hu'),
+        Locale('ro'),
+        Locale('sk'),
+        Locale('hr'),
+        Locale('ca'),
       ],
       home: RootGate(showOnboarding: showOnboarding),
     );
@@ -113,29 +133,37 @@ class RootGate extends StatefulWidget {
 }
 
 class _RootGateState extends State<RootGate> {
-  late bool _showOnboarding = widget.showOnboarding;
+  // MARK: - Navigation
 
-  Future<void> _finishOnboarding() async {
-    setState(() => _showOnboarding = false);
+  /// Onboarding -> paywall -> home, every step a forward horizontal push.
+  void _finishOnboarding() {
     if (!mounted) return;
-    final navigator = Navigator.of(context);
-    await navigator.push(
-      MaterialPageRoute(
+    Navigator.of(context).push(
+      CupertinoPageRoute(
         builder: (routeContext) => ProModal(
           isLoading: false,
-          onSubscriptionPurchased: () =>
-              Navigator.of(routeContext).popUntil((route) => route.isFirst),
+          onSubscriptionPurchased: () => _goHome(routeContext),
+          onClose: () => _goHome(routeContext),
         ),
       ),
     );
   }
 
+  void _goHome(BuildContext routeContext) {
+    Navigator.of(routeContext).pushAndRemoveUntil(
+      CupertinoPageRoute(builder: (_) => const MyHomePage()),
+      (route) => false,
+    );
+  }
+
+  // MARK: - Build
+
   @override
   Widget build(BuildContext context) {
-    if (_showOnboarding) {
+    if (widget.showOnboarding) {
       return OnboardingScreen(onFinish: _finishOnboarding);
     }
-    return MyHomePage();
+    return const MyHomePage();
   }
 }
 

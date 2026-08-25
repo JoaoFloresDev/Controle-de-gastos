@@ -1,0 +1,1 @@
+kosten,konto,planer,monatsbudget,bilanz,haushalt,einkauf,fixkosten,kontrolle,kategorien,statistik

@@ -1,0 +1,48 @@
+App Name,App Id,Platform,Keyword,Store Domain,Store,Note,Last Update,Ranking,Change,Popularity,Difficulty,Apps in Ranking,Tags
+Meus Gastos: Casal e Despesas,6502218501,iphone,gastos mensais casal,br,🇧🇷 Brazil,natural query — name tokens 'Gastos'+'Casal' + live token 'mensais',2026-08-24,1,0,5,10,4,pool;new-this-iter
+Meus Gastos: Casal e Despesas,6502218501,iphone,gastos compartilhados,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,3,0,5,11,81,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,gastos do casal,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,4,0,5,5,89,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,financas do casal,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,4,0,5,13,109,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,economias casal,br,🇧🇷 Brazil,composition of our live token 'economias' + name token 'Casal',2026-08-24,4,0,5,5,26,pool;new-this-iter
+Meus Gastos: Casal e Despesas,6502218501,iphone,gastos casal,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,5,0,5,9,91,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,contas do casal,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,7,0,5,9,84,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,orcamento do casal,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,11,0,5,9,92,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,despesas gastos,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,16,0,5,45,246,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,despesas do casal,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,26,0,5,5,83,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,contas despesas,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,56,-10,5,35,246,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,minhas economias,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,58,-4,61,56,80,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,diário gastos,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,74,-40,5,15,202,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,gastos contas,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,87,0,5,19,244,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,orçamento despesas,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,116,-30,5,23,244,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,fatura cartao,br,🇧🇷 Brazil,composition of our live tokens 'fatura'+'cartao',2026-08-24,121,0,5,50,151,pool;new-this-iter
+Meus Gastos: Casal e Despesas,6502218501,iphone,gastos pessoais,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,131,0,5,60,250,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,gastos cartao,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,201,0,5,42,242,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,casal,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,212,0,54,52,250,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,planilha,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,222,0,60,67,243,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,minhas financas,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,222,778,57,54,249,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,diario de gastos,br,🇧🇷 Brazil,composition of our live token 'diario' + name token 'gastos',2026-08-24,243,0,5,15,248,pool;new-this-iter
+Meus Gastos: Casal e Despesas,6502218501,iphone,finanças pessoais,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,59,61,249,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,minhas despesas,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,57,43,250,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,cartão,br,🇧🇷 Brazil,accent variant of our live keyword token 'cartao',2026-08-24,OUT,0,56,78,247,pool;new-this-iter
+Meus Gastos: Casal e Despesas,6502218501,iphone,contas,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,55,80,249,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,financas,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,53,56,246,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,despesas,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,52,49,250,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,finanças,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,52,62,245,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,gastos,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,37,63,250,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,meus gastos,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,5,52,249,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,contas e despesas,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,-766,5,60,250,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,pessoais,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,5,19,233,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,orçamento,br,🇧🇷 Brazil,accent variant of our live keyword token 'orcamento',2026-08-24,OUT,0,5,47,249,pool;new-this-iter
+Meus Gastos: Casal e Despesas,6502218501,iphone,minhas contas,br,🇧🇷 Brazil,composition of our live tokens 'minhas'+'contas',2026-08-24,OUT,0,5,45,250,pool;new-this-iter
+Meus Gastos: Casal e Despesas,6502218501,iphone,dividas,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,5,42,250,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,planilha gastos,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,5,57,248,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,gastos mensais,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,5,58,250,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,despesas mensais,br,🇧🇷 Brazil,composition of our name token 'Despesas' + live token 'mensais',2026-08-24,OUT,0,5,51,250,pool;new-this-iter
+Meus Gastos: Casal e Despesas,6502218501,iphone,planilha despesas,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,5,50,250,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,economias,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,5,48,250,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,dívidas,br,🇧🇷 Brazil,accent variant of our live keyword token 'dividas',2026-08-24,OUT,0,5,19,250,pool;new-this-iter
+Meus Gastos: Casal e Despesas,6502218501,iphone,fatura,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,5,9,249,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,minhas finanças,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,5,54,248,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,despesas pessoais,br,🇧🇷 Brazil,pre-existing Astro tracking (iter-01/iter-02 pool),2026-08-24,OUT,0,5,50,250,pool
+Meus Gastos: Casal e Despesas,6502218501,iphone,diário,br,🇧🇷 Brazil,accent variant of our live keyword token 'diario',2026-08-24,OUT,0,5,54,245,pool;new-this-iter
+Meus Gastos: Casal e Despesas,6502218501,iphone,planilha de gastos,br,🇧🇷 Brazil,composition of our live token 'planilha' + name token 'gastos',2026-08-24,OUT,0,5,55,249,pool;new-this-iter

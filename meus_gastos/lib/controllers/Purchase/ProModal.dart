@@ -13,10 +13,14 @@ class ProModal extends StatefulWidget {
   final bool isLoading;
   final VoidCallback onSubscriptionPurchased;
 
+  /// Called when the user dismisses the paywall. Defaults to popping the route.
+  final VoidCallback? onClose;
+
   const ProModal({
     super.key,
     required this.isLoading,
     required this.onSubscriptionPurchased,
+    this.onClose,
   });
 
   @override
@@ -226,7 +230,7 @@ class _ProModalState extends State<ProModal> {
                       color: AppColors.label,
                       size: 26,
                     ),
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: widget.onClose ?? () => Navigator.of(context).pop(),
                   ),
                   IconButton(
                     icon: const Icon(
@@ -335,10 +339,10 @@ class _ProModalState extends State<ProModal> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(24, 12, 24, 8),
+              padding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
               child: SizedBox(
                 width: double.infinity,
-                height: 62,
+                height: 54,
                 child: ElevatedButton(
                   onPressed: _isPro || loadingPurchases.isNotEmpty
                       ? null

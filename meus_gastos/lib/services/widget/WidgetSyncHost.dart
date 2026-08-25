@@ -66,7 +66,9 @@ class _WidgetSyncHostState extends State<WidgetSyncHost>
         .toList();
     if (categories.isEmpty) return;
 
-    final signature = categories.map((c) => '${c.id}:${c.color.value}').join('|');
+    final signature = categories
+        .map((c) => '${c.id}:${c.color.value}:${c.icon.codePoint}')
+        .join('|');
     if (signature == _lastCategorySignature) return;
     _lastCategorySignature = signature;
 

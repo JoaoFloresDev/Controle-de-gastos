@@ -26,6 +26,7 @@ APP_ID    = os.getenv("APP_ID", "6502218501")
 CURRENT_META = Path(__file__).resolve().parent.parent / "current" / "metadata"
 
 STRICT_MODE = "--strict" in sys.argv
+PULL_MODE = "--pull" in sys.argv
 
 
 def make_token() -> str:
@@ -93,8 +94,26 @@ def short(s: str, n: int = 50) -> str:
     return (s[:n] + "…") if len(s) > n else s
 
 
+def write_local(locale: str, data: dict) -> None:
+    d = CURRENT_META / locale
+    d.mkdir(parents=True, exist_ok=True)
+    for field, fname in [("name", "name.txt"), ("subtitle", "subtitle.txt"),
+                         ("keywords", "keywords.txt"), ("description", "description.txt"),
+                         ("promotional_text", "promotional_text.txt"),
+                         ("release_notes", "release_notes.txt")]:
+        (d / fname).write_text((data.get(field) or "") + "\n")
+
+
 def main() -> int:
     live = fetch_live_state()
+
+    if PULL_MODE:
+        for loc, data in sorted(live.items()):
+            write_local(loc, data)
+            print(f"⬇️  {loc}: pulled from ASC live")
+        print(f"\n✅ Pulled {len(live)} locale(s) into current/metadata/.")
+        return 0
+
     local_locales = sorted({d.name for d in CURRENT_META.iterdir() if d.is_dir()})
 
     print(f"🔎 Verifying current/metadata/ against ASC live state…\n")

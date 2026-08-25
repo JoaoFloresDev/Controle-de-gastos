@@ -13,7 +13,16 @@ struct WidgetCategory: Identifiable {
     let id: String
     let name: String
     let color: Color
+    /// Material Icons codepoint synced from the app, so the widget draws the
+    /// exact same glyph the "add expense" screen shows (custom categories too).
+    let iconCodePoint: Int?
+    /// SF Symbol fallback, used only when the app hasn't synced a codepoint yet.
     let symbol: String
+
+    var glyph: String? {
+        guard let cp = iconCodePoint, let scalar = UnicodeScalar(cp) else { return nil }
+        return String(Character(scalar))
+    }
 }
 
 // MARK: - Store
@@ -80,6 +89,7 @@ enum WidgetStore {
                 id: id,
                 name: name,
                 color: Color(argb: argb),
+                iconCodePoint: item["icon"] as? Int,
                 symbol: WidgetStore.symbol(for: id)
             )
         }
@@ -160,30 +170,34 @@ enum WidgetStore {
         clearUndo()
     }
 
-    // MARK: SF Symbol mapping for default categories
+    // MARK: SF Symbol fallback for the built-in categories
+    /// Only used until the app syncs the real Material Icons codepoints; ids
+    /// mirror CategoryService.dart.
     static func symbol(for id: String) -> String {
         switch id {
         case "Shopping": return "cart.fill"
         case "Home": return "house.fill"
-        case "Transport": return "car.fill"
+        case "Transport": return "car"
         case "Restaurant": return "fork.knife"
-        case "Hospital": return "cross.case.fill"
+        case "Hospital": return "cross.fill"
         case "GasStation": return "fuelpump.fill"
-        case "Drink": return "cup.and.saucer.fill"
+        case "Drink": return "wineglass.fill"
+        case "fun": return "party.popper.fill"
         case "ShoppingBasket": return "basket.fill"
         case "CreditCard": return "creditcard.fill"
-        case "Education": return "graduationcap.fill"
+        case "Education": return "graduationcap"
         case "Phone": return "phone.fill"
         case "Movie": return "film.fill"
         case "VideoGame": return "gamecontroller.fill"
-        case "Water": return "drop.fill"
-        case "Light": return "lightbulb.fill"
-        case "Wifi": return "wifi"
-        case "fun": return "party.popper.fill"
         case "Unknown": return "questionmark"
         default: return "tag.fill"
         }
     }
+
+    // MARK: Material Icons font
+    /// PostScript name of the font bundled with the widget (mirrors the one
+    /// Flutter uses for Icons.*).
+    static let iconFontName = "MaterialIcons-Regular"
 }
 
 // MARK: - App design system palette (mirrors lib/designSystem/Constants/AppColors.dart)

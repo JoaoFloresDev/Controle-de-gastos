@@ -1,0 +1,89 @@
+{
+  "iter_id": "2026-08-24_iter-03-text-pt-BR-keywords",
+  "type": "text",
+  "locales": [
+    "pt-BR",
+    "de-DE"
+  ],
+  "fields_changed": [
+    "keywords"
+  ],
+  "fields_unchanged": [
+    "name",
+    "subtitle"
+  ],
+  "approach": "alignment-correction",
+  "approach_rationale": "BR has 18 ratings (lab gate is 25) and the app does 5.3 downloads/day, so head terms are unwinnable this round. Stage 3 proved in the source that the app does NOT split expenses and has no couples feature at all — 'casal' exists only in the store name/subtitle. It also found that 5 of the 11 live pt-BR keyword tokens and 8-9 of the 12 de-DE ones are MISMATCH, i.e. the fields are spending weight attracting intent the product frustrates. This iteration drops the MISMATCH tokens that either protect nothing or promise features that do not exist, and reallocates the chars to FIT compositions with difficulty 5-11 backed by real features. Name and subtitle are untouched: they alone sustain 7 of the 24 ranked compositions, and the underlying positioning decision is a product call pending with Joao.",
+  "status": "running",
+  "created_at": "2026-08-24",
+  "deployed": true,
+  "hypothesis": {
+    "if_we_change": "pt-BR keywords: drop minhas/fatura (protect nothing) + cartao/dividas (MISMATCH), add categorias/fixas/resumo/extrato. de-DE keywords: drop sparen/geld/finanzen (protect nothing) + einnahmen (app has no income tracking), add kontrolle/kategorien/statistik.",
+    "then_we_expect": "Coverage of ~8 FIT compositions in pt-BR and ~5 in de-DE at difficulty 5-11, and fewer installs from frustrated intent (debt, credit-card invoice, income tracking) — which matters because ratings, not traffic, are the bottleneck.",
+    "because": "Every added token maps to a feature verified in the source (categories, recurring expenses, Month Insights, ExtractByCategory). Every dropped token either protects no ranking or promises something absent from the product."
+  },
+  "expected_losses": {
+    "pt-BR": [
+      "dividas do casal #3",
+      "cartao casal #9",
+      "despesas cartao #22"
+    ],
+    "de-DE": [
+      "einnahmen verwalten #26"
+    ],
+    "note": "All four are pop-5 MISMATCH terms. Accepted deliberately."
+  },
+  "success_criterion": {
+    "primary_metric": "downloads_per_day",
+    "secondary_metric": "ratings_count_BR",
+    "measurement_window": "28 days from deploy",
+    "baseline": {
+      "downloads_per_day": 5.32,
+      "method_a": "pull_analytics.py 60d = 314 downloads",
+      "method_b": "kill_or_scale.py 45d = 227 downloads, 5.0/day, verdict WATCH, trend up",
+      "method_c": "ASC Discovery & Engagement 45d = 506 impressions/day, CVR 5.99%; BR 142.6 imp/day CVR 8.23%; DE 49.3 imp/day CVR 7.49%; 94.5% of impressions come from search",
+      "ratings": {
+        "BR": 18,
+        "DE": 2,
+        "US": 1
+      },
+      "captured_at": "2026-08-24"
+    },
+    "targets": {
+      "note": "No per-term target positions estimated — stage 4 (SERP/winnability) failed three times, so no winnability scoring exists. Judge on the aggregate metrics only."
+    }
+  },
+  "confidence_limits": [
+    "No fresh SERP round this iteration; protection map was assembled by the coordinator from stages 1-3 measured data.",
+    "Astro popularity is the only volume source — no App Store Search Terms report exists for this app.",
+    "All 24 ranked pt-BR compositions and all 9 de-DE ones are pop 5, which is the measurement floor, not absence of search."
+  ],
+  "checkpoints": [
+    "D7",
+    "D14",
+    "D28"
+  ],
+  "blockers": [
+    "Editable version 45.3.0 is DEVELOPER_REJECTED, not PREPARE_FOR_SUBMISSION — metadata changes ride the next submission.",
+    "Deploy not authorized: stages 7-8 require Joao's explicit go-ahead."
+  ],
+  "supersedes": "2026-05-30_iter-02-text-pt-BR-name-subtitle-keywords",
+  "deployed_at": "2026-08-25",
+  "deployed_to": {
+    "appStoreVersion": "137699c4-7e96-4abc-9b9a-77723dd65cf0",
+    "versionString": "45.3.0",
+    "state_at_deploy": "DEVELOPER_REJECTED",
+    "note": "keywords applied to the EDITABLE version; they only reach users when 45.3.0 is submitted and approved."
+  },
+  "deploy_method": "direct PATCH on appStoreVersionLocalizations + API read-back (never fastlane deliver)",
+  "read_back": {
+    "pt-BR": "confirmed 97 chars",
+    "de-DE": "confirmed 97 chars",
+    "name_subtitle": "unchanged, verified"
+  },
+  "checkpoint_dates": {
+    "D7": "2026-09-01",
+    "D14": "2026-09-08",
+    "D28": "2026-09-22"
+  }
+}

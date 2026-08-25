@@ -13,7 +13,7 @@
   ],
   "approach": "parallel",
   "approach_rationale": "Cold-start app (1.5 dl/dia média 30d, ≪15 threshold). Velocity > attribution. Per-keyword rank tracking via Astro permite post-hoc attribution. App live na ASC desde versão 45.0 com 13 locales mas tração organicamente fraca em pt-BR — paralelizar subtitle+keywords maximiza superfície de mudança numa única review-cycle. Exceção contextual à regra '1 variável por iter'.",
-  "status": "running",
+  "status": "superseded",
   "started_at": "2026-05-23",
   "planned_close_at": "2026-06-20",
   "actual_closed_at": null,
@@ -120,5 +120,6 @@
   },
   "verdict": null,
   "promoted_to_current": false,
-  "notes": "Cold-start severo (1.5 dl/dia). Bugs identificados no baseline: (1) 'gerenci' truncado no keywords field; (2) 'despesas' duplicado entre name e keywords (waste ~9 chars); (3) 'controle' duplicado entre subtitle e keywords (waste ~9 chars); (4) singular 'despesa' no subtitle redundante com 'Despesas' no name. ~22 chars liberáveis pra termos sweet-spot pós-Astro.\n\nDEPLOYED 2026-05-23: ASC editable version v45.1 (PREPARE_FOR_SUBMISSION) id=c5eaaa6f-ac53-40ff-b344-7375fa26fe22 criada via API. Fastlane sync_metadata pushou 13 locales com subtitle+keywords pt-BR otimizados. PENDENTE manual no ASC web UI: (a) anexar novo build à v45.1 OU promover build atual; (b) clicar Submit for Review. Apple review ~24-48h."
+  "notes": "Cold-start severo (1.5 dl/dia). Bugs identificados no baseline: (1) 'gerenci' truncado no keywords field; (2) 'despesas' duplicado entre name e keywords (waste ~9 chars); (3) 'controle' duplicado entre subtitle e keywords (waste ~9 chars); (4) singular 'despesa' no subtitle redundante com 'Despesas' no name. ~22 chars liberáveis pra termos sweet-spot pós-Astro.\n\nDEPLOYED 2026-05-23: ASC editable version v45.1 (PREPARE_FOR_SUBMISSION) id=c5eaaa6f-ac53-40ff-b344-7375fa26fe22 criada via API. Fastlane sync_metadata pushou 13 locales com subtitle+keywords pt-BR otimizados. PENDENTE manual no ASC web UI: (a) anexar novo build à v45.1 OU promover build atual; (b) clicar Submit for Review. Apple review ~24-48h.",
+  "superseded_by": "2026-05-30_iter-02-text-pt-BR-name-subtitle-keywords"
 }
