@@ -85,5 +85,6 @@
     "D7": "2026-09-01",
     "D14": "2026-09-08",
     "D28": "2026-09-22"
-  }
+  },
+  "name_reverted_2026-08-25": "João encerrou o teste do angulo \"casal\": name pt-BR voltou de \"Meus Gastos: Casal e Despesas\" para \"Meus Gastos: Contas e Despesas\" (o valor pre-iter-02). O subtitle \"Financas do casal e pessoais\" segue como estava — nao foi pedido. Coerente com o estagio 3, que provou no source que o app nao entrega nada de casal (sem pagador/participante em CardModel, Firestore todo por userId) — \"casal\" era so posicionamento de loja."
 }
