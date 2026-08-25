@@ -18,6 +18,14 @@ class LoginRoute {
     ProManeger proViewModel,
     VoidCallback onLoginChange,
   ) {
+    // Sincronizar exige assinatura: quem nao tem vai direto pro paywall, em vez
+    // de abrir a tela de login bloqueada.
+    if (!proViewModel.isPro) {
+      FocusScope.of(context).unfocus();
+      _showProModal(context, proViewModel);
+      return;
+    }
+
     final syncVM = context.read<SyncViewModel>();
     FocusScope.of(context).unfocus();
     showModalBottomSheet(
