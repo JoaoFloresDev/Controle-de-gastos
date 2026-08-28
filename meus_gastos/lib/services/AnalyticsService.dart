@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Central funnel for every analytics call in the app.
 /// Never throws: analytics must not break a user flow.
@@ -34,12 +35,37 @@ class AnalyticsService {
     }
   }
 
+  // MARK: - Activation
+  static const _coreActionKey = 'analytics.didCoreAction';
+
+  /// The moment the app delivered its value. `first` marks the very first time on this
+  /// install, which is what predicts retention.
+  Future<void> coreAction(String kind, [Map<String, Object>? extra]) async {
+    var first = false;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      first = !(prefs.getBool(_coreActionKey) ?? false);
+      if (first) await prefs.setBool(_coreActionKey, true);
+    } catch (_) {}
+    await logEvent('core_action', {
+      'kind': kind,
+      'first': first.toString(),
+      ...?extra,
+    });
+  }
+
+  /// Feature adoption, comparable across every app in the lab.
+  Future<void> featureUsed(String name, {required String source}) =>
+      logEvent('feature_used', {'name': name, 'source': source});
+
   // MARK: - Transactions
-  Future<void> transactionAdded({required String category, required bool isRecurrent}) =>
-      logEvent('transaction_add', {
-        'category': category,
-        'is_recurrent': isRecurrent.toString(),
-      });
+  Future<void> transactionAdded({required String category, required bool isRecurrent}) async {
+    await logEvent('transaction_add', {
+      'category': category,
+      'is_recurrent': isRecurrent.toString(),
+    });
+    await coreAction('transaction_logged', {'is_recurrent': isRecurrent.toString()});
+  }
 
   Future<void> transactionEdited() => logEvent('transaction_edit');
 
@@ -69,16 +95,20 @@ class AnalyticsService {
   Future<void> logoutDone() => logEvent('logout');
 
   // MARK: - Purchase
-  Future<void> paywallViewed(String source) =>
-      logEvent('paywall_view', {'source': source});
+  Future<void> paywallViewed(String source) async {
+    await logEvent('paywall_shown', {'source': source});
+    await logEvent('paywall_view', {'source': source});   // legacy, one release
+  }
 
-  Future<void> purchaseStarted(String productId) =>
-      logEvent('purchase_start', {'product_id': productId});
+  Future<void> purchaseStarted(String productId) async {
+    await logEvent('purchase_started', {'product_id': productId});
+    await logEvent('purchase_start', {'product_id': productId});   // legacy, one release
+  }
 
   Future<void> purchaseCompleted(String productId) =>
       logEvent('purchase_success', {'product_id': productId});
 
-  Future<void> purchaseRestored() => logEvent('purchase_restore');
+  Future<void> purchaseRestored() => logEvent('purchase_restored');
 
   Future<void> purchaseFailed(String productId) =>
       logEvent('purchase_fail', {'product_id': productId});
@@ -86,10 +116,15 @@ class AnalyticsService {
   // MARK: - Onboarding
   Future<void> onboardingStarted() => logEvent('onboarding_start');
 
-  Future<void> onboardingStepViewed(int step) =>
-      logEvent('onboarding_step', {'step': step});
+  Future<void> onboardingStepViewed(int step) async {
+    await logEvent('onboarding_step_viewed', {'step': step});
+    await logEvent('onboarding_step', {'step': step});   // legacy, one release
+  }
 
-  Future<void> onboardingCompleted() => logEvent('onboarding_complete');
+  Future<void> onboardingCompleted() async {
+    await logEvent('onboarding_completed');
+    await logEvent('onboarding_complete');   // legacy, one release
+  }
 
   Future<void> onboardingSkipped(int atStep) =>
       logEvent('onboarding_skip', {'step': atStep});
