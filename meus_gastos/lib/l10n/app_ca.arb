@@ -245,5 +245,13 @@
     "planYearly": "Anual",
     "planMonthly": "Mensual",
     "freeTrial3Days": "3 dies gratis",
-    "startFreeTrial": "Comença la prova gratuïta"
+    "startFreeTrial": "Comença la prova gratuïta",
+    "ratingGateTitle": "T'agrada l'app?",
+    "ratingGateSubtitle": "La teva opinió ens ajuda a millorar.",
+    "ratingGateYes": "Sí, m'encanta",
+    "ratingGateNo": "No gaire",
+    "ratingGateFeedbackTitle": "Què podem millorar?",
+    "ratingGateFeedbackPlaceholder": "Explica'ns què ha fallat...",
+    "ratingGateFeedbackSend": "Envia",
+    "ratingGateFeedbackThanks": "Gràcies! Llegim tots els missatges."
 }

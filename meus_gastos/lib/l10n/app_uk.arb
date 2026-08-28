@@ -245,5 +245,13 @@
     "planYearly": "Річний",
     "planMonthly": "Місячний",
     "freeTrial3Days": "3 дні безкоштовно",
-    "startFreeTrial": "Спробувати безкоштовно"
+    "startFreeTrial": "Спробувати безкоштовно",
+    "ratingGateTitle": "Подобається застосунок?",
+    "ratingGateSubtitle": "Ваш відгук допомагає нам ставати кращими.",
+    "ratingGateYes": "Так, дуже",
+    "ratingGateNo": "Не дуже",
+    "ratingGateFeedbackTitle": "Що можна покращити?",
+    "ratingGateFeedbackPlaceholder": "Розкажіть, що пішло не так...",
+    "ratingGateFeedbackSend": "Надіслати",
+    "ratingGateFeedbackThanks": "Дякуємо! Ми читаємо кожне повідомлення."
 }

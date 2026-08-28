@@ -779,4 +779,30 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Bắt đầu dùng thử miễn phí';
+
+  @override
+  String get ratingGateTitle => 'Bạn thấy ứng dụng thế nào?';
+
+  @override
+  String get ratingGateSubtitle => 'Góp ý của bạn giúp chúng tôi cải thiện.';
+
+  @override
+  String get ratingGateYes => 'Rất thích';
+
+  @override
+  String get ratingGateNo => 'Chưa hẳn';
+
+  @override
+  String get ratingGateFeedbackTitle => 'Chúng tôi có thể cải thiện điều gì?';
+
+  @override
+  String get ratingGateFeedbackPlaceholder =>
+      'Cho chúng tôi biết điều gì chưa ổn...';
+
+  @override
+  String get ratingGateFeedbackSend => 'Gửi';
+
+  @override
+  String get ratingGateFeedbackThanks =>
+      'Cảm ơn bạn! Chúng tôi đọc mọi tin nhắn.';
 }

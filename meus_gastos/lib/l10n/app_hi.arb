@@ -245,5 +245,13 @@
     "planYearly": "वार्षिक",
     "planMonthly": "मासिक",
     "freeTrial3Days": "3 दिन मुफ़्त",
-    "startFreeTrial": "मुफ़्त ट्रायल शुरू करें"
+    "startFreeTrial": "मुफ़्त ट्रायल शुरू करें",
+    "ratingGateTitle": "ऐप पसंद आ रहा है?",
+    "ratingGateSubtitle": "आपकी राय हमें बेहतर बनाने में मदद करती है।",
+    "ratingGateYes": "हाँ, बहुत",
+    "ratingGateNo": "ज़्यादा नहीं",
+    "ratingGateFeedbackTitle": "हम क्या बेहतर कर सकते हैं?",
+    "ratingGateFeedbackPlaceholder": "बताइए क्या ठीक नहीं रहा...",
+    "ratingGateFeedbackSend": "भेजें",
+    "ratingGateFeedbackThanks": "धन्यवाद! हम हर संदेश पढ़ते हैं।"
 }

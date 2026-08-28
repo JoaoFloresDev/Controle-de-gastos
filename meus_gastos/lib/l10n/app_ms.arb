@@ -245,5 +245,13 @@
     "planYearly": "Tahunan",
     "planMonthly": "Bulanan",
     "freeTrial3Days": "Percubaan 3 hari percuma",
-    "startFreeTrial": "Mulakan percubaan percuma"
+    "startFreeTrial": "Mulakan percubaan percuma",
+    "ratingGateTitle": "Suka aplikasi ini?",
+    "ratingGateSubtitle": "Maklum balas anda membantu kami menambah baik.",
+    "ratingGateYes": "Ya, sangat suka",
+    "ratingGateNo": "Kurang",
+    "ratingGateFeedbackTitle": "Apa yang boleh kami perbaiki?",
+    "ratingGateFeedbackPlaceholder": "Beritahu kami apa yang tidak kena...",
+    "ratingGateFeedbackSend": "Hantar",
+    "ratingGateFeedbackThanks": "Terima kasih! Kami membaca setiap mesej."
 }

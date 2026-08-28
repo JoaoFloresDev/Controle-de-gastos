@@ -749,4 +749,28 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Start free trial';
+
+  @override
+  String get ratingGateTitle => '앱이 마음에 드시나요?';
+
+  @override
+  String get ratingGateSubtitle => '의견을 주시면 더 나아질 수 있어요.';
+
+  @override
+  String get ratingGateYes => '네, 마음에 들어요';
+
+  @override
+  String get ratingGateNo => '그저 그래요';
+
+  @override
+  String get ratingGateFeedbackTitle => '무엇을 개선하면 좋을까요?';
+
+  @override
+  String get ratingGateFeedbackPlaceholder => '무엇이 불편했는지 알려주세요...';
+
+  @override
+  String get ratingGateFeedbackSend => '보내기';
+
+  @override
+  String get ratingGateFeedbackThanks => '감사합니다! 모든 의견을 읽고 있어요.';
 }

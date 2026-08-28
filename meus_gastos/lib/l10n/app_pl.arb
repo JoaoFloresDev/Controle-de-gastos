@@ -245,5 +245,13 @@
     "planYearly": "Rocznie",
     "planMonthly": "Miesięcznie",
     "freeTrial3Days": "3 dni za darmo",
-    "startFreeTrial": "Rozpocznij darmowy okres próbny"
+    "startFreeTrial": "Rozpocznij darmowy okres próbny",
+    "ratingGateTitle": "Podoba Ci się aplikacja?",
+    "ratingGateSubtitle": "Twoja opinia pomaga nam się rozwijać.",
+    "ratingGateYes": "Tak, bardzo",
+    "ratingGateNo": "Nie bardzo",
+    "ratingGateFeedbackTitle": "Co możemy poprawić?",
+    "ratingGateFeedbackPlaceholder": "Napisz, co poszło nie tak...",
+    "ratingGateFeedbackSend": "Wyślij",
+    "ratingGateFeedbackThanks": "Dziękujemy! Czytamy każdą wiadomość."
 }

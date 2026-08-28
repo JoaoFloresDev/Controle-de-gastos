@@ -245,5 +245,13 @@
     "planYearly": "Ročne",
     "planMonthly": "Mesačne",
     "freeTrial3Days": "3 dni zadarmo",
-    "startFreeTrial": "Začať bezplatnú skúšobnú verziu"
+    "startFreeTrial": "Začať bezplatnú skúšobnú verziu",
+    "ratingGateTitle": "Páči sa vám aplikácia?",
+    "ratingGateSubtitle": "Vaša spätná väzba nám pomáha zlepšovať sa.",
+    "ratingGateYes": "Áno, veľmi",
+    "ratingGateNo": "Ani nie",
+    "ratingGateFeedbackTitle": "Čo môžeme zlepšiť?",
+    "ratingGateFeedbackPlaceholder": "Napíšte nám, čo nefungovalo...",
+    "ratingGateFeedbackSend": "Odoslať",
+    "ratingGateFeedbackThanks": "Ďakujeme! Čítame každú správu."
 }

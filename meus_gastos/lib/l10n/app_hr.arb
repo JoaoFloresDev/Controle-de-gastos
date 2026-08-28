@@ -245,5 +245,13 @@
     "planYearly": "Godišnje",
     "planMonthly": "Mjesečno",
     "freeTrial3Days": "3 dana besplatno",
-    "startFreeTrial": "Započni besplatno probno razdoblje"
+    "startFreeTrial": "Započni besplatno probno razdoblje",
+    "ratingGateTitle": "Sviđa li vam se aplikacija?",
+    "ratingGateSubtitle": "Vaše mišljenje pomaže nam da budemo bolji.",
+    "ratingGateYes": "Da, jako",
+    "ratingGateNo": "Ne baš",
+    "ratingGateFeedbackTitle": "Što možemo poboljšati?",
+    "ratingGateFeedbackPlaceholder": "Recite nam što nije radilo...",
+    "ratingGateFeedbackSend": "Pošalji",
+    "ratingGateFeedbackThanks": "Hvala! Čitamo svaku poruku."
 }

@@ -18,6 +18,7 @@ import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/services/firebase/FirebaseServiceSingleton.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:meus_gastos/services/AnalyticsService.dart';
+import 'package:meus_gastos/services/RatingGate.dart';
 import 'package:meus_gastos/controllers/Onboarding/OnboardingScreen.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -68,6 +69,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
+      navigatorKey: RatingGate.navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: const CupertinoThemeData(brightness: Brightness.dark),
       builder: (context, child) {

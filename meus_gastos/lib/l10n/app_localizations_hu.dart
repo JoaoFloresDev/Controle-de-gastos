@@ -782,4 +782,29 @@ class AppLocalizationsHu extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Ingyenes próba indítása';
+
+  @override
+  String get ratingGateTitle => 'Tetszik az alkalmazás?';
+
+  @override
+  String get ratingGateSubtitle => 'A visszajelzésed segít fejlődnünk.';
+
+  @override
+  String get ratingGateYes => 'Igen, nagyon';
+
+  @override
+  String get ratingGateNo => 'Nem igazán';
+
+  @override
+  String get ratingGateFeedbackTitle => 'Mit csinálhatnánk jobban?';
+
+  @override
+  String get ratingGateFeedbackPlaceholder => 'Írd meg, mi nem működött...';
+
+  @override
+  String get ratingGateFeedbackSend => 'Küldés';
+
+  @override
+  String get ratingGateFeedbackThanks =>
+      'Köszönjük! Minden üzenetet elolvasunk.';
 }

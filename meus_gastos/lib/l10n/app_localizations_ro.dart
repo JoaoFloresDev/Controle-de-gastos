@@ -780,4 +780,28 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Încearcă gratuit 3 zile';
+
+  @override
+  String get ratingGateTitle => 'Îți place aplicația?';
+
+  @override
+  String get ratingGateSubtitle => 'Părerea ta ne ajută să ne îmbunătățim.';
+
+  @override
+  String get ratingGateYes => 'Da, foarte mult';
+
+  @override
+  String get ratingGateNo => 'Nu prea';
+
+  @override
+  String get ratingGateFeedbackTitle => 'Ce putem îmbunătăți?';
+
+  @override
+  String get ratingGateFeedbackPlaceholder => 'Spune-ne ce n-a mers...';
+
+  @override
+  String get ratingGateFeedbackSend => 'Trimite';
+
+  @override
+  String get ratingGateFeedbackThanks => 'Mulțumim! Citim fiecare mesaj.';
 }

@@ -748,4 +748,28 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Start free trial';
+
+  @override
+  String get ratingGateTitle => 'アプリはいかがですか？';
+
+  @override
+  String get ratingGateSubtitle => 'ご意見が改善に役立ちます。';
+
+  @override
+  String get ratingGateYes => 'はい、気に入っています';
+
+  @override
+  String get ratingGateNo => 'あまり';
+
+  @override
+  String get ratingGateFeedbackTitle => 'どこを改善できますか？';
+
+  @override
+  String get ratingGateFeedbackPlaceholder => 'うまくいかなかった点をお書きください...';
+
+  @override
+  String get ratingGateFeedbackSend => '送信';
+
+  @override
+  String get ratingGateFeedbackThanks => 'ありがとうございます！すべて拝見しています。';
 }

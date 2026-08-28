@@ -245,5 +245,13 @@
     "planYearly": "Ετήσιο",
     "planMonthly": "Μηνιαίο",
     "freeTrial3Days": "3 ημέρες δωρεάν",
-    "startFreeTrial": "Έναρξη δωρεάν δοκιμής"
+    "startFreeTrial": "Έναρξη δωρεάν δοκιμής",
+    "ratingGateTitle": "Σας αρέσει η εφαρμογή;",
+    "ratingGateSubtitle": "Τα σχόλιά σας μας βοηθούν να βελτιωθούμε.",
+    "ratingGateYes": "Ναι, πολύ",
+    "ratingGateNo": "Όχι ιδιαίτερα",
+    "ratingGateFeedbackTitle": "Τι μπορούμε να βελτιώσουμε;",
+    "ratingGateFeedbackPlaceholder": "Πείτε μας τι δεν πήγε καλά...",
+    "ratingGateFeedbackSend": "Αποστολή",
+    "ratingGateFeedbackThanks": "Ευχαριστούμε! Διαβάζουμε κάθε μήνυμα."
 }

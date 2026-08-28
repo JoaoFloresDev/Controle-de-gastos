@@ -769,4 +769,28 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'เริ่มทดลองใช้ฟรี';
+
+  @override
+  String get ratingGateTitle => 'ชอบแอปนี้ไหม';
+
+  @override
+  String get ratingGateSubtitle => 'ความคิดเห็นของคุณช่วยให้เราพัฒนาขึ้น';
+
+  @override
+  String get ratingGateYes => 'ชอบมาก';
+
+  @override
+  String get ratingGateNo => 'ไม่เท่าไร';
+
+  @override
+  String get ratingGateFeedbackTitle => 'เราปรับปรุงอะไรได้บ้าง';
+
+  @override
+  String get ratingGateFeedbackPlaceholder => 'บอกเราว่ามีอะไรผิดพลาด...';
+
+  @override
+  String get ratingGateFeedbackSend => 'ส่ง';
+
+  @override
+  String get ratingGateFeedbackThanks => 'ขอบคุณ! เราอ่านทุกข้อความ';
 }

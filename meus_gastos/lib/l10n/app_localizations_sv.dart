@@ -776,4 +776,28 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Starta gratis provperiod';
+
+  @override
+  String get ratingGateTitle => 'Gillar du appen?';
+
+  @override
+  String get ratingGateSubtitle => 'Din feedback hjälper oss att bli bättre.';
+
+  @override
+  String get ratingGateYes => 'Ja, väldigt bra';
+
+  @override
+  String get ratingGateNo => 'Inte riktigt';
+
+  @override
+  String get ratingGateFeedbackTitle => 'Vad kan vi göra bättre?';
+
+  @override
+  String get ratingGateFeedbackPlaceholder => 'Berätta vad som gick fel...';
+
+  @override
+  String get ratingGateFeedbackSend => 'Skicka';
+
+  @override
+  String get ratingGateFeedbackThanks => 'Tack! Vi läser alla meddelanden.';
 }

@@ -777,4 +777,28 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Začať bezplatnú skúšobnú verziu';
+
+  @override
+  String get ratingGateTitle => 'Páči sa vám aplikácia?';
+
+  @override
+  String get ratingGateSubtitle => 'Vaša spätná väzba nám pomáha zlepšovať sa.';
+
+  @override
+  String get ratingGateYes => 'Áno, veľmi';
+
+  @override
+  String get ratingGateNo => 'Ani nie';
+
+  @override
+  String get ratingGateFeedbackTitle => 'Čo môžeme zlepšiť?';
+
+  @override
+  String get ratingGateFeedbackPlaceholder => 'Napíšte nám, čo nefungovalo...';
+
+  @override
+  String get ratingGateFeedbackSend => 'Odoslať';
+
+  @override
+  String get ratingGateFeedbackThanks => 'Ďakujeme! Čítame každú správu.';
 }

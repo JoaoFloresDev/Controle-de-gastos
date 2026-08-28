@@ -245,5 +245,13 @@
     "planYearly": "Årlig",
     "planMonthly": "Månedlig",
     "freeTrial3Days": "3 dager gratis",
-    "startFreeTrial": "Start gratis prøveperiode"
+    "startFreeTrial": "Start gratis prøveperiode",
+    "ratingGateTitle": "Liker du appen?",
+    "ratingGateSubtitle": "Tilbakemeldingen din hjelper oss å bli bedre.",
+    "ratingGateYes": "Ja, veldig godt",
+    "ratingGateNo": "Ikke helt",
+    "ratingGateFeedbackTitle": "Hva kan vi gjøre bedre?",
+    "ratingGateFeedbackPlaceholder": "Fortell oss hva som gikk galt...",
+    "ratingGateFeedbackSend": "Send",
+    "ratingGateFeedbackThanks": "Takk! Vi leser alle meldinger."
 }

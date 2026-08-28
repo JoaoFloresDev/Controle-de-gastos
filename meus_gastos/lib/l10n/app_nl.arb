@@ -245,5 +245,13 @@
     "planYearly": "Jaarlijks",
     "planMonthly": "Maandelijks",
     "freeTrial3Days": "3 dagen gratis",
-    "startFreeTrial": "Start gratis proefperiode"
+    "startFreeTrial": "Start gratis proefperiode",
+    "ratingGateTitle": "Bevalt de app?",
+    "ratingGateSubtitle": "Jouw feedback helpt ons verbeteren.",
+    "ratingGateYes": "Ja, heel erg",
+    "ratingGateNo": "Niet echt",
+    "ratingGateFeedbackTitle": "Wat kunnen we beter doen?",
+    "ratingGateFeedbackPlaceholder": "Vertel ons wat er misging...",
+    "ratingGateFeedbackSend": "Versturen",
+    "ratingGateFeedbackThanks": "Bedankt! We lezen elk bericht."
 }

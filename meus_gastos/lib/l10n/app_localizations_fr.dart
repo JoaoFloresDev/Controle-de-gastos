@@ -786,4 +786,29 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Start free trial';
+
+  @override
+  String get ratingGateTitle => 'L\'application vous plaît ?';
+
+  @override
+  String get ratingGateSubtitle => 'Votre avis nous aide à progresser.';
+
+  @override
+  String get ratingGateYes => 'Oui, beaucoup';
+
+  @override
+  String get ratingGateNo => 'Pas vraiment';
+
+  @override
+  String get ratingGateFeedbackTitle => 'Que pouvons-nous améliorer ?';
+
+  @override
+  String get ratingGateFeedbackPlaceholder =>
+      'Dites-nous ce qui n\'a pas marché...';
+
+  @override
+  String get ratingGateFeedbackSend => 'Envoyer';
+
+  @override
+  String get ratingGateFeedbackThanks => 'Merci ! Nous lisons chaque message.';
 }

@@ -748,4 +748,28 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Start free trial';
+
+  @override
+  String get ratingGateTitle => '喜欢这个应用吗？';
+
+  @override
+  String get ratingGateSubtitle => '你的反馈能帮助我们做得更好。';
+
+  @override
+  String get ratingGateYes => '很喜欢';
+
+  @override
+  String get ratingGateNo => '不太喜欢';
+
+  @override
+  String get ratingGateFeedbackTitle => '我们可以改进什么？';
+
+  @override
+  String get ratingGateFeedbackPlaceholder => '告诉我们哪里不对劲…';
+
+  @override
+  String get ratingGateFeedbackSend => '发送';
+
+  @override
+  String get ratingGateFeedbackThanks => '谢谢！每条留言我们都会看。';
 }

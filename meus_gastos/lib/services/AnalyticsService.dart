@@ -2,6 +2,8 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:meus_gastos/services/RatingGate.dart';
+
 /// Central funnel for every analytics call in the app.
 /// Never throws: analytics must not break a user flow.
 class AnalyticsService {
@@ -52,11 +54,33 @@ class AnalyticsService {
       'first': first.toString(),
       ...?extra,
     });
+    // O momento de ativação também é o gatilho do rating gate — o serviço
+    // decide sozinho se essa é a hora certa de perguntar.
+    RatingGate.instance.recordPositiveEvent(trigger: kind);
   }
 
   /// Feature adoption, comparable across every app in the lab.
   Future<void> featureUsed(String name, {required String source}) =>
       logEvent('feature_used', {'name': name, 'source': source});
+
+  // MARK: - Rating gate
+  Future<void> ratingGateShown(String trigger) =>
+      logEvent('rating_gate_shown', {'trigger': trigger});
+
+  Future<void> ratingGateYes(String trigger) =>
+      logEvent('rating_gate_yes', {'trigger': trigger});
+
+  Future<void> ratingGateNo(String trigger) =>
+      logEvent('rating_gate_no', {'trigger': trigger});
+
+  Future<void> ratingGateDismissed(String trigger) =>
+      logEvent('rating_gate_dismissed', {'trigger': trigger});
+
+  Future<void> ratingGateFeedback(String trigger, String text) =>
+      logEvent('rating_gate_feedback', {
+        'trigger': trigger,
+        'text': text.length > 90 ? text.substring(0, 90) : text,
+      });
 
   // MARK: - Transactions
   Future<void> transactionAdded({required String category, required bool isRecurrent}) async {

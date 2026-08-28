@@ -245,5 +245,13 @@
     "planYearly": "รายปี",
     "planMonthly": "รายเดือน",
     "freeTrial3Days": "ทดลองใช้ฟรี 3 วัน",
-    "startFreeTrial": "เริ่มทดลองใช้ฟรี"
+    "startFreeTrial": "เริ่มทดลองใช้ฟรี",
+    "ratingGateTitle": "ชอบแอปนี้ไหม",
+    "ratingGateSubtitle": "ความคิดเห็นของคุณช่วยให้เราพัฒนาขึ้น",
+    "ratingGateYes": "ชอบมาก",
+    "ratingGateNo": "ไม่เท่าไร",
+    "ratingGateFeedbackTitle": "เราปรับปรุงอะไรได้บ้าง",
+    "ratingGateFeedbackPlaceholder": "บอกเราว่ามีอะไรผิดพลาด...",
+    "ratingGateFeedbackSend": "ส่ง",
+    "ratingGateFeedbackThanks": "ขอบคุณ! เราอ่านทุกข้อความ"
 }

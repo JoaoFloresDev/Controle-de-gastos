@@ -785,4 +785,31 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Mulakan percubaan percuma';
+
+  @override
+  String get ratingGateTitle => 'Suka aplikasi ini?';
+
+  @override
+  String get ratingGateSubtitle =>
+      'Maklum balas anda membantu kami menambah baik.';
+
+  @override
+  String get ratingGateYes => 'Ya, sangat suka';
+
+  @override
+  String get ratingGateNo => 'Kurang';
+
+  @override
+  String get ratingGateFeedbackTitle => 'Apa yang boleh kami perbaiki?';
+
+  @override
+  String get ratingGateFeedbackPlaceholder =>
+      'Beritahu kami apa yang tidak kena...';
+
+  @override
+  String get ratingGateFeedbackSend => 'Hantar';
+
+  @override
+  String get ratingGateFeedbackThanks =>
+      'Terima kasih! Kami membaca setiap mesej.';
 }

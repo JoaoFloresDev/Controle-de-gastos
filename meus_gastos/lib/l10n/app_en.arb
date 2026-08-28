@@ -245,5 +245,13 @@
     "planYearly": "Yearly",
     "planMonthly": "Monthly",
     "freeTrial3Days": "3 days free",
-    "startFreeTrial": "Start free trial"
+    "startFreeTrial": "Start free trial",
+    "ratingGateTitle": "Enjoying the app?",
+    "ratingGateSubtitle": "Your feedback helps us improve.",
+    "ratingGateYes": "Yes, loving it",
+    "ratingGateNo": "Not really",
+    "ratingGateFeedbackTitle": "What can we do better?",
+    "ratingGateFeedbackPlaceholder": "Tell us what went wrong...",
+    "ratingGateFeedbackSend": "Send",
+    "ratingGateFeedbackThanks": "Thank you! We read every message."
 }

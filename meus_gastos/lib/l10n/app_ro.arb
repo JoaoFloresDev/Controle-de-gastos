@@ -245,5 +245,13 @@
     "planYearly": "Anual",
     "planMonthly": "Lunar",
     "freeTrial3Days": "3 zile gratuite",
-    "startFreeTrial": "Încearcă gratuit 3 zile"
+    "startFreeTrial": "Încearcă gratuit 3 zile",
+    "ratingGateTitle": "Îți place aplicația?",
+    "ratingGateSubtitle": "Părerea ta ne ajută să ne îmbunătățim.",
+    "ratingGateYes": "Da, foarte mult",
+    "ratingGateNo": "Nu prea",
+    "ratingGateFeedbackTitle": "Ce putem îmbunătăți?",
+    "ratingGateFeedbackPlaceholder": "Spune-ne ce n-a mers...",
+    "ratingGateFeedbackSend": "Trimite",
+    "ratingGateFeedbackThanks": "Mulțumim! Citim fiecare mesaj."
 }

@@ -779,4 +779,28 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Попробовать бесплатно';
+
+  @override
+  String get ratingGateTitle => 'Нравится приложение?';
+
+  @override
+  String get ratingGateSubtitle => 'Ваш отзыв помогает нам становиться лучше.';
+
+  @override
+  String get ratingGateYes => 'Да, очень';
+
+  @override
+  String get ratingGateNo => 'Не очень';
+
+  @override
+  String get ratingGateFeedbackTitle => 'Что можно улучшить?';
+
+  @override
+  String get ratingGateFeedbackPlaceholder => 'Расскажите, что пошло не так...';
+
+  @override
+  String get ratingGateFeedbackSend => 'Отправить';
+
+  @override
+  String get ratingGateFeedbackThanks => 'Спасибо! Мы читаем каждое сообщение.';
 }

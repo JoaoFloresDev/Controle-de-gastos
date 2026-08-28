@@ -776,4 +776,28 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Vyzkoušet zdarma';
+
+  @override
+  String get ratingGateTitle => 'Líbí se vám aplikace?';
+
+  @override
+  String get ratingGateSubtitle => 'Vaše zpětná vazba nám pomáhá se zlepšovat.';
+
+  @override
+  String get ratingGateYes => 'Ano, moc';
+
+  @override
+  String get ratingGateNo => 'Ani ne';
+
+  @override
+  String get ratingGateFeedbackTitle => 'Co můžeme zlepšit?';
+
+  @override
+  String get ratingGateFeedbackPlaceholder => 'Napište nám, co nefungovalo...';
+
+  @override
+  String get ratingGateFeedbackSend => 'Odeslat';
+
+  @override
+  String get ratingGateFeedbackThanks => 'Děkujeme! Čteme každou zprávu.';
 }

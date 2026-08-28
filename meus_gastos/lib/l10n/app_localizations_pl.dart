@@ -782,4 +782,28 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Rozpocznij darmowy okres próbny';
+
+  @override
+  String get ratingGateTitle => 'Podoba Ci się aplikacja?';
+
+  @override
+  String get ratingGateSubtitle => 'Twoja opinia pomaga nam się rozwijać.';
+
+  @override
+  String get ratingGateYes => 'Tak, bardzo';
+
+  @override
+  String get ratingGateNo => 'Nie bardzo';
+
+  @override
+  String get ratingGateFeedbackTitle => 'Co możemy poprawić?';
+
+  @override
+  String get ratingGateFeedbackPlaceholder => 'Napisz, co poszło nie tak...';
+
+  @override
+  String get ratingGateFeedbackSend => 'Wyślij';
+
+  @override
+  String get ratingGateFeedbackThanks => 'Dziękujemy! Czytamy każdą wiadomość.';
 }

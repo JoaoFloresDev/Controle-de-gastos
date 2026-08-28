@@ -1639,6 +1639,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start free trial'**
   String get startFreeTrial;
+
+  /// No description provided for @ratingGateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enjoying the app?'**
+  String get ratingGateTitle;
+
+  /// No description provided for @ratingGateSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your feedback helps us improve.'**
+  String get ratingGateSubtitle;
+
+  /// No description provided for @ratingGateYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, loving it'**
+  String get ratingGateYes;
+
+  /// No description provided for @ratingGateNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Not really'**
+  String get ratingGateNo;
+
+  /// No description provided for @ratingGateFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What can we do better?'**
+  String get ratingGateFeedbackTitle;
+
+  /// No description provided for @ratingGateFeedbackPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us what went wrong...'**
+  String get ratingGateFeedbackPlaceholder;
+
+  /// No description provided for @ratingGateFeedbackSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get ratingGateFeedbackSend;
+
+  /// No description provided for @ratingGateFeedbackThanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you! We read every message.'**
+  String get ratingGateFeedbackThanks;
 }
 
 class _AppLocalizationsDelegate

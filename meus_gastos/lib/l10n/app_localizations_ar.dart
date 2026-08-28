@@ -761,4 +761,28 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Start free trial';
+
+  @override
+  String get ratingGateTitle => 'هل يعجبك التطبيق؟';
+
+  @override
+  String get ratingGateSubtitle => 'ملاحظاتك تساعدنا على التحسّن.';
+
+  @override
+  String get ratingGateYes => 'نعم، كثيرًا';
+
+  @override
+  String get ratingGateNo => 'ليس تمامًا';
+
+  @override
+  String get ratingGateFeedbackTitle => 'ما الذي يمكننا تحسينه؟';
+
+  @override
+  String get ratingGateFeedbackPlaceholder => 'أخبرنا بما لم ينجح...';
+
+  @override
+  String get ratingGateFeedbackSend => 'إرسال';
+
+  @override
+  String get ratingGateFeedbackThanks => 'شكرًا لك! نقرأ كل رسالة.';
 }
