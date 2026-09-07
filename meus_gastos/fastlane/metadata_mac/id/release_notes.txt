@@ -1,0 +1,3 @@
+Bilah samping dan pintasan keyboard — pindah tab dengan ⌘1 sampai ⌘5.
+Masuk, cadangan cloud, dan ekspor Excel berfungsi lagi di Mac.
+Jendela mengingat posisi terakhirmu — dan aplikasi bicara 32 bahasa.

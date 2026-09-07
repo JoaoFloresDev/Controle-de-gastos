@@ -1,0 +1,3 @@
+Barra lateral y atajos de teclado — cambia de pestaña con ⌘1 a ⌘5.
+Inicio de sesión, copia en la nube y exportar a Excel vuelven a funcionar en Mac.
+La ventana recuerda dónde la dejaste — y la app habla 32 idiomas.

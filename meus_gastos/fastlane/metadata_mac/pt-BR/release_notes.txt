@@ -1,0 +1,3 @@
+Barra lateral e atalhos de teclado — troque de aba com ⌘1 a ⌘5.
+Login, backup na nuvem e exportar planilha voltaram a funcionar no Mac.
+A janela lembra onde você deixou — e o app fala 32 idiomas.

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:home_widget/home_widget.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
@@ -50,11 +51,21 @@ class WidgetBridge {
 
   static bool _initialized = false;
 
+  /// home_widget only ships an iOS/Android implementation. On macOS every call
+  /// throws MissingPluginException — and since [init] is awaited before
+  /// runApp, that exception used to abort main() and leave the Mac build on a
+  /// black window forever.
+  static bool get isSupported => Platform.isIOS || Platform.isAndroid;
+
   // MARK: - Setup
   static Future<void> init() async {
-    if (_initialized) return;
-    await HomeWidget.setAppGroupId(appGroupId);
-    _initialized = true;
+    if (_initialized || !isSupported) return;
+    try {
+      await HomeWidget.setAppGroupId(appGroupId);
+      _initialized = true;
+    } catch (_) {
+      // No widget host on this platform: the app works, it just has no widget.
+    }
   }
 
   // MARK: - Sync categories + currency to the widget
@@ -63,6 +74,7 @@ class WidgetBridge {
     required Map<String, String> localizedNames,
     required String currencySymbol,
   }) async {
+    if (!isSupported) return;
     await init();
 
     final List<Map<String, dynamic>> payload = categories
@@ -84,6 +96,7 @@ class WidgetBridge {
 
   // MARK: - Drain pending expenses queued by the widget
   static Future<List<PendingWidgetExpense>> drainPendingExpenses() async {
+    if (!isSupported) return [];
     await init();
 
     final String? raw =

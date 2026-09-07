@@ -1,0 +1,3 @@
+Sidebar and keyboard shortcuts — jump between tabs with ⌘1 to ⌘5.
+Sign-in, cloud backup and spreadsheet export work on Mac again.
+The window remembers where you left it — and the app speaks 32 languages.

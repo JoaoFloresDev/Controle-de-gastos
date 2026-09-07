@@ -1,0 +1,3 @@
+Yan menü ve klavye kısayolları — sekmeler arasında ⌘1 ile ⌘5 geçiş.
+Giriş, bulut yedeği ve Excel'e aktarma Mac'te yeniden çalışıyor.
+Pencere kaldığın yeri hatırlıyor — ve uygulama 32 dil konuşuyor.

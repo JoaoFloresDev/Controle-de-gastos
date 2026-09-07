@@ -1,0 +1,3 @@
+Seitenleiste und Tastenkürzel — mit ⌘1 bis ⌘5 zwischen den Tabs wechseln.
+Anmeldung, Cloud-Backup und Excel-Export laufen auf dem Mac wieder.
+Das Fenster merkt sich, wo du warst — und die App spricht 32 Sprachen.

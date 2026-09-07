@@ -1,0 +1,3 @@
+Barra laterale e scorciatoie da tastiera — cambia scheda con ⌘1–⌘5.
+Accesso, backup sul cloud ed esportazione in Excel funzionano di nuovo su Mac.
+La finestra ricorda dove l'hai lasciata — e l'app parla 32 lingue.

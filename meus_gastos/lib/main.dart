@@ -24,6 +24,8 @@ import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meus_gastos/services/widget/WidgetBridge.dart';
 import 'package:meus_gastos/services/widget/WidgetSyncHost.dart';
+import 'package:meus_gastos/designSystem/Desktop/DesktopSidebar.dart';
+import 'package:meus_gastos/designSystem/Desktop/DesktopShortcuts.dart';
 
 
 import 'package:window_size/window_size.dart';
@@ -40,7 +42,9 @@ void main() async {
   // inapp
   InAppPurchase.instance.isAvailable();
   if (Platform.isMacOS) {
-    setWindowMinSize(const Size(800, 800));
+    // Matches MainFlutterWindow.minSize; below this the sidebar and the charts
+    // start clipping.
+    setWindowMinSize(const Size(940, 640));
   }
   // inicializa firebase
   await FirebaseService().init();
@@ -52,8 +56,12 @@ void main() async {
       return true;
     };
   }
-  // inicializa a ponte com o widget nativo de adição rápida (App Group)
-  await WidgetBridge.init();
+  // inicializa a ponte com o widget nativo de adição rápida (App Group).
+  // Nunca pode derrubar o boot: plugin ausente na plataforma = app sem widget,
+  // não app sem tela.
+  try {
+    await WidgetBridge.init();
+  } catch (_) {}
   final prefs = await SharedPreferences.getInstance();
   final hasSeenOnboarding =
       prefs.getBool(OnboardingScreen.hasSeenKey) ?? false;
@@ -213,6 +221,19 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     'settings',
   ];
 
+  static const List<IconData> _tabIcons = [
+    CupertinoIcons.add_circled_solid,
+    CupertinoIcons.list_bullet,
+    CupertinoIcons.chart_bar_fill,
+    CupertinoIcons.chart_pie_fill,
+    CupertinoIcons.settings,
+  ];
+
+  /// Ceiling for the content column on desktop.
+  static const double _desktopContentMaxWidth = 1120;
+
+  bool get _isDesktop => Platform.isMacOS;
+
   @override
   void initState() {
     super.initState();
@@ -230,7 +251,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     if (index >= 0 && index < _tabScreenNames.length) {
       AnalyticsService().logScreen(_tabScreenNames[index]);
     }
-    HapticFeedback.lightImpact();
+    if (!_isDesktop) HapticFeedback.lightImpact();
   }
 
   @override
@@ -254,42 +275,115 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       child: Builder(builder: (context) {
         return AppProviders(
           child: WidgetSyncHost(
-          child: Scaffold(
-            backgroundColor: const Color(0xFF0D1117),
-            body: IndexedStack(
-              index: selectedTab,
-              children: [
-                AddTransactionController(
-                  isActive: selectedTab == 0,
-                  title: AppLocalizations.of(context)!.myExpenses,
-                  onAddClicked: () {
-                    cardEvents.notifyCardAdded();
-                  },
-                  exportButton: exportButtonAT,
-                  cardsExpensKey: cardsExpenseAT,
-                  valueExpensKey: valueExpenseAT,
-                  dateKey: dateAT,
-                  descriptionKey: descriptionAT,
-                  categoriesKey: categoriesAT,
-                  addButtonKey: addButtonAT,
-                ),
-                TransactionsFactory(
-                    cardEvents: cardEvents, isActivate: selectedTab == 1),
-                DashboardsFactory(isActivate: selectedTab == 2),
-
-                GoalsFactory(
-                  // key: goalKey,
-                  title: AppLocalizations.of(context)!.budget,
-                ),
-                
-                SettingsScreenCompact()
-              ],
-            ),
-            bottomNavigationBar: _buildElegantTabBar(),
-          ),
+            child: _isDesktop ? _buildDesktopShell(context) : _buildMobileShell(context),
           ),
         );
       }),
+    );
+  }
+
+  // MARK: - Shells
+
+  /// Phone/tablet layout: content plus the bottom tab bar.
+  Widget _buildMobileShell(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF0D1117),
+      body: _buildContent(context),
+      bottomNavigationBar: _buildElegantTabBar(),
+    );
+  }
+
+  /// macOS layout: sidebar on the left, content column on the right, and the
+  /// keyboard bindings a desktop app is expected to answer to.
+  Widget _buildDesktopShell(BuildContext context) {
+    return DesktopShortcuts(
+      onSelectTab: _onTabSelected,
+      addTabIndex: 0,
+      settingsTabIndex: _tabScreenNames.length - 1,
+      child: Scaffold(
+        backgroundColor: const Color(0xFF0D1117),
+        body: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            DesktopSidebar(
+              title: AppLocalizations.of(context)!.myExpenses,
+              selectedIndex: selectedTab,
+              onSelected: _onTabSelected,
+              items: _desktopNavItems(context),
+            ),
+            Expanded(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  // Without a ceiling the phone-derived layouts stretch across
+                  // the whole display and every row becomes a hairline. The
+                  // size stays TIGHT on both axes — a loose Center would let
+                  // the IndexedStack collapse to its intrinsic height.
+                  final double width = constraints.maxWidth > _desktopContentMaxWidth
+                      ? _desktopContentMaxWidth
+                      : constraints.maxWidth;
+                  return Center(
+                    child: SizedBox(
+                      width: width,
+                      height: constraints.maxHeight,
+                      child: _buildContent(context),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<DesktopNavItem> _desktopNavItems(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final labels = [
+      l10n.add,
+      l10n.transactions,
+      l10n.dashboards,
+      l10n.budget,
+      l10n.settings,
+    ];
+    return [
+      for (var i = 0; i < _tabIcons.length; i++)
+        DesktopNavItem(
+          icon: _tabIcons[i],
+          label: labels[i],
+          shortcut: '\u2318${i + 1}',
+        ),
+    ];
+  }
+
+  // MARK: - Content
+
+  Widget _buildContent(BuildContext context) {
+    return IndexedStack(
+      index: selectedTab,
+      children: [
+        AddTransactionController(
+          isActive: selectedTab == 0,
+          title: AppLocalizations.of(context)!.myExpenses,
+          onAddClicked: () {
+            cardEvents.notifyCardAdded();
+          },
+          exportButton: exportButtonAT,
+          cardsExpensKey: cardsExpenseAT,
+          valueExpensKey: valueExpenseAT,
+          dateKey: dateAT,
+          descriptionKey: descriptionAT,
+          categoriesKey: categoriesAT,
+          addButtonKey: addButtonAT,
+        ),
+        TransactionsFactory(
+            cardEvents: cardEvents, isActivate: selectedTab == 1),
+        DashboardsFactory(isActivate: selectedTab == 2),
+        GoalsFactory(
+          title: AppLocalizations.of(context)!.budget,
+        ),
+        SettingsScreenCompact()
+      ],
     );
   }
 
@@ -344,14 +438,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 for (var i = 0; i < 5; i++)
                   Expanded(
                     child: _buildTabItem(
-                      icon: [
-                        CupertinoIcons.add_circled_solid,
-                        CupertinoIcons.list_bullet,
-                        CupertinoIcons.chart_bar_fill,
-                        CupertinoIcons.chart_pie_fill,
-                        // CupertinoIcons.calendar,
-                        CupertinoIcons.settings
-                      ][i],
+                      icon: _tabIcons[i],
                       label: [
                         AppLocalizations.of(context)!.add,
                         AppLocalizations.of(context)!.transactions,

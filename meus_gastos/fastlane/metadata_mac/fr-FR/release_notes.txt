@@ -1,0 +1,3 @@
+Barre latérale et raccourcis clavier — changez d'onglet avec ⌘1 à ⌘5.
+Connexion, sauvegarde en ligne et export tableur refonctionnent sur Mac.
+La fenêtre retient où vous l'avez laissée — et l'app parle 32 langues.
