@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui' show PlatformDispatcher;
 import 'package:meus_gastos/AppProviders.dart';
@@ -9,6 +10,7 @@ import 'package:meus_gastos/controllers/Settings/SettingsScreen.dart';
 import 'package:meus_gastos/controllers/Transactions/TransactionsFactory.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -45,6 +47,11 @@ void main() async {
     // Matches MainFlutterWindow.minSize; below this the sidebar and the charts
     // start clipping.
     setWindowMinSize(const Size(940, 640));
+    if (kDebugMode && Platform.environment['MG_SHOT_MODE'] == '1') {
+      // 1440x900 lógico = 2880x1800 físico, exatamente o tamanho máximo de
+      // screenshot de Mac da App Store.
+      setWindowFrame(const Rect.fromLTWH(60, 60, 1440, 900));
+    }
   }
   // inicializa firebase
   await FirebaseService().init();
@@ -243,6 +250,29 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     );
     _animationController.forward();
     AnalyticsService().logScreen(_tabScreenNames[0]);
+    _startShotModeIfRequested();
+  }
+
+  // MARK: - Screenshot tooling (debug only)
+
+  /// `MG_SHOT_MODE=1` faz o app percorrer as abas sozinho, de N em N segundos.
+  /// É o que permite capturar as telas da loja sem injetar clique nem tecla na
+  /// máquina de quem está rodando. Fica atrás de [kDebugMode]: no Release o
+  /// branch inteiro é removido.
+  void _startShotModeIfRequested() {
+    if (!kDebugMode) return;
+    if (Platform.environment['MG_SHOT_MODE'] != '1') return;
+    final int seconds =
+        int.tryParse(Platform.environment['MG_SHOT_INTERVAL'] ?? '') ?? 5;
+    int next = 1;
+    Timer.periodic(Duration(seconds: seconds), (timer) {
+      if (!mounted || next >= _tabScreenNames.length) {
+        timer.cancel();
+        return;
+      }
+      _onTabSelected(next);
+      next += 1;
+    });
   }
 
   void _onTabSelected(int index) {
