@@ -646,7 +646,7 @@ class AppLocalizationsRo extends AppLocalizations {
   String get about => 'Despre';
 
   @override
-  String get version => 'Versiunea 4.0.0';
+  String get version => 'Versiunea';
 
   @override
   String get today => 'Astăzi';

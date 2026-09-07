@@ -644,7 +644,7 @@ class AppLocalizationsNb extends AppLocalizations {
   String get about => 'Om';
 
   @override
-  String get version => 'Versjon 4.0.0';
+  String get version => 'Versjon';
 
   @override
   String get today => 'I dag';

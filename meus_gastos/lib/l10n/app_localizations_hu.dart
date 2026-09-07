@@ -648,7 +648,7 @@ class AppLocalizationsHu extends AppLocalizations {
   String get about => 'Névjegy';
 
   @override
-  String get version => 'Verzió 4.0.0';
+  String get version => 'Verzió';
 
   @override
   String get today => 'Ma';

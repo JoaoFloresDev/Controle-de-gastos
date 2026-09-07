@@ -648,7 +648,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get about => 'Over';
 
   @override
-  String get version => 'Versie 4.0.0';
+  String get version => 'Versie';
 
   @override
   String get today => 'Vandaag';

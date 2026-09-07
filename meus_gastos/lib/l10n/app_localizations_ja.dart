@@ -618,7 +618,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get about => '概要';
 
   @override
-  String get version => 'バージョン 4.0.0';
+  String get version => 'バージョン';
 
   @override
   String get today => '今日';

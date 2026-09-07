@@ -644,7 +644,7 @@ class AppLocalizationsSk extends AppLocalizations {
   String get about => 'O aplikácii';
 
   @override
-  String get version => 'Verzia 4.0.0';
+  String get version => 'Verzia';
 
   @override
   String get today => 'Dnes';

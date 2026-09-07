@@ -638,7 +638,7 @@ class AppLocalizationsFi extends AppLocalizations {
   String get about => 'Tietoja';
 
   @override
-  String get version => 'Versio 4.0.0';
+  String get version => 'Versio';
 
   @override
   String get today => 'Tänään';

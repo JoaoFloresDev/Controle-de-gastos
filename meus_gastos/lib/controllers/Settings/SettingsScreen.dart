@@ -13,6 +13,7 @@ import 'package:meus_gastos/controllers/RecurrentExpense/FixedExpensesViewModel.
 import 'package:meus_gastos/controllers/RecurrentExpense/RecurrentExpenseScreen.dart';
 import 'package:meus_gastos/designSystem/Constants/AppColors.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
+import 'package:meus_gastos/AppInfo.dart';
 import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:provider/provider.dart';
@@ -370,7 +371,8 @@ class SettingsScreenCompact extends StatelessWidget {
           _buildStaticOption(
             icon: Icons.info_outline,
             title: AppLocalizations.of(context)!.about,
-            subtitle: AppLocalizations.of(context)!.version,
+            subtitle:
+                '${AppLocalizations.of(context)!.version} $appVersion',
           ),
         ],
       ),

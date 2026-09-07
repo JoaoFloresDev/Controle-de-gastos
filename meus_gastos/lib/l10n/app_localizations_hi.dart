@@ -646,7 +646,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get about => 'के बारे में';
 
   @override
-  String get version => 'संस्करण 4.0.0';
+  String get version => 'संस्करण';
 
   @override
   String get today => 'आज';

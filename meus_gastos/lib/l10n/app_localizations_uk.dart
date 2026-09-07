@@ -647,7 +647,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get about => 'Про програму';
 
   @override
-  String get version => 'Версія 4.0.0';
+  String get version => 'Версія';
 
   @override
   String get today => 'Сьогодні';

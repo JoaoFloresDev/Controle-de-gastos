@@ -628,7 +628,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get about => 'حول';
 
   @override
-  String get version => 'الإصدار 4.0.0';
+  String get version => 'الإصدار';
 
   @override
   String get today => 'اليوم';

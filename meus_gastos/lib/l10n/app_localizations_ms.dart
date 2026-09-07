@@ -651,7 +651,7 @@ class AppLocalizationsMs extends AppLocalizations {
   String get about => 'Perihal';
 
   @override
-  String get version => 'Versi 4.0.0';
+  String get version => 'Versi';
 
   @override
   String get today => 'Hari Ini';

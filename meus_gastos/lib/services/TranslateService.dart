@@ -95,6 +95,15 @@ class TranslateService {
         return AppLocalizations.of(context)!.shoppingBasket;
       case 'Hospital':
         return AppLocalizations.of(context)!.hospital;
+      // Estes três faltavam aqui (existiam só na variante por modelo), então a
+      // tela de orçamento e a lista do dashboard mostravam o id cru em todos
+      // os 32 idiomas.
+      case 'Transport':
+        return AppLocalizations.of(context)!.transport;
+      case 'Education':
+        return AppLocalizations.of(context)!.education;
+      case 'CreditCard':
+        return AppLocalizations.of(context)!.creditCard;
       case 'Movie':
         return AppLocalizations.of(context)!.movie;
       case 'VideoGame':

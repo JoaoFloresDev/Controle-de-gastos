@@ -645,7 +645,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get about => 'Acerca de';
 
   @override
-  String get version => 'Versión 4.0.0';
+  String get version => 'Versión';
 
   @override
   String get today => 'Hoy';

@@ -633,7 +633,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get about => 'אודות';
 
   @override
-  String get version => 'גרסה 4.0.0';
+  String get version => 'גרסה';
 
   @override
   String get today => 'היום';

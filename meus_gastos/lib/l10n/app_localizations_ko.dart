@@ -619,7 +619,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get about => '정보';
 
   @override
-  String get version => '버전 4.0.0';
+  String get version => '버전';
 
   @override
   String get today => '오늘';

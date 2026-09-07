@@ -636,7 +636,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get about => 'เกี่ยวกับ';
 
   @override
-  String get version => 'เวอร์ชัน 4.0.0';
+  String get version => 'เวอร์ชัน';
 
   @override
   String get today => 'วันนี้';

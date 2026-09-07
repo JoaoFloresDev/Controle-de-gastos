@@ -639,7 +639,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get about => 'Hakkında';
 
   @override
-  String get version => 'Sürüm 4.0.0';
+  String get version => 'Sürüm';
 
   @override
   String get today => 'Bugün';

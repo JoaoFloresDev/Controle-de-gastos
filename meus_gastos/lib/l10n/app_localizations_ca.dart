@@ -651,7 +651,7 @@ class AppLocalizationsCa extends AppLocalizations {
   String get about => 'Quant a';
 
   @override
-  String get version => 'Versió 4.0.0';
+  String get version => 'Versió';
 
   @override
   String get today => 'Avui';

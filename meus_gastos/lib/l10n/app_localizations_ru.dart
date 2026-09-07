@@ -645,7 +645,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get about => 'О приложении';
 
   @override
-  String get version => 'Версия 4.0.0';
+  String get version => 'Версия';
 
   @override
   String get today => 'Сегодня';

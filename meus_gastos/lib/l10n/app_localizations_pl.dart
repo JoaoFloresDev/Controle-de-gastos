@@ -648,7 +648,7 @@ class AppLocalizationsPl extends AppLocalizations {
   String get about => 'O aplikacji';
 
   @override
-  String get version => 'Wersja 4.0.0';
+  String get version => 'Wersja';
 
   @override
   String get today => 'Dzisiaj';

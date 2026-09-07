@@ -645,7 +645,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get about => 'Giới thiệu';
 
   @override
-  String get version => 'Phiên bản 4.0.0';
+  String get version => 'Phiên bản';
 
   @override
   String get today => 'Hôm nay';

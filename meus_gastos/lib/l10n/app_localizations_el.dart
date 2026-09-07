@@ -650,7 +650,7 @@ class AppLocalizationsEl extends AppLocalizations {
   String get about => 'Σχετικά';
 
   @override
-  String get version => 'Έκδοση 4.0.0';
+  String get version => 'Έκδοση';
 
   @override
   String get today => 'Σήμερα';

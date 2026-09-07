@@ -648,7 +648,7 @@ class AppLocalizationsHr extends AppLocalizations {
   String get about => 'O aplikaciji';
 
   @override
-  String get version => 'Verzija 4.0.0';
+  String get version => 'Verzija';
 
   @override
   String get today => 'Danas';

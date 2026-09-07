@@ -643,7 +643,7 @@ class AppLocalizationsCs extends AppLocalizations {
   String get about => 'O aplikaci';
 
   @override
-  String get version => 'Verze 4.0.0';
+  String get version => 'Verze';
 
   @override
   String get today => 'Dnes';

@@ -644,7 +644,7 @@ class AppLocalizationsDa extends AppLocalizations {
   String get about => 'Om';
 
   @override
-  String get version => 'Version 4.0.0';
+  String get version => 'Version';
 
   @override
   String get today => 'I dag';
