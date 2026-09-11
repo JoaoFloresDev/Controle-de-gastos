@@ -85,7 +85,6 @@
     "reviewAppTitle": "قيّم تطبيقنا",
     "reviewAppDescription": "اترك تقييمًا في المتجر",
     "notNow": "ليس الآن",
-    "reviewButton": "تقييم",
     "recurringExpenses": "المصروفات المتكررة",
     "mediaDiaria": "المتوسط اليومي",
     "geral": "عام",
@@ -238,13 +237,5 @@
     "customPeriod": "فترة مخصصة",
     "selectPeriod": "اختر الفترة",
     "startDate": "تاريخ البدء",
-    "endDate": "تاريخ الانتهاء",
-    "ratingGateTitle": "هل يعجبك التطبيق؟",
-    "ratingGateSubtitle": "ملاحظاتك تساعدنا على التحسّن.",
-    "ratingGateYes": "نعم، كثيرًا",
-    "ratingGateNo": "ليس تمامًا",
-    "ratingGateFeedbackTitle": "ما الذي يمكننا تحسينه؟",
-    "ratingGateFeedbackPlaceholder": "أخبرنا بما لم ينجح...",
-    "ratingGateFeedbackSend": "إرسال",
-    "ratingGateFeedbackThanks": "شكرًا لك! نقرأ كل رسالة."
+    "endDate": "تاريخ الانتهاء"
 }

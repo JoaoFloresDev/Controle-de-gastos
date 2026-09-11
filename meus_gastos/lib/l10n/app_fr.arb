@@ -85,7 +85,6 @@
     "reviewAppTitle": "Évaluer l'application",
     "reviewAppDescription": "Laisse un avis sur le store",
     "notNow": "Plus tard",
-    "reviewButton": "Évaluer",
     "recurringExpenses": "Dépenses récurrentes",
     "mediaDiaria": "Moyenne quotidienne",
     "geral": "Général",
@@ -238,13 +237,5 @@
     "customPeriod": "Période personnalisée",
     "selectPeriod": "Sélectionner la période",
     "startDate": "Date de début",
-    "endDate": "Date de fin",
-    "ratingGateTitle": "L'application vous plaît ?",
-    "ratingGateSubtitle": "Votre avis nous aide à progresser.",
-    "ratingGateYes": "Oui, beaucoup",
-    "ratingGateNo": "Pas vraiment",
-    "ratingGateFeedbackTitle": "Que pouvons-nous améliorer ?",
-    "ratingGateFeedbackPlaceholder": "Dites-nous ce qui n'a pas marché...",
-    "ratingGateFeedbackSend": "Envoyer",
-    "ratingGateFeedbackThanks": "Merci ! Nous lisons chaque message."
+    "endDate": "Date de fin"
 }

@@ -85,7 +85,6 @@
     "reviewAppTitle": "Оцените наше приложение",
     "reviewAppDescription": "Оставьте отзыв в магазине",
     "notNow": "Не сейчас",
-    "reviewButton": "Оценить",
     "recurringExpenses": "Регулярные расходы",
     "mediaDiaria": "Среднее в день",
     "geral": "Общее",
@@ -245,13 +244,5 @@
     "planYearly": "Годовой",
     "planMonthly": "Ежемесячный",
     "freeTrial3Days": "3 дня бесплатно",
-    "startFreeTrial": "Попробовать бесплатно",
-    "ratingGateTitle": "Нравится приложение?",
-    "ratingGateSubtitle": "Ваш отзыв помогает нам становиться лучше.",
-    "ratingGateYes": "Да, очень",
-    "ratingGateNo": "Не очень",
-    "ratingGateFeedbackTitle": "Что можно улучшить?",
-    "ratingGateFeedbackPlaceholder": "Расскажите, что пошло не так...",
-    "ratingGateFeedbackSend": "Отправить",
-    "ratingGateFeedbackThanks": "Спасибо! Мы читаем каждое сообщение."
+    "startFreeTrial": "Попробовать бесплатно"
 }

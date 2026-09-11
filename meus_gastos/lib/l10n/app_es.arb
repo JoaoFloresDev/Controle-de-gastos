@@ -86,7 +86,6 @@
     "reviewAppTitle": "Califica nuestra app",
     "reviewAppDescription": "Deja tu reseña en la tienda",
     "NotNow": "Ahora no",
-    "reviewButton": "Calificar",
     "recurringExpenses": "Gastos Recurrentes",
     "mediaDiaria": "Promedio Diario",
     "geral": "General",
@@ -247,13 +246,5 @@
     "planYearly": "Anual",
     "planMonthly": "Mensual",
     "freeTrial3Days": "3 días gratis",
-    "startFreeTrial": "Iniciar prueba gratis",
-    "ratingGateTitle": "¿Te gusta la app?",
-    "ratingGateSubtitle": "Tu opinión nos ayuda a mejorar.",
-    "ratingGateYes": "Sí, me encanta",
-    "ratingGateNo": "La verdad que no",
-    "ratingGateFeedbackTitle": "¿Qué podemos mejorar?",
-    "ratingGateFeedbackPlaceholder": "Cuéntanos qué falló...",
-    "ratingGateFeedbackSend": "Enviar",
-    "ratingGateFeedbackThanks": "¡Gracias! Leemos todos los mensajes."
+    "startFreeTrial": "Iniciar prueba gratis"
 }

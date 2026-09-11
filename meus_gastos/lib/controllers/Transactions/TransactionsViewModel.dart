@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:in_app_review/in_app_review.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:meus_gastos/ViewsModelsGerais/SyncViewModel.dart';
 import 'package:meus_gastos/ViewsModelsGerais/addCardViewModel.dart';
+import 'package:meus_gastos/controllers/Goals/Data/GoalsRepository.dart';
 import 'package:meus_gastos/controllers/Login/LoginViewModel.dart';
 import 'package:meus_gastos/controllers/Transactions/data/ITransactionsRepository.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesModel.dart';
 import 'package:meus_gastos/controllers/RecurrentExpense/fixedExpensesServiceRefatore.dart';
 import 'package:meus_gastos/models/CardModel.dart';
+import 'package:meus_gastos/services/ReviewPrompt.dart';
 
 class TransactionsViewModel extends ChangeNotifier {
   final ITransactionsRepository repository;
@@ -53,7 +53,8 @@ class TransactionsViewModel extends ChangeNotifier {
     });
   }
 
-  Future<void> addCard(CardModel card) async {
+  /// Returns whether the card was persisted.
+  Future<bool> addCard(CardModel card) async {
     // Optimistic update: card aparece na lista imediatamente. Se o repo falhar,
     // removemos para que o usuário veja claramente que não foi persistido,
     // em vez do bug antigo (card aparecia, falha silenciosa, sumia no próximo
@@ -62,27 +63,66 @@ class TransactionsViewModel extends ChangeNotifier {
     notifyListeners();
     try {
       await repository.addCard(card);
-      _checkAndRequestReview();
+      return true;
     } catch (_) {
       cardList.remove(card);
       notifyListeners();
+      return false;
     }
   }
 
-  Future<void> _checkAndRequestReview() async {
-    final prefs = await SharedPreferences.getInstance();
-    final alreadyRequested = prefs.getBool('review_requested') ?? false;
-    if (alreadyRequested) return;
+  /// An expense the user typed and saved on the Add screen. Automatic recurring
+  /// additions, widget drains and zeroed recurring entries go through [addCard]
+  /// and never count as the aha-moment.
+  Future<void> addManualCard(CardModel card) async {
+    final saved = await addCard(card);
+    if (saved) await _recordAhaIfOnTrack(card);
+  }
 
-    final count = (prefs.getInt('add_card_count') ?? 0) + 1;
-    await prefs.setInt('add_card_count', count);
+  // MARK: - Review prompt
 
-    if (count == 5) {
-      await prefs.setBool('review_requested', true);
-      final inAppReview = InAppReview.instance;
-      if (await inAppReview.isAvailable()) {
-        inAppReview.requestReview();
-      }
+  /// Days of the current month with a manual entry before a save counts as the
+  /// aha-moment: from then on the month summary reflects a habit, not a test.
+  static const int _ahaMinTrackedDays = 3;
+
+  /// The app's aha-moment: an expense saved in the current month, in a month the
+  /// user is really tracking, with the month and that category still within
+  /// budget. An over-budget save is a negative moment, not one to ask for a
+  /// rating. Anything that can't be read (goals, user) skips the event.
+  Future<void> _recordAhaIfOnTrack(CardModel card) async {
+    try {
+      final now = DateTime.now();
+      if (card.date.year != now.year || card.date.month != now.month) return;
+
+      final monthCards = [..._cardList.where((c) => c.id != card.id), card]
+          .where((c) =>
+              c.date.year == now.year &&
+              c.date.month == now.month &&
+              c.amount > 0)
+          .toList();
+      final trackedDays = monthCards
+          .where((c) => c.idFixoControl.isEmpty)
+          .map((c) => c.date.day)
+          .toSet();
+      if (trackedDays.length < _ahaMinTrackedDays) return;
+
+      final goals = await GoalsRepository(loginVM: loginVM).fetchGoals();
+      final totalGoal = goals.fold<double>(0, (sum, g) => sum + g.value);
+      final monthTotal =
+          monthCards.fold<double>(0, (sum, c) => sum + c.amount);
+      if (totalGoal > 0 && monthTotal > totalGoal) return;
+
+      final categoryGoal = goals
+          .where((g) => g.categoryId == card.category.id)
+          .fold<double>(0, (sum, g) => sum + g.value);
+      final categoryTotal = monthCards
+          .where((c) => c.category.id == card.category.id)
+          .fold<double>(0, (sum, c) => sum + c.amount);
+      if (categoryGoal > 0 && categoryTotal > categoryGoal) return;
+
+      await ReviewPrompt.instance.recordPositiveEvent(trigger: 'expense_saved');
+    } catch (_) {
+      // The review prompt must never break the save flow.
     }
   }
 

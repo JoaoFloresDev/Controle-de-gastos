@@ -280,9 +280,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get notNow => 'अभी नहीं';
 
   @override
-  String get reviewButton => 'रेट करें';
-
-  @override
   String get recurringExpenses => 'आवर्ती खर्च';
 
   @override
@@ -780,28 +777,4 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'मुफ़्त ट्रायल शुरू करें';
-
-  @override
-  String get ratingGateTitle => 'ऐप पसंद आ रहा है?';
-
-  @override
-  String get ratingGateSubtitle => 'आपकी राय हमें बेहतर बनाने में मदद करती है।';
-
-  @override
-  String get ratingGateYes => 'हाँ, बहुत';
-
-  @override
-  String get ratingGateNo => 'ज़्यादा नहीं';
-
-  @override
-  String get ratingGateFeedbackTitle => 'हम क्या बेहतर कर सकते हैं?';
-
-  @override
-  String get ratingGateFeedbackPlaceholder => 'बताइए क्या ठीक नहीं रहा...';
-
-  @override
-  String get ratingGateFeedbackSend => 'भेजें';
-
-  @override
-  String get ratingGateFeedbackThanks => 'धन्यवाद! हम हर संदेश पढ़ते हैं।';
 }

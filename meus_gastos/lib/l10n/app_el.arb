@@ -85,7 +85,6 @@
     "reviewAppTitle": "Αξιολογήστε την εφαρμογή μας",
     "reviewAppDescription": "Αφήστε μια αξιολόγηση στο κατάστημα",
     "notNow": "Όχι τώρα",
-    "reviewButton": "Αξιολόγηση",
     "recurringExpenses": "Επαναλαμβανόμενα έξοδα",
     "mediaDiaria": "Ημερήσιος μέσος όρος",
     "geral": "Γενικά",
@@ -245,13 +244,5 @@
     "planYearly": "Ετήσιο",
     "planMonthly": "Μηνιαίο",
     "freeTrial3Days": "3 ημέρες δωρεάν",
-    "startFreeTrial": "Έναρξη δωρεάν δοκιμής",
-    "ratingGateTitle": "Σας αρέσει η εφαρμογή;",
-    "ratingGateSubtitle": "Τα σχόλιά σας μας βοηθούν να βελτιωθούμε.",
-    "ratingGateYes": "Ναι, πολύ",
-    "ratingGateNo": "Όχι ιδιαίτερα",
-    "ratingGateFeedbackTitle": "Τι μπορούμε να βελτιώσουμε;",
-    "ratingGateFeedbackPlaceholder": "Πείτε μας τι δεν πήγε καλά...",
-    "ratingGateFeedbackSend": "Αποστολή",
-    "ratingGateFeedbackThanks": "Ευχαριστούμε! Διαβάζουμε κάθε μήνυμα."
+    "startFreeTrial": "Έναρξη δωρεάν δοκιμής"
 }

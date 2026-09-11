@@ -277,9 +277,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notNow => 'Şimdi değil';
 
   @override
-  String get reviewButton => 'Puanla';
-
-  @override
   String get recurringExpenses => 'Düzenli harcamalar';
 
   @override
@@ -773,29 +770,4 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Start free trial';
-
-  @override
-  String get ratingGateTitle => 'Uygulamayı beğendiniz mi?';
-
-  @override
-  String get ratingGateSubtitle =>
-      'Geri bildiriminiz gelişmemize yardımcı oluyor.';
-
-  @override
-  String get ratingGateYes => 'Evet, çok';
-
-  @override
-  String get ratingGateNo => 'Pek değil';
-
-  @override
-  String get ratingGateFeedbackTitle => 'Neyi daha iyi yapabiliriz?';
-
-  @override
-  String get ratingGateFeedbackPlaceholder => 'Neyin ters gittiğini yazın...';
-
-  @override
-  String get ratingGateFeedbackSend => 'Gönder';
-
-  @override
-  String get ratingGateFeedbackThanks => 'Teşekkürler! Her mesajı okuyoruz.';
 }

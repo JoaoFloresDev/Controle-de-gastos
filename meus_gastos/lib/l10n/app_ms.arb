@@ -85,7 +85,6 @@
     "reviewAppTitle": "Nilaikan aplikasi kami",
     "reviewAppDescription": "Tinggalkan ulasan di kedai aplikasi",
     "notNow": "Bukan sekarang",
-    "reviewButton": "Nilaikan",
     "recurringExpenses": "Perbelanjaan Berulang",
     "mediaDiaria": "Purata Harian",
     "geral": "Umum",
@@ -245,13 +244,5 @@
     "planYearly": "Tahunan",
     "planMonthly": "Bulanan",
     "freeTrial3Days": "Percubaan 3 hari percuma",
-    "startFreeTrial": "Mulakan percubaan percuma",
-    "ratingGateTitle": "Suka aplikasi ini?",
-    "ratingGateSubtitle": "Maklum balas anda membantu kami menambah baik.",
-    "ratingGateYes": "Ya, sangat suka",
-    "ratingGateNo": "Kurang",
-    "ratingGateFeedbackTitle": "Apa yang boleh kami perbaiki?",
-    "ratingGateFeedbackPlaceholder": "Beritahu kami apa yang tidak kena...",
-    "ratingGateFeedbackSend": "Hantar",
-    "ratingGateFeedbackThanks": "Terima kasih! Kami membaca setiap mesej."
+    "startFreeTrial": "Mulakan percubaan percuma"
 }

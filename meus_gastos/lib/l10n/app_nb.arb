@@ -85,7 +85,6 @@
     "reviewAppTitle": "Vurder appen vår",
     "reviewAppDescription": "Legg igjen en vurdering i butikken",
     "notNow": "Ikke nå",
-    "reviewButton": "Vurder",
     "recurringExpenses": "Faste utgifter",
     "mediaDiaria": "Daglig gjennomsnitt",
     "geral": "Generelt",
@@ -245,13 +244,5 @@
     "planYearly": "Årlig",
     "planMonthly": "Månedlig",
     "freeTrial3Days": "3 dager gratis",
-    "startFreeTrial": "Start gratis prøveperiode",
-    "ratingGateTitle": "Liker du appen?",
-    "ratingGateSubtitle": "Tilbakemeldingen din hjelper oss å bli bedre.",
-    "ratingGateYes": "Ja, veldig godt",
-    "ratingGateNo": "Ikke helt",
-    "ratingGateFeedbackTitle": "Hva kan vi gjøre bedre?",
-    "ratingGateFeedbackPlaceholder": "Fortell oss hva som gikk galt...",
-    "ratingGateFeedbackSend": "Send",
-    "ratingGateFeedbackThanks": "Takk! Vi leser alle meldinger."
+    "startFreeTrial": "Start gratis prøveperiode"
 }

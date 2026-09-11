@@ -85,7 +85,6 @@
     "reviewAppTitle": "דרג את האפליקציה",
     "reviewAppDescription": "השאר דירוג בחנות",
     "notNow": "לא עכשיו",
-    "reviewButton": "דרג",
     "recurringExpenses": "הוצאות קבועות",
     "mediaDiaria": "ממוצע יומי",
     "geral": "כללי",
@@ -245,13 +244,5 @@
     "planYearly": "שנתי",
     "planMonthly": "חודשי",
     "freeTrial3Days": "3 ימים חינם",
-    "startFreeTrial": "התחל ניסיון חינם",
-    "ratingGateTitle": "נהנים מהאפליקציה?",
-    "ratingGateSubtitle": "המשוב שלך עוזר לנו להשתפר.",
-    "ratingGateYes": "כן, מאוד",
-    "ratingGateNo": "לא ממש",
-    "ratingGateFeedbackTitle": "מה נוכל לשפר?",
-    "ratingGateFeedbackPlaceholder": "ספרו לנו מה לא עבד...",
-    "ratingGateFeedbackSend": "שליחה",
-    "ratingGateFeedbackThanks": "תודה! אנחנו קוראים כל הודעה."
+    "startFreeTrial": "התחל ניסיון חינם"
 }

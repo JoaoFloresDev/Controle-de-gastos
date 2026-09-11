@@ -85,7 +85,6 @@
     "reviewAppTitle": "Értékelje alkalmazásunkat",
     "reviewAppDescription": "Írjon véleményt az áruházban",
     "notNow": "Most nem",
-    "reviewButton": "Értékelés",
     "recurringExpenses": "Rendszeres kiadások",
     "mediaDiaria": "Napi átlag",
     "geral": "Általános",
@@ -245,13 +244,5 @@
     "planYearly": "Éves",
     "planMonthly": "Havi",
     "freeTrial3Days": "3 nap ingyen",
-    "startFreeTrial": "Ingyenes próba indítása",
-    "ratingGateTitle": "Tetszik az alkalmazás?",
-    "ratingGateSubtitle": "A visszajelzésed segít fejlődnünk.",
-    "ratingGateYes": "Igen, nagyon",
-    "ratingGateNo": "Nem igazán",
-    "ratingGateFeedbackTitle": "Mit csinálhatnánk jobban?",
-    "ratingGateFeedbackPlaceholder": "Írd meg, mi nem működött...",
-    "ratingGateFeedbackSend": "Küldés",
-    "ratingGateFeedbackThanks": "Köszönjük! Minden üzenetet elolvasunk."
+    "startFreeTrial": "Ingyenes próba indítása"
 }

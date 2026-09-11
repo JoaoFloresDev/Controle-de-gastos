@@ -85,7 +85,6 @@
     "reviewAppTitle": "アプリを評価",
     "reviewAppDescription": "ストアにレビューを投稿",
     "notNow": "あとで",
-    "reviewButton": "評価する",
     "recurringExpenses": "定期支出",
     "mediaDiaria": "1日平均",
     "geral": "全般",
@@ -238,13 +237,5 @@
     "customPeriod": "カスタム期間",
     "selectPeriod": "期間を選択",
     "startDate": "開始日",
-    "endDate": "終了日",
-    "ratingGateTitle": "アプリはいかがですか？",
-    "ratingGateSubtitle": "ご意見が改善に役立ちます。",
-    "ratingGateYes": "はい、気に入っています",
-    "ratingGateNo": "あまり",
-    "ratingGateFeedbackTitle": "どこを改善できますか？",
-    "ratingGateFeedbackPlaceholder": "うまくいかなかった点をお書きください...",
-    "ratingGateFeedbackSend": "送信",
-    "ratingGateFeedbackThanks": "ありがとうございます！すべて拝見しています。"
+    "endDate": "終了日"
 }

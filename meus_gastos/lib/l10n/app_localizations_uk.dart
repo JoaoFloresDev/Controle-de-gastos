@@ -281,9 +281,6 @@ class AppLocalizationsUk extends AppLocalizations {
   String get notNow => 'Не зараз';
 
   @override
-  String get reviewButton => 'Оцінити';
-
-  @override
   String get recurringExpenses => 'Регулярні витрати';
 
   @override
@@ -780,29 +777,4 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Спробувати безкоштовно';
-
-  @override
-  String get ratingGateTitle => 'Подобається застосунок?';
-
-  @override
-  String get ratingGateSubtitle => 'Ваш відгук допомагає нам ставати кращими.';
-
-  @override
-  String get ratingGateYes => 'Так, дуже';
-
-  @override
-  String get ratingGateNo => 'Не дуже';
-
-  @override
-  String get ratingGateFeedbackTitle => 'Що можна покращити?';
-
-  @override
-  String get ratingGateFeedbackPlaceholder => 'Розкажіть, що пішло не так...';
-
-  @override
-  String get ratingGateFeedbackSend => 'Надіслати';
-
-  @override
-  String get ratingGateFeedbackThanks =>
-      'Дякуємо! Ми читаємо кожне повідомлення.';
 }

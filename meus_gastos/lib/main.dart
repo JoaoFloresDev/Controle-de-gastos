@@ -20,7 +20,7 @@ import 'package:meus_gastos/services/ProManeger.dart';
 import 'package:meus_gastos/services/firebase/FirebaseServiceSingleton.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:meus_gastos/services/AnalyticsService.dart';
-import 'package:meus_gastos/services/RatingGate.dart';
+import 'package:meus_gastos/services/ReviewPrompt.dart';
 import 'package:meus_gastos/controllers/Onboarding/OnboardingScreen.dart';
 import 'package:meus_gastos/controllers/Purchase/ProModal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -63,6 +63,12 @@ void main() async {
       return true;
     };
   }
+  // Native review prompt, requested only at the aha-moment
+  // (TransactionsViewModel.addManualCard). appVersion stays null: no
+  // package_info_plus in this app.
+  ReviewPrompt.instance.onEvent = (name, params) {
+    AnalyticsService().logEvent(name, params);
+  };
   // inicializa a ponte com o widget nativo de adição rápida (App Group).
   // Nunca pode derrubar o boot: plugin ausente na plataforma = app sem widget,
   // não app sem tela.
@@ -84,7 +90,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      navigatorKey: RatingGate.navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: const CupertinoThemeData(brightness: Brightness.dark),
       builder: (context, child) {

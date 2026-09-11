@@ -175,7 +175,7 @@ class _AddTransactionControllerState extends State<AddTransactionController>
                                 context, selectedCat),
                       );
                       widget.onAddClicked();
-                      context.read<TransactionsViewModel>().addCard(CardModel(
+                      context.read<TransactionsViewModel>().addManualCard(CardModel(
                             amount: header.valorController.numberValue,
                             description: header.descricaoController.text,
                             date: header.lastDateSelected,

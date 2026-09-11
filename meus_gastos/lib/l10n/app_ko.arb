@@ -85,7 +85,6 @@
     "reviewAppTitle": "앱 평가하기",
     "reviewAppDescription": "스토어에 리뷰 남기기",
     "notNow": "나중에",
-    "reviewButton": "평가",
     "recurringExpenses": "정기 지출",
     "mediaDiaria": "일평균",
     "geral": "전체",
@@ -238,13 +237,5 @@
     "customPeriod": "사용자 지정 기간",
     "selectPeriod": "기간 선택",
     "startDate": "시작일",
-    "endDate": "종료일",
-    "ratingGateTitle": "앱이 마음에 드시나요?",
-    "ratingGateSubtitle": "의견을 주시면 더 나아질 수 있어요.",
-    "ratingGateYes": "네, 마음에 들어요",
-    "ratingGateNo": "그저 그래요",
-    "ratingGateFeedbackTitle": "무엇을 개선하면 좋을까요?",
-    "ratingGateFeedbackPlaceholder": "무엇이 불편했는지 알려주세요...",
-    "ratingGateFeedbackSend": "보내기",
-    "ratingGateFeedbackThanks": "감사합니다! 모든 의견을 읽고 있어요."
+    "endDate": "종료일"
 }

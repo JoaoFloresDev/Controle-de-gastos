@@ -279,9 +279,6 @@ class AppLocalizationsId extends AppLocalizations {
   String get notNow => 'Nanti saja';
 
   @override
-  String get reviewButton => 'Beri Rating';
-
-  @override
   String get recurringExpenses => 'Pengeluaran rutin';
 
   @override
@@ -775,30 +772,4 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Start free trial';
-
-  @override
-  String get ratingGateTitle => 'Suka dengan aplikasinya?';
-
-  @override
-  String get ratingGateSubtitle => 'Masukan Anda membantu kami berkembang.';
-
-  @override
-  String get ratingGateYes => 'Ya, suka sekali';
-
-  @override
-  String get ratingGateNo => 'Kurang';
-
-  @override
-  String get ratingGateFeedbackTitle => 'Apa yang bisa kami perbaiki?';
-
-  @override
-  String get ratingGateFeedbackPlaceholder =>
-      'Ceritakan apa yang kurang pas...';
-
-  @override
-  String get ratingGateFeedbackSend => 'Kirim';
-
-  @override
-  String get ratingGateFeedbackThanks =>
-      'Terima kasih! Kami membaca setiap pesan.';
 }

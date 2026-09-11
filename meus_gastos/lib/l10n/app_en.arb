@@ -85,7 +85,6 @@
     "reviewAppTitle": "Rate our app",
     "reviewAppDescription": "Leave a review on the store",
     "notNow": "Not now",
-    "reviewButton": "Rate",
     "recurringExpenses": "Recurring Expenses",
     "mediaDiaria": "Daily Average",
     "geral": "General",
@@ -245,13 +244,5 @@
     "planYearly": "Yearly",
     "planMonthly": "Monthly",
     "freeTrial3Days": "3 days free",
-    "startFreeTrial": "Start free trial",
-    "ratingGateTitle": "Enjoying the app?",
-    "ratingGateSubtitle": "Your feedback helps us improve.",
-    "ratingGateYes": "Yes, loving it",
-    "ratingGateNo": "Not really",
-    "ratingGateFeedbackTitle": "What can we do better?",
-    "ratingGateFeedbackPlaceholder": "Tell us what went wrong...",
-    "ratingGateFeedbackSend": "Send",
-    "ratingGateFeedbackThanks": "Thank you! We read every message."
+    "startFreeTrial": "Start free trial"
 }

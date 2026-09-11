@@ -85,7 +85,6 @@
     "reviewAppTitle": "Ohodnoťte našu aplikáciu",
     "reviewAppDescription": "Zanechajte hodnotenie v obchode",
     "notNow": "Teraz nie",
-    "reviewButton": "Ohodnotiť",
     "recurringExpenses": "Opakované výdavky",
     "mediaDiaria": "Denný priemer",
     "geral": "Všeobecné",
@@ -245,13 +244,5 @@
     "planYearly": "Ročne",
     "planMonthly": "Mesačne",
     "freeTrial3Days": "3 dni zadarmo",
-    "startFreeTrial": "Začať bezplatnú skúšobnú verziu",
-    "ratingGateTitle": "Páči sa vám aplikácia?",
-    "ratingGateSubtitle": "Vaša spätná väzba nám pomáha zlepšovať sa.",
-    "ratingGateYes": "Áno, veľmi",
-    "ratingGateNo": "Ani nie",
-    "ratingGateFeedbackTitle": "Čo môžeme zlepšiť?",
-    "ratingGateFeedbackPlaceholder": "Napíšte nám, čo nefungovalo...",
-    "ratingGateFeedbackSend": "Odoslať",
-    "ratingGateFeedbackThanks": "Ďakujeme! Čítame každú správu."
+    "startFreeTrial": "Začať bezplatnú skúšobnú verziu"
 }

@@ -85,7 +85,6 @@
     "reviewAppTitle": "为我们的应用评分",
     "reviewAppDescription": "在商店中留下评价",
     "notNow": "暂不",
-    "reviewButton": "评分",
     "recurringExpenses": "定期支出",
     "mediaDiaria": "日均支出",
     "geral": "总览",
@@ -238,13 +237,5 @@
     "customPeriod": "自定义期间",
     "selectPeriod": "选择期间",
     "startDate": "开始日期",
-    "endDate": "结束日期",
-    "ratingGateTitle": "喜欢这个应用吗？",
-    "ratingGateSubtitle": "你的反馈能帮助我们做得更好。",
-    "ratingGateYes": "很喜欢",
-    "ratingGateNo": "不太喜欢",
-    "ratingGateFeedbackTitle": "我们可以改进什么？",
-    "ratingGateFeedbackPlaceholder": "告诉我们哪里不对劲…",
-    "ratingGateFeedbackSend": "发送",
-    "ratingGateFeedbackThanks": "谢谢！每条留言我们都会看。"
+    "endDate": "结束日期"
 }

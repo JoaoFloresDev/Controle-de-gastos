@@ -281,9 +281,6 @@ class AppLocalizationsEl extends AppLocalizations {
   String get notNow => 'Όχι τώρα';
 
   @override
-  String get reviewButton => 'Αξιολόγηση';
-
-  @override
   String get recurringExpenses => 'Επαναλαμβανόμενα έξοδα';
 
   @override
@@ -785,29 +782,4 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Έναρξη δωρεάν δοκιμής';
-
-  @override
-  String get ratingGateTitle => 'Σας αρέσει η εφαρμογή;';
-
-  @override
-  String get ratingGateSubtitle => 'Τα σχόλιά σας μας βοηθούν να βελτιωθούμε.';
-
-  @override
-  String get ratingGateYes => 'Ναι, πολύ';
-
-  @override
-  String get ratingGateNo => 'Όχι ιδιαίτερα';
-
-  @override
-  String get ratingGateFeedbackTitle => 'Τι μπορούμε να βελτιώσουμε;';
-
-  @override
-  String get ratingGateFeedbackPlaceholder => 'Πείτε μας τι δεν πήγε καλά...';
-
-  @override
-  String get ratingGateFeedbackSend => 'Αποστολή';
-
-  @override
-  String get ratingGateFeedbackThanks =>
-      'Ευχαριστούμε! Διαβάζουμε κάθε μήνυμα.';
 }

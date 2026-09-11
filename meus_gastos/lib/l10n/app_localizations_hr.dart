@@ -280,9 +280,6 @@ class AppLocalizationsHr extends AppLocalizations {
   String get notNow => 'Ne sada';
 
   @override
-  String get reviewButton => 'Ocijeni';
-
-  @override
   String get recurringExpenses => 'Ponavljajući troškovi';
 
   @override
@@ -782,28 +779,4 @@ class AppLocalizationsHr extends AppLocalizations {
 
   @override
   String get startFreeTrial => 'Započni besplatno probno razdoblje';
-
-  @override
-  String get ratingGateTitle => 'Sviđa li vam se aplikacija?';
-
-  @override
-  String get ratingGateSubtitle => 'Vaše mišljenje pomaže nam da budemo bolji.';
-
-  @override
-  String get ratingGateYes => 'Da, jako';
-
-  @override
-  String get ratingGateNo => 'Ne baš';
-
-  @override
-  String get ratingGateFeedbackTitle => 'Što možemo poboljšati?';
-
-  @override
-  String get ratingGateFeedbackPlaceholder => 'Recite nam što nije radilo...';
-
-  @override
-  String get ratingGateFeedbackSend => 'Pošalji';
-
-  @override
-  String get ratingGateFeedbackThanks => 'Hvala! Čitamo svaku poruku.';
 }

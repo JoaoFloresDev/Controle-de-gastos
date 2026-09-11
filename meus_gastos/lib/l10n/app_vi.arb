@@ -85,7 +85,6 @@
     "reviewAppTitle": "Đánh giá ứng dụng",
     "reviewAppDescription": "Để lại đánh giá trên cửa hàng",
     "notNow": "Để sau",
-    "reviewButton": "Đánh giá",
     "recurringExpenses": "Chi tiêu định kỳ",
     "mediaDiaria": "Trung bình hàng ngày",
     "geral": "Chung",
@@ -245,13 +244,5 @@
     "planYearly": "Hàng năm",
     "planMonthly": "Hàng tháng",
     "freeTrial3Days": "Miễn phí 3 ngày",
-    "startFreeTrial": "Bắt đầu dùng thử miễn phí",
-    "ratingGateTitle": "Bạn thấy ứng dụng thế nào?",
-    "ratingGateSubtitle": "Góp ý của bạn giúp chúng tôi cải thiện.",
-    "ratingGateYes": "Rất thích",
-    "ratingGateNo": "Chưa hẳn",
-    "ratingGateFeedbackTitle": "Chúng tôi có thể cải thiện điều gì?",
-    "ratingGateFeedbackPlaceholder": "Cho chúng tôi biết điều gì chưa ổn...",
-    "ratingGateFeedbackSend": "Gửi",
-    "ratingGateFeedbackThanks": "Cảm ơn bạn! Chúng tôi đọc mọi tin nhắn."
+    "startFreeTrial": "Bắt đầu dùng thử miễn phí"
 }

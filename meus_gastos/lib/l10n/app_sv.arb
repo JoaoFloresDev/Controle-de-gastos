@@ -85,7 +85,6 @@
     "reviewAppTitle": "Betygsätt vår app",
     "reviewAppDescription": "Lämna ett omdöme i butiken",
     "notNow": "Inte nu",
-    "reviewButton": "Betygsätt",
     "recurringExpenses": "Återkommande utgifter",
     "mediaDiaria": "Dagligt genomsnitt",
     "geral": "Allmänt",
@@ -245,13 +244,5 @@
     "planYearly": "Årsvis",
     "planMonthly": "Månadsvis",
     "freeTrial3Days": "3 dagar gratis",
-    "startFreeTrial": "Starta gratis provperiod",
-    "ratingGateTitle": "Gillar du appen?",
-    "ratingGateSubtitle": "Din feedback hjälper oss att bli bättre.",
-    "ratingGateYes": "Ja, väldigt bra",
-    "ratingGateNo": "Inte riktigt",
-    "ratingGateFeedbackTitle": "Vad kan vi göra bättre?",
-    "ratingGateFeedbackPlaceholder": "Berätta vad som gick fel...",
-    "ratingGateFeedbackSend": "Skicka",
-    "ratingGateFeedbackThanks": "Tack! Vi läser alla meddelanden."
+    "startFreeTrial": "Starta gratis provperiod"
 }

@@ -85,7 +85,6 @@
     "reviewAppTitle": "Uygulamayı puanla",
     "reviewAppDescription": "Mağazada yorum bırak",
     "notNow": "Şimdi değil",
-    "reviewButton": "Puanla",
     "recurringExpenses": "Düzenli harcamalar",
     "mediaDiaria": "Günlük ortalama",
     "geral": "Genel",
@@ -238,13 +237,5 @@
     "customPeriod": "Özel dönem",
     "selectPeriod": "Dönem seç",
     "startDate": "Başlangıç tarihi",
-    "endDate": "Bitiş tarihi",
-    "ratingGateTitle": "Uygulamayı beğendiniz mi?",
-    "ratingGateSubtitle": "Geri bildiriminiz gelişmemize yardımcı oluyor.",
-    "ratingGateYes": "Evet, çok",
-    "ratingGateNo": "Pek değil",
-    "ratingGateFeedbackTitle": "Neyi daha iyi yapabiliriz?",
-    "ratingGateFeedbackPlaceholder": "Neyin ters gittiğini yazın...",
-    "ratingGateFeedbackSend": "Gönder",
-    "ratingGateFeedbackThanks": "Teşekkürler! Her mesajı okuyoruz."
+    "endDate": "Bitiş tarihi"
 }

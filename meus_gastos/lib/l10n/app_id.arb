@@ -85,7 +85,6 @@
     "reviewAppTitle": "Beri rating aplikasi",
     "reviewAppDescription": "Tinggalkan ulasan di toko",
     "notNow": "Nanti saja",
-    "reviewButton": "Beri Rating",
     "recurringExpenses": "Pengeluaran rutin",
     "mediaDiaria": "Rata-rata harian",
     "geral": "Umum",
@@ -238,13 +237,5 @@
     "customPeriod": "Periode kustom",
     "selectPeriod": "Pilih periode",
     "startDate": "Tanggal mulai",
-    "endDate": "Tanggal akhir",
-    "ratingGateTitle": "Suka dengan aplikasinya?",
-    "ratingGateSubtitle": "Masukan Anda membantu kami berkembang.",
-    "ratingGateYes": "Ya, suka sekali",
-    "ratingGateNo": "Kurang",
-    "ratingGateFeedbackTitle": "Apa yang bisa kami perbaiki?",
-    "ratingGateFeedbackPlaceholder": "Ceritakan apa yang kurang pas...",
-    "ratingGateFeedbackSend": "Kirim",
-    "ratingGateFeedbackThanks": "Terima kasih! Kami membaca setiap pesan."
+    "endDate": "Tanggal akhir"
 }

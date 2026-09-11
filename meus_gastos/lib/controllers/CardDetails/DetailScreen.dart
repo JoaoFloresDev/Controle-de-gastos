@@ -4,7 +4,6 @@ import 'package:meus_gastos/models/CategoryModel.dart';
 import 'EditionHeaderCard.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 
-// await Constructreview.checkAndRequestReview();
 class DetailScreen extends StatefulWidget {
   final CardModel card;
   final VoidCallback onAddClicked;

@@ -85,7 +85,6 @@
     "reviewAppTitle": "Arvostele sovellus",
     "reviewAppDescription": "Jätä arvostelu kaupassa",
     "notNow": "Ei nyt",
-    "reviewButton": "Arvostele",
     "recurringExpenses": "Toistuvat kulut",
     "mediaDiaria": "Päivittäinen keskiarvo",
     "geral": "Yleiset",
@@ -245,13 +244,5 @@
     "planYearly": "Vuosittain",
     "planMonthly": "Kuukausittain",
     "freeTrial3Days": "3 päivää ilmaiseksi",
-    "startFreeTrial": "Aloita ilmainen kokeilu",
-    "ratingGateTitle": "Pidätkö sovelluksesta?",
-    "ratingGateSubtitle": "Palautteesi auttaa meitä kehittymään.",
-    "ratingGateYes": "Kyllä, todella",
-    "ratingGateNo": "En oikeastaan",
-    "ratingGateFeedbackTitle": "Mitä voisimme tehdä paremmin?",
-    "ratingGateFeedbackPlaceholder": "Kerro, mikä meni pieleen...",
-    "ratingGateFeedbackSend": "Lähetä",
-    "ratingGateFeedbackThanks": "Kiitos! Luemme jokaisen viestin."
+    "startFreeTrial": "Aloita ilmainen kokeilu"
 }
