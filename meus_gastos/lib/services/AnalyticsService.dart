@@ -55,8 +55,13 @@ class AnalyticsService {
   }
 
   /// Feature adoption, comparable across every app in the lab.
-  Future<void> featureUsed(String name, {required String source}) =>
-      logEvent('feature_used', {'name': name, 'source': source});
+  /// Logged once per feature per session: the first real use, not every tap.
+  static final Set<String> _featuresUsedThisSession = <String>{};
+
+  Future<void> featureUsed(String name, {required String source}) async {
+    if (!_featuresUsedThisSession.add(name)) return;
+    await logEvent('feature_used', {'name': name, 'source': source});
+  }
 
   // MARK: - Transactions
   Future<void> transactionAdded({required String category, required bool isRecurrent}) async {

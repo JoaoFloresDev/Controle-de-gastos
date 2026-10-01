@@ -18,6 +18,7 @@ import 'ViewComponents/ListCard.dart';
 import '../../models/CardModel.dart';
 import 'package:meus_gastos/controllers/CardDetails/DetailScreen.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
+import 'package:meus_gastos/services/AnalyticsService.dart';
 
 class TransactionsScrean extends StatefulWidget {
   const TransactionsScrean({
@@ -314,6 +315,9 @@ class _TransactionsScreanState extends State<TransactionsScrean> {
             ),
           },
           onValueChanged: (value) {
+            if (value == true) {
+              AnalyticsService().featureUsed('calendar_view', source: 'tab');
+            }
             setState(() {
               calendarView = value!;
             });

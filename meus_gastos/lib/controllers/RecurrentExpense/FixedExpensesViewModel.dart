@@ -95,6 +95,7 @@ class FixedExpensesViewModel extends ChangeNotifier {
 
   Future<void> addExpense(FixedExpense fexpense) async {
     AnalyticsService().logEvent('recurrent_add');
+    AnalyticsService().featureUsed('recurring_expense', source: 'settings');
     _fixedExpense.add(fexpense);
     await _repo.add(fexpense);
     _recalculate();

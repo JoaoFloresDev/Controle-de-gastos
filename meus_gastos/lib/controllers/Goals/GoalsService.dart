@@ -62,6 +62,7 @@ class GoalsService {
 
   Future<void> addMeta(String categoryId, double meta) async {
     AnalyticsService().goalSet(category: categoryId);
+    AnalyticsService().featureUsed('budget', source: 'tab');
     List<GoalModel> goal = await retrive();
     int index = goal.indexWhere((bud) => bud.categoryId == categoryId);
     if (index != -1) {

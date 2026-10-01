@@ -62,6 +62,7 @@ class CategoryViewModel extends ChangeNotifier {
 
   Future<void> add(CategoryModel c) async {
     AnalyticsService().categoryCreated(c.name);
+    AnalyticsService().featureUsed('custom_category', source: 'settings');
     await repo.addCategory(c);
     categories.add(c);
     notifyListeners();

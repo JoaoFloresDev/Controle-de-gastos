@@ -153,6 +153,7 @@ class _Exportexcelscreen extends State<Exportexcelscreen> {
   //mark - Share Data
   Future<void> _shareData() async {
     AnalyticsService().exportShared(_selectedFormat);
+    AnalyticsService().featureUsed('export', source: 'tab');
     setState(() {
       _isLoadingShare = true;
     });

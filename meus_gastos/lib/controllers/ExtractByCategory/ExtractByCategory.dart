@@ -32,6 +32,7 @@ class _ExtractByCategoryState extends State<ExtractByCategory> {
   void initState() {
     super.initState();
     AnalyticsService().logScreen('extract_by_category');
+    AnalyticsService().featureUsed('category_extract', source: 'tab');
   }
 
   List<CardModel> selectByCategory(

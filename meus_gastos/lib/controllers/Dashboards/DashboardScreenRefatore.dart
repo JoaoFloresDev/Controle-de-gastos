@@ -18,6 +18,7 @@ import 'package:meus_gastos/controllers/Dashboards/ViewComponents/monthInsights/
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/DashboardCard.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/MonthSelector.dart';
 import 'package:meus_gastos/controllers/Dashboards/ViewComponents/LinearProgressIndicatorSection.dart';
+import 'package:meus_gastos/services/AnalyticsService.dart';
 
 class DashboardScreen extends StatefulWidget {
   final bool isActive;
@@ -51,6 +52,11 @@ class DashboardScreenState extends State<DashboardScreen>
   bool get wantKeepAlive => true;
 
   void _onPageChanged(int index) {
+    if (index == 1) {
+      AnalyticsService().featureUsed('chart_weekly', source: 'tab');
+    } else if (index == 2) {
+      AnalyticsService().featureUsed('chart_daily', source: 'tab');
+    }
     setState(() {
       _currentIndexNotifier.value = index;
     });
@@ -60,6 +66,7 @@ class DashboardScreenState extends State<DashboardScreen>
     return MonthSelector(
       currentDate: dashboardVM.currentDate,
       onChangeMonth: (int delta) {
+        AnalyticsService().featureUsed('month_navigation', source: 'tab');
         dashboardVM.changeMonth(delta);
         context
             .read<MonthInsightsViewModel>()

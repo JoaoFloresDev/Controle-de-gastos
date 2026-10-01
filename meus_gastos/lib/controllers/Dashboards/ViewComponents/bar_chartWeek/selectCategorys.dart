@@ -3,6 +3,7 @@ import 'package:meus_gastos/designSystem/ImplDS.dart';
 import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/l10n/app_localizations.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
+import 'package:meus_gastos/services/AnalyticsService.dart';
 
 class SelectCategories extends StatefulWidget {
   final List<CategoryModel> categoryList;
@@ -49,7 +50,10 @@ class _SelectCategoriesState extends State<SelectCategories> {
         itemBuilder: (context, index) {
           final isSelected = selectedIndices.contains(index);
           return GestureDetector(
-            onTap: () => _toggleSelection(index),
+            onTap: () {
+              AnalyticsService().featureUsed('chart_category_filter', source: 'tab');
+              _toggleSelection(index);
+            },
             child: SizedBox(
               width: 56,
               child: Column(

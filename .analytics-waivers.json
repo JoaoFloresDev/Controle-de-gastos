@@ -1,0 +1,3 @@
+{"waivers": [{"event": "post_purchase_shown",
+  "reason": "App Flutter sem tela pós-compra (PaywallKit é só Swift). Não se loga evento de tela inexistente. Tela pós-compra entra na próxima versão.",
+  "approved_by": "João", "date": "2026-10-01", "expires": "2026-11-30"}]}

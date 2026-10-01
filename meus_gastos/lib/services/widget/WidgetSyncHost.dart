@@ -8,6 +8,7 @@ import 'package:meus_gastos/models/CategoryModel.dart';
 import 'package:meus_gastos/services/CardServiceRefatore.dart';
 import 'package:meus_gastos/services/TranslateService.dart';
 import 'package:meus_gastos/services/widget/WidgetBridge.dart';
+import 'package:meus_gastos/services/AnalyticsService.dart';
 
 /// Wrapper que mantém o widget nativo de adição rápida em sincronia com o app.
 ///
@@ -92,6 +93,7 @@ class _WidgetSyncHostState extends State<WidgetSyncHost>
     try {
       final pending = await WidgetBridge.drainPendingExpenses();
       if (pending.isEmpty || !mounted) return;
+      AnalyticsService().featureUsed('widget_quick_add', source: 'widget');
 
       final categoryVM = context.read<CategoryViewModel>();
       final transactionsVM = context.read<TransactionsViewModel>();
