@@ -1,0 +1,25 @@
+[
+ {
+  "term": "excel",
+  "locales": [
+   "cs",
+   "da",
+   "el",
+   "es-ES",
+   "fi",
+   "fr-FR",
+   "hu",
+   "id",
+   "ms",
+   "nl-NL",
+   "no",
+   "pl",
+   "sv",
+   "uk",
+   "vi"
+  ],
+  "approved_by": "João",
+  "date": "2026-10-01",
+  "reason": "Formato de arquivo que o app exporta de verdade (.xlsx, sem gate PRO). Mantido ciente do risco 5.2.5 (marca Microsoft). Completa composições já rankeadas (menot excel #1 fi, utgifter excel #2 no/sv). Contexto em iterations/2026-09-30_iter-04-*/meta.json > decisions_by_joao.excel_keyword."
+ }
+]
