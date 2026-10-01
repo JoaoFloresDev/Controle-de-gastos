@@ -1,5 +1,10 @@
 # Meus Gastos / My Expenses (6502218501) — iter-04 · name + subtitle + keywords · alvo `de-DE`, escopo 29 locales
 
+**Estado em 01/10/2026 (estágios 7-8 concluídos):**
+- **Deploy FEITO, mas o texto NÃO está no ar.** Versão iOS **45.4.0** criada (`61e6fb32-27fc-41d2-aa6f-4cdb75e19a99`, `PREPARE_FOR_SUBMISSION`); 29 locales × 4 campos = **116/116** read-back ok; deploy-verifier **232/232**, 0 divergências; **19 descriptions corrigidas**. Chega ao usuário só quando for submetida **e** aprovada — archive rodando agora, **submissão não autorizada**. D0 = `live_at`, nunca o dia do PATCH.
+- **`casal` FICA no pt-BR** (decisão final do João, 01/10 — reverteu a da manhã). As 40 posições MISMATCH ficam porque trazem tráfego hoje; a variante honesta está guardada em `proposed/metadata/pt-BR__sem-casal/` (§1).
+- **`excel` mantido em 15 locales** (9 já live + 6 novos: `cs`, `es-ES`, `fr-FR`, `hu`, `id`, `uk`) — pt-BR **não** carrega `excel`. Risco 5.2.5 aceito (§7).
+
 ## Antes de qualquer número: o que esta iteração NÃO vai conseguir provar
 
 1. **Os dois gates do pipeline reprovaram e a cadeia rodou assim mesmo** (autorização do João, 30/09 — `meta.json > gates_overridden`). Piso de tráfego: 100 instalações `1*`/30d no país-alvo; **DE tem 25**, BR 45, US 9. Rating-first: < 25 avaliações na loja-alvo; **DE tem 2**. Consequência direta: **nenhuma mudança de texto aqui produz sinal estatisticamente separável do ruído.** `results.final` vai sair **sem intervalo de confiança** e todo checkpoint é leitura **direcional**. Isso fica registrado agora para que nenhuma sessão futura relate vitória falsa.
@@ -26,23 +31,21 @@ Regra do João (28/09): base `en-US`/`es-ES`/`pt-BR` + os 2 locales com mais ins
 
 ---
 
-## 1. A maior decisão da iteração: sai o cluster `casal` do pt-BR
+## 1. A maior decisão da iteração: `casal` FICA no pt-BR
 
-**Decisão do João, 01/10/2026: `casal` e `compartilhados` saem juntos.**
+**Decisão final do João, 01/10/2026 (reverteu a da manhã): `casal` e `compartilhados` ficam.** Texto aplicado = **variante A**; a **variante B** (sem o cluster) está composta, validada (0 blockers) e arquivada em `proposed/metadata/pt-BR__sem-casal/` com README.
 
-| o que custa | quanto |
+| o que fica | quanto |
 |---|---|
-| posições ≤#50 que caem | **40** — `casal` 21, `compartilhados` 9, `do` 7, `planilha` 3 |
-| quantas são FIT | **zero. As 40 são MISMATCH.** |
-| posições FIT/PARTIAL perdidas | **nenhuma** — as 7 que não dependiam do cluster seguem cobertas |
+| posições ≤#50 preservadas pelo cluster | **40** — `casal` 21, `compartilhados` 9, `do` 7, `planilha` 3 |
+| quantas são FIT | **zero. As 40 são MISMATCH** (queries de conta a dois que o app não responde — `CardModel` sem campo de pessoa, todo path do Firestore é `.collection(userId)`, N1/N2) |
+| por que ficam | **trazem tráfego hoje** — `gastos mensais casal` **#1**, `planilha compartilhada` **#1**, `gastos compartilhados` **#2** e mais 37, num locale que é **37% das instalações** (161/439 em 90d) |
 
-**Posição em jogo:** `gastos mensais casal` **#1**, `planilha compartilhada` **#1**, `gastos compartilhados` **#2** e mais 37 → saem do quadro **vendidas**, não perdidas. São queries de conta a dois que o app não responde (`CardModel` não tem campo de pessoa; todo path do Firestore é `.collection(userId)` — N1/N2 do inventário), e a promessa vivia inteira no subtitle, nem a description a mencionava.
+**Trade-off aceito conscientemente, por escrito:** a promessa de casal segue viva no subtitle **sem a feature existir**; risco de nota no único storefront com massa de avaliação (BR, 18 ratings; 21 de 29 lojas têm zero); risco de App Review **2.3.1** (metadata que descreve função inexistente).
 
-**Por que vale:** BR é **37% das instalações** (161/439 em 90d) e o **único storefront com massa de avaliação** (18 de 29 lojas têm zero). Rating é o gargalo #1 do app. Install vindo de intenção frustrada desinstala e avalia mal — e contamina exatamente a única base de avaliação que existe. É uma troca deliberada de tráfego por nota.
+**Reabrir a variante B quando** (qualquer um): (1) a nota do BR virar o gargalo **medido** — média caindo e reviews citando expectativa de conta compartilhada; (2) o app ganhar modo casal de verdade — aí o subtitle vira promessa verdadeira e o cluster deixa de ser MISMATCH. Se B entrar, entra **inteira**: tirar `casal` e manter `compartilhados` é a pior das três opções (mantém a promessa errada e perde metade das posições).
 
-O protection map foi explícito: **meio-termo é a pior opção.** Tirar `casal` e manter `compartilhados` mantém a promessa falsa e perde metade das posições. Os dois saem.
-
-Registrar o antes/depois do pt-BR como **−40 posições por decisão**, nunca como piora de iteração.
+**Posição em jogo no pt-BR aplicado:** nada cai. Sai só `contas` (duplicata exata do NAME; as 7 posições seguem a 7×), entra `offline` (única aposta do locale). As 47 posições ≤#50 do pt-BR seguem cobertas.
 
 ---
 
@@ -93,19 +96,18 @@ Os 11 são **pop 5 = piso da escala**. O que os torna apostáveis não é volume
 
 ## 3. Resultado final — os outros 5 locales Tier A
 
-### pt-BR (161 inst/90d · 18 avaliações)
+### pt-BR (161 inst/90d · 18 avaliações) — variante A aplicada
 
 | campo | Antes | Depois |
 |---|---|---|
-| name | `Meus Gastos: Contas e Despesas` (30) | `Meus Gastos: Contas e Despesas` (30) — intocado |
-| subtitle | `Finanças` <span style="color:#c62828">`do casal`</span> `e pessoais` (28) | `Finanças pessoais e` <span style="color:#4aa3df">`categorias`</span> (30) |
-| keywords | <span style="color:#c62828">`compartilhados`</span>,<span style="color:#4aa3df">`contas`</span>,`economias`,<span style="color:#c62828">`planilha`</span>,`orcamento`,`diario`,`mensais`,<span style="color:#4aa3df">`categorias`</span>,`fixas`,`resumo`,`extrato` (97) | `diario`,`mensais`,`extrato`,`fixas`,`resumo`,`orcamento`,`economias`,<span style="color:#1b7f3b">`controle`</span>,<span style="color:#1b7f3b">`recorrentes`</span>,<span style="color:#1b7f3b">`offline`</span>,<span style="color:#1b7f3b">`excel`</span>,<span style="color:#1b7f3b">`grafico`</span> (98) |
+| name | `Meus Gastos: Contas e Despesas` (30) | intocado (30) |
+| subtitle | `Finanças do casal e pessoais` (28) | intocado (28) — `casal` fica por decisão do João (§1) |
+| keywords | `compartilhados`,<span style="color:#4aa3df">`contas`</span>,`economias`,`planilha`,`orcamento`,`diario`,`mensais`,`categorias`,`fixas`,`resumo`,`extrato` (97) | `diario`,`mensais`,`categorias`,`extrato`,`fixas`,`resumo`,`orcamento`,`economias`,`compartilhados`,`planilha`,<span style="color:#1b7f3b">`offline`</span> (98) |
 
-- <span style="color:#4aa3df">`categorias`</span> — está **#1** (`gastos mensais por categoria`), **#2** (`despesas por categoria`), **#2** (`extrato por categoria`), **#3** (`gastos por categoria`), **#7** (`categorias de gastos`), **#10** (`orcamento por categoria`) → **alvo top-3 nas seis até D28**; é o maior ganho disponível depois da saída do cluster.
 - <span style="color:#4aa3df">`contas`</span> — duplicata exata do NAME; as 7 posições seguem sustentadas a 7×, char liberado sem custo.
-- <span style="color:#c62828">`planilha`</span> — sem o cluster, segurava só **#118** (tráfego zero) e é MISMATCH (o app **escreve** .xlsx, não edita planilha).
-- `economias` **fica** — 3 das 4 posições eram do cluster, mas **#17 `economias mensais` é FIT** e sobrevive sozinha. `diario` **fica** — MISMATCH isolado, mas carrega **#1 `meus gastos diarios`** + 3.
-- <span style="color:#1b7f3b">`controle`</span> e <span style="color:#1b7f3b">`recorrentes`</span> não são apostas: são vocabulário de UI do app ("Meu Controle", "Gastos Recorrentes"), FIT confirmado, e recuperam os 23 chars que o cluster liberou. As 3 apostas do locale são <span style="color:#1b7f3b">`offline`</span>, <span style="color:#1b7f3b">`excel`</span>, <span style="color:#1b7f3b">`grafico`</span>.
+- <span style="color:#1b7f3b">`offline`</span> — hoje OUT em `financas pessoais offline` (d=5), `gastos offline` (d=33) → **alvo entrar no top-20 até D28**; mecanismo provado em 8 storefronts. **Única aposta do pt-BR** — com o cluster mantido sobraram 2 chars e não cabia mais nada honesto.
+- Protegidas e intocadas: `casal` (SUB, 21 pos, **#1**), `mensais` (6, **#1**), `categorias` (6, **#1**), `compartilhados` (9, **#1**), `diario` (4, **#1**), `economias` (4, **#9**), `orcamento` (4, **#10**), `extrato` (3, **#2**), `fixas` (3, **#3**), `planilha` (3, **#1**), `resumo` (1, **#1**), `finanças` (#19).
+- A variante B (`Finanças pessoais e categorias` / `…controle,recorrentes,offline,excel,grafico`) subiria `categorias` a 3× (6 posições → alvo top-3) ao custo das 40 MISMATCH. Dossiê completo em `composition_rationale.md` §2 e no README da pasta.
 
 ### en-US (19 inst/90d · locale primário · 1 avaliação) — o campo mais desperdiçado dos 29
 
@@ -118,7 +120,7 @@ Os 11 são **pop 5 = piso da escala**. O que os torna apostáveis não é volume
 - Campo em **100/100 chars** sustentando **uma única posição ≤#50 no app inteiro** (`my expenses` **#5**, e quem a sustenta é o NAME). `financial` aparecia **duas vezes** na mesma lista; `money`/`control`/`personal`/`easy` eram duplicatas exatas do NAME/SUBTITLE; `savings` é MISMATCH (N9: `GoalModel` é teto de gasto, não meta de poupança).
 - <span style="color:#1b7f3b">`category`</span> alimenta 5 composições (d=11-21), <span style="color:#1b7f3b">`offline`</span> 4 (d=5-37), <span style="color:#1b7f3b">`spending`</span> 2.
 - **20 chars ociosos** — teto de 3 apostas batendo antes do orçamento. Próximos: `recurring` (d=19), `charts` (d=23), `widget` (d=15).
-- **Correção do brief:** o token `managemen` truncado **não existe**. O único token dessa família nos 29 locales é o `manajemen` do indonésio, que é a palavra completa.
+- **Correção do brief:** o token `managemen` truncado **não existe no iOS**. Era o keyword field da listagem **macOS**: `sync_current_from_asc.py` lia `GET /v1/apps/{id}/appStoreVersions` sem `filter[platform]`, e num app universal a Apple devolve o macOS primeiro — `current/metadata/` nunca esteve defasado, estava na plataforma errada (LEARNINGS #85b; corrigido pelo deployer em 01/10). O único token parecido nos 29 locales iOS é o `manajemen` do indonésio, palavra completa.
 
 ### fr-FR (27 inst/90d) · it (12) · es-ES (8) / es-MX (10)
 
@@ -140,7 +142,7 @@ Os 11 são **pop 5 = piso da escala**. O que os torna apostáveis não é volume
 | locale | inst/90d | aval. | SAIU | ENTROU | KW chars | posições protegidas | posições perdidas |
 |---|---|---|---|---|---|---|---|
 | **de-DE** ← alvo | 64 | 2 | `konto`, `bilanz` *(`fixkosten`→SUB)* | `widget`, `offline`, `kostenlos` | 97→**99** | 26 de 29 | **3** — `konto` #29/#41, `bilanz` **#1** (todas MISMATCH) |
-| **pt-BR** | 161 | 18 | `casal`+`do` (SUB), `compartilhados`, `planilha`, `contas` *(dup)*, *(`categorias`→SUB)* | `controle`, `recorrentes`, `offline`, `excel`, `grafico` | 97→**98** | 7 de 47 | **40 por decisão** — todas MISMATCH (§1) |
+| **pt-BR** | 161 | 18 | `contas` *(dup do NAME)* | `offline` | 97→**98** | **47 de 47** — `casal` mantido por decisão (§1) | 0 |
 | fr-FR | 27 | 1 | `compte`, `suivi`, `economie`, `salaire`, `facture`, `ecologie` | `categorie`, `excel`, `widget` | 99→75 | 5 de 5 | 0 |
 | ja | 27 | 0 | `収支`, `節約`, `予算`, `貯金` | `カテゴリ`, `固定費`, `ウィジェット` | 47→51 | 3 de 3 | 0 |
 | en-US | 19 | 1 | `money`, `savings`, `control`, `personal`, `easy`, `financial` *(2ª ocorrência)* | `category`, `offline`, `spending` | 100→80 | 1 de 1 | 0 |
@@ -170,11 +172,11 @@ Os 11 são **pop 5 = piso da escala**. O que os torna apostáveis não é volume
 | el | 0 | 1 | `ταμείο`, `στόχοι` | `offline`, `μηνιαια`, `παγια` | 88→96 | 5 de 5 | 0 |
 | th | 0 | 0 | `บัญชี`, `ออมเงิน`, `ประหยัด` | `หมวดหมู่`, `รายเดือน`, `ประจำ` | 65→67 | 5 de 5 | 0 |
 
-**Totais: das 214 posições ≤#50 nos 29 locales, caem 46 — 40 por decisão do João no pt-BR, 3 trade-offs nomeados no de-DE, 2 no id, 1 no hi. As 46 são MISMATCH. Nenhuma posição FIT ou PARTIAL foi tocada em locale nenhum.** Teto de 3 apostas novas respeitado em 29/29.
+**Totais: das 214 posições ≤#50 nos 29 locales, caem 6 — 3 trade-offs nomeados no de-DE, 2 no id, 1 no hi. As 6 são MISMATCH. Nenhuma posição FIT ou PARTIAL foi tocada em locale nenhum.** Teto de 3 apostas novas respeitado em 29/29 (pt-BR ficou com 1).
 
 ### A 2ª fonte que banca `widget` / `offline` / `excel` / `categoria`
 
-Não entram por pop (que é astro-only). Entram por **posição observada em 12 storefronts do próprio app**, medida neste mesmo pull: `excel` → **#1** fi, **#2** no/sv, **#3** ms, **#4** pl, **#5** da/el, **#7** nl · `widget` → **#1** cs/el/hu, **#2** no, **#8** fi · `offline` → **#2** cs/sv, **#3** pl, **#4** ms, **#8** fi · `kategori*` → **#10** el, #15 cs, #18 he, #21 ms. O mecanismo é sempre o mesmo: **a cabeça já está no NAME a 7×**, o token de feature completa a composição a 1× e entrega top-10. São features reais (export Excel/PDF §1.9, widget §1.13, offline sem conta §1.12, categorias §1.3) que **20 de 29 descriptions nem mencionam**.
+Não entram por pop (que é astro-only). Entram por **posição observada em 12 storefronts do próprio app**, medida neste mesmo pull: `excel` → **#1** fi, **#2** no/sv, **#3** ms, **#4** pl, **#5** da/el, **#7** nl · `widget` → **#1** cs/el/hu, **#2** no, **#8** fi · `offline` → **#2** cs/sv, **#3** pl, **#4** ms, **#8** fi · `kategori*` → **#10** el, #15 cs, #18 he, #21 ms. O mecanismo é sempre o mesmo: **a cabeça já está no NAME a 7×**, o token de feature completa a composição a 1× e entrega top-10. São features reais (export Excel/PDF §1.9, widget §1.13, offline sem conta §1.12, categorias §1.3) que **20 de 29 descriptions nem mencionavam** antes das correções do deploy. `excel` fica em **15 locales** depois do deploy: 9 já live (`da, el, fi, ms, nl-NL, no, pl, sv, vi`; `hi` carrega a transliteração `एक्सेल`) + 6 novos (`cs, es-ES, fr-FR, hu, id, uk`). **pt-BR não carrega `excel`** — a variante A devolveu `planilha`.
 
 ---
 
@@ -198,13 +200,15 @@ Nos sete o campo vivo não estava meio vazio — **estava cheio de coisa errada*
 
 ---
 
-## 6. Correções obrigatórias de description no deploy (defeito live, não keyword)
+## 6. Correções de description — APLICADAS na 45.4.0 (defeito live, não keyword)
 
-1. **`en-US` — locale primário — termina com lixo de UI de chat colado na loja.** A description fecha com `…itunes/dev/stdeula/`**`Tentar novamenteO Claude pode cometer erros. Confira sempre as respostas.`** Está na página que todo storefront sem listing próprio enxerga. **Correção obrigatória, independe de qualquer decisão de ASO.**
-2. **"100% grátis" com paywall — risco 2.3.1 em 12 locales.** Alegação **dura** em **cs, el, fi, hi, hu, nl-NL, sv, vi** (*100% zdarma · 100% Δωρεάν · 100 % ilmainen · 100% मुफ़्त · 100%-ban ingyenes · 100% gratis · 100 % gratis · hoàn toàn miễn phí*); forma **branda** em **da, ms, no, ru**. O app abre paywall mensal+anual logo depois do onboarding e gateia o sync. Reescrever para "grátis para usar, backup na nuvem é opcional". **Interage com o `kostenlos` alemão:** a keyword é defensável porque é token de keywords, não alegação de texto — mas se as descriptions continuarem com "100% grátis", o conjunto fica indefensável. **Resolver os dois no mesmo deploy.**
-3. **Promessa de notificação em `de-DE`, `fr-FR`, `it`, `ja`, `ko`** (*"bekommst du Bescheid" · "on te prévient" · "ti notifichiamo" · "通知でお知らせ" · "알려줍니다"*). **N6: o app não tem framework de notificação nenhum** — nem `flutter_local_notifications`, nem `firebase_messaging`, nem `UNUserNotification`. O único sinal é mudança de cor na aba de metas, **depois** de estourar. Promessa falsa, traduzida e repetida.
-4. **`pt-BR` com inglês solto na description viva:** *"nunca mais perca o controle das suas **expenses**"*, *"Organize suas **finance**"*, *"aumentar suas **minhas economias**"*.
-5. **`en-US`, `pt-BR`, `es-ES`, `es-MX` rodam o texto de 2024** — não citam export, sync, gastos fixos nem widget. **Widget ausente em 20 das 29 descriptions, inclusive em todo o Tier A.** São as 4 descriptions a reescrever primeiro.
+**19 descriptions corrigidas pelo deployer em 01/10** (read-back 116/116 inclui description). Ficam listadas porque a **45.3.1 continua no ar com os defeitos** até a 45.4.0 ser aprovada, e porque o item 2 ainda tem um resíduo (§8: `promotionalText`).
+
+1. **`en-US` — locale primário — termina com lixo de UI de chat colado na loja.** A description fecha com `…itunes/dev/stdeula/`**`Tentar novamenteO Claude pode cometer erros. Confira sempre as respostas.`** Está na página que todo storefront sem listing próprio enxerga. **Corrigido na 45.4.0.**
+2. **"100% grátis" com paywall — risco 2.3.1 em 12 locales.** Alegação **dura** em **cs, el, fi, hi, hu, nl-NL, sv, vi** (*100% zdarma · 100% Δωρεάν · 100 % ilmainen · 100% मुफ़्त · 100%-ban ingyenes · 100% gratis · 100 % gratis · hoàn toàn miễn phí*); forma **branda** em **da, ms, no, ru**. O app abre paywall mensal+anual logo depois do onboarding e gateia o sync. Reescrito nas 12 na 45.4.0. **Interage com o `kostenlos` alemão:** a keyword é defensável porque é token de keywords, não alegação de texto. **Resíduo:** 14 dos 16 `promotionalText` que não herdaram repetem a mesma alegação (§8) — enquanto não forem reescritos, a faxina 2.3.1 está incompleta.
+3. **Promessa de notificação em `de-DE`, `fr-FR`, `it`, `ja`, `ko`** (*"bekommst du Bescheid" · "on te prévient" · "ti notifichiamo" · "通知でお知らせ" · "알려줍니다"*). **N6: o app não tem framework de notificação nenhum** — nem `flutter_local_notifications`, nem `firebase_messaging`, nem `UNUserNotification`. O único sinal é mudança de cor na aba de metas, **depois** de estourar. Promessa falsa, traduzida e repetida. **Removida nos 5 na 45.4.0.**
+4. **`pt-BR` com inglês solto na description viva:** *"nunca mais perca o controle das suas **expenses**"*, *"Organize suas **finance**"*, *"aumentar suas **minhas economias**"*. **Corrigido na 45.4.0.**
+5. **`en-US`, `pt-BR`, `es-ES`, `es-MX` rodam o texto de 2024** — não citam export, sync, gastos fixos nem widget. **Widget ausente em 20 das 29 descriptions, inclusive em todo o Tier A.** Correção de defeito feita; a reescrita de venda (export, sync, fixos, widget) **não** entrou — continua sendo a próxima alavanca de página.
 
 ---
 
@@ -213,14 +217,29 @@ Nos sete o campo vivo não estava meio vazio — **estava cheio de coisa errada*
 - **Paywall cai em inglês em 9 locales** por falta de 7 chaves de tradução.
 - **O paywall vende export como benefício PRO, e export não é gateado** — só login + backup na nuvem são. Dos 3 benefícios anunciados, **2 são ficção** (o outro é "sem anúncios" num app que nunca teve anúncio — N15).
 - **`repeat` traduzido em espanhol como "Apelante"** (termo jurídico).
+- **`excel` é marca da Microsoft** (risco 5.2.5) e esta submissão sobe a exposição de 9 para 15 locales. João optou por manter em 01/10, ciente. O app exporta `.xlsx` de verdade e não gateia. Incoerência registrada: o fit-checker tirou `머니매니저` (ko) por ser marca de concorrente e manteve `excel` no mesmo passe — nome de app rival ≠ formato que o app exporta, mas a regra de marca do lab não distingue isso hoje. Se a review reclamar: remover dos 15 e medir a perda nas composições `* excel` (#1 fi, #2 no/sv, #3 ms, #4 pl, #5 da/el, #7 nl).
 
 ---
 
-## 8. Bloqueio operacional do deploy
+## 8. Deploy — o que foi feito e o que ainda bloqueia a submissão
 
-- **Não existe versão iOS editável.** 45.3.1 está `READY_FOR_SALE` e o appInfo `1c8c1360` está `READY_FOR_DISTRIBUTION`. Mudar name/subtitle/keywords **não é PATCH de texto**: exige `POST /v1/appStoreVersions` + build + App Review. O POST precisa dos **8 campos novos de age rating** no `ageRatingDeclaration` do appInfo **editável** (LEARNINGS #65b), e as localizations **não herdam todas** — cada uma POSTada exige `description` + `supportUrl`. Com 29 locales, isso são 29 localizations a conferir uma a uma.
-- **PPO `9570de85` roda até 27/11.** A quarentena de 14 dias foi violada de propósito (`quarantine_override` registrado em 30/09): regra do João de 04/09 — *versão nova ganha de PPO rodando*. A auditoria de 27/09 já tinha julgado esse experimento incapaz de produzir resposta (1.430 impressões/semana em 3 tratamentos). O PPO fica rodando; não parar sem a palavra dele.
-- **Autorização cobre** estágios 6-8 e o `POST /v1/appStoreVersions`. **Não cobre** archive/upload de build, submissão ao App Review nem gasto em Apple Ads.
+**Feito em 01/10 (estágios 7-8, autorização do João de 30/09):**
+- `POST /v1/appStoreVersions` → iOS **45.4.0** (`61e6fb32-27fc-41d2-aa6f-4cdb75e19a99`, `PREPARE_FOR_SUBMISSION`, appInfo editável `cbd87354`). 45.4.0 já existia no **macOS** (READY_FOR_SALE) mas não no iOS — colisão conferida com `filter[platform]=IOS` antes do POST (LEARNINGS #85b).
+- PATCH direto nos 29 locales; read-back **116/116** (29 × name/subtitle/keywords/description, `len()` do Python). deploy-verifier independente, GET-only: **232/232 asserts, 0 divergências, 0 correções**; appInfo LIVE `1c8c1360` e versão LIVE 45.3.1 intocadas. pt-BR re-conferido **depois** do revert para a variante A.
+- Screenshots: 4 locales com sets próprios (en-US, es-ES, es-MX, pt-BR), contagens e checksums idênticos à 45.3.1 — herança fiel, sem duplicata.
+- Gates reprovados e executados sob override registrado: piso de tráfego (DE 25/100, exit 2) e quarentena (PPO `9570de85` APPROVED, exit 3).
+
+**O texto NÃO está no ar.** O público vê a 45.3.1 até a 45.4.0 ser submetida **e** aprovada. `status: staged`; `metrics/d00_baseline.json` não existe e não pode existir ainda.
+
+**Bloqueia a submissão (passos do João):**
+1. **`whatsNew` vazio nos 29 locales da 45.4.0** (a 45.3.1 tem nos 29). Obrigatório a partir da 1.0.1 — a ASC recusa o submit sem ele. Copy é do João (`/release-notes-style`).
+2. **`promotionalText` não herdou em 16 locales** (`cs, da, el, fi, he, hi, hu, ms, nl-NL, no, pl, ru, sv, th, uk, vi`). **14 deles repetem o "100% grátis"** que a submissão está tirando das descriptions — restaurar literal seria autodestrutivo; só `pl` e `ru` são seguros de restaurar. **Não foi restaurado; decisão do João** (lista e textos em `research/promotional_text_not_inherited.json`). Nada se perde enquanto a 45.3.1 for a versão no ar.
+3. **Build:** a 45.4.0 não tem build anexado — archive rodando agora pelo release-runner; upload e `submitted:true` **não autorizados**.
+4. A appInfo é do **app**, não da plataforma: aprovada a `cbd87354`, o name/subtitle novos do de-DE valem também para a listagem **macOS** (universal).
+
+**PPO `9570de85`** roda até 27/11 e atravessa a janela de medição. `quarantine_override` registrado (regra do João de 04/09: versão nova ganha de PPO rodando); a auditoria de 27/09 já julgou o experimento sem poder estatístico (1.430 impressões/semana, 3 tratamentos). Fica rodando; não parar sem a palavra dele.
+
+**Bug de pipeline achado e corrigido no deploy:** `sync_current_from_asc.py` lia a listagem do **macOS** (primeiro READY_FOR_SALE sem `filter[platform]`) — o `managemen` "truncado" do en-US era o keyword field do macOS o tempo todo. Fix: `filter[platform]=IOS` + checagem de plataforma + `limit 200`; o sync reescreveu os 29 locales (86 arquivos).
 
 ---
 
@@ -233,9 +252,9 @@ de-DE   NAME  Ausgaben Haushaltsbuch Budget                       29/30
         KW    monatsbudget,kontrolle,kategorien,kosten,planer,statistik,
               haushalt,widget,offline,kostenlos,einkauf            99/100
 pt-BR   NAME  Meus Gastos: Contas e Despesas                      30/30 (intocado)
-        SUB   Finanças pessoais e categorias                      30/30
-        KW    diario,mensais,extrato,fixas,resumo,orcamento,economias,
-              controle,recorrentes,offline,excel,grafico           98/100
+        SUB   Finanças do casal e pessoais                        28/30 (intocado — decisão João 01/10)
+        KW    diario,mensais,categorias,extrato,fixas,resumo,orcamento,
+              economias,compartilhados,planilha,offline            98/100
 en-US   NAME  My Expenses: Personal Finances                      30/30 (intocado)
         SUB   Where's My Money? Easy Control                      30/30 (intocado)
         KW    finance,financial,manage,budgeting,planning,costs,save,
@@ -255,31 +274,34 @@ TIER C
 vi 96 · hi 98 · ru 78 · nl-NL 100 · fi 98 · he 87 · no 98 · uk 92
 ms 96 · pl 93 · hu 95 · sv 93 · cs 94 · da 87 · el 96 · th 67
 
-NAME alterado:     1 de 29  (de-DE)
-SUBTITLE alterado: 3 de 29  (de-DE, pt-BR, ko)
-KEYWORDS alterado: 29 de 29
-DESCRIPTION:       0 alterados nesta composição — 5 famílias de correção obrigatória na §6
+NAME alterado:       1 de 29  (de-DE)
+SUBTITLE alterado:   2 de 29  (de-DE, ko)
+KEYWORDS alterado:  29 de 29
+DESCRIPTION:        19 de 29 corrigidas (§6) — na 45.4.0, não no ar
+PROMOTIONAL TEXT:   16 locales NÃO herdaram (§8) — pendente, decisão do João
+WHATSNEW:           vazio nos 29 — bloqueia o submit (§8)
+Versão portadora:   iOS 45.4.0 · 61e6fb32 · PREPARE_FOR_SUBMISSION · sem build
 ```
 
 ---
 
 ## 🎯 Hipótese formal
 
-> **IF** o NAME alemão trocar o separador por espaço (neutro para o índice, +8 chars) e promover `Budget` de SUBTITLE (3×) para NAME (7×), o SUBTITLE receber `Fixkosten` vindo do keywords (1× → 3×), os dois tokens MISMATCH alemães (`konto`, `bilanz`) saírem pagando as apostas `widget`/`offline`/`kostenlos`, o cluster `casal`/`compartilhados` sair do pt-BR e os 29 campos de keywords forem limpos de 24 duplicatas exatas e 58 tokens MISMATCH,
+> **IF** o NAME alemão trocar o separador por espaço (neutro para o índice, +8 chars) e promover `Budget` de SUBTITLE (3×) para NAME (7×), o SUBTITLE receber `Fixkosten` vindo do keywords (1× → 3×), os dois tokens MISMATCH alemães (`konto`, `bilanz`) saírem pagando as apostas `widget`/`offline`/`kostenlos`, o pt-BR **manter** `casal`/`compartilhados` (decisão do João) trocando só `contas` (dup) por `offline`, e os 29 campos de keywords forem limpos de 24 duplicatas exatas e 58 tokens MISMATCH,
 >
-> **THEN** as impressões de busca sobem de ~450/dia para **≥ 500/dia em 28 dias** e as instalações `1*` de **5,7/dia** para **≥ 6,2/dia** (conservador) / **≥ 7,1/dia** (bold), com os 11 DOMINATE alemães subindo para as posições-alvo da §2 e **nenhuma posição FIT perdida em locale nenhum**,
+> **THEN** as impressões de busca sobem de ~450/dia para **≥ 500/dia em 28 dias** e as instalações `1*` de **5,7/dia** para **≥ 6,2/dia** (conservador) / **≥ 7,1/dia** (bold), com os 11 DOMINATE alemães subindo para as posições-alvo da §2, as 47 posições do pt-BR intactas e **nenhuma posição FIT perdida em locale nenhum**,
 >
-> **BECAUSE** (a) o ativo do app não é a cabeça — `ausgaben` pop 48 está **#207** contra SERPs de 10k-127k avaliações — e sim **214 posições ≤#50 em cauda longa de 2 palavras**, onde o dono da SERP tem 0-500 avaliações; (b) cada char novo foi pago por um token nomeado que só sustentava MISMATCH ou duplicata, com o protection map verificando os 29 conjuntos propostos token a token; (c) as apostas `widget`/`offline`/`excel`/`categoria` têm **2ª fonte de outra natureza** — posição top-10 observada em 12 storefronts do próprio app — e não dependem do pop astro-only; (d) o cluster `casal` troca 40 posições MISMATCH por retenção e nota no único locale com massa de avaliação, que é o gargalo real do app.
+> **BECAUSE** (a) o ativo do app não é a cabeça — `ausgaben` pop 48 está **#207** contra SERPs de 10k-127k avaliações — e sim **214 posições ≤#50 em cauda longa de 2 palavras**, onde o dono da SERP tem 0-500 avaliações; (b) cada char novo foi pago por um token nomeado que só sustentava MISMATCH ou duplicata, com o protection map verificando os 29 conjuntos propostos token a token; (c) as apostas `widget`/`offline`/`excel`/`categoria` têm **2ª fonte de outra natureza** — posição top-10 observada em 12 storefronts do próprio app — e não dependem do pop astro-only; (d) no pt-BR a aposta é de preservação: as 40 posições MISMATCH do cluster `casal` seguem trazendo tráfego hoje, e o custo (nota, 2.3.1) foi aceito por escrito com gatilhos de reabertura da variante B.
 
 ---
 
 ## ⚠️ Riscos
 
 1. **O resultado não será mensurável.** DE tem 25 instalações `1*`/30d contra um piso de 100. *Mitigação:* `results.final` sai declaradamente **sem IC**; a métrica de leitura primária passa a ser **posição Astro dos 11 DOMINATE alemães + das 6 composições de `categorias` no pt-BR**, não instalação. Instalação vira secundária e direcional.
-2. **pt-BR perde 40 posições de topo e o número fica feio.** *Mitigação:* está registrado em `meta.json > decisions_by_joao` como venda deliberada; o checkpoint compara pt-BR contra ratings e retenção, nunca contra posições absolutas. Rollback possível em 1 PATCH se a queda de instalação BR passar de 35% sustentada por 14 dias **e** a nota não se mover.
+2. **pt-BR mantém uma promessa que o produto não entrega** (`casal` no subtitle, 40 posições MISMATCH). Riscos: nota no único locale com massa de avaliação e App Review 2.3.1. *Mitigação:* aceito por escrito em `meta.json > decisions_by_joao`; variante B pronta e validada em `pt-BR__sem-casal/` para troca em 1 PATCH; checkpoint acompanha média e texto das reviews BR (gatilho 1 de reabertura).
 3. **`budget` pode não ganhar nada ao subir para o NAME** se a Apple já atribuía o stem via `monatsbudget`. *Mitigação:* `budget kategorien` #11 e `budget pro kategorie` #13 são o oráculo — sem movimento até D14, `Budget` volta ao subtitle e os 7 chars do NAME viram `Fixkosten` lá.
-4. **`kostenlos` em keywords + "100% grátis" nas descriptions = conjunto indefensável no 2.3.1.** *Mitigação:* as correções da §6 são **pré-requisito do mesmo deploy**, não backlog. Se não forem, `kostenlos` sai da lista alemã.
-5. **O deploy custa uma versão inteira + App Review.** `POST /v1/appStoreVersions` com 8 campos de age rating, 29 localizations que não herdam, e um build. *Mitigação:* rodar `preflight.py --only asc,rating` antes; conferir description + supportUrl em cada uma das 29 antes do submit.
+4. **Faxina 2.3.1 incompleta:** as 12 descriptions foram corrigidas, mas **14 `promotionalText` não herdados repetem o "100% grátis"** e ainda não têm decisão. *Mitigação:* não restaurar literal; reescrever ou deixar vazio antes do submit. `excel` em 15 locales é marca da Microsoft (5.2.5) — aceito; se a review reclamar, sai dos 15.
+5. **A 45.4.0 ainda não pode ser submetida:** `whatsNew` vazio nos 29, sem build anexado, submissão não autorizada. *Mitigação:* os passos estão em `meta.json > manual_steps_left_for_joao`; rodar `preflight.py --only asc,rating` antes do submit.
 6. **7 locales saem incompletos** (ko 25/100 no pior caso). *Mitigação:* declarados na §5 com os próximos candidatos já ranqueados; **iteração 5 dedicada**, não remendo no próximo deploy.
 7. **PPO `9570de85` atravessa toda a janela de medição.** *Mitigação:* `quarantine_override` registrado; a auditoria de 27/09 já declarou esse experimento sem poder estatístico, então ele contamina pouco — mas o checkpoint registra a sobreposição.
 
@@ -300,16 +322,16 @@ Probabilidade de bater **conservador (6,2/dia): ~45%**. Probabilidade de bater *
 
 ```text
 instalações/dia   D0    D7    D14   D21   D28
-                  5,7   5,6   5,9   6,0   6,2
+                  5,7   5,7   5,9   6,0   6,2
                   ▂▂▂   ▂▂▂   ▃▃▃   ▃▃▃   ▄▄▄
 ```
-Queda esperada em D7: o re-index do pt-BR tira as 40 posições do cluster antes de as novas composições indexarem.
+Sem queda esperada em D7: com `casal` mantido o pt-BR não perde posição nenhuma no re-index.
 
 | checkpoint | sinal de SUCESSO | sinal de FALHA |
 |---|---|---|
 | **D7** | `ausgaben kategorien` em **#1**; `budget kategorien` saiu de #11; `widget`/`offline` alemães aparecem em qualquer rank | instalações DE caem >30%; qualquer uma das 26 posições alemãs protegidas sumiu (= token saiu por acidente) |
-| **D14** | `ausgabenkontrolle` ≤ **#3**; as 6 composições de `categorias` no pt-BR ≤ **#3**; impressões +10% | `budget kategorien` parado em #11 → plano B: `Budget` volta ao subtitle |
-| **D21** | ≥ 6 dos 11 DOMINATE alemães na posição-alvo; instalações ≥ 6,0/dia | instalações BR caem >35% sustentado e ratings BR não se moveram → rollback do pt-BR |
+| **D14** | `ausgabenkontrolle` ≤ **#3**; as 47 posições do pt-BR de pé e `offline` indexado em `financas pessoais offline`; impressões +10% | `budget kategorien` parado em #11 → plano B: `Budget` volta ao subtitle |
+| **D21** | ≥ 6 dos 11 DOMINATE alemães na posição-alvo; instalações ≥ 6,0/dia | média BR caindo com reviews citando conta compartilhada → gatilho 1 da variante B |
 | **D28** | instalações ≥ 6,2/dia **ou** ≥ 8 dos 11 DOMINATE na meta; ratings BR ≥ 20 | nada se moveu → a alavanca seguinte **não é mais texto**: é conversão (prints/PPO) e ratings |
 
 ---
@@ -323,7 +345,7 @@ Queda esperada em D7: o re-index do pt-BR tira as 40 posições do cluster antes
 | Apple tokeniza `-` igual a espaço no NAME | **90%** | Se não, o NAME alemão perde `haushaltsbuch` como token isolado — seria visível em D7 nas 4 posições que ele sustenta |
 | Apple decompõe compostos alemães (`ausgabenkontrolle`) | **80%** | Já é o mecanismo que explica 4 posições vivas sem token correspondente; se não for, `kontrolle` e `haushalt` estão protegendo menos do que o mapa diz |
 | Peso 7× do NAME > 3× do SUBTITLE na prática | **70%** | É heurística do playbook §7, não medida neste app. Oráculo em D14 |
-| A saída do `casal` melhora retenção e nota no BR | **55%** | Direcional. 18 avaliações é base pequena demais para provar em 28 dias; a aposta é de higiene de intenção, não de métrica |
+| Manter `casal` não derruba a nota do BR em 28 dias | **55%** | Direcional. 18 avaliações é base pequena demais para medir; se a média cair com reviews citando conta compartilhada, a variante B entra inteira |
 | O efeito será separável do ruído | **10%** | **Assumido falso desde o início** (gates reprovados). Daí `results.final` sem IC |
 
 ---
@@ -332,4 +354,5 @@ Queda esperada em D7: o re-index do pt-BR tira as 40 posições do cluster antes
 
 - **Tokens vivos com acento permanecem com acento** (`gestión`, `přehled`, `šetření`, `pénzügy`, `kişisel`, `säästäminen`, `privatøkonomi`…). É neutro para o índice (iOS normaliza) e normalizar só uma parte deixa o campo incoerente. **Todo token novo desta iteração entrou sem acento** (LEARNINGS #63b). Varrer num passe dedicado.
 - **`kill_or_scale.py` classifica Product Type por prefixo** e este app emite `F1`/`F7` — por isso reportava "187 instalações / 0 updates". Bug de script compartilhado do lab, já documentado em LEARNINGS #100. Os números deste relatório vêm do `pull_analytics.py`/recomputo exato.
+- **`sync_current_from_asc.py` lia a listagem macOS** (sem `filter[platform]`) — corrigido pelo deployer em 01/10; o "stale desde agosto" do brief era plataforma errada, não defasagem.
 - **Validação:** `validate_proposed.py` → exit 0, **0 blockers**, 96 warnings, todos de 4 famílias conhecidas e justificadas (campos abaixo do teto por disciplina de aposta; falso positivo de `len(token) < 4` em CJK/tailandês; stopword `e` no subtitle pt-BR).

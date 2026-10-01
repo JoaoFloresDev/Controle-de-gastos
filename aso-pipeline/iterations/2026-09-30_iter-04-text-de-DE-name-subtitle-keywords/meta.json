@@ -8,9 +8,9 @@
   "planned_close_at": "2026-10-28",
   "actual_closed_at": null,
   "hypothesis": {
-    "if_we_change": "de-DE: NAME \"Ausgaben - Haushaltsbuch\" (24/30) -> \"Ausgaben Haushaltsbuch Budget\" (29/30) — o separador \"-\" tokeniza igual ao espaco (neutro pro indice) e libera 8 chars; budget sobe de SUBTITLE 3x para NAME 7x. SUBTITLE \"Budget & Finanzen verwalten\" (27) -> \"Finanzen & Fixkosten verwalten\" (30) — fixkosten sobe de KEYWORDS 1x para 3x; verwalten permanece (protege #8/#15/#42). KEYWORDS 97 -> 99: saem konto (MISMATCH, #29/#41) e bilanz (MISMATCH, #1 + #104), entram widget/offline/kostenlos. pt-BR: saem casal + do (SUBTITLE) e compartilhados + planilha (KEYWORDS) por decisao do Joao em 01/10; contas sai como duplicata do NAME; categorias sobe para o SUBTITLE a 3x; repack com controle/recorrentes (vocabulario de UI, FIT) + apostas offline/excel/grafico -> 98/100. ko: SUBTITLE perde 자산 (nao protege nada, promete asset tracking inexistente) e ganha 생활비 a 3x. Outros 26 locales: so KEYWORDS — 24 duplicatas exatas de campo e 58 tokens MISMATCH removidos, <=3 apostas novas por locale.",
-    "then_we_expect": "Impressoes de busca de ~450/dia para >=500/dia e instalacoes 1* de 5,7/dia para >=6,2/dia (conservador) / >=7,1/dia (bold) em 28 dias; os 11 DOMINATE alemaes nas posicoes-alvo do serp_winnability_de.csv (ausgaben kategorien #2->#1, ausgabenkontrolle #6->top3, budget kategorien #11->top5, budget pro kategorie #13->top5, budget kontrolle #26->top5, haushaltsbuch monatlich #33->top10, kosten verwalten #42->top10, kosten kontrolle #48->top10); as 6 composicoes de categorias no pt-BR em top-3; e ZERO posicao FIT perdida em locale nenhum.",
-    "because": "(a) a cabeca esta perdida em todo lugar — ausgaben pop 48 rankeia #207 sendo a 1a palavra do NAME (7x), contra Monee 10.274 / MoneyStats 22.507 / Finanzguru 127.441 avaliacoes e as nossas 2 na Alemanha; nenhuma composicao de campo compra isso. O ativo real sao 214 posicoes <=#50 em cauda longa de 2 palavras, onde a SERP tem 5-12 resultados e o dono tem 0-500 avaliacoes. (b) cada char novo foi pago por um token nomeado: das 214 posicoes <=#50, caem 46 e TODAS sao MISMATCH (40 por decisao no pt-BR, 3 no de-DE, 2 no id, 1 no hi); nenhuma FIT ou PARTIAL foi tocada. (c) as apostas widget/offline/excel/categoria nao entram por pop (astro-only, nao confiavel): entram por 2a fonte de outra natureza — posicao top-10 observada em 12 storefronts do proprio app (excel #1 fi, #2 no/sv, #3 ms, #4 pl; widget #1 cs/el/hu, #2 no; offline #2 cs/sv, #3 pl, #4 ms). O mecanismo e sempre o mesmo: a cabeca ja esta no NAME a 7x e o token de feature completa a composicao a 1x. (d) o cluster casal troca 40 posicoes MISMATCH por retencao e nota no unico locale com massa de avaliacao (BR, 18 de 29 lojas tem zero), que e o gargalo real do app."
+    "if_we_change": "de-DE: NAME \"Ausgaben - Haushaltsbuch\" (24/30) -> \"Ausgaben Haushaltsbuch Budget\" (29/30) — o separador \"-\" tokeniza igual ao espaco (neutro pro indice) e libera 8 chars; budget sobe de SUBTITLE 3x para NAME 7x. SUBTITLE \"Budget & Finanzen verwalten\" (27) -> \"Finanzen & Fixkosten verwalten\" (30) — fixkosten sobe de KEYWORDS 1x para 3x; verwalten permanece (protege #8/#15/#42). KEYWORDS 97 -> 99: saem konto (MISMATCH, #29/#41) e bilanz (MISMATCH, #1 + #104), entram widget/offline/kostenlos. pt-BR (variante A, decisao FINAL do Joao 01/10): NAME e SUBTITLE intocados — casal/compartilhados FICAM; sai so contas (duplicata exata do NAME), entra a aposta offline -> 98/100. ko: SUBTITLE perde 자산 (nao protege nada, promete asset tracking inexistente) e ganha 생활비 a 3x. Outros 26 locales: so KEYWORDS — 24 duplicatas exatas de campo e 58 tokens MISMATCH removidos, <=3 apostas novas por locale.",
+    "then_we_expect": "Impressoes de busca de ~450/dia para >=500/dia e instalacoes 1* de 5,7/dia para >=6,2/dia (conservador) / >=7,1/dia (bold) em 28 dias; os 11 DOMINATE alemaes nas posicoes-alvo do serp_winnability_de.csv (ausgaben kategorien #2->#1, ausgabenkontrolle #6->top3, budget kategorien #11->top5, budget pro kategorie #13->top5, budget kontrolle #26->top5, haushaltsbuch monatlich #33->top10, kosten verwalten #42->top10, kosten kontrolle #48->top10); as 47 posicoes do pt-BR intactas; e ZERO posicao FIT perdida em locale nenhum.",
+    "because": "(a) a cabeca esta perdida em todo lugar — ausgaben pop 48 rankeia #207 sendo a 1a palavra do NAME (7x), contra Monee 10.274 / MoneyStats 22.507 / Finanzguru 127.441 avaliacoes e as nossas 2 na Alemanha; nenhuma composicao de campo compra isso. O ativo real sao 214 posicoes <=#50 em cauda longa de 2 palavras, onde a SERP tem 5-12 resultados e o dono tem 0-500 avaliacoes. (b) cada char novo foi pago por um token nomeado: das 214 posicoes <=#50, caem 6 e TODAS sao MISMATCH (3 no de-DE, 2 no id, 1 no hi); nenhuma FIT ou PARTIAL foi tocada. (c) as apostas widget/offline/excel/categoria nao entram por pop (astro-only, nao confiavel): entram por 2a fonte de outra natureza — posicao top-10 observada em 12 storefronts do proprio app (excel #1 fi, #2 no/sv, #3 ms, #4 pl; widget #1 cs/el/hu, #2 no; offline #2 cs/sv, #3 pl, #4 ms). O mecanismo e sempre o mesmo: a cabeca ja esta no NAME a 7x e o token de feature completa a composicao a 1x. (d) no pt-BR a aposta e de preservacao: as 40 posicoes MISMATCH do cluster casal seguem trazendo trafego hoje; o custo (nota no unico locale com massa de avaliacao, risco 2.3.1) foi aceito por escrito com dois gatilhos de reabertura da variante B."
   },
   "success_criterion": {
     "primary_metric": "keyword_rank_dominate_de",
@@ -19,7 +19,7 @@
       "downloads_per_day",
       "impressions_per_day",
       "keywords_ranking_top_10",
-      "ratings_br"
+      "ratings_br_mean_and_review_text"
     ],
     "measurement_window": "28 dias a partir de live_at; comparacao dos ultimos 14d contra o baseline",
     "baseline": {
@@ -126,7 +126,7 @@
   },
   "verdict": null,
   "promoted_to_current": false,
-  "notes": "Estagio 6 (relatorio) concluido em 2026-10-01. Relatorio em research/keyword_candidates.md, formato sem cabecalho didatico (direcao Joao 18/08) e com explicacoes que falam POSICAO, nunca mecanica (direcao Joao 18/08). ESCOPO: 29 locales por pedido do Joao em 30/09 (\"todos os idiomas da loja\"); o estagio 1 corrigiu o brief de 13 para 29 e o locale primario de pt-BR para en-US. DECISAO DO JOAO 01/10: casal + compartilhados saem do pt-BR. Custo aceito: 40 posicoes <=#50, TODAS MISMATCH. Razao: BR e 37% das instalacoes e o unico storefront com massa de avaliacao (18); rating e o gargalo #1 e install de intencao frustrada desinstala e avalia mal. O diretorio pt-BR__sem-casal foi removido pelo estagio 5 para o deployer nao ler o campo errado — proposed/metadata/pt-BR/ e o conjunto canonico. CORRECAO AO BRIEF: serp_winnability_de.csv tem 11 DOMINATE, nao 10. Todos estao no relatorio §2. O relatorio ABRE com os limites (gates reprovados, ausencia de fonte de volume, cabeca perdida com ausgaben #207) antes de qualquer numero, por decisao de honestidade — nao suavizar em nenhuma revisao futura. VALIDACAO: validate_proposed.py -> exit 0, 0 blockers, 96 warnings em 4 familias conhecidas e justificadas (campos abaixo do teto por disciplina de aposta, falso positivo de len(token)<4 em CJK/tailandes, stopword \"e\" no subtitle pt-BR). KNOWN_DEBT datado 2026-10-01: tokens VIVOS com acento permanecem com acento (neutro pro indice, iOS normaliza; normalizar so uma parte deixa o campo incoerente); todo token NOVO entrou sem acento (LEARNINGS #63b). Varrer num passe dedicado. DEPLOY: exige POST /v1/appStoreVersions + build + App Review (nao e PATCH de texto) — ver deploy_blockers e LEARNINGS #65b. As correcoes de description da secao description_fixes_required viajam no MESMO deploy; os itens 1 e 2 sao blockers, nao backlog.\n\nESTAGIO 7 (deploy) em 2026-10-01: versao iOS 45.4.0 criada (61e6fb32) e os 29 locales aplicados por PATCH direto. Os dois gates REPROVARAM e foram executados sob override explicito do Joao, ambos registrados: piso de trafego (DE=25/100, exit 2) e quarentena (PPO 9570de85 APPROVED, exit 3). status=staged, NAO live: nao existe metrics/d00_baseline.json e nao pode existir, porque o texto ainda nao esta no ar.",
+  "notes": "Estagio 6 (relatorio) concluido em 2026-10-01. Relatorio em research/keyword_candidates.md, formato sem cabecalho didatico (direcao Joao 18/08) e com explicacoes que falam POSICAO, nunca mecanica (direcao Joao 18/08). ESCOPO: 29 locales por pedido do Joao em 30/09 (\"todos os idiomas da loja\"); o estagio 1 corrigiu o brief de 13 para 29 e o locale primario de pt-BR para en-US. [SUPERADO — ver decisions_by_joao.casal_pt_BR] De manha em 01/10 a decisao era tirar casal + compartilhados do pt-BR; o Joao reverteu no mesmo dia: casal FICA (variante A aplicada), e a variante B foi re-aplicada ao disco em proposed/metadata/pt-BR__sem-casal/ com README. CORRECAO AO BRIEF: serp_winnability_de.csv tem 11 DOMINATE, nao 10. Todos estao no relatorio §2. O relatorio ABRE com os limites (gates reprovados, ausencia de fonte de volume, cabeca perdida com ausgaben #207) antes de qualquer numero, por decisao de honestidade — nao suavizar em nenhuma revisao futura. VALIDACAO: validate_proposed.py -> exit 0, 0 blockers, 96 warnings em 4 familias conhecidas e justificadas (campos abaixo do teto por disciplina de aposta, falso positivo de len(token)<4 em CJK/tailandes, stopword \"e\" no subtitle pt-BR). KNOWN_DEBT datado 2026-10-01: tokens VIVOS com acento permanecem com acento (neutro pro indice, iOS normaliza; normalizar so uma parte deixa o campo incoerente); todo token NOVO entrou sem acento (LEARNINGS #63b). Varrer num passe dedicado. DEPLOY: exige POST /v1/appStoreVersions + build + App Review (nao e PATCH de texto) — ver deploy_blockers e LEARNINGS #65b. As correcoes de description da secao description_fixes_required viajam no MESMO deploy; os itens 1 e 2 sao blockers, nao backlog.\n\nESTAGIO 7 (deploy) em 2026-10-01: versao iOS 45.4.0 criada (61e6fb32) e os 29 locales aplicados por PATCH direto. Os dois gates REPROVARAM e foram executados sob override explicito do Joao, ambos registrados: piso de trafego (DE=25/100, exit 2) e quarentena (PPO 9570de85 APPROVED, exit 3). status=staged, NAO live: nao existe metrics/d00_baseline.json e nao pode existir, porque o texto ainda nao esta no ar. ESTAGIO 6 REVISADO em 01/10 (depois do deploy): (1) casal FICA no pt-BR — decisao final do Joao reverteu a da manha; o relatorio §1 e §3 descrevem a variante A aplicada e apontam a variante B em pt-BR__sem-casal/ com os 2 gatilhos de reabertura; posicoes perdidas na iteracao caem de 46 para 6 (todas MISMATCH, de-DE/id/hi). (2) excel mantido em 15 locales (9 live + 6 novos: cs, es-ES, fr-FR, hu, id, uk); pt-BR nao carrega excel; risco 5.2.5 aceito. (3) deploy FEITO e nao no ar: 45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION, 116/116 read-back, 232/232 verifier, 19 descriptions corrigidas; bloqueios restantes = whatsNew vazio (29) + promotionalText nao herdado (16, 14 com '100% gratis') + build/submit nao autorizados. (4) origem do 'managemen': sync_current_from_asc.py lia a listagem macOS (sem filter[platform]) — corrigido pelo deployer; nao era staleness. D7/14/21/28 continuam contados de live_at, ainda nulo.",
   "scope_note": "João 2026-09-30: 'todos os idiomas da loja'. Stage 1 found 29 live localizations (the brief said 13) — scope corrected to all 29. Primary target de-DE.",
   "approach": "aggressive-multilocale",
   "gates_overridden": {
@@ -161,13 +161,16 @@
   },
   "measurement_caveat": "At 25 installs 1*/30d in DE a text change cannot be separated from noise. results.final will carry no confidence interval; every checkpoint reading is directional only. This is recorded up front so no future session reports a fake win.",
   "deploy_blockers": [
-    "No editable iOS appStoreVersion (45.3.1 READY_FOR_SALE) and appInfo 1c8c1360 is READY_FOR_DISTRIBUTION. name/subtitle/keywords changes require POST /v1/appStoreVersions + build + App Review, not a text-only PATCH.",
-    "RESOLVED by authorization: a new editable iOS appStoreVersion will be created (POST /v1/appStoreVersions). Watch LEARNINGS #65b — the POST needs the 8 new ageRatingDeclaration fields on the EDITABLE appInfo, and localizations do NOT all inherit: each POSTed localization requires description + supportUrl."
+    "RESOLVIDO 01/10: iOS 45.4.0 criada por POST /v1/appStoreVersions (61e6fb32), PREPARE_FOR_SUBMISSION; 29 locales aplicados por PATCH, read-back 116/116, deploy-verifier 232/232.",
+    "ABERTO: whatsNew VAZIO nos 29 locales da 45.4.0 — a ASC recusa o submit sem ele (obrigatorio desde 1.0.1). Copy do Joao (/release-notes-style).",
+    "ABERTO: promotionalText NAO herdado em 16 locales (cs, da, el, fi, he, hi, hu, ms, nl-NL, no, pl, ru, sv, th, uk, vi); 14 repetem '100% gratis'. Nao restaurado; decisao do Joao. So pl e ru sao seguros de restaurar literal.",
+    "ABERTO: sem build anexado — archive rodando (release-runner); upload e submitted:true NAO autorizados.",
+    "NOTA: appInfo e do app, nao da plataforma — aprovada a cbd87354, name/subtitle do de-DE valem tambem na listagem macOS (universal, LEARNINGS #85b)."
   ],
   "known_defects_in_live_text": [
     "de-DE name 'Ausgaben - Haushaltsbuch' = 24/30 chars; 6 chars ociosos no campo de maior peso. CORRIGIDO nesta iteracao (separador -> espaco libera 8, name vai a 29/30).",
-    "en-US keywords tinha 'financial' repetido DUAS VEZES no mesmo campo, num campo em 100/100 chars que sustenta UMA unica posicao <=#50 no app inteiro. CORRECAO AO BRIEF: o token 'managemen' truncado NAO existe — o unico token dessa familia nos 29 locales e o 'manajemen' do indonesio, que e a palavra completa (PARTIAL, mantida).",
-    "pt-BR subtitle 'Financas do casal e pessoais' prometia feature de casal/split ausente do source (N1/N2). REMOVIDO por decisao do Joao em 01/10.",
+    "en-US keywords tinha 'financial' repetido DUAS VEZES no mesmo campo (100/100 chars sustentando UMA posicao <=#50). CORRECAO AO BRIEF: o token 'managemen' truncado NAO existe no iOS — era o keyword field da listagem macOS: sync_current_from_asc.py lia o primeiro READY_FOR_SALE sem filter[platform] e num app universal a Apple devolve macOS primeiro (LEARNINGS #85b). current/metadata/ nunca esteve defasado, estava na plataforma errada. Corrigido pelo deployer em 01/10 (bug_found_in_pipeline).",
+    "pt-BR subtitle 'Financas do casal e pessoais' promete feature de casal/split ausente do source (N1/N2). MANTIDO por decisao FINAL do Joao em 01/10 (reverteu a remocao da manha) — trade-off aceito por escrito em decisions_by_joao.casal_pt_BR; variante honesta em proposed/metadata/pt-BR__sem-casal/.",
     "ko subtitle tinha 자산 (asset tracking), que o app nao tem (N9/N18) e que nao protegia posicao nenhuma. REMOVIDO.",
     "en-GB nao tem localizacao e cai no locale PRIMARIO, que e en-US (mesma lingua) — impacto baixo, ao contrario do que o brief de abertura assumiu."
   ],
@@ -252,18 +255,18 @@
   "fields_changed": [
     "name",
     "subtitle",
-    "keywords"
+    "keywords",
+    "description"
   ],
   "fields_unchanged": [
-    "description",
     "promotional_text"
   ],
   "fields_accounted": {
     "name": "CHANGED em 1 de 29 locales (de-DE: separador -> espaco liberou 8 chars, Budget sobe de SUBTITLE 3x para NAME 7x). Os outros 28 NAMEs ficam intocados.",
-    "subtitle": "CHANGED em 3 de 29 (de-DE: Budget -> Fixkosten, upgrade 1x->3x; pt-BR: sai o cluster casal, entra categorias a 3x; ko: sai 자산 que nao protegia nada, entra 생활비 a 3x).",
+    "subtitle": "CHANGED em 2 de 29 (de-DE: Budget -> Fixkosten, upgrade 1x->3x; ko: sai 자산 que nao protegia nada, entra 생활비 a 3x). pt-BR INTOCADO: casal fica por decisao final do Joao em 01/10 (variante A).",
     "keywords": "CHANGED em 29 de 29.",
-    "description": "CHANGED em 19 de 29 locales — correcao de defeito, nao copy nova. en-US: removido lixo de UI de chat no fim do locale PRIMARIO. 12 locales: alegacao de gratuidade total trocada por formulacao verdadeira. 5 locales (de-DE, fr-FR, it, ja, ko): promessa de notificacao removida — o app nao tem framework de notificacao nenhum (confirmado no source: zero flutter_local_notifications/firebase_messaging/UNUserNotification) e o que existe de verdade e a barra de progresso que fica vermelha ao ESTOURAR o limite (GoalsScreen.dart: progressColor = totalExpenseIsOverGoal() ? deletionButton : button). pt-BR: ingles solto e duplo possessivo. Os outros 10 locales intocados.",
-    "promotional_text": "CORRECAO DE FATO (2026-10-01): a afirmacao anterior (\"null em todos os 29\") estava ERRADA. A versao LIVE 45.3.1 tem promotionalText em 16 locales (cs, da, el, fi, he, hi, hu, ms, nl-NL, no, pl, ru, sv, th, uk, vi) e a 45.4.0 criada hoje NAO herdou nenhum deles. Se a 45.4.0 subir como esta, esses 16 storefronts perdem o texto promocional. NAO restaurado: esta fora do escopo autorizado e 14 dos 16 repetem a mesma alegacao de gratuidade total que esta submissao tira das descriptions (2.3.1) — restaurar literal seria reintroduzir o defeito. Textos exatos e triagem em research/promotional_text_not_inherited.json. DECISAO DO JOAO."
+    "description": "CHANGED em 19 de 29 na 45.4.0 — correcoes de defeito live (lixo de UI de chat no en-US, \"100% gratis\" em 12, promessa de notificacao em 5, ingles solto no pt-BR). Read-back 116/116 inclui description. Reescrita de venda (export/sync/fixos/widget) NAO entrou.",
+    "promotional_text": "UNCHANGED por composicao, MAS 16 locales nao herdaram o promotionalText da 45.3.1 na 45.4.0 (14 deles repetem \"100% gratis\"). Nao restaurado; decisao do Joao. research/promotional_text_not_inherited.json."
   },
   "approach_rationale": "Escopo 29 locales por pedido do Joao 30/09 (\"todos os idiomas da loja\"), alvo primario de-DE. A tese nao e cabeca, e cauda longa de 2 palavras: ausgaben (pop 48) rankeia #207 sendo a 1a palavra do NAME, contra SERPs de 10k-127k avaliacoes. O ativo sao 214 posicoes <=#50 em 29 locales, onde o dono da SERP tem 0-500 avaliacoes. Cada char novo foi pago por um token nomeado que so sustentava MISMATCH ou duplicata exata de campo; o protection_map verificou os 29 conjuntos propostos token a token. Abordagem paralela (todos os locales de uma vez) porque nenhum locale sozinho tem trafego para atribuicao: a leitura primaria sera posicao Astro, nao instalacao.",
   "target_countries": [
@@ -418,13 +421,13 @@
       {
         "day": 14,
         "date": "live_at+14 (estimativa 2026-10-20)",
-        "purpose": "ausgabenkontrolle <= #3; as 6 composicoes de categorias no pt-BR <= #3; impressoes +10%. Oraculo do peso 7x: se budget kategorien continuar em #11, o upgrade de NAME nao valeu — plano B e devolver Budget ao subtitle.",
+        "purpose": "ausgabenkontrolle <= #3; as 47 posicoes do pt-BR de pe e offline indexado em financas pessoais offline; impressoes +10%. Oraculo do peso 7x: se budget kategorien continuar em #11, o upgrade de NAME nao valeu — plano B e devolver Budget ao subtitle.",
         "metrics_file": "metrics/d14.json"
       },
       {
         "day": 21,
         "date": "live_at+21 (estimativa 2026-10-27)",
-        "purpose": ">=6 dos 11 DOMINATE alemaes na posicao-alvo; instalacoes >=6,0/dia; ratings BR em observacao (a saida do casal e aposta de nota, nao de trafego).",
+        "purpose": ">=6 dos 11 DOMINATE alemaes na posicao-alvo; instalacoes >=6,0/dia; media e texto das reviews BR em observacao (casal mantido: se a media cair com reviews citando conta compartilhada, e o gatilho 1 da variante B).",
         "metrics_file": "metrics/d21.json"
       },
       {
@@ -437,9 +440,10 @@
     "rollback_triggers": [
       "Qualquer uma das 26 posicoes alemas protegidas desaparecer <=#50 em D7 ou D14 (= token protetor saiu por acidente; corrigir por PATCH imediato).",
       "Instalacoes 1* DE caem >=30% contra o baseline, sustentado por 7 dias seguidos.",
-      "Instalacoes 1* BR caem >=35% sustentado por 14 dias E a nota BR nao se moveu (a saida do casal nao pagou) -> devolver casal/compartilhados por PATCH.",
-      "Apple sinalizar 2.3.1 por causa de \"100% gratis\" nas descriptions -> kostenlos sai da lista alema no mesmo PATCH.",
-      "Qualquer posicao FIT (nao MISMATCH) perdida em qualquer locale."
+      "Media de avaliacao BR cair E reviews citarem expectativa de conta compartilhada (gatilho 1 de decisions_by_joao.casal_pt_BR) -> aplicar a variante B INTEIRA (proposed/metadata/pt-BR__sem-casal/) por PATCH.",
+      "Apple sinalizar 2.3.1 (promotionalText com '100% gratis' em 14 locales, ou casal no subtitle pt-BR) ou 5.2.5 (excel em 15 locales) -> corrigir o campo apontado no mesmo PATCH; kostenlos sai da lista alema se a queixa for de gratuidade.",
+      "Qualquer posicao FIT (nao MISMATCH) perdida em qualquer locale.",
+      "Variante B nunca parcial: tirar casal e manter compartilhados e a pior das tres opcoes."
     ],
     "escalation_triggers": [
       "Impressoes +25% antes de D14 -> antecipar a iteracao 5 dos 7 locales incompletos.",
@@ -464,7 +468,9 @@
       "consequence": "Nenhum alvo desta iteracao e termo de cabeca. haushaltsbuch kostenlos (pop 61, hoje #54) e LOTTERY com alvo realista #38-45, abaixo do penhasco de TTR — por isso kostenlos entra so no keywords a 1x e nunca no name/subtitle.",
       "reading": "O ativo do app e cauda longa de 2 palavras. 214 posicoes <=#50, 107 no top-10, em SERPs de 5-12 resultados com donos de 0-500 avaliacoes."
     },
-    "ppo_overlap": "O PPO 9570de85 roda ate 2026-11-27 e atravessa toda a janela de medicao. quarantine_override registrado. A auditoria de 27/09 ja declarou esse experimento sem poder estatistico (1.430 impressoes/semana em 3 tratamentos), entao a contaminacao e pequena — mas existe e esta registrada."
+    "ppo_overlap": "O PPO 9570de85 roda ate 2026-11-27 e atravessa toda a janela de medicao. quarantine_override registrado. A auditoria de 27/09 ja declarou esse experimento sem poder estatistico (1.430 impressoes/semana em 3 tratamentos), entao a contaminacao e pequena — mas existe e esta registrada.",
+    "casal_kept": "O pt-BR aplicado mantem no SUBTITLE uma promessa (casal) que o produto nao entrega. Nao e erro de pipeline: e decisao do Joao em 01/10 com trade-off (nota BR, 2.3.1) aceito por escrito e dois gatilhos de reabertura da variante B. Qualquer checkpoint que ler queda de nota no BR tem de olhar o TEXTO das reviews antes de atribuir ao cluster.",
+    "excel_trademark": "excel em 15 locales = marca da Microsoft (5.2.5). Aceito pelo Joao em 01/10; plano B = remover dos 15 e medir a perda nas composicoes * excel."
   },
   "bets": {
     "rule": "Maximo 3 apostas novas por locale — cumprido em 29/29. Toda aposta carrega volume_source copiado do composition_rationale.",
@@ -477,9 +483,7 @@
         "kostenlos"
       ],
       "pt-BR": [
-        "offline",
-        "excel",
-        "grafico"
+        "offline"
       ],
       "en-US": [
         "category",
@@ -617,27 +621,38 @@
         "ประจำ"
       ]
     },
-    "not_bets": "pt-BR controle e recorrentes NAO sao apostas: sao vocabulario de UI do proprio app (\"Meu Controle\", \"Gastos Recorrentes\"), FIT confirmado no term_fit_pt-BR.csv, e entraram para recuperar os 23 chars que o cluster casal liberou. de-DE fixkosten, pt-BR categorias e ko 생활비 tambem nao sao apostas: sao upgrades de peso 1x -> 3x."
+    "not_bets": "de-DE fixkosten e ko 생활비 nao sao apostas: sao upgrades de peso 1x -> 3x. pt-BR ficou com 1 aposta (offline) porque o cluster casal foi mantido e sobraram so 2 chars. Os tokens controle/recorrentes/excel/grafico/categorias-no-subtitle pertencem a variante B, NAO aplicada.",
+    "excel_reach_after_deploy": {
+      "total": 15,
+      "live_before": [
+        "da",
+        "el",
+        "fi",
+        "ms",
+        "nl-NL",
+        "no",
+        "pl",
+        "sv",
+        "vi"
+      ],
+      "new": [
+        "cs",
+        "es-ES",
+        "fr-FR",
+        "hu",
+        "id",
+        "uk"
+      ],
+      "note": "pt-BR NAO carrega excel (variante A). hi carrega a transliteracao एक्सेल, fora da contagem. Risco 5.2.5 (marca Microsoft) aceito pelo Joao em 01/10 — ver decisions_by_joao.excel_keyword."
+    }
   },
   "positions_accounting": {
     "total_ranked": 456,
     "le_50": 214,
     "top_10": 107,
-    "lost_le_50": 46,
+    "lost_le_50": 6,
     "lost_all_mismatch": true,
     "breakdown": [
-      {
-        "locale": "pt-BR",
-        "lost": 40,
-        "tokens": [
-          "casal (21)",
-          "compartilhados (9)",
-          "do (7)",
-          "planilha (3)"
-        ],
-        "fit": "todas MISMATCH",
-        "reason": "decisao do Joao 01/10"
-      },
       {
         "locale": "de-DE",
         "lost": 3,
@@ -669,7 +684,19 @@
       }
     ],
     "fit_or_partial_lost": 0,
-    "note": "Perder o #1 de monatliche bilanz (de-DE) e as 21 posicoes de casal (pt-BR) aparece feio no antes/depois. Foram VENDIDAS de proposito, por char e por retencao — nao e piora de iteracao."
+    "note": "Perder o #1 de monatliche bilanz (de-DE) aparece feio no antes/depois. Foi VENDIDO de proposito por 7 chars — nao e piora de iteracao. O pt-BR nao perde posicao nenhuma: o cluster casal foi mantido.",
+    "preserved_by_decision": {
+      "locale": "pt-BR",
+      "positions": 40,
+      "tokens": [
+        "casal (21)",
+        "compartilhados (9)",
+        "do (7)",
+        "planilha (3)"
+      ],
+      "fit": "todas MISMATCH",
+      "reason": "decisao FINAL do Joao 01/10: ficam enquanto trazem trafego; trade-off (nota BR, 2.3.1) aceito por escrito; variante B arquivada em proposed/metadata/pt-BR__sem-casal/"
+    }
   },
   "incomplete_locales": {
     "recommendation": "Iteracao 5 DEDICADA a estes 7, com pool de long tails proprio por locale (longtails_<store>.csv ja existem) e NAME/SUBTITLE reavaliados junto. NAO remendar com 3 apostas no proximo deploy.",
@@ -739,7 +766,8 @@
       "severity": "blocker",
       "locale": "en-US",
       "defect": "A description do LOCALE PRIMARIO termina com lixo de UI de chat: \"...itunes/dev/stdeula/Tentar novamenteO Claude pode cometer erros. Confira sempre as respostas.\"",
-      "action": "Remover. Independe de qualquer decisao de ASO. E a pagina que todo storefront sem listing proprio enxerga."
+      "action": "Removido na 45.4.0. A 45.3.1 (no ar) continua com o lixo ate a aprovacao.",
+      "status": "APLICADO na 45.4.0 em 01/10 (nao no ar ate aprovacao)"
     },
     {
       "severity": "blocker",
@@ -760,7 +788,9 @@
         "no",
         "ru"
       ],
-      "action": "Reescrever para \"gratis para usar, backup na nuvem e opcional\". Interage com kostenlos (de-DE): a keyword e defensavel porque e token de keywords, nao alegacao de texto — mas o conjunto fica indefensavel se as descriptions nao forem corrigidas no MESMO deploy."
+      "action": "Reescrever para \"gratis para usar, backup na nuvem e opcional\". Interage com kostenlos (de-DE): a keyword e defensavel porque e token de keywords, nao alegacao de texto — mas o conjunto fica indefensavel se as descriptions nao forem corrigidas no MESMO deploy.",
+      "status": "APLICADO na 45.4.0 em 01/10 (nao no ar ate aprovacao)",
+      "residual": "14 dos 16 promotionalText nao herdados repetem a alegacao de gratuidade total. Nao restaurados; decisao do Joao. research/promotional_text_not_inherited.json."
     },
     {
       "severity": "high",
@@ -772,13 +802,15 @@
         "ko"
       ],
       "defect": "Promessa de notificacao (\"bekommst du Bescheid\", \"on te previent\", \"ti notifichiamo\", \"通知でお知らせ\", \"알려줍니다\"). N6: o app nao tem framework de notificacao nenhum — nem flutter_local_notifications, nem firebase_messaging, nem UNUserNotification. O unico sinal e mudanca de cor na aba de metas, DEPOIS de estourar.",
-      "action": "Remover a promessa nos 5."
+      "action": "Remover a promessa nos 5.",
+      "status": "APLICADO na 45.4.0 em 01/10 (nao no ar ate aprovacao)"
     },
     {
       "severity": "medium",
       "locale": "pt-BR",
       "defect": "Ingles solto na description viva: \"suas expenses\", \"Organize suas finance\", \"aumentar suas minhas economias\".",
-      "action": "Revisar o texto inteiro."
+      "action": "Revisar o texto inteiro.",
+      "status": "APLICADO na 45.4.0 em 01/10 (nao no ar ate aprovacao)"
     },
     {
       "severity": "opportunity",
@@ -789,13 +821,15 @@
         "es-MX"
       ],
       "defect": "Descriptions de 2024 — nao citam export Excel/PDF, backup/sync, gastos fixos nem widget. Widget ausente em 20 das 29 descriptions, inclusive em TODO o Tier A.",
-      "action": "Reescrever estas 4 primeiro. Sao as features que esta iteracao esta comprando por keyword e que o texto da pagina nao entrega."
+      "action": "Reescrever estas 4 primeiro. Sao as features que esta iteracao esta comprando por keyword e que o texto da pagina nao entrega.",
+      "status": "NAO aplicado — correcao de defeito feita, reescrita de venda fica para a proxima alavanca de pagina"
     }
   ],
   "product_findings_not_aso": [
     "Paywall cai em ingles em 9 locales por falta de 7 chaves de traducao.",
     "O paywall anuncia export como beneficio PRO, mas export NAO e gateado — so login + backup na nuvem sao. Dos 3 beneficios anunciados, 2 sao ficcao (o outro e \"sem anuncios\" num app que nunca teve anuncio — N15).",
     "repeat traduzido em espanhol como \"Apelante\" (termo juridico).",
+    "excel e marca da Microsoft (5.2.5); a submissao sobe a exposicao de 9 para 15 locales. Mantido por decisao do Joao 01/10. Incoerencia registrada: o fit-checker tirou 머니매니저 (ko) por marca de concorrente e manteve excel no mesmo passe — a regra de marca do lab nao distingue nome de app rival de formato exportado.",
     "App Flutter em Apps/intermediate/ — reportar, nao agir sem aval do Joao."
   ],
   "research_files": [
