@@ -1,0 +1,15 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+מעקב הוצאות,הוצאות,derivado do top-10,39,13,OUT,precisa entrar em campo: הוצאות | 'ניהול תקציב ומעקב הוצאות' no top-10 il
+ניהול הוצאות,הוצאות,query natural composta,5,13,OUT,precisa entrar em campo: ניהול+הוצאות | nome live 'מעקב וניהול'
+הוצאות חודשיות,הוצאות,query natural composta,5,9,OUT,precisa entrar em campo: הוצאות+חודשיות
+הוצאות יומיות,הוצאות,query natural composta,5,5,OUT,precisa entrar em campo: הוצאות+יומיות
+הוצאות לפי קטגוריה,קטגוריות,query natural composta,5,5,OUT,precisa entrar em campo: הוצאות+לפי+קטגוריה
+הוצאות קבועות,הוצאות,query natural composta,5,5,OUT,precisa entrar em campo: הוצאות+קבועות | gastos fixos = feature real
+דוח הוצאות,דוח,query natural composta,5,5,OUT,precisa entrar em campo: הוצאות
+יומן הוצאות,הוצאות,query natural composta,5,5,OUT,precisa entrar em campo: יומן+הוצאות
+הוצאות אקסל,אקסל,query natural composta,5,5,OUT,precisa entrar em campo: הוצאות
+גרף הוצאות,גרפים,query natural composta,5,5,OUT,precisa entrar em campo: גרף+הוצאות
+תקציב חודשי,תקציב,query natural composta,5,7,OUT,precisa entrar em campo: תקציב
+תקציב לפי קטגוריה,תקציב,query natural composta,5,5,OUT,precisa entrar em campo: תקציב+לפי+קטגוריה
+ניהול תקציב אישי,תקציב,query natural composta,5,5,OUT,precisa entrar em campo: ניהול+תקציב
+הוצאות אופליין,הוצאות,query natural composta,5,5,OUT,precisa entrar em campo: הוצאות+אופליין

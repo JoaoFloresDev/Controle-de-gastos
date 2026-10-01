@@ -1,0 +1,358 @@
+territory,source_type,event,page_type,counts,unique_counts
+BR,App Store search,Impression,No page,1673,1188
+JP,App Store search,Impression,No page,1630,1074
+US,App Store search,Impression,No page,1287,1028
+DE,App Store search,Impression,No page,1052,747
+VN,App Store search,Impression,No page,760,604
+CN,App Store search,Impression,No page,727,578
+FR,App Store search,Impression,No page,698,511
+ID,App Store search,Impression,No page,573,439
+KR,App Store search,Impression,No page,468,336
+AR,App Store search,Impression,No page,461,396
+IT,App Store search,Impression,No page,311,241
+TR,App Store search,Impression,No page,295,195
+TH,App Store search,Impression,No page,270,213
+IN,App Store search,Impression,No page,222,161
+MX,App Store search,Impression,No page,212,162
+UA,App Store search,Impression,No page,197,149
+GB,App Store search,Impression,No page,176,139
+BR,App Store browse,Impression,No page,153,113
+RU,App Store search,Impression,No page,145,114
+ES,App Store search,Impression,No page,138,86
+MY,App Store search,Impression,No page,129,79
+CH,App Store search,Impression,No page,120,83
+BR,App Store search,Page view,Product page,119,75
+AT,App Store search,Impression,No page,101,74
+SA,App Store search,Impression,No page,92,63
+CO,App Store search,Impression,No page,85,70
+DE,App Store browse,Impression,No page,79,62
+NO,App Store search,Impression,No page,78,62
+CA,App Store search,Impression,No page,77,62
+NL,App Store search,Impression,No page,73,50
+AU,App Store search,Impression,No page,69,43
+EG,App Store search,Impression,No page,68,53
+BR,App Store browse,Tap,Product page,64,57
+DE,App Store search,Page view,Product page,48,34
+PT,App Store search,Impression,No page,43,37
+IL,App Store search,Impression,No page,42,33
+FI,App Store search,Impression,No page,41,34
+PL,App Store search,Impression,No page,38,29
+JP,App Store search,Page view,Product page,37,30
+US,App Store search,Page view,Product page,36,26
+IQ,App Store search,Impression,No page,35,24
+FR,App Store browse,Impression,No page,34,25
+US,App Store browse,Impression,No page,33,21
+FR,App Store browse,Tap,Product page,33,33
+PE,App Store search,Impression,No page,31,26
+CZ,App Store search,Impression,No page,31,24
+CL,App Store search,Impression,No page,30,22
+JP,App Store browse,Impression,No page,30,26
+BR,App Store search,Tap,No page,30,29
+DO,App Store search,Impression,No page,30,25
+EC,App Store search,Impression,No page,29,24
+TR,App Store browse,Impression,No page,29,21
+FR,App referrer,Page view,Product page,28,24
+BR,App referrer,Page view,Product page,26,22
+FR,App Store search,Page view,Product page,26,18
+HU,App Store search,Impression,No page,26,20
+PH,App Store search,Impression,No page,25,18
+VN,App Store search,Page view,Product page,24,20
+CN,App Store browse,Impression,No page,23,20
+BR,App Store browse,Page view,Product page,22,15
+DE,App Store browse,Tap,Product page,22,20
+BE,App Store search,Impression,No page,21,16
+HU,App Store browse,Impression,No page,21,8
+SG,App Store search,Impression,No page,20,15
+UZ,App Store search,Impression,No page,20,15
+SE,App Store search,Impression,No page,20,17
+MA,App Store search,Impression,No page,19,13
+GR,App Store search,Impression,No page,19,12
+IN,App Store search,Page view,Product page,19,12
+CN,App Store search,Page view,Product page,16,10
+AO,App Store search,Impression,No page,16,5
+DK,App Store search,Impression,No page,16,11
+LK,App Store search,Impression,No page,15,12
+VN,App Store browse,Impression,No page,15,13
+PY,App Store search,Impression,No page,14,14
+KR,App Store search,Page view,Product page,14,8
+VE,App Store search,Impression,No page,14,9
+JP,App Store search,Tap,No page,13,11
+ID,App Store search,Page view,Product page,12,10
+OM,App Store search,Impression,No page,12,8
+JP,App Store browse,Page view,Product page,12,6
+AT,App Store browse,Tap,Product page,12,12
+AT,App referrer,Page view,Product page,12,10
+TR,App Store search,Page view,Product page,12,9
+IE,App Store search,Impression,No page,12,7
+UY,App Store search,Impression,No page,12,9
+AE,App Store search,Impression,No page,12,9
+JO,App Store search,Impression,No page,12,7
+UA,App Store search,Page view,Product page,12,10
+DE,App Store search,Tap,No page,11,11
+IT,App Store search,Page view,Product page,11,9
+JP,App referrer,Page view,Product page,11,8
+IT,App Store browse,Tap,Product page,10,9
+SA,App Store search,Page view,Product page,10,3
+MX,App Store browse,Impression,No page,10,8
+PA,App Store search,Impression,No page,10,9
+PK,App Store search,Impression,No page,9,8
+DZ,App Store search,Impression,No page,9,6
+QA,App Store search,Impression,No page,9,8
+IT,App Store browse,Impression,No page,9,7
+FR,App Store browse,Page view,Product page,9,7
+RU,App Store search,Page view,Product page,9,6
+LK,App Store browse,Tap,Product page,9,3
+NP,App Store search,Impression,No page,8,6
+MY,App Store search,Page view,Product page,8,4
+DE,App referrer,Page view,Product page,8,8
+CD,App Store search,Impression,No page,8,7
+BO,App Store search,Impression,No page,8,6
+JP,App Store browse,Tap,Product page,8,8
+KW,App Store search,Impression,No page,8,8
+NL,App Store browse,Impression,No page,7,4
+BR,Web referrer,Page view,Product page,7,6
+AM,App Store search,Impression,No page,7,6
+MZ,App Store search,Impression,No page,7,6
+NZ,App Store search,Impression,No page,7,6
+IL,App Store search,Tap,No page,7,4
+FI,App Store search,Tap,No page,7,6
+PL,App Store search,Page view,Product page,7,4
+KH,App Store search,Impression,No page,6,5
+NG,App Store search,Impression,No page,6,6
+AR,App Store search,Page view,Product page,6,5
+ES,App Store search,Page view,Product page,6,4
+ID,App Store browse,Impression,No page,6,6
+BH,App Store search,Impression,No page,6,5
+NO,App Store browse,Impression,No page,6,5
+ME,App Store search,Impression,No page,6,2
+IQ,App Store browse,Impression,No page,5,5
+MR,App Store search,Impression,No page,5,4
+RS,App Store search,Impression,No page,5,4
+TR,App Store search,Tap,No page,5,5
+HN,App Store search,Impression,No page,5,5
+NI,App Store search,Impression,No page,5,5
+CA,App Store browse,Page view,Product page,5,3
+AU,App Store search,Page view,Product page,5,3
+US,App Store search,Tap,No page,5,5
+UZ,App Store browse,Impression,No page,5,3
+AT,App Store browse,Impression,No page,5,4
+IN,App Store browse,Tap,Product page,5,5
+NO,App Store search,Page view,Product page,5,4
+SG,App Store search,Page view,Product page,5,1
+VN,App Store search,Tap,No page,5,5
+VN,App Store browse,Tap,Product page,5,3
+CZ,App Store search,Page view,Product page,5,5
+DE,App Store browse,Page view,Product page,4,4
+TN,App Store search,Impression,No page,4,4
+TT,App Store search,Impression,No page,4,3
+BR,App referrer,Page view,Store sheet,4,4
+UG,App Store search,Impression,No page,4,3
+NA,App Store browse,Impression,No page,4,3
+EG,App Store browse,Impression,No page,4,4
+MX,App Store search,Page view,Product page,4,3
+IT,App Store search,Tap,No page,4,4
+FR,App Store search,Tap,No page,4,4
+SE,App Store browse,Impression,No page,4,3
+NL,App Store search,Page view,Product page,4,3
+AT,App Store search,Page view,Product page,4,3
+LK,App Store search,Page view,Product page,4,2
+CL,App Store browse,Impression,No page,4,3
+LB,App Store search,Impression,No page,3,3
+YE,App Store search,Impression,No page,3,3
+CN,App Store search,Tap,No page,3,3
+TJ,App Store search,Impression,No page,3,2
+DO,App Store search,Page view,Product page,3,3
+CH,App Store search,Page view,Product page,3,2
+RU,App Store browse,Impression,No page,3,2
+ZM,App Store search,Impression,No page,3,3
+KZ,App Store search,Impression,No page,3,3
+AT,App Store browse,Page view,Product page,3,3
+TR,App Store browse,Tap,Product page,3,3
+IS,App Store search,Impression,No page,3,2
+BR,Unavailable,Tap,No page,3,3
+UA,App Store browse,Tap,Product page,3,3
+MZ,App Store browse,Impression,No page,3,1
+CY,App Store search,Impression,No page,3,2
+ES,App Store browse,Tap,Product page,3,3
+HU,App Store search,Tap,No page,3,2
+HK,App Store search,Impression,No page,3,3
+US,App Store browse,Tap,Product page,3,3
+FR,App referrer,Page view,Store sheet,3,2
+ES,App referrer,Page view,Product page,3,2
+FR,App Store browse,Tap,Store sheet,3,3
+PE,App Store browse,Impression,No page,3,1
+BA,App Store search,Page view,Product page,3,1
+MX,App Store browse,Page view,Product page,3,1
+GB,App Store search,Page view,Product page,2,2
+BR,App Store browse,Tap,Store sheet,2,2
+IE,App Store browse,Tap,Store sheet,2,2
+ID,Web referrer,Page view,Product page,2,2
+KH,App Store browse,Tap,Product page,2,2
+MM,App Store search,Impression,No page,2,2
+CH,App referrer,Page view,Product page,2,2
+CA,App referrer,Page view,Product page,2,1
+CH,App Store browse,Tap,Product page,2,2
+KH,App Store search,Page view,Product page,2,1
+ID,App Store browse,Tap,Product page,2,2
+NP,App Store search,Tap,No page,2,2
+KH,App Store browse,Impression,No page,2,1
+US,App Store browse,Page view,Product page,2,2
+KG,App Store search,Impression,No page,2,2
+ZA,App Store search,Impression,No page,2,2
+CG,App Store search,Impression,No page,2,2
+AT,App Store search,Tap,No page,2,2
+GR,App Store search,Page view,Product page,2,2
+EC,App Store browse,Tap,Product page,2,2
+SE,App Store search,Page view,Product page,2,1
+BJ,App Store search,Impression,No page,2,2
+DO,App Store browse,Page view,Product page,2,1
+NI,App Store search,Page view,Product page,2,1
+NA,App Store search,Impression,No page,2,1
+MY,App Store browse,Impression,No page,2,2
+CH,App Store search,Tap,No page,2,2
+DO,App Store browse,Tap,Product page,2,2
+TZ,App Store search,Impression,No page,2,1
+LY,App Store search,Impression,No page,2,2
+ES,App Store browse,Page view,Product page,2,2
+AR,App Store browse,Tap,Product page,2,2
+IN,App Store search,Tap,No page,2,2
+EC,App Store browse,Impression,No page,2,2
+MG,App Store search,Impression,No page,2,2
+US,Web referrer,Page view,Product page,2,2
+PT,App referrer,Page view,Product page,2,1
+IL,App Store search,Page view,Product page,2,2
+CI,App Store search,Impression,No page,2,2
+ME,App Store browse,Tap,Product page,2,2
+AO,App Store browse,Impression,No page,2,2
+NL,App Store search,Tap,No page,2,2
+FI,App Store browse,Impression,No page,2,2
+PH,App Store search,Tap,No page,2,2
+NL,App Store browse,Tap,Product page,2,2
+RU,App Store browse,Tap,Product page,2,2
+NO,App Store search,Tap,No page,2,2
+BA,App Store browse,Tap,Product page,2,2
+CL,App Store browse,Tap,Product page,2,2
+CO,App referrer,Page view,Store sheet,2,1
+MY,App Store browse,Tap,Store sheet,2,1
+PT,App Store browse,Impression,No page,2,1
+BE,App Store search,Page view,Product page,2,1
+CL,App Store search,Page view,Product page,2,1
+AR,App referrer,Page view,Product page,1,1
+JO,App Store browse,Impression,No page,1,1
+KH,App Store search,Tap,No page,1,1
+TW,App Store search,Impression,No page,1,1
+DE,Unavailable,Tap,No page,1,1
+AZ,App Store search,Impression,No page,1,1
+CA,App Store browse,Tap,Product page,1,1
+UY,App Store search,Tap,No page,1,1
+IT,Web referrer,Page view,Product page,1,1
+SA,App Store browse,Impression,No page,1,1
+ZA,Web referrer,Page view,Product page,1,1
+IE,App referrer,Page view,Store sheet,1,1
+CD,App Store search,Page view,Product page,1,1
+MY,App Store browse,Page view,App version history,1,1
+TR,Web referrer,Page view,Product page,1,1
+PL,App Store browse,Impression,No page,1,1
+PK,App Store browse,Impression,No page,1,1
+ZA,App Store browse,Tap,Product page,1,1
+MA,App Store search,Tap,No page,1,1
+GB,Web referrer,Page view,Product page,1,1
+JP,Web referrer,Page view,Product page,1,1
+GM,App Store search,Impression,No page,1,1
+BR,App Store browse,Page view,Developer page,1,1
+NI,App Store browse,Tap,Product page,1,1
+NO,Unavailable,Tap,No page,1,1
+HK,App Store browse,Impression,No page,1,1
+IQ,App Store search,Page view,Product page,1,1
+AR,App Store browse,Impression,No page,1,1
+GA,App Store search,Impression,No page,1,1
+FR,Web referrer,Page view,Product page,1,1
+MG,App Store browse,Impression,No page,1,1
+LT,App Store search,Impression,No page,1,1
+ID,App referrer,Page view,Product page,1,1
+AR,App Store browse,Page view,Product page,1,1
+DO,App Store browse,Impression,No page,1,1
+FR,Unavailable,Tap,No page,1,1
+EC,App Store search,Page view,Product page,1,1
+GH,App Store search,Impression,No page,1,1
+LV,App Store search,Impression,No page,1,1
+FI,App Store search,Page view,Product page,1,1
+IN,App Store browse,Tap,No page,1,1
+AE,App Store browse,Impression,No page,1,1
+RU,App Store search,Tap,No page,1,1
+DE,App Store browse,Tap,No page,1,1
+MD,App Store search,Impression,No page,1,1
+CA,App Store browse,Impression,No page,1,1
+ES,App Store browse,Impression,No page,1,1
+IN,App Store browse,Page view,App version history,1,1
+MZ,App Store browse,Page view,Product page,1,1
+KE,App Store search,Impression,No page,1,1
+TH,App Store search,Page view,Product page,1,1
+GB,App referrer,Page view,Product page,1,1
+ML,App Store search,Impression,No page,1,1
+RU,App Store browse,Page view,Product page,1,1
+DK,App Store search,Page view,Product page,1,1
+BF,App Store search,Impression,No page,1,1
+PT,App referrer,Page view,Store sheet,1,1
+KR,App Store browse,Impression,No page,1,1
+SG,App Store browse,Impression,No page,1,1
+LU,App Store search,Impression,No page,1,1
+HK,App Store browse,Page view,Product page,1,1
+HR,App Store search,Impression,No page,1,1
+UA,App Store search,Tap,No page,1,1
+TJ,App Store browse,Impression,No page,1,1
+VN,Unavailable,Tap,No page,1,1
+HU,App Store search,Page view,Product page,1,1
+IQ,App Store search,Tap,No page,1,1
+PT,App Store browse,Tap,Product page,1,1
+TC,App Store search,Impression,No page,1,1
+GT,App Store search,Impression,No page,1,1
+HU,App referrer,Page view,Product page,1,1
+MK,App Store search,Impression,No page,1,1
+IN,App referrer,Page view,Product page,1,1
+VN,App Store browse,Page view,Product page,1,1
+ES,App Store search,Tap,No page,1,1
+HU,App Store browse,Tap,Product page,1,1
+TW,App Store browse,Impression,No page,1,1
+CN,Unavailable,Tap,No page,1,1
+UA,App Store browse,Impression,No page,1,1
+BR,App Store browse,Page view,App version history,1,1
+MY,App Store browse,Tap,Product page,1,1
+LK,App Store search,Tap,No page,1,1
+MX,App Store search,Tap,No page,1,1
+ME,App Store search,Page view,Product page,1,1
+CO,App Store browse,Impression,No page,1,1
+HU,App Store browse,Page view,Product page,1,1
+ME,App Store search,Tap,No page,1,1
+ME,App Store browse,Impression,No page,1,1
+IT,App Store browse,Page view,Product page,1,1
+ID,App Store search,Tap,No page,1,1
+FR,App Store browse,Page view,Store sheet,1,1
+LK,App Store browse,Impression,No page,1,1
+PY,App Store browse,Page view,Product page,1,1
+LK,App Store browse,Page view,Product page,1,1
+IT,App referrer,Page view,Product page,1,1
+LK,App Store browse,Page view,Developer page,1,1
+HK,App Store search,Tap,No page,1,1
+LK,App referrer,Page view,Product page,1,1
+BO,App Store search,Page view,Product page,1,1
+BG,App Store search,Impression,No page,1,1
+US,Unavailable,Tap,No page,1,1
+FI,App Store browse,Page view,Product page,1,1
+DE,App Store browse,Page view,Developer page,1,1
+BA,App Store search,Impression,No page,1,1
+DK,App referrer,Page view,Store sheet,1,1
+AM,App Store browse,Impression,No page,1,1
+BE,App referrer,Page view,Product page,1,1
+ZW,App Store search,Impression,No page,1,1
+GB,App Store browse,Impression,No page,1,1
+CR,App Store search,Impression,No page,1,1
+DK,App Store browse,Page view,Store sheet,1,1
+CO,App Store search,Page view,Product page,1,1
+IL,App Store browse,Impression,No page,1,1
+SI,App Store search,Impression,No page,1,1
+NO,App Store browse,Page view,Product page,1,1
+DE,App Store browse,Page view,App version history,1,1
+MY,App referrer,Page view,Store sheet,1,1
+CL,App Store browse,Tap,No page,1,1
+TR,App Store browse,Page view,Product page,1,1

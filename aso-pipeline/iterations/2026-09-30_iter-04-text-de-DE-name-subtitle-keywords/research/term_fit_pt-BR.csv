@@ -1,0 +1,407 @@
+term,verdict,reason,evidence,is_live_token,popularity,difficulty,our_rank,source
+acompanhar gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,31,OUT,candidate
+agenda financeira,MISMATCH,Term belongs to a different app category entirely; nothing in the inventory answers it.,n/a - outside the inventory,nao,5,47,OUT,candidate
+alimentação,MISMATCH,Term belongs to a different app category entirely; nothing in the inventory answers it.,n/a - outside the inventory,nao,27,70,OUT,candidate
+anotar despesas,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,38,OUT,candidate
+anotar gasto,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,34,OUT,candidate
+anotar gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,50,OUT,candidate+longtail
+análise financeira,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,42,OUT,candidate
+app de controle de gastos,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,59,OUT,longtail
+app de despesas,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,48,OUT,candidate+longtail
+app de despesas casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,84,candidate
+app de financas para casais,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,62,OUT,candidate
+app de financas para casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+app de financas pessoais,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,60,203,longtail
+app de gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,63,OUT,candidate
+app de gastos casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,4,candidate
+app de orcamento,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,47,OUT,candidate+longtail
+app financeiro,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,52,OUT,candidate
+app para casais,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,44,OUT,candidate
+app para dividir contas,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,12,OUT,candidate
+assinaturas mensais,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,7,OUT,candidate
+backup,FIT,"Google-login cloud backup of expenses, fixed expenses, goals and categories is a real (PRO) feature.",sec 1.11 cloud sync (PRO),nao,19,69,OUT,candidate
+balanço financeiro,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,5,OUT,candidate
+budget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,43,38,OUT,candidate
+caderno despesas,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,12,OUT,candidate
+caixa,MISMATCH,"Searcher wants bookkeeping/accounting for a business (cash book, ledger closing, VAT); the app has one entity, an expense.",NOT-list N11,nao,85,87,OUT,candidate
+caixa diário,MISMATCH,"Searcher wants bookkeeping/accounting for a business (cash book, ledger closing, VAT); the app has one entity, an expense.",NOT-list N11,nao,5,5,OUT,candidate
+caixinha,MISMATCH,"'Caixinha' is a savings pot; GoalModel is a spending CAP, never a balance to accumulate.",NOT-list N9,nao,5,23,OUT,candidate
+calculadora,MISMATCH,"Searcher wants a calculator; the app has a masked amount field, not a calculator.",n/a - outside the inventory,nao,72,52,OUT,candidate
+calculadora de despesas,MISMATCH,"Searcher wants a calculator; the app has a masked amount field, not a calculator.",n/a - outside the inventory,nao,5,37,OUT,candidate
+calculadora de gastos,MISMATCH,"Searcher wants a calculator; the app has a masked amount field, not a calculator.",n/a - outside the inventory,nao,5,52,OUT,candidate
+calendario medicamento,FIT,"Calendar view toggle inside the Transactions tab, with each day's expenses and day total.",sec 1.5 calendar,nao,5,41,OUT,candidate
+cartao casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,13,OUT,candidate
+cartao de credito,MISMATCH,"Searcher wants credit-card statement/limit management; 'credit card' is one of the 14 default CATEGORIES, nothing more.",NOT-list N8,nao,71,68,OUT,candidate
+carteira compartilhada,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,11,OUT,candidate
+cartão,MISMATCH,"Searcher wants credit-card statement/limit management; 'credit card' is one of the 14 default CATEGORIES, nothing more.",NOT-list N8,nao,56,84,OUT,candidate
+cartão de crédito,MISMATCH,"Searcher wants credit-card statement/limit management; 'credit card' is one of the 14 default CATEGORIES, nothing more.",NOT-list N8,nao,52,68,OUT,candidate
+cartões,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,nao,22,86,OUT,candidate
+casa,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,60,63,OUT,candidate
+casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,sim,54,55,OUT,live+pool
+categorias,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,sim,5,37,OUT,live+pool
+categorias de gastos,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,7,candidate+longtail
+categorizar gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,candidate
+cofrinho,MISMATCH,"Searcher wants a savings target / piggy bank; GoalModel is a spending CAP compared with spent>goal, never a target to reach.",NOT-list N9,nao,51,17,OUT,candidate
+cofrinho digital,MISMATCH,"Searcher wants a savings target / piggy bank; GoalModel is a spending CAP compared with spent>goal, never a target to reach.",NOT-list N9,nao,5,13,OUT,candidate
+compartilhados,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,sim,,,,live
+conta,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,nao,57,82,OUT,candidate
+conta bancária,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,nao,5,93,OUT,candidate
+contabilidade simples,MISMATCH,"Searcher wants bookkeeping/accounting for a business (cash book, ledger closing, VAT); the app has one entity, an expense.",NOT-list N11,nao,5,11,OUT,candidate
+contador de gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,23,OUT,candidate
+contas,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,sim,55,79,OUT,live+pool
+contas a dois,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,34,OUT,candidate
+contas a pagar,MISMATCH,"Searcher wants bill/invoice management with due dates; bills can only be logged as plain expenses, no invoice entity, no due date, no reminder.",NOT-list N8 + N6,nao,5,45,OUT,candidate
+contas a pagar casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,15,OUT,candidate
+contas casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,9,5,pool
+contas compartilhadas,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,19,9,candidate
+contas compartilhadas amigos,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,19,OUT,candidate
+contas compartilhadas casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,3,candidate
+contas da casa,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,21,OUT,candidate
+contas de casa,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,15,OUT,candidate
+contas despesas,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,nao,5,13,OUT,pool
+contas do casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,13,6,pool
+contas do mes,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,nao,5,46,OUT,candidate
+contas e despesas,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,nao,5,59,164,pool
+contas em grupo,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+contas fixas,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,nao,5,29,26,pool
+contas grupo,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,nao,5,23,OUT,candidate
+contas juntos,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,11,OUT,candidate
+contas mensais,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,nao,5,50,OUT,longtail+pool
+contas mensais casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,12,1,pool
+controlar gastos,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,14,49,OUT,candidate
+controle,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,69,65,OUT,candidate
+controle cartao credito,MISMATCH,"Searcher wants credit-card statement/limit management; 'credit card' is one of the 14 default CATEGORIES, nothing more.",NOT-list N8,nao,5,78,OUT,candidate
+controle contas,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,nao,5,49,OUT,candidate
+controle de assinaturas,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,7,OUT,candidate
+controle de caixa,MISMATCH,"Searcher wants bookkeeping/accounting for a business (cash book, ledger closing, VAT); the app has one entity, an expense.",NOT-list N11,nao,5,45,OUT,candidate
+controle de contas,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,nao,5,45,OUT,candidate
+controle de contas casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,7,OUT,candidate
+controle de contas mensais,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,nao,5,59,OUT,candidate
+controle de despesa,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,46,OUT,candidate
+controle de despesas,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,55,OUT,candidate
+controle de despesas casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,7,OUT,candidate
+controle de despesas do casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,7,OUT,candidate
+controle de despesas mensais,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,40,OUT,candidate
+controle de despesas pessoais,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,23,OUT,longtail
+controle de dinheiro,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,49,OUT,candidate
+controle de dividas,MISMATCH,Searcher wants debt payoff tracking; no debt entity exists in models/.,NOT-list N7,nao,5,47,OUT,candidate
+controle de dívidas,MISMATCH,Searcher wants debt payoff tracking; no debt entity exists in models/.,NOT-list N7,nao,5,19,OUT,candidate
+controle de gastos,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,53,56,OUT,candidate
+controle de gastos diarios,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,40,OUT,longtail
+controle de gastos do casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,7,OUT,candidate
+controle de gastos e orcamento,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,37,203,candidate
+controle de gastos gratis,FIT,"The entire single-device product is free: logging, categories, fixed expenses, budgets, charts, calendar, custom periods and EXPORT. Only cloud sync is paid.",sec 1.9 + sec 1.15 gating,nao,5,63,OUT,longtail
+controle de gastos ia,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,21,OUT,candidate
+controle de gastos offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,23,OUT,longtail
+controle de gastos pessoais,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,54,OUT,candidate
+controle de gastos sem internet,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,7,OUT,longtail
+controle de gastos simples,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,40,OUT,longtail
+controle de medicamentos,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,39,OUT,candidate
+controle financeiro,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,54,57,OUT,candidate
+controle financeiro casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,39,OUT,candidate
+controle financeiro e gastos,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,23,OUT,candidate
+controle financeiro facil,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,48,OUT,candidate
+controle financeiro pessoal,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,55,57,OUT,candidate
+controle orçamento,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,21,OUT,candidate
+controle pix,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,nao,5,68,OUT,candidate
+controle seus gastos,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,48,OUT,longtail
+controle vendas,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,15,OUT,candidate
+custos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,48,OUT,candidate
+despesa,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,51,OUT,candidate
+despesas,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,52,48,OUT,live+pool
+despesas a dois,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+despesas cartao,MISMATCH,"Searcher wants credit-card statement/limit management; 'credit card' is one of the 14 default CATEGORIES, nothing more.",NOT-list N8,nao,5,45,OUT,candidate
+despesas casa,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,46,OUT,candidate
+despesas casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,13,90,pool
+despesas compartilhadas,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,9,15,candidate
+despesas compartilhadas amigos,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,9,OUT,candidate
+despesas compartilhadas casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,5,candidate
+despesas da casa,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,17,OUT,candidate
+despesas diárias,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,41,13,candidate
+despesas do casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,82,pool
+despesas do mes,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,30,OUT,candidate
+despesas em grupo,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,15,OUT,candidate
+despesas fixas,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,11,8,pool
+despesas gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,38,36,pool
+despesas grupo,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,15,OUT,candidate
+despesas juntos,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+despesas mensais,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,52,OUT,longtail+pool
+despesas mensais casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,8,3,pool
+despesas pessoais,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,58,OUT,pool
+despesas pessoais casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,7,3,pool
+despesas por categoria,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,2,longtail
+despesas receitas,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,13,OUT,candidate
+despesas recorrentes,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,5,OUT,longtail
+despesas variáveis,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,candidate
+despezzas,FIT,Misspelling of 'despesas'; the intent is the core job of logging an expense.,sec 1.2 manual expense logging,nao,5,36,OUT,candidate
+diario,MISMATCH,"Polysemous: the unqualified pool is personal-diary / journal apps, not expense logging.","n/a - polysemous, wrong pool",sim,,,,live
+diario de compras,FIT,A purchase diary IS the app: every entry is amount + category + date + description.,sec 1.2 manual expense logging,nao,5,15,OUT,candidate
+diario de despesas,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,19,34,candidate
+diario de gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,49,58,candidate+longtail
+diario financeiro,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,21,OUT,candidate
+dinheiro,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,53,59,OUT,candidate
+dinheiro a dois,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,13,OUT,candidate
+dinheiro do casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+dividas,MISMATCH,Searcher wants debt payoff tracking; no debt entity exists in models/.,NOT-list N7,nao,5,41,OUT,candidate
+dividas do casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+dividir contas,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,15,OUT,candidate
+dividir contas amigos,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,15,OUT,candidate
+dividir contas casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,9,OUT,candidate
+dividir despesas,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,15,OUT,candidate
+dividir despesas casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,9,OUT,candidate
+dividir gastos,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,14,15,OUT,candidate
+dividir gastos amigos,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,17,OUT,candidate
+dividir gastos casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,9,OUT,candidate
+divisão de contas,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,nao,5,38,OUT,candidate
+diário,MISMATCH,"Polysemous: the unqualified pool is personal-diary / journal apps, not expense logging.","n/a - polysemous, wrong pool",nao,5,51,OUT,candidate
+diário gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,17,28,candidate
+do,PARTIAL,Grammatical particle or brand possessive split out of the live name/subtitle; it carries no standalone search intent and costs field characters.,"n/a - particle, not a query",sim,,,,live
+dívidas,MISMATCH,Searcher wants debt payoff tracking; no debt entity exists in models/.,NOT-list N7,nao,5,19,OUT,candidate
+economia,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,7,51,OUT,candidate
+economia do casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,9,candidate
+economia doméstica,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,7,OUT,candidate
+economias,MISMATCH,"Noun 'economias' is a pot of saved money; GoalModel is a spending CAP compared with spent>goal, never a balance to accumulate.",NOT-list N9,sim,5,49,OUT,live+pool
+economias casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,9,pool
+economias do casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,9,pool
+economias mensais,FIT,"Month is the app's native frame: month selector, month totals, monthly insights, monthly budget.",sec 1.6 + sec 1.8,nao,5,42,17,pool
+economizar,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,5,51,OUT,candidate
+economizar dinheiro,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,5,21,OUT,candidate
+economize,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,24,38,OUT,candidate
+educação financeira,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,51,OUT,candidate
+entrada e saida,MISMATCH,'In and out' needs income; the app records expenses only and never subtracts.,NOT-list N3,nao,5,56,OUT,candidate
+entrada saída dinheiro,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,5,5,OUT,candidate
+expense,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,7,23,OUT,candidate
+expense tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,9,38,OUT,candidate
+expenses,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,30,19,OUT,candidate
+exportar despesas excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),nao,5,5,OUT,longtail
+extrato,FIT,"Per-category statement listing that category's expenses, with its own export.",sec 1.10 extract by category,sim,5,44,73,live+pool
+extrato de gastos,FIT,"Per-category statement listing that category's expenses, with its own export.",sec 1.10 extract by category,nao,5,7,7,candidate+longtail
+extrato gastos,FIT,"Per-category statement listing that category's expenses, with its own export.",sec 1.10 extract by category,nao,5,7,5,pool
+extrato por categoria,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,2,longtail
+face id,MISMATCH,No biometric or passcode lock exists (no local_auth package).,NOT-list N14,nao,9,56,OUT,candidate
+familiar,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,18,21,OUT,candidate
+familiares,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,9,OUT,candidate
+família,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,62,OUT,candidate
+fatura,MISMATCH,"Searcher wants credit-card statement/limit management; 'credit card' is one of the 14 default CATEGORIES, nothing more.",NOT-list N8,nao,5,9,OUT,candidate
+fatura cartao,MISMATCH,"Searcher wants credit-card statement/limit management; 'credit card' is one of the 14 default CATEGORIES, nothing more.",NOT-list N8,nao,5,62,OUT,candidate
+fatura do cartao,MISMATCH,"Searcher wants credit-card statement/limit management; 'credit card' is one of the 14 default CATEGORIES, nothing more.",NOT-list N8,nao,5,65,OUT,candidate
+faturas mensais,MISMATCH,"Searcher wants credit-card statement/limit management; 'credit card' is one of the 14 default CATEGORIES, nothing more.",NOT-list N8,nao,5,5,OUT,candidate
+financas,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,53,56,OUT,candidate
+financas a dois,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,15,OUT,candidate
+financas casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,23,128,candidate
+financas compartilhadas,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,32,12,candidate
+financas do casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,13,22,candidate
+financas familiares,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,42,OUT,candidate
+financas juntos,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,15,OUT,candidate
+financas para casais,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,54,OUT,candidate
+financas pessoais,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,55,154,candidate
+financas pessoais casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,3,candidate
+financas pessoais e familiares,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,42,58,candidate
+financas pessoais offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,5,OUT,longtail
+financas simples,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,45,OUT,candidate
+finance,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,48,37,OUT,candidate
+financeiro,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,30,55,OUT,candidate
+financeiro de despesa,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,17,OUT,candidate
+financeiro pessoal,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,48,OUT,candidate
+financial,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,14,5,OUT,candidate
+finanças,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,52,62,OUT,live+pool
+finanças controle,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,54,OUT,candidate
+finanças empresa,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,53,OUT,candidate
+finanças pessoais,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,59,63,220,pool
+finanças pessoais em controle,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,35,OUT,candidate
+fixas,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,sim,,,,live
+fleur,MISMATCH,Unrelated brand query; nothing in the inventory answers it.,n/a - outside the inventory,nao,7,51,OUT,candidate
+fleur gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,6,42,OUT,candidate
+fluxo de caixa,MISMATCH,"Searcher wants bookkeeping/accounting for a business (cash book, ledger closing, VAT); the app has one entity, an expense.",NOT-list N11,nao,5,23,OUT,candidate
+fácil,PARTIAL,Generic qualifier 'easy'; no intent of its own.,n/a - polysemous,nao,5,44,OUT,candidate
+gastar menos,PARTIAL,"Spending less is the outcome the app drives (see where it goes, cap a category), but there is no coaching or savings feature.",sec 1.8 vs NOT-list N9,nao,5,15,OUT,candidate
+gasto,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,55,OUT,candidate
+gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,38,63,OUT,live+pool
+gastos a dois,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,35,OUT,candidate
+gastos cartao,MISMATCH,"Searcher wants credit-card statement/limit management; 'credit card' is one of the 14 default CATEGORIES, nothing more.",NOT-list N8,nao,5,45,OUT,candidate
+gastos cartao credito,MISMATCH,"Searcher wants credit-card statement/limit management; 'credit card' is one of the 14 default CATEGORIES, nothing more.",NOT-list N8,nao,5,51,OUT,candidate
+gastos casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,9,5,pool
+gastos com mercado,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,21,OUT,candidate
+gastos compartilhados,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,11,2,pool
+gastos compartilhados amigos,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,9,OUT,candidate
+gastos compartilhados em casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,3,candidate
+gastos contas,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,nao,5,21,2,pool
+gastos da casa,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,32,OUT,candidate
+gastos diarios,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,7,52,OUT,candidate+longtail
+gastos diários,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,52,191,candidate
+gastos do cartao,MISMATCH,"Searcher wants credit-card statement/limit management; 'credit card' is one of the 14 default CATEGORIES, nothing more.",NOT-list N8,nao,5,41,OUT,candidate
+gastos do casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,4,pool
+gastos do mes,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,53,OUT,candidate+longtail
+gastos e receitas,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,23,OUT,candidate
+gastos em excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),nao,5,5,OUT,longtail
+gastos em grupo,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+gastos entre amigos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,11,OUT,candidate
+gastos familia,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,37,OUT,candidate
+gastos familiares,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,46,220,candidate
+gastos finanças,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,42,19,pool
+gastos fixos,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,23,OUT,candidate
+gastos fixos mensais,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,15,3,longtail
+gastos gratis,FIT,"The entire single-device product is free: logging, categories, fixed expenses, budgets, charts, calendar, custom periods and EXPORT. Only cloud sync is paid.",sec 1.9 + sec 1.15 gating,nao,5,63,OUT,candidate
+gastos grupo,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,17,OUT,candidate
+gastos juntos,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,19,OUT,candidate
+gastos mensais,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,55,OUT,pool
+gastos mensais casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,8,1,pool
+gastos mensais por categoria,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,1,longtail
+gastos namorados,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,candidate
+gastos no calendario,FIT,"Calendar view toggle inside the Transactions tab, with each day's expenses and day total.",sec 1.5 calendar,nao,5,33,OUT,longtail
+gastos offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,33,OUT,candidate
+gastos pessoais,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,60,150,pool
+gastos pessoais a dois,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,44,OUT,candidate
+gastos por categoria,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,3,candidate+longtail
+gastos recorrentes,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,5,OUT,longtail
+gastos simples,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,40,OUT,candidate
+gerenci,PARTIAL,"Truncated stem, not a query; only meaningful inside a composition.",n/a - fragment,nao,5,21,OUT,candidate
+gerenciador,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,nao,46,61,OUT,candidate
+gerenciador de gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,53,OUT,candidate
+gerenciador financeiro,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,17,48,OUT,candidate
+gerenciador financeiro pessoal,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,42,OUT,candidate
+gerenciamento,PARTIAL,Generic 'management'; carries no expense intent on its own.,n/a - polysemous,nao,5,46,OUT,candidate
+gerenciar,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,nao,5,36,OUT,candidate
+gestor,PARTIAL,Generic 'manager'; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,nao,5,40,OUT,candidate
+gestor de despesas,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,47,215,candidate+longtail
+gestor de despesas orcamento,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,39,OUT,candidate
+gestor de gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,6,46,OUT,candidate
+gestor de orcamento e despesas,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,55,142,candidate
+gestão,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,nao,5,50,OUT,candidate
+gestão de dinheiro,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,5,45,OUT,candidate
+gestão financeira,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,53,OUT,candidate
+grafico de gastos,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,36,OUT,longtail
+gratuito,FIT,"The entire single-device product is free: logging, categories, fixed expenses, budgets, charts, calendar, custom periods and EXPORT. Only cloud sync is paid.",sec 1.9 + sec 1.15 gating,nao,5,72,OUT,candidate
+gráfico despesas,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,13,OUT,candidate
+gráficos,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,21,OUT,candidate
+grátis,FIT,"The entire single-device product is free: logging, categories, fixed expenses, budgets, charts, calendar, custom periods and EXPORT. Only cloud sync is paid.",sec 1.9 + sec 1.15 gating,nao,5,78,OUT,candidate
+guardar dinheiro,MISMATCH,"Searcher wants a savings target / piggy bank; GoalModel is a spending CAP compared with spent>goal, never a target to reach.",NOT-list N9,nao,5,42,OUT,candidate
+icloud,MISMATCH,Sync is Firebase + Google Sign-In; there is no iCloud entitlement at all.,NOT-list N14,nao,68,62,OUT,candidate
+investimentos,MISMATCH,"Searcher wants investments/wealth building; no portfolio, no asset entity.",NOT-list N9 + N18,nao,5,82,OUT,candidate
+jogo casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,49,54,OUT,candidate
+lançamentos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,13,OUT,candidate
+lembrete de contas,MISMATCH,"Searcher wants bill/invoice management with due dates; bills can only be logged as plain expenses, no invoice entity, no due date, no reminder.",NOT-list N8 + N6,nao,5,41,OUT,candidate
+limite de gastos por categoria,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+limite do cartao,MISMATCH,"Searcher wants credit-card statement/limit management; 'credit card' is one of the 14 default CATEGORIES, nothing more.",NOT-list N8,nao,5,76,OUT,candidate
+lucro prejuízo,MISMATCH,Profit and loss needs income; the app has no income side and no accounting.,NOT-list N3 + N11,nao,5,5,OUT,candidate
+mei contador,MISMATCH,"Searcher wants bookkeeping/accounting for a business (cash book, ledger closing, VAT); the app has one entity, an expense.",NOT-list N11,nao,5,5,OUT,candidate
+mensais,FIT,"Month is the app's native frame: month selector, month totals, monthly insights, monthly budget.",sec 1.6 + sec 1.8,sim,,,,live
+mercado,PARTIAL,"Grocery spending is loggable via the built-in ShoppingBasket category, but the pool is supermarket apps.",sec 1.3 vs wrong pool,nao,67,75,OUT,candidate
+meta de orcamento,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,13,OUT,longtail
+meta financeira,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,19,OUT,candidate
+meta financeira casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+metas,PARTIAL,"'Metas' here are spending CAPS compared with spent>goal, not savings targets to reach.",sec 1.8 vs NOT-list N9,nao,14,44,OUT,candidate
+metas a dois,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,35,OUT,candidate
+meu dinheiro,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,5,61,OUT,candidate
+meu orçamento,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,41,OUT,candidate
+meus,PARTIAL,Grammatical particle or brand possessive split out of the live name/subtitle; it carries no standalone search intent and costs field characters.,"n/a - particle, not a query",sim,,,,live
+meus gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,50,235,pool
+meus gastos diarios,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,23,1,candidate
+minhas,PARTIAL,Grammatical particle or brand possessive split out of the live name/subtitle; it carries no standalone search intent and costs field characters.,"n/a - particle, not a query",nao,5,40,OUT,candidate
+minhas contas,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,nao,5,44,OUT,candidate
+minhas despesas,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,57,43,OUT,candidate
+minhas despesas financas,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,36,OUT,longtail
+minhas dividas,MISMATCH,Searcher wants debt payoff tracking; no debt entity exists in models/.,NOT-list N7,nao,5,38,OUT,candidate
+minhas economias,MISMATCH,Competitor or third-party brand query; the searcher wants that specific app.,n/a - brand query,nao,61,56,OUT,candidate
+minhas financas,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,57,58,164,candidate
+minhas financas controle,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,41,OUT,candidate
+minhas finanças,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,54,OUT,candidate
+mobills,MISMATCH,Competitor or third-party brand query; the searcher wants that specific app.,n/a - brand query,nao,65,50,OUT,candidate
+money,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,55,50,OUT,candidate
+money note,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,5,48,OUT,candidate
+money organiser,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,7,61,OUT,candidate
+objetivo financeiro,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,23,OUT,candidate
+objetivos financeiros,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,11,OUT,candidate
+offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,69,64,OUT,candidate
+orcamento,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,sim,,,,live
+orcamento a dois,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+orcamento casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,34,pool
+orcamento compartilhado,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,13,12,candidate
+orcamento da casa,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,38,OUT,candidate
+orcamento do casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,23,pool
+orcamento domestico,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,40,OUT,candidate
+orcamento e gastos familiares,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,9,OUT,candidate
+orcamento juntos,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+orcamento mensal,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,44,OUT,longtail
+orcamento mensal casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+orcamento por categoria,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,10,candidate+longtail
+orcamento simples,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,19,OUT,candidate
+organizador,PARTIAL,Forward-looking planning is partly there (month budget + end-of-month projection) but there is no income plan or schedule of future payments.,sec 1.6 vs NOT-list N3,nao,24,56,OUT,candidate
+organizador financeiro,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,57,56,OUT,candidate
+organizar,PARTIAL,Forward-looking planning is partly there (month budget + end-of-month projection) but there is no income plan or schedule of future payments.,sec 1.6 vs NOT-list N3,nao,21,45,OUT,candidate
+organizar contas,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,nao,5,44,OUT,candidate
+organizar financas,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,45,OUT,longtail
+organizar gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,13,50,OUT,candidate+longtail
+organizar gastos casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+organização financeira,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,52,OUT,candidate
+orçamento,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,47,OUT,candidate
+orçamento despesas,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,23,123,candidate
+orçamento familiar,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,49,OUT,candidate
+orçamento mensal,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,50,OUT,candidate
+orçamento pessoal,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,47,OUT,candidate
+pagamento,PARTIAL,The app never moves money; a payment can only be recorded after the fact.,NOT-list N4,nao,5,80,OUT,candidate
+pagar,PARTIAL,The app never moves money; a payment can only be recorded after the fact.,NOT-list N4,nao,5,74,OUT,candidate
+pagar contas,PARTIAL,Polysemous in pt-BR: bank accounts and bills-with-due-dates dominate the pool; we only log a bill as a plain expense.,NOT-list N8 + N18,nao,5,50,OUT,candidate
+pagar dividas,MISMATCH,Searcher wants debt payoff tracking; no debt entity exists in models/.,NOT-list N7,nao,5,29,OUT,candidate
+pequenos negócios,MISMATCH,"Small-business bookkeeping (invoices, clients, profit) does not exist; the app has one entity, an expense.",NOT-list N11,nao,5,33,OUT,candidate
+personal,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,nao,48,55,OUT,candidate
+personal finance,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,8,44,55,candidate
+pessoais,PARTIAL,Generic qualifier 'personal' from the live subtitle; no intent of its own.,n/a - polysemous,sim,5,19,OUT,live+pool
+pessoais cartões,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,nao,5,23,OUT,candidate
+pessoal,PARTIAL,Generic qualifier 'personal'; no intent of its own.,n/a - polysemous,nao,5,21,OUT,candidate
+pix,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,nao,65,86,OUT,candidate
+planejador de viagens,MISMATCH,Trip planning needs a trip entity and itinerary; neither exists.,NOT-list N5 + N11,nao,5,43,OUT,candidate
+planejamento,PARTIAL,Forward-looking planning is partly there (month budget + end-of-month projection) but there is no income plan or schedule of future payments.,sec 1.6 vs NOT-list N3,nao,5,57,OUT,candidate
+planejamento financeiro,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,49,OUT,candidate
+planilha,MISMATCH,"Searcher wants a spreadsheet to edit; the app only WRITES an .xlsx file, it never opens or syncs one.",NOT-list N12,sim,60,62,OUT,live+pool
+planilha casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,7,4,pool
+planilha compartilhada,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,28,1,candidate
+planilha de contas,MISMATCH,"Searcher wants a spreadsheet to edit; the app only WRITES an .xlsx file, it never opens or syncs one.",NOT-list N12,nao,5,52,OUT,candidate
+planilha de despesas,MISMATCH,"Searcher wants a spreadsheet to edit; the app only WRITES an .xlsx file, it never opens or syncs one.",NOT-list N12,nao,5,50,OUT,longtail
+planilha de gastos,MISMATCH,"Searcher wants a spreadsheet to edit; the app only WRITES an .xlsx file, it never opens or syncs one.",NOT-list N12,nao,5,61,OUT,candidate+longtail
+planilha de gastos mensais,MISMATCH,"Searcher wants a spreadsheet to edit; the app only WRITES an .xlsx file, it never opens or syncs one.",NOT-list N12,nao,5,52,118,candidate
+planilha de orcamento,MISMATCH,"Searcher wants a spreadsheet to edit; the app only WRITES an .xlsx file, it never opens or syncs one.",NOT-list N12,nao,5,40,OUT,candidate
+planilha despesas,MISMATCH,"Searcher wants a spreadsheet to edit; the app only WRITES an .xlsx file, it never opens or syncs one.",NOT-list N12,nao,5,52,OUT,pool
+planilha do casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,4,pool
+planilha financeira,MISMATCH,"Searcher wants a spreadsheet to edit; the app only WRITES an .xlsx file, it never opens or syncs one.",NOT-list N12,nao,59,64,OUT,candidate
+planilha gastos,MISMATCH,"Searcher wants a spreadsheet to edit; the app only WRITES an .xlsx file, it never opens or syncs one.",NOT-list N12,nao,5,58,OUT,pool
+planilha mensal,MISMATCH,"Searcher wants a spreadsheet to edit; the app only WRITES an .xlsx file, it never opens or syncs one.",NOT-list N12,nao,5,53,OUT,candidate
+poupanca do casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+poupança,MISMATCH,"Searcher wants a savings target / piggy bank; GoalModel is a spending CAP compared with spent>goal, never a target to reach.",NOT-list N9,nao,5,90,OUT,candidate
+poupar,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,5,17,OUT,candidate
+poupar dinheiro,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,5,15,OUT,candidate
+quitar dividas,MISMATCH,Searcher wants debt payoff tracking; no debt entity exists in models/.,NOT-list N7,nao,5,13,OUT,candidate
+quiz casal,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,14,40,OUT,candidate
+rastreador de despesas,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,19,OUT,candidate
+rastreador de gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,33,OUT,candidate
+receitas,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,50,41,OUT,candidate
+receitas e despesas,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,48,OUT,candidate
+registrar despesas,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,11,OUT,candidate
+registrar gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,58,OUT,longtail
+registro de despesas,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,23,OUT,longtail
+registro de gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,16,41,OUT,candidate
+relatorio de despesas,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,11,OUT,longtail
+relatorio de gastos,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,15,OUT,candidate
+relatorio financeiro,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,19,OUT,candidate
+relatorio mensal gastos,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,5,OUT,candidate
+relatório financeiro,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,21,OUT,candidate
+relatórios,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,11,OUT,candidate
+renda,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,23,OUT,candidate
+resumo,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,sim,,,,live
+resumo de gastos,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,5,1,candidate+longtail
+resumo mensal,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,5,OUT,candidate
+resumo mensal de gastos,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,5,OUT,longtail
+saidas dinheiro,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,5,5,OUT,candidate
+saldo,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,19,13,OUT,candidate
+saúde financeira,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,39,OUT,candidate
+sem assinatura,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,11,OUT,candidate
+sem internet,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,70,OUT,candidate
+senha,MISMATCH,No passcode or biometric lock exists.,NOT-list N14,nao,58,45,OUT,candidate
+simples,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,nao,51,49,OUT,candidate
+sincronização,FIT,Multi-device sync with last-write-wins merge and delete tombstones is a real (PRO) feature.,sec 1.11 cloud sync (PRO),nao,5,38,OUT,candidate
+transações,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,19,OUT,candidate
+vencimento,MISMATCH,"Searcher wants bill/invoice management with due dates; bills can only be logged as plain expenses, no invoice entity, no due date, no reminder.",NOT-list N8 + N6,nao,5,9,OUT,candidate
+vida financeira,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,46,OUT,candidate
+wallet,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,nao,62,62,OUT,candidate
+widget,FIT,Interactive iOS 17+ home-screen widget for quick add (systemMedium/systemLarge).,sec 1.13 widget,nao,61,65,OUT,candidate
+widget de gastos,FIT,Interactive iOS 17+ home-screen widget for quick add (systemMedium/systemLarge).,sec 1.13 widget,nao,5,38,OUT,longtail

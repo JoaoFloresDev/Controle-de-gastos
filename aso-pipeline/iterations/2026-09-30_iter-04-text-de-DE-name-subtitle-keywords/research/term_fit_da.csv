@@ -1,0 +1,49 @@
+term,verdict,reason,evidence,is_live_token,popularity,difficulty,our_rank,source
+bill,MISMATCH,"Searcher wants bill/invoice management with due dates; bills can only be logged as plain expenses, no invoice entity, no due date, no reminder.",NOT-list N8 + N6,nao,5,45,OUT,candidate
+bills,MISMATCH,"Searcher wants bill/invoice management with due dates; bills can only be logged as plain expenses, no invoice entity, no due date, no reminder.",NOT-list N8 + N6,nao,5,13,OUT,candidate
+budget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,sim,62,17,OUT,live+pool
+budget expense,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,5,OUT,candidate
+budget per maned,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,5,OUT,longtail
+dagbog,PARTIAL,"Polysemous: the unqualified pool is personal-diary / journal apps, not expense logging.","n/a - polysemous, wrong pool",sim,61,17,OUT,live+pool
+daglige udgifter,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+enkel,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,5,23,OUT,live+pool
+enkel udgiftsstyring,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,5,2,pool
+excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),sim,68,49,OUT,live+pool
+expense,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,44,7,OUT,candidate
+expense manager,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,7,OUT,candidate
+expense tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,11,OUT,candidate
+faste udgifter,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,5,OUT,longtail
+finance,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,27,57,OUT,candidate
+finans,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,39,41,OUT,live+pool
+forbrug,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,36,OUT,live+pool
+forbrug oversigt,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,5,7,longtail
+kalender,FIT,"Calendar view toggle inside the Transactions tab, with each day's expenses and day total.",sec 1.5 calendar,sim,74,44,OUT,live+pool
+kontrol,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,sim,5,17,OUT,live+pool
+manager,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,nao,40,49,OUT,candidate
+manager expense,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,11,OUT,candidate
+manedlige udgifter,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+mine,PARTIAL,Grammatical particle or brand possessive split out of the live name/subtitle; it carries no standalone search intent and costs field characters.,"n/a - particle, not a query",sim,43,45,OUT,live+pool
+mine udgifter,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,11,6,pool
+money,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,41,49,OUT,candidate
+money manager,MISMATCH,Competitor or third-party brand query; the searcher wants that specific app.,n/a - brand query,nao,30,11,OUT,candidate
+opsparing,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,sim,5,17,216,live+pool
+oversigt,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,sim,5,34,120,live+pool
+oversigt over udgifter,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,5,OUT,longtail
+pdf,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),sim,61,52,OUT,live+pool
+penge,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,5,43,OUT,live+pool
+planlægning,PARTIAL,Forward-looking planning is partly there (month budget + end-of-month projection) but there is no income plan or schedule of future payments.,sec 1.6 vs NOT-list N3,sim,5,41,OUT,live+pool
+planner,PARTIAL,Forward-looking planning is partly there (month budget + end-of-month projection) but there is no income plan or schedule of future payments.,sec 1.6 vs NOT-list N3,nao,58,42,OUT,candidate
+privatøkonomi,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,5,21,113,live+pool
+regnskab,MISMATCH,"Searcher wants bookkeeping/accounting for a business (cash book, ledger closing, VAT); the app has one entity, an expense.",NOT-list N11,sim,5,39,OUT,live+pool
+styr pa pengene,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,7,OUT,longtail
+tracker,PARTIAL,Bare cross-category word (habit/fitness/period trackers own this pool); only the qualified composition carries expense intent.,n/a - polysemous,nao,52,57,OUT,candidate
+tracker money,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,7,OUT,candidate
+udgifter,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,15,OUT,live+pool
+udgifter app,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,23,OUT,longtail
+udgifter excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),nao,5,7,5,longtail
+udgifter offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,5,OUT,longtail
+udgifter per kategori,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+udgifter widget,FIT,Interactive iOS 17+ home-screen widget for quick add (systemMedium/systemLarge).,sec 1.13 widget,nao,5,5,OUT,longtail
+udgiftsdagbog,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+udgiftsstyring,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,sim,5,9,20,live+pool
+udgiftsstyring app,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,9,21,longtail

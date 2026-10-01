@@ -1,0 +1,114 @@
+{
+ "iter_id": "2026-08-28_ppo-01_panorama-v3-ordering",
+ "experiment_number": 1,
+ "ppo_element_tested": "screenshots",
+ "ppo_sub_element": "new panorama art + screen ordering",
+ "app": {
+  "name": "Meus Gastos / My Expenses",
+  "app_id": "6502218501",
+  "bundle_id": "com.gambit.meusgastos"
+ },
+ "hypothesis": "A arte nova (panorama ChatGPT v3: fundo azul limpo, phones inteiros com margem, 1 hero por print, headline verb-split por código) converte melhor que os prints atuais da loja; e a ORDEM dos 3 primeiros prints (o que aparece na busca) muda a conversão. Sem control dedicado: cada tratamento é comparado com a default page (arte antiga) pela própria ASC.",
+ "base_assets": {
+  "source": "source/panorama_chatgpt_1836x856.png (ChatGPT, prompt refinado 2026-08-28 com refs Mobills/Pierre)",
+  "bases": "source/base_textfree/{67,65,55}/0N.png via tools/slice_panorama.py (janela centrada no phone, fundo sintetizado por linha, margem de 110px sob o phone)",
+  "headlines": "source/headlines_29_locales.json → tools/render_headlines.swift (CoreText, SF Black, sombra suave)",
+  "panels": {
+   "1": "add — lançar gasto em 2s (breakout chips + Adicionar)",
+   "2": "chart — donut por categoria",
+   "3": "report — Meu mês até agora (4 stats)",
+   "4": "calendar — calendário com gastos por dia",
+   "5": "bars — barras por categoria + resumo da semana"
+  }
+ },
+ "locales_tested": [
+  "ar-SA",
+  "cs",
+  "da",
+  "de-DE",
+  "el",
+  "en-US",
+  "es-ES",
+  "es-MX",
+  "fi",
+  "fr-FR",
+  "he",
+  "hi",
+  "hu",
+  "id",
+  "it",
+  "ja",
+  "ko",
+  "ms",
+  "nl-NL",
+  "no",
+  "pl",
+  "pt-BR",
+  "ru",
+  "sv",
+  "th",
+  "tr",
+  "uk",
+  "vi",
+  "zh-Hans"
+ ],
+ "locales_count": 29,
+ "display_types": {
+  "APP_IPHONE_67": "1320x2868 (29 locales)",
+  "APP_IPHONE_65": "1242x2688 (29 locales)",
+  "APP_IPHONE_55": "1242x2208 (pt-BR, en-US — os únicos com 5.5\" na default page)"
+ },
+ "default_page_state_2026-08-28": "pt-BR 67(6)/65(4)/55(3), en-US 67(5)/65(5)/55(3), es-ES 65(4), es-MX 65(4); demais 25 locales sem prints (caem no en-US)",
+ "treatments": [
+  {
+   "id": "A",
+   "folder": "A_velocidade-primeiro",
+   "order": [
+    "add",
+    "chart",
+    "report",
+    "calendar",
+    "bars"
+   ],
+   "thesis": "Diferencial real do app: lançar sem banco/sem setup. 'Lance em 2 segundos' no print 1."
+  },
+  {
+   "id": "B",
+   "folder": "B_insight-primeiro",
+   "order": [
+    "chart",
+    "add",
+    "report",
+    "calendar",
+    "bars"
+   ],
+   "thesis": "Promessa clássica do nicho ('veja pra onde vai seu dinheiro') no print 1, velocidade no 2."
+  },
+  {
+   "id": "C",
+   "folder": "C_calendario-primeiro",
+   "order": [
+    "calendar",
+    "add",
+    "chart",
+    "report",
+    "bars"
+   ],
+   "thesis": "Calendário com gasto por dia é raro nos concorrentes (Mobills/Organizze não têm) — testar como gancho de diferenciação no print 1."
+  }
+ ],
+ "traffic_proportion": 50,
+ "asc": "asc_state.json (experiment/treatment/localization/set ids + verificação por checksum)",
+ "next_steps": [
+  "pos-aprovacao: tools/upload_experiment.py . --verify (re-clone da ASC pode chegar a qualquer momento)",
+  "so entao PATCH /v2/appStoreVersionExperiments/{id} {started:true}",
+  "D7/D14: ler CVR por tratamento no ASC web (API nao expoe lift)"
+ ],
+ "created": "2026-08-28",
+ "winner": null,
+ "asc_ids": {
+  "experiment_id": "9570de85-a8a3-4601-a2c6-2a56c6936a0d",
+  "review_submission": "a6326fc3-42ad-4289-b24a-64cf3c9dad0f"
+ },
+ "status": "WAITING_FOR_REVIEW (submetido 2026-08-29 12:06 via API; 180 sets verificados ALL CLEAN no upload+60s e +1h)"
+}

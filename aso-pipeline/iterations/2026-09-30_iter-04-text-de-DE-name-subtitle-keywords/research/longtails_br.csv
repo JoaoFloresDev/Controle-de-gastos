@@ -1,0 +1,48 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+controle de gastos diarios,gastos,query natural composta,5,40,OUT,precisa entrar em campo: controle+de+diarios
+app de controle de gastos,gastos,query natural composta,5,59,OUT,precisa entrar em campo: app+de+controle+de
+gastos por categoria,gastos,query natural composta,5,5,3,precisa entrar em campo: por+categoria
+gastos fixos mensais,gastos,query natural composta,5,15,3,precisa entrar em campo: fixos | UI 'Gastos fixos'
+gastos do mes,gastos,query natural composta,5,53,OUT,precisa entrar em campo: mes
+anotar gastos,gastos,query natural composta,5,50,OUT,precisa entrar em campo: anotar
+registrar gastos,gastos,query natural composta,5,58,OUT,precisa entrar em campo: registrar | UI 'Registrar Despesa'
+gastos mensais por categoria,gastos,query natural composta,5,5,1,precisa entrar em campo: por+categoria
+controle de gastos offline,gastos,query natural composta,5,23,OUT,precisa entrar em campo: controle+de+offline
+controle de gastos sem internet,gastos,query natural composta,5,7,OUT,precisa entrar em campo: controle+de+sem+internet
+controle de gastos gratis,gastos,query natural composta,5,63,OUT,precisa entrar em campo: controle+de+gratis
+gastos no calendario,gastos,query natural composta,5,33,OUT,precisa entrar em campo: no+calendario | aba calendario real
+gastos recorrentes,gastos,query natural composta,5,5,OUT,precisa entrar em campo: recorrentes | UI 'Gastos Recorrentes'
+planilha de gastos,gastos,query natural composta,5,61,OUT,precisa entrar em campo: de | export Excel real
+gastos em excel,gastos,query natural composta,5,5,OUT,precisa entrar em campo: em+excel
+grafico de gastos,gastos,query natural composta,5,36,OUT,precisa entrar em campo: grafico+de | aba Graficos
+resumo de gastos,resumo,query natural composta,5,5,1,precisa entrar em campo: de
+widget de gastos,gastos,query natural composta,5,38,OUT,precisa entrar em campo: widget+de | widget interativo iOS
+limite de gastos por categoria,gastos,query natural composta,5,5,OUT,precisa entrar em campo: limite+de+por+categoria | orcamento por categoria = teto de gasto
+controle de gastos simples,gastos,query natural composta,5,40,OUT,precisa entrar em campo: controle+de+simples
+organizar gastos,gastos,query natural composta,13,50,OUT,precisa entrar em campo: organizar
+controle seus gastos,gastos,derivado do top-10,5,48,OUT,precisa entrar em campo: controle+seus | ngram do top-10 br
+despesas mensais,despesas,query natural composta,5,52,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+despesas por categoria,despesas,query natural composta,5,5,2,precisa entrar em campo: por+categoria
+registro de despesas,despesas,query natural composta,5,23,OUT,precisa entrar em campo: registro+de
+app de despesas,despesas,query natural composta,5,48,OUT,precisa entrar em campo: app+de
+controle de despesas pessoais,despesas,query natural composta,5,23,OUT,precisa entrar em campo: controle+de
+despesas recorrentes,despesas,query natural composta,5,5,OUT,precisa entrar em campo: recorrentes
+relatorio de despesas,despesas,query natural composta,5,11,OUT,precisa entrar em campo: relatorio+de
+exportar despesas excel,despesas,query natural composta,5,5,OUT,precisa entrar em campo: exportar+excel
+gestor de despesas,despesas,derivado do top-10,5,47,215,precisa entrar em campo: gestor+de | ngram x2 no top-10
+contas mensais,contas,query natural composta,5,50,OUT,"composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | 'contas' aqui = despesas do mes, nao conta bancaria"
+categorias de gastos,categorias,query natural composta,5,5,7,precisa entrar em campo: de
+extrato por categoria,extrato,query natural composta,5,5,2,"precisa entrar em campo: por+categoria | feature real, nenhum locale vende"
+extrato de gastos,extrato,query natural composta,5,7,7,precisa entrar em campo: de
+orcamento por categoria,orcamento,query natural composta,5,5,10,precisa entrar em campo: por+categoria
+orcamento mensal,orcamento,query natural composta,5,44,OUT,precisa entrar em campo: mensal
+app de orcamento,orcamento,query natural composta,5,47,OUT,precisa entrar em campo: app+de
+meta de orcamento,orcamento,query natural composta,5,13,OUT,precisa entrar em campo: meta+de | aba Orcamento = meta por categoria
+resumo mensal de gastos,resumo,query natural composta,5,5,OUT,precisa entrar em campo: mensal+de
+planilha de despesas,planilha,query natural composta,5,50,OUT,precisa entrar em campo: de
+diario de gastos,diario,query natural composta,5,49,58,precisa entrar em campo: de
+gastos diarios,diario,query natural composta,7,52,OUT,precisa entrar em campo: diarios
+financas pessoais offline,financas,query natural composta,5,5,OUT,precisa entrar em campo: offline
+app de financas pessoais,financas,query natural composta,5,60,203,precisa entrar em campo: app+de
+organizar financas,financas,query natural composta,5,45,OUT,precisa entrar em campo: organizar
+minhas despesas financas,despesas,derivado do top-10,5,36,OUT,precisa entrar em campo: minhas | ngram do top-10 br

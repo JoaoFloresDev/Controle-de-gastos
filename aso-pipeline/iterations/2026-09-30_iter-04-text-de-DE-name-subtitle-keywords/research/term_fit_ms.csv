@@ -1,0 +1,51 @@
+term,verdict,reason,evidence,is_live_token,popularity,difficulty,our_rank,source
+bajet,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,sim,5,21,OUT,live+pool
+bajet bulanan,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,5,OUT,longtail
+bajet mengikut kategori,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+belanja,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,63,57,70,live+pool
+belanja bulanan,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+belanja excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),nao,5,19,3,longtail
+belanja harian,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,11,13,longtail
+belanja mengikut kategori,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+belanja offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,27,4,longtail
+belanja saya,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,11,1,pool
+bills,MISMATCH,"Searcher wants bill/invoice management with due dates; bills can only be logged as plain expenses, no invoice entity, no due date, no reminder.",NOT-list N8 + N6,nao,5,15,OUT,candidate
+bills savings,MISMATCH,"Searcher wants a savings target / piggy bank; GoalModel is a spending CAP compared with spent>goal, never a target to reach.",NOT-list N9,nao,5,64,OUT,candidate
+budget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,52,42,OUT,candidate
+budget expense,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,21,OUT,candidate
+budget tracker,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,51,45,OUT,candidate
+catat,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,19,65,live+pool
+catat belanja,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,7,3,longtail+pool
+duit,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,40,44,69,live+pool
+excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),sim,74,52,OUT,live+pool
+expense,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,44,OUT,candidate
+expense tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,45,OUT,candidate
+finance,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,51,42,OUT,candidate
+graf,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,sim,5,23,OUT,live+pool
+graf belanja,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,5,1,longtail
+harian,FIT,"Month is the app's native frame: month selector, month totals, monthly insights, monthly budget.",sec 1.6 + sec 1.8,sim,5,15,OUT,live+pool
+jimat,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,sim,5,11,83,live+pool
+jimat duit aplikasi,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,5,5,OUT,longtail
+kalendar,FIT,"Calendar view toggle inside the Transactions tab, with each day's expenses and day total.",sec 1.5 calendar,sim,39,39,OUT,live+pool
+kategori,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,sim,5,7,21,live+pool
+kewangan,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,5,23,47,live+pool
+laporan,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,sim,5,15,144,live+pool
+laporan belanja,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,5,11,longtail
+manager,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,nao,43,23,OUT,candidate
+money,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,57,55,OUT,candidate
+money manager,MISMATCH,Competitor or third-party brand query; the searcher wants that specific app.,n/a - brand query,nao,63,44,OUT,candidate
+money tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,56,47,OUT,candidate
+offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,sim,61,59,OUT,live+pool
+pdf,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),sim,73,55,OUT,live+pool
+penyata,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,sim,5,15,16,live+pool
+perbelanjaan tetap,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,5,OUT,longtail
+perekod,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,5,5,live+pool
+rekod belanja,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+savings,MISMATCH,"Searcher wants a savings target / piggy bank; GoalModel is a spending CAP compared with spent>goal, never a target to reach.",NOT-list N9,nao,5,23,OUT,candidate
+saya,PARTIAL,Grammatical particle or brand possessive split out of the live name/subtitle; it carries no standalone search intent and costs field characters.,"n/a - particle, not a query",sim,5,5,OUT,live+pool
+simpanan,MISMATCH,"Searcher wants a savings target / piggy bank; GoalModel is a spending CAP compared with spent>goal, never a target to reach.",NOT-list N9,sim,5,19,154,live+pool
+spending,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,36,OUT,candidate
+tracker,PARTIAL,Bare cross-category word (habit/fitness/period trackers own this pool); only the qualified composition carries expense intent.,n/a - polysemous,nao,51,54,OUT,candidate
+urus,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,5,23,32,live+pool
+urus kewangan peribadi,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,5,OUT,longtail
+wang,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,5,47,OUT,live+pool

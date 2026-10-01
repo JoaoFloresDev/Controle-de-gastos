@@ -1,0 +1,39 @@
+term,verdict,reason,evidence,is_live_token,popularity,difficulty,our_rank,source
+أموال,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,5,17,OUT,live+pool
+إدارة,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,5,45,OUT,live+pool
+إدارة الأموال,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,5,37,86,pool
+ادارة المصروفات,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,9,19,longtail
+الأموال,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,5,19,OUT,live+pool
+المصروفات,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,23,20,live+pool
+المصروفات الثابتة,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,5,OUT,longtail
+المصروفات الشهرية,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+المصروفات اليومية,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+المصروفات بدون انترنت,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,5,OUT,longtail
+المصروفات حسب الفئة,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+المصروفات ميزانية,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,5,3,pool
+تتبع المصروفات,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,9,17,longtail
+تخطيط,PARTIAL,Forward-looking planning is partly there (month budget + end-of-month projection) but there is no income plan or schedule of future payments.,sec 1.6 vs NOT-list N3,sim,5,35,OUT,live+pool
+تخطيط مالي شخصي,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,5,8,longtail
+تسجيل المصروفات,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+تطبيق المصروفات,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,23,OUT,longtail
+توفير,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,sim,5,46,OUT,live+pool
+توفير المال,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,5,33,OUT,longtail
+حساب,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,sim,51,46,OUT,live+pool
+دفتر المصاريف,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,7,OUT,longtail
+راتب,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,sim,5,53,OUT,live+pool
+شخصي,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,5,9,OUT,live+pool
+عائلة,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,sim,5,44,OUT,live+pool
+فواتير,MISMATCH,"Searcher wants bill/invoice management with due dates; bills can only be logged as plain expenses, no invoice entity, no due date, no reminder.",NOT-list N8 + N6,sim,17,9,OUT,live+pool
+مالي,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,5,51,OUT,live+pool
+محفظة,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,sim,53,72,OUT,live+pool
+مصاريف,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,56,40,OUT,live+pool
+مصاريف شهرية,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,11,OUT,longtail
+مصاريف يومية,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+ميزانية,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,sim,5,23,OUT,live+pool
+ميزانية حسب الفئة,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+ميزانية شخصية,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,11,44,longtail
+ميزانية شهرية,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,7,OUT,longtail
+نفقات,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,9,OUT,live+pool
+نفقات شهرية,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+والتوفير,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,sim,5,5,OUT,live+pool
+وتتبع,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,39,OUT,live+pool

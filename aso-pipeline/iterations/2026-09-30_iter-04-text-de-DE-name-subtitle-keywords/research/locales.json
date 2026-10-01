@@ -1,0 +1,249 @@
+{
+  "scope": "ALL 29 live store localizations (João 2026-09-30: 'todos os idiomas da loja'). Corrected from 13 after stage 1 read the real ASC state.",
+  "primary_target": "de-DE",
+  "computed_at": "2026-09-30",
+  "window_days": 90,
+  "total_installs_90d": 439,
+  "tier_a_full_research": [
+    {
+      "locale": "de-DE",
+      "astro_store": "de",
+      "installs_90d": 64,
+      "astro_pulled": true,
+      "role": "PRIMARY TARGET"
+    },
+    {
+      "locale": "pt-BR",
+      "astro_store": "br",
+      "installs_90d": 161,
+      "astro_pulled": true,
+      "role": ""
+    },
+    {
+      "locale": "fr-FR",
+      "astro_store": "fr",
+      "installs_90d": 27,
+      "astro_pulled": true,
+      "role": ""
+    },
+    {
+      "locale": "ja",
+      "astro_store": "jp",
+      "installs_90d": 27,
+      "astro_pulled": true,
+      "role": ""
+    },
+    {
+      "locale": "en-US",
+      "astro_store": "us",
+      "installs_90d": 19,
+      "astro_pulled": true,
+      "role": "app primary locale"
+    },
+    {
+      "locale": "es-ES",
+      "astro_store": "es",
+      "installs_90d": 8,
+      "astro_pulled": true,
+      "role": ""
+    }
+  ],
+  "tier_b_compose_lighter": [
+    {
+      "locale": "tr",
+      "astro_store": "tr",
+      "installs_90d": 17,
+      "astro_pulled": true
+    },
+    {
+      "locale": "it",
+      "astro_store": "it",
+      "installs_90d": 12,
+      "astro_pulled": true
+    },
+    {
+      "locale": "ar-SA",
+      "astro_store": "sa",
+      "installs_90d": 10,
+      "astro_pulled": true
+    },
+    {
+      "locale": "es-MX",
+      "astro_store": "mx",
+      "installs_90d": 10,
+      "astro_pulled": true
+    },
+    {
+      "locale": "id",
+      "astro_store": "id",
+      "installs_90d": 10,
+      "astro_pulled": true
+    },
+    {
+      "locale": "zh-Hans",
+      "astro_store": "cn",
+      "installs_90d": 5,
+      "astro_pulled": true
+    },
+    {
+      "locale": "ko",
+      "astro_store": "kr",
+      "installs_90d": 2,
+      "astro_pulled": true
+    }
+  ],
+  "coverage_gaps_no_listing": [
+    {
+      "locale": "en-GB",
+      "installs_90d": 17,
+      "note": "NO localization exists -> these storefronts fall back to the app PRIMARY locale (pt-BR), i.e. GB/IE/LK/GH/KH/NP see Portuguese. Highest-value gap."
+    },
+    {
+      "locale": "vi",
+      "installs_90d": 9
+    },
+    {
+      "locale": "hi",
+      "installs_90d": 7,
+      "note": "IN also reads en-GB"
+    },
+    {
+      "locale": "ru",
+      "installs_90d": 6
+    },
+    {
+      "locale": "nl-NL",
+      "installs_90d": 4
+    }
+  ],
+  "gates_overridden": {
+    "traffic_floor": {
+      "rule": ">=100 installs 1*/30d in target country",
+      "measured": {
+        "DE": 25,
+        "BR": 45,
+        "US": 9
+      },
+      "verdict": "FAILED",
+      "override_by": "João, 2026-09-30, explicit choice: 'roda a cadeia mesmo assim'"
+    },
+    "rating_first": {
+      "rule": "<25 ratings in target store -> ratings before ASO",
+      "measured": {
+        "DE": 2,
+        "BR": 18,
+        "US": 1
+      },
+      "verdict": "FAILED",
+      "override_by": "same"
+    }
+  },
+  "measurement_caveat": "At 25 installs/30d in DE no text change produces a statistically separable signal. Results will be directional only; results.final cannot be computed with a confidence interval.",
+  "deploy_constraint": "No editable iOS appStoreVersion and appInfo is READY_FOR_DISTRIBUTION. Keywords/name/subtitle changes require POST /v1/appStoreVersions + a build + App Review. Not a text-only PATCH.",
+  "corrections_from_stage1": [
+    "App PRIMARY locale is en-US, not pt-BR. Storefronts without their own localization fall back to the ENGLISH listing.",
+    "The app has 29 live localizations, not 13. hi, vi, ru, nl-NL DO have their own listing. Only en-GB has none (and falls back to en-US, same language) — the 'Portuguese fallback' finding from the brief is WRONG and must not reach the report.",
+    "No App Store Search Terms report exists for this app and it has no Apple Ads campaign. Astro popularity is the ONLY volume source -> every bet is 'pop nao confiavel'."
+  ],
+  "tier_c_long_tail_locales": {
+    "note": "16 locales with their own live listing but <=9 installs/90d. Astro NOT pulled in stage 1. Covered so 'todos os idiomas' is literal; fields composed from the FIT inventory + per-language research, each marked with its evidence level.",
+    "locales": [
+      {
+        "locale": "vi",
+        "astro_store": "vn",
+        "installs_90d": 9,
+        "astro_pulled": false
+      },
+      {
+        "locale": "hi",
+        "astro_store": "in",
+        "installs_90d": 7,
+        "astro_pulled": false
+      },
+      {
+        "locale": "ru",
+        "astro_store": "ru",
+        "installs_90d": 6,
+        "astro_pulled": false
+      },
+      {
+        "locale": "nl-NL",
+        "astro_store": "nl",
+        "installs_90d": 4,
+        "astro_pulled": false
+      },
+      {
+        "locale": "fi",
+        "astro_store": "fi",
+        "installs_90d": 3,
+        "astro_pulled": false
+      },
+      {
+        "locale": "he",
+        "astro_store": "il",
+        "installs_90d": 3,
+        "astro_pulled": false
+      },
+      {
+        "locale": "no",
+        "astro_store": "no",
+        "installs_90d": 3,
+        "astro_pulled": false
+      },
+      {
+        "locale": "uk",
+        "astro_store": "ua",
+        "installs_90d": 3,
+        "astro_pulled": false
+      },
+      {
+        "locale": "ms",
+        "astro_store": "my",
+        "installs_90d": 2,
+        "astro_pulled": false
+      },
+      {
+        "locale": "pl",
+        "astro_store": "pl",
+        "installs_90d": 2,
+        "astro_pulled": false
+      },
+      {
+        "locale": "hu",
+        "astro_store": "hu",
+        "installs_90d": 1,
+        "astro_pulled": false
+      },
+      {
+        "locale": "sv",
+        "astro_store": "se",
+        "installs_90d": 1,
+        "astro_pulled": false
+      },
+      {
+        "locale": "cs",
+        "astro_store": "cz",
+        "installs_90d": 0,
+        "astro_pulled": false
+      },
+      {
+        "locale": "da",
+        "astro_store": "dk",
+        "installs_90d": 0,
+        "astro_pulled": false
+      },
+      {
+        "locale": "el",
+        "astro_store": "gr",
+        "installs_90d": 0,
+        "astro_pulled": false
+      },
+      {
+        "locale": "th",
+        "astro_store": "th",
+        "installs_90d": 0,
+        "astro_pulled": false
+      }
+    ]
+  }
+}

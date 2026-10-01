@@ -1,0 +1,80 @@
+term,verdict,reason,evidence,is_live_token,popularity,difficulty,our_rank,source
+bill,MISMATCH,"Searcher wants bill/invoice management with due dates; bills can only be logged as plain expenses, no invoice entity, no due date, no reminder.",NOT-list N8 + N6,nao,50,58,OUT,candidate
+bills,MISMATCH,"Searcher wants bill/invoice management with due dates; bills can only be logged as plain expenses, no invoice entity, no due date, no reminder.",NOT-list N8 + N6,nao,7,65,OUT,candidate
+budget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,62,71,OUT,candidate
+budget by category app,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,21,OUT,longtail
+budget planner,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,50,66,OUT,candidate
+budget planner offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,5,OUT,longtail
+budgeting,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,sim,38,68,OUT,live+pool
+budgeting app simple,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,21,OUT,longtail
+budgets,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,23,OUT,candidate
+control,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,sim,55,76,OUT,live+pool
+cost tracker app,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,23,OUT,longtail
+costs,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,17,OUT,live+pool
+daily expense tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,44,OUT,longtail
+easy,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,43,60,OUT,live+pool
+easy expense tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,36,OUT,longtail
+expense,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,16,60,OUT,candidate
+expense calendar,FIT,"Calendar view toggle inside the Transactions tab, with each day's expenses and day total.",sec 1.5 calendar,nao,5,38,OUT,longtail
+expense charts,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,23,OUT,longtail
+expense log app,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,36,OUT,longtail
+expense tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,47,65,OUT,candidate
+expense tracker excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),nao,5,42,OUT,longtail
+expense tracker no bank,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,23,OUT,longtail
+expense tracker no sign up,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,15,OUT,longtail
+expense tracker offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,21,OUT,longtail
+expense tracker widget,FIT,Interactive iOS 17+ home-screen widget for quick add (systemMedium/systemLarge).,sec 1.13 widget,nao,5,15,OUT,longtail
+expenses,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,7,56,OUT,live+pool
+expenses by category,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,15,OUT,longtail
+expenses without bank,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,57,OUT,longtail
+export expenses to excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),nao,5,43,OUT,longtail
+finance,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,59,89,OUT,live+pool
+finances,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,21,70,OUT,live+pool
+financial,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,12,85,OUT,live+pool
+fixed expenses tracker,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,40,OUT,longtail
+income,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,46,OUT,candidate
+investing,MISMATCH,"Searcher wants investments/wealth building; no portfolio, no asset entity.",NOT-list N9 + N18,nao,60,91,OUT,candidate
+manage,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,38,57,OUT,live+pool
+manage money simple,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,5,19,OUT,longtail
+management,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,nao,20,52,OUT,candidate
+management track,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,19,OUT,candidate
+manager,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,nao,46,62,OUT,candidate
+mis gastos,PARTIAL,"Spanish form of our own brand name surfacing in the US storefront; brand token, no feature intent.",n/a - brand query,nao,15,21,97,candidate
+money,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,64,83,OUT,live+pool
+money spending,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,54,OUT,candidate
+money tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,43,66,OUT,candidate
+money tracker offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,37,OUT,longtail
+monthly budget by category,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,11,OUT,longtail
+monthly expenses tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,17,61,OUT,longtail
+monthly spending insights,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,15,OUT,longtail
+my,PARTIAL,Grammatical particle or brand possessive split out of the live name/subtitle; it carries no standalone search intent and costs field characters.,"n/a - particle, not a query",sim,,,,live
+my costa,MISMATCH,Unrelated brand query; nothing in the inventory answers it.,n/a - outside the inventory,nao,34,41,54,candidate
+my expenses,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,9,15,5,pool
+net worth,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,7,43,OUT,candidate
+personal,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,40,39,OUT,live+pool
+personal expense tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,38,OUT,longtail
+planner,PARTIAL,Forward-looking planning is partly there (month budget + end-of-month projection) but there is no income plan or schedule of future payments.,sec 1.6 vs NOT-list N3,nao,67,73,OUT,candidate
+planner money,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,5,41,OUT,candidate
+planning,PARTIAL,Forward-looking planning is partly there (month budget + end-of-month projection) but there is no income plan or schedule of future payments.,sec 1.6 vs NOT-list N3,sim,39,62,OUT,live+pool
+quản lý chi tiêu cá nhân,PARTIAL,"Right intent (personal expense management) but Vietnamese, so it cannot be served from the en-US field.",sec 1.2 - wrong storefront language,nao,14,37,85,candidate
+recurring expenses app,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,19,OUT,longtail
+save,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,sim,39,50,OUT,live+pool
+save money app,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,5,52,OUT,longtail
+savings,MISMATCH,"Searcher wants a savings target / piggy bank; GoalModel is a spending CAP compared with spent>goal, never a target to reach.",NOT-list N9,sim,27,72,OUT,live+pool
+savings tracker,MISMATCH,"Searcher wants a savings target / piggy bank; GoalModel is a spending CAP compared with spent>goal, never a target to reach.",NOT-list N9,nao,33,51,OUT,longtail
+simple expense tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,23,OUT,longtail
+spending,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,9,56,OUT,candidate
+spending by category,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,13,OUT,longtail
+spending tracker,PARTIAL,Bare cross-category word (habit/fitness/period trackers own this pool); only the qualified composition carries expense intent.,n/a - polysemous,nao,9,63,OUT,candidate
+subscription,PARTIAL,"Subscriptions can be entered as recurring fixed expenses, but there is no renewal detection and no reminder.",sec 1.7 vs NOT-list N6,nao,51,56,OUT,candidate
+take control of your money,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,37,OUT,longtail
+total spent by category,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,15,OUT,longtail
+track,PARTIAL,Bare cross-category word (habit/fitness/period trackers own this pool); only the qualified composition carries expense intent.,n/a - polysemous,nao,49,77,OUT,candidate
+track expenses offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,17,OUT,longtail
+track income,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,39,OUT,candidate
+tracker,PARTIAL,Bare cross-category word (habit/fitness/period trackers own this pool); only the qualified composition carries expense intent.,n/a - polysemous,nao,52,79,OUT,candidate
+tracker budget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,15,OUT,candidate
+where does my money go,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,5,13,OUT,longtail
+where's,PARTIAL,Grammatical particle or brand possessive split out of the live name/subtitle; it carries no standalone search intent and costs field characters.,"n/a - particle, not a query",sim,5,44,OUT,live+pool
+where's my,PARTIAL,Fragment of our own live subtitle; no standalone search intent.,"n/a - particle, not a query",nao,5,35,83,pool
+worth,MISMATCH,"Fragment of 'net worth'; the app has no assets and no income, so it can never compute one.",NOT-list N3 + N18,nao,5,9,OUT,candidate

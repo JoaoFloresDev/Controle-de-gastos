@@ -1,0 +1,17 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+uitgaven bijhouden,uitgaven,derivado do top-10,5,19,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | nome de 4 apps do top-10 nl
+dagelijkse uitgaven,uitgaven,query natural composta,5,5,OUT,precisa entrar em campo: dagelijkse
+maandelijkse uitgaven,uitgaven,query natural composta,5,42,OUT,precisa entrar em campo: maandelijkse
+uitgaven per categorie,uitgaven,query natural composta,5,5,OUT,precisa entrar em campo: per
+uitgaven app,uitgaven,query natural composta,5,23,OUT,precisa entrar em campo: app
+uitgaven offline,uitgaven,query natural composta,5,9,24,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+uitgaven grafiek,grafiek,query natural composta,5,5,6,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+uitgaven excel,uitgaven,query natural composta,5,9,7,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+uitgaven widget,uitgaven,query natural composta,5,5,OUT,precisa entrar em campo: widget
+vaste kosten,kosten,query natural composta,5,46,OUT,precisa entrar em campo: vaste | gastos fixos = feature real
+kosten bijhouden,kosten,derivado do top-10,5,15,68,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | 'Kosten en budget bijhouden' no top-10
+budget per categorie,budget,query natural composta,5,5,OUT,precisa entrar em campo: per
+kasboek app,kasboek,query natural composta,5,38,126,precisa entrar em campo: app | 'kasboek' e keyword live e aparece x2 no top-10
+huishoudboekje budget,beheer,derivado do top-10,5,19,OUT,precisa entrar em campo: huishoudboekje | 'Huishoudboekje & Budget Fleur' + 'Gratis huishoudboekje' no top-10 nl; palavra NOVA (nao e token de nenhum campo live)
+geld beheer,beheer,query natural composta,5,23,145,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+financien overzicht,financien,query natural composta,5,5,OUT,precisa entrar em campo: overzicht

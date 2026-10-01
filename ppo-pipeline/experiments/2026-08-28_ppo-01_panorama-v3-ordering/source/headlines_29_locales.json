@@ -1,0 +1,713 @@
+{
+ "_note": "Verb-split: line1 = verbo grande, line2 = complemento. Slugs na ordem da arte: 1 add, 2 chart, 3 report, 4 calendar, 5 bars. Tamanhos em px pra 1320x2868 (escalados pros outros display types). size overrides opcionais por locale.",
+ "_default": {
+  "size1": 230,
+  "size2": 88
+ },
+ "screens": [
+  "add",
+  "chart",
+  "report",
+  "calendar",
+  "bars"
+ ],
+ "en-US": {
+  "panels": [
+   [
+    "LOG",
+    "AN EXPENSE IN 2 SECONDS"
+   ],
+   [
+    "SEE",
+    "WHERE YOUR MONEY GOES"
+   ],
+   [
+    "UNDERSTAND",
+    "YOUR MONTH AT A GLANCE"
+   ],
+   [
+    "TRACK",
+    "EVERY DAY ON THE CALENDAR"
+   ],
+   [
+    "COMPARE",
+    "SPENDING BY CATEGORY"
+   ]
+  ]
+ },
+ "pt-BR": {
+  "panels": [
+   [
+    "LANCE",
+    "UM GASTO EM 2 SEGUNDOS"
+   ],
+   [
+    "VEJA",
+    "PRA ONDE VAI SEU DINHEIRO"
+   ],
+   [
+    "ENTENDA",
+    "SEU MÊS NUM RELANCE"
+   ],
+   [
+    "ACOMPANHE",
+    "DIA A DIA NO CALENDÁRIO"
+   ],
+   [
+    "COMPARE",
+    "GASTOS POR CATEGORIA"
+   ]
+  ]
+ },
+ "es-ES": {
+  "panels": [
+   [
+    "ANOTA",
+    "UN GASTO EN 2 SEGUNDOS"
+   ],
+   [
+    "MIRA",
+    "A DÓNDE VA TU DINERO"
+   ],
+   [
+    "ENTIENDE",
+    "TU MES DE UN VISTAZO"
+   ],
+   [
+    "SIGUE",
+    "CADA DÍA EN EL CALENDARIO"
+   ],
+   [
+    "COMPARA",
+    "GASTOS POR CATEGORÍA"
+   ]
+  ]
+ },
+ "es-MX": {
+  "panels": [
+   [
+    "ANOTA",
+    "UN GASTO EN 2 SEGUNDOS"
+   ],
+   [
+    "MIRA",
+    "A DÓNDE VA TU DINERO"
+   ],
+   [
+    "ENTIENDE",
+    "TU MES DE UN VISTAZO"
+   ],
+   [
+    "SIGUE",
+    "CADA DÍA EN EL CALENDARIO"
+   ],
+   [
+    "COMPARA",
+    "GASTOS POR CATEGORÍA"
+   ]
+  ]
+ },
+ "fr-FR": {
+  "panels": [
+   [
+    "NOTEZ",
+    "UNE DÉPENSE EN 2 SECONDES"
+   ],
+   [
+    "VOYEZ",
+    "OÙ PART VOTRE ARGENT"
+   ],
+   [
+    "COMPRENEZ",
+    "VOTRE MOIS EN UN COUP D'ŒIL"
+   ],
+   [
+    "SUIVEZ",
+    "CHAQUE JOUR SUR LE CALENDRIER"
+   ],
+   [
+    "COMPAREZ",
+    "LES DÉPENSES PAR CATÉGORIE"
+   ]
+  ]
+ },
+ "de-DE": {
+  "panels": [
+   [
+    "ERFASSE",
+    "AUSGABEN IN 2 SEKUNDEN"
+   ],
+   [
+    "SIEH",
+    "WOHIN DEIN GELD GEHT"
+   ],
+   [
+    "VERSTEHE",
+    "DEINEN MONAT AUF EINEN BLICK"
+   ],
+   [
+    "VERFOLGE",
+    "JEDEN TAG IM KALENDER"
+   ],
+   [
+    "VERGLEICHE",
+    "AUSGABEN NACH KATEGORIE"
+   ]
+  ]
+ },
+ "it": {
+  "panels": [
+   [
+    "REGISTRA",
+    "UNA SPESA IN 2 SECONDI"
+   ],
+   [
+    "SCOPRI",
+    "DOVE VANNO I TUOI SOLDI"
+   ],
+   [
+    "CAPISCI",
+    "IL TUO MESE A COLPO D'OCCHIO"
+   ],
+   [
+    "SEGUI",
+    "OGNI GIORNO NEL CALENDARIO"
+   ],
+   [
+    "CONFRONTA",
+    "LE SPESE PER CATEGORIA"
+   ]
+  ]
+ },
+ "nl-NL": {
+  "panels": [
+   [
+    "NOTEER",
+    "EEN UITGAVE IN 2 SECONDEN"
+   ],
+   [
+    "ZIE",
+    "WAAR JE GELD HEEN GAAT"
+   ],
+   [
+    "BEGRIJP",
+    "JE MAAND IN ÉÉN OOGOPSLAG"
+   ],
+   [
+    "VOLG",
+    "ELKE DAG IN DE KALENDER"
+   ],
+   [
+    "VERGELIJK",
+    "UITGAVEN PER CATEGORIE"
+   ]
+  ]
+ },
+ "sv": {
+  "panels": [
+   [
+    "LOGGA",
+    "EN UTGIFT PÅ 2 SEKUNDER"
+   ],
+   [
+    "SE",
+    "VART DINA PENGAR GÅR"
+   ],
+   [
+    "FÖRSTÅ",
+    "DIN MÅNAD PÅ EN SEKUND"
+   ],
+   [
+    "FÖLJ",
+    "VARJE DAG I KALENDERN"
+   ],
+   [
+    "JÄMFÖR",
+    "UTGIFTER PER KATEGORI"
+   ]
+  ]
+ },
+ "da": {
+  "panels": [
+   [
+    "NOTÉR",
+    "EN UDGIFT PÅ 2 SEKUNDER"
+   ],
+   [
+    "SE",
+    "HVOR DINE PENGE GÅR HEN"
+   ],
+   [
+    "FORSTÅ",
+    "DIN MÅNED MED ÉT BLIK"
+   ],
+   [
+    "FØLG",
+    "HVER DAG I KALENDEREN"
+   ],
+   [
+    "SAMMENLIGN",
+    "UDGIFTER PR. KATEGORI"
+   ]
+  ]
+ },
+ "no": {
+  "panels": [
+   [
+    "LOGG",
+    "EN UTGIFT PÅ 2 SEKUNDER"
+   ],
+   [
+    "SE",
+    "HVOR PENGENE DINE GÅR"
+   ],
+   [
+    "FORSTÅ",
+    "MÅNEDEN DIN PÅ ET BLIKK"
+   ],
+   [
+    "FØLG",
+    "HVER DAG I KALENDEREN"
+   ],
+   [
+    "SAMMENLIGN",
+    "UTGIFTER PER KATEGORI"
+   ]
+  ]
+ },
+ "fi": {
+  "panels": [
+   [
+    "KIRJAA",
+    "KULU 2 SEKUNNISSA"
+   ],
+   [
+    "NÄE",
+    "MIHIN RAHASI MENEVÄT"
+   ],
+   [
+    "YMMÄRRÄ",
+    "KUUKAUTESI YHDELLÄ SILMÄYKSELLÄ"
+   ],
+   [
+    "SEURAA",
+    "JOKA PÄIVÄÄ KALENTERISSA"
+   ],
+   [
+    "VERTAA",
+    "KULUJA LUOKITTAIN"
+   ]
+  ]
+ },
+ "pl": {
+  "panels": [
+   [
+    "ZAPISZ",
+    "WYDATEK W 2 SEKUNDY"
+   ],
+   [
+    "ZOBACZ",
+    "GDZIE IDĄ TWOJE PIENIĄDZE"
+   ],
+   [
+    "ZROZUM",
+    "SWÓJ MIESIĄC NA PIERWSZY RZUT OKA"
+   ],
+   [
+    "ŚLEDŹ",
+    "KAŻDY DZIEŃ W KALENDARZU"
+   ],
+   [
+    "PORÓWNAJ",
+    "WYDATKI WEDŁUG KATEGORII"
+   ]
+  ]
+ },
+ "cs": {
+  "panels": [
+   [
+    "ZAPIŠTE",
+    "VÝDAJ ZA 2 SEKUNDY"
+   ],
+   [
+    "VIDĚTE",
+    "KAM JDOU VAŠE PENÍZE"
+   ],
+   [
+    "POCHOPTE",
+    "SVŮJ MĚSÍC NA PRVNÍ POHLED"
+   ],
+   [
+    "SLEDUJTE",
+    "KAŽDÝ DEN V KALENDÁŘI"
+   ],
+   [
+    "POROVNEJTE",
+    "VÝDAJE PODLE KATEGORIÍ"
+   ]
+  ]
+ },
+ "hu": {
+  "panels": [
+   [
+    "RÖGZÍTS",
+    "KIADÁST 2 MÁSODPERC ALATT"
+   ],
+   [
+    "LÁSD",
+    "HOVÁ MEGY A PÉNZED"
+   ],
+   [
+    "ÉRTSD MEG",
+    "A HÓNAPOD EGY PILLANTÁSSAL"
+   ],
+   [
+    "KÖVESD",
+    "MINDEN NAPOT A NAPTÁRBAN"
+   ],
+   [
+    "HASONLÍTSD",
+    "ÖSSZE A KIADÁSOKAT KATEGÓRIÁNKÉNT"
+   ]
+  ]
+ },
+ "el": {
+  "panels": [
+   [
+    "ΚΑΤΑΓΡΑΨΕ",
+    "ΕΞΟΔΟ ΣΕ 2 ΔΕΥΤΕΡΟΛΕΠΤΑ"
+   ],
+   [
+    "ΔΕΣ",
+    "ΠΟΥ ΠΑΝΕ ΤΑ ΧΡΗΜΑΤΑ ΣΟΥ"
+   ],
+   [
+    "ΚΑΤΑΛΑΒΕ",
+    "ΤΟΝ ΜΗΝΑ ΣΟΥ ΜΕ ΜΙΑ ΜΑΤΙΑ"
+   ],
+   [
+    "ΠΑΡΑΚΟΛΟΥΘΗΣΕ",
+    "ΚΑΘΕ ΜΕΡΑ ΣΤΟ ΗΜΕΡΟΛΟΓΙΟ"
+   ],
+   [
+    "ΣΥΓΚΡΙΝΕ",
+    "ΕΞΟΔΑ ΑΝΑ ΚΑΤΗΓΟΡΙΑ"
+   ]
+  ]
+ },
+ "tr": {
+  "panels": [
+   [
+    "KAYDET",
+    "2 SANİYEDE BİR HARCAMA"
+   ],
+   [
+    "GÖR",
+    "PARAN NEREYE GİDİYOR"
+   ],
+   [
+    "ANLA",
+    "AYINI TEK BAKIŞTA"
+   ],
+   [
+    "TAKİP ET",
+    "TAKVİMDE HER GÜNÜ"
+   ],
+   [
+    "KARŞILAŞTIR",
+    "KATEGORİYE GÖRE HARCAMALARI"
+   ]
+  ]
+ },
+ "ru": {
+  "panels": [
+   [
+    "ЗАПИШИ",
+    "РАСХОД ЗА 2 СЕКУНДЫ"
+   ],
+   [
+    "УЗНАЙ",
+    "КУДА УХОДЯТ ДЕНЬГИ"
+   ],
+   [
+    "ПОЙМИ",
+    "СВОЙ МЕСЯЦ С ПЕРВОГО ВЗГЛЯДА"
+   ],
+   [
+    "СЛЕДИ",
+    "ЗА КАЖДЫМ ДНЁМ В КАЛЕНДАРЕ"
+   ],
+   [
+    "СРАВНИ",
+    "РАСХОДЫ ПО КАТЕГОРИЯМ"
+   ]
+  ]
+ },
+ "uk": {
+  "panels": [
+   [
+    "ЗАПИШИ",
+    "ВИТРАТУ ЗА 2 СЕКУНДИ"
+   ],
+   [
+    "ПОБАЧ",
+    "КУДИ ЙДУТЬ ТВОЇ ГРОШІ"
+   ],
+   [
+    "ЗРОЗУМІЙ",
+    "СВІЙ МІСЯЦЬ З ПЕРШОГО ПОГЛЯДУ"
+   ],
+   [
+    "СТЕЖ",
+    "ЗА КОЖНИМ ДНЕМ У КАЛЕНДАРІ"
+   ],
+   [
+    "ПОРІВНЯЙ",
+    "ВИТРАТИ ЗА КАТЕГОРІЯМИ"
+   ]
+  ]
+ },
+ "ar-SA": {
+  "panels": [
+   [
+    "سجّل",
+    "مصروفًا في ثانيتين"
+   ],
+   [
+    "اعرف",
+    "أين تذهب أموالك"
+   ],
+   [
+    "افهم",
+    "شهرك بنظرة واحدة"
+   ],
+   [
+    "تابع",
+    "كل يوم في التقويم"
+   ],
+   [
+    "قارن",
+    "المصروفات حسب الفئة"
+   ]
+  ]
+ },
+ "he": {
+  "panels": [
+   [
+    "רשמו",
+    "הוצאה תוך 2 שניות"
+   ],
+   [
+    "ראו",
+    "לאן הכסף שלכם הולך"
+   ],
+   [
+    "הבינו",
+    "את החודש במבט אחד"
+   ],
+   [
+    "עקבו",
+    "אחרי כל יום בלוח השנה"
+   ],
+   [
+    "השוו",
+    "הוצאות לפי קטגוריה"
+   ]
+  ]
+ },
+ "hi": {
+  "panels": [
+   [
+    "दर्ज करें",
+    "2 सेकंड में खर्च"
+   ],
+   [
+    "देखें",
+    "आपका पैसा कहाँ जाता है"
+   ],
+   [
+    "समझें",
+    "अपना महीना एक नज़र में"
+   ],
+   [
+    "ट्रैक करें",
+    "कैलेंडर में हर दिन"
+   ],
+   [
+    "तुलना करें",
+    "श्रेणी के अनुसार खर्च"
+   ]
+  ]
+ },
+ "th": {
+  "panels": [
+   [
+    "บันทึก",
+    "รายจ่ายใน 2 วินาที"
+   ],
+   [
+    "ดู",
+    "ว่าเงินของคุณไปไหน"
+   ],
+   [
+    "เข้าใจ",
+    "เดือนของคุณในพริบตา"
+   ],
+   [
+    "ติดตาม",
+    "ทุกวันในปฏิทิน"
+   ],
+   [
+    "เปรียบเทียบ",
+    "รายจ่ายตามหมวดหมู่"
+   ]
+  ]
+ },
+ "vi": {
+  "panels": [
+   [
+    "GHI",
+    "CHI TIÊU TRONG 2 GIÂY"
+   ],
+   [
+    "XEM",
+    "TIỀN CỦA BẠN ĐI ĐÂU"
+   ],
+   [
+    "HIỂU",
+    "THÁNG CỦA BẠN TRONG NHÁY MẮT"
+   ],
+   [
+    "THEO DÕI",
+    "TỪNG NGÀY TRÊN LỊCH"
+   ],
+   [
+    "SO SÁNH",
+    "CHI TIÊU THEO DANH MỤC"
+   ]
+  ]
+ },
+ "id": {
+  "panels": [
+   [
+    "CATAT",
+    "PENGELUARAN DALAM 2 DETIK"
+   ],
+   [
+    "LIHAT",
+    "KE MANA UANGMU PERGI"
+   ],
+   [
+    "PAHAMI",
+    "BULANMU DALAM SEKEJAP"
+   ],
+   [
+    "PANTAU",
+    "SETIAP HARI DI KALENDER"
+   ],
+   [
+    "BANDINGKAN",
+    "PENGELUARAN PER KATEGORI"
+   ]
+  ]
+ },
+ "ms": {
+  "panels": [
+   [
+    "CATAT",
+    "PERBELANJAAN DALAM 2 SAAT"
+   ],
+   [
+    "LIHAT",
+    "KE MANA WANG ANDA PERGI"
+   ],
+   [
+    "FAHAMI",
+    "BULAN ANDA SEKALI PANDANG"
+   ],
+   [
+    "PANTAU",
+    "SETIAP HARI DALAM KALENDAR"
+   ],
+   [
+    "BANDINGKAN",
+    "PERBELANJAAN IKUT KATEGORI"
+   ]
+  ]
+ },
+ "ja": {
+  "size1": 200,
+  "panels": [
+   [
+    "記録",
+    "2秒で支出を入力"
+   ],
+   [
+    "見える",
+    "お金の行き先が一目で"
+   ],
+   [
+    "わかる",
+    "今月の状況がひと目で"
+   ],
+   [
+    "追える",
+    "カレンダーで毎日をチェック"
+   ],
+   [
+    "比べる",
+    "カテゴリ別の支出"
+   ]
+  ]
+ },
+ "ko": {
+  "size1": 200,
+  "panels": [
+   [
+    "기록",
+    "2초 만에 지출 입력"
+   ],
+   [
+    "확인",
+    "내 돈이 어디로 가는지"
+   ],
+   [
+    "이해",
+    "한눈에 보는 이번 달"
+   ],
+   [
+    "추적",
+    "캘린더로 매일 확인"
+   ],
+   [
+    "비교",
+    "카테고리별 지출"
+   ]
+  ]
+ },
+ "zh-Hans": {
+  "size1": 200,
+  "panels": [
+   [
+    "记账",
+    "2 秒记录一笔支出"
+   ],
+   [
+    "看清",
+    "钱都花到哪里去了"
+   ],
+   [
+    "读懂",
+    "本月开支一目了然"
+   ],
+   [
+    "跟踪",
+    "日历上的每一天"
+   ],
+   [
+    "对比",
+    "各类别的支出"
+   ]
+  ]
+ }
+}

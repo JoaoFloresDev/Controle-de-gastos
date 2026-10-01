@@ -1,5 +1,3 @@
-¡Descubre Mis Gastos, la aplicación ideal para quienes desean tener un control total sobre sus finanzas!
-
 Registro Simplificado de Gastos
 Registra tus gastos de manera rápida e intuitiva. Solo ingresa el monto, la descripción, la categoría y la fecha para mantener tu presupuesto siempre actualizado.
 

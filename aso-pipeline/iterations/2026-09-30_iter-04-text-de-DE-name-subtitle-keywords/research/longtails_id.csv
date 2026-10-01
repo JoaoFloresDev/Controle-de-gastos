@@ -1,0 +1,19 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+catatan pengeluaran,catatan,query natural composta,5,44,107,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | nome live ja traz 'Catatan Anggaran'
+pencatat pengeluaran harian,catatan,query natural composta,5,28,OUT,precisa entrar em campo: pencatat+harian
+pengeluaran bulanan,bulanan,query natural composta,5,35,83,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+pengeluaran per kategori,catatan,query natural composta,5,5,OUT,precisa entrar em campo: per+kategori
+aplikasi pengeluaran,catatan,query natural composta,5,40,249,precisa entrar em campo: aplikasi
+pengeluaran tetap,catatan,query natural composta,5,5,OUT,precisa entrar em campo: tetap | gastos fixos = feature real
+pengeluaran offline,catatan,query natural composta,5,13,OUT,precisa entrar em campo: offline
+pengeluaran excel,catatan,query natural composta,5,9,OUT,precisa entrar em campo: excel
+grafik pengeluaran,catatan,query natural composta,5,5,OUT,precisa entrar em campo: grafik
+widget pengeluaran,catatan,query natural composta,5,5,OUT,precisa entrar em campo: widget
+anggaran bulanan,anggaran,query natural composta,5,5,26,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+anggaran per kategori,anggaran,query natural composta,5,5,OUT,precisa entrar em campo: per+kategori
+catatan keuangan harian,keuangan,query natural composta,53,44,156,precisa entrar em campo: harian
+buku kas harian,buku kas,query natural composta,5,23,OUT,precisa entrar em campo: harian | 'buku kas' e keyword live
+kelola keuangan pribadi,keuangan,query natural composta,5,17,OUT,precisa entrar em campo: kelola+pribadi
+atur uang bulanan,uang,query natural composta,5,9,5,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | subtitle live 'Atur uang & hemat'
+hemat uang aplikasi,hemat,query natural composta,5,9,22,precisa entrar em campo: aplikasi
+tabungan bulanan,tabungan,query natural composta,5,11,28,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | MISFIT N9: app nao tem poupanca; token so na keyword live

@@ -1,0 +1,40 @@
+term,verdict,reason,evidence,is_live_token,popularity,difficulty,our_rank,source
+个人理财,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,5,54,OUT,live+pool
+分类预算,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,44,OUT,longtail
+固定支出,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,17,OUT,longtail
+家庭记账,FIT,Household ledger run by ONE person is exactly the product - it is the app's own Chinese store name.,sec 1.2 + store name,nao,28,58,OUT,longtail
+家庭账本,FIT,Household ledger run by ONE person is exactly the product - it is the app's own Chinese store name.,sec 1.2 + store name,sim,5,60,29,live+pool
+家庭账本 app,FIT,Household ledger run by ONE person is exactly the product - it is the app's own Chinese store name.,sec 1.2 + store name,nao,5,44,117,longtail
+小账本,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,66,166,live+pool
+小账本 记账,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,57,135,longtail
+支出图表,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,17,OUT,longtail
+支出管理,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,39,11,OUT,live+pool
+支出统计,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,36,OUT,longtail
+收支,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,sim,5,61,OUT,live+pool
+收支记录,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,54,OUT,longtail
+日常开销,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,61,196,live+pool
+日常开销记录,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,11,44,longtail
+日常记账,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,25,59,OUT,longtail
+月度预算,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,11,OUT,longtail
+月账单,PARTIAL,"Bills can be logged as plain expenses, but the pool wants due dates and reminders.",NOT-list N8 + N6,sim,5,43,247,live+pool
+消费记录,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,48,OUT,live+longtail+pool
+理财,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,43,74,OUT,live+pool
+理财app,MISMATCH,"Wealth-management pool (the app has no investments or income), and 'app' is a stopword the lab never buys.",NOT-list N3 + N9 + lab rule (no app token),sim,5,70,OUT,live+pool
+省钱,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,sim,51,75,OUT,live+pool
+省钱记账,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,55,164,longtail
+简单家庭账本,FIT,Household ledger run by ONE person is exactly the product - it is the app's own Chinese store name.,sec 1.2 + store name,sim,5,34,2,live+pool
+简单记账,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,44,49,OUT,longtail
+记账,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,76,83,OUT,live+pool
+记账 分类,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,15,OUT,longtail
+记账 导出 excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),nao,5,5,OUT,longtail
+记账 小组件,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,47,OUT,longtail
+记账 无广告,FIT,The app shows no ads at all - no ad SDK is installed anywhere.,NOT-list N15,nao,5,54,OUT,longtail
+记账 日历,FIT,"Calendar view toggle inside the Transactions tab, with each day's expenses and day total.",sec 1.5 calendar,nao,5,60,OUT,longtail
+记账 离线,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,13,OUT,longtail
+记账app,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,29,78,OUT,longtail
+记账本,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,63,76,OUT,longtail
+财务,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,33,74,OUT,live+pool
+账单,PARTIAL,"Bills can be logged as plain expenses, but the pool wants due dates and reminders.",NOT-list N8 + N6,sim,40,69,OUT,live+pool
+钱包,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,sim,72,45,OUT,live+pool
+预算管理,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,23,OUT,longtail
+预算追踪,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,sim,5,21,106,live+pool

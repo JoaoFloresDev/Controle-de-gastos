@@ -1,0 +1,89 @@
+Controle financeiro simples e gratuito
+
+Um app de orçamento simples para acompanhar receitas e despesas com facilidade.
+
+Sem cadastro de conta, sem conexão bancária e sem assinaturas.
+Todos os dados são armazenados localmente para uso rápido, seguro e offline.
+
+Projetado com uma interface iOS familiar, o Este aplicativo permite que qualquer pessoa comece a gerenciar seu orçamento instantaneamente.
+
+
+FUNCIONALIDADES
+----------------
+
+• Extremamente simples e fácil de usar 
+• Sem necessidade de cadastro de conta 
+• Grátis para sempre (sem cobranças ocultas) 
+• Calendário integrado para acompanhamento fácil 
+• Configuração de orçamento por categoria 
+• Relatórios mensais, anuais e acumulados 
+• Categorias personalizadas ilimitadas 
+• Configurações de receitas e despesas fixas ilimitadas 
+• Mais de 20 cores de tema e mais de 20 ícones de app 
+• Exportação CSV (Excel), exportação PDF e impressão 
+• Bloqueio por código de acesso (com Face ID e Touch ID) 
+• Backup no iCloud e sincronização com iPad 
+• Mais de 15 widgets para a tela inicial 
+• Widgets da tela de bloqueio suportados 
+
+Tudo o que você precisa para o gerenciamento diário de despesas, totalmente grátis.
+
+
+RECOMENDADO PARA
+----------------
+
+• Pessoas que não querem um app de orçamento complicado 
+• Usuários que se sentem desconfortáveis vinculando contas bancárias ou cartões de crédito 
+• Quem não gosta de apps que ficam constantemente conectados à internet 
+• Qualquer pessoa que queira registrar despesas de forma simples e rápida 
+• Usuários que desistiram de apps de leitura de recibos 
+• Pessoas que só querem inserir dados facilmente 
+• Qualquer pessoa que não queira pagar assinaturas mensais 
+
+O Este aplicativo armazena todos os dados localmente, por isso é rápido, seguro e funciona offline.
+Diferente de muitos outros apps, não há assinaturas mensais, e as funcionalidades úteis permanecem gratuitas.
+
+
+DETALHES DAS FUNCIONALIDADES
+----------------
+
+[ Entrada ]
+Toque nos botões grandes de categoria e insira valores rapidamente.
+O teclado calculadora integrado torna a entrada rápida e confortável.
+Um modo de entrada automática permite inserir vários recibos continuamente.
+
+[ Calendário ]
+Confira receitas e despesas diárias de relance no calendário.
+Personalize o dia de início da semana e as datas de início ou fechamento do mês, facilitando o acompanhamento a partir do dia do pagamento.
+Adicione ou exclua registros diretamente do calendário para uma entrada em massa fácil.
+Economias e saldos iniciais podem ser configurados para exibir transferências e totais acumulados.
+
+[ Relatórios ]
+Receitas e despesas mensais são exibidas em gráficos de pizza claros.
+Veja as proporções de gastos por categoria para detectar facilmente gastos excessivos ou desperdícios ocultos.
+
+[ Backup / CSV / Exportação PDF ]
+Todos os dados podem ser exportados como arquivos CSV (compatíveis com Excel).
+Use arquivos exportados como backups e importe-os ao trocar de dispositivo, incluindo iPhone e iPad.
+Os dados CSV também podem ser usados no computador para contabilidade ou declaração de impostos.
+Os dados mensais podem ser exportados como arquivos PDF para arquivamento ou impressão.
+
+[ Cores de tema e ícones do app ]
+Personalize o app com mais de 20 cores de tema, de rosas fofos a azuis-escuros elegantes.
+Mude o ícone do app para combinar com seu estilo, escolhendo entre mais de 20 designs.
+
+[ Bloqueio por código ]
+Proteja seus dados financeiros com um código de acesso.
+Face ID e Touch ID são totalmente suportados.
+
+[ Widgets ]
+Suporta widgets da tela inicial e da tela de bloqueio.
+Confira orçamentos restantes por categoria sem abrir o app.
+Veja quanto ainda pode gastar neste mês.
+Exiba um minicalendário mostrando os dias registrados.
+Adicione novos registros diretamente da tela de bloqueio com um único toque.
+
+【Termos de serviço】
+https://komorebi-studio.com/tos_en.html
+【Política de privacidade】
+https://komorebi-studio.com/policyredirect.html

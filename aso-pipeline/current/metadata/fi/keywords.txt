@@ -1,0 +1,1 @@
+kirjaus,laskuri,säästäminen,excel,pdf,kaavio,widget,offline,kalenteri,kustannukset

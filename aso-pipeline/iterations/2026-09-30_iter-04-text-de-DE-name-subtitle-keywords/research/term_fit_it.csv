@@ -1,0 +1,42 @@
+term,verdict,reason,evidence,is_live_token,popularity,difficulty,our_rank,source
+app spese,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,6,55,OUT,longtail
+bilancio,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,sim,6,47,77,live+pool
+bilancio personale,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,39,5,longtail
+budget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,sim,57,49,OUT,live+pool
+budget mensile,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,44,OUT,longtail
+budget per categoria,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+budget risparmio,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,40,OUT,pool
+calendario spese,FIT,"Calendar view toggle inside the Transactions tab, with each day's expenses and day total.",sec 1.5 calendar,nao,5,50,OUT,longtail
+carta,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,sim,47,69,OUT,live+pool
+conto,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,sim,16,67,OUT,live+pool
+denaro,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,5,63,OUT,live+pool
+famiglia,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,sim,51,59,OUT,live+pool
+finanza,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,53,68,OUT,live+pool
+finanze,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,7,52,OUT,live+pool
+finanze personali,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,7,47,OUT,longtail
+gestione,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,5,54,OUT,live+pool
+gestione delle spese,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,14,48,OUT,longtail
+gestione soldi,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,16,52,OUT,longtail
+gestione spese,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,56,44,78,longtail
+grafico spese,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,9,OUT,longtail
+monitoraggio,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,21,OUT,live+pool
+monitoraggio spese,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,6,51,61,longtail
+personale,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,5,50,OUT,live+pool
+registro spese,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,6,50,OUT,longtail
+risparmio,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,sim,15,54,OUT,live+pool
+risparmio mensile,FIT,"Month is the app's native frame: month selector, month totals, monthly insights, monthly budget.",sec 1.6 + sec 1.8,nao,5,40,OUT,longtail
+soldi,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,52,57,OUT,live+pool
+spesa,PARTIAL,Polysemous: singular 'spesa' reads as grocery shopping; only the 'spese' (expenses) reading fits.,sec 1.3 vs wrong pool,sim,41,58,OUT,live+pool
+spese,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,51,54,OUT,live+pool
+spese bilancio,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,23,9,pool
+spese del mese,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,52,OUT,longtail
+spese excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),nao,5,37,OUT,longtail
+spese fisse,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,5,OUT,longtail
+spese giornaliere,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,13,49,OUT,longtail
+spese mensili,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,53,49,OUT,longtail
+spese offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,13,OUT,longtail
+spese per categoria,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+spese ricorrenti,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,5,OUT,longtail
+spese senza banca,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,5,OUT,longtail
+tracciamento spese,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,21,OUT,longtail
+widget spese,FIT,Interactive iOS 17+ home-screen widget for quick add (systemMedium/systemLarge).,sec 1.13 widget,nao,5,11,OUT,longtail

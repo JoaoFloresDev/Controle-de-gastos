@@ -1,0 +1,1 @@
+diario,mensais,extrato,fixas,resumo,orcamento,economias,controle,recorrentes,offline,excel,grafico

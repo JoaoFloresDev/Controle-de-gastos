@@ -1,0 +1,57 @@
+term,verdict,reason,evidence,is_live_token,popularity,difficulty,our_rank,source
+personal finance,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,8,44,45,candidate
+おこづかい帳,PARTIAL,Allowance-book pool is adjacent (you can log pocket money as expenses) but there is no allowance balance.,sec 1.2 vs NOT-list N3,nao,63,57,OUT,candidate
+お小遣い,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,sim,59,55,OUT,live+pool
+お小遣い 管理,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,55,OUT,longtail
+お金,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,58,76,OUT,live+pool
+お金 管理 アプリ,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,64,OUT,longtail
+かけいぼ,FIT,The app's own Japanese store name and UI are built on 家計簿 / 家計管理 - the product's own word.,sec 3 UI vocabulary (myControl=家計管理),sim,64,73,OUT,live+pool
+かけいぼ 簡単,FIT,The app's own Japanese store name and UI are built on 家計簿 / 家計管理 - the product's own word.,sec 3 UI vocabulary (myControl=家計管理),nao,5,63,245,longtail
+かんたん,PARTIAL,Generic qualifier 'easy'; no intent of its own.,n/a - polysemous,nao,32,51,OUT,candidate
+シンプル家計簿,FIT,The app's own Japanese store name and UI are built on 家計簿 / 家計管理 - the product's own word.,sec 3 UI vocabulary (myControl=家計管理),nao,59,53,220,candidate
+シンプル支出管理,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,36,23,live+pool
+マネー,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,32,69,OUT,live+pool
+予算,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,sim,26,50,OUT,live+pool
+予算 カテゴリ,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+予算 管理,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,43,OUT,longtail
+出費,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,24,56,240,live+pool
+出費 管理,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,62,174,longtail
+出費 記録,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,47,243,longtail
+収支,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,sim,67,63,OUT,live+pool
+収支 管理,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,62,OUT,longtail
+固定費 アプリ,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,43,OUT,longtail
+固定費 管理,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,38,OUT,longtail
+定期支出,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,11,OUT,longtail
+家計,FIT,The app's own Japanese store name and UI are built on 家計簿 / 家計管理 - the product's own word.,sec 3 UI vocabulary (myControl=家計管理),sim,26,73,OUT,live+pool
+家計 管理,FIT,The app's own Japanese store name and UI are built on 家計簿 / 家計管理 - the product's own word.,sec 3 UI vocabulary (myControl=家計管理),nao,5,74,OUT,longtail
+家計簿,FIT,The app's own Japanese store name and UI are built on 家計簿 / 家計管理 - the product's own word.,sec 3 UI vocabulary (myControl=家計管理),sim,85,73,OUT,live+pool
+家計簿 ウィジェット,FIT,The app's own Japanese store name and UI are built on 家計簿 / 家計管理 - the product's own word.,sec 3 UI vocabulary (myControl=家計管理),nao,5,43,OUT,longtail
+家計簿 エクセル,FIT,The app's own Japanese store name and UI are built on 家計簿 / 家計管理 - the product's own word.,sec 3 UI vocabulary (myControl=家計管理),nao,5,57,OUT,longtail
+家計簿 オフライン,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,50,OUT,longtail
+家計簿 カレンダー,FIT,"Calendar view toggle inside the Transactions tab, with each day's expenses and day total.",sec 1.5 calendar,nao,5,49,OUT,longtail
+家計簿 シンプル,FIT,The app's own Japanese store name and UI are built on 家計簿 / 家計管理 - the product's own word.,sec 3 UI vocabulary (myControl=家計管理),nao,5,52,OUT,longtail
+家計簿 広告なし,FIT,The app shows no ads at all - no ad SDK is installed anywhere.,NOT-list N15,nao,5,52,OUT,longtail
+家計簿 無料,FIT,"The entire single-device product is free: logging, categories, fixed expenses, budgets, charts, calendar, custom periods and EXPORT. Only cloud sync is paid.",sec 1.9 + sec 1.15 gating,nao,5,70,OUT,longtail
+家計簿 簡単,FIT,The app's own Japanese store name and UI are built on 家計簿 / 家計管理 - the product's own word.,sec 3 UI vocabulary (myControl=家計管理),nao,5,67,OUT,longtail
+家計簿アプリ,FIT,The app's own Japanese store name and UI are built on 家計簿 / 家計管理 - the product's own word.,sec 3 UI vocabulary (myControl=家計管理),nao,74,73,OUT,longtail
+支出,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,30,52,OUT,live+pool
+支出 カテゴリ,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,7,OUT,longtail
+支出 グラフ,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,54,OUT,longtail
+支出合計,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,9,OUT,longtail
+支出管理,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,57,58,OUT,pool
+支出管理アプリ,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,57,OUT,longtail
+支出記録,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,49,OUT,longtail
+月の支出,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,34,OUT,longtail
+月予算,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,34,OUT,longtail
+生活費,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,8,53,OUT,live+pool
+生活費 管理,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,72,196,longtail
+生活費 記録,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,21,123,longtail
+節約,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,sim,39,51,OUT,live+pool
+節約 家計簿,FIT,The app's own Japanese store name and UI are built on 家計簿 / 家計管理 - the product's own word.,sec 3 UI vocabulary (myControl=家計管理),nao,5,45,OUT,longtail
+節約アプリ,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,27,47,OUT,longtail
+節約・予算・お金の見える化,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,sim,5,9,5,live+pool
+簡単,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,25,66,OUT,live+pool
+簡単お小遣い帳,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,5,46,OUT,candidate
+記録,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,63,63,OUT,live+pool
+貯金,MISMATCH,"Searcher wants a savings target / piggy bank; GoalModel is a spending CAP compared with spent>goal, never a target to reach.",NOT-list N9,sim,72,57,OUT,live+pool
+貯金 アプリ,MISMATCH,"Searcher wants a savings target / piggy bank; GoalModel is a spending CAP compared with spent>goal, never a target to reach.",NOT-list N9,nao,5,53,OUT,longtail

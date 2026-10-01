@@ -1,0 +1,23 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+가계부 앱,가계부,query natural composta,5,60,223,composicao: idioma sem separacao por palavra — core word presente no termo
+간단한 가계부,가계부,query natural composta,5,44,25,composicao: idioma sem separacao por palavra — core word presente no termo | nome live '간단한 지출 관리'
+가계부 무료,가계부,query natural composta,5,42,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+가계부 위젯,가계부,query natural composta,5,54,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | widget interativo real
+가계부 엑셀,가계부,query natural composta,5,50,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+가계부 오프라인,가계부,query natural composta,5,23,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+가계부 달력,가계부,query natural composta,5,48,245,composicao: idioma sem separacao por palavra — core word presente no termo
+지출 관리,지출,query natural composta,5,46,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | nome live
+지출 기록,지출,query natural composta,5,45,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+일일 지출,지출,query natural composta,5,5,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+월별 지출,지출,query natural composta,5,15,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+카테고리별 지출,지출,query natural composta,5,5,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+고정 지출,지출,query natural composta,5,47,243,composicao: idioma sem separacao por palavra — core word presente no termo | gastos fixos = feature real
+지출 그래프,지출,query natural composta,5,11,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+예산 관리,예산,query natural composta,5,51,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+월 예산,예산,query natural composta,5,9,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+카테고리 예산,예산,query natural composta,5,5,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+생활비 관리,생활비,query natural composta,5,17,120,composicao: idioma sem separacao por palavra — core word presente no termo
+용돈 기입장,용돈,query natural composta,5,44,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+절약 가계부,절약,query natural composta,5,15,41,composicao: idioma sem separacao por palavra — core word presente no termo
+장부 앱,장부,query natural composta,5,45,158,composicao: idioma sem separacao por palavra — core word presente no termo
+자산 관리 앱,자산,query natural composta,5,48,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | MISFIT N3/N9: subtitle live promete '자산 추적' e o app nao tem

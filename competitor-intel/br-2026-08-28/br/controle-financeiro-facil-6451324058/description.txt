@@ -1,0 +1,4 @@
+Aplicativo para controle financeiro pessoal. Ideal para controlar financas de casa e de pequenos comercios 
+
+Terms of Use (EULA):
+https://www.apple.com/legal/internet-services/itunes/dev/stdeula/

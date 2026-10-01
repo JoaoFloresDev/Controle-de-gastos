@@ -1,0 +1,25 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+gestione spese,spese,derivado do top-10,56,44,78,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | nome do #1 e #2 do top-10 it
+gestione delle spese,spese,derivado do top-10,14,48,OUT,precisa entrar em campo: delle | nome literal do #1 it
+spese mensili,spese,derivado do top-10,53,49,OUT,precisa entrar em campo: mensili | subtitle Fleur it
+spese per categoria,spese,query natural composta,5,5,OUT,precisa entrar em campo: per+categoria
+spese fisse,spese,query natural composta,5,5,OUT,precisa entrar em campo: fisse | feature real
+spese ricorrenti,spese,query natural composta,5,5,OUT,precisa entrar em campo: ricorrenti
+tracciamento spese,spese,query natural composta,5,21,OUT,precisa entrar em campo: tracciamento
+monitoraggio spese,monitoraggio,query natural composta,6,51,61,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+app spese,spese,query natural composta,6,55,OUT,precisa entrar em campo: app
+registro spese,spese,query natural composta,6,50,OUT,precisa entrar em campo: registro
+spese giornaliere,spese,query natural composta,13,49,OUT,precisa entrar em campo: giornaliere
+spese del mese,spese,query natural composta,5,52,OUT,precisa entrar em campo: del+mese
+spese excel,spese,query natural composta,5,37,OUT,precisa entrar em campo: excel
+grafico spese,spese,query natural composta,5,9,OUT,precisa entrar em campo: grafico
+calendario spese,spese,query natural composta,5,50,OUT,precisa entrar em campo: calendario
+widget spese,spese,query natural composta,5,11,OUT,precisa entrar em campo: widget
+spese offline,spese,query natural composta,5,13,OUT,precisa entrar em campo: offline
+spese senza banca,spese,query natural composta,5,5,OUT,precisa entrar em campo: senza+banca | sem conexao bancaria
+budget mensile,budget,query natural composta,5,44,OUT,precisa entrar em campo: mensile
+budget per categoria,budget,query natural composta,5,5,OUT,precisa entrar em campo: per+categoria
+gestione soldi,soldi,query natural composta,16,52,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+finanze personali,finanza,query natural composta,7,47,OUT,precisa entrar em campo: personali
+risparmio mensile,risparmio,query natural composta,5,40,OUT,precisa entrar em campo: mensile
+bilancio personale,bilancio,query natural composta,5,39,5,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | MISFIT N3: nome live promete 'Bilancio' e o app nao tem balanco

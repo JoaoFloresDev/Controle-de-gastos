@@ -1,0 +1,14 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+kiadasok nyilvantartasa,kiadások,query natural composta,5,5,OUT,precisa entrar em campo: kiadasok+nyilvantartasa
+napi kiadasok,kiadások,query natural composta,5,7,OUT,precisa entrar em campo: napi+kiadasok
+havi kiadasok,kiadások,query natural composta,5,5,OUT,precisa entrar em campo: havi+kiadasok
+kiadasok kategoriankent,kiadások,query natural composta,5,5,OUT,precisa entrar em campo: kiadasok+kategoriankent
+fix koltsegek,költségek,query natural composta,5,5,OUT,precisa entrar em campo: fix | gastos fixos = feature real
+koltsegvetes havi,költségvetés,query natural composta,5,5,OUT,precisa entrar em campo: havi | subtitle live 'Egyszerű költségvetés'
+kiadas naplo,napló,query natural composta,5,5,OUT,precisa entrar em campo: kiadas
+kiadasok excel,export,query natural composta,5,5,OUT,precisa entrar em campo: kiadasok+excel
+kiadasok offline,offline,query natural composta,5,5,OUT,precisa entrar em campo: kiadasok
+penzugyi tervezo,tervező,query natural composta,5,11,OUT,precisa entrar em campo: penzugyi
+koltsegek kovetese,költségek,query natural composta,5,5,OUT,precisa entrar em campo: kovetese
+kiadas statisztika,statisztika,query natural composta,5,5,OUT,precisa entrar em campo: kiadas
+kiadaskoveto widget,widget,query natural composta,5,5,1,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | nome live 'Kiadáskövető'

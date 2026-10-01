@@ -1,0 +1,58 @@
+term,verdict,reason,evidence,is_live_token,popularity,difficulty,our_rank,source
+biểu,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,21,OUT,live+pool
+biểu đồ chi tiêu,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,5,12,longtail
+budget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,17,46,OUT,candidate
+cash,PARTIAL,Bare cross-category word (habit/fitness/period trackers own this pool); only the qualified composition carries expense intent.,n/a - polysemous,nao,43,43,OUT,candidate
+chi,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,47,OUT,live+pool
+chi phí cố định,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,36,OUT,longtail
+chi tiêu,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,57,49,81,pool
+chi tiêu hàng ngày,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,57,53,OUT,longtail
+chi tiêu hàng tháng,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,47,OUT,longtail
+chi tiêu offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,9,11,longtail
+chi tiêu theo danh mục,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,11,OUT,longtail
+chính,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,68,OUT,live+pool
+cá,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,36,45,OUT,live+pool
+dõi,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,40,OUT,live+pool
+excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),sim,77,60,OUT,live+pool
+expense,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,45,OUT,candidate
+expense tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,47,OUT,candidate
+ghi chép chi tiêu,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,44,OUT,longtail
+hoạch,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,21,OUT,live+pool
+kiệm,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,36,OUT,live+pool
+kê,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,15,OUT,live+pool
+ký,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,11,OUT,live+pool
+kế,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,39,OUT,live+pool
+lý,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,,,,live
+manager,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,nao,43,41,OUT,candidate
+money,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,56,56,OUT,candidate
+money manager,MISMATCH,Competitor or third-party brand query; the searcher wants that specific app.,n/a - brand query,nao,45,51,OUT,candidate
+money tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,55,OUT,candidate
+ngân,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,67,OUT,live+pool
+ngân sách theo danh mục,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+ngân sách tháng,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,31,OUT,longtail
+nhân,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,41,OUT,live+pool
+nhật,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,55,OUT,live+pool
+nhật ký chi tiêu,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,11,OUT,longtail
+offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,sim,53,72,OUT,live+pool
+pdf,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),sim,66,48,OUT,live+pool
+phí,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,45,OUT,live+pool
+planner,PARTIAL,Forward-looking planning is partly there (month budget + end-of-month projection) but there is no income plan or schedule of future payments.,sec 1.6 vs NOT-list N3,nao,29,42,OUT,candidate
+quan ly chi tieu,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,55,16,longtail
+quản,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,23,OUT,live+pool
+quản lý,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,nao,43,35,OUT,pool
+quản lý chi tiêu cá nhân,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,65,57,142,longtail
+sách,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,61,61,OUT,live+pool
+sổ,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,51,OUT,live+pool
+sổ chi tiêu,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,57,47,OUT,longtail
+theo,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,9,OUT,live+pool
+theo dõi,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,42,OUT,pool
+thống,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,17,OUT,live+pool
+tiêu,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,23,OUT,live+pool
+tiết,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,47,OUT,live+pool
+tiết kiệm tiền,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,35,35,OUT,longtail
+tiền,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,28,62,OUT,live+pool
+tracker,PARTIAL,Bare cross-category word (habit/fitness/period trackers own this pool); only the qualified composition carries expense intent.,n/a - polysemous,nao,44,17,OUT,candidate
+tracker expense,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,49,OUT,candidate
+tracker money,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,59,OUT,candidate
+tài,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,41,OUT,live+pool
+đồ,PARTIAL,"Single syllable of a Vietnamese compound, not a standalone query; only meaningful inside a composition.",n/a - syllable fragment,sim,5,50,OUT,live+pool

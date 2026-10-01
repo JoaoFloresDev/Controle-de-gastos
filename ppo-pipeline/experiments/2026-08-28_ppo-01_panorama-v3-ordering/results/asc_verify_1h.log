@@ -1,0 +1,6 @@
+   transient error (HTTPSConnectionPool(host='api.appstoreconnect.apple.com', port=443): Max retries), sleeping 20s (attempt 1)
+   transient error (HTTPSConnectionPool(host='api.appstoreconnect.apple.com', port=443): Max retries), sleeping 20s (attempt 1)
+   transient error (('Connection aborted.', OSError(49, "Can't assign requested address"))), sleeping 20s (attempt 1)
+   transient error (('Connection aborted.', OSError(49, "Can't assign requested address"))), sleeping 20s (attempt 1)
+   transient error (('Connection aborted.', OSError(49, "Can't assign requested address"))), sleeping 20s (attempt 1)
+verified 180 sets: ALL CLEAN

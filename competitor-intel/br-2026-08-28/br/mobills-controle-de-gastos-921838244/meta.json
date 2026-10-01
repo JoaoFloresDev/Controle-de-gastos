@@ -1,0 +1,27 @@
+{
+  "trackId": 921838244,
+  "trackName": "Mobills - Controle de gastos",
+  "sellerName": "Toro Investimentos Ltda.",
+  "primaryGenreName": "Finance",
+  "averageUserRating": 4.65468,
+  "userRatingCount": 167887,
+  "price": 0.0,
+  "formattedPrice": "Grátis",
+  "releaseDate": "2014-11-15T00:00:26Z",
+  "currentVersionReleaseDate": "2026-08-27T17:49:42Z",
+  "version": "6.21.0",
+  "minimumOsVersion": "15.0",
+  "languageCodesISO2A": [
+    "EN",
+    "FR",
+    "DE",
+    "PT",
+    "RU",
+    "ES"
+  ],
+  "contentAdvisoryRating": "+4",
+  "trackViewUrl": "https://apps.apple.com/br/app/mobills-controle-de-gastos/id921838244?uo=4",
+  "bundleId": "br.com.mobillslabs.Mobills",
+  "subtitle": "Finanças pessoais, cartões e +",
+  "screenshotCount": 17
+}

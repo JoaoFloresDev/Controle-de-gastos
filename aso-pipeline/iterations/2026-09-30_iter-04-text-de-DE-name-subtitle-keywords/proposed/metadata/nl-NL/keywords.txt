@@ -1,0 +1,1 @@
+widget,overzicht,vaste,grafiek,excel,offline,categorie,kosten,exporteren,pdf,financien,sparen,beheer

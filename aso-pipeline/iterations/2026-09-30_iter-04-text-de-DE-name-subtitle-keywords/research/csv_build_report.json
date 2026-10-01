@@ -1,0 +1,311 @@
+{
+  "de": {
+    "locale": "de-DE",
+    "tracked": 164,
+    "pool": 33,
+    "candidates": 131,
+    "ranked_top1000": 53,
+    "top10": [
+      "ausgaben kategorien",
+      "ausgaben kontrolle",
+      "ausgaben statistik",
+      "ausgabenkontrolle",
+      "fixkosten verwalten",
+      "monatliche bilanz"
+    ]
+  },
+  "br": {
+    "locale": "pt-BR",
+    "tracked": 367,
+    "pool": 45,
+    "candidates": 322,
+    "ranked_top1000": 64,
+    "top10": [
+      "app de gastos casal",
+      "categorias de gastos",
+      "contas casal",
+      "contas compartilhadas",
+      "contas compartilhadas casal",
+      "contas do casal",
+      "contas mensais casal",
+      "despesas compartilhadas casal",
+      "despesas fixas",
+      "despesas mensais casal",
+      "despesas pessoais casal",
+      "economia do casal"
+    ]
+  },
+  "us": {
+    "locale": "en-US",
+    "tracked": 45,
+    "pool": 17,
+    "candidates": 28,
+    "ranked_top1000": 5,
+    "top10": [
+      "my expenses"
+    ]
+  },
+  "es": {
+    "locale": "es-ES",
+    "tracked": 21,
+    "pool": 18,
+    "candidates": 3,
+    "ranked_top1000": 6,
+    "top10": []
+  },
+  "fr": {
+    "locale": "fr-FR",
+    "tracked": 40,
+    "pool": 20,
+    "candidates": 20,
+    "ranked_top1000": 12,
+    "top10": [
+      "dépenses suivi",
+      "finances perso"
+    ]
+  },
+  "jp": {
+    "locale": "ja",
+    "tracked": 24,
+    "pool": 19,
+    "candidates": 5,
+    "ranked_top1000": 6,
+    "top10": [
+      "節約・予算・お金の見える化"
+    ]
+  },
+  "mx": {
+    "locale": "es-MX",
+    "tracked": 18,
+    "pool": 18,
+    "candidates": 0,
+    "ranked_top1000": 3,
+    "top10": []
+  },
+  "tr": {
+    "locale": "tr",
+    "tracked": 19,
+    "pool": 19,
+    "candidates": 0,
+    "ranked_top1000": 5,
+    "top10": [
+      "harcamalar bütçe"
+    ]
+  },
+  "it": {
+    "locale": "it",
+    "tracked": 17,
+    "pool": 17,
+    "candidates": 0,
+    "ranked_top1000": 2,
+    "top10": [
+      "spese bilancio"
+    ]
+  },
+  "sa": {
+    "locale": "ar-SA",
+    "tracked": 20,
+    "pool": 20,
+    "candidates": 0,
+    "ranked_top1000": 3,
+    "top10": [
+      "المصروفات ميزانية"
+    ]
+  },
+  "id": {
+    "locale": "id",
+    "tracked": 17,
+    "pool": 17,
+    "candidates": 0,
+    "ranked_top1000": 8,
+    "top10": [
+      "pengeluaran catatan"
+    ]
+  },
+  "cn": {
+    "locale": "zh-Hans",
+    "tracked": 17,
+    "pool": 17,
+    "candidates": 0,
+    "ranked_top1000": 6,
+    "top10": [
+      "简单家庭账本"
+    ]
+  },
+  "kr": {
+    "locale": "ko",
+    "tracked": 19,
+    "pool": 19,
+    "candidates": 0,
+    "ranked_top1000": 4,
+    "top10": []
+  },
+  "vn": {
+    "locale": "vi",
+    "tracked": 42,
+    "pool": 30,
+    "candidates": 12,
+    "ranked_top1000": 1,
+    "top10": []
+  },
+  "in": {
+    "locale": "hi",
+    "tracked": 41,
+    "pool": 25,
+    "candidates": 16,
+    "ranked_top1000": 10,
+    "top10": [
+      "एक्सपेंस",
+      "मेरा खर्च",
+      "सेविंग्स"
+    ]
+  },
+  "ru": {
+    "locale": "ru",
+    "tracked": 28,
+    "pool": 20,
+    "candidates": 8,
+    "ranked_top1000": 4,
+    "top10": []
+  },
+  "nl": {
+    "locale": "nl-NL",
+    "tracked": 26,
+    "pool": 22,
+    "candidates": 4,
+    "ranked_top1000": 5,
+    "top10": []
+  },
+  "fi": {
+    "locale": "fi",
+    "tracked": 28,
+    "pool": 19,
+    "candidates": 9,
+    "ranked_top1000": 9,
+    "top10": [
+      "helppo kuluseuranta",
+      "omat menot"
+    ]
+  },
+  "il": {
+    "locale": "he",
+    "tracked": 38,
+    "pool": 22,
+    "candidates": 16,
+    "ranked_top1000": 16,
+    "top10": [
+      "איפה הכסף",
+      "בתקציב",
+      "ההוצאות",
+      "ההוצאות שלי"
+    ]
+  },
+  "no": {
+    "locale": "no",
+    "tracked": 31,
+    "pool": 20,
+    "candidates": 11,
+    "ranked_top1000": 7,
+    "top10": [
+      "enkel oversikt",
+      "mine utgifter"
+    ]
+  },
+  "ua": {
+    "locale": "uk",
+    "tracked": 36,
+    "pool": 21,
+    "candidates": 15,
+    "ranked_top1000": 11,
+    "top10": [
+      "зручний бюджет",
+      "фінансів"
+    ]
+  },
+  "my": {
+    "locale": "ms",
+    "tracked": 37,
+    "pool": 22,
+    "candidates": 15,
+    "ranked_top1000": 13,
+    "top10": [
+      "belanja saya",
+      "catat belanja",
+      "perekod"
+    ]
+  },
+  "pl": {
+    "locale": "pl",
+    "tracked": 34,
+    "pool": 20,
+    "candidates": 14,
+    "ranked_top1000": 16,
+    "top10": [
+      "kontrola finansów",
+      "osobistych"
+    ]
+  },
+  "hu": {
+    "locale": "hu",
+    "tracked": 27,
+    "pool": 18,
+    "candidates": 9,
+    "ranked_top1000": 8,
+    "top10": [
+      "egyszerű költségvetés",
+      "kiadásaim",
+      "kiadásaim kiadáskövető"
+    ]
+  },
+  "se": {
+    "locale": "sv",
+    "tracked": 26,
+    "pool": 23,
+    "candidates": 3,
+    "ranked_top1000": 8,
+    "top10": [
+      "mina utgifter"
+    ]
+  },
+  "cz": {
+    "locale": "cs",
+    "tracked": 36,
+    "pool": 22,
+    "candidates": 14,
+    "ranked_top1000": 17,
+    "top10": [
+      "moje výdaje",
+      "peníze pod",
+      "šetření"
+    ]
+  },
+  "dk": {
+    "locale": "da",
+    "tracked": 34,
+    "pool": 20,
+    "candidates": 14,
+    "ranked_top1000": 6,
+    "top10": [
+      "enkel udgiftsstyring",
+      "mine udgifter"
+    ]
+  },
+  "gr": {
+    "locale": "el",
+    "tracked": 38,
+    "pool": 18,
+    "candidates": 20,
+    "ranked_top1000": 13,
+    "top10": [
+      "κατηγορίες"
+    ]
+  },
+  "th": {
+    "locale": "th",
+    "tracked": 27,
+    "pool": 12,
+    "candidates": 15,
+    "ranked_top1000": 7,
+    "top10": []
+  }
+}

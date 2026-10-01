@@ -220,6 +220,66 @@ def cmd_search(args) -> None:
     print(json.dumps(data, indent=2))
 
 
+
+def cmd_serp(args) -> None:
+    """App Store SERP for a keyword (top N apps with name/subtitle/ratings)."""
+    data, err = call(
+        "search_app_store",
+        {"keyword": args.keyword, "store": args.store, "limit": args.limit},
+    )
+    if err:
+        sys.exit(f"err: {err}")
+    print(json.dumps(data, indent=2, ensure_ascii=False))
+
+
+def cmd_suggestions(args) -> None:
+    """AI keyword suggestions for a tracked app in a store."""
+    a = {"appId": args.appId, "store": args.store}
+    if args.high_popularity:
+        a["highPopularity"] = True
+    data, err = call("get_keyword_suggestions", a)
+    if err:
+        sys.exit(f"err: {err}")
+    print(json.dumps(data, indent=2, ensure_ascii=False))
+
+
+def cmd_competitors(args) -> None:
+    """Extract keyword ideas from competitors ranking for a tracked keyword."""
+    data, err = call(
+        "extract_competitors_keywords",
+        {"appId": args.appId, "keyword": args.keyword, "store": args.store},
+    )
+    if err:
+        sys.exit(f"err: {err}")
+    print(json.dumps(data, indent=2, ensure_ascii=False))
+
+
+def cmd_ratings(args) -> None:
+    data, err = call("get_app_ratings", {"appId": args.appId, "store": args.store})
+    if err:
+        sys.exit(f"err: {err}")
+    print(json.dumps(data, indent=2, ensure_ascii=False))
+
+
+def cmd_top(args) -> None:
+    """Most searched keywords in a store (optionally by category)."""
+    a = {"store": args.store, "limit": args.limit}
+    if args.category:
+        a["category"] = args.category
+    data, err = call("get_most_searched_keywords", a)
+    if err:
+        sys.exit(f"err: {err}")
+    print(json.dumps(data, indent=2, ensure_ascii=False))
+
+
+def cmd_raw(args) -> None:
+    """Call any MCP tool with a JSON argument blob (escape hatch)."""
+    data, err = call(args.tool, json.loads(args.json_args))
+    if err:
+        sys.exit(f"err: {err}")
+    print(json.dumps(data, indent=2, ensure_ascii=False))
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__)
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -254,6 +314,40 @@ def main() -> None:
     ps.add_argument("store")
     ps.add_argument("--history", action="store_true")
     ps.set_defaults(func=cmd_search)
+
+    pse = sub.add_parser("serp", help="App Store search results for a keyword")
+    pse.add_argument("keyword")
+    pse.add_argument("store")
+    pse.add_argument("--limit", type=int, default=10)
+    pse.set_defaults(func=cmd_serp)
+
+    psg = sub.add_parser("suggestions", help="AI keyword suggestions for app+store")
+    psg.add_argument("appId")
+    psg.add_argument("store")
+    psg.add_argument("--high-popularity", action="store_true")
+    psg.set_defaults(func=cmd_suggestions)
+
+    pc = sub.add_parser("competitors", help="competitor keyword extraction around a term")
+    pc.add_argument("appId")
+    pc.add_argument("keyword")
+    pc.add_argument("store")
+    pc.set_defaults(func=cmd_competitors)
+
+    pr = sub.add_parser("ratings", help="app ratings per store")
+    pr.add_argument("appId")
+    pr.add_argument("store", nargs="?")
+    pr.set_defaults(func=cmd_ratings)
+
+    pt = sub.add_parser("top", help="most searched keywords in a store")
+    pt.add_argument("store")
+    pt.add_argument("--category")
+    pt.add_argument("--limit", type=int, default=50)
+    pt.set_defaults(func=cmd_top)
+
+    prw = sub.add_parser("raw", help="call any MCP tool with JSON args")
+    prw.add_argument("tool")
+    prw.add_argument("json_args")
+    prw.set_defaults(func=cmd_raw)
 
     args = p.parse_args()
     args.func(args)

@@ -1,0 +1,796 @@
+{
+  "checked_at": "2026-09-30",
+  "report_requests": [
+    {
+      "id": "a31193ac-6b49-4efe-9978-0c23da47df4d",
+      "accessType": "ONGOING",
+      "stoppedDueToInactivity": false
+    }
+  ],
+  "reports_by_request": {
+    "a31193ac-6b49-4efe-9978-0c23da47df4d": [
+      {
+        "id": "r39-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "AirPlay Discovery Sessions",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r154-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Home Screen Widget Rotations",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r41-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "File-Based Video Playback Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r162-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Safari Extensions Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r43-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "CRABS-Based Video Playback Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r44-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Translation Request Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r163-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Safari Extensions Enablement",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r46-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Automatic Speech Recognition Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r47-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Keyboard Dictation Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r48-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Spatial Audio Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r49-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Video Duration Information",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r178-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Default Browser Usage Rate",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r51-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Home Screen Widgets",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r173-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Browser Choice Screen Engagement (iOS versions before 18.2)",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r230-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "File-System Events API Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r155-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Home Screen Widget Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r56-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "VisionKit Image Analysis",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r229-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Extended Launch Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r58-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Reminders Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r228-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Cellular Plan Provisioning",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r60-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "PhotoKit Imports",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r240-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Shortcut App Usage",
+        "category": "APP_USAGE"
+      },
+      {
+        "id": "r62-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Networking Connection Activity",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r63-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Speech Framework Transcription Requests",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r156-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "HTTP Live Streaming Video Playback Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r65-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Mode Activity Notifications",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r66-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Metal Command Queues",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r68-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Lock Screen Widget Configuration",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r69-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Local Network Privacy",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r157-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Photos Library Access",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r73-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Game Controller Sessions",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r158-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Speech Framework Transcription Request Audio Duration",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r159-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Text-Input Actions",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r160-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "VisionKit Sessions",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r166-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "CAMetalLayer Performance",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r128-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Bluetooth System Wakes",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r167-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Runtime Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r3-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Downloads Standard",
+        "category": "COMMERCE"
+      },
+      {
+        "id": "r4-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Downloads Detailed",
+        "category": "COMMERCE"
+      },
+      {
+        "id": "r5-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Install Performance",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r6-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Store Installation and Deletion Standard",
+        "category": "APP_USAGE"
+      },
+      {
+        "id": "r7-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Store Installation and Deletion Detailed",
+        "category": "APP_USAGE"
+      },
+      {
+        "id": "r8-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Sessions Standard",
+        "category": "APP_USAGE"
+      },
+      {
+        "id": "r9-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Sessions Detailed",
+        "category": "APP_USAGE"
+      },
+      {
+        "id": "r10-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Store Pre-Orders Standard",
+        "category": "COMMERCE"
+      },
+      {
+        "id": "r11-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Store Pre-Orders Detailed",
+        "category": "COMMERCE"
+      },
+      {
+        "id": "r12-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Store Purchases Standard",
+        "category": "COMMERCE"
+      },
+      {
+        "id": "r13-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Store Purchases Detailed",
+        "category": "COMMERCE"
+      },
+      {
+        "id": "r14-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Store Discovery and Engagement Standard",
+        "category": "APP_STORE_ENGAGEMENT"
+      },
+      {
+        "id": "r15-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Store Discovery and Engagement Detailed",
+        "category": "APP_STORE_ENGAGEMENT"
+      },
+      {
+        "id": "r16-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Flashlight Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r124-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "ARKit World Tracking",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r125-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "ARKit World Tracking Image Detection",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r168-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Photogrammetry ObjectCaptureSession API Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r169-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "PhotogrammetrySession API Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r22-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Haptics Engine Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r23-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "ShazamKit Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r74-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Added to Focus",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r33-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Streaming Playback Performance",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r34-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Streaming Downloads Performance",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r111-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Audio Input Muting",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r37-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "AirPlay Performance",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r112-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "RoomPlan Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r113-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Audio Input Route and Duration and Call Mode",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r114-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Disk Space Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r115-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Location Sessions",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r116-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "CarPlay Navigation",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r117-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Video PiP Duration",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r119-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "HTTP Live Streaming Playback Errors",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r120-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "HTTP Live Streaming Playback Count",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r122-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Bluetooth LE Scans",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r123-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Bluetooth LE Advertising",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r170-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "AccessorySetupKit Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r0-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Clip Usage Standard",
+        "category": "APP_USAGE"
+      },
+      {
+        "id": "r1-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Clip Usage Detailed",
+        "category": "APP_USAGE"
+      },
+      {
+        "id": "r2-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Crashes",
+        "category": "APP_USAGE"
+      },
+      {
+        "id": "r129-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Custom Language Model Builds Failed",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r130-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Custom Language Model Builds Started",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r131-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Customized Transcription Requests",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r132-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "DockKit App Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r133-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Live Activity Use",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r134-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Multiple Game Controllers Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r135-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Photos Picker",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r136-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Shared With You Content Engagement",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r137-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Spotlight Query Performance",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r174-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "iBeacon Add Region Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r175-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "iBeacon Stop Monitoring for Region Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r140-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "VisionKit Live Text Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r141-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Wi-Fi Known Network Modifications",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r171-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "AccessorySetupKit Accessory Picker Sessions",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r172-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Bluetooth LE Session Duration",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r176-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "iBeacon Ranging Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r177-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Browser Choice Screen Selection",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r179-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Store Web Preview Engagement Standard",
+        "category": "APP_STORE_ENGAGEMENT"
+      },
+      {
+        "id": "r180-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Store Web Preview Engagement Detailed",
+        "category": "APP_STORE_ENGAGEMENT"
+      },
+      {
+        "id": "r194-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Platform App Installs",
+        "category": "APP_USAGE"
+      },
+      {
+        "id": "r239-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Video Streaming Duration",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r238-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App HangTracer Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r237-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Nearby Interaction Sessions",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r236-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "ProRes Video Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r235-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Photo Capture Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r234-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Embedding Generation",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r233-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Face-Driven Auto Exposure and Auto Focus Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r232-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Neural Footprint",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r231-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Shortcuts Actions Usage",
+        "category": "APP_USAGE"
+      },
+      {
+        "id": "r38-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "AirPlay Errors",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r189-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Opt In",
+        "category": "APP_USAGE"
+      },
+      {
+        "id": "r224-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Store Subscription Event Report Standard",
+        "category": "COMMERCE"
+      },
+      {
+        "id": "r225-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Store Subscription Event Report Detailed",
+        "category": "COMMERCE"
+      },
+      {
+        "id": "r226-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Store Subscription State Report Standard",
+        "category": "COMMERCE"
+      },
+      {
+        "id": "r227-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Store Subscription State Report Detailed",
+        "category": "COMMERCE"
+      },
+      {
+        "id": "r75-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Core Location Geofencing",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r76-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "SharePlay Usage by Activity Type",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r77-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Notification Summary Engagement",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r78-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "VisionKit Data Detectors",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r79-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Call Services and Call Performance",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r80-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Load CoreML Models Metrics",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r81-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Verify with Wallet Document Requests",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r82-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Verify With Wallet Document Request Availability",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r161-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Sessions Context",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r84-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "CarPlay App Usage",
+        "category": "APP_USAGE"
+      },
+      {
+        "id": "r85-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Audio Volume Levels and Duration",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r150-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Bluetooth LE Sessions",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r88-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "ARKit Video Formats",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r89-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "ARKit Capture Frame Rate Throttling",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r90-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "ARKit ARSession Duration",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r91-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "ARKit ARSession Failures",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r92-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "ARKit Face Tracking",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r94-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Animoji Stickers Sent",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r95-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Display Power Information",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r96-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Core Location Authorization Results",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r97-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Launch Image Over Memory Limit",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r98-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Game Controller Haptics Engine Creation",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r99-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Photos Sharing",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r103-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Audio Session Audio Unit Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r151-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Collaboration Message Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r152-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Dynamic Island Layout Changes",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r142-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Crashes Expanded",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r143-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "App Storage Reads and Writes",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r144-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Application Preferred Language Settings",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r145-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "ARKit Collaborative Session Features",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r146-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Audio Overloads",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r147-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Bluetooth LE Connection Results",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r148-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Bluetooth LE Connections Per App",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r149-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Bluetooth LE Disconnection Results",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r153-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Home Screen Widget Installs",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r320-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Retention Messaging",
+        "category": "APP_STORE_ENGAGEMENT"
+      },
+      {
+        "id": "r357-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Smart Buttons Usage",
+        "category": "APP_USAGE"
+      },
+      {
+        "id": "r358-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Visual Intelligence Image Search Usage",
+        "category": "APP_USAGE"
+      },
+      {
+        "id": "r359-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "CGImageSource_PluginRouting",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r360-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "LocalAuthentication Usage",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r361-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Web Presentment Outcomes",
+        "category": "FRAMEWORK_USAGE"
+      },
+      {
+        "id": "r362-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Audio Session Api Duration",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r356-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Dynamic Buttons Usage",
+        "category": "APP_USAGE"
+      },
+      {
+        "id": "r354-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Media Device Extensions Performance",
+        "category": "PERFORMANCE"
+      },
+      {
+        "id": "r355-a31193ac-6b49-4efe-9978-0c23da47df4d",
+        "name": "Media Device Extensions Errors",
+        "category": "PERFORMANCE"
+      }
+    ]
+  },
+  "search_term_reports": [],
+  "rows_written": 0
+}

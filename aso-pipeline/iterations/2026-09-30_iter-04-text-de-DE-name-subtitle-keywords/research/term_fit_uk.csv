@@ -1,0 +1,52 @@
+term,verdict,reason,evidence,is_live_token,popularity,difficulty,our_rank,source
+budget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,50,54,OUT,candidate
+budget expense,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,43,OUT,candidate
+expense,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,50,45,OUT,candidate
+expense tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,55,OUT,candidate
+expenses,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,41,OUT,candidate
+flow,PARTIAL,Fragment of 'money flow'; needs income to mean anything on its own.,NOT-list N3,nao,56,40,OUT,candidate
+manager,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,nao,40,45,OUT,candidate
+money,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,54,52,OUT,candidate
+money flow,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,50,53,OUT,candidate
+money manager,MISMATCH,Competitor or third-party brand query; the searcher wants that specific app.,n/a - brand query,nao,57,49,OUT,candidate
+spending,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,19,OUT,candidate
+track,PARTIAL,Bare cross-category word (habit/fitness/period trackers own this pool); only the qualified composition carries expense intent.,n/a - polysemous,nao,33,51,OUT,candidate
+tracker,PARTIAL,Bare cross-category word (habit/fitness/period trackers own this pool); only the qualified composition carries expense intent.,n/a - polysemous,nao,38,36,OUT,candidate
+tracker money,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,60,OUT,candidate
+wallet,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,nao,70,59,OUT,candidate
+аналітика,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,sim,5,43,OUT,live+pool
+бюджет,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,sim,55,43,OUT,live+pool
+бюджет за категоріями,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+бюджет на місяць,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,5,OUT,longtail
+витрати,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,51,44,197,live+pool
+витрати за категоріями,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+витрати календар,FIT,"Calendar view toggle inside the Transactions tab, with each day's expenses and day total.",sec 1.5 calendar,nao,5,11,22,longtail
+витрати офлайн,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,5,20,longtail
+віджет,FIT,Interactive iOS 17+ home-screen widget for quick add (systemMedium/systemLarge).,sec 1.13 widget,sim,52,39,OUT,live+pool
+віджет витрат,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,12,longtail
+гаманець,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,sim,73,53,OUT,live+pool
+гроші,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,55,43,OUT,live+pool
+експорт,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),sim,5,5,120,live+pool
+експорт витрат excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),nao,5,5,OUT,longtail
+записи,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,41,OUT,live+pool
+звіт,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,sim,5,13,108,live+pool
+звіт витрат,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,7,17,longtail
+зручний,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,5,38,66,live+pool
+зручний бюджет,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,5,1,pool
+календар,FIT,"Calendar view toggle inside the Transactions tab, with each day's expenses and day total.",sec 1.5 calendar,sim,67,48,OUT,live+pool
+категорії,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,sim,5,13,29,live+pool
+контроль,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,sim,5,33,OUT,live+pool
+контроль витрат,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,30,58,longtail
+мої,PARTIAL,Grammatical particle or brand possessive split out of the live name/subtitle; it carries no standalone search intent and costs field characters.,"n/a - particle, not a query",sim,5,15,59,live+pool
+мої витрати,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,50,39,12,pool
+облік,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,15,158,live+pool
+облік витрат,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,38,167,longtail
+особисті фінанси облік,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,7,OUT,longtail
+офлайн,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,sim,25,58,OUT,live+pool
+планування,PARTIAL,Forward-looking planning is partly there (month budget + end-of-month projection) but there is no income plan or schedule of future payments.,sec 1.6 vs NOT-list N3,sim,5,34,180,live+pool
+постійні витрати,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,5,OUT,longtail
+та,PARTIAL,Grammatical particle or brand possessive split out of the live name/subtitle; it carries no standalone search intent and costs field characters.,"n/a - particle, not a query",sim,,,,live
+фінансів,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,5,9,8,live+pool
+цілі,PARTIAL,"'Goals' in this app are spending CAPS, not targets to reach; the pool also holds habit/savings-goal apps.",sec 1.8 vs NOT-list N9,sim,5,21,OUT,live+pool
+щоденні витрати,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,34,OUT,longtail
+щомісячні витрати,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail

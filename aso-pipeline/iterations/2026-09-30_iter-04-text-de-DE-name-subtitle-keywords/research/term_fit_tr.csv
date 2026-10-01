@@ -1,0 +1,44 @@
+term,verdict,reason,evidence,is_live_token,popularity,difficulty,our_rank,source
+aile,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,sim,26,37,OUT,live+pool
+aylik butce,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,5,OUT,longtail
+aylik gider takibi,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+aylik harcama takibi,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+bakkal,MISMATCH,"Searcher wants a shopping list; the app has no list of things to buy, only expenses already made.",n/a - outside the inventory,sim,5,37,77,live+pool
+butce takip,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,23,165,longtail
+butce uygulamasi,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,5,OUT,longtail
+bütçe,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,sim,18,23,154,live+pool
+defter,PARTIAL,Household-ledger reading fits; the bank-account-book reading does not. Partial.,sec 1.2 vs NOT-list N18,sim,58,35,OUT,live+pool
+fatura,MISMATCH,"Searcher wants bill/invoice management with due dates; bills can only be logged as plain expenses, no invoice entity, no due date, no reminder.",NOT-list N8 + N6,sim,16,50,OUT,live+pool
+finans,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,56,58,OUT,live+pool
+gelir,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,sim,5,43,OUT,live+pool
+gelir gider takip,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,21,OUT,longtail
+gider,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,42,OUT,live+pool
+gider takibi,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,13,OUT,longtail
+gunluk harcama takibi,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,15,OUT,longtail
+harcama defteri,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,21,44,longtail
+harcama excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),nao,5,5,OUT,longtail
+harcama grafigi,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+harcama kategorileri,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+harcama takibi,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,15,75,longtail
+harcama takibi internetsiz,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,5,OUT,longtail
+harcama takip uygulamasi,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+harcama widget,FIT,Interactive iOS 17+ home-screen widget for quick add (systemMedium/systemLarge).,sec 1.13 widget,nao,5,5,OUT,longtail
+harcamalar,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,21,11,live+pool
+harcamalar bütçe,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,7,2,pool
+kasa,MISMATCH,"Searcher wants bookkeeping/accounting for a business (cash book, ledger closing, VAT); the app has one entity, an expense.",NOT-list N11,sim,5,19,OUT,live+pool
+kategori bazli butce,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+kisisel finans uygulamasi,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,5,OUT,longtail
+kişisel,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,5,39,OUT,live+pool
+maaş,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,sim,5,13,231,live+pool
+masraf,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,19,OUT,live+pool
+masraf takibi,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,7,186,longtail
+para,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,49,61,OUT,live+pool
+para takibi,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,43,OUT,longtail
+para yönetimi,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,49,21,OUT,pool
+reklamsiz harcama takibi,FIT,The app shows no ads at all - no ad SDK is installed anywhere.,NOT-list N15,nao,5,5,OUT,longtail
+sabit giderler,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,5,OUT,longtail
+takip,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,27,41,OUT,live+pool
+tasarruf,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,sim,5,35,OUT,live+pool
+tasarruf uygulamasi,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,5,5,OUT,longtail
+ve,PARTIAL,Grammatical particle or brand possessive split out of the live name/subtitle; it carries no standalone search intent and costs field characters.,"n/a - particle, not a query",sim,,,,live
+yönetimi,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,5,21,OUT,live+pool

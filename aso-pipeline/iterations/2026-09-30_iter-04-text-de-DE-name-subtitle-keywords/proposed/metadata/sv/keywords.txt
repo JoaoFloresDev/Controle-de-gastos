@@ -1,0 +1,1 @@
+kategori,widget,dagliga,excel,offline,fasta,kostnader,kostnad,analys,rapport,månad,dagbok,pdf

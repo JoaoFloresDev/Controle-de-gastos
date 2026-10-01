@@ -1,37 +1,592 @@
 [
- {
-  "iter": "2026-08-24_iter-03",
-  "locale": "pt-BR",
-  "deployed_at": "2026-08-25",
-  "added": [
-   "categorias",
-   "fixas",
-   "resumo",
-   "extrato"
-  ],
-  "removed": [
-   "minhas",
-   "fatura",
-   "cartao",
-   "dividas"
-  ],
-  "result": null
- },
- {
-  "iter": "2026-08-24_iter-03",
-  "locale": "de-DE",
-  "deployed_at": "2026-08-25",
-  "added": [
-   "kontrolle",
-   "kategorien",
-   "statistik"
-  ],
-  "removed": [
-   "sparen",
-   "geld",
-   "finanzen",
-   "einnahmen"
-  ],
-  "result": null
- }
+  {
+    "iter": "2026-08-24_iter-03",
+    "locale": "pt-BR",
+    "deployed_at": "2026-08-25",
+    "added": [
+      "categorias",
+      "fixas",
+      "resumo",
+      "extrato"
+    ],
+    "removed": [
+      "minhas",
+      "fatura",
+      "cartao",
+      "dividas"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-08-24_iter-03",
+    "locale": "de-DE",
+    "deployed_at": "2026-08-25",
+    "added": [
+      "kontrolle",
+      "kategorien",
+      "statistik"
+    ],
+    "removed": [
+      "sparen",
+      "geld",
+      "finanzen",
+      "einnahmen"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "ar-SA",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "شهرية",
+      "فئات",
+      "يومية"
+    ],
+    "removed": [
+      "ميزانية",
+      "محفظة",
+      "حساب",
+      "راتب",
+      "فواتير"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "cs",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "excel",
+      "pravidelne",
+      "mesicni"
+    ],
+    "removed": [
+      "úspory",
+      "cíle",
+      "platby"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "da",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "widget",
+      "faste",
+      "offline"
+    ],
+    "removed": [
+      "regnskab",
+      "finans",
+      "planlægning"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "de-DE",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "widget",
+      "offline",
+      "kostenlos"
+    ],
+    "removed": [
+      "konto",
+      "bilanz"
+    ],
+    "result": null,
+    "name_changed": {
+      "from": "Ausgaben - Haushaltsbuch",
+      "to": "Ausgaben Haushaltsbuch Budget"
+    },
+    "subtitle_changed": {
+      "from": "Budget & Finanzen verwalten",
+      "to": "Finanzen & Fixkosten verwalten"
+    },
+    "moved_to_subtitle": [
+      {
+        "token": "fixkosten",
+        "why": "KEYWORDS -> SUBTITLE: upgrade de peso 1x -> 3x, NAO remocao. O token continua indexado, com mais peso."
+      }
+    ]
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "el",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "offline",
+      "μηνιαια",
+      "παγια"
+    ],
+    "removed": [
+      "ταμείο",
+      "στόχοι"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "en-US",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "category",
+      "offline",
+      "spending"
+    ],
+    "removed": [
+      "money",
+      "savings",
+      "control",
+      "personal",
+      "easy"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "es-ES",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "categoria",
+      "offline",
+      "excel"
+    ],
+    "removed": [
+      "dinero",
+      "financiero",
+      "ingreso",
+      "pagar"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "es-MX",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "categoria",
+      "recurrentes",
+      "mensual"
+    ],
+    "removed": [
+      "dinero",
+      "financiero",
+      "ingreso",
+      "pagar",
+      "expensas"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "fi",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "kategoria",
+      "kuukausi",
+      "kiinteat"
+    ],
+    "removed": [
+      "laskuri",
+      "pdf"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "fr-FR",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "categorie",
+      "excel",
+      "widget"
+    ],
+    "removed": [
+      "compte",
+      "suivi",
+      "economie",
+      "salaire",
+      "facture",
+      "ecologie"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "he",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "אופליין",
+      "קבועות",
+      "תקציב"
+    ],
+    "removed": [
+      "יעדים"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "hi",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "मासिक",
+      "कैटेगरी",
+      "फिक्स्ड"
+    ],
+    "removed": [
+      "सेविंग्स",
+      "खाता",
+      "बचत"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "hu",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "excel",
+      "havi",
+      "kategoria"
+    ],
+    "removed": [
+      "pénz",
+      "tervező",
+      "célok"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "id",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "kategori",
+      "excel",
+      "offline"
+    ],
+    "removed": [
+      "uang",
+      "anggaran",
+      "tabungan",
+      "catatan",
+      "gaji",
+      "dompet",
+      "buku kas",
+      "hemat",
+      "tagihan"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "it",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "categoria",
+      "widget",
+      "fisse"
+    ],
+    "removed": [
+      "bilancio",
+      "risparmio",
+      "conto",
+      "denaro",
+      "budget",
+      "carta"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "ja",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "カテゴリ",
+      "固定費",
+      "ウィジェット"
+    ],
+    "removed": [
+      "収支",
+      "節約",
+      "予算",
+      "貯金"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "ko",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "카테고리",
+      "오프라인",
+      "그래프"
+    ],
+    "removed": [
+      "지출",
+      "예산",
+      "절약",
+      "자산",
+      "재테크",
+      "수입",
+      "통장",
+      "머니매니저",
+      "월급"
+    ],
+    "result": null,
+    "subtitle_changed": {
+      "from": "예산·자산 추적·절약 도우미",
+      "to": "예산·절약·생활비 한눈에"
+    },
+    "moved_to_subtitle": [
+      {
+        "token": "생활비",
+        "why": "KEYWORDS -> SUBTITLE: upgrade de peso 1x -> 3x, NAO remocao."
+      }
+    ]
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "ms",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "bulanan",
+      "tetap",
+      "widget"
+    ],
+    "removed": [
+      "wang",
+      "simpanan"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "nl-NL",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "widget",
+      "overzicht",
+      "vaste"
+    ],
+    "removed": [
+      "kasboek",
+      "administratie"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "no",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "offline",
+      "manedlig",
+      "daglige"
+    ],
+    "removed": [
+      "økonomi",
+      "regnskap"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "pl",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "stale",
+      "miesieczne",
+      "widget"
+    ],
+    "removed": [
+      "pieniądze",
+      "planowanie"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "pt-BR",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "offline"
+    ],
+    "removed": [
+      "contas"
+    ],
+    "result": null,
+    "note": "Variante A (casal MANTIDO, decisao final do Joao 01/10). A variante B sem casal esta arquivada em proposed/metadata/pt-BR__sem-casal/ e NAO foi aplicada."
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "ru",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "категории",
+      "оффлайн",
+      "постоянные"
+    ],
+    "removed": [
+      "цели",
+      "планирование",
+      "кошелек",
+      "сбережения"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "sv",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "kategori",
+      "widget",
+      "dagliga"
+    ],
+    "removed": [
+      "spara",
+      "sparande",
+      "mål"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "th",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "หมวดหมู่",
+      "รายเดือน",
+      "ประจำ"
+    ],
+    "removed": [
+      "ออมเงิน",
+      "ประหยัด",
+      "บัญชี"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "tr",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "aylik",
+      "kategori",
+      "widget"
+    ],
+    "removed": [
+      "para",
+      "bütçe",
+      "tasarruf",
+      "gelir",
+      "kasa",
+      "maaş",
+      "bakkal",
+      "fatura"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "uk",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "постійні",
+      "щомісячні",
+      "excel"
+    ],
+    "removed": [
+      "гаманець",
+      "планування",
+      "цілі"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "vi",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "danh mục",
+      "widget",
+      "cố định",
+      "tiết kiệm",
+      "kế hoạch",
+      "sổ nhật ký",
+      "cá nhân",
+      "thống kê",
+      "biểu đồ"
+    ],
+    "removed": [
+      "tiền",
+      "tiết",
+      "kiệm",
+      "kế",
+      "hoạch",
+      "sổ",
+      "nhật",
+      "ký",
+      "cá",
+      "nhân",
+      "thống",
+      "kê",
+      "biểu",
+      "đồ"
+    ],
+    "result": null
+  },
+  {
+    "iter": "2026-09-30_iter-04",
+    "locale": "zh-Hans",
+    "deployed_at": "2026-10-01",
+    "carrier_version": "45.4.0 (61e6fb32) PREPARE_FOR_SUBMISSION — NAO esta no ar",
+    "added": [
+      "月度预算",
+      "固定支出",
+      "支出图表"
+    ],
+    "removed": [
+      "收支",
+      "钱包",
+      "理财app",
+      "月账单"
+    ],
+    "result": null
+  }
 ]

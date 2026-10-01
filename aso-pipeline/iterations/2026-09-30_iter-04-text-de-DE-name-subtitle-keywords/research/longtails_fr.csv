@@ -1,0 +1,39 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+suivi des depenses,depense,derivado do top-10,5,51,113,precisa entrar em campo: des | ngram x4/x2 no top-10
+suivi depenses quotidiennes,depense,query natural composta,5,15,OUT,precisa entrar em campo: quotidiennes
+gestion des depenses,depense,derivado do top-10,5,49,185,precisa entrar em campo: des | ngram x3
+depenses mensuelles,depense,query natural composta,5,21,210,precisa entrar em campo: mensuelles
+depenses par categorie,depense,query natural composta,5,5,OUT,precisa entrar em campo: par+categorie
+depenses fixes,depense,query natural composta,5,9,OUT,precisa entrar em campo: fixes | UI 'Depenses fixes'
+depenses recurrentes,depense,query natural composta,5,5,OUT,precisa entrar em campo: recurrentes | UI 'Depenses recurrentes'
+app de depenses,depense,query natural composta,5,53,74,precisa entrar em campo: app+de
+carnet de depenses,depense,query natural composta,5,11,OUT,precisa entrar em campo: carnet+de
+noter ses depenses,depense,query natural composta,5,45,153,precisa entrar em campo: noter+ses
+depenses quotidiennes,depense,query natural composta,5,51,231,precisa entrar em campo: quotidiennes
+total des depenses,depense,query natural composta,5,9,OUT,precisa entrar em campo: total+des | UI 'Total depense'
+depenses du mois,depense,query natural composta,5,7,OUT,precisa entrar em campo: du+mois
+depenses excel,depense,query natural composta,5,11,OUT,precisa entrar em campo: excel
+export depenses excel,depense,query natural composta,5,5,OUT,precisa entrar em campo: export+excel
+depenses hors ligne,depense,query natural composta,5,9,OUT,precisa entrar em campo: hors+ligne
+depenses sans compte,depense,query natural composta,5,5,OUT,precisa entrar em campo: sans | sem cadastro; 'compte' e token live
+depenses widget,depense,query natural composta,5,5,OUT,precisa entrar em campo: widget
+graphique depenses,depense,query natural composta,5,5,OUT,precisa entrar em campo: graphique
+calendrier depenses,depense,query natural composta,5,7,OUT,precisa entrar em campo: calendrier
+categories de depenses,depense,query natural composta,5,5,OUT,precisa entrar em campo: categories+de
+limite de depenses,depense,query natural composta,5,7,OUT,precisa entrar em campo: limite+de
+budget mensuel,budget,query natural composta,5,56,OUT,precisa entrar em campo: mensuel
+budget par categorie,budget,query natural composta,5,5,OUT,precisa entrar em campo: par+categorie
+budget du mois,budget,query natural composta,5,54,OUT,precisa entrar em campo: du+mois | UI 'Budget total du mois'
+planificateur de budget,planificateur,query natural composta,5,51,124,precisa entrar em campo: de
+gerer son budget,budget,derivado do top-10,48,52,OUT,precisa entrar em campo: gerer+son | ngram do top-10
+budget perso,budget,query natural composta,5,55,15,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | 'perso' e token do subtitle live
+application budget,budget,query natural composta,11,52,OUT,precisa entrar em campo: application
+budget simple,budget,query natural composta,5,39,OUT,precisa entrar em campo: simple
+suivi de budget,suivi,query natural composta,5,52,171,precisa entrar em campo: de
+gerer son argent,argent,derivado do top-10,9,58,OUT,precisa entrar em campo: gerer+son | ngram x2/x3
+suivi de son argent,argent,query natural composta,5,39,OUT,precisa entrar em campo: de+son
+ou passe mon argent,argent,query natural composta,5,5,OUT,precisa entrar em campo: ou+passe+mon | copia a intencao do subtitle en-US 'Where's My Money?'
+finances personnelles,finances,query natural composta,5,9,OUT,precisa entrar em campo: personnelles
+gestion des finances,finances,query natural composta,5,59,205,precisa entrar em campo: des
+faire des economies,economie,query natural composta,5,44,OUT,precisa entrar em campo: faire+des+economies
+economie mensuelle,economie,query natural composta,5,21,OUT,precisa entrar em campo: mensuelle

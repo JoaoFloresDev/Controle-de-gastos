@@ -1,0 +1,15 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+codzienne wydatki,wydatki,query natural composta,5,5,OUT,precisa entrar em campo: codzienne
+miesieczne wydatki,wydatki,query natural composta,5,7,OUT,precisa entrar em campo: miesieczne
+wydatki wedlug kategorii,kategorie,query natural composta,5,5,OUT,precisa entrar em campo: wedlug+kategorii
+stale wydatki,wydatki,query natural composta,5,5,OUT,precisa entrar em campo: stale | gastos fixos = feature real
+kontrola wydatkow,kontrola,query natural composta,5,33,OUT,precisa entrar em campo: wydatkow | subtitle live 'Kontrola finansów'
+zapis wydatkow,zapis,query natural composta,5,5,OUT,precisa entrar em campo: wydatkow
+raport wydatkow,raporty,query natural composta,5,9,OUT,precisa entrar em campo: raport+wydatkow
+wydatki excel,excel,query natural composta,5,9,4,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+wydatki offline,offline,query natural composta,5,5,3,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+wydatki aplikacja,wydatki,query natural composta,5,41,135,precisa entrar em campo: aplikacja
+budzet domowy,domowe,derivado do top-10,5,37,OUT,precisa entrar em campo: budzet+domowy | 'Home budget' / 'BEEZZ: Home budget' no top-10 pl; 'domowe' e token live
+finanse osobiste,finanse,query natural composta,5,47,112,precisa entrar em campo: osobiste
+wykres wydatkow,wykresy,query natural composta,5,5,OUT,precisa entrar em campo: wykres+wydatkow
+oszczedzanie pieniedzy,oszczędzanie,query natural composta,5,11,OUT,precisa entrar em campo: pieniedzy

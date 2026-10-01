@@ -1,0 +1,15 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+quan ly chi tieu,chi tieu,derivado do top-10,5,55,16,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | 'Quản lý chi tiêu cá nhân' no top-10 vn
+quản lý chi tiêu cá nhân,chi tieu,derivado do top-10,65,57,142,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | nome do #3 do top-10 vn
+ghi chép chi tiêu,chi tieu,query natural composta,5,44,OUT,precisa entrar em campo: ghi+chép
+chi tiêu hàng ngày,chi tieu,query natural composta,57,53,OUT,precisa entrar em campo: hàng+ngày
+chi tiêu hàng tháng,chi tieu,query natural composta,5,47,OUT,precisa entrar em campo: hàng+tháng
+chi tiêu theo danh mục,chi tieu,query natural composta,5,11,OUT,precisa entrar em campo: danh+mục
+sổ chi tiêu,sổ,query natural composta,57,47,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | 'sổ' e token live; 'Sổ Thu Chi' no top-10
+nhật ký chi tiêu,nhật ký,query natural composta,5,11,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+ngân sách tháng,ngân sách,query natural composta,5,31,OUT,precisa entrar em campo: tháng | subtitle live 'Ngân Sách'
+ngân sách theo danh mục,ngân sách,query natural composta,5,5,OUT,precisa entrar em campo: danh+mục
+chi phí cố định,chi phí,query natural composta,5,36,OUT,precisa entrar em campo: cố+định | gastos fixos = feature real
+biểu đồ chi tiêu,biểu,query natural composta,5,5,12,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+chi tiêu offline,chi tieu,query natural composta,5,9,11,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+tiết kiệm tiền,tiết,query natural composta,35,35,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords

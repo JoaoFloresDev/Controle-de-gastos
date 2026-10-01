@@ -1,0 +1,1928 @@
+plan: 3 treatments, 29 locales, 900 PNGs
+experiment 9570de85-a8a3-4601-a2c6-2a56c6936a0d
+▸ A_velocidade-primeiro → 92ea8f08-94ba-452b-91ff-62ad6d295440
+   A_velocidade-primeiro/ar-SA/65: set 50d07a9a-63db-45f1-aa23-5f37692993d4 cleared 0, uploaded 5
+   A_velocidade-primeiro/ar-SA/67: set dc943932-feb7-421b-9bd2-5e8269900c1d cleared 0, uploaded 5
+   A_velocidade-primeiro/cs/65: set 6c92316a-f8f9-45da-b8f4-bcc6944d94e7 cleared 0, uploaded 5
+   A_velocidade-primeiro/cs/67: set b24741eb-7b69-4ca5-900f-43d514a5d6e0 cleared 0, uploaded 5
+   A_velocidade-primeiro/da/65: set 6d764431-f5c0-4395-b76e-d718ae90379d cleared 0, uploaded 5
+   A_velocidade-primeiro/da/67: set 7ba15cf3-0641-4165-b136-fd1a2f927936 cleared 0, uploaded 5
+   A_velocidade-primeiro/de-DE/65: set 8993039c-8bbb-4baa-9ca6-1054cbaeaf5c cleared 0, uploaded 5
+   A_velocidade-primeiro/de-DE/67: set 5915eca7-7c22-4abe-852c-3ed9f0c1a512 cleared 0, uploaded 5
+   A_velocidade-primeiro/el/65: set ffec5061-ab33-4fd9-9da3-ff327617d5b9 cleared 0, uploaded 5
+   A_velocidade-primeiro/el/67: set 23e9d34b-7690-4335-a374-b6a3c4f66f57 cleared 0, uploaded 5
+   A_velocidade-primeiro/en-US/55: set 6d97e4fe-8213-4900-bc85-ce370356b5f2 cleared 3, uploaded 5
+   A_velocidade-primeiro/en-US/65: set 0b397941-6706-4b07-b651-1e7f193ca648 cleared 5, uploaded 5
+   A_velocidade-primeiro/en-US/67: set 95d26dd5-5c98-47bc-a2f3-fa4bb0815891 cleared 5, uploaded 5
+   A_velocidade-primeiro/es-ES/65: set f4d4ab08-7120-4543-af13-9ed2df7a7507 cleared 4, uploaded 5
+   A_velocidade-primeiro/es-ES/67: set dba45257-0ee4-4684-bf39-4a9461b756e7 cleared 0, uploaded 5
+   A_velocidade-primeiro/es-MX/65: set cb7e3548-e967-47a2-8339-879bbb14770c cleared 4, uploaded 5
+=== RESUME 17:54 parallel x8
+plan: 3 treatments, 29 locales, 900 PNGs
+▸ A_velocidade-primeiro → 92ea8f08-94ba-452b-91ff-62ad6d295440
+▸ B_insight-primeiro → defd773f-14d5-4c4c-ac44-898e2e5dfdef
+▸ C_calendario-primeiro → 180d42b2-b09c-46d9-a265-04267080bbcf
+164 sets to upload with 8 workers
+   A_velocidade-primeiro/fi/65: set 49623609-b08e-4bd7-a062-93408c7273cc cleared 0, uploaded 5
+   A_velocidade-primeiro/hi/65: set cc887223-6294-4bec-8355-4286729a29a0 cleared 0, uploaded 5
+   A_velocidade-primeiro/he/65: set 04d1449a-3483-428e-aa35-2e724ffc62fd cleared 0, uploaded 5
+   A_velocidade-primeiro/fr-FR/67: set f3bcf027-3623-424d-9f17-08706b06ec09 cleared 0, uploaded 5
+   A_velocidade-primeiro/he/67: set 51efad7a-b139-4d94-99e8-b6b4a7870a5b cleared 0, uploaded 5
+   A_velocidade-primeiro/fi/67: set 2fc2a489-4604-41cd-9438-ec878f2b69e3 cleared 0, uploaded 5
+   A_velocidade-primeiro/es-MX/67: set 02f81da1-16d7-4169-b51e-e0e004de28f1 cleared 5, uploaded 5
+   A_velocidade-primeiro/fr-FR/65: set e16680c2-121c-4b4c-8ccc-029a23b3dd9d cleared 0, uploaded 5
+   FAILED A_velocidade-primeiro/id/67: POST /v1/appScreenshots → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   A_velocidade-primeiro/id/65: set b9d9bf0d-dc20-4a9f-9dee-e9f9f803af99 cleared 0, uploaded 5
+   FAILED A_velocidade-primeiro/it/67: POST /v1/appScreenshots → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   A_velocidade-primeiro/hi/67: set d77365f0-8979-4b4f-9780-69fb83d79585 cleared 0, uploaded 5
+   FAILED A_velocidade-primeiro/hu/65: PATCH /v1/appScreenshots/3454f99d-de01-4e0a-8cdf-c8465e21c51c → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/ja/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/f288464a-510c-4454-b34d-c4cf832ee3e6/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/ko/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/957fe1b4-05de-49e2-8e26-7c7de24225c4/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/ko/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/957fe1b4-05de-49e2-8e26-7c7de24225c4/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/ms/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/e4f897d7-97a6-410a-81ff-f3263f74df77/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/it/65: POST /v1/appScreenshots → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/ms/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/e4f897d7-97a6-410a-81ff-f3263f74df77/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/nl-NL/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/753d3f2a-bf54-4f04-aca6-aca36ea6518e/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/nl-NL/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/753d3f2a-bf54-4f04-aca6-aca36ea6518e/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/no/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/7ed90e64-b3a0-476a-9060-1e714dd5ba9e/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/no/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/7ed90e64-b3a0-476a-9060-1e714dd5ba9e/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/pl/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/26368c8a-fd01-449b-961e-e2381eaaf598/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/pl/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/26368c8a-fd01-449b-961e-e2381eaaf598/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/pt-BR/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/7c8447fc-bcaa-4a6a-b315-acdc93ef16e1/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/pt-BR/55: GET /v1/appStoreVersionExperimentTreatmentLocalizations/7c8447fc-bcaa-4a6a-b315-acdc93ef16e1/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/hu/67: PATCH /v1/appScreenshots/f5dc1bbb-1dab-4f63-ae45-b6cdb7150b63 → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/pt-BR/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/7c8447fc-bcaa-4a6a-b315-acdc93ef16e1/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/ja/65: PATCH /v1/appScreenshots/14fac26a-2c71-4690-8595-bccaf264075c → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/ru/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/b5c561ce-fca5-47fa-8002-e80e0f2c4a75/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/ru/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/b5c561ce-fca5-47fa-8002-e80e0f2c4a75/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/sv/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/55af3cd7-ad6e-45b2-b94f-1ea5a45b9f23/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/sv/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/55af3cd7-ad6e-45b2-b94f-1ea5a45b9f23/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/tr/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/f6aceba8-9bb3-4516-81dc-8b08f3852925/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/th/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/ab6fec1a-6840-4936-b9f2-009236c52a61/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/th/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/ab6fec1a-6840-4936-b9f2-009236c52a61/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/tr/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/f6aceba8-9bb3-4516-81dc-8b08f3852925/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/uk/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/b746bb44-c206-4748-9ddd-ca1e3e02444f/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/uk/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/b746bb44-c206-4748-9ddd-ca1e3e02444f/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/vi/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/279f2a14-3b5d-4faf-9a5e-b50468dc8d3c/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/vi/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/279f2a14-3b5d-4faf-9a5e-b50468dc8d3c/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/ar-SA/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/352e33d3-2d37-4ecf-8acb-0a1fe08c6649/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/zh-Hans/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/372d13f6-11c8-448c-81cf-a5ba3cbea282/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED A_velocidade-primeiro/zh-Hans/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/372d13f6-11c8-448c-81cf-a5ba3cbea282/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/ar-SA/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/352e33d3-2d37-4ecf-8acb-0a1fe08c6649/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/cs/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/b0fd052c-eb67-4210-b4e9-3806a07201f3/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/cs/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/b0fd052c-eb67-4210-b4e9-3806a07201f3/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/da/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/d44ebe2e-866c-43f4-8d5e-692878930545/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/da/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/d44ebe2e-866c-43f4-8d5e-692878930545/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/de-DE/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/c1d7c366-2a3b-48b5-9357-d53e2c93e188/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/el/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/79e15f28-5785-42c9-bae8-e21bbb19742e/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/el/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/79e15f28-5785-42c9-bae8-e21bbb19742e/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/de-DE/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/c1d7c366-2a3b-48b5-9357-d53e2c93e188/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/en-US/55: GET /v1/appStoreVersionExperimentTreatmentLocalizations/47d09a81-1dcf-420d-877d-cae4afc1972c/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/en-US/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/47d09a81-1dcf-420d-877d-cae4afc1972c/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/en-US/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/47d09a81-1dcf-420d-877d-cae4afc1972c/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/es-ES/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/74b40fea-5f24-4882-8265-e93ffbbc189e/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/es-MX/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/0543c175-7576-4707-83a7-a41c125dc3fb/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/es-ES/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/74b40fea-5f24-4882-8265-e93ffbbc189e/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/fi/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/9c1adbd4-fd8a-4437-9cfa-716fdadf1d1b/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/es-MX/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/0543c175-7576-4707-83a7-a41c125dc3fb/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/fi/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/9c1adbd4-fd8a-4437-9cfa-716fdadf1d1b/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/fr-FR/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/f6148478-499b-4e88-93f6-8e69bf15a128/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/fr-FR/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/f6148478-499b-4e88-93f6-8e69bf15a128/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/he/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/1e47efa4-8d66-4f66-a7eb-5d34e9e318d9/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/he/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/1e47efa4-8d66-4f66-a7eb-5d34e9e318d9/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/hi/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/881f5ac8-661a-4190-8e05-77c6ab916914/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/hu/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/ca341df2-b663-4d6e-be71-c08d7db54a49/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/hi/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/881f5ac8-661a-4190-8e05-77c6ab916914/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/hu/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/ca341df2-b663-4d6e-be71-c08d7db54a49/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/id/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/6785d18d-5e17-4495-81c9-70c9ca2a6421/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/id/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/6785d18d-5e17-4495-81c9-70c9ca2a6421/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/ja/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/de536f72-3a83-460b-bd16-3a469dd4a95d/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/it/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/01a2680e-8a4f-4d13-a071-7ec18dccc824/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/ko/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/daa8f98d-64d1-4562-9536-b4d9068c9f37/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/ja/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/de536f72-3a83-460b-bd16-3a469dd4a95d/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/it/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/01a2680e-8a4f-4d13-a071-7ec18dccc824/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/ko/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/daa8f98d-64d1-4562-9536-b4d9068c9f37/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/ms/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/917f663c-d3df-453d-bbbf-5f6460facf28/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/ms/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/917f663c-d3df-453d-bbbf-5f6460facf28/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/no/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/bfa760fc-76c1-446b-a748-58be716f176b/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/pl/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/a1d52014-05e4-461a-b30c-5ff4f3afabeb/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/nl-NL/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/7633fd74-3838-4472-b4fd-349bff1f91d4/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/nl-NL/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/7633fd74-3838-4472-b4fd-349bff1f91d4/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/no/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/bfa760fc-76c1-446b-a748-58be716f176b/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/pl/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/a1d52014-05e4-461a-b30c-5ff4f3afabeb/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/pt-BR/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/54ccf0e1-fa4d-437a-8ae0-2ab33483c23b/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/pt-BR/55: GET /v1/appStoreVersionExperimentTreatmentLocalizations/54ccf0e1-fa4d-437a-8ae0-2ab33483c23b/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/sv/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/6690d0a7-c8f8-462b-8b61-a7d34fba4349/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/pt-BR/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/54ccf0e1-fa4d-437a-8ae0-2ab33483c23b/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/sv/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/6690d0a7-c8f8-462b-8b61-a7d34fba4349/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/ru/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/b6fe77ea-a79e-4ae0-b301-014bc2f0b825/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/ru/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/b6fe77ea-a79e-4ae0-b301-014bc2f0b825/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/th/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/0da16dd4-02b4-4bef-8550-9128e3252717/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/th/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/0da16dd4-02b4-4bef-8550-9128e3252717/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/tr/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/acdf34af-8277-40bd-948f-63273441fae4/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/tr/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/acdf34af-8277-40bd-948f-63273441fae4/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/vi/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/2925e0ba-2e0d-49dd-8859-6ec59a74a5c6/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/uk/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/b449ed77-be2f-4f9e-ae79-f9468b4d7e6a/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/uk/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/b449ed77-be2f-4f9e-ae79-f9468b4d7e6a/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/vi/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/2925e0ba-2e0d-49dd-8859-6ec59a74a5c6/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/zh-Hans/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/fb6f33ca-1c3b-46fa-8ce8-d4b73ee21ae8/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED B_insight-primeiro/zh-Hans/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/fb6f33ca-1c3b-46fa-8ce8-d4b73ee21ae8/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/ar-SA/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/5793aed9-792c-4574-be30-c66610213735/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/cs/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/670b6269-32e1-45be-aa72-977f4632361f/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/ar-SA/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/5793aed9-792c-4574-be30-c66610213735/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/cs/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/670b6269-32e1-45be-aa72-977f4632361f/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/da/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/3329f67a-92fc-4e29-9652-cd0fbf862148/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/da/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/3329f67a-92fc-4e29-9652-cd0fbf862148/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/de-DE/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/bea70198-6ded-4248-b406-1ad44a297c2f/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/de-DE/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/bea70198-6ded-4248-b406-1ad44a297c2f/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/en-US/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/37da7d60-8ccd-43d2-9170-19ffa4b7b7e1/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/el/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/a1d50db9-c52e-4edc-9f19-a3d0075b0e8b/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/en-US/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/37da7d60-8ccd-43d2-9170-19ffa4b7b7e1/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/en-US/55: GET /v1/appStoreVersionExperimentTreatmentLocalizations/37da7d60-8ccd-43d2-9170-19ffa4b7b7e1/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/es-ES/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/2a6aea80-095f-44eb-9bdc-e2fd4d5a0986/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/el/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/a1d50db9-c52e-4edc-9f19-a3d0075b0e8b/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/es-ES/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/2a6aea80-095f-44eb-9bdc-e2fd4d5a0986/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/es-MX/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/67e6e0b7-e0bb-45f1-b736-968ed1bd835b/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/fr-FR/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/063d89ca-ed9d-4a1d-9acc-998382ab2b28/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/fr-FR/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/063d89ca-ed9d-4a1d-9acc-998382ab2b28/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/es-MX/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/67e6e0b7-e0bb-45f1-b736-968ed1bd835b/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/he/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/505519bf-bd32-48e3-95fc-19e489011fde/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/fi/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/1c46673a-81ef-4253-9484-9df1512f5a25/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/fi/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/1c46673a-81ef-4253-9484-9df1512f5a25/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/he/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/505519bf-bd32-48e3-95fc-19e489011fde/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/id/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/5eef7988-8bcf-445f-9f24-05984cddbf30/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/hu/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/9b63b275-1577-4a8f-922b-c642ae6a66ea/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/hi/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/26a21279-31d9-4973-8f04-b9aa16535a2b/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/id/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/5eef7988-8bcf-445f-9f24-05984cddbf30/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/hi/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/26a21279-31d9-4973-8f04-b9aa16535a2b/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/hu/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/9b63b275-1577-4a8f-922b-c642ae6a66ea/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/it/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/f57abcfd-e816-47ea-804e-15d8e8d6393e/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/it/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/f57abcfd-e816-47ea-804e-15d8e8d6393e/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/ko/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/51fb85ec-af82-41a9-9b51-49666e36f787/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/ko/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/51fb85ec-af82-41a9-9b51-49666e36f787/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/ja/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/e3632488-0bb4-4ed8-b1f0-70dd7136d6a4/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/nl-NL/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/8b109b30-ef01-4ff2-9c87-034add4eb908/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/ms/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/a419750c-1e9e-4fa8-9f1a-76d7040bb5ed/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/ja/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/e3632488-0bb4-4ed8-b1f0-70dd7136d6a4/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/ms/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/a419750c-1e9e-4fa8-9f1a-76d7040bb5ed/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/nl-NL/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/8b109b30-ef01-4ff2-9c87-034add4eb908/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/pt-BR/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/5f34e33a-8976-45c3-bcca-e7b777eaf63c/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/pt-BR/55: GET /v1/appStoreVersionExperimentTreatmentLocalizations/5f34e33a-8976-45c3-bcca-e7b777eaf63c/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/pl/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/44e7974d-54b2-4b26-a7b2-5515ac83222c/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/pt-BR/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/5f34e33a-8976-45c3-bcca-e7b777eaf63c/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/pl/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/44e7974d-54b2-4b26-a7b2-5515ac83222c/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/no/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/c7d7ed36-40ce-46a8-ab75-42f09f401f60/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/no/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/c7d7ed36-40ce-46a8-ab75-42f09f401f60/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/ru/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/f572405a-6613-4048-b599-d3d1b6244a8f/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/ru/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/f572405a-6613-4048-b599-d3d1b6244a8f/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/tr/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/33e5519a-3aa9-41bc-b2c2-bb9846ca3500/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/sv/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/f00cc374-262d-4a6c-9976-d9da588eceec/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/th/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/0f99a534-0454-4fbc-a367-7b2e7b39dec8/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/sv/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/f00cc374-262d-4a6c-9976-d9da588eceec/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/th/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/0f99a534-0454-4fbc-a367-7b2e7b39dec8/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/tr/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/33e5519a-3aa9-41bc-b2c2-bb9846ca3500/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/uk/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/fa7516e7-def4-4870-8667-7f1c6ea5b8ba/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/uk/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/fa7516e7-def4-4870-8667-7f1c6ea5b8ba/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/vi/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/2673e06c-68da-4c2f-9b75-8ee46356a6b3/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/zh-Hans/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/83c8f19e-567d-41cb-95dc-d8d3542d5390/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/zh-Hans/67: GET /v1/appStoreVersionExperimentTreatmentLocalizations/83c8f19e-567d-41cb-95dc-d8d3542d5390/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+   FAILED C_calendario-primeiro/vi/65: GET /v1/appStoreVersionExperimentTreatmentLocalizations/2673e06c-68da-4c2f-9b75-8ee46356a6b3/appScreenshotSets → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+154 sets failed — rerun with --resume
+upload done — waiting 60s before the first verification pass
+Traceback (most recent call last):
+  File "/Users/joaoflores/Documents/GambitStudio/Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/experiments/2026-08-28_ppo-01_panorama-v3-ordering/tools/upload_experiment.py", line 208, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/joaoflores/Documents/GambitStudio/Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/experiments/2026-08-28_ppo-01_panorama-v3-ordering/tools/upload_experiment.py", line 199, in main
+    create_or_resume(mod, exp, None, True)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/joaoflores/Documents/GambitStudio/Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/experiments/2026-08-28_ppo-01_panorama-v3-ordering/tools/upload_experiment.py", line 170, in create_or_resume
+    verify(mod, exp)
+    ~~~~~~^^^^^^^^^^
+  File "/Users/joaoflores/Documents/GambitStudio/Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/experiments/2026-08-28_ppo-01_panorama-v3-ordering/tools/upload_experiment.py", line 179, in verify
+    note = verify_set(mod, s["set_id"], plan[t_name][locale][dt])
+  File "/Users/joaoflores/Documents/GambitStudio/Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/experiments/2026-08-28_ppo-01_panorama-v3-ordering/tools/upload_experiment.py", line 84, in verify_set
+    data = mod.get(hdr(mod), f"/v1/appScreenshotSets/{set_id}/appScreenshots", {"limit": 50})
+  File "/Users/joaoflores/Documents/GambitStudio/_GambitStudio/templates/fastlane/upload_ppo.py", line 141, in get
+    return _check(requests.get(f"{BASE}{path}", headers=auth(headers), params=params), f"GET {path}")
+  File "/Users/joaoflores/Documents/GambitStudio/_GambitStudio/templates/fastlane/upload_ppo.py", line 134, in _check
+    raise APIError(f"{where} → {r.status_code}\n{detail}")
+ppo_template.APIError: GET /v1/appScreenshotSets/50d07a9a-63db-45f1-aa23-5f37692993d4/appScreenshots → 429
+{
+  "errors": [
+    {
+      "status": "429",
+      "code": "RATE_LIMIT_EXCEEDED",
+      "title": "The request rate limit has been reached.",
+      "detail": "We've received too many requests for this API. Please wait and try again or slow down your request rate."
+    }
+  ]
+}
+=== RESUME 20:35 workers=3 retry429
+plan: 3 treatments, 29 locales, 900 PNGs
+▸ A_velocidade-primeiro → 92ea8f08-94ba-452b-91ff-62ad6d295440
+▸ B_insight-primeiro → defd773f-14d5-4c4c-ac44-898e2e5dfdef
+▸ C_calendario-primeiro → 180d42b2-b09c-46d9-a265-04267080bbcf
+154 sets to upload with 3 workers
+   A_velocidade-primeiro/id/67: set ce89e089-d931-41a8-9daf-526d0554f2fe cleared 4, uploaded 5
+   A_velocidade-primeiro/hu/65: set 7fc4be96-aa53-4412-bd54-d48acc694b39 cleared 5, uploaded 5
+   A_velocidade-primeiro/hu/67: set b2ce1b80-491c-4da5-9f5c-ebeaf278010c cleared 5, uploaded 5
+   A_velocidade-primeiro/ja/65: set 54779995-43fc-4951-a3f7-4985cdea7d14 cleared 4, uploaded 5
+   A_velocidade-primeiro/it/65: set 62ddecc4-b844-4533-a50c-5d78bc4960ec cleared 4, uploaded 5
+   A_velocidade-primeiro/it/67: set 93552160-09eb-4491-b07e-04a8458fae79 cleared 4, uploaded 5
+   A_velocidade-primeiro/ko/65: set 53556602-26ce-4383-8000-73b2970a67fd cleared 0, uploaded 5
+   A_velocidade-primeiro/ja/67: set a3b3ade3-1a6a-49f0-917a-40ae87c7e33b cleared 0, uploaded 5
+   A_velocidade-primeiro/ko/67: set 465d3093-fad0-4314-9fdb-5410f4b35a5a cleared 0, uploaded 5
+   A_velocidade-primeiro/ms/65: set c4ad6306-281a-4b53-9363-6b63cd1bbd79 cleared 0, uploaded 5
+   A_velocidade-primeiro/ms/67: set 611a663c-f428-4bf8-8fb4-1f647e024909 cleared 0, uploaded 5
+   A_velocidade-primeiro/nl-NL/65: set 16b3ed9e-4edd-4a58-96ab-f0b20ef50f0b cleared 0, uploaded 5
+   A_velocidade-primeiro/nl-NL/67: set a0aa76a0-0e40-4749-abad-0f4c171010d1 cleared 0, uploaded 5
+   A_velocidade-primeiro/no/65: set ff1a7a82-99af-4c10-b9bc-44fd05904a02 cleared 0, uploaded 5
+   A_velocidade-primeiro/no/67: set 3a1649f3-0fbe-4fff-8b72-49c468bdd2af cleared 0, uploaded 5
+   A_velocidade-primeiro/pl/65: set 8e9c42ee-0b7c-44a5-b3fe-bef5c1133a8d cleared 0, uploaded 5
+   A_velocidade-primeiro/pt-BR/55: set f1f11d85-5430-4725-977b-a7c02b04dcac cleared 3, uploaded 5
+   A_velocidade-primeiro/pl/67: set 0f16ba8f-40a2-429a-bebb-5555ac8e3bee cleared 0, uploaded 5
+   A_velocidade-primeiro/pt-BR/65: set af9c0429-60dd-4498-abf8-6367b26c9bfa cleared 4, uploaded 5
+=== RESUME 20:38 workers=6 quota-governor retry429
+plan: 3 treatments, 29 locales, 900 PNGs
+▸ A_velocidade-primeiro → 92ea8f08-94ba-452b-91ff-62ad6d295440
+▸ B_insight-primeiro → defd773f-14d5-4c4c-ac44-898e2e5dfdef
+▸ C_calendario-primeiro → 180d42b2-b09c-46d9-a265-04267080bbcf
+135 sets to upload with 6 workers
+   A_velocidade-primeiro/th/65: set 66f99669-caec-4325-af8a-189a1a83395a cleared 0, uploaded 5
+   A_velocidade-primeiro/ru/67: set ebe7b34b-659f-4876-94fc-b3cf73f0cdc6 cleared 2, uploaded 5
+   A_velocidade-primeiro/sv/67: set 390f5d64-23e8-4057-81ab-9d59a45b4280 cleared 0, uploaded 5
+   A_velocidade-primeiro/sv/65: set 7c7c02dc-a67a-4f2c-bdc4-84489b82eafa cleared 0, uploaded 5
+   A_velocidade-primeiro/ru/65: set e52dfc86-ac93-4212-bb6b-66ec952d9e95 cleared 5, uploaded 5
+   A_velocidade-primeiro/pt-BR/67: set af8b0e51-225f-42fd-a3ef-dac6f4153404 cleared 4, uploaded 5
+   A_velocidade-primeiro/tr/65: set 83724c37-b65d-48c3-a352-6fed835cf150 cleared 0, uploaded 5
+   A_velocidade-primeiro/tr/67: set 2530a46a-a152-4b27-98fb-9f5a1cfb58a0 cleared 0, uploaded 5
+   A_velocidade-primeiro/th/67: set c4cd192a-69a4-467e-81c6-548b7ef744cd cleared 0, uploaded 5
+   A_velocidade-primeiro/vi/65: set cc5313e3-d612-46c4-97c0-6ba053d646b7 cleared 0, uploaded 5
+   A_velocidade-primeiro/uk/67: set 131b4cdd-15ae-4846-aed2-1633ebef63be cleared 0, uploaded 5
+   A_velocidade-primeiro/uk/65: set 1d9645e3-0f57-45ec-9d35-64cdbca9bc62 cleared 0, uploaded 5
+   A_velocidade-primeiro/vi/67: set e1fa845f-7a3b-46e8-b44a-1e4504ca8ab6 cleared 0, uploaded 5
+   A_velocidade-primeiro/zh-Hans/65: set d2d82612-cfc3-4e74-9693-ba5c630b4b52 cleared 0, uploaded 5
+   A_velocidade-primeiro/zh-Hans/67: set 5a914920-0045-43f4-b57a-91e8062504d6 cleared 0, uploaded 5
+   B_insight-primeiro/ar-SA/65: set e26cba3e-6337-4d1c-b3cd-9a5c9853164f cleared 0, uploaded 5
+   B_insight-primeiro/cs/65: set d2815bd7-efd0-44dd-8571-660430b6d2c7 cleared 0, uploaded 5
+   B_insight-primeiro/ar-SA/67: set d601168a-7a4e-4e32-a2b8-2d88c447e9b9 cleared 0, uploaded 5
+   B_insight-primeiro/da/65: set b0a3eb87-7b9a-4ca4-ab1e-27e1047b7ce5 cleared 0, uploaded 5
+   B_insight-primeiro/da/67: set 02d6c9de-ea51-41fe-b85c-ac373cc4acee cleared 0, uploaded 5
+   B_insight-primeiro/cs/67: set b7b12136-3b3f-4eb8-b45e-748ed553fadd cleared 0, uploaded 5
+   B_insight-primeiro/de-DE/67: set d3a10541-ce5e-4979-aba8-a3f7715c2ff3 cleared 0, uploaded 5
+   B_insight-primeiro/el/65: set eefc0de1-5ea5-489a-b3ad-def5e184041c cleared 0, uploaded 5
+   B_insight-primeiro/de-DE/65: set cf8b614b-ba40-49ee-a3f9-a61314a3f755 cleared 0, uploaded 5
+   B_insight-primeiro/el/67: set 5a5ba9f2-2ace-4be6-83fb-f3d20f76ce72 cleared 0, uploaded 5
+   B_insight-primeiro/en-US/65: set a197a22d-39f7-4fd6-8759-8f0f56f50984 cleared 5, uploaded 5
+   B_insight-primeiro/en-US/55: set 1dd03c4c-096d-4d58-bee7-e227ca67e057 cleared 3, uploaded 5
+   B_insight-primeiro/es-ES/67: set e8d87eaf-cfc5-4122-b7c8-87a5ce46ad54 cleared 0, uploaded 5
+   B_insight-primeiro/en-US/67: set d891b998-8552-4e21-877c-ae7abf86971e cleared 5, uploaded 5
+   B_insight-primeiro/es-ES/65: set 4a6b8b74-58c2-4f23-b266-98661c5abcd8 cleared 4, uploaded 5
+   B_insight-primeiro/es-MX/65: set 431f28ff-6609-4011-9eff-2423e11ba820 cleared 4, uploaded 5
+   B_insight-primeiro/es-MX/67: set 1162992e-dda9-4ada-be1c-e7f9cce4b4ac cleared 0, uploaded 5
+   B_insight-primeiro/fi/67: set 970cfd35-09bc-48ae-933f-4fc0e9839f18 cleared 0, uploaded 5
+   B_insight-primeiro/fr-FR/65: set 6ac8b985-1769-4cdf-b144-833aac162208 cleared 0, uploaded 5
+   B_insight-primeiro/fr-FR/67: set 1d5fc4c8-3427-44a0-93e9-af84917d16e2 cleared 0, uploaded 5
+   B_insight-primeiro/fi/65: set 9f364920-c534-430b-9c1c-e89131ab7487 cleared 0, uploaded 5
+   B_insight-primeiro/he/65: set 3179c1b5-2ff3-4bd3-b1c9-cbe30fe665be cleared 0, uploaded 5
+   B_insight-primeiro/hi/65: set 5b021453-a235-4a22-bb0d-3c7aa503518e cleared 0, uploaded 5
+   B_insight-primeiro/he/67: set 88438a9c-17f8-4937-befa-ecbabceff755 cleared 0, uploaded 5
+   B_insight-primeiro/hi/67: set 1d82f0a0-49d9-441d-bf1a-ac3f868cbddd cleared 0, uploaded 5
+   B_insight-primeiro/hu/65: set 7c2ce553-f73f-4a07-8df6-8455b767e9f7 cleared 0, uploaded 5
+   B_insight-primeiro/hu/67: set 769f303e-6983-444a-b1f3-3a88cba38148 cleared 0, uploaded 5
+   B_insight-primeiro/id/65: set 8036f487-8972-47cc-8e3e-c4aea1bfc4be cleared 0, uploaded 5
+   B_insight-primeiro/id/67: set a837ddaf-597d-46c3-bc71-85131e80f82d cleared 0, uploaded 5
+   B_insight-primeiro/it/65: set a9d296dc-e5a9-4497-84ac-bd27e9531963 cleared 0, uploaded 5
+   B_insight-primeiro/ja/65: set a3b40362-4d96-4bbb-9d36-7567f8e1476c cleared 0, uploaded 5
+   B_insight-primeiro/ja/67: set cbd35285-4bde-4bca-b394-54922d7c19bb cleared 0, uploaded 5
+   B_insight-primeiro/it/67: set 76facf6f-86b0-416d-b0e8-731878ef9854 cleared 0, uploaded 5
+   B_insight-primeiro/ko/65: set 80b5f2f8-c131-4f40-a93d-8e1c96af6904 cleared 0, uploaded 5
+   B_insight-primeiro/ms/67: set c32e66be-01a2-4817-b5e4-b72e29207876 cleared 0, uploaded 5
+   B_insight-primeiro/ms/65: set 932a427e-267d-42fa-86d2-536d828b8306 cleared 0, uploaded 5
+   B_insight-primeiro/ko/67: set c5d7a9df-ec13-463c-b3dc-530807a05b37 cleared 0, uploaded 5
+   B_insight-primeiro/nl-NL/65: set dd365027-817c-4967-89ea-bf8ce53bc449 cleared 0, uploaded 5
+   B_insight-primeiro/nl-NL/67: set 435f2eee-3622-4734-b74e-aabd84a4fe9d cleared 0, uploaded 5
+   B_insight-primeiro/no/65: set 9aa4c2fa-1035-4e5f-bcfe-b5be4b9f8e04 cleared 0, uploaded 5
+   B_insight-primeiro/no/67: set 72fc862e-273d-4f18-a00d-048fb3e7cfca cleared 0, uploaded 5
+   B_insight-primeiro/pl/65: set 760f4faa-3785-461f-b9a1-e2a42dc63e99 cleared 0, uploaded 5
+   B_insight-primeiro/pl/67: set 19863f39-abca-4965-8e17-30a69130f4d1 cleared 0, uploaded 5
+   B_insight-primeiro/pt-BR/55: set cc1e6226-7856-4a0b-b498-2a459d67526f cleared 3, uploaded 5
+   B_insight-primeiro/pt-BR/65: set daf42a86-fc7c-4d05-9403-8bb1d5a5d8d7 cleared 4, uploaded 5
+   B_insight-primeiro/pt-BR/67: set 7970f88c-1c4d-49e5-83c4-f8971c450f24 cleared 6, uploaded 5
+   B_insight-primeiro/ru/67: set 5dec5098-5ab2-4021-9f76-0d43b2510659 cleared 0, uploaded 5
+   B_insight-primeiro/sv/65: set 86319311-2c99-43e9-aeff-c15243e6b8f4 cleared 0, uploaded 5
+   B_insight-primeiro/ru/65: set 1808eb78-e96a-495d-8f4a-ece6e7dcad54 cleared 0, uploaded 5
+   B_insight-primeiro/sv/67: set f9aa0dff-c800-4637-9b09-15cc6df1a450 cleared 0, uploaded 5
+   B_insight-primeiro/th/65: set 43c41a69-06df-4c72-8d3e-54de5e7d1ee6 cleared 0, uploaded 5
+   B_insight-primeiro/th/67: set a9c7c152-cb1c-4609-b319-41413fe1e2c9 cleared 0, uploaded 5
+   B_insight-primeiro/tr/67: set 9a00d591-8cfe-436a-9dfb-c30aae88d9f1 cleared 0, uploaded 5
+   B_insight-primeiro/tr/65: set c5766e92-8b91-4a79-9d3b-8e86ba3b944e cleared 0, uploaded 5
+   B_insight-primeiro/uk/65: set 3c087c5b-50c3-4881-b1a2-bf2e3796d87f cleared 0, uploaded 5
+   B_insight-primeiro/uk/67: set fffc0edd-9d00-4168-bfc7-7e7e2935ac78 cleared 0, uploaded 5
+   B_insight-primeiro/vi/65: set 15822a84-3b6f-4931-a118-d72edaab6bfb cleared 0, uploaded 5
+   B_insight-primeiro/vi/67: set a1300d22-a0da-41f9-94f5-d62cfe7fdb60 cleared 0, uploaded 5
+   B_insight-primeiro/zh-Hans/67: set 80f2219a-be8f-4601-95f8-16d41733e9c7 cleared 0, uploaded 5
+   B_insight-primeiro/zh-Hans/65: set 199dd4f2-2aa0-4c2a-9e3f-3b1a652d2862 cleared 0, uploaded 5
+   C_calendario-primeiro/ar-SA/65: set 33dd4f88-e856-4147-aadc-fe3ada66be2c cleared 0, uploaded 5
+   C_calendario-primeiro/ar-SA/67: set caebc40d-2a92-457a-844d-d1c00ca85f46 cleared 0, uploaded 5
+   C_calendario-primeiro/cs/65: set d55b26a0-4142-46cc-8431-0e9e66292dea cleared 0, uploaded 5
+   C_calendario-primeiro/cs/67: set 86aa3283-4146-4471-955d-df8c9875eff7 cleared 0, uploaded 5
+   C_calendario-primeiro/da/67: set 6f3cdcc8-340c-4754-9484-9f8b71b230f8 cleared 0, uploaded 5
+   C_calendario-primeiro/da/65: set 38d2707c-d6cc-460a-813c-de41884214e4 cleared 0, uploaded 5
+   C_calendario-primeiro/de-DE/65: set 5313151c-44bf-4ee2-bea8-8657c3e0d5fe cleared 0, uploaded 5
+   C_calendario-primeiro/de-DE/67: set 41eb126d-25ab-400e-a545-038c690f1d03 cleared 0, uploaded 5
+   C_calendario-primeiro/el/65: set 2c54ce40-f652-42fe-9712-eb4232840c9c cleared 0, uploaded 5
+   C_calendario-primeiro/el/67: set 8e9d8f93-83e7-4f34-a191-74bc65c10af0 cleared 0, uploaded 5
+   C_calendario-primeiro/en-US/55: set fbd798b0-1b6b-4f7f-b06b-906d628a4971 cleared 3, uploaded 5
+   C_calendario-primeiro/en-US/65: set 5b25716b-b938-44a1-a2a4-64d3cfc4ed8a cleared 5, uploaded 5
+   C_calendario-primeiro/es-ES/65: set 09035baf-10b4-452e-a5c7-46bc1d4842bc cleared 4, uploaded 5
+   C_calendario-primeiro/en-US/67: set 8c0e84f8-2821-4a3c-8121-6fac03fd1131 cleared 5, uploaded 5
+   C_calendario-primeiro/es-ES/67: set 0c9e9c4e-dff9-4b49-a2c9-0030b60a7a76 cleared 0, uploaded 5
+   C_calendario-primeiro/es-MX/65: set 2d8b6676-6e5a-4c8f-acf5-5c4d846e2ec9 cleared 4, uploaded 5
+   C_calendario-primeiro/fi/65: set 8a4f40ca-ddb5-49fb-8476-a8b684682ad3 cleared 0, uploaded 5
+   C_calendario-primeiro/es-MX/67: set 8d66e19a-1b16-450d-acb2-cad0828e499f cleared 0, uploaded 5
+   C_calendario-primeiro/fr-FR/65: set 56a7cf12-2d6e-4c85-b340-c3de1d95cbc2 cleared 0, uploaded 5
+   C_calendario-primeiro/fr-FR/67: set 0f2cfba5-006f-487b-8946-10e895c3f1d7 cleared 0, uploaded 5
+   C_calendario-primeiro/fi/67: set 2bc9fdf8-c7ba-45a7-9bb2-d3dd81268f24 cleared 0, uploaded 5
+   C_calendario-primeiro/he/65: set b4f8af47-d235-4d03-8d35-914fb4ea7028 cleared 0, uploaded 5
+   C_calendario-primeiro/hi/67: set fd223a77-5475-4951-896a-5fedbec7a0bf cleared 0, uploaded 5
+   C_calendario-primeiro/hi/65: set 31e3678f-589e-4ed8-8a74-88187957ddad cleared 0, uploaded 5
+   C_calendario-primeiro/he/67: set c57d34b6-e376-4321-b42a-33132cef1b0d cleared 0, uploaded 5
+   C_calendario-primeiro/hu/65: set 93f332e2-8558-47b5-ab3c-e1de5716bbb4 cleared 0, uploaded 5
+   C_calendario-primeiro/hu/67: set f5679aa4-02cd-4c43-9a26-5c92fb1cdf16 cleared 0, uploaded 5
+   C_calendario-primeiro/id/65: set 56dc92a0-2c9d-45f0-ad0d-b0a4f71a3349 cleared 0, uploaded 5
+   C_calendario-primeiro/it/67: set a29eeefe-a7f4-402b-aab5-a04575764694 cleared 0, uploaded 5
+   C_calendario-primeiro/id/67: set 072f63d0-ee9d-4a32-9f99-192ff4583a38 cleared 0, uploaded 5
+   C_calendario-primeiro/it/65: set a32f7d3b-9cfa-4a6a-a696-c219fd9c7da2 cleared 0, uploaded 5
+   C_calendario-primeiro/ja/65: set 295976bf-4d8e-4494-95d6-da2d1323a896 cleared 0, uploaded 5
+   C_calendario-primeiro/ja/67: set 1938ea87-023a-43bd-ad28-c49de886c90d cleared 0, uploaded 5
+   C_calendario-primeiro/ko/65: set 58302e16-3650-48c2-b5d5-b5c0a4c76ce5 cleared 0, uploaded 5
+   C_calendario-primeiro/ko/67: set a41d1ed5-77ef-409b-b0a8-7b2824af6a77 cleared 0, uploaded 5
+   C_calendario-primeiro/ms/67: set d7566b39-9e52-4c92-835d-425cd2f691db cleared 0, uploaded 5
+   C_calendario-primeiro/ms/65: set 9d4a7e3c-f487-4403-a6f7-3a8ab490ca55 cleared 0, uploaded 5
+   C_calendario-primeiro/nl-NL/65: set 05380e04-827c-4ee0-80fd-b18274ad9c0a cleared 0, uploaded 5
+   C_calendario-primeiro/nl-NL/67: set c56b78f6-1062-4f93-a50b-ff6ca33e800a cleared 0, uploaded 5
+   C_calendario-primeiro/no/65: set b1daa34f-180d-4115-93c2-a3bb98e9a6ec cleared 0, uploaded 5
+   C_calendario-primeiro/no/67: set b3628f4f-f39b-4292-a48c-e198e6aae35e cleared 0, uploaded 5
+   C_calendario-primeiro/pt-BR/55: set 6853082a-b07b-4af9-bb13-3103e0009890 cleared 3, uploaded 5
+   C_calendario-primeiro/pl/65: set db5dea2e-cca1-413d-902b-3548afd880fe cleared 0, uploaded 5
+   C_calendario-primeiro/pl/67: set 45d2f29c-0437-4ff3-a78d-3287596b15b3 cleared 0, uploaded 5
+   C_calendario-primeiro/pt-BR/65: set 0edf7cf7-ba98-45b5-bc03-900515b64302 cleared 4, uploaded 5
+   C_calendario-primeiro/pt-BR/67: set 22cbae3f-7916-4af9-a1cd-9cc6416900ae cleared 6, uploaded 5
+   C_calendario-primeiro/sv/65: set fb2d95b4-0f71-40ad-96f3-08da8f771af6 cleared 0, uploaded 5
+   C_calendario-primeiro/sv/67: set df3e0c01-2af2-47df-a11c-2ece1a8d9328 cleared 0, uploaded 5
+   C_calendario-primeiro/ru/67: set c8f5a4b0-25e4-4a4b-aca1-e6a3c623201a cleared 0, uploaded 5
+   C_calendario-primeiro/ru/65: set c86d68c9-45a6-4664-8dbb-fd9acc484018 cleared 0, uploaded 5
+   C_calendario-primeiro/th/65: set 67aece8e-5bef-416b-bf93-080010ee2b95 cleared 0, uploaded 5
+   C_calendario-primeiro/tr/67: set 7096eebd-c845-459f-83fe-9563674e68b5 cleared 0, uploaded 5
+   C_calendario-primeiro/th/67: set d22a85b0-2f09-4937-a517-5b053f71f73e cleared 0, uploaded 5
+   C_calendario-primeiro/uk/65: set f1cf4925-5c7b-4288-995f-60a1db596080 cleared 0, uploaded 5
+   C_calendario-primeiro/uk/67: set 635945ed-ff0c-4e36-b1aa-b89ee742cf35 cleared 0, uploaded 5
+   C_calendario-primeiro/tr/65: set f1f39a90-0630-4bca-ac12-173db246a3ba cleared 0, uploaded 5
+   C_calendario-primeiro/vi/65: set 28ffa5b9-6c5a-44f2-baf1-f4d6a24c5bae cleared 0, uploaded 5
+   C_calendario-primeiro/vi/67: set 8ced4d9b-81da-43e1-93f1-4850c084c809 cleared 0, uploaded 5
+   C_calendario-primeiro/zh-Hans/65: set 8eb69ebe-8055-4d21-806f-dee37ab08d8b cleared 0, uploaded 5
+   C_calendario-primeiro/zh-Hans/67: set 4b63adf9-e8a1-43e6-aaa2-756cb2e621b7 cleared 0, uploaded 5
+upload done — waiting 60s before the first verification pass
+verified 180 sets: ALL CLEAN

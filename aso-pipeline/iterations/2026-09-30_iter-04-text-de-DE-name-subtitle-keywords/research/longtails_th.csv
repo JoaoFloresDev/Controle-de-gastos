@@ -1,0 +1,14 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+บันทึกรายจ่าย,รายจ่าย,query natural composta,5,51,65,composicao: idioma sem separacao por palavra — core word presente no termo | nome live 'บันทึกรายจ่าย'
+รายจ่ายรายวัน,รายจ่าย,query natural composta,5,9,28,composicao: idioma sem separacao por palavra — core word presente no termo
+รายจ่ายรายเดือน,รายจ่าย,query natural composta,5,9,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+รายจ่ายตามหมวดหมู่,รายจ่าย,query natural composta,5,5,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+รายจ่ายประจำ,รายจ่าย,query natural composta,5,5,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | gastos fixos = feature real
+สมุดบัญชีรายจ่าย,สมุดบัญชี,query natural composta,5,28,50,composicao: idioma sem separacao por palavra — core word presente no termo
+งบประมาณรายเดือน,งบประมาณ,query natural composta,5,9,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | subtitle live 'คุมงบประมาณ'
+จัดการเงินส่วนตัว,การเงิน,query natural composta,5,5,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+กราฟรายจ่าย,กราฟ,query natural composta,5,7,11,composicao: idioma sem separacao por palavra — core word presente no termo
+วางแผนการเงิน,วางแผน,query natural composta,5,48,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+ออมเงินรายเดือน,ออมเงิน,query natural composta,5,9,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+แอพบันทึกรายจ่าย,รายจ่าย,query natural composta,5,47,211,composicao: idioma sem separacao por palavra — core word presente no termo
+รายรับรายจ่าย,รายจ่าย,derivado do top-10,56,60,135,composicao: idioma sem separacao por palavra — core word presente no termo | 'รายรับ-รายจ่าย : Save Money' no top-10 th — MISFIT N3 na parte 'รายรับ' (receita)

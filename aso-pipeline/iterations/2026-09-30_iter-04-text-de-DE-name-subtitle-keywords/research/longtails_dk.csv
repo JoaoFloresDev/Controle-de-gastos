@@ -1,0 +1,15 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+udgifter app,udgifter,query natural composta,5,23,OUT,precisa entrar em campo: app
+daglige udgifter,udgifter,query natural composta,5,5,OUT,precisa entrar em campo: daglige
+manedlige udgifter,udgifter,query natural composta,5,5,OUT,precisa entrar em campo: manedlige
+udgifter per kategori,udgifter,query natural composta,5,5,OUT,precisa entrar em campo: per+kategori
+faste udgifter,udgifter,query natural composta,5,5,OUT,precisa entrar em campo: faste | gastos fixos = feature real
+oversigt over udgifter,oversigt,query natural composta,5,5,OUT,precisa entrar em campo: over
+udgiftsstyring app,udgiftsstyring,query natural composta,5,9,21,precisa entrar em campo: app | subtitle live 'Enkel udgiftsstyring'
+udgiftsdagbog,dagbog,query natural composta,5,5,OUT,precisa entrar em campo: udgiftsdagbog
+udgifter excel,excel,query natural composta,5,7,5,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+udgifter offline,udgifter,query natural composta,5,5,OUT,precisa entrar em campo: offline
+budget per maned,budget,query natural composta,5,5,OUT,precisa entrar em campo: per+maned
+styr pa pengene,penge,derivado do top-10,5,7,OUT,precisa entrar em campo: styr+pa+pengene | 'Lommebudget - styr på pengene' no top-10 dk
+forbrug oversigt,forbrug,query natural composta,5,5,7,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+udgifter widget,udgifter,query natural composta,5,5,OUT,precisa entrar em campo: widget

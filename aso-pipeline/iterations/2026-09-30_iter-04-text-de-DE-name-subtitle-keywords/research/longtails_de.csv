@@ -1,0 +1,72 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+ausgaben app,ausgaben,query natural composta,5,50,OUT,precisa entrar em campo: app
+ausgaben tracker,ausgaben,derivado do top-10,55,55,OUT,precisa entrar em campo: tracker | token 'tracker' x7 no top-10
+ausgaben erfassen,ausgaben,query natural composta,5,54,171,precisa entrar em campo: erfassen | verbo da UI 'Ausgabe erfassen'
+ausgaben notieren,ausgaben,query natural composta,5,5,OUT,precisa entrar em campo: notieren
+ausgaben verwalten,ausgaben,query natural composta,5,49,15,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | 'verwalten' ja no subtitle live
+ausgaben planen,ausgaben,query natural composta,5,44,113,precisa entrar em campo: planen
+ausgaben im griff,ausgaben,derivado do top-10,5,11,OUT,precisa entrar em campo: im+griff | de 'mein Budget -Ausgaben im Griff'
+ausgaben pro monat,ausgaben,query natural composta,5,11,22,precisa entrar em campo: pro+monat
+monatliche ausgaben,ausgaben,query natural composta,12,59,156,precisa entrar em campo: monatliche
+tagliche ausgaben,ausgaben,query natural composta,5,9,OUT,precisa entrar em campo: tagliche
+ausgaben nach kategorien,ausgaben,query natural composta,5,5,OUT,precisa entrar em campo: nach | UI 'Monatsausgaben nach Kategorie'
+ausgaben widget,ausgaben,query natural composta,5,13,OUT,precisa entrar em campo: widget | feature subexplorada: widget interativo
+ausgaben offline,ausgaben,query natural composta,5,11,OUT,precisa entrar em campo: offline | feature real: offline-first
+ausgaben ohne werbung,ausgaben,derivado do top-10,5,5,OUT,precisa entrar em campo: ohne+werbung | de 'Offline. Privat. Ohne Werbung.'
+ausgaben excel,ausgaben,query natural composta,5,13,OUT,precisa entrar em campo: excel | export Excel real e nao PRO-gated
+ausgaben kalender,ausgaben,query natural composta,5,7,OUT,precisa entrar em campo: kalender | aba calendario real
+ausgaben manager,ausgaben,derivado do top-10,9,54,OUT,precisa entrar em campo: manager | ngram x6 no top-10
+ausgaben budget planner,ausgaben,derivado do top-10,5,50,OUT,precisa entrar em campo: planner | ngram x2 no top-10
+wiederkehrende ausgaben,ausgaben,query natural composta,5,5,OUT,precisa entrar em campo: wiederkehrende | string de UI literal
+gesamtausgaben monat,ausgaben,query natural composta,5,5,OUT,precisa entrar em campo: gesamtausgaben+monat | string de UI 'Gesamtausgaben'
+ausgaben diagramm,ausgaben,query natural composta,5,5,OUT,precisa entrar em campo: diagramm | aba 'Diagramme'
+ausgaben ubersicht,ausgaben,query natural composta,5,40,OUT,precisa entrar em campo: ubersicht
+einfach ausgaben erfassen,ausgaben,query natural composta,5,11,OUT,precisa entrar em campo: einfach+erfassen
+ausgaben app ohne anmeldung,ausgaben,query natural composta,5,5,OUT,precisa entrar em campo: app+ohne+anmeldung | sem conta obrigatoria
+ausgaben pdf export,ausgaben,query natural composta,5,5,OUT,precisa entrar em campo: pdf+export | export PDF real
+haushaltsbuch app,haushaltsbuch,query natural composta,5,59,197,precisa entrar em campo: app
+haushaltsbuch kostenlos,haushaltsbuch,suggestion do Astro,61,62,54,precisa entrar em campo: kostenlos | Astro get_keyword_suggestions de
+haushaltsbuch offline,haushaltsbuch,query natural composta,5,13,OUT,precisa entrar em campo: offline
+haushaltsbuch ohne werbung,haushaltsbuch,derivado do top-10,5,5,OUT,precisa entrar em campo: ohne+werbung
+haushaltsbuch einfach,haushaltsbuch,query natural composta,5,17,OUT,precisa entrar em campo: einfach
+haushaltsbuch widget,haushaltsbuch,query natural composta,5,19,OUT,precisa entrar em campo: widget
+haushaltsbuch excel,haushaltsbuch,query natural composta,5,50,125,precisa entrar em campo: excel
+digitales haushaltsbuch,haushaltsbuch,query natural composta,5,58,128,precisa entrar em campo: digitales
+haushaltsbuch kategorien,haushaltsbuch,query natural composta,5,5,4,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+haushaltsbuch budget,haushaltsbuch,derivado do top-10,5,53,219,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | ngram x2
+haushaltsbuch kosten,haushaltsbuch,derivado do top-10,5,44,61,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | ngram x2
+haushaltsbuch ohne konto,haushaltsbuch,query natural composta,5,7,OUT,"precisa entrar em campo: ohne | 'konto' usado como 'sem cadastro', nao como conta bancaria"
+haushaltsbuch ohne anmeldung,haushaltsbuch,query natural composta,5,5,OUT,precisa entrar em campo: ohne+anmeldung
+haushaltsbuch finanzplaner,haushaltsbuch,derivado do top-10,5,62,105,precisa entrar em campo: finanzplaner | ngram
+monatsbudget app,monatsbudget,query natural composta,5,13,55,precisa entrar em campo: app | string de UI 'Monatsbudget gesamt'
+monatsbudget planen,monatsbudget,query natural composta,5,32,42,precisa entrar em campo: planen
+budget pro kategorie,budget,query natural composta,5,5,13,precisa entrar em campo: pro+kategorie | orcamento por categoria e feature real
+budget kategorien,budget,query natural composta,5,5,11,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+budget planer,budget,derivado do top-10,51,54,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | ngram x3
+monatliches budget,budget,query natural composta,5,15,87,precisa entrar em campo: monatliches
+budget im blick,budget,query natural composta,5,13,OUT,precisa entrar em campo: im+blick
+haushaltsbudget,budget,query natural composta,5,49,99,precisa entrar em campo: haushaltsbudget
+budget widget,budget,query natural composta,5,39,OUT,precisa entrar em campo: widget
+fixkosten app,fixkosten,query natural composta,5,41,41,precisa entrar em campo: app
+fixkosten ubersicht,fixkosten,query natural composta,5,13,OUT,precisa entrar em campo: ubersicht
+fixkosten tracker,fixkosten,query natural composta,5,9,OUT,precisa entrar em campo: tracker
+monatliche fixkosten,fixkosten,query natural composta,5,9,12,precisa entrar em campo: monatliche
+fixkosten planer,fixkosten,query natural composta,5,47,31,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+wiederkehrende kosten,kosten,query natural composta,5,5,OUT,precisa entrar em campo: wiederkehrende
+kosten tracker,kosten,query natural composta,5,48,OUT,precisa entrar em campo: tracker
+kostenkontrolle,kontrolle,query natural composta,5,21,40,precisa entrar em campo: kostenkontrolle
+kosten erfassen,kosten,query natural composta,5,11,OUT,precisa entrar em campo: erfassen
+kosten nach kategorien,kosten,query natural composta,5,5,OUT,precisa entrar em campo: nach
+kostenubersicht monat,kosten,query natural composta,5,5,OUT,precisa entrar em campo: kostenubersicht+monat
+finanzen app,finanzen,query natural composta,5,55,OUT,precisa entrar em campo: app
+finanzen verwalten,finanzen,query natural composta,5,57,111,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | ambas palavras ja sao tokens do subtitle live
+finanzen ubersicht,finanzen,query natural composta,5,53,OUT,precisa entrar em campo: ubersicht
+private finanzen,finanzen,query natural composta,5,51,OUT,precisa entrar em campo: private
+finanzen offline,finanzen,query natural composta,5,44,OUT,precisa entrar em campo: offline
+finanzplaner app,planer,query natural composta,5,49,OUT,precisa entrar em campo: finanzplaner+app
+ausgaben statistik,statistik,query natural composta,5,11,2,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+kosten statistik,statistik,query natural composta,5,11,12,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+eigene kategorien ausgaben,kategorien,query natural composta,5,5,OUT,precisa entrar em campo: eigene | 14 categorias + categorias proprias
+einkauf ausgaben,einkauf,query natural composta,5,17,13,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | 'einkauf' e keyword live; categoria compras existe
+monatliche bilanz,bilanz,query natural composta,5,5,1,precisa entrar em campo: monatliche | MISFIT N3: app nao tem balanco/receita; token vive so na keyword live
+konto ausgaben,konto,query natural composta,5,43,29,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | MISFIT N18: app nao tem contas/carteiras

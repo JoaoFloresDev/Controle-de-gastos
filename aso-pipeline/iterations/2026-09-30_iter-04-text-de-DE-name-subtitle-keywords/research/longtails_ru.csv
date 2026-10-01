@@ -1,0 +1,17 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+учет расходов,расходы,derivado do top-10,26,48,72,precisa entrar em campo: расходов | nome de 5 apps do top-10 ru
+контроль расходов,расходы,derivado do top-10,28,48,OUT,precisa entrar em campo: расходов | 'Учëт и контроль расходов' no top-10
+ежедневные расходы,расходы,query natural composta,5,45,OUT,precisa entrar em campo: ежедневные
+ежемесячные расходы,расходы,query natural composta,5,43,OUT,precisa entrar em campo: ежемесячные
+расходы по категориям,расходы,query natural composta,5,5,OUT,precisa entrar em campo: по+категориям
+постоянные расходы,расходы,query natural composta,5,5,OUT,precisa entrar em campo: постоянные | gastos fixos = feature real
+отчет по расходам,отчет,query natural composta,5,5,OUT,precisa entrar em campo: по+расходам
+расходы оффлайн,расходы,query natural composta,5,5,OUT,precisa entrar em campo: оффлайн
+расходы календарь,календарь,query natural composta,5,21,62,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+аналитика расходов,аналитика,query natural composta,5,11,54,precisa entrar em campo: расходов
+экспорт расходов excel,экспорт,query natural composta,5,5,OUT,precisa entrar em campo: расходов+excel
+личный бюджет на месяц,бюджет,query natural composta,5,5,OUT,precisa entrar em campo: на+месяц | subtitle live 'личный бюджет'
+бюджет по категориям,бюджет,query natural composta,5,5,OUT,precisa entrar em campo: по+категориям
+виджет расходов,расходы,query natural composta,5,15,OUT,precisa entrar em campo: виджет+расходов | widget interativo real
+деньги учет,деньги,query natural composta,5,42,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+кошелек расходы,кошелек,query natural composta,5,42,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | MISFIT N18: app nao tem carteiras; token so na keyword live

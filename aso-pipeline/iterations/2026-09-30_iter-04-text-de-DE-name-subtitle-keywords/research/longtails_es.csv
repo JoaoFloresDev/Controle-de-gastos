@@ -1,0 +1,31 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+control de gastos diarios,gastos,query natural composta,5,17,OUT,precisa entrar em campo: diarios
+control de gastos mensuales,gastos,query natural composta,5,48,OUT,precisa entrar em campo: mensuales
+gastos por categoria,gastos,query natural composta,5,5,OUT,precisa entrar em campo: por+categoria
+app de gastos,gastos,query natural composta,5,49,OUT,precisa entrar em campo: app
+registrar gastos,gastos,query natural composta,5,41,OUT,precisa entrar em campo: registrar | UI 'Registrar gasto'
+anotar gastos,gastos,query natural composta,5,44,OUT,precisa entrar em campo: anotar
+gastos fijos,gastos,query natural composta,5,48,OUT,precisa entrar em campo: fijos | UI 'Gastos fijos'
+gastos recurrentes,gastos,query natural composta,5,5,OUT,precisa entrar em campo: recurrentes | UI 'Gastos Recurrentes'
+gastos del mes,gastos,query natural composta,5,52,OUT,precisa entrar em campo: del+mes
+gastos sin internet,gastos,query natural composta,5,38,OUT,precisa entrar em campo: sin+internet
+gastos offline,gastos,query natural composta,5,13,OUT,precisa entrar em campo: offline
+control de gastos gratis,gastos,query natural composta,5,43,OUT,precisa entrar em campo: gratis
+gastos en excel,gastos,query natural composta,5,33,OUT,precisa entrar em campo: en+excel
+exportar gastos excel,gastos,query natural composta,5,5,OUT,precisa entrar em campo: exportar+excel | UI 'Exportar a Excel'
+grafico de gastos,gastos,query natural composta,5,15,OUT,precisa entrar em campo: grafico
+calendario de gastos,gastos,query natural composta,5,13,OUT,precisa entrar em campo: calendario
+widget de gastos,gastos,query natural composta,5,9,OUT,precisa entrar em campo: widget
+resumen de gastos,gastos,query natural composta,5,5,OUT,precisa entrar em campo: resumen
+limite de gastos,gastos,query natural composta,5,17,OUT,precisa entrar em campo: limite
+organizador de gastos,organizador,query natural composta,26,43,197,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+gestion de gastos,gestion,derivado do top-10,18,52,108,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | ngram do top-10 es/mx
+presupuesto mensual,presupuesto,query natural composta,9,42,OUT,precisa entrar em campo: mensual
+presupuesto por categoria,presupuesto,query natural composta,5,5,OUT,precisa entrar em campo: por+categoria
+presupuesto total del mes,presupuesto,query natural composta,5,5,OUT,precisa entrar em campo: total+del+mes | UI 'Presupuesto total para un mes'
+control de dinero,dinero,query natural composta,5,50,134,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+rastreador de dinero,dinero,derivado do top-10,5,15,OUT,precisa entrar em campo: rastreador | ngram do top-10
+ahorrar dinero app,ahorrar,query natural composta,5,60,170,precisa entrar em campo: app
+finanzas personales offline,financiero,query natural composta,5,9,OUT,precisa entrar em campo: finanzas+personales+offline
+gastos familiares,familiar,query natural composta,5,41,75,precisa entrar em campo: familiares | ATENCAO: 'familiar' e token live mas app nao compartilha (N1/N2)
+registro de ingresos y gastos,ingreso,query natural composta,5,41,120,precisa entrar em campo: registro+ingresos | MISFIT N3: app nao registra receita; token so na keyword live

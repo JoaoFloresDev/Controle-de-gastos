@@ -1,0 +1,48 @@
+{
+ "what": "promotionalText que existe na versao LIVE 45.3.1 e NAO foi herdado pela 45.4.0 criada em 2026-10-01.",
+ "why_it_matters": "Se a 45.4.0 for submetida e aprovada como esta, estes 16 storefronts PERDEM o texto promocional. Nada e perdido enquanto a 45.3.1 for a versao no ar.",
+ "why_not_restored": "Fora do escopo autorizado (name/subtitle/keywords + as correcoes de description listadas). E restaurar literal reintroduziria em 14 dos 16 a MESMA alegacao de gratuidade total que esta submissao esta tirando das descriptions (risco 2.3.1) - seria autodestrutivo. Reescrever os 14 e copy nova, decisao do Joao.",
+ "locales_total": 16,
+ "locales_with_free_claim": [
+  "cs",
+  "da",
+  "el",
+  "fi",
+  "he",
+  "hi",
+  "hu",
+  "ms",
+  "nl-NL",
+  "no",
+  "sv",
+  "th",
+  "uk",
+  "vi"
+ ],
+ "locales_clean": [
+  "pl",
+  "ru"
+ ],
+ "restore_verbatim_is_safe_for": [
+  "pl",
+  "ru"
+ ],
+ "texts": {
+  "cs": "Mějte své výdaje plně pod kontrolou! Rychlé zadávání, přehledné grafy, osobní rozpočty, widget na plochu i offline režim. Zcela zdarma a bez skrytých poplatků.",
+  "da": "Få fuld kontrol over dine udgifter! Registrer nemt dit forbrug, opsæt budgetter og få grafisk overblik over din privatøkonomi. Helt gratis.",
+  "el": "Ανακαλύψτε τα Έξοδά Μου! Καταγράψτε καθημερινές δαπάνες σε δευτερόλεπτα, ορίστε προϋπολογισμούς, δείτε γραφήματα και οργανώστε τα οικονομικά σας εύκολα και δωρεάν.",
+  "fi": "Ota taloutesi haltuun! Kirjaa menot sekunneissa, aseta budjetteja, tarkastele kaavioita ja vie tiedot Exceliin tai PDF:nä. Ilmainen ja toimii myös offline-tilassa.",
+  "he": "עקבו אחר ההוצאות שלכם בקלות, הגדירו תקציב ויעדים, וראו לאן הולך הכסף עם גרפים ברורים וסנכרון בין מכשירים. חינם וללא פרסומות!",
+  "hi": "अपने दैनिक खर्चों को सेकंडों में नोट करें। बजट बनाएं, पाई चार्ट देखें, PDF/Excel में डेटा एक्सपोर्ट करें और बिना इंटरनेट के भी अपने पैसे का हिसाब रखें। 100% फ्री!",
+  "hu": "Tartsa kézben pénzügyeit! Gyors kiadásrögzítés, költségkeretek, grafikonok és offline működés egyetlen ingyenes alkalmazásban.",
+  "ms": "Kawal kewangan peribadi anda dengan mudah! Catat perbelanjaan harian, tetapkan bajet, lihat graf bulanan dan eksport laporan PDF/Excel secara percuma.",
+  "nl-NL": "Ontdek Mijn Uitgaven: de eenvoudige en gratis app om je dagelijkse kosten bij te houden. Met duidelijke grafieken, budgetten, exportopties en cloud-synchronisatie.",
+  "no": "Få full kontroll over dine utgifter! Før regnskap på sekunder, sett opp budsjett, se detaljerte grafer og eksporter til Excel eller PDF. Gratis og enkel i bruk.",
+  "pl": "Łatwe rejestrowanie wydatków, przejrzyste wykresy i kontrola budżetu. Eksportuj dane do PDF/Excel i synchronizuj między swoimi urządzeniami!",
+  "ru": "Легкий и удобный учет расходов! Контролируйте бюджет, смотрите графики, ставьте финансовые цели и экспортируйте данные в Excel и PDF. Работает офлайн!",
+  "sv": "Ta kontroll över din privatekonomi! Logga utgifter på sekunder, sätt budgetar, se månadsgrafer och exportera till Excel eller PDF. Helt gratis och offline.",
+  "th": "บันทึกรายจ่ายได้อย่างรวดเร็ว พร้อมระบบคุมงบประมาณ กราฟสรุปรายเดือน ส่งออกข้อมูลเป็น Excel/PDF ใช้งานออฟไลน์ได้ ฟรีไม่มีค่าใช้จ่าย!",
+  "uk": "Контролюйте свої витрати легко та швидко! Зручні графіки, бюджети, категорії, офлайн-режим та експорт в PDF/Excel. Завантажуйте безкоштовно!",
+  "vi": "Quản lý chi tiêu cá nhân dễ dàng! Ghi chép chi phí nhanh chóng, lập ngân sách, xem biểu đồ trực quan và đồng bộ đám mây an toàn. Hoàn toàn miễn phí."
+ }
+}

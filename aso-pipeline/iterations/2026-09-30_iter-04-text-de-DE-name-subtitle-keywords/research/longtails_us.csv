@@ -1,0 +1,34 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+daily expense tracker,expenses,query natural composta,5,44,OUT,precisa entrar em campo: daily+expense+tracker
+expense tracker offline,expenses,query natural composta,5,21,OUT,precisa entrar em campo: expense+tracker+offline
+expense tracker no sign up,expenses,query natural composta,5,15,OUT,precisa entrar em campo: expense+tracker+no+sign+up
+simple expense tracker,expenses,query natural composta,5,23,OUT,precisa entrar em campo: simple+expense+tracker
+expenses by category,expenses,query natural composta,5,15,OUT,precisa entrar em campo: by+category
+monthly expenses tracker,expenses,query natural composta,17,61,OUT,precisa entrar em campo: monthly+tracker
+fixed expenses tracker,expenses,query natural composta,5,40,OUT,precisa entrar em campo: fixed+tracker | UI 'Fixed Expenses'
+recurring expenses app,expenses,query natural composta,5,19,OUT,precisa entrar em campo: recurring+app | UI 'Recurring Expenses'
+track expenses offline,expenses,query natural composta,5,17,OUT,precisa entrar em campo: track+offline
+expense tracker widget,expenses,query natural composta,5,15,OUT,precisa entrar em campo: expense+tracker+widget
+expense tracker excel,expenses,query natural composta,5,42,OUT,precisa entrar em campo: expense+tracker+excel
+export expenses to excel,expenses,query natural composta,5,43,OUT,precisa entrar em campo: export+to+excel | UI 'Export to Excel'
+expense log app,expenses,query natural composta,5,36,OUT,precisa entrar em campo: expense+log+app
+expense calendar,expenses,query natural composta,5,38,OUT,precisa entrar em campo: expense+calendar
+expense charts,expenses,query natural composta,5,23,OUT,precisa entrar em campo: expense+charts
+expenses without bank,expenses,query natural composta,5,57,OUT,precisa entrar em campo: without+bank | sem conexao bancaria e diferencial real
+expense tracker no bank,expenses,query natural composta,5,23,OUT,precisa entrar em campo: expense+tracker+no+bank
+personal expense tracker,expenses,derivado do top-10,5,38,OUT,precisa entrar em campo: expense+tracker | ngram do top-10
+easy expense tracker,easy,query natural composta,5,36,OUT,precisa entrar em campo: expense+tracker | 'easy' e token do subtitle live
+total spent by category,costs,query natural composta,5,15,OUT,precisa entrar em campo: total+spent+by+category | UI 'Total spent'
+spending by category,control,query natural composta,5,13,OUT,precisa entrar em campo: spending+by+category
+monthly budget by category,budgeting,query natural composta,5,11,OUT,precisa entrar em campo: monthly+budget+by+category
+budget by category app,budgeting,query natural composta,5,21,OUT,precisa entrar em campo: budget+by+category+app
+budgeting app simple,budgeting,query natural composta,5,21,OUT,precisa entrar em campo: app+simple
+budget planner offline,budgeting,query natural composta,5,5,OUT,precisa entrar em campo: budget+planner+offline
+monthly spending insights,planning,query natural composta,5,15,OUT,precisa entrar em campo: monthly+spending+insights | UI 'Monthly insights'
+cost tracker app,costs,query natural composta,5,23,OUT,precisa entrar em campo: cost+tracker+app
+money tracker offline,money,query natural composta,5,37,OUT,precisa entrar em campo: tracker+offline
+manage money simple,manage,query natural composta,5,19,OUT,precisa entrar em campo: simple
+take control of your money,control,derivado do top-10,5,37,OUT,precisa entrar em campo: take+of+your | ngram do top-10 us
+where does my money go,money,query natural composta,5,13,OUT,precisa entrar em campo: does+go | intencao literal do subtitle live
+save money app,save,query natural composta,5,52,OUT,precisa entrar em campo: app
+savings tracker,savings,query natural composta,33,51,OUT,precisa entrar em campo: tracker | MISFIT N9: nao existe meta de poupanca; token so na keyword live

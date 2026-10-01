@@ -1,24 +1,18 @@
-Discover My Expenses, the ideal app for anyone who wants complete control over their finances!
-
-Simplified Expense Logging
-Quickly and intuitively record your expenses. Simply enter the amount, description, category, and date to keep your budget always up to date.
-
-Powerful Graphical Visualization
-Transform your data into insights with monthly charts and percentage comparisons that highlight your biggest expenses. Identify trends and opportunities to save with clarity.
-
+Transform your expense tracking with My Expenses, the complete app to manage your personal finances intelligently and practically!
+Quick and Intuitive Recording
+With My Expenses, logging your spending has never been easier. Record amount, description, category, and date in seconds, keeping your budget always organized and up to date.
+Financial Graphics and Analysis
+Monitor your financial control of expenses through powerful graphic visualizations. See monthly comparisons, percentages by category, and quickly identify where your biggest expenses are. Transform numbers into valuable insights for your savings.
 Interactive Expense Calendar
-View your expenses on a detailed calendar and see how your spending is distributed throughout the month. Plan your financial commitments better and never miss an important date.
-
+View all your spending in a detailed calendar. See how your finances are distributed throughout the month and better plan your financial commitments. Never lose control of your expenses again.
 Personalized Categorization
-Customize your expense categories according to your lifestyle. Create, edit, and organize categories to accurately reflect where your money is being invested.
-
-User-Friendly and Functional Interface
-With a clean design and intuitive navigation, My Expenses offers a smooth and enjoyable experience, making it easy to manage your daily finances.
-
-Transform the way you handle your money. Control your expenses, understand your priorities, and make smarter financial decisions with My Expenses. Download now and start organizing your financial life in a simple and effective way!
-
-======================
+Adapt My Expenses to your lifestyle! Create and organize custom categories that reflect exactly where your money is being invested. Whether for food, transportation, entertainment, or your emergency piggy bank - everything under your control.
+Smart Savings
+Identify opportunities to increase your savings through detailed analysis. With My Expenses, you make smarter financial decisions based on real data from your budget.
+Modern and Functional Interface
+Clean design, intuitive navigation, and fluid experience make expense control an enjoyable task. The interface was designed to facilitate your daily finance management.
+Download My Expenses now and start your journey toward financial stability! Organize your finance, control your spending, and achieve your goals with the best expense control app available.
+Your budget deserves attention. Your finances deserve organization. You deserve peace of mind.
 
 Privacy Policy: https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing
-
-Terms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Terms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/Tentar novamenteO Claude pode cometer erros. Confira sempre as respostas.

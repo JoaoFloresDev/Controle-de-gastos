@@ -1,0 +1,1 @@
+offline,manedlig,daglige,kategori,excel,widget,faste,pdf,kontroll,logg,privatøkonomi,dagbok,penger

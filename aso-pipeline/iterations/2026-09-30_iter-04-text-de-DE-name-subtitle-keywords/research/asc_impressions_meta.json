@@ -1,0 +1,10 @@
+{
+  "report": "App Store Discovery and Engagement Standard",
+  "granularity": "WEEKLY",
+  "instances": 5,
+  "date_min": "2026-08-17",
+  "date_max": "2026-09-14",
+  "distinct_rows": 357,
+  "errors": [],
+  "note": "Apple does NOT expose per-search-term data for this app; this is impressions by SOURCE TYPE only."
+}

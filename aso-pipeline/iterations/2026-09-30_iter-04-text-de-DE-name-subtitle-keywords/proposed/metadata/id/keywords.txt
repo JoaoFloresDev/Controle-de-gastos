@@ -1,0 +1,1 @@
+kategori,excel,offline,bulanan,keuangan,manajemen

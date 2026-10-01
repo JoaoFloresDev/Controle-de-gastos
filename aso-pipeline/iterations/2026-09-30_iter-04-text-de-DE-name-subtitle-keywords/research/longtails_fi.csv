@@ -1,0 +1,15 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+kuluseuranta sovellus,kuluseuranta,query natural composta,5,5,OUT,precisa entrar em campo: sovellus | subtitle live 'Helppo kuluseuranta'
+menojen seuranta,menot,query natural composta,5,7,71,precisa entrar em campo: menojen+seuranta | nome live 'Omat Menot'
+paivittaiset menot,menot,query natural composta,5,5,OUT,precisa entrar em campo: paivittaiset
+kuukausittaiset menot,menot,query natural composta,5,5,OUT,precisa entrar em campo: kuukausittaiset
+menot kategorioittain,menot,query natural composta,5,5,OUT,precisa entrar em campo: kategorioittain
+menot offline,menot,query natural composta,5,7,8,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+menot excel,menot,query natural composta,5,5,1,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+kulujen kirjaus,kirjaus,query natural composta,5,5,OUT,precisa entrar em campo: kulujen | 'kirjaus' e keyword live
+budjetti kuukausi,budjetti,query natural composta,5,5,OUT,precisa entrar em campo: kuukausi
+budjetti kategorioittain,budjetti,query natural composta,5,5,OUT,precisa entrar em campo: kategorioittain
+kiinteat kustannukset,kustannukset,query natural composta,5,5,OUT,precisa entrar em campo: kiinteat | gastos fixos = feature real
+menot kaavio,kaavio,query natural composta,5,5,2,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+menot widget,menot,query natural composta,5,5,8,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+saastaminen sovellus,saastaminen,query natural composta,5,5,OUT,precisa entrar em campo: sovellus

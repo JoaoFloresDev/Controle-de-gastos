@@ -1,0 +1,15 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+utgifter app,utgifter,query natural composta,5,15,87,precisa entrar em campo: app
+dagliga utgifter,utgifter,query natural composta,5,5,OUT,precisa entrar em campo: dagliga
+manatliga utgifter,utgifter,query natural composta,5,5,OUT,precisa entrar em campo: manatliga
+utgifter per kategori,utgifter,query natural composta,5,5,OUT,precisa entrar em campo: per+kategori
+fasta kostnader,kostnader,derivado do top-10,5,5,2,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | 'Fasta utgifter' no top-10 se; 'fasta' e keyword live
+budget per manad,budget,query natural composta,5,5,OUT,precisa entrar em campo: per
+budget kategori,budget,query natural composta,5,5,OUT,precisa entrar em campo: kategori
+utgiftsdagbok,dagbok,query natural composta,5,5,OUT,precisa entrar em campo: utgiftsdagbok
+utgifter excel,excel,query natural composta,5,8,2,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+utgifter offline,offline,query natural composta,5,5,2,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+koll pa utgifter,utgifter,derivado do top-10,5,5,7,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | subtitle live 'Koll på Pengarna' + 'Få koll!' no top-10
+spara pengar app,spara,query natural composta,5,54,OUT,precisa entrar em campo: pengar+app
+privatekonomi budget,privatekonomi,query natural composta,5,11,12,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+utgifter widget,utgifter,query natural composta,5,5,OUT,precisa entrar em campo: widget

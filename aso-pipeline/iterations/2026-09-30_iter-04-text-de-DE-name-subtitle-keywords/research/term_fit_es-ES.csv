@@ -1,0 +1,53 @@
+term,verdict,reason,evidence,is_live_token,popularity,difficulty,our_rank,source
+ahorrar,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,sim,44,39,OUT,live+pool
+ahorrar dinero app,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,5,60,170,longtail
+anotar gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,44,OUT,longtail
+app de gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,49,OUT,longtail
+calendario de gastos,FIT,"Calendar view toggle inside the Transactions tab, with each day's expenses and day total.",sec 1.5 calendar,nao,5,13,OUT,longtail
+control,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,sim,51,50,OUT,live+pool
+control de dinero,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,50,134,longtail
+control de gastos,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,49,47,OUT,pool
+control de gastos diarios,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,17,OUT,longtail
+control de gastos gratis,FIT,"The entire single-device product is free: logging, categories, fixed expenses, budgets, charts, calendar, custom periods and EXPORT. Only cloud sync is paid.",sec 1.9 + sec 1.15 gating,nao,5,43,OUT,longtail
+control de gastos mensuales,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,48,OUT,longtail
+control financiero,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,48,OUT,pool
+cuentas,PARTIAL,Polysemous: 'cuentas' reads as bank accounts and 'expensas' as condo fees in LatAm; only the plain-expense reading fits.,NOT-list N8 + N18,sim,15,51,OUT,live+pool
+de,PARTIAL,Grammatical particle or brand possessive split out of the live name/subtitle; it carries no standalone search intent and costs field characters.,"n/a - particle, not a query",sim,,,,live
+dinero,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,51,65,OUT,live+pool
+expensas,PARTIAL,Polysemous: 'cuentas' reads as bank accounts and 'expensas' as condo fees in LatAm; only the plain-expense reading fits.,NOT-list N8 + N18,sim,5,36,49,live+pool
+exportar gastos excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),nao,5,5,OUT,longtail
+familiar,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,sim,25,51,OUT,live+pool
+financiero,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,6,40,OUT,live+pool
+finanzas personales offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,9,OUT,longtail
+gasto,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,47,122,live+pool
+gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,53,49,OUT,live+pool
+gastos del mes,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,52,OUT,longtail
+gastos en excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),nao,5,33,OUT,longtail
+gastos familiares,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,41,75,longtail
+gastos fijos,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,48,OUT,longtail
+gastos offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,13,OUT,longtail
+gastos por categoria,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+gastos recurrentes,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,5,OUT,longtail
+gastos sin internet,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,38,OUT,longtail
+gestion de gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,18,52,108,candidate+longtail
+gestion gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,6,54,108,candidate
+gestión,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,5,23,OUT,live+pool
+gestor,PARTIAL,Generic 'manager'; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,nao,5,47,OUT,candidate
+grafico de gastos,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,15,OUT,longtail
+ingreso,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,sim,5,11,147,live+pool
+limite de gastos,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,17,OUT,longtail
+mis,PARTIAL,Grammatical particle or brand possessive split out of the live name/subtitle; it carries no standalone search intent and costs field characters.,"n/a - particle, not a query",sim,,,,live
+mis gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,8,46,72,pool
+organizador,PARTIAL,Forward-looking planning is partly there (month budget + end-of-month projection) but there is no income plan or schedule of future payments.,sec 1.6 vs NOT-list N3,sim,24,57,OUT,live+pool
+organizador de gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,26,43,197,longtail
+pagar,PARTIAL,The app never moves money; a payment can only be recorded after the fact.,NOT-list N4,sim,5,67,OUT,live+pool
+pago,PARTIAL,The app never moves money; a payment can only be recorded after the fact.,NOT-list N4,sim,7,70,OUT,live+pool
+presupuesto,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,sim,45,43,OUT,live+pool
+presupuesto mensual,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,9,42,OUT,longtail
+presupuesto por categoria,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+presupuesto total del mes,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,5,OUT,longtail
+rastreador de dinero,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,15,OUT,longtail
+registrar gastos,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,41,OUT,longtail
+registro de ingresos y gastos,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,41,120,longtail
+resumen de gastos,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,5,OUT,longtail
+widget de gastos,FIT,Interactive iOS 17+ home-screen widget for quick add (systemMedium/systemLarge).,sec 1.13 widget,nao,5,9,OUT,longtail

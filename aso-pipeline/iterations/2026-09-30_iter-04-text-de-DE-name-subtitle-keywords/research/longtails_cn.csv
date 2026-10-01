@@ -1,0 +1,24 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+记账app,记账,query natural composta,29,78,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+简单记账,记账,query natural composta,44,49,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | nome live '记账 - 简单家庭账本'
+记账本,记账,query natural composta,63,76,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+家庭记账,记账,query natural composta,28,58,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+日常记账,记账,query natural composta,25,59,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+记账 分类,记账,query natural composta,5,15,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+记账 离线,记账,query natural composta,5,13,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+记账 无广告,记账,query natural composta,5,54,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+记账 导出 excel,记账,query natural composta,5,5,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | export Excel real
+记账 小组件,记账,query natural composta,5,47,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | widget interativo real
+记账 日历,记账,query natural composta,5,60,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+消费记录,消费记录,query natural composta,5,48,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | keyword live
+日常开销记录,日常开销,query natural composta,5,11,44,composicao: idioma sem separacao por palavra — core word presente no termo | keyword live
+预算管理,预算,query natural composta,5,23,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+月度预算,预算,query natural composta,5,11,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+分类预算,预算,query natural composta,5,44,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | orcamento por categoria
+支出统计,支出,query natural composta,5,36,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+支出图表,支出,query natural composta,5,17,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+固定支出,支出,query natural composta,5,17,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | gastos fixos = feature real
+省钱记账,省钱,query natural composta,5,55,164,composicao: idioma sem separacao por palavra — core word presente no termo
+小账本 记账,小账本,query natural composta,5,57,135,composicao: idioma sem separacao por palavra — core word presente no termo | keyword live
+家庭账本 app,家庭账本,query natural composta,5,44,117,composicao: idioma sem separacao por palavra — core word presente no termo | keyword live
+收支记录,收支,query natural composta,5,54,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | MISFIT N3: app nao registra receita; token so na keyword live

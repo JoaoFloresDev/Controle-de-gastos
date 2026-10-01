@@ -1,0 +1,15 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+utgifter oversikt,utgifter,query natural composta,5,5,14,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | subtitle live 'Enkel oversikt'
+daglige utgifter,utgifter,query natural composta,5,5,OUT,precisa entrar em campo: daglige
+manedlige utgifter,utgifter,query natural composta,5,5,OUT,precisa entrar em campo: manedlige
+utgifter per kategori,kategori,query natural composta,5,5,OUT,precisa entrar em campo: per
+faste utgifter,faste,query natural composta,5,5,3,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | 'faste' e keyword live; gastos fixos real
+fore utgifter,utgifter,query natural composta,5,7,OUT,precisa entrar em campo: fore
+utgiftsdagbok,dagbok,query natural composta,5,5,OUT,precisa entrar em campo: utgiftsdagbok
+utgifter excel,excel,query natural composta,5,8,2,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+utgifter offline,utgifter,query natural composta,5,5,OUT,precisa entrar em campo: offline
+utgifter widget,widget,query natural composta,5,5,2,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+budsjett per maned,budsjett,query natural composta,5,5,OUT,precisa entrar em campo: per+maned
+budsjett kategori,budsjett,query natural composta,5,5,5,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+privatokonomi app,privatøkonomi,query natural composta,5,5,22,precisa entrar em campo: privatokonomi+app
+kontroll pa penger,penger,query natural composta,5,5,OUT,precisa entrar em campo: pa

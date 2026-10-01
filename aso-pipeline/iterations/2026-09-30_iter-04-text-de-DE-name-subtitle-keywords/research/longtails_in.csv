@@ -1,0 +1,15 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+खर्च ट्रैकर,खर्च,query natural composta,5,9,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+डेली खर्च,खर्च,query natural composta,5,5,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | nome live 'डेली बजट ट्रैकर'
+मासिक खर्च,खर्च,query natural composta,5,5,OUT,precisa entrar em campo: मासिक
+खर्च का हिसाब,खर्च,query natural composta,5,5,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | subtitle live 'पैसे का हिसाब'
+खर्चा डायरी,डायरी,query natural composta,5,5,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+बजट प्लानर,प्लानर,query natural composta,5,5,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+मासिक बजट,बजट,query natural composta,5,5,OUT,precisa entrar em campo: मासिक
+कैटेगरी बजट,बजट,query natural composta,5,5,OUT,precisa entrar em campo: कैटेगरी | orcamento por categoria
+खर्च रिपोर्ट,रिपोर्ट,query natural composta,5,24,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+खर्च ऑफलाइन,ऑफलाइन,query natural composta,5,5,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+पैसे का हिसाब,पैसे,query natural composta,5,5,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | subtitle live literal
+एक्सपेंस ट्रैकर ऑफलाइन,एक्सपेंस,query natural composta,5,5,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+खर्च कैलेंडर,कैलेंडर,query natural composta,5,5,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+फिक्स्ड खर्च,खर्च,query natural composta,5,5,OUT,precisa entrar em campo: फिक्स्ड | gastos fixos = feature real

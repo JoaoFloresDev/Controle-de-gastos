@@ -1,0 +1,1 @@
+kategoria,kuukausi,kiinteat,excel,kaavio,widget,offline,kalenteri,kustannukset,kirjaus,säästäminen

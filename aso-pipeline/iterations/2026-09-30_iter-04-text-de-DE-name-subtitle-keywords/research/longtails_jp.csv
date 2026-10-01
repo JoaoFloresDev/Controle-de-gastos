@@ -1,0 +1,34 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+家計簿アプリ,家計簿,query natural composta,74,73,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+家計簿 無料,家計簿,query natural composta,5,70,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+家計簿 シンプル,家計簿,query natural composta,5,52,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | nome live ja traz シンプル
+家計簿 簡単,家計簿,query natural composta,5,67,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | '簡単' e keyword live
+家計簿 オフライン,家計簿,query natural composta,5,50,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+家計簿 広告なし,家計簿,query natural composta,5,52,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+家計簿 ウィジェット,家計簿,query natural composta,5,43,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | widget interativo real
+家計簿 カレンダー,家計簿,query natural composta,5,49,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+家計簿 エクセル,家計簿,query natural composta,5,57,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+支出管理アプリ,支出,query natural composta,5,57,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+支出記録,支出,query natural composta,5,49,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | UI '支出を記録'
+支出 カテゴリ,支出,query natural composta,5,7,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+月の支出,支出,query natural composta,5,34,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+支出 グラフ,支出,query natural composta,5,54,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+支出合計,支出,query natural composta,5,9,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | string de UI literal
+固定費 管理,家計,query natural composta,5,38,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | UI '固定費'; core word via 家計/支出 familia
+固定費 アプリ,家計,query natural composta,5,43,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+定期支出,支出,query natural composta,5,11,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | string de UI literal
+予算 管理,予算,query natural composta,5,43,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+予算 カテゴリ,予算,query natural composta,5,5,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+月予算,予算,query natural composta,5,34,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | UI '今月の予算'
+節約 家計簿,節約,query natural composta,5,45,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+節約アプリ,節約,query natural composta,27,47,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+生活費 管理,生活費,query natural composta,5,72,196,composicao: idioma sem separacao por palavra — core word presente no termo
+生活費 記録,生活費,query natural composta,5,21,123,composicao: idioma sem separacao por palavra — core word presente no termo
+出費 記録,出費,query natural composta,5,47,243,composicao: idioma sem separacao por palavra — core word presente no termo
+出費 管理,出費,query natural composta,5,62,174,composicao: idioma sem separacao por palavra — core word presente no termo
+お金 管理 アプリ,お金,query natural composta,5,64,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+家計 管理,家計,query natural composta,5,74,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | UI '家計管理'
+かけいぼ 簡単,かけいぼ,query natural composta,5,63,245,composicao: idioma sem separacao por palavra — core word presente no termo
+お小遣い 管理,お小遣い,query natural composta,5,55,OUT,composicao: idioma sem separacao por palavra — core word presente no termo
+貯金 アプリ,貯金,query natural composta,5,53,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | MISFIT N9: app nao tem poupanca; token so na keyword live
+収支 管理,収支,query natural composta,5,62,OUT,composicao: idioma sem separacao por palavra — core word presente no termo | MISFIT N3: app nao registra receita

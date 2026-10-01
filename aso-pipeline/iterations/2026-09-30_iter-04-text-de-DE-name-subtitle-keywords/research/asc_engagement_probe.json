@@ -1,0 +1,50 @@
+{
+  "discovery_engagement_detailed": {
+    "n_instances": 41,
+    "latest": [
+      {
+        "id": "befff290-7078-431b-b443-72cb721d25f9",
+        "granularity": "DAILY",
+        "processingDate": "2026-08-27"
+      },
+      {
+        "id": "2b659fef-dcfc-4266-854d-0a0b68260ebe",
+        "granularity": "DAILY",
+        "processingDate": "2026-08-28"
+      },
+      {
+        "id": "5d117201-b8ec-4c1c-be53-d917e201902a",
+        "granularity": "WEEKLY",
+        "processingDate": "2026-08-28"
+      }
+    ],
+    "n_segments": 1,
+    "header": "Date\tApp Name\tApp Apple Identifier\tEvent\tPage Type\tPage Title\tSource Type\tSource Info\tCampaign\tEngagement Type\tDevice\tPlatform Version\tTerritory\tCounts\tUnique Counts",
+    "file": "/Users/joaoflores/Documents/GambitStudio/Apps/intermediate/Controle-de-gastos/aso-pipeline/iterations/2026-09-30_iter-04-text-de-DE-name-subtitle-keywords/research/asc_discovery_engagement_detailed_2026-09-30.tsv",
+    "rows": 38
+  },
+  "discovery_engagement_standard": {
+    "n_instances": 41,
+    "latest": [
+      {
+        "id": "66f9bc8e-9f0f-4cbb-b611-d92acb2d6368",
+        "granularity": "DAILY",
+        "processingDate": "2026-08-27"
+      },
+      {
+        "id": "3d009b76-77d7-44b2-91df-61d6ad6f3898",
+        "granularity": "DAILY",
+        "processingDate": "2026-08-28"
+      },
+      {
+        "id": "8cb9f9b2-f54d-44c1-9c79-abf206bd5deb",
+        "granularity": "WEEKLY",
+        "processingDate": "2026-08-28"
+      }
+    ],
+    "n_segments": 1,
+    "header": "Date\tApp Name\tApp Apple Identifier\tEvent\tPage Type\tSource Type\tEngagement Type\tDevice\tPlatform Version\tTerritory\tCounts\tUnique Counts",
+    "file": "/Users/joaoflores/Documents/GambitStudio/Apps/intermediate/Controle-de-gastos/aso-pipeline/iterations/2026-09-30_iter-04-text-de-DE-name-subtitle-keywords/research/asc_discovery_engagement_standard_2026-09-30.tsv",
+    "rows": 729
+  }
+}

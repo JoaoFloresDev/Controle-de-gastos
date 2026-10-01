@@ -1,0 +1,24 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+harcama takibi,harcamalar,derivado do top-10,5,15,75,precisa entrar em campo: harcama+takibi | termo seed do SERP tr; 'Harcama ve Gelir Takibi' no top-10
+gunluk harcama takibi,harcamalar,query natural composta,5,15,OUT,precisa entrar em campo: gunluk+harcama+takibi
+aylik harcama takibi,harcamalar,query natural composta,5,5,OUT,precisa entrar em campo: aylik+harcama+takibi
+harcama kategorileri,harcamalar,query natural composta,5,5,OUT,precisa entrar em campo: harcama+kategorileri
+harcama defteri,defter,query natural composta,5,21,44,precisa entrar em campo: harcama+defteri | 'defter' e keyword live
+harcama takip uygulamasi,harcamalar,query natural composta,5,5,OUT,precisa entrar em campo: harcama+uygulamasi
+harcama widget,harcamalar,query natural composta,5,5,OUT,precisa entrar em campo: harcama+widget
+harcama excel,harcamalar,query natural composta,5,5,OUT,precisa entrar em campo: harcama+excel
+harcama grafigi,harcamalar,query natural composta,5,5,OUT,precisa entrar em campo: harcama+grafigi
+harcama takibi internetsiz,harcamalar,query natural composta,5,5,OUT,precisa entrar em campo: harcama+takibi+internetsiz
+reklamsiz harcama takibi,harcamalar,query natural composta,5,5,OUT,precisa entrar em campo: reklamsiz+harcama+takibi
+butce takip,butce,query natural composta,5,23,165,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+aylik butce,butce,query natural composta,5,5,OUT,precisa entrar em campo: aylik
+kategori bazli butce,butce,query natural composta,5,5,OUT,precisa entrar em campo: kategori+bazli
+butce uygulamasi,butce,query natural composta,5,5,OUT,precisa entrar em campo: uygulamasi
+gider takibi,gider,derivado do top-10,5,13,OUT,precisa entrar em campo: takibi | 'Gelir Gider Takip' no top-10
+aylik gider takibi,gider,query natural composta,5,5,OUT,precisa entrar em campo: aylik+takibi
+sabit giderler,gider,query natural composta,5,5,OUT,precisa entrar em campo: sabit+giderler | feature real: Fixkosten/gastos fixos
+masraf takibi,masraf,query natural composta,5,7,186,precisa entrar em campo: takibi
+para takibi,para,query natural composta,5,43,OUT,precisa entrar em campo: takibi
+kisisel finans uygulamasi,finans,query natural composta,5,5,OUT,precisa entrar em campo: uygulamasi
+tasarruf uygulamasi,tasarruf,query natural composta,5,5,OUT,precisa entrar em campo: uygulamasi
+gelir gider takip,gelir,derivado do top-10,5,21,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | MISFIT N3: app nao registra receita; 'gelir' e keyword live

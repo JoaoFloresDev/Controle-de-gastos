@@ -1,0 +1,1 @@
+excel,pravidelne,mesicni,widget,offline,kategorie,grafy,přehled,export,sledování,šetření,deník

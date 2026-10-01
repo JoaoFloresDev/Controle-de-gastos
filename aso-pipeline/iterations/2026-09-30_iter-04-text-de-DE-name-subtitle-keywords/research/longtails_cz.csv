@@ -1,0 +1,15 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+sledovani vydaju,sledování,query natural composta,5,5,OUT,precisa entrar em campo: vydaju | 'sledování' e keyword live
+denni vydaje,výdaje,query natural composta,5,7,OUT,precisa entrar em campo: denni
+mesicni vydaje,výdaje,query natural composta,5,7,OUT,precisa entrar em campo: mesicni
+vydaje podle kategorii,kategorie,query natural composta,5,5,OUT,precisa entrar em campo: podle+kategorii
+pravidelne vydaje,výdaje,query natural composta,5,5,OUT,precisa entrar em campo: pravidelne | gastos fixos/recorrentes = feature real
+rozpocet na mesic,rozpočet,query natural composta,5,5,OUT,precisa entrar em campo: na+mesic
+rozpocet podle kategorii,rozpočet,query natural composta,5,5,OUT,precisa entrar em campo: podle+kategorii
+prehled vydaju,přehled,query natural composta,5,5,OUT,precisa entrar em campo: vydaju
+denik vydaju,deník,query natural composta,5,5,OUT,precisa entrar em campo: vydaju
+vydaje offline,offline,query natural composta,5,5,2,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+vydaje excel,export,query natural composta,5,11,OUT,precisa entrar em campo: excel
+sprava financi osobnich,správa,query natural composta,5,43,OUT,precisa entrar em campo: osobnich | nome live 'Správa Financí'
+kontrola vydaju,výdaje,query natural composta,5,5,OUT,precisa entrar em campo: kontrola+vydaju
+vydaje widget,widget,query natural composta,5,5,1,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords

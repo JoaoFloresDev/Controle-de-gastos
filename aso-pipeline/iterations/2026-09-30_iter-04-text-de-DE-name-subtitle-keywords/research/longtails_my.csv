@@ -1,0 +1,15 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+catat belanja,belanja,query natural composta,5,7,3,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | subtitle live 'Catat Belanja & Bajet Harian'
+belanja harian,belanja,query natural composta,5,11,13,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+belanja bulanan,belanja,query natural composta,5,5,OUT,precisa entrar em campo: bulanan
+belanja mengikut kategori,kategori,query natural composta,5,5,OUT,precisa entrar em campo: mengikut
+rekod belanja,perekod,query natural composta,5,5,OUT,precisa entrar em campo: rekod
+laporan belanja,laporan,query natural composta,5,5,11,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+belanja offline,offline,query natural composta,5,27,4,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+belanja excel,excel,query natural composta,5,19,3,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+graf belanja,graf,query natural composta,5,5,1,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+bajet bulanan,bajet,query natural composta,5,5,OUT,precisa entrar em campo: bulanan
+bajet mengikut kategori,bajet,query natural composta,5,5,OUT,precisa entrar em campo: mengikut
+perbelanjaan tetap,belanja,query natural composta,5,5,OUT,precisa entrar em campo: perbelanjaan+tetap | gastos fixos = feature real
+urus kewangan peribadi,kewangan,query natural composta,5,5,OUT,precisa entrar em campo: peribadi
+jimat duit aplikasi,jimat,query natural composta,5,5,OUT,precisa entrar em campo: aplikasi

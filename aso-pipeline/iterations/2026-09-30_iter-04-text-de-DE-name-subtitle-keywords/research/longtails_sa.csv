@@ -1,0 +1,19 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+تتبع المصروفات,مصروفات,derivado do top-10,5,9,17,precisa entrar em campo: تتبع | 'تتبع المصروفات الذكي' no top-10 sa
+المصروفات اليومية,مصروفات,query natural composta,5,5,OUT,precisa entrar em campo: اليومية
+المصروفات الشهرية,مصروفات,query natural composta,5,5,OUT,precisa entrar em campo: الشهرية
+تسجيل المصروفات,مصروفات,query natural composta,5,5,OUT,precisa entrar em campo: تسجيل
+ادارة المصروفات,مصروفات,query natural composta,5,9,19,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+تطبيق المصروفات,مصروفات,query natural composta,5,23,OUT,precisa entrar em campo: تطبيق
+المصروفات حسب الفئة,مصروفات,query natural composta,5,5,OUT,precisa entrar em campo: حسب+الفئة
+المصروفات بدون انترنت,مصروفات,query natural composta,5,5,OUT,precisa entrar em campo: بدون+انترنت
+مصاريف شهرية,مصاريف,derivado do top-10,5,11,OUT,precisa entrar em campo: شهرية | 'ميزانية ومصاريف' x2 no top-10
+مصاريف يومية,مصاريف,query natural composta,5,5,OUT,precisa entrar em campo: يومية
+دفتر المصاريف,مصاريف,derivado do top-10,5,7,OUT,precisa entrar em campo: دفتر+المصاريف | 'دفتر الحسابات' no top-10
+ميزانية شهرية,ميزانية,query natural composta,5,7,OUT,precisa entrar em campo: شهرية
+ميزانية شخصية,ميزانية,derivado do top-10,5,11,44,precisa entrar em campo: شخصية | 'مصروفي - ميزانية شخصية' no top-10
+ميزانية حسب الفئة,ميزانية,query natural composta,5,5,OUT,precisa entrar em campo: حسب+الفئة
+نفقات شهرية,نفقات,query natural composta,5,5,OUT,precisa entrar em campo: شهرية
+تخطيط مالي شخصي,تخطيط,query natural composta,5,5,8,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+توفير المال,توفير,query natural composta,5,33,OUT,precisa entrar em campo: المال
+المصروفات الثابتة,مصروفات,query natural composta,5,5,OUT,precisa entrar em campo: الثابتة | gastos fixos = feature real

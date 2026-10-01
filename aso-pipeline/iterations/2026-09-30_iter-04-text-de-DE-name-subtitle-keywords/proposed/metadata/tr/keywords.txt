@@ -1,0 +1,1 @@
+aylik,kategori,widget,gider,masraf,defter,finans,kişisel,aile

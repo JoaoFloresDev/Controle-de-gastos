@@ -1,0 +1,42 @@
+term,verdict,reason,evidence,is_live_token,popularity,difficulty,our_rank,source
+가계부,FIT,The app's own Korean store name and UI are built on 가계부 - the product's own word.,sec 3 UI vocabulary,sim,84,57,OUT,live+pool
+가계부 달력,FIT,"Calendar view toggle inside the Transactions tab, with each day's expenses and day total.",sec 1.5 calendar,nao,5,48,245,longtail
+가계부 무료,FIT,"The entire single-device product is free: logging, categories, fixed expenses, budgets, charts, calendar, custom periods and EXPORT. Only cloud sync is paid.",sec 1.9 + sec 1.15 gating,nao,5,42,OUT,longtail
+가계부 앱,FIT,The app's own Korean store name and UI are built on 가계부 - the product's own word.,sec 3 UI vocabulary,nao,5,60,223,longtail
+가계부 엑셀,FIT,The app's own Korean store name and UI are built on 가계부 - the product's own word.,sec 3 UI vocabulary,nao,5,50,OUT,longtail
+가계부 오프라인,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,23,OUT,longtail
+가계부 위젯,FIT,The app's own Korean store name and UI are built on 가계부 - the product's own word.,sec 3 UI vocabulary,nao,5,54,OUT,longtail
+가족,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,sim,22,53,OUT,live+pool
+간단한,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,5,48,186,live+pool
+간단한 가계부,FIT,The app's own Korean store name and UI are built on 가계부 - the product's own word.,sec 3 UI vocabulary,nao,5,44,25,longtail
+고정 지출,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,47,243,longtail
+관리,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,5,58,OUT,live+pool
+도우미,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,5,48,OUT,live+pool
+머니,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,50,48,OUT,live+pool
+머니매니저,MISMATCH,Competitor or third-party brand query; the searcher wants that specific app.,n/a - brand query,sim,5,46,OUT,live+pool
+생활비,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,51,OUT,live+pool
+생활비 관리,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,17,120,longtail
+수입,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,sim,5,45,OUT,live+pool
+예산,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,sim,5,49,OUT,live+pool
+예산 관리,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,51,OUT,longtail
+용돈,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,sim,5,50,OUT,live+pool
+용돈 기입장,FIT,The app's own Korean store name and UI are built on 가계부 - the product's own word.,sec 3 UI vocabulary,nao,5,44,OUT,longtail
+월 예산,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,9,OUT,longtail
+월급,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,sim,55,40,140,live+pool
+월별 지출,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,15,OUT,longtail
+일일 지출,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+자산,MISMATCH,"Searcher wants investments/wealth building; no portfolio, no asset entity.",NOT-list N9 + N18,sim,17,53,OUT,live+pool
+자산 관리 앱,MISMATCH,"Searcher wants investments/wealth building; no portfolio, no asset entity.",NOT-list N9 + N18,nao,5,48,OUT,longtail
+장부,FIT,The app's own Korean store name and UI are built on 가계부 - the product's own word.,sec 3 UI vocabulary,sim,22,44,OUT,live+pool
+장부 앱,FIT,The app's own Korean store name and UI are built on 가계부 - the product's own word.,sec 3 UI vocabulary,nao,5,45,158,longtail
+재테크,MISMATCH,"Searcher wants investments/wealth building; no portfolio, no asset entity.",NOT-list N9 + N18,sim,5,57,195,live+pool
+절약,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,sim,5,40,OUT,live+pool
+절약 가계부,FIT,The app's own Korean store name and UI are built on 가계부 - the product's own word.,sec 3 UI vocabulary,nao,5,15,41,longtail
+지출,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,22,54,191,live+pool
+지출 관리,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,46,OUT,longtail
+지출 그래프,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,11,OUT,longtail
+지출 기록,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,45,OUT,longtail
+추적,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,40,OUT,live+pool
+카테고리 예산,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+카테고리별 지출,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+통장,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,sim,5,56,OUT,live+pool

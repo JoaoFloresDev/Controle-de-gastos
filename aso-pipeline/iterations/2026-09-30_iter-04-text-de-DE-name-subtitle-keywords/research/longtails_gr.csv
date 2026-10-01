@@ -1,0 +1,15 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+καταγραφη εξοδων,έξοδα,query natural composta,5,23,OUT,precisa entrar em campo: καταγραφη+εξοδων
+ημερησια εξοδα,έξοδα,query natural composta,5,5,OUT,precisa entrar em campo: ημερησια
+μηνιαια εξοδα,έξοδα,query natural composta,5,5,OUT,precisa entrar em campo: μηνιαια
+εξοδα ανα κατηγορια,κατηγορίες,query natural composta,5,5,OUT,precisa entrar em campo: ανα+κατηγορια
+παγια εξοδα,έξοδα,query natural composta,5,5,OUT,precisa entrar em campo: παγια | gastos fixos = feature real
+διαχειριση εξοδων,διαχείριση,query natural composta,5,31,OUT,precisa entrar em campo: εξοδων | nome live 'Διαχείριση Χρημάτων'
+προυπολογισμος μηνιαιος,προϋπολογισμός,query natural composta,5,5,OUT,precisa entrar em campo: μηνιαιος
+ημερολογιο εξοδων,ημερολόγιο,query natural composta,5,7,OUT,precisa entrar em campo: εξοδων
+εξοδα excel,excel,query natural composta,5,8,5,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+εξοδα offline,έξοδα,query natural composta,5,5,OUT,precisa entrar em campo: offline
+προσωπικα οικονομικα,οικονομικά,query natural composta,5,5,OUT,precisa entrar em campo: προσωπικα
+ελεγχος εξοδων,έξοδα,query natural composta,5,5,OUT,precisa entrar em campo: ελεγχος+εξοδων
+γραφημα εξοδων,έξοδα,query natural composta,5,5,OUT,precisa entrar em campo: γραφημα+εξοδων
+εξοδα widget,widget,query natural composta,5,5,1,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords

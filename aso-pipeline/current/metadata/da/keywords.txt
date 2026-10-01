@@ -1,0 +1,1 @@
+forbrug,regnskab,penge,opsparing,oversigt,kalender,kontrol,excel,pdf,dagbog,finans,planlægning

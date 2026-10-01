@@ -1,19 +1,21 @@
-Conheça o Meus Gastos, o aplicativo ideal para você que deseja ter controle total sobre suas finanças!
+Transforme seu controle de despesas, gerencie suas finanças pessoais de forma inteligente e prática! Minhas Despesas
+Registro Rápido e Intuitivo
+Com Minhas Despesas, anotar seus gastos nunca foi tão fácil. Registre valor, descrição, categoria e data em segundos, mantendo seu orçamento sempre organizado e atualizado.
+Gráficos e Análises Financeiras
+Acompanhe seu controle financeiro de despesa através de visualizações gráficas poderosas. Veja comparativos mensais, percentuais por categoria e identifique rapidamente onde estão suas maiores despesas. Transforme números em insights valiosos para suas economias.
+Calendário de Despesas Interativo
+Visualize todos os seus gastos em um calendário detalhado. Veja como suas finanças se distribuem ao longo do mês e planeje melhor seus compromissos financeiros. Nunca mais perca o controle das suas expenses.
+Categorização Personalizada
+Adapte Minhas Despesas ao seu estilo de vida! Crie e organize categorias personalizadas que refletem exatamente onde seu dinheiro está sendo investido. Seja para alimentação, transporte, lazer ou seu cofrinho de emergência - tudo sob seu controle.
+Economia Inteligente
+Identifique oportunidades para aumentar suas minhas economias através de análises detalhadas. Com Minhas Despesas, você toma decisões financeiras mais inteligentes baseadas em dados reais do seu orçamento.
+Interface Moderna e Funcional
+Design limpo, navegação intuitiva e experiência fluida fazem do controle de despesas uma tarefa agradável. A interface foi pensada para facilitar seu dia a dia financeiro.
+Baixe Minhas Despesas agora e comece sua jornada rumo à estabilidade financeira! Organize suas finance, controle seus gastos e alcance seus objetivos com o melhor app de controle de despesas disponível.
+Seu orçamento merece atenção. Suas finanças merecem organização. Você merece tranquilidade.
 
-- Registro de Gastos Simplificado Anote suas despesas de forma rápida e intuitiva. Basta inserir o valor, descrição, categoria e data para manter seu orçamento sempre atualizado.
+======================
 
-- Visualização Gráfica Poderosa Transforme seus dados em insights com gráficos mensais e comparativos percentuais que destacam seus maiores gastos. Identifique tendências e oportunidades para economizar com clareza.
+Privacy Policy: https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing
 
-- Calendário Interativo de Despesas Visualize seus gastos em um calendário detalhado e veja como suas despesas se distribuem ao longo do mês. Planeje melhor seus compromissos financeiros e nunca perca uma data importante.
-
-- Categorização Personalizada Adapte as categorias de gastos de acordo com o seu estilo de vida. Crie, edite e organize categorias para refletir com precisão onde seu dinheiro está sendo investido.
-
-- Interface Amigável e Funcional Com design limpo e navegação intuitiva, o Meus Gastos proporciona uma experiência fluida e agradável, facilitando o gerenciamento das suas finanças diárias.
-
-Transforme a forma como você lida com o seu dinheiro. Controle seus gastos, entenda suas prioridades e tome decisões financeiras mais inteligentes com o Meus Gastos. Baixe agora e comece a organizar sua vida financeira de maneira simples e eficaz!
-
-===========
-
-Politica de privacidade: https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing
-
-Termos de uso: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Terms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/

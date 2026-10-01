@@ -1,0 +1,22 @@
+{
+  "trackId": 6749781755,
+  "trackName": "Pierre: Controle de gastos IA",
+  "sellerName": "CloudWalk, Inc.",
+  "primaryGenreName": "Finance",
+  "averageUserRating": 4.79289,
+  "userRatingCount": 6446,
+  "price": 0.0,
+  "formattedPrice": "Grátis",
+  "releaseDate": "2025-09-22T07:00:00Z",
+  "currentVersionReleaseDate": "2026-08-28T13:59:43Z",
+  "version": "3.6.0",
+  "minimumOsVersion": "16.4",
+  "languageCodesISO2A": [
+    "EN"
+  ],
+  "contentAdvisoryRating": "+17",
+  "trackViewUrl": "https://apps.apple.com/br/app/pierre-controle-de-gastos-ia/id6749781755?uo=4",
+  "bundleId": "io.cloudwalk.pierre",
+  "subtitle": "Pix Empréstimo Crédito Débito",
+  "screenshotCount": 20
+}

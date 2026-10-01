@@ -1,5 +1,3 @@
-¡Descubre Mis Gastos, la aplicación ideal para quienes desean tener un control total sobre sus finanzas!
-
 Registro Simplificado de Gastos
 Registra tus gastos de manera rápida e intuitiva. Solo ingresa el monto, la descripción, la categoría y la fecha para mantener tu presupuesto siempre actualizado.
 
@@ -17,8 +15,8 @@ Con un diseño limpio y una navegación intuitiva, Mis Gastos te ofrece una expe
 
 Transforma la manera en que manejas tu dinero. Controla tus gastos, entiende tus prioridades y toma decisiones financieras más inteligentes con Mis Gastos. ¡Descárgala ahora y comienza a organizar tu vida financiera de forma simple y eficaz!
 
-===========
+=======================
 
-Política de privacidad: https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing
+Política de Privacidad: https://drive.google.com/file/d/147xkp4cekrxhrBYZnzV-J4PzCSqkix7t/view?usp=sharing
 
-Términos de uso: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Términos de Uso: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/

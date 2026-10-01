@@ -1,0 +1,23 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+control de gastos diarios,gastos,query natural composta,5,23,OUT,precisa entrar em campo: diarios
+app para registrar gastos,gastos,query natural composta,5,14,OUT,precisa entrar em campo: app+para+registrar
+gastos por categoria,gastos,query natural composta,5,5,OUT,precisa entrar em campo: por+categoria
+gastos fijos,gastos,query natural composta,5,44,OUT,precisa entrar em campo: fijos | UI 'Gastos fijos'
+gastos recurrentes,gastos,query natural composta,5,5,OUT,precisa entrar em campo: recurrentes
+gastos personales,gastos,query natural composta,5,55,OUT,precisa entrar em campo: personales
+control de gastos gratis,gastos,query natural composta,5,23,OUT,precisa entrar em campo: gratis
+gastos offline,gastos,query natural composta,5,42,OUT,precisa entrar em campo: offline
+exportar gastos excel,gastos,query natural composta,5,5,OUT,precisa entrar em campo: exportar+excel
+grafico de gastos,gastos,query natural composta,5,19,OUT,precisa entrar em campo: grafico
+calendario de gastos,gastos,query natural composta,5,15,OUT,precisa entrar em campo: calendario
+widget de gastos,gastos,query natural composta,5,23,OUT,precisa entrar em campo: widget
+presupuesto mensual,presupuesto,query natural composta,5,51,OUT,precisa entrar em campo: mensual
+presupuesto por categoria,presupuesto,query natural composta,5,5,OUT,precisa entrar em campo: por+categoria
+gestor de gastos,gestion,derivado do top-10,50,47,246,precisa entrar em campo: gestor | ngram do top-10 mx ('Gestor de gastos' x2)
+control de gastos y dinero,dinero,derivado do top-10,48,47,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords | nome do #2 do top-10 mx
+rastreador de dinero y gastos,dinero,derivado do top-10,5,35,OUT,precisa entrar em campo: rastreador | subtitle do top-10 mx
+app de control gastos,control,derivado do top-10,5,38,OUT,precisa entrar em campo: app | subtitle do top-10 mx (Money+)
+organizador de gastos,organizador,query natural composta,24,45,OUT,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+limite de gastos por categoria,gastos,query natural composta,5,5,OUT,precisa entrar em campo: limite+por+categoria
+resumen mensual de gastos,gastos,query natural composta,5,5,OUT,precisa entrar em campo: resumen+mensual
+ahorrar dinero app,ahorrar,query natural composta,5,15,OUT,precisa entrar em campo: app

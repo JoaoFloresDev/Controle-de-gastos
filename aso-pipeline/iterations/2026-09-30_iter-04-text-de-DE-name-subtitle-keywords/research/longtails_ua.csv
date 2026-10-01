@@ -1,0 +1,15 @@
+long_tail,core_word,source,popularity,difficulty,our_rank,note
+облік витрат,витрати,derivado do top-10,5,38,167,precisa entrar em campo: витрат | nome live + head term do mercado
+контроль витрат,контроль,query natural composta,5,30,58,precisa entrar em campo: витрат
+щоденні витрати,витрати,query natural composta,5,34,OUT,precisa entrar em campo: щоденні
+щомісячні витрати,витрати,query natural composta,5,5,OUT,precisa entrar em campo: щомісячні
+витрати за категоріями,категорії,query natural composta,5,5,OUT,precisa entrar em campo: за+категоріями
+постійні витрати,витрати,query natural composta,5,5,OUT,precisa entrar em campo: постійні | gastos fixos = feature real
+звіт витрат,звіт,query natural composta,5,7,17,precisa entrar em campo: витрат
+витрати офлайн,офлайн,query natural composta,5,5,20,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+витрати календар,календар,query natural composta,5,11,22,composicao livre: todas as palavras ja sao tokens de name/subtitle/keywords
+експорт витрат excel,експорт,query natural composta,5,5,OUT,precisa entrar em campo: витрат+excel
+бюджет на місяць,бюджет,query natural composta,5,5,OUT,precisa entrar em campo: на+місяць
+бюджет за категоріями,бюджет,query natural composta,5,5,OUT,precisa entrar em campo: за+категоріями
+віджет витрат,віджет,query natural composta,5,5,12,precisa entrar em campo: витрат | widget interativo real
+особисті фінанси облік,фінанси,query natural composta,5,7,OUT,precisa entrar em campo: особисті+фінанси

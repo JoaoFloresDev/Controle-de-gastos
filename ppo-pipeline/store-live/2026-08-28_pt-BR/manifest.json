@@ -1,0 +1,162 @@
+{
+  "app": "6502218501",
+  "version": "45.3.1",
+  "state": "READY_FOR_SALE",
+  "locale": "pt-BR",
+  "date": "2026-08-28",
+  "screenshots": [
+    {
+      "displayType": "APP_IPAD_PRO_3GEN_129",
+      "index": 1,
+      "fileName": "Simulator Screenshot - iPad Air 13-inch (M3) - 2025-11-20 at 13.37.20.png",
+      "w": 2732,
+      "h": 2048,
+      "checksum": "5ed50386a899e47c261b788721ea5dc8",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPAD_PRO_3GEN_129/01_Simulator Screenshot - iPad Air 13-inch (M3) - 2025-11-20 at 13.37.20.png"
+    },
+    {
+      "displayType": "APP_IPAD_PRO_3GEN_129",
+      "index": 2,
+      "fileName": "Simulator Screenshot - iPad Air 13-inch (M3) - 2025-11-20 at 13.37.35.png",
+      "w": 2732,
+      "h": 2048,
+      "checksum": "1262d59a62b2225a9119253b9aa776f1",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPAD_PRO_3GEN_129/02_Simulator Screenshot - iPad Air 13-inch (M3) - 2025-11-20 at 13.37.35.png"
+    },
+    {
+      "displayType": "APP_IPAD_PRO_3GEN_129",
+      "index": 3,
+      "fileName": "Simulator Screenshot - iPad Air 13-inch (M3) - 2025-11-20 at 13.37.30.png",
+      "w": 2732,
+      "h": 2048,
+      "checksum": "e0b653dfa55a417bdf369a2081af79e8",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPAD_PRO_3GEN_129/03_Simulator Screenshot - iPad Air 13-inch (M3) - 2025-11-20 at 13.37.30.png"
+    },
+    {
+      "displayType": "APP_IPAD_PRO_3GEN_129",
+      "index": 4,
+      "fileName": "Simulator Screenshot - iPad Air 13-inch (M3) - 2025-11-20 at 13.37.45.png",
+      "w": 2732,
+      "h": 2048,
+      "checksum": "b130e77b6fa257efaf90b3e2e5ac5e14",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPAD_PRO_3GEN_129/04_Simulator Screenshot - iPad Air 13-inch (M3) - 2025-11-20 at 13.37.45.png"
+    },
+    {
+      "displayType": "APP_IPHONE_65",
+      "index": 1,
+      "fileName": "Design-2.png",
+      "w": 1242,
+      "h": 2688,
+      "checksum": "fae0c7a4227cddc0e421ed3d16874444",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPHONE_65/01_Design-2.png"
+    },
+    {
+      "displayType": "APP_IPHONE_65",
+      "index": 2,
+      "fileName": "Design 13.png",
+      "w": 1242,
+      "h": 2688,
+      "checksum": "60cf1eb88f721da1ab889fb3be49d675",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPHONE_65/02_Design 13.png"
+    },
+    {
+      "displayType": "APP_IPHONE_65",
+      "index": 3,
+      "fileName": "Design.png",
+      "w": 1242,
+      "h": 2688,
+      "checksum": "51badcc7c24747ef3ee49805fa74867c",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPHONE_65/03_Design.png"
+    },
+    {
+      "displayType": "APP_IPHONE_65",
+      "index": 4,
+      "fileName": "Design-1.png",
+      "w": 1242,
+      "h": 2688,
+      "checksum": "081221caf9c4d6cc260c5d4ce9d83189",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPHONE_65/04_Design-1.png"
+    },
+    {
+      "displayType": "APP_IPHONE_55",
+      "index": 1,
+      "fileName": "Frame 1.png",
+      "w": 1242,
+      "h": 2208,
+      "checksum": "2a5296177acf2d290d5d8c5052d93873",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPHONE_55/01_Frame 1.png"
+    },
+    {
+      "displayType": "APP_IPHONE_55",
+      "index": 2,
+      "fileName": "Frame 3.png",
+      "w": 1242,
+      "h": 2208,
+      "checksum": "c1b91d040a549412619ce5a6ea5e8571",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPHONE_55/02_Frame 3.png"
+    },
+    {
+      "displayType": "APP_IPHONE_55",
+      "index": 3,
+      "fileName": "Frame 2.png",
+      "w": 1242,
+      "h": 2208,
+      "checksum": "fdb211e167fcf58fc5d50813a4da6017",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPHONE_55/03_Frame 2.png"
+    },
+    {
+      "displayType": "APP_IPHONE_67",
+      "index": 1,
+      "fileName": "IMAGEM 1 APP FINCANCEIRO DORY PORTUGUES.png",
+      "w": 1290,
+      "h": 2796,
+      "checksum": "9920ed6d657eb656b1fa05329797f349",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPHONE_67/01_IMAGEM 1 APP FINCANCEIRO DORY PORTUGUES.png"
+    },
+    {
+      "displayType": "APP_IPHONE_67",
+      "index": 2,
+      "fileName": "IMAGEM 2 APP FINCANCEIRO DORY PORTUGUES.png",
+      "w": 1290,
+      "h": 2796,
+      "checksum": "2eb634c090a193e37f8aa468eefde86f",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPHONE_67/02_IMAGEM 2 APP FINCANCEIRO DORY PORTUGUES.png"
+    },
+    {
+      "displayType": "APP_IPHONE_67",
+      "index": 3,
+      "fileName": "IMAGEM 4 APP FINCANCEIRO DORY PORTUGUES.png",
+      "w": 1290,
+      "h": 2796,
+      "checksum": "f3d0114c0823614246463d8090501927",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPHONE_67/03_IMAGEM 4 APP FINCANCEIRO DORY PORTUGUES.png"
+    },
+    {
+      "displayType": "APP_IPHONE_67",
+      "index": 4,
+      "fileName": "IMAGEM 5 APP FINCANCEIRO DORY PORTUGUES.png",
+      "w": 1290,
+      "h": 2796,
+      "checksum": "a8a13b544d7e7cdd468f945b74852a72",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPHONE_67/04_IMAGEM 5 APP FINCANCEIRO DORY PORTUGUES.png"
+    },
+    {
+      "displayType": "APP_IPHONE_67",
+      "index": 5,
+      "fileName": "IMAGEM 3 APP FINCANCEIRO DORY PORTUGUES.png",
+      "w": 1290,
+      "h": 2796,
+      "checksum": "8d90eed4fe79b9dd75978403c2d68183",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPHONE_67/05_IMAGEM 3 APP FINCANCEIRO DORY PORTUGUES.png"
+    },
+    {
+      "displayType": "APP_IPHONE_67",
+      "index": 6,
+      "fileName": "IMAGEM 6 APP FINCANCEIRO DORY PORTUGUES.png",
+      "w": 1290,
+      "h": 2796,
+      "checksum": "e98d17ead0ac8ad9175b34568d5f09ad",
+      "saved": "Apps/recovery/flutter/Controle-de-gastos/ppo-pipeline/store-live/2026-08-28_pt-BR/APP_IPHONE_67/06_IMAGEM 6 APP FINCANCEIRO DORY PORTUGUES.png"
+    }
+  ]
+}

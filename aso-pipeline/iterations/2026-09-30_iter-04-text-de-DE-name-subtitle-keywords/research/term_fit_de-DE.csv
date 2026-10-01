@@ -1,0 +1,216 @@
+term,verdict,reason,evidence,is_live_token,popularity,difficulty,our_rank,source
+abo kosten,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,11,OUT,candidate
+ausgaben,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,48,55,207,live+pool
+ausgaben app,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,50,OUT,candidate+longtail
+ausgaben app ohne anmeldung,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,5,OUT,longtail
+ausgaben budget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,51,198,pool
+ausgaben budget planner,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,50,OUT,longtail
+ausgaben diagramm,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,5,OUT,longtail
+ausgaben dokumentieren,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,candidate
+ausgaben einfach,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,13,OUT,candidate
+ausgaben eintragen,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,candidate
+ausgaben erfassen,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,54,171,longtail
+ausgaben excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),nao,5,13,OUT,longtail
+ausgaben familie,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,19,OUT,candidate
+ausgaben im griff,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,11,OUT,candidate+longtail
+ausgaben kalender,FIT,"Calendar view toggle inside the Transactions tab, with each day's expenses and day total.",sec 1.5 calendar,nao,5,7,OUT,longtail
+ausgaben kategorien,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,2,pool
+ausgaben kontrolle,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,39,10,pool
+ausgaben kostenlos,FIT,"The entire single-device product is free: logging, categories, fixed expenses, budgets, charts, calendar, custom periods and EXPORT. Only cloud sync is paid.",sec 1.9 + sec 1.15 gating,nao,5,56,104,candidate
+ausgaben manager,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,9,54,OUT,candidate+longtail
+ausgaben manager haushaltsbuch,FIT,The app's own German UI calls the home screen 'Mein Haushaltsbuch' - this is the product's own word.,sec 3 UI vocabulary (myControl=Mein Haushaltsbuch),nao,5,59,174,candidate
+ausgaben nach kategorien,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+ausgaben notieren,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,candidate+longtail
+ausgaben offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,11,OUT,longtail
+ausgaben ohne werbung,FIT,The app shows no ads at all - no ad SDK is installed anywhere.,NOT-list N15,nao,5,5,OUT,longtail
+ausgaben paare,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,23,OUT,candidate
+ausgaben paare familien,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,17,OUT,candidate
+ausgaben pdf export,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),nao,5,5,OUT,longtail
+ausgaben planen,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,44,113,longtail
+ausgaben planer,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,51,133,pool
+ausgaben pro monat,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,11,22,longtail
+ausgaben statistik,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,11,2,longtail+pool
+ausgaben teilen,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,9,54,OUT,candidate
+ausgaben tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,55,55,OUT,candidate+longtail
+ausgaben ubersicht,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,40,OUT,longtail
+ausgaben uebersicht,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,9,OUT,candidate
+ausgaben verwalten,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,49,15,longtail+pool
+ausgaben wg,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,46,OUT,candidate
+ausgaben widget,FIT,Interactive iOS 17+ home-screen widget for quick add (systemMedium/systemLarge).,sec 1.13 widget,nao,5,13,OUT,longtail
+ausgaben zu zweit,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+ausgabenkontrolle,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,5,6,candidate
+bilanz,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,sim,11,38,104,live+pool
+buchhaltung,MISMATCH,"Searcher wants bookkeeping/accounting for a business (cash book, ledger closing, VAT); the app has one entity, an expense.",NOT-list N11,nao,49,51,OUT,candidate
+budget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,sim,52,58,OUT,live+pool
+budget app,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,33,57,OUT,candidate
+budget ausgaben,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,54,152,pool
+budget einfach,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,9,OUT,candidate
+budget einnahmen ausgaben,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,49,OUT,candidate
+budget familie,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,44,OUT,candidate
+budget im blick,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,13,OUT,longtail
+budget kategorien,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,11,longtail
+budget kontrolle,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,5,26,pool
+budget paare,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,23,OUT,candidate
+budget planer,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,51,54,OUT,longtail+pool
+budget planner,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,56,51,OUT,candidate
+budget pro kategorie,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,13,longtail
+budget tracker,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,31,55,OUT,candidate
+budget verwalten,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,17,102,pool
+budget widget,FIT,Interactive iOS 17+ home-screen widget for quick add (systemMedium/systemLarge).,sec 1.13 widget,nao,5,39,OUT,longtail
+budget zu zweit,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+budgetplaner,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,50,OUT,candidate
+budgetplaner familie,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,45,OUT,candidate
+digitales haushaltsbuch,FIT,The app's own German UI calls the home screen 'Mein Haushaltsbuch' - this is the product's own word.,sec 3 UI vocabulary (myControl=Mein Haushaltsbuch),nao,5,58,128,candidate+longtail
+eigene kategorien ausgaben,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+einfach ausgaben erfassen,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,11,OUT,longtail
+einkauf,PARTIAL,"Grocery spending is loggable via the built-in ShoppingBasket category, but the pool is supermarket/loyalty apps.",sec 1.3 categories vs wrong pool,sim,22,77,OUT,live+pool
+einkauf ausgaben,PARTIAL,"Grocery spending is loggable via the built-in ShoppingBasket category, but the pool is supermarket/loyalty apps.",sec 1.3 categories vs wrong pool,nao,5,17,13,longtail+pool
+einkaufsliste budget,MISMATCH,"Searcher wants a shopping list; the app has no list of things to buy, only expenses already made.",n/a - outside the inventory,nao,5,7,OUT,candidate
+einnahmen,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,39,OUT,candidate
+einnahmen ausgaben,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,7,54,OUT,candidate
+einnahmen ausgaben tracker,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,38,OUT,candidate
+einnahmen uebersicht,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,9,OUT,candidate
+einnahmen und ausgaben,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,47,OUT,candidate
+einnahmen verwalten,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,13,OUT,candidate
+expense,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,9,39,OUT,candidate
+expense tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,33,58,OUT,candidate
+familien,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,53,OUT,candidate
+finances,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,6,46,76,candidate
+finanzen,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,sim,58,67,OUT,live+pool
+finanzen app,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,55,OUT,candidate+longtail
+finanzen familie,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,45,OUT,candidate
+finanzen fuer paare,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,11,OUT,candidate
+finanzen im griff,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,21,OUT,candidate
+finanzen offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,44,OUT,longtail
+finanzen paar,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,43,OUT,candidate
+finanzen ubersicht,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,53,OUT,longtail
+finanzen ueberblick,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,17,OUT,candidate
+finanzen verwalten,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,57,111,longtail+pool
+finanzen zu zweit,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+finanzmanager,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,27,55,OUT,candidate
+finanzplaner,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,51,49,114,candidate
+finanzplaner app,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,49,OUT,longtail
+finanzplaner haushaltsbuch,FIT,The app's own German UI calls the home screen 'Mein Haushaltsbuch' - this is the product's own word.,sec 3 UI vocabulary (myControl=Mein Haushaltsbuch),nao,9,62,105,candidate
+fixkosten,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,sim,10,42,53,live+pool
+fixkosten app,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,41,41,longtail
+fixkosten planer,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,47,31,longtail
+fixkosten tracker,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,9,OUT,candidate+longtail
+fixkosten ubersicht,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,13,OUT,longtail
+fixkosten uebersicht,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,9,OUT,candidate
+fixkosten verwalten,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,17,8,pool
+flores,PARTIAL,"Developer-name query (Joao Flores); it ranks only because of the developer field, not because of a feature.",n/a - developer query,nao,36,19,92,candidate
+geld,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,52,71,OUT,candidate
+geld im griff,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,11,OUT,candidate
+geld sparen,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,52,54,OUT,candidate
+geld sparen budget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,47,OUT,candidate
+geld sparen budget planer,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,55,OUT,candidate
+geld teilen,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,7,52,OUT,candidate
+geld uebersicht,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,15,OUT,candidate
+geld verwalten,PARTIAL,"'Money' pool is broad (banking, transfers, games); the expense-tracker reading is only one of several.",n/a - polysemous,nao,8,65,OUT,candidate
+gemeinsame ausgaben,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,11,OUT,candidate
+gemeinsame ausgaben paare,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,7,OUT,candidate
+gemeinsame finanzen,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,13,OUT,candidate
+gemeinsame kasse,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,11,OUT,candidate
+gemeinsames konto,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+gemeinsames konto paare,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+gesamtausgaben monat,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,5,OUT,longtail
+haushalt,PARTIAL,Polysemous: bare 'Haushalt' also pulls the chores/cleaning-plan pool; only the household-MONEY reading is ours.,sec 3 UI vocabulary vs wrong pool,sim,7,53,63,live+pool
+haushalt ausgaben,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,47,35,pool
+haushalt budget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,55,99,pool
+haushaltsbuch,FIT,The app's own German UI calls the home screen 'Mein Haushaltsbuch' - this is the product's own word.,sec 3 UI vocabulary (myControl=Mein Haushaltsbuch),sim,61,59,51,live+pool
+haushaltsbuch app,FIT,The app's own German UI calls the home screen 'Mein Haushaltsbuch' - this is the product's own word.,sec 3 UI vocabulary (myControl=Mein Haushaltsbuch),nao,5,59,197,candidate+longtail
+haushaltsbuch ausgaben,FIT,The app's own German UI calls the home screen 'Mein Haushaltsbuch' - this is the product's own word.,sec 3 UI vocabulary (myControl=Mein Haushaltsbuch),nao,5,46,27,pool
+haushaltsbuch budget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,53,219,longtail+pool
+haushaltsbuch budget ausgaben,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,57,101,pool
+haushaltsbuch budgetplaner,FIT,The app's own German UI calls the home screen 'Mein Haushaltsbuch' - this is the product's own word.,sec 3 UI vocabulary (myControl=Mein Haushaltsbuch),nao,5,48,141,candidate
+haushaltsbuch digital,FIT,The app's own German UI calls the home screen 'Mein Haushaltsbuch' - this is the product's own word.,sec 3 UI vocabulary (myControl=Mein Haushaltsbuch),nao,5,21,OUT,candidate
+haushaltsbuch einfach,FIT,The app's own German UI calls the home screen 'Mein Haushaltsbuch' - this is the product's own word.,sec 3 UI vocabulary (myControl=Mein Haushaltsbuch),nao,5,17,OUT,candidate+longtail
+haushaltsbuch excel,FIT,"Export to Excel (.xlsx), PDF or plain text, via share sheet or a folder you pick - and it is FREE.",sec 1.9 export (not PRO-gated),nao,5,50,125,longtail
+haushaltsbuch familie,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,60,155,candidate
+haushaltsbuch finanzplaner,FIT,The app's own German UI calls the home screen 'Mein Haushaltsbuch' - this is the product's own word.,sec 3 UI vocabulary (myControl=Mein Haushaltsbuch),nao,5,62,105,candidate+longtail
+haushaltsbuch kategorien,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,4,longtail
+haushaltsbuch kosten,FIT,The app's own German UI calls the home screen 'Mein Haushaltsbuch' - this is the product's own word.,sec 3 UI vocabulary (myControl=Mein Haushaltsbuch),nao,5,44,61,longtail
+haushaltsbuch kosten manager,FIT,The app's own German UI calls the home screen 'Mein Haushaltsbuch' - this is the product's own word.,sec 3 UI vocabulary (myControl=Mein Haushaltsbuch),nao,5,53,77,candidate
+haushaltsbuch kostenlos,FIT,"The entire single-device product is free: logging, categories, fixed expenses, budgets, charts, calendar, custom periods and EXPORT. Only cloud sync is paid.",sec 1.9 + sec 1.15 gating,nao,61,62,54,candidate+longtail
+haushaltsbuch monatlich,FIT,The app's own German UI calls the home screen 'Mein Haushaltsbuch' - this is the product's own word.,sec 3 UI vocabulary (myControl=Mein Haushaltsbuch),nao,5,9,33,candidate
+haushaltsbuch moneycontrol,MISMATCH,Competitor or third-party brand query; the searcher wants that specific app.,n/a - brand query,nao,7,62,145,candidate
+haushaltsbuch moneystats,MISMATCH,Competitor or third-party brand query; the searcher wants that specific app.,n/a - brand query,nao,11,52,OUT,candidate
+haushaltsbuch offline,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,13,OUT,candidate+longtail
+haushaltsbuch ohne anmeldung,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,5,OUT,longtail
+haushaltsbuch ohne konto,FIT,Fully usable offline with no account: every repository is local-first on SharedPreferences.,sec 1.12 offline / no sign-up,nao,5,7,OUT,longtail
+haushaltsbuch ohne werbung,FIT,The app shows no ads at all - no ad SDK is installed anywhere.,NOT-list N15,nao,5,5,OUT,longtail
+haushaltsbuch paar,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,19,OUT,candidate
+haushaltsbuch paare,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,42,OUT,candidate
+haushaltsbuch wg,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,17,OUT,candidate
+haushaltsbuch widget,FIT,Interactive iOS 17+ home-screen widget for quick add (systemMedium/systemLarge).,sec 1.13 widget,nao,5,19,OUT,longtail
+haushaltsbuch zu zweit,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+haushaltsbudget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,49,99,candidate+longtail
+haushaltskasse,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,47,OUT,candidate
+haushaltskasse gemeinsam,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,5,OUT,candidate
+haushaltskonto,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,nao,5,41,41,candidate
+haushaltsplaner,PARTIAL,Polysemous: 'Haushaltsplaner' also pulls the chores / meal-plan pool; only the household-MONEY reading is ours.,sec 3 UI vocabulary vs wrong pool,nao,35,51,50,candidate
+haushaltsplaner geld sparen,FIT,The app's own German UI calls the home screen 'Mein Haushaltsbuch' - this is the product's own word.,sec 3 UI vocabulary (myControl=Mein Haushaltsbuch),nao,5,58,OUT,candidate
+kassenbuch,MISMATCH,"Searcher wants bookkeeping/accounting for a business (cash book, ledger closing, VAT); the app has one entity, an expense.",NOT-list N11,nao,48,17,OUT,candidate
+kategorien,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,sim,,,,live
+konto,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,sim,24,70,OUT,live+pool
+konto ausgaben,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,nao,5,43,29,longtail
+konto uebersicht,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,nao,5,13,OUT,candidate
+kontobuch,MISMATCH,Searcher wants bank accounts / multiple wallets; the app has no account entity and no bank link.,NOT-list N4 + N18,nao,5,44,58,candidate
+kontrolle,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,sim,,,,live
+kosten,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,sim,5,62,OUT,live+pool
+kosten erfassen,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,11,OUT,longtail
+kosten im blick,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,9,OUT,candidate
+kosten kontrolle,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,9,48,pool
+kosten manager,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,54,OUT,candidate
+kosten nach kategorien,FIT,"14 built-in categories plus user-created ones with custom name, icon and colour.",sec 1.3 categories,nao,5,5,OUT,longtail
+kosten statistik,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,11,12,longtail
+kosten teilen,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,8,46,OUT,candidate
+kosten tracker,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,48,OUT,candidate+longtail
+kosten uebersicht,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,17,OUT,candidate
+kosten verwalten,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,13,42,pool
+kostenkontrolle,FIT,"Expense control is the app's headline job: log, categorise, cap, see where it went.",sec 1.2 + sec 1.8,nao,5,21,40,longtail
+kostenplaner,PARTIAL,Forward-looking planning is partly there (month budget + end-of-month projection) but there is no income plan or schedule of future payments.,sec 1.6 vs NOT-list N3,nao,5,53,132,candidate
+kostenubersicht monat,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,nao,5,5,OUT,longtail
+laufende kosten,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,44,OUT,candidate
+manager,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,nao,49,63,OUT,candidate
+mein budget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,21,55,OUT,candidate
+mein budget ausgaben,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,57,192,candidate
+meine ausgaben,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,49,231,candidate
+monatliche ausgaben,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,12,59,156,candidate+longtail
+monatliche bilanz,MISMATCH,"Searcher wants income/balance (earned vs spent); the app records expenses only - no type field, money mask cannot go negative, no aggregation ever subtracts.",NOT-list N3,nao,5,5,1,candidate+longtail
+monatliche fixkosten,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,9,12,longtail
+monatliches budget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,15,87,candidate+longtail
+monatsbudget,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,sim,9,13,28,live+pool
+monatsbudget app,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,13,55,longtail
+monatsbudget familie,PARTIAL,"A household budget run by ONE person on one phone is exactly the app; a family SHARING one ledger is not. Qualifier only, never a headline.",sec 1.8 vs NOT-list N2,nao,5,13,OUT,candidate
+monatsbudget planen,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,32,42,longtail
+monatsbudget planer,FIT,"Monthly spending cap per category plus a total month budget, with progress bars.",sec 1.8 budget per category,nao,5,21,47,pool
+monee haushaltsbuch,MISMATCH,Competitor or third-party brand query; the searcher wants that specific app.,n/a - brand query,nao,16,34,OUT,candidate
+money manager,MISMATCH,Competitor or third-party brand query; the searcher wants that specific app.,n/a - brand query,nao,59,62,OUT,candidate
+paar finanzen,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,21,OUT,candidate
+paare,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,10,58,OUT,candidate
+paare familien,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,48,OUT,candidate
+paare finanzen,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,21,OUT,candidate
+personal finance,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,9,54,79,candidate
+planer,PARTIAL,Forward-looking planning is partly there (month budget + end-of-month projection) but there is no income plan or schedule of future payments.,sec 1.6 vs NOT-list N3,sim,58,59,OUT,live+pool
+planner,PARTIAL,Forward-looking planning is partly there (month budget + end-of-month projection) but there is no income plan or schedule of future payments.,sec 1.6 vs NOT-list N3,nao,57,57,OUT,candidate
+private finanzen,PARTIAL,"Broad finance pool (banking, investing, income) where the app is expense-only; plausible but partial reading. Composition-feeder only.",NOT-list N3 + N4,nao,5,51,OUT,longtail
+rechnung teilen,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,6,44,OUT,candidate
+reisekosten,MISMATCH,Searcher wants per-trip expense grouping and reimbursement; there is no trip entity and no receipts.,NOT-list N5 + N11,nao,18,46,OUT,candidate
+singles,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,74,OUT,candidate
+singles paare,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,49,OUT,candidate
+sparen,PARTIAL,"Spending less is the outcome the app actually drives (see where it goes, cap a category), but there is no savings feature. Partial.",sec 1.8 vs NOT-list N9,nao,50,54,OUT,candidate
+sparen tracker,MISMATCH,"Searcher wants a savings target / piggy bank; GoalModel is a spending CAP compared with spent>goal, never a target to reach.",NOT-list N9,nao,5,45,OUT,candidate
+sparplan,MISMATCH,"Searcher wants a savings target / piggy bank; GoalModel is a spending CAP compared with spent>goal, never a target to reach.",NOT-list N9,nao,13,53,OUT,candidate
+sparziel,MISMATCH,"Searcher wants a savings target / piggy bank; GoalModel is a spending CAP compared with spent>goal, never a target to reach.",NOT-list N9,nao,6,13,OUT,candidate
+statistik,FIT,"Charts tab: pie by category, weekly and daily bars, top expenses, plus Monthly Insights (daily average, fixed vs variable, end-of-month projection).",sec 1.6 charts & insights,sim,,,,live
+supermarkt ausgaben,PARTIAL,"Grocery spending is loggable via the built-in ShoppingBasket category, but the pool is supermarket/loyalty apps.",sec 1.3 categories vs wrong pool,nao,5,5,OUT,candidate
+tagliche ausgaben,FIT,"Core job: log an expense by hand in seconds - amount, category, date/time, description.",sec 1.2 manual expense logging,nao,5,9,OUT,longtail
+tracker,PARTIAL,Bare cross-category word (habit/fitness/period trackers own this pool); only the qualified composition carries expense intent.,n/a - polysemous,nao,47,66,OUT,candidate
+verträge,MISMATCH,Searcher wants a contract manager with terms and cancellation deadlines; the app only logs a recurring amount.,NOT-list N6 + N8,nao,5,45,OUT,candidate
+verwalten,PARTIAL,Generic polysemous word; low difficulty because the niche does not compete there. Composition-feeder only.,n/a - polysemous,sim,,,,live
+wg ausgaben,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,46,OUT,candidate
+wg kasse,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,53,OUT,candidate
+wg kosten teilen,MISMATCH,Searcher wants two people on one ledger (split/settle/shared pot); every Firestore path is .collection(userId) and CardModel has no person field.,NOT-list N1 + N2,nao,5,38,OUT,candidate
+wiederkehrende ausgaben,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,5,OUT,longtail
+wiederkehrende kosten,FIT,"Fixed/recurring expenses with daily/weekly/monthly/yearly/weekdays repetition, automatic or suggested.",sec 1.7 fixed & recurring,nao,5,5,OUT,longtail

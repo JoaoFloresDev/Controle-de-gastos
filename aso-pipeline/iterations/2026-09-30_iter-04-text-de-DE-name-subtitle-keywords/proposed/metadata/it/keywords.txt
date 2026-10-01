@@ -1,0 +1,1 @@
+categoria,widget,fisse,monitoraggio,spesa,gestione,finanza,soldi,famiglia
