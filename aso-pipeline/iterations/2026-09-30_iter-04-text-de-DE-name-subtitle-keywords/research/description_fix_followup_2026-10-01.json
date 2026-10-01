@@ -1,0 +1,40 @@
+{
+ "applied_at": "2026-10-01T10:34:17",
+ "version": "61e6fb32-27fc-41d2-aa6f-4cdb75e19a99",
+ "reason": "listing_check (I1 da reforma) achou promessa falsa que escapou do deploy de 01/10: free_claim pl, claim_no_api notificação ar-SA/zh-Hans",
+ "changes": [
+  {
+   "locale": "pl",
+   "before": [
+    "Pobierz aplikację i zacznij porządkować swoje finanse już dziś – całkowicie za darmo!"
+   ],
+   "after": [
+    "Pobierz aplikację i zacznij porządkować swoje finanse już dziś – podstawowe funkcje są bezpłatne, a subskrypcja jest potrzebna tylko do kopii zapasowej w chmurze."
+   ],
+   "read_back_ok": true,
+   "len": 1698
+  },
+  {
+   "locale": "ar-SA",
+   "before": [
+    "تنبيهات الميزانية: حدد سقفاً لكل فئة، ونحن نخبرك عند الاقتراب منه."
+   ],
+   "after": [
+    "حدود الميزانية: حدد سقفاً لكل فئة، ويتحول شريط التقدم إلى اللون الأحمر عند تجاوزه."
+   ],
+   "read_back_ok": true,
+   "len": 1386
+  },
+  {
+   "locale": "zh-Hans",
+   "before": [
+    "预算与目标：为每个类别设定月度预算，接近上限自动提醒。"
+   ],
+   "after": [
+    "预算与目标：为每个类别设定月度预算，超出时进度条变为红色。"
+   ],
+   "read_back_ok": true,
+   "len": 782
+  }
+ ]
+}
